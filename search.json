@@ -79,9 +79,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Title of your project",
+    "title": "Correlating Chromatin Compartments with Selection",
     "section": "",
-    "text": "Project\nThese pages are generated from a Git repository I made for you. Read more about Git and repositories in the project guide. The repository, with its files and folders, serves as a scaffold for your project, with placeholder files to get you started.\nDuring the project, you will populate it with your code, analysis notebooks, and documentation reporting your work and use Git to track this development. This way your project will end up documented by a set of pages like these.",
+    "text": "Project\nVisit the project guide for help.",
     "crumbs": [
       "Project"
     ]
@@ -89,19 +89,19 @@
   {
     "objectID": "index.html#outline",
     "href": "index.html#outline",
-    "title": "Title of your project",
+    "title": "Correlating Chromatin Compartments with Selection",
     "section": "Outline",
-    "text": "Outline\nIt will help if you write a paragraph here outlining the project to the extent you can. What are the goals of your project? What would you like to find out? What would you like to learn? You should update it along the way.",
+    "text": "Outline\nHi-C data is often generated for whole-genome sequencing (WGS) and the assembly of genomes due to its ability to capture the three-dimensional organization of the genome. This spatial information helps in correctly assembling contigs into chromosomes by providing contacts between distant genomic regions, thus resolving ambiguities in the linear sequence data. Thus, Hi-C data is often available, and leveraging this existing data can provide valuable insights to other areas without the need for additional sequencing. The aim of this project is to analyze chromatin compartments on the X chromosome during spermatogenesis in baboons, macaques, and humans using Hi-C data. The project involves generating interaction maps and identifying PC1 compartments. A key objective is to compare transition zones with regions undergoing positive selection to uncover how chromatin architecture reflects evolutionary pressures. The ultimate goal is to deepen our understanding of chromatin organization and the conservation of non-advantageous alleles, providing insights into the role of selfish genes in shaping genome evolution.",
     "crumbs": [
       "Project"
     ]
   },
   {
-    "objectID": "index.html#suggested-reading",
-    "href": "index.html#suggested-reading",
-    "title": "Title of your project",
-    "section": "Suggested reading",
-    "text": "Suggested reading\nIf you need a basic introduction to population genetics, I suggest reading “An introduction to population genetics: Theory and applications” by Rasmus Nielsen and Monty Slatkin (Nielsen and Slatkin 2016). A free alternative is Graham Coop’s Lecture notes, which offer a similar introduction.\n\nI will guide you to additional material once you get started.",
+    "objectID": "index.html#notes-on-litterature-as-i-read-it",
+    "href": "index.html#notes-on-litterature-as-i-read-it",
+    "title": "Correlating Chromatin Compartments with Selection",
+    "section": "Notes on litterature as I read it",
+    "text": "Notes on litterature as I read it\nSuggested (Nielsen and Slatkin 2016) is of course an overview of the very basis of population genomics. Maybe not that relevant specifically for this project.\n(Price et al. 2006) use PCA to account for stratification in GWAS. The paper was cited by the Hi-C paper (2009) which was cited by the HiC-Pro paper as their PCA method . No real use for this paper.",
     "crumbs": [
       "Project"
     ]
@@ -109,9 +109,9 @@
   {
     "objectID": "index.html#schedule",
     "href": "index.html#schedule",
-    "title": "Title of your project",
+    "title": "Correlating Chromatin Compartments with Selection",
     "section": "Schedule",
-    "text": "Schedule\nOnce you get started, you should make a plan for your project. It will change along the way, but with a plan, you will know when it does.\nYou should outline the project plan and what you intend to do in the weeks/months of your project. Such a plan is tentative and will change along the way when you find such changes are meaningful or necessary.\nAn excellent way to do this is to use the GitHub Project feature on our group GitHub account.\n\n\n\n\nNielsen, Rasmgb, and Montgomery Slatkin. 2016. An Introduction to Population Genetics: Theory and Applications.",
+    "text": "Schedule\nSemester: Monday, August 26th – Wednesday, January 15th (Week 35-3) Hand-in: Wednesday, January 15th (Week 3) Holiday: Wednesday, October 23rd – Monday, October 28th (Week 43) Christmas Holidays: Monday, December 23rd – Friday, January 3rd (Week 52-1)\nWeek 35-36 (Aug 26 - Sep 7): Conduct a literature review on chromatin architecture, Hi-C methodology, and the concept of selfish genes. Get an overview of (and obtain) data sets to be used.\nWeek 37-38 (Sep 9 - Sep 21): Assess the status of existing Hi-C data (raw or QC’ed). If necessary, perform initial quality control. Align reads to reference genomes.\nWeek 39-40 (Sep 23 - Oct 5): Process Hi-C interaction data. Perform quality assessment.\nWeek 41-42 (Oct 7 - Oct 19): Generate and normalize interaction matrices for the X chromosome.\nWeek 43 (Oct 21 - Oct 26): Holiday from Wednesday (no major activities planned). Tidy notes and do some writing.\nWeek 44-45 (Oct 28 - Nov 9): Perform PCA to obtain PC1 compartments. Visualize results.\nWeek 46-47 (Nov 11 - Nov 23): Identify A/B compartment transitions. Overlay with positive selection regions.\nWeek 48-49 (Nov 25 - Dec 7): Conduct cross-species analysis by converting genomic coordinates.\nWeek 50 (Dec 9 - Dec 14): Finish analyses. Compare results.\nWeek 51 (Dec 16 - Dec 21): Finalize analyses and begin writing initial thesis draft, incorporating analysis results and discussions.\nWeek 52 (Dec 23 - Dec 28): Christmas holidays (no major activities planned). Will work a couple of days Dec 27-29.\nWeek 1 (Dec 30 - Jan 4): Christmas holidays until Jan 2 (just performing modifications to analyses, etc.).\nWeek 2 (Jan 6 - Jan 11): Revise thesis draft based on feedback. Continue refinement of analyses if necessary.\nWeek 3 (Jan 13 - Jan 15): Final revisions and hand-in on Wednesday, January 15th.\n\n\n\n\nNielsen, Rasmgb, and Montgomery Slatkin. 2016. An Introduction to Population Genetics: Theory and Applications.\n\n\nPrice, Alkes L, Nick J Patterson, Robert M Plenge, Michael E Weinblatt, Nancy A Shadick, and David Reich. 2006. “Principal Components Analysis Corrects for Stratification in Genome-Wide Association Studies.” Nature Genetics 38 (8): 904–9. https://doi.org/10.1038/ng1847.",
     "crumbs": [
       "Project"
     ]
@@ -143,7 +143,7 @@
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "Nielsen, Rasmgb, and Montgomery Slatkin. 2016. An Introduction to\nPopulation Genetics: Theory and Applications.",
+    "text": "Nielsen, Rasmgb, and Montgomery Slatkin. 2016. An Introduction to\nPopulation Genetics: Theory and Applications.\n\n\nPrice, Alkes L, Nick J Patterson, Robert M Plenge, Michael E Weinblatt,\nNancy A Shadick, and David Reich. 2006. “Principal Components\nAnalysis Corrects for Stratification in Genome-Wide Association\nStudies.” Nature Genetics 38 (8): 904–9. https://doi.org/10.1038/ng1847.",
     "crumbs": [
       "References"
     ]

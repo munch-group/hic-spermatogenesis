@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name">
+<meta name="author" content="Søren Jørgensen">
 
-<title>Title of your project</title>
+<title>Correlating Chromatin Compartments with Selection</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,7 +116,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Title of your project</a> 
+      <a href="./">Correlating Chromatin Compartments with Selection</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -193,7 +193,7 @@ div.csl-indent {
   <li><a href="#project" id="toc-project" class="nav-link active" data-scroll-target="#project">Project</a>
   <ul class="collapse">
   <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a></li>
-  <li><a href="#suggested-reading" id="toc-suggested-reading" class="nav-link" data-scroll-target="#suggested-reading">Suggested reading</a></li>
+  <li><a href="#notes-on-litterature-as-i-read-it" id="toc-notes-on-litterature-as-i-read-it" class="nav-link" data-scroll-target="#notes-on-litterature-as-i-read-it">Notes on litterature as I read it</a></li>
   <li><a href="#schedule" id="toc-schedule" class="nav-link" data-scroll-target="#schedule">Schedule</a></li>
   </ul></li>
   </ul>
@@ -204,7 +204,8 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Title of your project</h1>
+<h1 class="title">Correlating Chromatin Compartments with Selection</h1>
+<p class="subtitle lead">How Chromatin Architecture Reflects Evolutionary Pressures During Spermatogenesis in Primates</p>
 </div>
 
 
@@ -214,7 +215,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Your Name </p>
+             <p>Søren Jørgensen </p>
           </div>
   </div>
     
@@ -229,33 +230,47 @@ div.csl-indent {
 
 <section id="project" class="level1 unnumbered">
 <h1 class="unnumbered">Project</h1>
-<p>These pages are generated from a Git repository I made for you. Read more about Git and repositories in the <a href="https://munch-lab.github.io/project-guide">project guide</a>. The repository, with its files and folders, serves as a scaffold for your project, with placeholder files to get you started.</p>
-<p>During the project, you will populate it with your code, analysis notebooks, and documentation reporting your work and use Git to track this development. This way your project will end up documented by a set of pages like these.</p>
+<p>Visit the <a href="https://munch-lab.github.io/project-guide">project guide</a> for help.</p>
 <section id="outline" class="level2">
 <h2 class="anchored" data-anchor-id="outline">Outline</h2>
-<p>It will help if you write a paragraph here outlining the project to the extent you can. What are the goals of your project? What would you like to find out? What would you like to learn? You should update it along the way.</p>
+<p>Hi-C data is often generated for whole-genome sequencing (WGS) and the assembly of genomes due to its ability to capture the three-dimensional organization of the genome. This spatial information helps in correctly assembling contigs into chromosomes by providing contacts between distant genomic regions, thus resolving ambiguities in the linear sequence data. Thus, Hi-C data is often available, and leveraging this existing data can provide valuable insights to other areas without the need for additional sequencing. The aim of this project is to analyze chromatin compartments on the X chromosome during spermatogenesis in baboons, macaques, and humans using Hi-C data. The project involves generating interaction maps and identifying PC1 compartments. A key objective is to compare transition zones with regions undergoing positive selection to uncover how chromatin architecture reflects evolutionary pressures. The ultimate goal is to deepen our understanding of chromatin organization and the conservation of non-advantageous alleles, providing insights into the role of selfish genes in shaping genome evolution.</p>
 </section>
-<section id="suggested-reading" class="level2">
-<h2 class="anchored" data-anchor-id="suggested-reading">Suggested reading</h2>
-<p>If you need a basic introduction to population genetics, I suggest reading “An introduction to population genetics: Theory and applications” by Rasmus Nielsen and Monty Slatkin <span class="citation" data-cites="NielsenSlatkin2016">(<a href="references.html#ref-NielsenSlatkin2016" role="doc-biblioref">Nielsen and Slatkin 2016</a>)</span>. A free alternative is <a href="https://github.com/cooplab/popgen-notes">Graham Coop’s Lecture notes</a>, which offer a similar introduction.</p>
+<section id="notes-on-litterature-as-i-read-it" class="level2">
+<h2 class="anchored" data-anchor-id="notes-on-litterature-as-i-read-it">Notes on litterature as I read it</h2>
+<p><em>Suggested</em> <span class="citation" data-cites="NielsenSlatkin2016">(<a href="references.html#ref-NielsenSlatkin2016" role="doc-biblioref">Nielsen and Slatkin 2016</a>)</span> is of course an overview of the very basis of population genomics. Maybe not that relevant specifically for this project.</p>
+<p><span class="citation" data-cites="price_principal_2006">(<a href="references.html#ref-price_principal_2006" role="doc-biblioref">Price et al. 2006</a>)</span> use PCA to account for stratification in GWAS. The paper was cited by the Hi-C paper (2009) which was cited by the HiC-Pro paper as their PCA method . No real use for this paper.</p>
 <!-- 
 These are additional some suggestions for background reading:
 
 - [Genetic Villains: Killer Meiotic Drivers](https://doi.org/10.1016/j.tig.2018.02.003), is a review on meiotic drive.
 - [Extraordinary selection on the human X chromosome associated with archaic admixture](10.1016/j.xgen.2023.100274) is our most recent paper on the topic.
 - -->
-<p>I will guide you to additional material once you get started.</p>
 </section>
 <section id="schedule" class="level2">
 <h2 class="anchored" data-anchor-id="schedule">Schedule</h2>
-<p>Once you get started, you should make a plan for your project. It will change along the way, but with a plan, you will know when it does.</p>
-<p>You should outline the project plan and what you intend to do in the weeks/months of your project. Such a plan is tentative and will change along the way when you find such changes are meaningful or necessary.</p>
-<p>An excellent way to do this is to use <a href="https://github.com/orgs/munch-lab/projects">the GitHub Project feature</a> on our group GitHub account.</p>
+<p>Semester: Monday, August 26th – Wednesday, January 15th (Week 35-3) Hand-in: Wednesday, January 15th (Week 3) Holiday: Wednesday, October 23rd – Monday, October 28th (Week 43) Christmas Holidays: Monday, December 23rd – Friday, January 3rd (Week 52-1)</p>
+<p>Week 35-36 (Aug 26 - Sep 7): Conduct a literature review on chromatin architecture, Hi-C methodology, and the concept of selfish genes. Get an overview of (and obtain) data sets to be used.</p>
+<p>Week 37-38 (Sep 9 - Sep 21): Assess the status of existing Hi-C data (raw or QC’ed). If necessary, perform initial quality control. Align reads to reference genomes.</p>
+<p>Week 39-40 (Sep 23 - Oct 5): Process Hi-C interaction data. Perform quality assessment.</p>
+<p>Week 41-42 (Oct 7 - Oct 19): Generate and normalize interaction matrices for the X chromosome.</p>
+<p>Week 43 (Oct 21 - Oct 26): Holiday from Wednesday (no major activities planned). Tidy notes and do some writing.</p>
+<p>Week 44-45 (Oct 28 - Nov 9): Perform PCA to obtain PC1 compartments. Visualize results.</p>
+<p>Week 46-47 (Nov 11 - Nov 23): Identify A/B compartment transitions. Overlay with positive selection regions.</p>
+<p>Week 48-49 (Nov 25 - Dec 7): Conduct cross-species analysis by converting genomic coordinates.</p>
+<p>Week 50 (Dec 9 - Dec 14): Finish analyses. Compare results.</p>
+<p>Week 51 (Dec 16 - Dec 21): Finalize analyses and begin writing initial thesis draft, incorporating analysis results and discussions.</p>
+<p>Week 52 (Dec 23 - Dec 28): Christmas holidays (no major activities planned). Will work a couple of days Dec 27-29.</p>
+<p>Week 1 (Dec 30 - Jan 4): Christmas holidays until Jan 2 (just performing modifications to analyses, etc.).</p>
+<p>Week 2 (Jan 6 - Jan 11): Revise thesis draft based on feedback. Continue refinement of analyses if necessary.</p>
+<p>Week 3 (Jan 13 - Jan 15): Final revisions and hand-in on Wednesday, January 15th.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-NielsenSlatkin2016" class="csl-entry" role="listitem">
 Nielsen, Rasmgb, and Montgomery Slatkin. 2016. <em>An Introduction to Population Genetics: Theory and Applications</em>.
+</div>
+<div id="ref-price_principal_2006" class="csl-entry" role="listitem">
+Price, Alkes L, Nick J Patterson, Robert M Plenge, Michael E Weinblatt, Nancy A Shadick, and David Reich. 2006. <span>“Principal Components Analysis Corrects for Stratification in Genome-Wide Association Studies.”</span> <em>Nature Genetics</em> 38 (8): 904–9. <a href="https://doi.org/10.1038/ng1847">https://doi.org/10.1038/ng1847</a>.
 </div>
 </div>
 </section>
