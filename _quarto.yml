@@ -7,8 +7,7 @@ execute:
   echo: true
 
 book:
-  title: "Correlating Chromatin Compartments with Selection"
-  subtitle: "How Chromatin Architecture Reflects Evolutionary Pressures During Spermatogenesis in Primates"
+  title: "Søren's MSc project about Hi-C and spermatogenesis"
   author: "Søren Jørgensen"
   chapters:
     - index.qmd
