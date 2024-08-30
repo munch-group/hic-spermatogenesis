@@ -1,0 +1,12 @@
+{
+  "hash": "5083ebb11ba294b0c768897b7f64093e",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: My manuscript\nauthor: My Name\ndate: 'April 25nd, 2024'\nformat:\n html:\n  code-fold: true\n---\n\n## Abstract\n\nThis is my report about Denmark... blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah\n\n## Introduction\n\nDenmark is .... blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah\n\n## Results\n\n### Weather\n\nAs shown in @fig-danish-weather, the Danish weather is blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.\n\n{{< embed ../notebooks/01_weather.ipynb#fig-danish-weather >}}\n\n### Social norms\n\nIn Denmark, the workplace interaction is very informal and largely unaffected by seniority and age. \n\n{{< embed ../notebooks/02_interaction.ipynb#doc-sampling echo=false >}}\n\nI found that neither academic seniority or age of workplace individuals much affected how informal our interaction was (see @fig-danish-interaction). \n\n{{< embed ../notebooks/02_interaction.ipynb#fig-danish-interaction >}}\n\n<!-- a bug in quarto does not allow successive embeds witout somthing in between (like this) -->\n\n{{< embed ../notebooks/02_interaction.ipynb#doc-formality-correlation echo=false >}}\n\n## Discussion\n\nThis this investigation of Danes..., blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.\n\n## Methods\n\n### Weather analysis\n\n{{< embed ../notebooks/01_weather.ipynb#doc-weather-data echo=false >}}\n\n### Interaction analysis\n\n{{< embed ../notebooks/02_interaction.ipynb#doc-interviews echo=false >}}\n\n\n",
+    "supporting": [
+      "manuscript_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

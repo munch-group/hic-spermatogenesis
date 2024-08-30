@@ -7,8 +7,9 @@ execute:
   echo: true
 
 book:
-  title: "Title of your project"
-  author: "Your Name"
+  title: "Correlating Chromatin Compartments with Selection"
+  subtitle: "How Chromatin Architecture Reflects Evolutionary Pressures During Spermatogenesis in Primates"
+  author: "Søren Jørgensen"
   chapters:
     - index.qmd
     - part: "Notebooks"
