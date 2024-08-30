@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Søren Jørgensen">
 
-<title>Correlating Chromatin Compartments with Selection</title>
+<title>Søren’s MSc project about Hi-C and spermatogenesis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,7 +116,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Correlating Chromatin Compartments with Selection</a> 
+      <a href="./">Søren’s MSc project about Hi-C and spermatogenesis</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -164,7 +164,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./reports/manuscript.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">My manuscript</span></a>
+  <a href="./reports/manuscript.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Correlating Chromatin Compartments with Selection</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -194,7 +194,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a></li>
   <li><a href="#notes-on-litterature-as-i-read-it" id="toc-notes-on-litterature-as-i-read-it" class="nav-link" data-scroll-target="#notes-on-litterature-as-i-read-it">Notes on litterature as I read it</a></li>
-  <li><a href="#schedule" id="toc-schedule" class="nav-link" data-scroll-target="#schedule">Schedule</a></li>
+  <li><a href="#schedule-work-plan" id="toc-schedule-work-plan" class="nav-link" data-scroll-target="#schedule-work-plan">Schedule / Work plan</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -204,8 +204,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Correlating Chromatin Compartments with Selection</h1>
-<p class="subtitle lead">How Chromatin Architecture Reflects Evolutionary Pressures During Spermatogenesis in Primates</p>
+<h1 class="title">Søren’s MSc project about Hi-C and spermatogenesis</h1>
 </div>
 
 
@@ -237,40 +236,92 @@ div.csl-indent {
 </section>
 <section id="notes-on-litterature-as-i-read-it" class="level2">
 <h2 class="anchored" data-anchor-id="notes-on-litterature-as-i-read-it">Notes on litterature as I read it</h2>
-<p><em>Suggested</em> <span class="citation" data-cites="NielsenSlatkin2016">(<a href="references.html#ref-NielsenSlatkin2016" role="doc-biblioref">Nielsen and Slatkin 2016</a>)</span> is of course an overview of the very basis of population genomics. Maybe not that relevant specifically for this project.</p>
-<p><span class="citation" data-cites="price_principal_2006">(<a href="references.html#ref-price_principal_2006" role="doc-biblioref">Price et al. 2006</a>)</span> use PCA to account for stratification in GWAS. The paper was cited by the Hi-C paper (2009) which was cited by the HiC-Pro paper as their PCA method . No real use for this paper.</p>
-<!-- 
-These are additional some suggestions for background reading:
-
-- [Genetic Villains: Killer Meiotic Drivers](https://doi.org/10.1016/j.tig.2018.02.003), is a review on meiotic drive.
-- [Extraordinary selection on the human X chromosome associated with archaic admixture](10.1016/j.xgen.2023.100274) is our most recent paper on the topic.
-- -->
+<p><span class="citation" data-cites="servant_hic-pro_2015">(<a href="references.html#ref-servant_hic-pro_2015" role="doc-biblioref">Servant et al. 2015</a>)</span> describes the software HiC-Pro. Is a pipeline for all the steps until analysis of the contact maps. Includes normalization steps, which is also available as standalone <code>hiclips/iced</code> tool. They refer to <span class="citation" data-cites="lieberman-aiden_comprehensive_2009">(<a href="references.html#ref-lieberman-aiden_comprehensive_2009" role="doc-biblioref">Lieberman-Aiden et al. 2009</a>)</span> for PCA method.</p>
+<p><span class="citation" data-cites="lieberman-aiden_comprehensive_2009">(<a href="references.html#ref-lieberman-aiden_comprehensive_2009" role="doc-biblioref">Lieberman-Aiden et al. 2009</a>)</span> Introduces the Hi-C method and some ways of analyzing the data. E.g. the eigenvector (PCA) method, where they refer back to <span class="citation" data-cites="price_principal_2006">(<a href="references.html#ref-price_principal_2006" role="doc-biblioref">Price et al. 2006</a>)</span></p>
+<p><span class="citation" data-cites="price_principal_2006">(<a href="references.html#ref-price_principal_2006" role="doc-biblioref">Price et al. 2006</a>)</span> use PCA to account for stratification in GWAS. The paper was cited by the Hi-C paper (2009) which was cited by the HiC-Pro paper as their PCA method. No real use for this paper, and they also refer back to a general guide on PCA from 2003.</p>
+<p><span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> Macaque/Mouse Hi-C paper. They use HiC-Pro and incorporates RNAseq data analyzed by TopHat and CuffLinks. Introduces small-scale <em>in situ</em> Hi-C (sisHi-C). They analyze both A/B compartments and TADs. Also introduce ‘Refined A/B compartments’ with ‘Local PCA’.</p>
+<p><span class="citation" data-cites="zuo_stage-resolved_2021">(<a href="references.html#ref-zuo_stage-resolved_2021" role="doc-biblioref">Zuo et al. 2021</a>)</span> Stage-resolved Hi-C analysis. Haven’t read it yet.</p>
+<p><span class="citation" data-cites="batra_accurate_2020">(<a href="references.html#ref-batra_accurate_2020" role="doc-biblioref">Batra et al. 2020</a>)</span> Baboon paper. Haven’t read it yet.</p>
+<p><span class="citation" data-cites="shami_single-cell_2020">(<a href="references.html#ref-shami_single-cell_2020" role="doc-biblioref">Shami et al. 2020</a>)</span> Divergent features of mammalian spermatogenesis. Haven’t read yet.</p>
+<p><span class="citation" data-cites="chakraborty_dchic_2022">(<a href="references.html#ref-chakraborty_dchic_2022" role="doc-biblioref">Chakraborty, Wang, and Ay 2022</a>)</span> dcHiC paper/ <code>dcHiC</code> tool. Differential compartments analysis. Haven’t really read, but method could be useful.</p>
+<p><span class="citation" data-cites="bicciato_hi-c_2022">(<a href="references.html#ref-bicciato_hi-c_2022" role="doc-biblioref">Bicciato and Ferrari 2022</a>)</span> Book on Hi-C data analysis. Might use to find conventional use of thresholds, etc.</p>
+<p><span class="citation" data-cites="skov_extraordinary_2023">(<a href="references.html#ref-skov_extraordinary_2023" role="doc-biblioref">Skov et al. 2023</a>)</span> Paper from Munch-group. Should read.</p>
+<p><span class="citation" data-cites="nunez_genetic-villains-2018">(<a href="references.html#ref-nunez_genetic-villains-2018" role="doc-biblioref">Bravo Núñez, Nuckolls, and Zanders 2018</a>)</span>. Paper on Genetic Villains, maybe skim this.</p>
+<p><span class="citation" data-cites="HiC_human_cancer_2021">(<a href="references.html#ref-HiC_human_cancer_2021" role="doc-biblioref">Gong et al. 2021</a>)</span> Most recent paper I could find on Hi-C in human. But it is about cancer and other omics than Hi-C.</p>
 </section>
-<section id="schedule" class="level2">
-<h2 class="anchored" data-anchor-id="schedule">Schedule</h2>
-<p>Semester: Monday, August 26th – Wednesday, January 15th (Week 35-3) Hand-in: Wednesday, January 15th (Week 3) Holiday: Wednesday, October 23rd – Monday, October 28th (Week 43) Christmas Holidays: Monday, December 23rd – Friday, January 3rd (Week 52-1)</p>
-<p>Week 35-36 (Aug 26 - Sep 7): Conduct a literature review on chromatin architecture, Hi-C methodology, and the concept of selfish genes. Get an overview of (and obtain) data sets to be used.</p>
-<p>Week 37-38 (Sep 9 - Sep 21): Assess the status of existing Hi-C data (raw or QC’ed). If necessary, perform initial quality control. Align reads to reference genomes.</p>
-<p>Week 39-40 (Sep 23 - Oct 5): Process Hi-C interaction data. Perform quality assessment.</p>
-<p>Week 41-42 (Oct 7 - Oct 19): Generate and normalize interaction matrices for the X chromosome.</p>
-<p>Week 43 (Oct 21 - Oct 26): Holiday from Wednesday (no major activities planned). Tidy notes and do some writing.</p>
-<p>Week 44-45 (Oct 28 - Nov 9): Perform PCA to obtain PC1 compartments. Visualize results.</p>
-<p>Week 46-47 (Nov 11 - Nov 23): Identify A/B compartment transitions. Overlay with positive selection regions.</p>
-<p>Week 48-49 (Nov 25 - Dec 7): Conduct cross-species analysis by converting genomic coordinates.</p>
-<p>Week 50 (Dec 9 - Dec 14): Finish analyses. Compare results.</p>
-<p>Week 51 (Dec 16 - Dec 21): Finalize analyses and begin writing initial thesis draft, incorporating analysis results and discussions.</p>
-<p>Week 52 (Dec 23 - Dec 28): Christmas holidays (no major activities planned). Will work a couple of days Dec 27-29.</p>
-<p>Week 1 (Dec 30 - Jan 4): Christmas holidays until Jan 2 (just performing modifications to analyses, etc.).</p>
-<p>Week 2 (Jan 6 - Jan 11): Revise thesis draft based on feedback. Continue refinement of analyses if necessary.</p>
-<p>Week 3 (Jan 13 - Jan 15): Final revisions and hand-in on Wednesday, January 15th.</p>
+<section id="schedule-work-plan" class="level2">
+<h2 class="anchored" data-anchor-id="schedule-work-plan">Schedule / Work plan</h2>
+<p><strong>Semester:</strong> Monday, Aug 26th – Wednesday, Jan 15th (Week 35-3)<br>
+<strong>Hand-in:</strong> Wednesday, Jan 15th (Week 3)<br>
+<strong>Holiday:</strong> Wednesday, Oct 23rd – Monday, Oct 28th (Week 43)<br>
+<strong>Christmas Holidays:</strong> Monday, Dec 23rd – Friday, Jan 3rd (Week 52-1)<br>
+</p>
+<p><strong>Week 35-36 (Aug 26 - Sep 7):</strong><br>
+Conduct a literature review on chromatin architecture, Hi-C methodology, and the concept of selfish genes. Get an overview of (and obtain) data sets to be used.</p>
+<p><strong>Week 37-38 (Sep 9 - Sep 21):</strong><br>
+Assess the status of existing Hi-C data (raw or QC’ed). If necessary, perform initial quality control. Align reads to reference genomes.</p>
+<p><strong>Week 39-40 (Sep 23 - Oct 5):</strong><br>
+Process Hi-C interaction data. Perform quality assessment.</p>
+<p><strong>Week 41-42 (Oct 7 - Oct 19):</strong><br>
+Generate and normalize interaction matrices for the X chromosome.</p>
+<p><strong>Week 43 (Oct 21 - Oct 26):</strong><br>
+Holiday from Wednesday (no major activities planned). Tidy notes and do some writing.</p>
+<p><strong>Week 44-45 (Oct 28 - Nov 9):</strong><br>
+Perform PCA to obtain PC1 compartments. Visualize results.</p>
+<p><strong>Week 46-47 (Nov 11 - Nov 23):</strong><br>
+Identify A/B compartment transitions. Overlay with positive selection regions.</p>
+<p><strong>Week 48-49 (Nov 25 - Dec 7):</strong><br>
+Conduct cross-species analysis by converting genomic coordinates.</p>
+<p><strong>Week 50 (Dec 9 - Dec 14):</strong><br>
+Finish analyses. Compare results.</p>
+<p><strong>Week 51 (Dec 16 - Dec 21):</strong><br>
+Finalize analyses and begin writing initial thesis draft, incorporating analysis results and discussions.</p>
+<p><strong>Week 52 (Dec 23 - Dec 28):</strong><br>
+Christmas holidays (no major activities planned). Will work a couple of days Dec 27-29.</p>
+<p><strong>Week 1 (Dec 30 - Jan 4):</strong><br>
+Christmas holidays until Jan 2 (just performing modifications to analyses, etc.).</p>
+<p><strong>Week 2 (Jan 6 - Jan 11):</strong><br>
+Revise thesis draft based on feedback. Continue refinement of analyses if necessary.</p>
+<p><strong>Week 3 (Jan 13 - Jan 15):</strong><br>
+Final revisions and hand-in on Wednesday, January 15th.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-NielsenSlatkin2016" class="csl-entry" role="listitem">
-Nielsen, Rasmgb, and Montgomery Slatkin. 2016. <em>An Introduction to Population Genetics: Theory and Applications</em>.
+<div id="ref-batra_accurate_2020" class="csl-entry" role="listitem">
+Batra, Sanjit Singh, Michal Levy-Sakin, Jacqueline Robinson, Joseph Guillory, Steffen Durinck, Tauras P Vilgalys, Pui-Yan Kwok, et al. 2020. <span>“Accurate Assembly of the Olive Baboon ( <em><span>Papio</span> Anubis</em> ) Genome Using Long-Read and <span>Hi</span>-<span>C</span> Data.”</span> <em>GigaScience</em> 9 (12): giaa134. <a href="https://doi.org/10.1093/gigascience/giaa134">https://doi.org/10.1093/gigascience/giaa134</a>.
+</div>
+<div id="ref-bicciato_hi-c_2022" class="csl-entry" role="listitem">
+Bicciato, Silvio, and Francesco Ferrari, eds. 2022. <em>Hi-<span>C</span> <span>Data</span> <span>Analysis</span>: <span>Methods</span> and <span>Protocols</span></em>. Vol. 2301. Methods in <span>Molecular</span> <span>Biology</span>. New York, NY: Springer US. <a href="https://doi.org/10.1007/978-1-0716-1390-0">https://doi.org/10.1007/978-1-0716-1390-0</a>.
+</div>
+<div id="ref-nunez_genetic-villains-2018" class="csl-entry" role="listitem">
+Bravo Núñez, María Angélica, Nicole L. Nuckolls, and Sarah E. Zanders. 2018. <span>“Genetic Villains: Killer Meiotic Drivers.”</span> <em>Trends in Genetics</em> 34 (6): 424–33. https://doi.org/<a href="https://doi.org/10.1016/j.tig.2018.02.003">https://doi.org/10.1016/j.tig.2018.02.003</a>.
+</div>
+<div id="ref-chakraborty_dchic_2022" class="csl-entry" role="listitem">
+Chakraborty, Abhijit, Jeffrey G. Wang, and Ferhat Ay. 2022. <span>“<span class="nocase">dcHiC</span> Detects Differential Compartments Across Multiple <span>Hi</span>-<span>C</span> Datasets.”</span> <em>Nature Communications</em> 13 (1): 6827. <a href="https://doi.org/10.1038/s41467-022-34626-6">https://doi.org/10.1038/s41467-022-34626-6</a>.
+</div>
+<div id="ref-HiC_human_cancer_2021" class="csl-entry" role="listitem">
+Gong, Haiyan, Yi Yang, Sichen Zhang, Minghong Li, and Xiaotong Zhang. 2021. <span>“Application of Hi-c and Other Omics Data Analysis in Human Cancer and Cell Differentiation Research.”</span> <em>Computational and Structural Biotechnology Journal</em> 19: 2070–83. https://doi.org/<a href="https://doi.org/10.1016/j.csbj.2021.04.016">https://doi.org/10.1016/j.csbj.2021.04.016</a>.
+</div>
+<div id="ref-lieberman-aiden_comprehensive_2009" class="csl-entry" role="listitem">
+Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009. <span>“Comprehensive <span>Mapping</span> of <span>Long</span>-<span>Range</span> <span>Interactions</span> <span>Reveals</span> <span>Folding</span> <span>Principles</span> of the <span>Human</span> <span>Genome</span>.”</span> <em>Science</em> 326 (5950): 289–93. <a href="https://doi.org/10.1126/science.1181369">https://doi.org/10.1126/science.1181369</a>.
 </div>
 <div id="ref-price_principal_2006" class="csl-entry" role="listitem">
 Price, Alkes L, Nick J Patterson, Robert M Plenge, Michael E Weinblatt, Nancy A Shadick, and David Reich. 2006. <span>“Principal Components Analysis Corrects for Stratification in Genome-Wide Association Studies.”</span> <em>Nature Genetics</em> 38 (8): 904–9. <a href="https://doi.org/10.1038/ng1847">https://doi.org/10.1038/ng1847</a>.
+</div>
+<div id="ref-servant_hic-pro_2015" class="csl-entry" role="listitem">
+Servant, Nicolas, Nelle Varoquaux, Bryan R. Lajoie, Eric Viara, Chong-Jian Chen, Jean-Philippe Vert, Edith Heard, Job Dekker, and Emmanuel Barillot. 2015. <span>“<span>HiC</span>-<span>Pro</span>: An Optimized and Flexible Pipeline for <span>Hi</span>-<span>C</span> Data Processing.”</span> <em>Genome Biology</em> 16 (1): 259. <a href="https://doi.org/10.1186/s13059-015-0831-x">https://doi.org/10.1186/s13059-015-0831-x</a>.
+</div>
+<div id="ref-shami_single-cell_2020" class="csl-entry" role="listitem">
+Shami, Adrienne Niederriter, Xianing Zheng, Sarah K. Munyoki, Qianyi Ma, Gabriel L. Manske, Christopher D. Green, Meena Sukhwani, Kyle E. Orwig, Jun Z. Li, and Saher Sue Hammoud. 2020. <span>“Single-<span>Cell</span> <span>RNA</span> <span>Sequencing</span> of <span>Human</span>, <span>Macaque</span>, and <span>Mouse</span> <span>Testes</span> <span>Uncovers</span> <span>Conserved</span> and <span>Divergent</span> <span>Features</span> of <span>Mammalian</span> <span>Spermatogenesis</span>.”</span> <em>Developmental Cell</em> 54 (4): 529–547.e12. <a href="https://doi.org/10.1016/j.devcel.2020.05.010">https://doi.org/10.1016/j.devcel.2020.05.010</a>.
+</div>
+<div id="ref-skov_extraordinary_2023" class="csl-entry" role="listitem">
+Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch. 2023. <span>“Extraordinary Selection on the Human <span>X</span> Chromosome Associated with Archaic Admixture.”</span> <em>Cell Genomics</em> 3 (3): 100274. <a href="https://doi.org/10.1016/j.xgen.2023.100274">https://doi.org/10.1016/j.xgen.2023.100274</a>.
+</div>
+<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
+</div>
+<div id="ref-zuo_stage-resolved_2021" class="csl-entry" role="listitem">
+Zuo, Wu, Guangming Chen, Zhimei Gao, Shuai Li, Yanyan Chen, Chenhui Huang, Juan Chen, Zhengjun Chen, Ming Lei, and Qian Bian. 2021. <span>“Stage-Resolved <span>Hi</span>-<span>C</span> Analyses Reveal Meiotic Chromosome Organizational Features Influencing Homolog Alignment.”</span> <em>Nature Communications</em> 12 (1): 5827. <a href="https://doi.org/10.1038/s41467-021-26033-0">https://doi.org/10.1038/s41467-021-26033-0</a>.
 </div>
 </div>
 </section>

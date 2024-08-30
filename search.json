@@ -24,62 +24,62 @@
   {
     "objectID": "reports/manuscript.html",
     "href": "reports/manuscript.html",
-    "title": "My manuscript",
+    "title": "Correlating Chromatin Compartments with Selection",
     "section": "",
-    "text": "Abstract\nThis is my report about Denmark… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah",
+    "text": "Abstract\nThis is a dummy abstract, dreamt up by chatGPT. Chromatin organization plays a crucial role in gene regulation and genome stability, particularly during the complex process of spermatogenesis. This thesis explores the three-dimensional chromatin architecture of the X chromosome in baboons, macaques, and humans, with a specific focus on the role of chromatin compartments during spermatogenesis. Leveraging publicly available Hi-C data, interaction maps were generated to identify Principal Component 1 (PC1) compartments, revealing distinct chromatin compartmentalization patterns across species. The analysis was extended to examine transition zones, areas where chromatin shifts from one compartment type to another, and their correlation with regions under positive selection.\nBy comparing these zones with regions of known evolutionary significance, the study aims to uncover how chromatin structure reflects and potentially drives evolutionary pressures. A key finding is the identification of conserved chromatin features that may contribute to the retention of non-advantageous alleles, suggesting a possible role for selfish genetic elements in shaping genome evolution. The results of this research provide novel insights into the interplay between chromatin architecture and evolutionary dynamics, contributing to a deeper understanding of the conservation and divergence of chromatin structures across primate species.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>My manuscript</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
     "objectID": "reports/manuscript.html#introduction",
     "href": "reports/manuscript.html#introduction",
-    "title": "My manuscript",
+    "title": "Correlating Chromatin Compartments with Selection",
     "section": "Introduction",
     "text": "Introduction\nDenmark is …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>My manuscript</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
     "objectID": "reports/manuscript.html#results",
     "href": "reports/manuscript.html#results",
-    "title": "My manuscript",
+    "title": "Correlating Chromatin Compartments with Selection",
     "section": "Results",
     "text": "Results\n\nWeather\nAs shown in Figure 3.1, the Danish weather is blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.\n\n\n\n\n\n\n\n\n\nFigure 3.1: Danish weather: This is the weather forcast for your project\n\n\n\n\n\n\n\n\nSocial norms\nIn Denmark, the workplace interaction is very informal and largely unaffected by seniority and age.\n\n\n\nI sampled 100 danaes from workplaces in Denmark. More about the sampling… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\n\n\n\nI found that neither academic seniority or age of workplace individuals much affected how informal our interaction was (see Figure 3.2).\n\n\n\n\n\n\n\n\n\nFigure 3.2: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\n\n\n\n\n\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>My manuscript</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
     "objectID": "reports/manuscript.html#discussion",
     "href": "reports/manuscript.html#discussion",
-    "title": "My manuscript",
+    "title": "Correlating Chromatin Compartments with Selection",
     "section": "Discussion",
     "text": "Discussion\nThis this investigation of Danes…, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>My manuscript</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
     "objectID": "reports/manuscript.html#methods",
     "href": "reports/manuscript.html#methods",
-    "title": "My manuscript",
+    "title": "Correlating Chromatin Compartments with Selection",
     "section": "Methods",
     "text": "Methods\n\nWeather analysis\n\n\n\nWeather data was collected… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah\n\n\n\n\n\nInteraction analysis\n\n\n\nWorkplace individuals were interviewed by …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>My manuscript</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Correlating Chromatin Compartments with Selection",
+    "title": "Søren’s MSc project about Hi-C and spermatogenesis",
     "section": "",
     "text": "Project\nVisit the project guide for help.",
     "crumbs": [
@@ -89,7 +89,7 @@
   {
     "objectID": "index.html#outline",
     "href": "index.html#outline",
-    "title": "Correlating Chromatin Compartments with Selection",
+    "title": "Søren’s MSc project about Hi-C and spermatogenesis",
     "section": "Outline",
     "text": "Outline\nHi-C data is often generated for whole-genome sequencing (WGS) and the assembly of genomes due to its ability to capture the three-dimensional organization of the genome. This spatial information helps in correctly assembling contigs into chromosomes by providing contacts between distant genomic regions, thus resolving ambiguities in the linear sequence data. Thus, Hi-C data is often available, and leveraging this existing data can provide valuable insights to other areas without the need for additional sequencing. The aim of this project is to analyze chromatin compartments on the X chromosome during spermatogenesis in baboons, macaques, and humans using Hi-C data. The project involves generating interaction maps and identifying PC1 compartments. A key objective is to compare transition zones with regions undergoing positive selection to uncover how chromatin architecture reflects evolutionary pressures. The ultimate goal is to deepen our understanding of chromatin organization and the conservation of non-advantageous alleles, providing insights into the role of selfish genes in shaping genome evolution.",
     "crumbs": [
@@ -99,19 +99,19 @@
   {
     "objectID": "index.html#notes-on-litterature-as-i-read-it",
     "href": "index.html#notes-on-litterature-as-i-read-it",
-    "title": "Correlating Chromatin Compartments with Selection",
+    "title": "Søren’s MSc project about Hi-C and spermatogenesis",
     "section": "Notes on litterature as I read it",
-    "text": "Notes on litterature as I read it\nSuggested (Nielsen and Slatkin 2016) is of course an overview of the very basis of population genomics. Maybe not that relevant specifically for this project.\n(Price et al. 2006) use PCA to account for stratification in GWAS. The paper was cited by the Hi-C paper (2009) which was cited by the HiC-Pro paper as their PCA method . No real use for this paper.",
+    "text": "Notes on litterature as I read it\n(Servant et al. 2015) describes the software HiC-Pro. Is a pipeline for all the steps until analysis of the contact maps. Includes normalization steps, which is also available as standalone hiclips/iced tool. They refer to (Lieberman-Aiden et al. 2009) for PCA method.\n(Lieberman-Aiden et al. 2009) Introduces the Hi-C method and some ways of analyzing the data. E.g. the eigenvector (PCA) method, where they refer back to (Price et al. 2006)\n(Price et al. 2006) use PCA to account for stratification in GWAS. The paper was cited by the Hi-C paper (2009) which was cited by the HiC-Pro paper as their PCA method. No real use for this paper, and they also refer back to a general guide on PCA from 2003.\n(Wang et al. 2019) Macaque/Mouse Hi-C paper. They use HiC-Pro and incorporates RNAseq data analyzed by TopHat and CuffLinks. Introduces small-scale in situ Hi-C (sisHi-C). They analyze both A/B compartments and TADs. Also introduce ‘Refined A/B compartments’ with ‘Local PCA’.\n(Zuo et al. 2021) Stage-resolved Hi-C analysis. Haven’t read it yet.\n(Batra et al. 2020) Baboon paper. Haven’t read it yet.\n(Shami et al. 2020) Divergent features of mammalian spermatogenesis. Haven’t read yet.\n(Chakraborty, Wang, and Ay 2022) dcHiC paper/ dcHiC tool. Differential compartments analysis. Haven’t really read, but method could be useful.\n(Bicciato and Ferrari 2022) Book on Hi-C data analysis. Might use to find conventional use of thresholds, etc.\n(Skov et al. 2023) Paper from Munch-group. Should read.\n(Bravo Núñez, Nuckolls, and Zanders 2018). Paper on Genetic Villains, maybe skim this.\n(Gong et al. 2021) Most recent paper I could find on Hi-C in human. But it is about cancer and other omics than Hi-C.",
     "crumbs": [
       "Project"
     ]
   },
   {
-    "objectID": "index.html#schedule",
-    "href": "index.html#schedule",
-    "title": "Correlating Chromatin Compartments with Selection",
-    "section": "Schedule",
-    "text": "Schedule\nSemester: Monday, August 26th – Wednesday, January 15th (Week 35-3) Hand-in: Wednesday, January 15th (Week 3) Holiday: Wednesday, October 23rd – Monday, October 28th (Week 43) Christmas Holidays: Monday, December 23rd – Friday, January 3rd (Week 52-1)\nWeek 35-36 (Aug 26 - Sep 7): Conduct a literature review on chromatin architecture, Hi-C methodology, and the concept of selfish genes. Get an overview of (and obtain) data sets to be used.\nWeek 37-38 (Sep 9 - Sep 21): Assess the status of existing Hi-C data (raw or QC’ed). If necessary, perform initial quality control. Align reads to reference genomes.\nWeek 39-40 (Sep 23 - Oct 5): Process Hi-C interaction data. Perform quality assessment.\nWeek 41-42 (Oct 7 - Oct 19): Generate and normalize interaction matrices for the X chromosome.\nWeek 43 (Oct 21 - Oct 26): Holiday from Wednesday (no major activities planned). Tidy notes and do some writing.\nWeek 44-45 (Oct 28 - Nov 9): Perform PCA to obtain PC1 compartments. Visualize results.\nWeek 46-47 (Nov 11 - Nov 23): Identify A/B compartment transitions. Overlay with positive selection regions.\nWeek 48-49 (Nov 25 - Dec 7): Conduct cross-species analysis by converting genomic coordinates.\nWeek 50 (Dec 9 - Dec 14): Finish analyses. Compare results.\nWeek 51 (Dec 16 - Dec 21): Finalize analyses and begin writing initial thesis draft, incorporating analysis results and discussions.\nWeek 52 (Dec 23 - Dec 28): Christmas holidays (no major activities planned). Will work a couple of days Dec 27-29.\nWeek 1 (Dec 30 - Jan 4): Christmas holidays until Jan 2 (just performing modifications to analyses, etc.).\nWeek 2 (Jan 6 - Jan 11): Revise thesis draft based on feedback. Continue refinement of analyses if necessary.\nWeek 3 (Jan 13 - Jan 15): Final revisions and hand-in on Wednesday, January 15th.\n\n\n\n\nNielsen, Rasmgb, and Montgomery Slatkin. 2016. An Introduction to Population Genetics: Theory and Applications.\n\n\nPrice, Alkes L, Nick J Patterson, Robert M Plenge, Michael E Weinblatt, Nancy A Shadick, and David Reich. 2006. “Principal Components Analysis Corrects for Stratification in Genome-Wide Association Studies.” Nature Genetics 38 (8): 904–9. https://doi.org/10.1038/ng1847.",
+    "objectID": "index.html#schedule-work-plan",
+    "href": "index.html#schedule-work-plan",
+    "title": "Søren’s MSc project about Hi-C and spermatogenesis",
+    "section": "Schedule / Work plan",
+    "text": "Schedule / Work plan\nSemester: Monday, Aug 26th – Wednesday, Jan 15th (Week 35-3)\nHand-in: Wednesday, Jan 15th (Week 3)\nHoliday: Wednesday, Oct 23rd – Monday, Oct 28th (Week 43)\nChristmas Holidays: Monday, Dec 23rd – Friday, Jan 3rd (Week 52-1)\n\nWeek 35-36 (Aug 26 - Sep 7):\nConduct a literature review on chromatin architecture, Hi-C methodology, and the concept of selfish genes. Get an overview of (and obtain) data sets to be used.\nWeek 37-38 (Sep 9 - Sep 21):\nAssess the status of existing Hi-C data (raw or QC’ed). If necessary, perform initial quality control. Align reads to reference genomes.\nWeek 39-40 (Sep 23 - Oct 5):\nProcess Hi-C interaction data. Perform quality assessment.\nWeek 41-42 (Oct 7 - Oct 19):\nGenerate and normalize interaction matrices for the X chromosome.\nWeek 43 (Oct 21 - Oct 26):\nHoliday from Wednesday (no major activities planned). Tidy notes and do some writing.\nWeek 44-45 (Oct 28 - Nov 9):\nPerform PCA to obtain PC1 compartments. Visualize results.\nWeek 46-47 (Nov 11 - Nov 23):\nIdentify A/B compartment transitions. Overlay with positive selection regions.\nWeek 48-49 (Nov 25 - Dec 7):\nConduct cross-species analysis by converting genomic coordinates.\nWeek 50 (Dec 9 - Dec 14):\nFinish analyses. Compare results.\nWeek 51 (Dec 16 - Dec 21):\nFinalize analyses and begin writing initial thesis draft, incorporating analysis results and discussions.\nWeek 52 (Dec 23 - Dec 28):\nChristmas holidays (no major activities planned). Will work a couple of days Dec 27-29.\nWeek 1 (Dec 30 - Jan 4):\nChristmas holidays until Jan 2 (just performing modifications to analyses, etc.).\nWeek 2 (Jan 6 - Jan 11):\nRevise thesis draft based on feedback. Continue refinement of analyses if necessary.\nWeek 3 (Jan 13 - Jan 15):\nFinal revisions and hand-in on Wednesday, January 15th.\n\n\n\n\nBatra, Sanjit Singh, Michal Levy-Sakin, Jacqueline Robinson, Joseph Guillory, Steffen Durinck, Tauras P Vilgalys, Pui-Yan Kwok, et al. 2020. “Accurate Assembly of the Olive Baboon ( Papio Anubis ) Genome Using Long-Read and Hi-C Data.” GigaScience 9 (12): giaa134. https://doi.org/10.1093/gigascience/giaa134.\n\n\nBicciato, Silvio, and Francesco Ferrari, eds. 2022. Hi-C Data Analysis: Methods and Protocols. Vol. 2301. Methods in Molecular Biology. New York, NY: Springer US. https://doi.org/10.1007/978-1-0716-1390-0.\n\n\nBravo Núñez, María Angélica, Nicole L. Nuckolls, and Sarah E. Zanders. 2018. “Genetic Villains: Killer Meiotic Drivers.” Trends in Genetics 34 (6): 424–33. https://doi.org/https://doi.org/10.1016/j.tig.2018.02.003.\n\n\nChakraborty, Abhijit, Jeffrey G. Wang, and Ferhat Ay. 2022. “dcHiC Detects Differential Compartments Across Multiple Hi-C Datasets.” Nature Communications 13 (1): 6827. https://doi.org/10.1038/s41467-022-34626-6.\n\n\nGong, Haiyan, Yi Yang, Sichen Zhang, Minghong Li, and Xiaotong Zhang. 2021. “Application of Hi-c and Other Omics Data Analysis in Human Cancer and Cell Differentiation Research.” Computational and Structural Biotechnology Journal 19: 2070–83. https://doi.org/https://doi.org/10.1016/j.csbj.2021.04.016.\n\n\nLieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009. “Comprehensive Mapping of Long-Range Interactions Reveals Folding Principles of the Human Genome.” Science 326 (5950): 289–93. https://doi.org/10.1126/science.1181369.\n\n\nPrice, Alkes L, Nick J Patterson, Robert M Plenge, Michael E Weinblatt, Nancy A Shadick, and David Reich. 2006. “Principal Components Analysis Corrects for Stratification in Genome-Wide Association Studies.” Nature Genetics 38 (8): 904–9. https://doi.org/10.1038/ng1847.\n\n\nServant, Nicolas, Nelle Varoquaux, Bryan R. Lajoie, Eric Viara, Chong-Jian Chen, Jean-Philippe Vert, Edith Heard, Job Dekker, and Emmanuel Barillot. 2015. “HiC-Pro: An Optimized and Flexible Pipeline for Hi-C Data Processing.” Genome Biology 16 (1): 259. https://doi.org/10.1186/s13059-015-0831-x.\n\n\nShami, Adrienne Niederriter, Xianing Zheng, Sarah K. Munyoki, Qianyi Ma, Gabriel L. Manske, Christopher D. Green, Meena Sukhwani, Kyle E. Orwig, Jun Z. Li, and Saher Sue Hammoud. 2020. “Single-Cell RNA Sequencing of Human, Macaque, and Mouse Testes Uncovers Conserved and Divergent Features of Mammalian Spermatogenesis.” Developmental Cell 54 (4): 529–547.e12. https://doi.org/10.1016/j.devcel.2020.05.010.\n\n\nSkov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch. 2023. “Extraordinary Selection on the Human X Chromosome Associated with Archaic Admixture.” Cell Genomics 3 (3): 100274. https://doi.org/10.1016/j.xgen.2023.100274.\n\n\nWang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. “Reprogramming of Meiotic Chromatin Architecture During Spermatogenesis.” Molecular Cell 73 (3): 547–561.e6. https://doi.org/10.1016/j.molcel.2018.11.019.\n\n\nZuo, Wu, Guangming Chen, Zhimei Gao, Shuai Li, Yanyan Chen, Chenhui Huang, Juan Chen, Zhengjun Chen, Ming Lei, and Qian Bian. 2021. “Stage-Resolved Hi-C Analyses Reveal Meiotic Chromosome Organizational Features Influencing Homolog Alignment.” Nature Communications 12 (1): 5827. https://doi.org/10.1038/s41467-021-26033-0.",
     "crumbs": [
       "Project"
     ]
@@ -143,7 +143,7 @@
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "Nielsen, Rasmgb, and Montgomery Slatkin. 2016. An Introduction to\nPopulation Genetics: Theory and Applications.\n\n\nPrice, Alkes L, Nick J Patterson, Robert M Plenge, Michael E Weinblatt,\nNancy A Shadick, and David Reich. 2006. “Principal Components\nAnalysis Corrects for Stratification in Genome-Wide Association\nStudies.” Nature Genetics 38 (8): 904–9. https://doi.org/10.1038/ng1847.",
+    "text": "Batra, Sanjit Singh, Michal Levy-Sakin, Jacqueline Robinson, Joseph\nGuillory, Steffen Durinck, Tauras P Vilgalys, Pui-Yan Kwok, et al. 2020.\n“Accurate Assembly of the Olive Baboon ( Papio\nAnubis ) Genome Using Long-Read and Hi-C\nData.” GigaScience 9 (12): giaa134. https://doi.org/10.1093/gigascience/giaa134.\n\n\nBicciato, Silvio, and Francesco Ferrari, eds. 2022.\nHi-C Data Analysis:\nMethods and Protocols. Vol. 2301. Methods\nin Molecular Biology. New York, NY: Springer\nUS. https://doi.org/10.1007/978-1-0716-1390-0.\n\n\nBravo Núñez, María Angélica, Nicole L. Nuckolls, and Sarah E. Zanders.\n2018. “Genetic Villains: Killer Meiotic Drivers.”\nTrends in Genetics 34 (6): 424–33. https://doi.org/https://doi.org/10.1016/j.tig.2018.02.003.\n\n\nChakraborty, Abhijit, Jeffrey G. Wang, and Ferhat Ay. 2022. “dcHiC Detects Differential Compartments Across\nMultiple Hi-C Datasets.” Nature\nCommunications 13 (1): 6827. https://doi.org/10.1038/s41467-022-34626-6.\n\n\nGong, Haiyan, Yi Yang, Sichen Zhang, Minghong Li, and Xiaotong Zhang.\n2021. “Application of Hi-c and Other Omics Data Analysis in Human\nCancer and Cell Differentiation Research.” Computational and\nStructural Biotechnology Journal 19: 2070–83. https://doi.org/https://doi.org/10.1016/j.csbj.2021.04.016.\n\n\nLieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim\nImakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009.\n“Comprehensive Mapping of\nLong-Range Interactions\nReveals Folding Principles of the\nHuman Genome.” Science 326\n(5950): 289–93. https://doi.org/10.1126/science.1181369.\n\n\nPrice, Alkes L, Nick J Patterson, Robert M Plenge, Michael E Weinblatt,\nNancy A Shadick, and David Reich. 2006. “Principal Components\nAnalysis Corrects for Stratification in Genome-Wide Association\nStudies.” Nature Genetics 38 (8): 904–9. https://doi.org/10.1038/ng1847.\n\n\nServant, Nicolas, Nelle Varoquaux, Bryan R. Lajoie, Eric Viara,\nChong-Jian Chen, Jean-Philippe Vert, Edith Heard, Job Dekker, and\nEmmanuel Barillot. 2015. “HiC-Pro: An\nOptimized and Flexible Pipeline for Hi-C Data\nProcessing.” Genome Biology 16 (1): 259. https://doi.org/10.1186/s13059-015-0831-x.\n\n\nShami, Adrienne Niederriter, Xianing Zheng, Sarah K. Munyoki, Qianyi Ma,\nGabriel L. Manske, Christopher D. Green, Meena Sukhwani, Kyle E. Orwig,\nJun Z. Li, and Saher Sue Hammoud. 2020. “Single-Cell\nRNA Sequencing of Human,\nMacaque, and Mouse Testes\nUncovers Conserved and Divergent\nFeatures of Mammalian\nSpermatogenesis.” Developmental Cell 54\n(4): 529–547.e12. https://doi.org/10.1016/j.devcel.2020.05.010.\n\n\nSkov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves\nCavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch.\n2023. “Extraordinary Selection on the Human X\nChromosome Associated with Archaic Admixture.” Cell\nGenomics 3 (3): 100274. https://doi.org/10.1016/j.xgen.2023.100274.\n\n\nWang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan,\nDongdong Qin, et al. 2019. “Reprogramming of Meiotic\nChromatin Architecture During\nSpermatogenesis.” Molecular Cell 73 (3):\n547–561.e6. https://doi.org/10.1016/j.molcel.2018.11.019.\n\n\nZuo, Wu, Guangming Chen, Zhimei Gao, Shuai Li, Yanyan Chen, Chenhui\nHuang, Juan Chen, Zhengjun Chen, Ming Lei, and Qian Bian. 2021.\n“Stage-Resolved Hi-C Analyses Reveal\nMeiotic Chromosome Organizational Features Influencing Homolog\nAlignment.” Nature Communications 12 (1): 5827. https://doi.org/10.1038/s41467-021-26033-0.",
     "crumbs": [
       "References"
     ]
