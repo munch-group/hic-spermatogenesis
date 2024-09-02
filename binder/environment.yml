@@ -1,23 +1,22 @@
-name: birc-project
+name: hic
 channels:
-  - conda-forge
-  - kaspermunch
-  - gwforg
   - defaults
+  - conda-forge
+  - bioconda
+  - gwforg
+  - kaspermunch
+  - micknudsen
+  - genomedk
 dependencies:
-  - geneinfo
+  - git
+  - gwf
+  - gwf-utilization
   - ipython
-  - ipywidgets
   - jupyterlab
-  - msprime
-  - nodejs
-  - pyslim
+  - nbdime
   - pytables
   - scipy
   - seaborn
-  - slurm-jupyter
   - statsmodels
-  - tskit
-  - git
-  - gwf
-prefix: /Users/kmt/miniconda3/envs/birc-project
+  - hicexplorer
+prefix: /home/sojern/miniconda3/envs/hic

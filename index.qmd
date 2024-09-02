@@ -1,90 +1,90 @@
+---
+title: "Project"
+bibliography: references.bib
+---
+
 # Project {.unnumbered}
 
-Visit the [project guide](https://munch-lab.github.io/project-guide) for help. 
-
+Visit the [project guide](https://munch-group.org/project-guide/) for help.
 
 ## Outline
 
-Hi-C data is often generated for whole-genome sequencing (WGS) and the assembly of genomes due to its ability to capture the three-dimensional organization of the genome. This spatial information helps in correctly assembling contigs into chromosomes by providing contacts between distant genomic regions, thus resolving ambiguities in the linear sequence data.
-Thus, Hi-C data is often available, and leveraging this existing data can provide valuable insights to other areas without the need for additional sequencing.
-The aim of this project is to analyze chromatin compartments on the X chromosome during spermatogenesis in baboons, macaques, and humans using Hi-C data. The project involves generating interaction maps and identifying PC1 compartments. A key objective is to compare transition zones with regions undergoing positive selection to uncover how chromatin architecture reflects evolutionary pressures. The ultimate goal is to deepen our understanding of chromatin organization and the conservation of non-advantageous alleles, providing insights into the role of selfish genes in shaping genome evolution.
+Hi-C data is often generated for whole-genome sequencing (WGS) and the assembly of genomes due to its ability to capture the three-dimensional organization of the genome. This spatial information helps in correctly assembling contigs into chromosomes by providing contacts between distant genomic regions, thus resolving ambiguities in the linear sequence data. Thus, Hi-C data is often available, and leveraging this existing data can provide valuable insights to other areas without the need for additional sequencing. The aim of this project is to analyze chromatin compartments on the X chromosome during spermatogenesis in baboons, macaques, and humans using Hi-C data. The project involves generating interaction maps and identifying PC1 compartments. A key objective is to compare transition zones with regions undergoing positive selection to uncover how chromatin architecture reflects evolutionary pressures. The ultimate goal is to deepen our understanding of chromatin organization and the conservation of non-advantageous alleles, providing insights into the role of selfish genes in shaping genome evolution.
 
 
 ## Notes on litterature as I read it
 
-[@servant_hic-pro_2015] describes the software HiC-Pro. Is a pipeline for all the steps until analysis of the contact maps. Includes normalization steps, which is also available as standalone `hiclips/iced` tool. They refer to [@lieberman-aiden_comprehensive_2009] for PCA method.
+[@wang_reprogramming_2019] Macaque/Mouse Hi-C paper. They use HiC-Pro and incorporates RNAseq data analyzed by TopHat and CuffLinks. Introduce small-scale *in situ* Hi-C (sisHi-C). They analyze both A/B compartments and TADs. Also introduce 'Refined A/B compartments' with 'Local PCA'. They cite [@servant_hic-pro_2015] for their PCA method. 
+
+[@servant_hic-pro_2015] describes the software [`HiC-Pro`](https://github.com/nservant/HiC-Pro). Is a pipeline for all the steps until analysis of the contact maps. Includes (iterative correction) normalization steps, which is also available as standalone [`hiclib`/`iced`](https://github.com/hiclib/iced) tool. They refer to [@lieberman-aiden_comprehensive_2009] for PCA method.
 
 [@lieberman-aiden_comprehensive_2009] Introduces the Hi-C method and some ways of analyzing the data. E.g. the eigenvector (PCA) method, where they refer back to [@price_principal_2006]
 
-[@price_principal_2006] use PCA to account for stratification in GWAS. The paper was cited by the Hi-C paper (2009) which was cited by the HiC-Pro paper as their PCA method. No real use for this paper, and they also refer back to a general guide on PCA from 2003. 
+[@price_principal_2006] use PCA to account for stratification in GWAS. The paper was cited by the Hi-C paper (2009) which was cited by the HiC-Pro paper as their PCA method. No real use for this paper, and they also refer back to a general guide on PCA from 2003. *End of citation chain*. 
 
-[@wang_reprogramming_2019] Macaque/Mouse Hi-C paper. They use HiC-Pro and incorporates RNAseq data analyzed by TopHat and CuffLinks. Introduces small-scale *in situ* Hi-C (sisHi-C). They analyze both A/B compartments and TADs. Also introduce 'Refined A/B compartments' with 'Local PCA'. 
+[@zuo_stage-resolved_2021] Stage-resolved Hi-C analysis in **mouse spermatogenesis**, using mm10 reference genome. They use [`hiclib`](https://github.com/mirnylab/hiclib-legacy) (now replaced by [`distiller`](https://github.com/open2c/distiller-nf)) and [`cooler`](https://github.com/open2c/cooler)/[`cooltools`](https://github.com/open2c/cooltools) from mirnylab. They focus on **genome-wide** chromatin structure, especially the weakening of TADs in prophase I (pachytene stage) while there is persistent CTCF binding (loops). They suggest that chromosome organization may provide an infrastructure for the modulation of meiotic recombination in higher eukaryotes. 
 
-[@zuo_stage-resolved_2021] Stage-resolved Hi-C analysis. Haven't read it yet. 
+> **Q:** Could alterations in TAD organization during specific meiotifc stages create opportunities for selfish genes to proliferate or influence transmission?
 
-[@batra_accurate_2020] Baboon paper. Haven't read it yet. 
+[@batra_accurate_2020] Baboon paper. Haven't read it yet.
 
 [@shami_single-cell_2020] Divergent features of mammalian spermatogenesis. Haven't read yet.
 
-[@chakraborty_dchic_2022] dcHiC paper/ `dcHiC` tool. Differential compartments analysis. Haven't really read, but method could be useful.
+[@chakraborty_dchic_2022] dcHiC paper/ [`dcHiC`](https://github.com/ay-lab/dcHiC) tool. Differential compartments analysis. Haven't really read, but method could be useful.
 
-[@bicciato_hi-c_2022] Book on Hi-C data analysis. Might use to find conventional use of thresholds, etc. 
+[@bicciato_hi-c_2022] Book on Hi-C data analysis. Might use to find conventional use of thresholds, etc.
 
 [@skov_extraordinary_2023] Paper from Munch-group. Should read.
 
 [@nunez_genetic-villains-2018]. Paper on Genetic Villains, maybe skim this.
 
-[@HiC_human_cancer_2021] Most recent paper I could find on Hi-C in human. But it is about cancer and other omics than Hi-C. 
-
+[@HiC_human_cancer_2021] Most recent paper I could find on Hi-C in human. But it is about cancer and other omics than Hi-C.
 
 ## Schedule / Work plan
 
-**Semester:** Monday, Aug 26th – Wednesday, Jan 15th (Week 35-3) \
-**Hand-in:** Wednesday, Jan 15th (Week 3) \
-**Holiday:** Wednesday, Oct 23rd – Monday, Oct 28th (Week 43) \
-**Christmas Holidays:** Monday, Dec 23rd – Friday, Jan 3rd (Week 52-1) \
+**Semester:** Monday, Aug 26th – Wednesday, Jan 15th (Week 35-3)\
+**Hand-in:** Wednesday, Jan 15th (Week 3)\
+**Holiday:** Wednesday, Oct 23rd – Monday, Oct 28th (Week 43)\
+**Christmas Holidays:** Monday, Dec 23rd – Friday, Jan 3rd (Week 52-1)\
 
-**Week 35-36 (Aug 26 - Sep 7):** \
+**Week 35-36 (Aug 26 - Sep 7):**\
 Conduct a literature review on chromatin architecture, Hi-C methodology, and the concept of selfish genes. Get an overview of (and obtain) data sets to be used.
 
-**Week 37-38 (Sep 9 - Sep 21):** \
-Assess the status of existing Hi-C data (raw or QC’ed). 
-If necessary, perform initial quality control. 
-Align reads to reference genomes.
+**Week 37-38 (Sep 9 - Sep 21):**\
+Assess the status of existing Hi-C data (raw or QC’ed). If necessary, perform initial quality control. Align reads to reference genomes.
 
-**Week 39-40 (Sep 23 - Oct 5):** \
+**Week 39-40 (Sep 23 - Oct 5):**\
 Process Hi-C interaction data. Perform quality assessment.
 
-**Week 41-42 (Oct 7 - Oct 19):** \
+**Week 41-42 (Oct 7 - Oct 19):**\
 Generate and normalize interaction matrices for the X chromosome.
 
-**Week 43 (Oct 21 - Oct 26):** \
+**Week 43 (Oct 21 - Oct 26):**\
 Holiday from Wednesday (no major activities planned). Tidy notes and do some writing.
 
-**Week 44-45 (Oct 28 - Nov 9):** \
+**Week 44-45 (Oct 28 - Nov 9):**\
 Perform PCA to obtain PC1 compartments. Visualize results.
 
-**Week 46-47 (Nov 11 - Nov 23):** \
+**Week 46-47 (Nov 11 - Nov 23):**\
 Identify A/B compartment transitions. Overlay with positive selection regions.
 
-**Week 48-49 (Nov 25 - Dec 7):** \
-Conduct cross-species analysis by converting genomic coordinates. 
+**Week 48-49 (Nov 25 - Dec 7):**\
+Conduct cross-species analysis by converting genomic coordinates.
 
-**Week 50 (Dec 9 - Dec 14):** \
+**Week 50 (Dec 9 - Dec 14):**\
 Finish analyses. Compare results.
 
-**Week 51 (Dec 16 - Dec 21):** \
+**Week 51 (Dec 16 - Dec 21):**\
 Finalize analyses and begin writing initial thesis draft, incorporating analysis results and discussions.
 
-**Week 52 (Dec 23 - Dec 28):** \
+**Week 52 (Dec 23 - Dec 28):**\
 Christmas holidays (no major activities planned). Will work a couple of days Dec 27-29.
 
-**Week 1 (Dec 30 - Jan 4):** \
+**Week 1 (Dec 30 - Jan 4):**\
 Christmas holidays until Jan 2 (just performing modifications to analyses, etc.).
 
-**Week 2 (Jan 6 - Jan 11):** \
+**Week 2 (Jan 6 - Jan 11):**\
 Revise thesis draft based on feedback. Continue refinement of analyses if necessary.
 
-**Week 3 (Jan 13 - Jan 15):** \
+**Week 3 (Jan 13 - Jan 15):**\
 Final revisions and hand-in on Wednesday, January 15th.
-
