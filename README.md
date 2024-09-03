@@ -1,6 +1,8 @@
 # Correlating Chromatin Compartments with Selection
 
-The GH page rendered from this repo can be accessed ![here](https://munch-group.org/hic-spermatogenesis/).
+***NB! Ongoing project scheduled to finish in January 2025.***
+
+The GH page rendered from this repo can be accessed [here](https://munch-group.org/hic-spermatogenesis/).
 
 In this project, we investigate how the contact maps of High-throughput Chromatin Conformation Capture (Hi-C) can be correlated across species, and how well they correlate with regions that undergo (positive) selection.
 
