@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Søren Jørgensen">
+<meta name="dcterms.date" content="2024-09-04">
 
 <title>Søren’s MSc project about Hi-C and spermatogenesis</title>
 <style>
@@ -191,6 +192,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#project" id="toc-project" class="nav-link active" data-scroll-target="#project">Project</a>
   <ul class="collapse">
+  <li><a href="#questions-for-our-next-meeting" id="toc-questions-for-our-next-meeting" class="nav-link" data-scroll-target="#questions-for-our-next-meeting">Questions for our next meeting</a></li>
   <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a></li>
   <li><a href="#notes-on-litterature-as-i-read-it" id="toc-notes-on-litterature-as-i-read-it" class="nav-link" data-scroll-target="#notes-on-litterature-as-i-read-it">Notes on litterature as I read it</a></li>
   <li><a href="#schedule-work-plan" id="toc-schedule-work-plan" class="nav-link" data-scroll-target="#schedule-work-plan">Schedule / Work plan</a></li>
@@ -217,6 +219,12 @@ div.csl-indent {
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 4, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -233,6 +241,16 @@ div.csl-indent {
 <li>Visit Open Chromosome Collective (<a href="https://github.com/open2c/">Open2C</a>) for tools and tutorials on 3D Chromosome biology</li>
 <li></li>
 </ul>
+<section id="questions-for-our-next-meeting" class="level2">
+<h2 class="anchored" data-anchor-id="questions-for-our-next-meeting">Questions for our next meeting</h2>
+<ul>
+<li>What data do we have/can we get</li>
+<li>What about human spermatogenesis data?
+<ul>
+<li><span class="citation" data-cites="shami_single-cell_2020">(<a href="references.html#ref-shami_single-cell_2020" role="doc-biblioref">Shami et al. 2020</a>)</span> did have 4 human testes samples, but didn’t do Hi-C</li>
+</ul></li>
+</ul>
+</section>
 <section id="outline" class="level2">
 <h2 class="anchored" data-anchor-id="outline">Outline</h2>
 <p>Hi-C data is often generated for whole-genome sequencing (WGS) and the assembly of genomes due to its ability to capture the three-dimensional organization of the genome. This spatial information helps in correctly assembling contigs into chromosomes by providing contacts between distant genomic regions, thus resolving ambiguities in the linear sequence data. Thus, Hi-C data is often available, and leveraging this existing data can provide valuable insights to other areas without the need for additional sequencing. The aim of this project is to analyze chromatin compartments on the X chromosome during spermatogenesis in baboons, macaques, and humans using Hi-C data. The project involves generating interaction maps and identifying PC1 compartments. A key objective is to compare transition zones with regions undergoing positive selection to uncover how chromatin architecture reflects evolutionary pressures. The ultimate goal is to deepen our understanding of chromatin organization and the conservation of non-advantageous alleles, providing insights into the role of selfish genes in shaping genome evolution.</p>
@@ -256,7 +274,7 @@ div.csl-indent {
 <p><span class="citation" data-cites="chakraborty_dchic_2022">(<a href="references.html#ref-chakraborty_dchic_2022" role="doc-biblioref">Chakraborty, Wang, and Ay 2022</a>)</span> dcHiC paper/<a href="https://github.com/ay-lab/dcHiC"><code>dcHiC</code> tool</a>. Differential compartments analysis. Utilize a multivariate distance measure, Mahalanobis (opposed to only pairwise comparisons) to identify and analyze changes across multiple Hi-C maps. They found compartmental changes in regions containing genes involved in cell identity (regulating pluripottency, cell adhesion, signaling pathways) during neuronal development. <code>dcHiC</code> can also identify sub-compartmental changes, and integrate compartmentalization data from other datasets (gene expression, histone modification, replication timing). Multivariata seems to be a better way of considering the Hi-C data.</p>
 <p><span class="citation" data-cites="bicciato_hi-c_2022">(<a href="references.html#ref-bicciato_hi-c_2022" role="doc-biblioref">Bicciato and Ferrari 2022</a>)</span> Book on Hi-C data analysis. Might use to find conventional use of thresholds, etc. Might follow a couple of these pipelines if they are not already outdated.</p>
 <p><span class="citation" data-cites="skov_extraordinary_2023">(<a href="references.html#ref-skov_extraordinary_2023" role="doc-biblioref">Skov et al. 2023</a>)</span> Paper from Munch-group. <em>Cautiously</em> hypothesize that meiotic drive on X chr could be responsible for their observations. Examining the selective sweeps in the context of (primate) spermatogenesis could be insightful. Integrating gene expression and Hi-C maps during spermatogenesis, could potentially uncover if the sweeps preferentially affect active elements/gene during spermatogenesis at i.e.&nbsp;specific stages.</p>
-<p><span class="citation" data-cites="nunez_genetic-villains-2018">(<a href="references.html#ref-nunez_genetic-villains-2018" role="doc-biblioref">Bravo Núñez, Nuckolls, and Zanders 2018</a>)</span>. Paper on Genetic Villains/meiotic drivers, should read.</p>
+<p><span class="citation" data-cites="nunez_genetic-villains-2018">(<a href="references.html#ref-nunez_genetic-villains-2018" role="doc-biblioref">Bravo Núñez, Nuckolls, and Zanders 2018</a>)</span>. Paper on Genetic Villains/meiotic drivers. Describes the difficulty of detecting drive, and different types of drive. Killer-Target, Poison-Antidote. They have nice illustrations of meiotic drive.</p>
 <p><span class="citation" data-cites="HiC_human_cancer_2021">(<a href="references.html#ref-HiC_human_cancer_2021" role="doc-biblioref">Gong et al. 2021</a>)</span> Most recent paper I could find on Hi-C in human. But it is about cancer and other omics than Hi-C.</p>
 </section>
 <section id="schedule-work-plan" class="level2">
