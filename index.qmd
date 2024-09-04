@@ -1,6 +1,7 @@
 ---
 title: "Project"
 bibliography: references.bib
+date: last-modified
 ---
 
 # Project {.unnumbered}
@@ -8,6 +9,12 @@ bibliography: references.bib
 - Visit the [project guide](https://munch-group.org/project-guide/) for help.
 - Visit Open Chromosome Collective ([Open2C](https://github.com/open2c/)) for tools and tutorials on 3D Chromosome biology
 - 
+
+## Questions for our next meeting
+
+- What data do we have/can we get
+- What about human spermatogenesis data? 
+    - [@shami_single-cell_2020] did have 4 human testes samples, but didn't do Hi-C 
 
 ## Outline
 
@@ -41,7 +48,7 @@ Hi-C data is often generated for whole-genome sequencing (WGS) and the assembly 
 
 [@skov_extraordinary_2023] Paper from Munch-group. *Cautiously* hypothesize that meiotic drive on X chr could be responsible for their observations. Examining the selective sweeps in the context of (primate) spermatogenesis could be insightful. Integrating gene expression and Hi-C maps during spermatogenesis, could potentially uncover if the sweeps preferentially affect active elements/gene during spermatogenesis at i.e. specific stages. 
 
-[@nunez_genetic-villains-2018]. Paper on Genetic Villains/meiotic drivers, should read.
+[@nunez_genetic-villains-2018]. Paper on Genetic Villains/meiotic drivers. Describes the difficulty of detecting drive, and different types of drive. Killer-Target, Poison-Antidote. They have nice illustrations of meiotic drive. 
 
 [@HiC_human_cancer_2021] Most recent paper I could find on Hi-C in human. But it is about cancer and other omics than Hi-C.
 
