@@ -8,21 +8,11 @@ date: last-modified
 
 - Visit the [project guide](https://munch-group.org/project-guide/) for help.
 - Visit Open Chromosome Collective ([Open2C](https://github.com/open2c/)) for tools and tutorials on 3D Chromosome biology
-- 
-
-## Questions for our next meeting
-
-- What data do we have/can we get
-- What about human spermatogenesis data? 
-    - [@shami_single-cell_2020] did have 4 human testes samples, but didn't do Hi-C 
+- Visit [HiCExplorer docs](https://hicexplorer.readthedocs.io/en/latest/)
 
 ## Outline
 
 Hi-C data is often generated for whole-genome sequencing (WGS) and the assembly of genomes due to its ability to capture the three-dimensional organization of the genome. This spatial information helps in correctly assembling contigs into chromosomes by providing contacts between distant genomic regions, thus resolving ambiguities in the linear sequence data. Thus, Hi-C data is often available, and leveraging this existing data can provide valuable insights to other areas without the need for additional sequencing. The aim of this project is to analyze chromatin compartments on the X chromosome during spermatogenesis in baboons, macaques, and humans using Hi-C data. The project involves generating interaction maps and identifying PC1 compartments. A key objective is to compare transition zones with regions undergoing positive selection to uncover how chromatin architecture reflects evolutionary pressures. The ultimate goal is to deepen our understanding of chromatin organization and the conservation of non-advantageous alleles, providing insights into the role of selfish genes in shaping genome evolution.
-
-**Thoughts** 
-
-- Is is probably not possible to obtain data from human spermatogenesis. 
 
 ## Notes on litterature as I read it
 
