@@ -1,13 +1,24 @@
 [
   {
+    "objectID": "notebooks/01_hicexplorer.html",
+    "href": "notebooks/01_hicexplorer.html",
+    "title": "HiCExplorer using macaque data",
+    "section": "",
+    "text": "Getting started\nThe data we are going to use is located in \"../../../../data/macaque_results_from_aurora/\", containing the following files:\n!ls -l ../../../../data/macaque_results_from_aurora/\n\ntotal 8\n-r--r--r-- 1 kmt hic-spermatogenesis 276944 Jul 11 14:42 fib_rep11_macaca_500_correct.normToOne_compartments.txt\n-r--r--r-- 1 kmt hic-spermatogenesis 276979 Jul 11 14:42 pd_rep11_macaca_500_correct.normToOne_compartments.txt\n-r--r--r-- 1 kmt hic-spermatogenesis 277216 Jul 11 14:41 rs_rep11_macaca_500_correct.normToOne_compartments.txt\n-r--r--r-- 1 kmt hic-spermatogenesis 276405 Jul 11 14:42 spg_rep1_macaca_500_correct.normToOne_compartments.txt\n-r--r--r-- 1 kmt hic-spermatogenesis  18382 Jul 11 14:42 tads_fib_macaca.bed\n-r--r--r-- 1 kmt hic-spermatogenesis   9706 Jul 11 14:42 tads_pd_macaca.bed\n-r--r--r-- 1 kmt hic-spermatogenesis  13568 Jul 11 14:42 tads_rs_macaca.bed\n-r--r--r-- 1 kmt hic-spermatogenesis  12579 Jul 11 14:42 tads_spg_macaca.bed\nTo be continued…",
+    "crumbs": [
+      "Notebooks",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>HiCExplorer using macaque data</span>"
+    ]
+  },
+  {
     "objectID": "notebooks/01_weather.html",
     "href": "notebooks/01_weather.html",
     "title": "Danish weather",
     "section": "",
-    "text": "Weather data\nWeather data was collected… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah\nlong_format = df.melt(id_vars=['day'], value_vars=['wind', 'precipitation'], var_name='weather', value_name='value')\nlong_format\n\n\n\n\n\n\n\n\nday\nweather\nvalue\n\n\n\n\n0\n0\nwind\n1.124467\n\n\n1\n1\nwind\n1.135152\n\n\n2\n2\nwind\n1.597665\n\n\n3\n3\nwind\n1.318885\n\n\n4\n4\nwind\n1.862039\n\n\n...\n...\n...\n...\n\n\n295\n145\nprecipitation\n1.172954\n\n\n296\n146\nprecipitation\n1.852812\n\n\n297\n147\nprecipitation\n1.202052\n\n\n298\n148\nprecipitation\n1.198011\n\n\n299\n149\nprecipitation\n1.996627\n\n\n\n\n300 rows × 3 columns\nsns.lineplot(data=long_format, x='day', y='value', hue='weather')\nplt.ylim(bottom=0) ;\n\n\n\n\n\n\n\nFigure 2.1: Danish weather: This is the weather forcast for your project\nFrom this plot, it seems Danish weather is quite unpredictable.",
+    "text": "Weather data\nWeather data was collected… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah\nlong_format = df.melt(id_vars=['day'], value_vars=['wind', 'precipitation'], var_name='weather', value_name='value')\nlong_format\n\n\n\n\n\n\n\n\nday\nweather\nvalue\n\n\n\n\n0\n0\nwind\n1.124467\n\n\n1\n1\nwind\n1.135152\n\n\n2\n2\nwind\n1.597665\n\n\n3\n3\nwind\n1.318885\n\n\n4\n4\nwind\n1.862039\n\n\n...\n...\n...\n...\n\n\n295\n145\nprecipitation\n1.172954\n\n\n296\n146\nprecipitation\n1.852812\n\n\n297\n147\nprecipitation\n1.202052\n\n\n298\n148\nprecipitation\n1.198011\n\n\n299\n149\nprecipitation\n1.996627\n\n\n\n\n300 rows × 3 columns\nsns.lineplot(data=long_format, x='day', y='value', hue='weather')\nplt.ylim(bottom=0) ;\n\n\n\n\n\n\n\nFigure 3.1: Danish weather: This is the weather forcast for your project\nFrom this plot, it seems Danish weather is quite unpredictable.",
     "crumbs": [
       "Notebooks",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Danish weather</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Danish weather</span>"
     ]
   },
   {
@@ -15,10 +26,10 @@
     "href": "notebooks/02_interaction.html",
     "title": "Workplace interaction",
     "section": "",
-    "text": "Sampling\nI sampled 100 danaes from workplaces in Denmark. More about the sampling… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\nWorkplace individuals were interviewed by …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\ndf = pd.DataFrame({'name': danish_people, \n                   'seniority': np.random.randint(0, 5, len(danish_people)), \n                   'age': np.random.randint(22, 67, len(danish_people))})\ndf['informality'] = np.random.normal(loc=10, scale=1, size=len(danish_people))\ndf\n\n\n\n\n\n\n\n\nname\nseniority\nage\ninformality\n\n\n\n\n0\nJulie\n4\n58\n9.944085\n\n\n1\nSofie\n3\n42\n9.600922\n\n\n2\nSara\n0\n55\n8.107589\n\n\n3\nCecilie\n2\n39\n10.745701\n\n\n4\nEmma\n0\n52\n10.304008\n\n\n...\n...\n...\n...\n...\n\n\n95\nJesper\n0\n66\n8.729660\n\n\n96\nDavid\n2\n31\n10.554446\n\n\n97\nAsger\n3\n64\n10.223756\n\n\n98\nMichael\n1\n24\n11.298557\n\n\n99\nJohan\n0\n53\n10.708786\n\n\n\n\n100 rows × 4 columns\nsns.scatterplot(x='age', y='informality', data=df, hue='seniority', palette='viridis')\nplt.ylabel('How informal you can be')\nplt.xlabel('Age')\nplt.legend(title='Seniority', loc='lower right', labels=['Undergrad', 'Postgrad', 'PhD', 'Postdoc', 'Professor'])\nplt.ylim(bottom=0) ;\n\n\n\n\n\n\n\nFigure 3.1: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\nSeems Danish people act very informally unaffected by age and seniority.\ninformality_age_cor = df.informality.corr(df.age)\ninformality_age_cor\n\n-0.13078736692763468\ninformality_seniority_cor = df.informality.corr(df.seniority)\ninformality_seniority_cor\n\n0.02930324759614983\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.\nsns.lmplot(x='age', y='informality', data=df, hue='seniority', palette='viridis')\nplt.ylabel('How informal you can be')\nplt.xlabel('Age') ;\n\n\n\n\n\n\n\nFigure 3.2: Interaction among Danes: Regressions of informality against age for five levels of seniority.",
+    "text": "Sampling\nI sampled 100 danaes from workplaces in Denmark. More about the sampling… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\nWorkplace individuals were interviewed by …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\ndf = pd.DataFrame({'name': danish_people, \n                   'seniority': np.random.randint(0, 5, len(danish_people)), \n                   'age': np.random.randint(22, 67, len(danish_people))})\ndf['informality'] = np.random.normal(loc=10, scale=1, size=len(danish_people))\ndf\n\n\n\n\n\n\n\n\nname\nseniority\nage\ninformality\n\n\n\n\n0\nJulie\n4\n58\n9.944085\n\n\n1\nSofie\n3\n42\n9.600922\n\n\n2\nSara\n0\n55\n8.107589\n\n\n3\nCecilie\n2\n39\n10.745701\n\n\n4\nEmma\n0\n52\n10.304008\n\n\n...\n...\n...\n...\n...\n\n\n95\nJesper\n0\n66\n8.729660\n\n\n96\nDavid\n2\n31\n10.554446\n\n\n97\nAsger\n3\n64\n10.223756\n\n\n98\nMichael\n1\n24\n11.298557\n\n\n99\nJohan\n0\n53\n10.708786\n\n\n\n\n100 rows × 4 columns\nsns.scatterplot(x='age', y='informality', data=df, hue='seniority', palette='viridis')\nplt.ylabel('How informal you can be')\nplt.xlabel('Age')\nplt.legend(title='Seniority', loc='lower right', labels=['Undergrad', 'Postgrad', 'PhD', 'Postdoc', 'Professor'])\nplt.ylim(bottom=0) ;\n\n\n\n\n\n\n\nFigure 4.1: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\nSeems Danish people act very informally unaffected by age and seniority.\ninformality_age_cor = df.informality.corr(df.age)\ninformality_age_cor\n\n-0.13078736692763468\ninformality_seniority_cor = df.informality.corr(df.seniority)\ninformality_seniority_cor\n\n0.02930324759614983\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.\nsns.lmplot(x='age', y='informality', data=df, hue='seniority', palette='viridis')\nplt.ylabel('How informal you can be')\nplt.xlabel('Age') ;\n\n\n\n\n\n\n\nFigure 4.2: Interaction among Danes: Regressions of informality against age for five levels of seniority.",
     "crumbs": [
       "Notebooks",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Workplace interaction</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Workplace interaction</span>"
     ]
   },
   {
@@ -29,7 +40,7 @@
     "text": "Abstract\nThis is a dummy abstract, dreamt up by chatGPT. Chromatin organization plays a crucial role in gene regulation and genome stability, particularly during the complex process of spermatogenesis. This thesis explores the three-dimensional chromatin architecture of the X chromosome in baboons, macaques, and humans, with a specific focus on the role of chromatin compartments during spermatogenesis. Leveraging publicly available Hi-C data, interaction maps were generated to identify Principal Component 1 (PC1) compartments, revealing distinct chromatin compartmentalization patterns across species. The analysis was extended to examine transition zones, areas where chromatin shifts from one compartment type to another, and their correlation with regions under positive selection.\nBy comparing these zones with regions of known evolutionary significance, the study aims to uncover how chromatin structure reflects and potentially drives evolutionary pressures. A key finding is the identification of conserved chromatin features that may contribute to the retention of non-advantageous alleles, suggesting a possible role for selfish genetic elements in shaping genome evolution. The results of this research provide novel insights into the interplay between chromatin architecture and evolutionary dynamics, contributing to a deeper understanding of the conservation and divergence of chromatin structures across primate species.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -40,7 +51,7 @@
     "text": "Introduction\nDenmark is …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -48,10 +59,10 @@
     "href": "reports/manuscript.html#results",
     "title": "Correlating Chromatin Compartments with Selection",
     "section": "Results",
-    "text": "Results\n\nWeather\nAs shown in Figure 4.1, the Danish weather is blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.\n\n\n\n\n\n\n\n\n\nFigure 4.1: Danish weather: This is the weather forcast for your project\n\n\n\n\n\n\n\n\nSocial norms\nIn Denmark, the workplace interaction is very informal and largely unaffected by seniority and age.\n\n\n\nI sampled 100 danaes from workplaces in Denmark. More about the sampling… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\n\n\n\nI found that neither academic seniority or age of workplace individuals much affected how informal our interaction was (see Figure 4.2).\n\n\n\n\n\n\n\n\n\nFigure 4.2: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\n\n\n\n\n\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.",
+    "text": "Results\n\nWeather\nAs shown in Figure 5.1, the Danish weather is blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.\n\n\n\n\n\n\n\n\n\nFigure 5.1: Danish weather: This is the weather forcast for your project\n\n\n\n\n\n\n\n\nSocial norms\nIn Denmark, the workplace interaction is very informal and largely unaffected by seniority and age.\n\n\n\nI sampled 100 danaes from workplaces in Denmark. More about the sampling… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\n\n\n\nI found that neither academic seniority or age of workplace individuals much affected how informal our interaction was (see Figure 5.2).\n\n\n\n\n\n\n\n\n\nFigure 5.2: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\n\n\n\n\n\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -62,7 +73,7 @@
     "text": "Discussion\nThis this investigation of Danes…, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -73,7 +84,7 @@
     "text": "Methods\n\nWeather analysis\n\n\n\nWeather data was collected… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah\n\n\n\n\n\nInteraction analysis\n\n\n\nWorkplace individuals were interviewed by …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -87,21 +98,11 @@
     ]
   },
   {
-    "objectID": "index.html#questions-for-our-next-meeting",
-    "href": "index.html#questions-for-our-next-meeting",
-    "title": "Søren’s MSc project about Hi-C and spermatogenesis",
-    "section": "Questions for our next meeting",
-    "text": "Questions for our next meeting\n\nWhat data do we have/can we get\nWhat about human spermatogenesis data?\n\n(Shami et al. 2020) did have 4 human testes samples, but didn’t do Hi-C",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Project</span>"
-    ]
-  },
-  {
     "objectID": "index.html#outline",
     "href": "index.html#outline",
     "title": "Søren’s MSc project about Hi-C and spermatogenesis",
     "section": "Outline",
-    "text": "Outline\nHi-C data is often generated for whole-genome sequencing (WGS) and the assembly of genomes due to its ability to capture the three-dimensional organization of the genome. This spatial information helps in correctly assembling contigs into chromosomes by providing contacts between distant genomic regions, thus resolving ambiguities in the linear sequence data. Thus, Hi-C data is often available, and leveraging this existing data can provide valuable insights to other areas without the need for additional sequencing. The aim of this project is to analyze chromatin compartments on the X chromosome during spermatogenesis in baboons, macaques, and humans using Hi-C data. The project involves generating interaction maps and identifying PC1 compartments. A key objective is to compare transition zones with regions undergoing positive selection to uncover how chromatin architecture reflects evolutionary pressures. The ultimate goal is to deepen our understanding of chromatin organization and the conservation of non-advantageous alleles, providing insights into the role of selfish genes in shaping genome evolution.\nThoughts\n\nIs is probably not possible to obtain data from human spermatogenesis.",
+    "text": "Outline\nHi-C data is often generated for whole-genome sequencing (WGS) and the assembly of genomes due to its ability to capture the three-dimensional organization of the genome. This spatial information helps in correctly assembling contigs into chromosomes by providing contacts between distant genomic regions, thus resolving ambiguities in the linear sequence data. Thus, Hi-C data is often available, and leveraging this existing data can provide valuable insights to other areas without the need for additional sequencing. The aim of this project is to analyze chromatin compartments on the X chromosome during spermatogenesis in baboons, macaques, and humans using Hi-C data. The project involves generating interaction maps and identifying PC1 compartments. A key objective is to compare transition zones with regions undergoing positive selection to uncover how chromatin architecture reflects evolutionary pressures. The ultimate goal is to deepen our understanding of chromatin organization and the conservation of non-advantageous alleles, providing insights into the role of selfish genes in shaping genome evolution.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Project</span>"
     ]
@@ -134,7 +135,7 @@
     "text": "Regression analysis of formality\nBlah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Supplementary info</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Supplementary info</span>"
     ]
   },
   {
@@ -142,10 +143,10 @@
     "href": "reports/supplementary.html#regression-analysis-of-formality",
     "title": "Supplementary info",
     "section": "",
-    "text": "Figure 5.1: Interaction among Danes: Regressions of informality against age for five levels of seniority.",
+    "text": "Figure 6.1: Interaction among Danes: Regressions of informality against age for five levels of seniority.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Supplementary info</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Supplementary info</span>"
     ]
   },
   {

@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>HiCExplorer using macaque data – Søren's MSc project about Hi-C and spermatogenesis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../notebooks/01_weather.html" rel="next">
+<link href="../index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/01_hicexplorer.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/01_hicexplorer.html"><span class="chapter-title">HiCExplorer using macaque data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Søren’s MSc project about Hi-C and spermatogenesis</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Notebooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">HiCExplorer using macaque data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/01_weather.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Danish weather</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/02_interaction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workplace interaction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reports</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reports/manuscript.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Correlating Chromatin Compartments with Selection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reports/supplementary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Supplementary info</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/01_hicexplorer.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/01_hicexplorer.html"><span class="chapter-title">HiCExplorer using macaque data</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">HiCExplorer using macaque data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong><em>Before using this notebook, make sure you use the ‘hic’ conda environment.</em></strong></p>
+<p>I might change the env into a seperate HiC env for each of the tools, such as HICExplorer, HiC-Pro, etc.</p>
+<p>As of this update, there is only one environment in the repo, and it contains both Python, R, and CLI tools for use in HI-C data analysis.</p>
+<div id="cell-1" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>conda  <span class="bu">list</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>which python</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># packages in environment at /home/sojern/miniconda3/envs/hic:
+#
+# Name                    Version                   Build  Channel
+_libgcc_mutex             0.1                 conda_forge    conda-forge
+_openmp_mutex             4.5                       2_gnu    conda-forge
+_r-mutex                  1.0.0               anacondar_1  
+_sysroot_linux-64_curr_repodata_hack 3                   haa98f57_10  
+anyio                     4.2.0           py312h06a4308_0  
+argcomplete               3.5.0              pyhd8ed1ab_0    conda-forge
+argh                      0.31.3             pyhd8ed1ab_0    conda-forge
+argon2-cffi               21.3.0             pyhd3eb1b0_0  
+argon2-cffi-bindings      21.2.0          py312h5eee18b_0  
+arrow-cpp                 16.1.0               hc1eb8f0_0  
+asciitree                 0.3.3                      py_2    conda-forge
+asttokens                 2.0.5              pyhd3eb1b0_0  
+async-lru                 2.0.4           py312h06a4308_0  
+atk-1.0                   2.38.0               hd4edc92_1    conda-forge
+attrs                     23.1.0          py312h06a4308_0  
+aws-c-auth                0.6.21               hd93a3ba_3    conda-forge
+aws-c-cal                 0.5.20               hff2c3d7_3    conda-forge
+aws-c-common              0.8.5                h166bdaf_0    conda-forge
+aws-c-compression         0.2.16               hf5f93bc_0    conda-forge
+aws-c-event-stream        0.2.17               h57874a7_1    conda-forge
+aws-c-http                0.7.0                h96ef541_0    conda-forge
+aws-c-io                  0.13.12              h57ca295_1    conda-forge
+aws-c-mqtt                0.7.13              h0b5698f_12    conda-forge
+aws-c-s3                  0.2.1                h82cbbf9_4    conda-forge
+aws-c-sdkutils            0.1.7                hf5f93bc_0    conda-forge
+aws-checksums             0.1.14               h6027aba_0    conda-forge
+aws-crt-cpp               0.18.16              h26430d7_8    conda-forge
+aws-sdk-cpp               1.10.55              h32f6703_0    conda-forge
+babel                     2.11.0          py312h06a4308_0  
+beautifulsoup4            4.12.3          py312h06a4308_0  
+bedtools                  2.31.1               hf5e1c6e_2    bioconda
+binutils_impl_linux-64    2.38                 h2a08ee3_1  
+biopython                 1.84            py312h9a8786e_0    conda-forge
+blas                      1.0                    openblas  
+bleach                    4.1.0              pyhd3eb1b0_0  
+blosc                     1.21.3               h6a678d5_0  
+bokeh                     3.5.2              pyhd8ed1ab_0    conda-forge
+bottleneck                1.3.7           py312ha883a20_0  
+brotli                    1.0.9                h5eee18b_8  
+brotli-bin                1.0.9                h5eee18b_8  
+brotli-python             1.0.9           py312h6a678d5_8  
+bwa                       0.7.18               he4a0461_1    bioconda
+bwidget                   1.9.16               h9eba36c_0  
+bx-python                 0.11.0          py312hf0ab922_3    bioconda
+bzip2                     1.0.8                h5eee18b_6  
+c-ares                    1.33.1               heb4867d_0    conda-forge
+c-blosc2                  2.12.0               h80c7b02_0  
+ca-certificates           2024.7.4             hbcca054_0    conda-forge
+cairo                     1.18.0               h3faef2a_0    conda-forge
+certifi                   2024.7.4        py312h06a4308_0  
+cffi                      1.16.0          py312h5eee18b_1  
+charset-normalizer        3.3.2              pyhd3eb1b0_0  
+cleanlab                  2.6.6              pyhd8ed1ab_0    conda-forge
+click                     8.1.7           py312h06a4308_0  
+click-plugins             1.1.1              pyhd3eb1b0_0  
+cloudpickle               3.0.0              pyhd8ed1ab_0    conda-forge
+colorama                  0.4.6           py312h06a4308_0  
+comm                      0.2.1           py312h06a4308_0  
+contourpy                 1.2.0           py312hdb19cb5_0  
+cooler                    0.10.2             pyhdfd78af_0    bioconda
+curl                      8.8.0                he654da7_1    conda-forge
+cycler                    0.11.0             pyhd3eb1b0_0  
+cytoolz                   0.12.3          py312h98912ed_0    conda-forge
+dask                      2024.8.1           pyhd8ed1ab_0    conda-forge
+dask-core                 2024.8.1           pyhd8ed1ab_0    conda-forge
+dask-expr                 1.1.11             pyhd8ed1ab_0    conda-forge
+debugpy                   1.6.7           py312h6a678d5_0  
+decorator                 5.1.1              pyhd3eb1b0_0  
+defusedxml                0.7.1              pyhd3eb1b0_0  
+dill                      0.3.8              pyhd8ed1ab_0    conda-forge
+distributed               2024.8.1           pyhd8ed1ab_0    conda-forge
+eigen                     3.4.0                h00ab1b0_0    conda-forge
+executing                 0.8.3              pyhd3eb1b0_0  
+expat                     2.6.2                h6a678d5_0  
+fit_nbinom                1.2                pyh7cba7a3_0    bioconda
+font-ttf-dejavu-sans-mono 2.37                 hab24e00_0    conda-forge
+font-ttf-inconsolata      3.000                h77eed37_0    conda-forge
+font-ttf-source-code-pro  2.038                h77eed37_0    conda-forge
+font-ttf-ubuntu           0.83                 h77eed37_2    conda-forge
+fontconfig                2.14.2               h14ed4e7_0    conda-forge
+fonts-conda-ecosystem     1                             0    conda-forge
+fonts-conda-forge         1                             0    conda-forge
+fonttools                 4.51.0          py312h5eee18b_0  
+freetype                  2.12.1               h4a9f257_0  
+fribidi                   1.0.10               h36c2ea0_0    conda-forge
+fsspec                    2024.6.1           pyhff2d567_0    conda-forge
+future                    1.0.0              pyhd8ed1ab_0    conda-forge
+gcc_impl_linux-64         11.2.0               h1234567_1  
+gdbm                      1.18                 hd4cb3f1_4  
+gdk-pixbuf                2.42.10              h829c605_5    conda-forge
+gettext                   0.21.0               hedfda30_2  
+gffutils                  0.13               pyh7cba7a3_0    bioconda
+gflags                    2.2.2             he1b5a44_1004    conda-forge
+gfortran_impl_linux-64    11.2.0               h1234567_1  
+giflib                    5.2.1                h5eee18b_3  
+git                       2.45.2          pl5340h9abc3c3_0  
+gitdb                     4.0.7              pyhd3eb1b0_0  
+gitpython                 3.1.43          py312h06a4308_0  
+glib                      2.78.4               h6a678d5_0  
+glib-tools                2.78.4               h6a678d5_0  
+glog                      0.5.0                h48cff8f_0    conda-forge
+graphite2                 1.3.14               h295c915_1  
+graphviz                  4.0.0                h5abf519_0    conda-forge
+gtk2                      2.24.33              h90689f9_2    conda-forge
+gts                       0.7.6                h977cf35_4    conda-forge
+gwf                       2.0.5                      py_0    gwforg
+gwf-utilization           0.2                        py_0    micknudsen
+gxx_impl_linux-64         11.2.0               h1234567_1  
+h5py                      3.11.0          py312h34c39bb_0  
+harfbuzz                  8.3.0                h3d44ed6_0    conda-forge
+hdf5                      1.12.1               h2b7332f_3  
+hic2cool                  1.0.1              pyh7cba7a3_0    bioconda
+hicexplorer               3.7.5              pyhdfd78af_0    bioconda
+hicmatrix                 17.2               pyhdfd78af_0    bioconda
+htslib                    1.20                 h5efdd21_2    bioconda
+hyperopt                  0.2.7              pyhd8ed1ab_0    conda-forge
+icu                       73.2                 h59595ed_0    conda-forge
+idna                      3.7             py312h06a4308_0  
+imbalanced-learn          0.12.3             pyhd8ed1ab_0    conda-forge
+importlib-metadata        8.4.0              pyha770c72_0    conda-forge
+importlib_metadata        8.4.0                hd8ed1ab_0    conda-forge
+intervaltree              3.1.0              pyhd8ed1ab_1    conda-forge
+ipykernel                 6.28.0          py312h06a4308_0  
+ipython                   8.25.0          py312h06a4308_0  
+jedi                      0.19.1          py312h06a4308_0  
+jinja2                    3.1.4           py312h06a4308_0  
+joblib                    1.4.2              pyhd8ed1ab_0    conda-forge
+json5                     0.9.6              pyhd3eb1b0_0  
+jsonschema                4.19.2          py312h06a4308_0  
+jsonschema-specifications 2023.7.1        py312h06a4308_0  
+jupyter-lsp               2.2.0           py312h06a4308_0  
+jupyter-server-mathjax    0.2.6           py312h06a4308_0  
+jupyter_client            8.6.0           py312h06a4308_0  
+jupyter_core              5.7.2           py312h06a4308_0  
+jupyter_events            0.10.0          py312h06a4308_0  
+jupyter_server            2.14.1          py312h06a4308_0  
+jupyter_server_terminals  0.4.4           py312h06a4308_1  
+jupyterlab                4.0.11          py312h06a4308_0  
+jupyterlab_pygments       0.1.2                      py_0  
+jupyterlab_server         2.25.1          py312h06a4308_0  
+kernel-headers_linux-64   3.10.0              h57e8cba_10  
+keyutils                  1.6.1                h166bdaf_0    conda-forge
+kiwisolver                1.4.4           py312h6a678d5_0  
+krb5                      1.21.3               h659f571_0    conda-forge
+krbalancing               0.0.5           py312h28adbb1_9    bioconda
+lcms2                     2.16                 hb7c19ff_0    conda-forge
+ld_impl_linux-64          2.38                 h1181459_1  
+lerc                      4.0.0                h27087fc_0    conda-forge
+libabseil                 20240116.2      cxx17_he02047a_1    conda-forge
+libblas                   3.9.0           16_linux64_openblas    conda-forge
+libbrotlicommon           1.0.9                h5eee18b_8  
+libbrotlidec              1.0.9                h5eee18b_8  
+libbrotlienc              1.0.9                h5eee18b_8  
+libcurl                   8.8.0                hca28451_1    conda-forge
+libdeflate                1.20                 hd590300_0    conda-forge
+libedit                   3.1.20230828         h5eee18b_0  
+libev                     4.33                 h7f8727e_1  
+libevent                  2.1.10               h28343ad_4    conda-forge
+libexpat                  2.6.2                h59595ed_0    conda-forge
+libffi                    3.4.4                h6a678d5_1  
+libgcc                    14.1.0               h77fa898_1    conda-forge
+libgcc-devel_linux-64     11.2.0               h1234567_1  
+libgcc-ng                 14.1.0               h69a702a_1    conda-forge
+libgd                     2.3.3                h119a65a_9    conda-forge
+libgfortran-ng            11.2.0               h00389a5_1  
+libgfortran5              11.2.0               h1234567_1  
+libglib                   2.78.4               hdc74915_0  
+libgomp                   14.1.0               h77fa898_1    conda-forge
+libgrpc                   1.62.2               h2d74bed_0  
+libiconv                  1.17                 hd590300_2    conda-forge
+libjpeg-turbo             3.0.3                h5eee18b_0  
+liblapack                 3.9.0           16_linux64_openblas    conda-forge
+libnghttp2                1.58.0               h47da74e_1    conda-forge
+libnsl                    2.0.1                hd590300_0    conda-forge
+libopenblas               0.3.21               h043d6bf_0  
+libpng                    1.6.43               h2797004_0    conda-forge
+libprotobuf               4.25.3               h08a7969_0    conda-forge
+librsvg                   2.54.4               h7abd40a_0    conda-forge
+libsodium                 1.0.18               h7b6447c_0  
+libsqlite                 3.46.0               hde9e2c9_0    conda-forge
+libssh2                   1.11.0               h251f7ec_0  
+libstdcxx                 14.1.0               hc0a3c3a_1    conda-forge
+libstdcxx-devel_linux-64  11.2.0               h1234567_1  
+libstdcxx-ng              14.1.0               h4852527_1    conda-forge
+libthrift                 0.15.0               h362ad58_1    conda-forge
+libtiff                   4.6.0                h1dd3fc0_3    conda-forge
+libtool                   2.4.7                he02047a_1    conda-forge
+libuuid                   2.38.1               h0b41bf4_0    conda-forge
+libwebp                   1.3.2                h658648e_1    conda-forge
+libwebp-base              1.3.2                h5eee18b_0  
+libxcb                    1.15                 h7f8727e_0  
+libxcrypt                 4.4.36               hd590300_1    conda-forge
+libxml2                   2.13.1               hfdd30dd_2  
+libzlib                   1.2.13               h4ab18f5_6    conda-forge
+locket                    1.0.0              pyhd8ed1ab_0    conda-forge
+lz4                       4.3.3           py312h03f37cb_0    conda-forge
+lz4-c                     1.9.4                h6a678d5_1  
+lzo                       2.10                 h7b6447c_2  
+make                      4.2.1                h1bed415_1  
+markupsafe                2.1.3           py312h5eee18b_0  
+matplotlib-base           3.8.4           py312h526ad5a_0  
+matplotlib-inline         0.1.6           py312h06a4308_0  
+mistune                   2.0.4           py312h06a4308_0  
+msgpack-python            1.0.8           py312h2492b07_0    conda-forge
+multiprocess              0.70.16         py312h66e93f0_1    conda-forge
+nbclient                  0.8.0           py312h06a4308_0  
+nbconvert                 7.10.0          py312h06a4308_0  
+nbdime                    4.0.1           py312h06a4308_0  
+nbformat                  5.9.2           py312h06a4308_0  
+ncurses                   6.4                  h6a678d5_0  
+nest-asyncio              1.6.0           py312h06a4308_0  
+networkx                  3.3                pyhd8ed1ab_1    conda-forge
+notebook                  7.0.8           py312h06a4308_2  
+notebook-shim             0.2.3           py312h06a4308_0  
+numexpr                   2.8.7           py312he7dcb8a_0  
+numpy                     1.26.4          py312h2809609_0  
+numpy-base                1.26.4          py312he1a6c75_0  
+openjpeg                  2.5.2                he7f1fd0_0  
+openssl                   3.3.1                hb9d3cd8_3    conda-forge
+orc                       2.0.1                h17fec99_1    conda-forge
+overrides                 7.4.0           py312h06a4308_0  
+packaging                 24.1            py312h06a4308_0  
+pairix                    0.3.8           py312he57d009_3    bioconda
+pandas                    2.2.2           py312h526ad5a_0  
+pandoc                    2.12                 h06a4308_3  
+pandocfilters             1.5.0              pyhd3eb1b0_0  
+pango                     1.50.14              ha41ecd1_2    conda-forge
+parso                     0.8.3              pyhd3eb1b0_0  
+partd                     1.4.2              pyhd8ed1ab_0    conda-forge
+patsy                     0.5.6           py312h06a4308_0  
+pcre2                     10.42                hebb0a14_1  
+perl                      5.34.0               h5eee18b_2  
+pexpect                   4.8.0              pyhd3eb1b0_3  
+pillow                    10.3.0          py312hdcec9eb_0    conda-forge
+pip                       24.2            py312h06a4308_0  
+pixman                    0.43.2               h59595ed_0    conda-forge
+platformdirs              3.10.0          py312h06a4308_0  
+prometheus_client         0.14.1          py312h06a4308_0  
+prompt-toolkit            3.0.43          py312h06a4308_0  
+prompt_toolkit            3.0.43               hd3eb1b0_0  
+psutil                    5.9.0           py312h5eee18b_0  
+pthread-stubs             0.4               h36c2ea0_1001    conda-forge
+ptyprocess                0.7.0              pyhd3eb1b0_2  
+pure_eval                 0.2.2              pyhd3eb1b0_0  
+py-cpuinfo                9.0.0           py312h06a4308_0  
+py4j                      0.10.9.7           pyhd8ed1ab_0    conda-forge
+pyarrow                   16.1.0          py312h526ad5a_0  
+pyarrow-hotfix            0.6                pyhd8ed1ab_0    conda-forge
+pybedtools                0.10.0          py312ha1f7cf2_2    bioconda
+pybigwig                  0.3.22          py312hfa7e9eb_3    bioconda
+pybind11                  2.12.0          py312hdb19cb5_0  
+pybind11-abi              5                    hd3eb1b0_0  
+pybind11-global           2.12.0          py312hdb19cb5_0  
+pycparser                 2.21               pyhd3eb1b0_0  
+pyfaidx                   0.8.1.2            pyhdfd78af_0    bioconda
+pygenometracks            3.9                pyhdfd78af_0    bioconda
+pygments                  2.15.1          py312h06a4308_1  
+pyparsing                 3.0.9           py312h06a4308_0  
+pysam                     0.22.1          py312hcfdcdd7_2    bioconda
+pysocks                   1.7.1           py312h06a4308_0  
+pytables                  3.9.2           py312h387d6ec_0  
+python                    3.12.2          hab00c5b_0_cpython    conda-forge
+python-dateutil           2.9.0post0      py312h06a4308_2  
+python-fastjsonschema     2.16.2          py312h06a4308_0  
+python-graphviz           0.20.3             pyh717bed2_0    conda-forge
+python-json-logger        2.0.7           py312h06a4308_0  
+python-tzdata             2023.3             pyhd3eb1b0_0  
+python_abi                3.12                    5_cp312    conda-forge
+pytz                      2024.1          py312h06a4308_0  
+pyvcf3                    1.0.3              pyhdfd78af_0    bioconda
+pyyaml                    6.0.1           py312h5eee18b_0  
+pyzmq                     25.1.2          py312h6a678d5_0  
+r-askpass                 1.2.0             r43h76d94ec_0  
+r-backports               1.4.1             r43h76d94ec_0  
+r-base                    4.3.3                hb8ee39d_0    conda-forge
+r-base64enc               0.1_3             r43h76d94ec_4  
+r-bit                     4.0.5             r43h76d94ec_0  
+r-bit64                   4.0.5             r43h76d94ec_0  
+r-blob                    1.2.4             r43h6115d3f_0  
+r-boot                    1.3_28.1          r43h6115d3f_0  
+r-broom                   1.0.5             r43h6115d3f_0  
+r-bslib                   0.5.1             r43h6115d3f_0  
+r-cachem                  1.0.8             r43h76d94ec_0  
+r-callr                   3.7.3             r43h6115d3f_0  
+r-caret                   6.0_94            r43h76d94ec_0  
+r-cellranger              1.1.0             r43h6115d3f_0  
+r-class                   7.3_22            r43h76d94ec_0  
+r-cli                     3.6.1             r43h884c59f_0  
+r-clipr                   0.8.0             r43h6115d3f_0  
+r-clock                   0.7.0             r43h884c59f_0  
+r-cluster                 2.1.4             r43h640688f_0  
+r-codetools               0.2_19            r43h6115d3f_0  
+r-colorspace              2.1_0             r43h76d94ec_0  
+r-commonmark              1.9.0             r43h76d94ec_0  
+r-conflicted              1.2.0             r43h142f84f_0  
+r-cpp11                   0.4.6             r43h6115d3f_0  
+r-crayon                  1.5.2             r43h6115d3f_0  
+r-curl                    5.1.0             r43h76d94ec_0  
+r-data.table              1.14.8            r43h76d94ec_0  
+r-dbi                     1.1.3             r43h6115d3f_0  
+r-dbplyr                  2.3.4             r43h6115d3f_0  
+r-diagram                 1.6.5             r43h6115d3f_0  
+r-digest                  0.6.33            r43h884c59f_0  
+r-dplyr                   1.1.3             r43h884c59f_0  
+r-dtplyr                  1.3.1             r43h6115d3f_0  
+r-e1071                   1.7_13            r43h884c59f_0  
+r-ellipsis                0.3.2             r43h76d94ec_0  
+r-essentials              4.3.1                     r43_0  
+r-evaluate                0.22              r43h6115d3f_0  
+r-fansi                   1.0.5             r43h76d94ec_0  
+r-farver                  2.1.1             r43h884c59f_0  
+r-fastmap                 1.1.1             r43h884c59f_0  
+r-fontawesome             0.5.2             r43h6115d3f_0  
+r-forcats                 1.0.0             r43h6115d3f_0  
+r-foreach                 1.5.2             r43h6115d3f_0  
+r-foreign                 0.8_85            r43h76d94ec_0  
+r-formatr                 1.14              r43h6115d3f_0  
+r-fs                      1.6.3             r43h884c59f_0  
+r-future                  1.33.0            r43h6115d3f_0  
+r-future.apply            1.11.0            r43h6115d3f_0  
+r-gargle                  1.5.2             r43h142f84f_0  
+r-generics                0.1.3             r43h142f84f_0  
+r-ggplot2                 3.4.4             r43h6115d3f_0  
+r-glmnet                  4.1_8             r43hb5eb8f6_0  
+r-globals                 0.16.2            r43h142f84f_0  
+r-glue                    1.6.2             r43h76d94ec_0  
+r-googledrive             2.1.1             r43h6115d3f_0  
+r-googlesheets4           1.1.1             r43h6115d3f_0  
+r-gower                   1.0.1             r43h76d94ec_0  
+r-gtable                  0.3.4             r43h6115d3f_0  
+r-hardhat                 1.3.0             r43h6115d3f_0  
+r-haven                   2.5.3             r43h884c59f_0  
+r-highr                   0.10              r43h6115d3f_0  
+r-hms                     1.1.3             r43h6115d3f_0  
+r-htmltools               0.5.6.1           r43h76d94ec_0  
+r-httpuv                  1.6.11            r43h884c59f_0  
+r-httr                    1.4.7             r43h6115d3f_0  
+r-ids                     1.0.1             r43h142f84f_0  
+r-ipred                   0.9_14            r43h76d94ec_0  
+r-irdisplay               1.1               r43h6115d3f_0  
+r-irkernel                1.3.2                     r43_0  
+r-isoband                 0.2.7             r43h884c59f_0  
+r-iterators               1.0.14            r43h6115d3f_0  
+r-jquerylib               0.1.4             r43h6115d3f_0  
+r-jsonlite                1.8.7             r43h76d94ec_0  
+r-kernsmooth              2.23_22           r43h640688f_0  
+r-knitr                   1.44              r43h6115d3f_0  
+r-labeling                0.4.3             r43h6115d3f_0  
+r-later                   1.3.1             r43h884c59f_0  
+r-lattice                 0.22_5            r43h76d94ec_0  
+r-lava                    1.7.2.1           r43h6115d3f_0  
+r-lifecycle               1.0.3             r43h142f84f_0  
+r-listenv                 0.9.0             r43h142f84f_0  
+r-lubridate               1.9.3             r43h76d94ec_0  
+r-magrittr                2.0.3             r43h76d94ec_0  
+r-mass                    7.3_60            r43h76d94ec_0  
+r-matrix                  1.6_1.1           r43h76d94ec_0  
+r-memoise                 2.0.1             r43h6115d3f_0  
+r-mgcv                    1.9_0             r43h76d94ec_0  
+r-mime                    0.12              r43h76d94ec_0  
+r-modelmetrics            1.2.2.2           r43h884c59f_0  
+r-modelr                  0.1.11            r43h6115d3f_0  
+r-munsell                 0.5.0             r43h6115d3f_0  
+r-nlme                    3.1_163           r43h640688f_0  
+r-nnet                    7.3_19            r43h76d94ec_0  
+r-numderiv                2016.8_1.1        r43h6115d3f_0  
+r-openssl                 2.1.1             r43h76d94ec_0  
+r-parallelly              1.36.0            r43h6115d3f_0  
+r-pbdzmq                  0.3_10            r43h884c59f_0  
+r-pillar                  1.9.0             r43h6115d3f_0  
+r-pkgconfig               2.0.3             r43h6115d3f_0  
+r-plyr                    1.8.9             r43h884c59f_0  
+r-prettyunits             1.2.0             r43h142f84f_0  
+r-proc                    1.18.4            r43h884c59f_0  
+r-processx                3.8.2             r43h76d94ec_0  
+r-prodlim                 2023.08.28        r43h884c59f_0  
+r-progress                1.2.2             r43h142f84f_0  
+r-progressr               0.14.0            r43h6115d3f_0  
+r-promises                1.2.1             r43h884c59f_0  
+r-proxy                   0.4_27            r43h76d94ec_0  
+r-ps                      1.7.5             r43h76d94ec_0  
+r-purrr                   1.0.2             r43h76d94ec_0  
+r-quantmod                0.4.25            r43h6115d3f_0  
+r-r6                      2.5.1             r43h6115d3f_0  
+r-ragg                    1.2.6             r43h884c59f_0  
+r-randomforest            4.7_1.1           r43h640688f_0  
+r-rappdirs                0.3.3             r43h76d94ec_0  
+r-rcolorbrewer            1.1_3             r43h6115d3f_1  
+r-rcpp                    1.0.11            r43h884c59f_0  
+r-rcppeigen               0.3.3.9.3         r43h884c59f_0  
+r-readr                   2.1.4             r43h884c59f_0  
+r-readxl                  1.4.3             r43h884c59f_0  
+r-recipes                 1.0.8             r43h6115d3f_0  
+r-recommended             4.3.1                     r43_0  
+r-rematch                 2.0.0             r43h6115d3f_0  
+r-rematch2                2.1.2             r43h142f84f_0  
+r-repr                    1.1.6             r43h6115d3f_0  
+r-reprex                  2.0.2             r43h6115d3f_0  
+r-reshape2                1.4.4             r43h884c59f_0  
+r-rlang                   1.1.1             r43h884c59f_0  
+r-rmarkdown               2.25              r43h6115d3f_0  
+r-rpart                   4.1.21            r43h76d94ec_0  
+r-rstudioapi              0.15.0            r43h6115d3f_0  
+r-rvest                   1.0.3             r43h6115d3f_0  
+r-sass                    0.4.7             r43h884c59f_0  
+r-scales                  1.2.1             r43h6115d3f_0  
+r-selectr                 0.4_2             r43h6115d3f_0  
+r-shape                   1.4.6             r43h142f84f_0  
+r-shiny                   1.7.5.1           r43h6115d3f_0  
+r-sourcetools             0.1.7_1           r43h884c59f_0  
+r-spatial                 7.3_17            r43h76d94ec_0  
+r-squarem                 2021.1            r43h142f84f_0  
+r-stringi                 1.7.12            r43h884c59f_0  
+r-stringr                 1.5.0             r43h6115d3f_0  
+r-survival                3.5_7             r43h76d94ec_0  
+r-sys                     3.4.2             r43h76d94ec_0  
+r-systemfonts             1.0.5             r43h884c59f_0  
+r-textshaping             0.3.7             r43h884c59f_0  
+r-tibble                  3.2.1             r43h76d94ec_0  
+r-tidyr                   1.3.0             r43h884c59f_0  
+r-tidyselect              1.2.0             r43h6115d3f_0  
+r-tidyverse               2.0.0             r43h6115d3f_0  
+r-timechange              0.2.0             r43h884c59f_0  
+r-timedate                4022.108          r43h6115d3f_0  
+r-tinytex                 0.48              r43h142f84f_0  
+r-ttr                     0.24.3            r43h76d94ec_0  
+r-tzdb                    0.4.0             r43h884c59f_0  
+r-utf8                    1.2.4             r43h76d94ec_0  
+r-uuid                    1.1_1             r43h76d94ec_0  
+r-vctrs                   0.6.4             r43h884c59f_0  
+r-viridislite             0.4.2             r43h6115d3f_0  
+r-vroom                   1.6.4             r43h884c59f_0  
+r-withr                   2.5.1             r43h6115d3f_0  
+r-xfun                    0.40              r43h76d94ec_0  
+r-xml2                    1.3.6             r43h8194278_2    conda-forge
+r-xtable                  1.8_4             r43h6115d3f_0  
+r-xts                     0.13.1            r43h76d94ec_0  
+r-yaml                    2.3.7             r43h76d94ec_0  
+r-zoo                     1.8_12            r43h76d94ec_0  
+re2                       2022.04.01           h27087fc_0    conda-forge
+readline                  8.2                  h5eee18b_0  
+referencing               0.30.2          py312h06a4308_0  
+requests                  2.32.3          py312h06a4308_0  
+rfc3339-validator         0.1.4           py312h06a4308_0  
+rfc3986-validator         0.1.1           py312h06a4308_0  
+rpds-py                   0.10.6          py312hb02cf49_0  
+rpy2                      3.5.11          py312r43hc7c0aa3_3    conda-forge
+s2n                       1.3.31               h3358134_0    conda-forge
+samtools                  1.19.2               h50ea8bc_1    bioconda
+scikit-learn              1.3.2           py312h394d371_2    conda-forge
+scipy                     1.13.1          py312h2809609_0  
+seaborn                   0.13.2          py312h06a4308_0  
+sed                       4.8                  h7b6447c_0  
+send2trash                1.8.2           py312h06a4308_0  
+setuptools                72.1.0          py312h06a4308_0  
+simplegeneric             0.8.1                      py_1    conda-forge
+simplejson                3.19.3          py312h66e93f0_1    conda-forge
+six                       1.16.0             pyhd3eb1b0_1  
+smmap                     4.0.0              pyhd3eb1b0_0  
+snappy                    1.2.1                ha2e4443_0    conda-forge
+sniffio                   1.3.0           py312h06a4308_0  
+sortedcontainers          2.4.0              pyhd8ed1ab_0    conda-forge
+soupsieve                 2.5             py312h06a4308_0  
+sqlite                    3.45.3               h5eee18b_0  
+stack_data                0.2.0              pyhd3eb1b0_0  
+statsmodels               0.14.2          py312ha883a20_0  
+sysroot_linux-64          2.17                h57e8cba_10  
+tblib                     3.0.0              pyhd8ed1ab_0    conda-forge
+termcolor                 2.4.0              pyhd8ed1ab_0    conda-forge
+terminado                 0.17.1          py312h06a4308_0  
+texttable                 1.6.4              pyhd3eb1b0_0  
+threadpoolctl             3.5.0              pyhc1e730c_0    conda-forge
+tinycss2                  1.2.1           py312h06a4308_0  
+tk                        8.6.14               h39e8969_0  
+tktable                   2.10                 h3d55465_1  
+toolz                     0.12.1             pyhd8ed1ab_0    conda-forge
+tornado                   6.4.1           py312h5eee18b_0  
+tqdm                      4.66.5             pyhd8ed1ab_0    conda-forge
+traitlets                 5.14.3          py312h06a4308_0  
+typing-extensions         4.11.0          py312h06a4308_0  
+typing_extensions         4.11.0          py312h06a4308_0  
+tzdata                    2024a                h04d1e81_0  
+tzlocal                   5.2             py312h06a4308_0  
+unicodedata2              15.1.0          py312h5eee18b_0  
+unidecode                 1.3.8              pyhd8ed1ab_0    conda-forge
+urllib3                   2.2.2           py312h06a4308_0  
+utf8proc                  2.6.1                h5eee18b_1  
+wcwidth                   0.2.5              pyhd3eb1b0_0  
+webencodings              0.5.1           py312h06a4308_2  
+websocket-client          1.8.0           py312h06a4308_0  
+wheel                     0.43.0          py312h06a4308_0  
+xorg-kbproto              1.0.7             h7f98852_1002    conda-forge
+xorg-libice               1.1.1                hd590300_0    conda-forge
+xorg-libsm                1.2.4                h7391055_0    conda-forge
+xorg-libx11               1.8.9                h8ee46fc_0    conda-forge
+xorg-libxau               1.0.11               hd590300_0    conda-forge
+xorg-libxdmcp             1.1.3                h7f98852_0    conda-forge
+xorg-libxext              1.3.4                h0b41bf4_2    conda-forge
+xorg-libxrender           0.9.11               hd590300_0    conda-forge
+xorg-libxt                1.3.0                hd590300_1    conda-forge
+xorg-renderproto          0.11.1            h7f98852_1002    conda-forge
+xorg-xextproto            7.3.0             h0b41bf4_1003    conda-forge
+xorg-xproto               7.0.31            h27cfd23_1007  
+xyzservices               2024.6.0           pyhd8ed1ab_0    conda-forge
+xz                        5.4.6                h5eee18b_1  
+yaml                      0.2.5                h7b6447c_0  
+zeromq                    4.3.5                h6a678d5_0  
+zict                      3.0.0              pyhd8ed1ab_0    conda-forge
+zipp                      3.20.1             pyhd8ed1ab_0    conda-forge
+zlib                      1.2.13               h4ab18f5_6    conda-forge
+zlib-ng                   2.0.7                h5eee18b_0  
+zstd                      1.5.6                ha6fb4c9_0    conda-forge
+~/miniconda3/envs/hic/bin/python</code></pre>
+</div>
+</div>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
+<p>The data we are going to use is located in <code>"../../../../data/macaque_results_from_aurora/"</code>, containing the following files:</p>
+<div id="cell-3" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>ls <span class="op">-</span>l ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>macaque_results_from_aurora<span class="op">/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 8
+-r--r--r-- 1 kmt hic-spermatogenesis 276944 Jul 11 14:42 fib_rep11_macaca_500_correct.normToOne_compartments.txt
+-r--r--r-- 1 kmt hic-spermatogenesis 276979 Jul 11 14:42 pd_rep11_macaca_500_correct.normToOne_compartments.txt
+-r--r--r-- 1 kmt hic-spermatogenesis 277216 Jul 11 14:41 rs_rep11_macaca_500_correct.normToOne_compartments.txt
+-r--r--r-- 1 kmt hic-spermatogenesis 276405 Jul 11 14:42 spg_rep1_macaca_500_correct.normToOne_compartments.txt
+-r--r--r-- 1 kmt hic-spermatogenesis  18382 Jul 11 14:42 tads_fib_macaca.bed
+-r--r--r-- 1 kmt hic-spermatogenesis   9706 Jul 11 14:42 tads_pd_macaca.bed
+-r--r--r-- 1 kmt hic-spermatogenesis  13568 Jul 11 14:42 tads_rs_macaca.bed
+-r--r--r-- 1 kmt hic-spermatogenesis  12579 Jul 11 14:42 tads_spg_macaca.bed</code></pre>
+</div>
+</div>
+<p>To be continued…</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="Project">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Project</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../notebooks/01_weather.html" class="pagination-link" aria-label="Danish weather">
+        <span class="nav-page-text"><span class="chapter-title">Danish weather</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
