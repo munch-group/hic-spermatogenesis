@@ -1,3 +1,16 @@
+# %% [markdown]
+# ---
+# title: "gwf_map_reads.py"
+# author: Søren Jørgensen
+# date: 10/09/2024
+# jupyter:
+#   kernelspec:
+#       name: hic
+#       language: python
+#       display_name: Python (hic)
+# ---
+
+# %%
 from gwf import *
 import glob
 import os
@@ -77,9 +90,6 @@ bwa mem -t {threads} -A 1 -B 4 -E 50 -L 0 {ref_genome} {in_fastq} | samtools vie
 # Index the reference
 ref_genome = "../hicdata/Mmul10/ncbi_dataset/data/GCF_003339765.1/GCF_003339765.1_Mmul_10_genomic.fna"
 T1 = gwf.target_from_template(f"bwa_index_{os.path.basename(ref_genome)}", bwa_index(ref_genome=ref_genome))
-
-#print(T1.outputs)
-
 T2 = gwf.target_from_template(f"sam_index_{os.path.basename(ref_genome)}", sam_index(ref_genome=ref_genome))
 
 
