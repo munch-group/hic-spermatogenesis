@@ -3,7 +3,8 @@
 # title: "gwf_map_reads"
 # author: Søren Jørgensen
 # date: 09/10/2024
-# execute: false
+# execute: 
+#   enabled: false
 # ---
 
 # %%
