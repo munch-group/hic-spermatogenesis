@@ -1,13 +1,8 @@
 # %% [markdown]
 # ---
-# title: "gwf_map_reads.py"
+# title: "gwf_map_reads"
 # author: Søren Jørgensen
-# date: 10/09/2024
-# jupyter:
-#   kernelspec:
-#       name: hic
-#       language: python
-#       display_name: Python (hic)
+# date: 09/10/2024
 # ---
 
 # %%
