@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -102,6 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -230,7 +233,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul class="collapse">
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
-  <li><a href="#convert-the-format" id="toc-convert-the-format" class="nav-link" data-scroll-target="#convert-the-format">Convert the format</a></li>
   <li><a href="#hicexplorer" id="toc-hicexplorer" class="nav-link" data-scroll-target="#hicexplorer">HiCExplorer</a></li>
   </ul>
 <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></nav>
@@ -263,228 +265,230 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <p>In this notebook, we will use HiCExplorer to analysis Hi-C reads from macaque monkeys. We will follow an <a href="https://hicexplorer.readthedocs.io/en/latest/content/example_usage.html#how-we-use-hicexplorer">example</a> from the HiCExplorer documentation.</p>
-<p>First, let’s look at the files we have:</p>
-<div id="cell-2" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tree ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>kmt<span class="op">/</span>hicmaps<span class="op">/</span>macaque<span class="op">/</span>GSE109344_data<span class="op">/</span>data</span>
+<p>First, let’s look at the files we have. They are from <a href="https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA430777&amp;o=acc_s%3Aahttps://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA430777&amp;o=acc_s%3Aa">SRA</a>, and are Hi-C sequencing data from macaque fibroblasts. The data is generated for the Wang2019 paper.</p>
+<div id="cell-2" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tree ..<span class="op">/</span>data<span class="op">/</span>links</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tree ..<span class="op">/</span>data<span class="op">/</span>links<span class="op">/</span>macaque_fastq</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>tree ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>macaque_raw<span class="op">/</span>downloaded<span class="op">/</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ls ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>macaque_raw<span class="op">/</span>downloaded<span class="op">/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>../../../kmt/hicmaps/macaque/GSE109344_data/data
-├── GSE109344_monkey_fibro.allValidPairs -&gt; GSE109344_monkey_fibro_allValidPairs.txt
-├── GSE109344_monkey_fibro_allValidPairs.txt
-├── GSE109344_monkey_fibro_pac_rs_gene.fpkm -&gt; GSE109344_monkey_fibro_pac_rs_gene.fpkm.txt
-├── GSE109344_monkey_fibro_pac_rs_gene.fpkm.txt
-├── GSE109344_monkey_pac.allValidPairs -&gt; GSE109344_monkey_pac_allValidPairs.txt
-├── GSE109344_monkey_pac_allValidPairs.txt
-├── GSE109344_monkey_rs.allValidPairs -&gt; GSE109344_monkey_rs_allValidPairs.txt
-├── GSE109344_monkey_rs_allValidPairs.txt
-├── GSE109344_monkey_spa.allValidPairs -&gt; GSE109344_monkey_spa_allValidPairs.txt
-├── GSE109344_monkey_spa_allValidPairs.txt
-├── GSE109344_monkey_sperm.allValidPairs -&gt; GSE109344_monkey_sperm_allValidPairs.txt
-└── GSE109344_monkey_sperm_allValidPairs.txt
+<pre><code>../data/links/macaque_fastq
+├── SRR6502335_1.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502335_1.fastq.gz
+├── SRR6502335_2.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502335_2.fastq.gz
+├── SRR6502336_1.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502336_1.fastq.gz
+├── SRR6502336_2.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502336_2.fastq.gz
+├── SRR6502337_1.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502337_1.fastq.gz
+├── SRR6502337_2.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502337_2.fastq.gz
+├── SRR6502338_1.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502338_1.fastq.gz
+├── SRR6502338_2.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502338_2.fastq.gz
+├── SRR6502339_1.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502339_1.fastq.gz
+└── SRR6502339_2.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502339_2.fastq.gz
+
+0 directories, 10 files
+../../../../data/macaque_raw/downloaded/
+├── rheMac10_Mmul10.zip
+├── SraRunTable.txt
+├── SRR6502335_1.fastq.gz
+├── SRR6502335_2.fastq.gz
+├── SRR6502336_1.fastq.gz
+├── SRR6502336_2.fastq.gz
+├── SRR6502337_1.fastq.gz
+├── SRR6502337_2.fastq.gz
+├── SRR6502338_1.fastq.gz
+├── SRR6502338_2.fastq.gz
+├── SRR6502339_1.fastq.gz
+└── SRR6502339_2.fastq.gz
 
 0 directories, 12 files
-../data/links
-└── macaque_data -&gt; ../../../../kmt/hicmaps/macaque/GSE109344_data/data
-
-1 directory, 0 files</code></pre>
+rheMac10_Mmul10.zip
+SraRunTable.txt
+SRR6502335_1.fastq.gz
+SRR6502335_2.fastq.gz
+SRR6502336_1.fastq.gz
+SRR6502336_2.fastq.gz
+SRR6502337_1.fastq.gz
+SRR6502337_2.fastq.gz
+SRR6502338_1.fastq.gz
+SRR6502338_2.fastq.gz
+SRR6502339_1.fastq.gz
+SRR6502339_2.fastq.gz</code></pre>
 </div>
 </div>
-<section id="what-is-inside-the-files" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-inside-the-files">What is inside the files</h3>
-<div id="cell-4" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<section id="an-overview-of-the-sequences" class="level3">
+<h3 class="anchored" data-anchor-id="an-overview-of-the-sequences">An overview of the sequences</h3>
+<p>We can see summary statistics for our sequences in the <code>SraRunTable.txt</code></p>
+<div id="cell-4" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ls <span class="op">-</span>lh ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>kmt<span class="op">/</span>hicmaps<span class="op">/</span>macaque<span class="op">/</span>GSE109344_data<span class="op">/</span>data<span class="op">/</span>$FILE</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>echo <span class="st">""</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> FILE <span class="kw">in</span> $(ls ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>kmt<span class="op">/</span>hicmaps<span class="op">/</span>macaque<span class="op">/</span>GSE109344_data<span class="op">/</span>data)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>do </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    echo <span class="st">"&gt;&gt; head -n2 $FILE"</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    head <span class="op">-</span>n2 ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>kmt<span class="op">/</span>hicmaps<span class="op">/</span>macaque<span class="op">/</span>GSE109344_data<span class="op">/</span>data<span class="op">/</span>$FILE</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    echo <span class="st">""</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>done</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>total 306G
-lrwxrwxrwx 1 kmt baboondiversity   40 May  2 16:08 GSE109344_monkey_fibro.allValidPairs -&gt; GSE109344_monkey_fibro_allValidPairs.txt
--rw-rw-r-- 1 kmt baboondiversity  61G May  1 14:28 GSE109344_monkey_fibro_allValidPairs.txt
-lrwxrwxrwx 1 kmt baboondiversity   43 May  2 16:09 GSE109344_monkey_fibro_pac_rs_gene.fpkm -&gt; GSE109344_monkey_fibro_pac_rs_gene.fpkm.txt
--rw-rw-r-- 1 kmt baboondiversity 1.1M May  1 14:28 GSE109344_monkey_fibro_pac_rs_gene.fpkm.txt
-lrwxrwxrwx 1 kmt baboondiversity   38 May  2 16:09 GSE109344_monkey_pac.allValidPairs -&gt; GSE109344_monkey_pac_allValidPairs.txt
--rw-rw-r-- 1 kmt baboondiversity  82G May  1 14:43 GSE109344_monkey_pac_allValidPairs.txt
-lrwxrwxrwx 1 kmt baboondiversity   37 May  2 16:10 GSE109344_monkey_rs.allValidPairs -&gt; GSE109344_monkey_rs_allValidPairs.txt
--rw-rw-r-- 1 kmt baboondiversity  62G May  1 14:55 GSE109344_monkey_rs_allValidPairs.txt
-lrwxrwxrwx 1 kmt baboondiversity   38 May  2 16:10 GSE109344_monkey_spa.allValidPairs -&gt; GSE109344_monkey_spa_allValidPairs.txt
--rw-rw-r-- 1 kmt baboondiversity  58G May  1 15:05 GSE109344_monkey_spa_allValidPairs.txt
-lrwxrwxrwx 1 kmt baboondiversity   40 May  2 16:10 GSE109344_monkey_sperm.allValidPairs -&gt; GSE109344_monkey_sperm_allValidPairs.txt
--rw-rw-r-- 1 kmt baboondiversity  46G May  1 15:13 GSE109344_monkey_sperm_allValidPairs.txt
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pd.read_csv(<span class="st">"../../../../data/macaque_raw/downloaded/SraRunTable.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
 
-&gt;&gt; head -n2 GSE109344_monkey_fibro.allValidPairs
-ST-E00545:100:HCNYYALXX:4:2115:5142:66162   chr1    31  -   chr5    214251  -   93  
-ST-E00545:100:HCNYYALXX:4:2116:23947:59182  chr1    32  -   chr15   57886364    -   178 
 
-&gt;&gt; head -n2 GSE109344_monkey_fibro_allValidPairs.txt
-ST-E00545:100:HCNYYALXX:4:2115:5142:66162   chr1    31  -   chr5    214251  -   93  
-ST-E00545:100:HCNYYALXX:4:2116:23947:59182  chr1    32  -   chr15   57886364    -   178 
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Run</th>
+<th data-quarto-table-cell-role="th">Assay Type</th>
+<th data-quarto-table-cell-role="th">AvgSpotLen</th>
+<th data-quarto-table-cell-role="th">Bases</th>
+<th data-quarto-table-cell-role="th">BioProject</th>
+<th data-quarto-table-cell-role="th">BioSample</th>
+<th data-quarto-table-cell-role="th">Bytes</th>
+<th data-quarto-table-cell-role="th">Center Name</th>
+<th data-quarto-table-cell-role="th">Consent</th>
+<th data-quarto-table-cell-role="th">DATASTORE filetype</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">ReleaseDate</th>
+<th data-quarto-table-cell-role="th">create_date</th>
+<th data-quarto-table-cell-role="th">version</th>
+<th data-quarto-table-cell-role="th">Sample Name</th>
+<th data-quarto-table-cell-role="th">source_name</th>
+<th data-quarto-table-cell-role="th">SRA Study</th>
+<th data-quarto-table-cell-role="th">cell_type</th>
+<th data-quarto-table-cell-role="th">tissue</th>
+<th data-quarto-table-cell-role="th">agent</th>
+<th data-quarto-table-cell-role="th">genotype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>SRR6502335</td>
+<td>Hi-C</td>
+<td>300</td>
+<td>73201141800</td>
+<td>PRJNA430777</td>
+<td>SAMN08375237</td>
+<td>31966430779</td>
+<td>GEO</td>
+<td>public</td>
+<td>fastq,run.zq,sra</td>
+<td>...</td>
+<td>2019-02-12T00:00:00Z</td>
+<td>2018-01-23T23:05:00Z</td>
+<td>1</td>
+<td>GSM2940099</td>
+<td>fibroblast</td>
+<td>SRP131117</td>
+<td>fibroblast</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>SRR6502336</td>
+<td>Hi-C</td>
+<td>300</td>
+<td>65119970100</td>
+<td>PRJNA430777</td>
+<td>SAMN08375237</td>
+<td>24433383054</td>
+<td>GEO</td>
+<td>public</td>
+<td>fastq,run.zq,sra</td>
+<td>...</td>
+<td>2019-02-12T00:00:00Z</td>
+<td>2018-01-24T00:16:00Z</td>
+<td>1</td>
+<td>GSM2940099</td>
+<td>fibroblast</td>
+<td>SRP131117</td>
+<td>fibroblast</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>SRR6502337</td>
+<td>Hi-C</td>
+<td>300</td>
+<td>52769196300</td>
+<td>PRJNA430777</td>
+<td>SAMN08375236</td>
+<td>23015357755</td>
+<td>GEO</td>
+<td>public</td>
+<td>fastq,run.zq,sra</td>
+<td>...</td>
+<td>2019-02-12T00:00:00Z</td>
+<td>2018-01-24T07:21:00Z</td>
+<td>1</td>
+<td>GSM2940100</td>
+<td>fibroblast</td>
+<td>SRP131117</td>
+<td>fibroblast</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>SRR6502338</td>
+<td>Hi-C</td>
+<td>300</td>
+<td>52378949100</td>
+<td>PRJNA430777</td>
+<td>SAMN08375236</td>
+<td>22999581685</td>
+<td>GEO</td>
+<td>public</td>
+<td>fastq,run.zq,sra</td>
+<td>...</td>
+<td>2019-02-12T00:00:00Z</td>
+<td>2018-01-23T22:14:00Z</td>
+<td>1</td>
+<td>GSM2940100</td>
+<td>fibroblast</td>
+<td>SRP131117</td>
+<td>fibroblast</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>SRR6502339</td>
+<td>Hi-C</td>
+<td>300</td>
+<td>28885941600</td>
+<td>PRJNA430777</td>
+<td>SAMN08375236</td>
+<td>10960123150</td>
+<td>GEO</td>
+<td>public</td>
+<td>fastq,run.zq,sra</td>
+<td>...</td>
+<td>2019-02-12T00:00:00Z</td>
+<td>2018-01-23T21:03:00Z</td>
+<td>1</td>
+<td>GSM2940100</td>
+<td>fibroblast</td>
+<td>SRP131117</td>
+<td>fibroblast</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
 
-&gt;&gt; head -n2 GSE109344_monkey_fibro_pac_rs_gene.fpkm
-Gene    fibroblast  pac rs
-IMMRNTR1522 0   38716.9 81725.3
-
-&gt;&gt; head -n2 GSE109344_monkey_fibro_pac_rs_gene.fpkm.txt
-Gene    fibroblast  pac rs
-IMMRNTR1522 0   38716.9 81725.3
-
-&gt;&gt; head -n2 GSE109344_monkey_pac.allValidPairs
-ST-E00545:324:HL3M7CCXY:8:1110:12053:15619  chr1    32  -   chr5    47163   +   270 HIC_chr1_1  HIC_chr5_88 34  23  
-ST-E00545:324:HL3M7CCXY:8:1203:26058:21667  chr1    32  -   chr5    234437  -   308 HIC_chr1_1  HIC_chr5_521    34  40  
-
-&gt;&gt; head -n2 GSE109344_monkey_pac_allValidPairs.txt
-ST-E00545:324:HL3M7CCXY:8:1110:12053:15619  chr1    32  -   chr5    47163   +   270 HIC_chr1_1  HIC_chr5_88 34  23  
-ST-E00545:324:HL3M7CCXY:8:1203:26058:21667  chr1    32  -   chr5    234437  -   308 HIC_chr1_1  HIC_chr5_521    34  40  
-
-&gt;&gt; head -n2 GSE109344_monkey_rs.allValidPairs
-ST-E00205:521:HCM3LCCXY:7:2222:12784:40337  chr1    31  -   chr17   4099589 -   281 
-ST-E00318:369:H33LLCCXY:4:1121:22414:51852  chr1    33  -   chr6    16939862    +   186 
-
-&gt;&gt; head -n2 GSE109344_monkey_rs_allValidPairs.txt
-ST-E00205:521:HCM3LCCXY:7:2222:12784:40337  chr1    31  -   chr17   4099589 -   281 
-ST-E00318:369:H33LLCCXY:4:1121:22414:51852  chr1    33  -   chr6    16939862    +   186 
-
-&gt;&gt; head -n2 GSE109344_monkey_spa.allValidPairs
-ST-E00251:501:HK75NCCXY:6:1116:10358:22845  chr1    31  -   chr3    47548612    -   112 
-ST-E00493:390:HL53FCCXY:1:1204:16112:11505  chr1    31  -   chr7    121241748   -   122 
-
-&gt;&gt; head -n2 GSE109344_monkey_spa_allValidPairs.txt
-ST-E00251:501:HK75NCCXY:6:1116:10358:22845  chr1    31  -   chr3    47548612    -   112 
-ST-E00493:390:HL53FCCXY:1:1204:16112:11505  chr1    31  -   chr7    121241748   -   122 
-
-&gt;&gt; head -n2 GSE109344_monkey_sperm.allValidPairs
-ST-E00545:312:HL3M3CCXY:1:1211:18000:72403  chr1    31  -   chr1    9603    -   171 HIC_chr1_1  HIC_chr1_24 34  42  
-ST-E00545:96:HCTC2ALXX:1:1119:21704:24532   chr1    31  -   chr5    15448278    -   228 
-
-&gt;&gt; head -n2 GSE109344_monkey_sperm_allValidPairs.txt
-ST-E00545:312:HL3M3CCXY:1:1211:18000:72403  chr1    31  -   chr1    9603    -   171 HIC_chr1_1  HIC_chr1_24 34  42  
-ST-E00545:96:HCTC2ALXX:1:1119:21704:24532   chr1    31  -   chr5    15448278    -   228 
-</code></pre>
+<p>5 rows × 30 columns</p>
+</div>
 </div>
 </div>
 </section>
-</section>
-<section id="convert-the-format" class="level2">
-<h2 class="anchored" data-anchor-id="convert-the-format">Convert the format</h2>
-<div id="cell-6" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n <span class="dv">100</span> ..<span class="op">/</span>data<span class="op">/</span>links<span class="op">/</span>macaque_data<span class="op">/</span>GSE109344_monkey_fibro.allValidPairs <span class="op">|</span> awk <span class="st">'{print $2, $3, $3+1, $5, $6, $6+1}'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>chr1 31 32 chr5 214251 214252
-chr1 32 33 chr15 57886364 57886365
-chr1 34 35 chr10 61122746 61122747
-chr1 34 35 chr14 44036807 44036808
-chr1 35 36 chr2 82076213 82076214
-chr1 43 44 chr10 52711984 52711985
-chr1 44 45 chr1 2602668 2602669
-chr1 45 46 chr5 11863259 11863260
-chr1 45 46 chr9 99351902 99351903
-chr1 48 49 chr5 23829 23830
-chr1 48 49 chr9 5814466 5814467
-chr1 49 50 chr1 17555 17556
-chr1 50 51 chr5 138691168 138691169
-chr1 51 52 chr1 2784680 2784681
-chr1 51 52 chr14 1291765 1291766
-chr1 53 54 chr1 2276683 2276684
-chr1 53 54 chr14 14068817 14068818
-chr1 55 56 chr5 39602073 39602074
-chr1 56 57 chr16 55377362 55377363
-chr1 57 58 chr1 1388389 1388390
-chr1 58 59 chrX 84752078 84752079
-chr1 61 62 chr9 114926426 114926427
-chr1 63 64 chr1 121156298 121156299
-chr1 63 64 chr14 10232915 10232916
-chr1 63 64 chr14 27098869 27098870
-chr1 65 66 chr6 154971391 154971392
-chr1 66 67 chr17 10250744 10250745
-chr1 67 68 chr4 83604512 83604513
-chr1 67 68 chr16 32192925 32192926
-chr1 69 70 chr1 36374 36375
-chr1 69 70 chr14 70671050 70671051
-chr1 72 73 chrX 61272785 61272786
-chr1 73 74 chr5 80153 80154
-chr1 73 74 chr15 73165341 73165342
-chr1 73 74 chr19 3587963 3587964
-chr1 74 75 chr1 226514 226515
-chr1 80 81 chr1 1453 1454
-chr1 81 82 chr19 18824065 18824066
-chr1 82 83 chr2 93115808 93115809
-chr1 82 83 chr5 137645497 137645498
-chr1 83 84 chr11 46075640 46075641
-chr1 85 86 chr14 106936129 106936130
-chr1 87 88 chr4 41770319 41770320
-chr1 90 91 chr13 10866932 10866933
-chr1 93 94 chr11 107900175 107900176
-chr1 95 96 chr2 91918116 91918117
-chr1 96 97 chr5 242148 242149
-chr1 96 97 chr6 22864665 22864666
-chr1 97 98 chr1 1633436 1633437
-chr1 105 106 chr5 65613241 65613242
-chr1 119 120 chr2 81695434 81695435
-chr1 121 122 chr5 2765811 2765812
-chr1 121 122 chr5 4529396 4529397
-chr1 129 130 chr1 165715785 165715786
-chr1 134 135 chr2 39744639 39744640
-chr1 136 137 chr1 165849335 165849336
-chr1 138 139 chr20 14091309 14091310
-chr1 145 146 chr10 63202461 63202462
-chr1 150 151 chr8 22306836 22306837
-chr1 151 152 chr5 16869112 16869113
-chr1 160 161 chr5 2096513 2096514
-chr1 169 170 chr19 12697547 12697548
-chr1 170 171 chr16 11872842 11872843
-chr1 174 175 chr13 12843260 12843261
-chr1 175 176 chr1 230273 230274
-chr1 176 177 chr3 85479576 85479577
-chr1 184 185 chr5 138050309 138050310
-chr1 206 207 chr14 53446585 53446586
-chr1 207 208 chr5 34003 34004
-chr1 220 221 chr1 2327 2328
-chr1 221 222 chr1 3886 3887
-chr1 238 239 chr1 1228118 1228119
-chr1 246 247 chr5 312802 312803
-chr1 259 260 chr1 17619475 17619476
-chr1 267 268 chr13 97219444 97219445
-chr1 269 270 chr20 82744470 82744471
-chr1 275 276 chr1 1523424 1523425
-chr1 278 279 chr12 104205714 104205715
-chr1 287 288 chr1 177215 177216
-chr1 289 290 chr5 357418 357419
-chr1 293 294 chr3 809699 809700
-chr1 293 294 chr8 93911893 93911894
-chr1 300 301 chr1 23204 23205
-chr1 303 304 chr1 97899710 97899711
-chr1 304 305 chr2 182661650 182661651
-chr1 304 305 chr5 1822771 1822772
-chr1 311 312 chr1 253438 253439
-chr1 312 313 chr1 1250 1251
-chr1 324 325 chr1 1272 1273
-chr1 324 325 chr7 134171137 134171138
-chr1 327 328 chr5 38878505 38878506
-chr1 328 329 chr1 1254 1255
-chr1 328 329 chr5 79810529 79810530
-chr1 330 331 chr9 62360904 62360905
-chr1 330 331 chr12 55226467 55226468
-chr1 355 356 chr8 136291178 136291179
-chr1 363 364 chr1 105043773 105043774
-chr1 366 367 chr5 9410430 9410431
-chr1 366 367 chr7 59105724 59105725
-chr1 371 372 chr13 67808706 67808707</code></pre>
-</div>
-</div>
 </section>
 <section id="hicexplorer" class="level2">
 <h2 class="anchored" data-anchor-id="hicexplorer">HiCExplorer</h2>
-<div id="cell-8" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicexplorer <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-7" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicexplorer <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>usage: hicexplorer [-h] [--version]
 
@@ -552,8 +556,8 @@ options:
   --version   show program's version number and exit</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicexplorer hicBuildMatrix </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-8" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicexplorer hicBuildMatrix </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>usage: hicexplorer [-h] [--version]
 
