@@ -132,3 +132,6 @@ steps
 
 /.quarto/
 _book/
+
+# Don't include gwf logs
+.gwf
