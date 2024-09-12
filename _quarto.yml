@@ -23,6 +23,7 @@ book:
         - gwf_map_reads.py
     - part: "Reports"
       chapters: 
+      - results/Readme.md
       - reports/manuscript.ipynb
       - reports/supplementary.qmd
     - references.qmd
@@ -36,5 +37,6 @@ format:
       - custom.scss
     toc-depth: 2
     notebook-links: global
+    code-links: repo
     number-sections: false
 
