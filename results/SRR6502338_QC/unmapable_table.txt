@@ -1,0 +1,2 @@
+File	Hi-C contacts	Hi-C contacts_%	Low mapping quality	Low mapping quality_%	One mate not unique	One mate not unique_%	One mate unmapped	One mate unmapped_%
+steps/SRR6502338_matrix.h5	84296486	0.48280742997953735	18045952	0.10335804159919658	33280666	0.1906147406840585	4233701	0.024248487642910727

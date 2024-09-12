@@ -1,0 +1,2 @@
+File	inter chromosomal	inter chromosomal %	Intra short range (< 20kb)	Intra short range (< 20kb) %	Intra long range (>= 20kb)	Intra long range (>= 20kb) %
+steps/SRR6502339_matrix.h5	11586845	0.28210432531341584	5180947	0.12614025284014466	24305116	0.5917554218464395

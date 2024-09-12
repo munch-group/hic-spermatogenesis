@@ -1,0 +1,2 @@
+File	One mate not close to rest site	One mate not close to rest site %	dangling end GATC (restriction sequence GATC) %	duplicated pairs	duplicated pairs %	same fragment	same fragment %	self circle	self circle %	self ligation (removed)	self ligation (removed) %
+steps/SRR6502336_matrix.h5	0	0.0	0.008076387365903076	26680602	0.18081958218335667	15830494	0.10728630901342237	2286142	0.015493624965876834	9532936	0.06460654465370307

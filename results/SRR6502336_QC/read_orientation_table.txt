@@ -1,0 +1,2 @@
+File	Read pair type: inward pairs	Read pair type: inward pairs %	Read pair type: outward pairs	Read pair type: outward pairs %	Read pair type: left pairs	Read pair type: left pairs %	Read pair type: right pairs	Read pair type: right pairs %
+steps/SRR6502336_matrix.h5	16463555	0.23432497673588526	19551097	0.27826981169534987	17174160	0.24443898310288217	17070685	0.2429662284658827
