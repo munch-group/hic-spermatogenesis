@@ -15,9 +15,9 @@ book:
     - index.qmd
     - part: "Notebooks"
       chapters: 
-      - notebooks/001_weather.ipynb
+      - notebooks/01_weather.ipynb
       - notebooks/002_interaction.ipynb
-      - notebooks/01_hicexplorer.ipynb
+      - notebooks/001_hicexplorer.ipynb
     - part: "Workflows"
       chapters:
         - gwf_map_reads.py
