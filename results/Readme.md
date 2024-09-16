@@ -9,7 +9,7 @@ To preview the html files, prepend the following to the URL of the `hicQC.html` 
 
 Or click the links below: 
 
-- [Preview sample SRR6502335 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502335_QC/hicQC.html)
+### [Preview sample SRR6502335 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502335_QC/hicQC.html)
 
 | Name                 | Count       | Percent |
 |----------------------|-------------|---------|
@@ -20,7 +20,7 @@ Or click the links below:
 | Intra short          | 14,384,188  | 13.02   |
 | Intra long           | 67,725,128  | 61.31   |
 
-- [Preview sample SRR6502336 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502336_QC/hicQC.html)
+### [Preview sample SRR6502336 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502336_QC/hicQC.html)
 
 | Name                 | Count       | Percent |
 |----------------------|-------------|---------|
@@ -31,9 +31,38 @@ Or click the links below:
 | Intra short          | 12,514,652  | 13.27   |
 | Intra long           | 57,744,845  | 61.22   |
 
-- [Preview sample SRR6502337 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502337_QC/hicQC.html)
-- [Preview sample SRR6502338 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502338_QC/hicQC.html)
-- [Preview sample SRR6502339 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502339_QC/hicQC.html)
+### [Preview sample SRR6502337 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502337_QC/hicQC.html)
+
+| Name                 | Count       | Percent |
+|----------------------|-------------|---------|
+| Sequenced reads      | 175,897,321 | 100     |
+| Mappable, highQ+uniq | 117,483,977 | 66.79   |
+| Hi-C contacts        | 79,573,279  | 45.24   |
+| Inter chromosomal    | 22,500,348  | 28.28   |
+| Intra short          | 9,800,706   | 12.32   |
+| Intra long           | 47,272,225  | 59.41   |
+
+### [Preview sample SRR6502338 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502338_QC/hicQC.html)
+
+| Name                 | Count       | Percent |
+|----------------------|-------------|---------|
+| Sequenced reads      | 174,596,497 | 100     |
+| Mappable, highQ+uniq | 119,036,178 | 68.18   |
+| Hi-C contacts        | 84,296,486  | 48.28   |
+| Inter chromosomal    | 23,802,080  | 28.24   |
+| Intra short          | 10,189,916  | 12.09   |
+| Intra long           | 50,304,490  | 59.68   |
+
+### [Preview sample SRR6502339 QC results](https://html-preview.github.io/?url=https://github.com/munch-group/hic-spermatogenesis/blob/main/results/SRR6502339_QC/hicQC.html)
+
+| Name                 | Count      | Percent |
+|----------------------|------------|---------|
+| Sequenced reads      | 96,286,472 | 100     |
+| Mappable, highQ+uniq | 65,355,035 | 67.88   |
+| Hi-C contacts        | 41,072,908 | 42.66   |
+| Inter chromosomal    | 11,586,845 | 28.21   |
+| Intra short          | 5,180,947  | 12.61   |
+| Intra long           | 24,305,116 | 59.18   |
 
 ### Guidelines from HiCExplorer:
 
