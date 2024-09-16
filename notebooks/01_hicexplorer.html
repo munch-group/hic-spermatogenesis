@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
+  <li><a href="#getting-started-with-an-overview" id="toc-getting-started-with-an-overview" class="nav-link active" data-scroll-target="#getting-started-with-an-overview">Getting started with an overview</a></li>
   <li><a href="#hicexplorer" id="toc-hicexplorer" class="nav-link" data-scroll-target="#hicexplorer">HiCExplorer</a></li>
   </ul>
 <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></nav>
@@ -262,8 +262,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong><em>Before using this notebook, make sure you use the ‘hic’ kernel.</em></strong></p>
 <p>I might change the env into a seperate HiC env for each of the tools, such as HICExplorer, Cooler/cooltools, etc.</p>
 <p>As of this update, there is only one environment in the repo, and it contains both Python, R, and CLI tools for use in HI-C data analysis.</p>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
+<section id="getting-started-with-an-overview" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started-with-an-overview">Getting started with an overview</h2>
 <p>In this notebook, we will use HiCExplorer to analysis Hi-C reads from macaque monkeys. We will follow an <a href="https://hicexplorer.readthedocs.io/en/latest/content/example_usage.html#how-we-use-hicexplorer">example</a> from the HiCExplorer documentation.</p>
 <p>First, let’s look at the files we have. They are from <a href="https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA430777&amp;o=acc_s%3Aahttps://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA430777&amp;o=acc_s%3Aa">SRA</a>, and are Hi-C sequencing data from macaque fibroblasts. The data is generated for the Wang2019 paper.</p>
 <div id="cell-2" class="cell" data-execution_count="11">
@@ -484,10 +484,22 @@ SRR6502339_2.fastq.gz</code></pre>
 </div>
 </div>
 </section>
+<section id="preparation-of-the-.fastq-files" class="level3">
+<h3 class="anchored" data-anchor-id="preparation-of-the-.fastq-files">Preparation of the <code>.fastq</code> files</h3>
+<p>The <code>.fastq</code> files were all prepared using this <a href="../gwf_map_reads.html">workflow</a>. Briefly, it does three things on the reference genome (Mmul_10/rheMac10):</p>
+<ol type="1">
+<li>indexing with <code>bwa index</code><br>
+</li>
+<li>indexing with <code>samtools faidx</code></li>
+<li>indexing of restriction sites of the used restriction enzyme used (<code>hicFindRestSites</code>)</li>
+</ol>
+<p>Then, it maps all the <code>.fastq</code> files (each mate individually) back to the reference genome with <code>bwa mem</code>.</p>
+<p>Finally, it builds the <code>.h5</code> Hi-C matrix with <code>hicBuildMatrix</code>, which includes some quality control of the Hi-C library. The results from the quality control can be viewed <a href="../results/Readme.html">here</a>.</p>
+</section>
 </section>
 <section id="hicexplorer" class="level2">
 <h2 class="anchored" data-anchor-id="hicexplorer">HiCExplorer</h2>
-<div id="cell-7" class="cell" data-execution_count="15">
+<div id="cell-8" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicexplorer <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>usage: hicexplorer [-h] [--version]
@@ -556,7 +568,7 @@ options:
   --version   show program's version number and exit</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="20">
+<div id="cell-9" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicexplorer hicBuildMatrix </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>usage: hicexplorer [-h] [--version]
