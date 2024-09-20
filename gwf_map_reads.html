@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Søren Jørgensen">
-<meta name="dcterms.date" content="2024-09-16">
+<meta name="dcterms.date" content="2024-09-20">
 
 <title>gwf_map_reads – Søren's MSc project about Hi-C and spermatogenesis</title>
 <style>
@@ -251,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 16, 2024</p>
+      <p class="date">September 20, 2024</p>
     </div>
   </div>
   
@@ -263,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="226e56b9" class="cell">
+<div id="c2b6ea3c" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gwf <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
@@ -418,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>    pairname <span class="op">=</span> os.path.commonprefix([basename_1, basename_2]).split(<span class="st">'_'</span>)[<span class="dv">0</span>]</span>
 <span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create the target for building the matrix (uses out_bam_1 and out_bam_2)</span></span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>    out_matrix <span class="op">=</span> <span class="ss">f"steps/</span><span class="sc">{</span>pairname<span class="sc">}</span><span class="ss">_matrix.h5"</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>    out_matrix <span class="op">=</span> <span class="ss">f"steps/</span><span class="sc">{</span>pairname<span class="sc">}</span><span class="ss">_hic.cool"</span></span>
 <span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>    out_qc_folder <span class="op">=</span> <span class="ss">f"steps/</span><span class="sc">{</span>pairname<span class="sc">}</span><span class="ss">_QC"</span></span>
 <span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>    T3 <span class="op">=</span> gwf.target_from_template(<span class="ss">f"build_hic_matrix_</span><span class="sc">{</span>pairname<span class="sc">}</span><span class="ss">"</span>, </span>
 <span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>                                  build_hic_matrix(bam1<span class="op">=</span>out_bam_1, bam2<span class="op">=</span>out_bam_2, </span>
