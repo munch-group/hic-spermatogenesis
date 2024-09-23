@@ -234,7 +234,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#reality-check" id="toc-reality-check" class="nav-link active" data-scroll-target="#reality-check">Reality check</a></li>
   <li><a href="#getting-started-with-an-overview" id="toc-getting-started-with-an-overview" class="nav-link" data-scroll-target="#getting-started-with-an-overview">Getting started with an overview</a></li>
-  <li><a href="#hicexplorer-begins" id="toc-hicexplorer-begins" class="nav-link" data-scroll-target="#hicexplorer-begins">HiCExplorer begins</a></li>
+  <li><a href="#hicexplorer-begins" id="toc-hicexplorer-begins" class="nav-link" data-scroll-target="#hicexplorer-begins">HiCExplorer begins</a>
+  <ul class="collapse">
+  <li><a href="#results-from-bwa" id="toc-results-from-bwa" class="nav-link" data-scroll-target="#results-from-bwa">Results from <code>bwa</code></a></li>
+  <li><a href="#results-from-bowtie2-end-to-end" id="toc-results-from-bowtie2-end-to-end" class="nav-link" data-scroll-target="#results-from-bowtie2-end-to-end">Results from <code>bowtie2 end-to-end</code></a></li>
+  <li><a href="#results-from-bowtie2---local" id="toc-results-from-bowtie2---local" class="nav-link" data-scroll-target="#results-from-bowtie2---local">Results from <code>bowtie2 --local</code></a></li>
+  <li><a href="#comparing-qc-results-from-all-3-mappings" id="toc-comparing-qc-results-from-all-3-mappings" class="nav-link" data-scroll-target="#comparing-qc-results-from-all-3-mappings">Comparing QC results from all 3 mappings</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></nav>
     </div>
@@ -271,19 +277,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="kernel">Kernel</h3>
 <p><strong><em>Before using this notebook, make sure to use the ‘hic’ kernel.</em></strong></p>
 <p>I might change the env into a seperate HiC env for each of the tools, such as HICExplorer, Cooler/cooltools, etc.</p>
-<p>As of this update, there is only one environment in the repo, and it contains both Python, R, and CLI tools for use in HI-C data analysis.</p>
+<p>As of this version, there is only one environment in the repo, and it contains both Python, R, and CLI tools for use in HI-C data analysis.</p>
 </section>
 </section>
 <section id="getting-started-with-an-overview" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started-with-an-overview">Getting started with an overview</h2>
 <p>In this notebook, we will use HiCExplorer to analysis Hi-C reads from macaque monkeys. We will follow an <a href="https://hicexplorer.readthedocs.io/en/latest/content/example_usage.html#how-we-use-hicexplorer">example</a> from the HiCExplorer documentation.</p>
 <p>First, let’s look at the files we have. They are from <a href="https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA430777&amp;o=acc_s%3Aahttps://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA430777&amp;o=acc_s%3Aa">SRA</a>, and are Hi-C sequencing data from macaque fibroblasts. The data is generated for the Wang2019 paper.</p>
-<div id="cell-2" class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tree ..<span class="op">/</span>data<span class="op">/</span>links<span class="op">/</span>macaque_fastq</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>tree ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>macaque_raw<span class="op">/</span>downloaded<span class="op">/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>tree ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>macaque_raw<span class="op">/</span>downloaded<span class="op">/</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>du <span class="op">-</span>ha ..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>macaque_raw<span class="op">/</span>downloaded<span class="op">/*</span>.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>../data/links/macaque_fastq
 ├── SRR6502335_1.fastq.gz -&gt; ../../../../../../data/macaque_raw/downloaded/SRR6502335_1.fastq.gz
@@ -312,7 +320,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ├── SRR6502339_1.fastq.gz
 └── SRR6502339_2.fastq.gz
 
-0 directories, 12 files</code></pre>
+0 directories, 12 files
+20G ../../../../data/macaque_raw/downloaded/SRR6502335_1.fastq.gz
+23G ../../../../data/macaque_raw/downloaded/SRR6502335_2.fastq.gz
+16G ../../../../data/macaque_raw/downloaded/SRR6502336_1.fastq.gz
+17G ../../../../data/macaque_raw/downloaded/SRR6502336_2.fastq.gz
+14G ../../../../data/macaque_raw/downloaded/SRR6502337_1.fastq.gz
+17G ../../../../data/macaque_raw/downloaded/SRR6502337_2.fastq.gz
+14G ../../../../data/macaque_raw/downloaded/SRR6502338_1.fastq.gz
+17G ../../../../data/macaque_raw/downloaded/SRR6502338_2.fastq.gz
+7.0G    ../../../../data/macaque_raw/downloaded/SRR6502339_1.fastq.gz
+7.6G    ../../../../data/macaque_raw/downloaded/SRR6502339_2.fastq.gz</code></pre>
 </div>
 </div>
 <section id="an-overview-of-the-sequences" class="level3">
@@ -497,8 +515,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>But also, they are located in the <code>steps/</code> folder as a log, so let’s read it into view:</p>
 </section>
 </section>
-<section id="hicexplorer-begins" class="level2">
-<h2 class="anchored" data-anchor-id="hicexplorer-begins">HiCExplorer begins</h2>
+<section id="hicexplorer-begins" class="level1">
+<h1>HiCExplorer begins</h1>
 <p>We wil use the <code>HicExplorer</code> commands in the following order:</p>
 <ul>
 <li>hicNormalize</li>
@@ -511,7 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>We already used <code>hicFindRestSites</code> and <code>hicBuildMatrix</code> commands from the <em>HicExplorer</em> tool.</p>
 <p>First, we will make a function to read the <code>.log</code> file into a <code>pandas</code> df.</p>
-<div id="cell-7" class="cell" data-execution_count="18">
+<div id="cell-7" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -528,256 +546,123 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        t1.columns<span class="op">=</span>t1.iloc[<span class="dv">0</span>]</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t1 <span class="op">=</span> t1.drop(<span class="dv">0</span>).reset_index()</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        t2 <span class="op">=</span> reader.get_chunk(<span class="dv">6</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        t2 <span class="op">=</span> reader.get_chunk(<span class="dv">6</span>).dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        t2.columns<span class="op">=</span>t2.iloc[<span class="dv">0</span>]</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t2 <span class="op">=</span> t2.drop(<span class="dv">4</span>).reset_index()</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        t3 <span class="op">=</span> reader.get_chunk(<span class="dv">7</span>) </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        t3 <span class="op">=</span> reader.get_chunk(<span class="dv">7</span>) .dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        t3.columns<span class="op">=</span>t3.iloc[<span class="dv">0</span>]</span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t3 <span class="op">=</span> t3.drop(<span class="dv">10</span>).reset_index()</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        t4 <span class="op">=</span> reader.get_chunk(<span class="dv">7</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        t4 <span class="op">=</span> reader.get_chunk(<span class="dv">7</span>).dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        t4.columns<span class="op">=</span>t4.iloc[<span class="dv">0</span>]</span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t4 <span class="op">=</span> t4.drop(<span class="dv">17</span>).reset_index()</span>
 <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> view(<span class="va">self</span>):</span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        display(<span class="va">self</span>.t1, <span class="va">self</span>.t2, <span class="va">self</span>.t3, <span class="va">self</span>.t4)</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>SRR35 <span class="op">=</span> HiCQCLog(<span class="st">"../results/SRR6502335_QC/QC.log"</span>)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>SRR35.view()</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">index</th>
-<th data-quarto-table-cell-role="th">File</th>
-<th data-quarto-table-cell-role="th">steps/SRR6502335_matrix.h5</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>Sequenced reads</td>
-<td>244003806</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>Min rest. site distance</td>
-<td>300</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>Max library insert size</td>
-<td>1000</td>
-</tr>
-</tbody>
-</table>
-
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-8" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a function to plot .pngs with matplotlib</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_pngs_in_grid(image_folder, suffix<span class="op">=</span><span class="st">".png"</span>, ncol<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Plots all PNG images from a specified folder in a grid.</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">    image_folder (str): Path to the folder containing the PNG files.</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">    num_cols (int): Number of columns in the grid layout. Default is 3.</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">    None</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find all .png files in the folder</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># with a specified suffix (default: .png)</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Plotting all images in '</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>join(image_folder, <span class="ss">f'*</span><span class="sc">{</span>suffix<span class="sc">}</span><span class="ss">'</span>)<span class="sc">}</span><span class="ss">'"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    image_files <span class="op">=</span> glob.glob(os.path.join(image_folder, <span class="ss">f'*</span><span class="sc">{</span>suffix<span class="sc">}</span><span class="ss">'</span>))</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If no images found, print a message and return</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> image_files:</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"No PNG files found in </span><span class="sc">{</span>image_folder<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate the number of rows needed</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    num_cols <span class="op">=</span> ncol</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    num_images <span class="op">=</span> <span class="bu">len</span>(image_files)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    num_rows <span class="op">=</span> (num_images <span class="op">+</span> num_cols <span class="op">-</span> <span class="dv">1</span>) <span class="op">//</span> num_cols  <span class="co"># Ceiling division</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a matplotlib figure</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(num_rows, num_cols, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span> <span class="op">*</span> num_rows))</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Flatten axes in case the grid is not a perfect rectangle</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop through image files and plot them</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, image_file <span class="kw">in</span> <span class="bu">enumerate</span>(image_files):</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>        img <span class="op">=</span> Image.<span class="bu">open</span>(image_file)  <span class="co"># Open the image file</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        axes[i].imshow(img)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>        axes[i].axis(<span class="st">'off'</span>)  <span class="co"># Turn off axis labels</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>        axes[i].set_title(os.path.basename(image_file))  <span class="co"># Set image title (filename)</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Hide any remaining empty subplots if the number of images is not a perfect fit for the grid</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(axes)):</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>        axes[j].axis(<span class="st">'off'</span>)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Adjust layout to fit images and titles nicely</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-9" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>glob.glob(os.path.join(<span class="st">"../steps/bwa/QC_all_samples/"</span>, <span class="ss">f'*.png'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>['../steps/bwa/QC_all_samples/read_orientation.png',
+ '../steps/bwa/QC_all_samples/distance.png',
+ '../steps/bwa/QC_all_samples/pairs_discarded.png',
+ '../steps/bwa/QC_all_samples/unmappable_and_non_unique.png',
+ '../steps/bwa/QC_all_samples/pairs_sequenced.png']</code></pre>
 </div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">4</th>
-<th data-quarto-table-cell-role="th">index</th>
-<th data-quarto-table-cell-role="th">#</th>
-<th data-quarto-table-cell-role="th">count</th>
-<th data-quarto-table-cell-role="th">(percentage w.r.t. total sequenced reads)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>5</td>
-<td>Pairs mappable, unique and high quality</td>
-<td>164715495</td>
-<td>(67.51)</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>6</td>
-<td>Hi-C contacts</td>
-<td>110459727</td>
-<td>(45.27)</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>7</td>
-<td>One mate unmapped</td>
-<td>7074456</td>
-<td>(2.90)</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>8</td>
-<td>One mate not unique</td>
-<td>46247666</td>
-<td>(18.95)</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>9</td>
-<td>Low mapping quality</td>
-<td>25966189</td>
-<td>(10.64)</td>
-</tr>
-</tbody>
-</table>
-
+<section id="results-from-bwa" class="level2">
+<h2 class="anchored" data-anchor-id="results-from-bwa">Results from <code>bwa</code></h2>
+<div id="cell-11" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>SRR35 <span class="op">=</span> HiCQCLog(<span class="st">"../results/SRR6502335_QC/QC.log"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>SRR35.view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div id="cell-12" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicQC <span class="op">--</span>logfiles $(echo ..<span class="op">/</span>results<span class="op">/*</span>_QC<span class="op">/</span>QC.log) <span class="op">--</span>labels <span class="st">"SRR35"</span> <span class="st">"SRR36"</span> <span class="st">"SRR37"</span> <span class="st">"SRR38"</span> <span class="st">"SRR39"</span> <span class="op">--</span>outputFolder ..<span class="op">/</span>steps<span class="op">/</span>bwa<span class="op">/</span>QC_all_samples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plot_pngs_in_grid(<span class="st">"../steps/bwa/QC_all_samples/"</span>, ncol<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../steps/bwa/QC_all_samples/*.png'</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">10</th>
-<th data-quarto-table-cell-role="th">index</th>
-<th data-quarto-table-cell-role="th">#</th>
-<th data-quarto-table-cell-role="th">count</th>
-<th data-quarto-table-cell-role="th">(percentage w.r.t. mappable, unique and high quality pairs)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>11</td>
-<td>dangling end GATC (restriction sequence GATC)</td>
-<td>1400095</td>
-<td>(0.85)</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>12</td>
-<td>self ligation (removed)</td>
-<td>11329456</td>
-<td>(6.88)</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>13</td>
-<td>One mate not close to rest site</td>
-<td>0</td>
-<td>(0.00)</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>14</td>
-<td>same fragment</td>
-<td>19171395</td>
-<td>(11.64)</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>15</td>
-<td>self circle</td>
-<td>2625919</td>
-<td>(1.59)</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>16</td>
-<td>duplicated pairs</td>
-<td>22354822</td>
-<td>(13.57)</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">17</th>
-<th data-quarto-table-cell-role="th">index</th>
-<th data-quarto-table-cell-role="th">#</th>
-<th data-quarto-table-cell-role="th">count</th>
-<th data-quarto-table-cell-role="th">(percentage w.r.t. total valid pairs used)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>18</td>
-<td>inter chromosomal</td>
-<td>28350411</td>
-<td>(25.67)</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>19</td>
-<td>Intra short range (&lt; 20kb)</td>
-<td>14384188</td>
-<td>(13.02)</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>20</td>
-<td>Intra long range (&gt;= 20kb)</td>
-<td>67725128</td>
-<td>(61.31)</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>21</td>
-<td>Read pair type: inward pairs</td>
-<td>19296696</td>
-<td>(17.47)</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>22</td>
-<td>Read pair type: outward pairs</td>
-<td>22871961</td>
-<td>(20.71)</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>23</td>
-<td>Read pair type: left pairs</td>
-<td>20163554</td>
-<td>(18.25)</td>
-</tr>
-</tbody>
-</table>
-
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
 </div>
 <section id="normalize-matrices" class="level3">
 <h3 class="anchored" data-anchor-id="normalize-matrices">Normalize matrices</h3>
-<div id="cell-9" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>hicNormalize <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>SRR6502335_matrix.h5 <span class="op">--</span>normalize norm_range <span class="op">-</span>o SRR6502335_norm0_1.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-15" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>hicNormalize <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>SRR6502335_matrix.h5 <span class="op">--</span>normalize norm_range <span class="op">-</span>o SRR6502335_norm0_1.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="create-a-diagnostic-plot" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-diagnostic-plot">Create a diagnostic plot</h3>
-<div id="cell-11" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#! hicexplorer</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> hicCorrectMatrix diagnostic_plot <span class="op">--</span><span class="bu">help</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#! hicCorrectMatrix correct --help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-17" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#! hicexplorer</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> hicCorrectMatrix diagnostic_plot <span class="op">--</span><span class="bu">help</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#! hicCorrectMatrix correct --help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>usage: hicCorrectMatrix diagnostic_plot --matrix hic_matrix.h5 -o file.png
 
@@ -808,14 +693,14 @@ Optional arguments:
 </div>
 </div>
 <p>Let’s make a loop that produce a diagnostic plot for all matrices in the folder:</p>
-<div id="cell-13" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> FILE <span class="kw">in</span> ..<span class="op">/</span>steps<span class="op">/*</span>.h5</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>do</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>echo $(basename $FILE _matrix.h5)_diag_plot.png</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m $FILE <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>$(basename $FILE _matrix.h5)_diag_plot.png</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-19" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> FILE <span class="kw">in</span> ..<span class="op">/</span>steps<span class="op">/*</span>.h5</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>do</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>echo $(basename $FILE _matrix.h5)_diag_plot.png</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m $FILE <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>$(basename $FILE _matrix.h5)_diag_plot.png</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>SRR6502335_diag_plot.png</code></pre>
 </div>
@@ -862,8 +747,21 @@ INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot SRR6502339_diag_plot.pn
 </code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m SRR6502335_norm0_1.h5 <span class="op">-</span>o diag_plot_norm.png</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-20" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plot_pngs_in_grid(<span class="st">"../figures/bwa"</span>, suffix<span class="op">=</span><span class="st">"diag_plot.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../figures/bwa/*diag_plot.png'</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-21" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m SRR6502335_norm0_1.h5 <span class="op">-</span>o diag_plot_norm.png</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>INFO:hicexplorer.hicCorrectMatrix:Removing 13359 zero value bins
 INFO:hicexplorer.hicCorrectMatrix:mad threshold -2.0545956094919804
@@ -875,12 +773,12 @@ INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot diag_plot_norm.png
 <section id="correct-the-matrices" class="level3">
 <h3 class="anchored" data-anchor-id="correct-the-matrices">Correct the matrices</h3>
 <p>And do the correction with the suggested values and ICE. We are going to produce a corrected matrix for both with and without <code>--perchr</code> (per chromosome) option</p>
-<div id="cell-16" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix correct <span class="op">-</span>m SRR6502335_norm0_1.h5 <span class="op">-</span>o .<span class="op">/</span>SRR6502335_norm0_1_corrected.h5 <span class="op">\</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>correctionMethod ICE <span class="op">\</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>filterThreshold <span class="op">-</span><span class="dv">2</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-23" class="cell" data-scrolled="true" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix correct <span class="op">-</span>m SRR6502335_norm0_1.h5 <span class="op">-</span>o .<span class="op">/</span>SRR6502335_norm0_1_corrected.h5 <span class="op">\</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>correctionMethod ICE <span class="op">\</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>filterThreshold <span class="op">-</span><span class="dv">2</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>INFO:hicexplorer.hicCorrectMatrix:Removing 13359 zero value bins
 INFO:hicexplorer.hicCorrectMatrix:matrix contains 21229234 data points. Sparsity 0.000.
@@ -1088,8 +986,8 @@ INFO:hicexplorer.iterativeCorrection:pass 500 Estimated time 0:0:0
 INFO:hicexplorer.iterativeCorrection:max delta - 1 = 1.0154457466418232 </code></pre>
 </div>
 </div>
-<div id="cell-17" class="cell" data-scrolled="true" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicInfo <span class="op">-</span>m SRR6502335_norm0_1_corrected.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-24" class="cell" data-scrolled="true" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicInfo <span class="op">-</span>m SRR6502335_norm0_1_corrected.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Matrix information file. Created with HiCExplorer's hicInfo version 3.7.5
 File:   SRR6502335_norm0_1_corrected.h5
@@ -1104,21 +1002,21 @@ NaN bins:   20943
 </code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicMergeMatrixBins <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>SRR6502335_matrix.h5 <span class="op">-</span>o SRR6502335_nb100 <span class="op">--</span>numBins <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-25" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicMergeMatrixBins <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>SRR6502335_matrix.h5 <span class="op">-</span>o SRR6502335_nb100 <span class="op">--</span>numBins <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot chr1 (NC_041755.1)</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicPlotMatrix <span class="op">-</span>m SRR6502335_norm0_1_corrected.h5 <span class="op">-</span>o SRR6502335_normcorrect_1.png <span class="op">--</span>region NC_041755<span class="fl">.1</span>:<span class="dv">0</span><span class="op">-</span><span class="dv">105000000</span> <span class="op">--</span>dpi <span class="dv">300</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-26" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot chr1 (NC_041755.1)</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicPlotMatrix <span class="op">-</span>m SRR6502335_norm0_1_corrected.h5 <span class="op">-</span>o SRR6502335_normcorrect_1.png <span class="op">--</span>region NC_041755<span class="fl">.1</span>:<span class="dv">0</span><span class="op">-</span><span class="dv">105000000</span> <span class="op">--</span>dpi <span class="dv">300</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: False
 INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.06933028755391794
 </code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicPlotMatrix <span class="op">-</span>m SRR6502335_norm0_1_corrected.h5 <span class="op">-</span>o SRR6502335_normcorrect_x.png <span class="op">--</span>region NC_041774<span class="fl">.1</span>:<span class="dv">0</span><span class="op">-</span><span class="dv">105000000</span> <span class="op">--</span>log1p <span class="op">--</span>dpi <span class="dv">300</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-27" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicPlotMatrix <span class="op">-</span>m SRR6502335_norm0_1_corrected.h5 <span class="op">-</span>o SRR6502335_normcorrect_x.png <span class="op">--</span>region NC_041774<span class="fl">.1</span>:<span class="dv">0</span><span class="op">-</span><span class="dv">105000000</span> <span class="op">--</span>log1p <span class="op">--</span>dpi <span class="dv">300</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: False
 INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.06933028755391794
@@ -1126,14 +1024,226 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 </div>
 </div>
 </section>
-<section id="plot-a-region-of-chr1" class="level3">
-<h3 class="anchored" data-anchor-id="plot-a-region-of-chr1">Plot a region of chr1:</h3>
-<p><img src="SRR6502335_hic_1.png" width="1000" height="1000"></p>
-<p><img src="SRR6502335_normcorrect_1.png" width="1000" height="1000"></p>
 </section>
-<section id="plot-a-region-of-chrx" class="level3">
-<h3 class="anchored" data-anchor-id="plot-a-region-of-chrx">Plot a region of chrX:</h3>
-<p><img src="SRR6502335_hic_x.png" width="1000" height="1000"></p>
+<section id="results-from-bowtie2-end-to-end" class="level2">
+<h2 class="anchored" data-anchor-id="results-from-bowtie2-end-to-end">Results from <code>bowtie2 end-to-end</code></h2>
+<p>Let’s look at the summary logs for each of the samples</p>
+<div id="cell-31" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>SRR39 <span class="op">=</span> HiCQCLog(<span class="st">"../steps/bowtie2/SRR6502339_QC/QC.log"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-32" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the base directory</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>base_dir <span class="op">=</span> <span class="st">"../steps/bowtie2"</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># List of sample directories (subfolders named SRR6502335_QC, SRR6502336_QC, ...)</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>sample_dirs <span class="op">=</span> [<span class="ss">f"SRR65023</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">_QC"</span> <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">35</span>, <span class="dv">40</span>)]</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co"># List of images to compare</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>image_filenames <span class="op">=</span> [</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distance.png"</span>,</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pairs_discarded.png"</span>,</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pairs_sequenced.png"</span>,</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"read_orientation.png"</span>,</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unmappable_and_non_unique.png"</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty dictionary to hold the image paths for each sample</span></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {sample: [] <span class="cf">for</span> sample <span class="kw">in</span> sample_dirs}</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over each sample folder and populate the paths for each image type</span></span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sample_dir <span class="kw">in</span> sample_dirs:</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>    sample_path <span class="op">=</span> os.path.join(base_dir, sample_dir)</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> image_filename <span class="kw">in</span> image_filenames:</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>        image_path <span class="op">=</span> os.path.join(sample_path, image_filename)</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.exists(image_path):</span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Use HTML to display the image in a cell</span></span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>            img_tag <span class="op">=</span> <span class="ss">f'&lt;img src="</span><span class="sc">{</span>image_path<span class="sc">}</span><span class="ss">" width="400"/&gt;'</span></span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>            data[sample_dir].append(img_tag)</span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>            data[sample_dir].append(<span class="st">'Image not found'</span>)</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame from the collected data</span></span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data, index<span class="op">=</span>image_filenames)</span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the DataFrame as HTML in Jupyter notebook with images</span></span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>display(HTML(df.to_html(escape<span class="op">=</span><span class="va">False</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SRR6502335_QC</th>
+<th data-quarto-table-cell-role="th">SRR6502336_QC</th>
+<th data-quarto-table-cell-role="th">SRR6502337_QC</th>
+<th data-quarto-table-cell-role="th">SRR6502338_QC</th>
+<th data-quarto-table-cell-role="th">SRR6502339_QC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">distance.png</td>
+<td><img src="../steps/bowtie2/SRR6502335_QC/distance.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502336_QC/distance.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502337_QC/distance.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502338_QC/distance.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502339_QC/distance.png" class="img-fluid" width="400"></td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">pairs_discarded.png</td>
+<td><img src="../steps/bowtie2/SRR6502335_QC/pairs_discarded.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502336_QC/pairs_discarded.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502337_QC/pairs_discarded.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502338_QC/pairs_discarded.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502339_QC/pairs_discarded.png" class="img-fluid" width="400"></td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">pairs_sequenced.png</td>
+<td><img src="../steps/bowtie2/SRR6502335_QC/pairs_sequenced.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502336_QC/pairs_sequenced.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502337_QC/pairs_sequenced.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502338_QC/pairs_sequenced.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502339_QC/pairs_sequenced.png" class="img-fluid" width="400"></td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">read_orientation.png</td>
+<td><img src="../steps/bowtie2/SRR6502335_QC/read_orientation.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502336_QC/read_orientation.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502337_QC/read_orientation.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502338_QC/read_orientation.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502339_QC/read_orientation.png" class="img-fluid" width="400"></td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">unmappable_and_non_unique.png</td>
+<td><img src="../steps/bowtie2/SRR6502335_QC/unmappable_and_non_unique.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502336_QC/unmappable_and_non_unique.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502337_QC/unmappable_and_non_unique.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502338_QC/unmappable_and_non_unique.png" class="img-fluid" width="400"></td>
+<td><img src="../steps/bowtie2/SRR6502339_QC/unmappable_and_non_unique.png" class="img-fluid" width="400"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="cell-33" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use hicQC to compare:</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>(echo ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/*</span>_QC<span class="op">/</span>QC.log)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>hicQC <span class="op">--</span>logfiles $(echo ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/*</span>_QC<span class="op">/</span>QC.log) <span class="op">--</span>labels <span class="st">"SRR35"</span> <span class="st">"SRR36"</span> <span class="st">"SRR37"</span> <span class="st">"SRR38"</span> <span class="st">"SRR39"</span> <span class="op">--</span>outputFolder ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>QC_all_samples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>../steps/bowtie2/SRR6502335_QC/QC.log ../steps/bowtie2/SRR6502336_QC/QC.log ../steps/bowtie2/SRR6502337_QC/QC.log ../steps/bowtie2/SRR6502338_QC/QC.log ../steps/bowtie2/SRR6502339_QC/QC.log</code></pre>
+</div>
+</div>
+<div id="cell-34" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plot_pngs_in_grid(<span class="st">"../steps/bowtie2/QC_all_samples/"</span>, ncol<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../steps/bowtie2/QC_all_samples/*.png'</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="results-from-bowtie2---local" class="level2">
+<h2 class="anchored" data-anchor-id="results-from-bowtie2---local">Results from <code>bowtie2 --local</code></h2>
+<div id="cell-36" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use hicQC to compare:</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>(echo ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/*</span>_QC<span class="op">/</span>QC.log)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>hicQC <span class="op">--</span>logfiles $(echo ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local_mapping<span class="op">/*</span>_QC<span class="op">/</span>QC.log) <span class="op">--</span>labels <span class="st">"SRR35"</span> <span class="st">"SRR36"</span> <span class="st">"SRR37"</span> <span class="st">"SRR38"</span> <span class="st">"SRR39"</span> <span class="op">--</span>outputFolder ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local_mapping<span class="op">/</span>QC_all_samples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>../steps/bowtie2/SRR6502335_QC/QC.log ../steps/bowtie2/SRR6502336_QC/QC.log ../steps/bowtie2/SRR6502337_QC/QC.log ../steps/bowtie2/SRR6502338_QC/QC.log ../steps/bowtie2/SRR6502339_QC/QC.log</code></pre>
+</div>
+</div>
+<div id="cell-37" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>plot_pngs_in_grid(<span class="st">"../steps/bowtie2/local_mapping/QC_all_samples/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../steps/bowtie2/local_mapping/QC_all_samples/*.png'</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-26-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="comparing-qc-results-from-all-3-mappings" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-qc-results-from-all-3-mappings">Comparing QC results from all 3 mappings</h2>
+<div id="cell-39" class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.image <span class="im">as</span> mpimg</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the base directories for the different analyses</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>analyses_dirs <span class="op">=</span> [</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'../steps/bwa/QC_all_samples'</span>,</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'../steps/bowtie2/end-to-end/QC_all_samples'</span>,</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'../steps/bowtie2/local/QC_all_samples'</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="co"># List of PNG files to compare (common to all analyses)</span></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>image_filenames <span class="op">=</span> [</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distance.png"</span>,</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pairs_discarded.png"</span>,</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pairs_sequenced.png"</span>,</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"read_orientation.png"</span>,</span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unmappable_and_non_unique.png"</span></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of rows (one per image type) and columns (one per analysis)</span></span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>n_rows <span class="op">=</span> <span class="bu">len</span>(image_filenames)</span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>n_cols <span class="op">=</span> <span class="bu">len</span>(analyses_dirs)</span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure with subplots</span></span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(n_rows, n_cols, figsize<span class="op">=</span>(n_cols <span class="op">*</span> <span class="dv">5</span>, n_rows <span class="op">*</span> <span class="dv">5</span>))</span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot each image in the corresponding subplot</span></span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row, image_filename <span class="kw">in</span> <span class="bu">enumerate</span>(image_filenames):</span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col, analysis_dir <span class="kw">in</span> <span class="bu">enumerate</span>(analyses_dirs):</span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a>        image_path <span class="op">=</span> os.path.join(analysis_dir, image_filename)</span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.exists(image_path):</span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a>            img <span class="op">=</span> mpimg.imread(image_path)</span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a>            axes[row, col].imshow(img)</span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a>            axes[row, col].axis(<span class="st">'off'</span>)  <span class="co"># Turn off axis labels</span></span>
+<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a>            axes[row, col].text(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="st">'Image not found'</span>, horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb49-38"><a href="#cb49-38" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb49-39"><a href="#cb49-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Set the title for the first row</span></span>
+<span id="cb49-40"><a href="#cb49-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb49-41"><a href="#cb49-41" aria-hidden="true" tabindex="-1"></a>            <span class="co">#axes[row, col].set_title(os.path.basename(analysis_dir), fontsize=14)</span></span>
+<span id="cb49-42"><a href="#cb49-42" aria-hidden="true" tabindex="-1"></a>            axes[row, col].set_title(analysis_dir.split(<span class="st">"../steps/"</span>)[<span class="dv">1</span>], fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb49-43"><a href="#cb49-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-44"><a href="#cb49-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Set row labels (for image types)</span></span>
+<span id="cb49-45"><a href="#cb49-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row, image_filename <span class="kw">in</span> <span class="bu">enumerate</span>(image_filenames):</span>
+<span id="cb49-46"><a href="#cb49-46" aria-hidden="true" tabindex="-1"></a>    axes[row, <span class="dv">0</span>].set_ylabel(image_filename, fontsize<span class="op">=</span><span class="dv">14</span>, labelpad<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb49-47"><a href="#cb49-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-48"><a href="#cb49-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout for better spacing</span></span>
+<span id="cb49-49"><a href="#cb49-49" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb49-50"><a href="#cb49-50" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>
