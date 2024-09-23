@@ -1,6 +1,6 @@
 # %% [markdown]
 # ---
-# title: "gwf_bowtie"
+# title: "gwf_bowtie_local"
 # author: Søren Jørgensen
 # date: last-modified
 # execute: 
@@ -71,7 +71,7 @@ hicFindRestSite --fasta {ref_genome} --searchPattern {rest_seq} --outFile {out_b
 
 def bowtie_map(bt2_idx, in_fastq, out_bam):
     """Map reads to the reference genome with bowtie2"""
-    threads = 32
+    threads = 64
     inputs = [in_fastq,
               f"{bt2_idx}.1.bt2l",
                f"{bt2_idx}.2.bt2l",
@@ -84,7 +84,7 @@ def bowtie_map(bt2_idx, in_fastq, out_bam):
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
-bowtie2 -x {bt2_idx} --threads {threads} -U {in_fastq} -t --reorder --end-to-end --very-sensitive | \
+bowtie2 -x {bt2_idx} --threads {threads} -U {in_fastq} -t --reorder --local --very-sensitive-local | \
     samtools view --threads {threads-1} -Shb - > {out_bam}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
@@ -106,7 +106,8 @@ hicBuildMatrix --samFiles {bam1} {bam2} \
     --threads {threads} \
     --inputBufferSize 100000 \
     -o {out_matrix} \
-    --QCfolder ./{out_qc_folder}
+    --QCfolder ./{out_qc_folder} \
+    --genomeAssembly rheMac10
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
@@ -133,6 +134,11 @@ T1b = gwf.target_from_template(
 # Map Hi-C reads 
 fastq_folder = "data/links/macaque_fastq/"
 fastq_files = gwf.glob(os.path.join(fastq_folder, "*.fastq.gz"))
+out_dir = "steps/bowtie2/local_mapping"
+
+# Check if the output directory exists
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
 
 
 # Pair the files (make sure they have the same base name prefix):
@@ -145,8 +151,9 @@ for f1,f2 in paired_fastq_files:
     basename_2 = os.path.basename(f2).split('.fast')[0]
     
     # Create the output bam filenames
-    out_bam_1 = f"steps/bowtie2/{basename_1}.bam"
-    out_bam_2 = f"steps/bowtie2/{basename_2}.bam"
+
+    out_bam_1 = f"{out_dir}/{basename_1}.bam"
+    out_bam_2 = f"{out_dir}/{basename_2}.bam"
 
     # Create targets for mapping
     T2a = gwf.target_from_template(f"bowtie_map_{basename_1}", bowtie_map(bt2_idx=ref_genome, in_fastq=f1, out_bam=out_bam_1))
@@ -156,8 +163,8 @@ for f1,f2 in paired_fastq_files:
     pairname = os.path.commonprefix([basename_1, basename_2]).split('_')[0]
 
     # Create the target for building the matrix (uses out_bam_1 and out_bam_2)
-    out_matrix = f"steps/bowtie2/{pairname}_hic.cool"
-    out_qc_folder = f"steps/bowtie2/{pairname}_QC"
+    out_matrix = f"{out_dir}/{pairname}.cool"
+    out_qc_folder = f"{out_dir}/{pairname}_QC"
 
     T3 = gwf.target_from_template(f"build_hic_matrix_{pairname}", 
                                   build_hic_matrix(bam1=out_bam_1, bam2=out_bam_2, 
