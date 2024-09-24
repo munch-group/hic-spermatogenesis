@@ -91,7 +91,7 @@ bowtie2 -x {bt2_idx} --threads {threads} -U {in_fastq} -t --reorder --local --ve
 
 
 def build_hic_matrix(bam1, bam2, rest_seq, rest_site_positions, out_matrix, out_qc_folder):
-    threads = 8
+    threads = 16
     inputs = [bam1, bam2, rest_site_positions]
     outputs = [out_matrix, out_qc_folder]
     options = {'cores':threads, 'memory': "128g", 'walltime':"02:00:00"}
@@ -134,13 +134,8 @@ T1b = gwf.target_from_template(
 # Map Hi-C reads 
 fastq_folder = "data/links/macaque_fastq/"
 fastq_files = gwf.glob(os.path.join(fastq_folder, "*.fastq.gz"))
-out_dir = "steps/bowtie2/local_mapping"
-
-# Check if the output directory exists
-if not os.path.exists(out_dir):
-    os.makedirs(out_dir)
-
-
+out_dir = "steps/bowtie2/local"
+    
 # Pair the files (make sure they have the same base name prefix):
 fastq_files.sort()
 paired_fastq_files = list(zip(fastq_files[::2], fastq_files[1::2]))
@@ -151,9 +146,9 @@ for f1,f2 in paired_fastq_files:
     basename_2 = os.path.basename(f2).split('.fast')[0]
     
     # Create the output bam filenames
-
-    out_bam_1 = f"{out_dir}/{basename_1}.bam"
-    out_bam_2 = f"{out_dir}/{basename_2}.bam"
+    bam_dir = f"{out_dir}/bamfiles/"
+    out_bam_1 = f"{bam_dir}/{basename_1}.bam"
+    out_bam_2 = f"{bam_dir}/{basename_2}.bam"
 
     # Create targets for mapping
     T2a = gwf.target_from_template(f"bowtie_map_{basename_1}", bowtie_map(bt2_idx=ref_genome, in_fastq=f1, out_bam=out_bam_1))
@@ -163,10 +158,13 @@ for f1,f2 in paired_fastq_files:
     pairname = os.path.commonprefix([basename_1, basename_2]).split('_')[0]
 
     # Create the target for building the matrix (uses out_bam_1 and out_bam_2)
-    out_matrix = f"{out_dir}/{pairname}.cool"
+    matrix_dir = f"{out_dir}/matrices"
+
+
+    out_matrix = f"{matrix_dir}/{pairname}.cool"
     out_qc_folder = f"{out_dir}/{pairname}_QC"
 
-    T3 = gwf.target_from_template(f"build_hic_matrix_{pairname}", 
+    T3 = gwf.target_from_template(f"build_cool_{pairname[-2:]}", 
                                   build_hic_matrix(bam1=out_bam_1, bam2=out_bam_2, 
                                                    rest_seq=rest_seq,
                                                    rest_site_positions=rest_sites_out, 
