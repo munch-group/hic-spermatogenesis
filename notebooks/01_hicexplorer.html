@@ -148,6 +148,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../thoughts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Thoughts and Prayers</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -186,6 +191,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../gwf_map_reads.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_map_reads</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../gwf_bowtie.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_bowtie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../gwf_hiccorrect.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_hiccorrect</span></a>
   </div>
 </li>
       </ul>
@@ -236,6 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#getting-started-with-an-overview" id="toc-getting-started-with-an-overview" class="nav-link" data-scroll-target="#getting-started-with-an-overview">Getting started with an overview</a></li>
   <li><a href="#hicexplorer-begins" id="toc-hicexplorer-begins" class="nav-link" data-scroll-target="#hicexplorer-begins">HiCExplorer begins</a>
   <ul class="collapse">
+  <li><a href="#functions-that-are-also-moved-into-hicstuff.py-script-for-import" id="toc-functions-that-are-also-moved-into-hicstuff.py-script-for-import" class="nav-link" data-scroll-target="#functions-that-are-also-moved-into-hicstuff.py-script-for-import">Functions that are also moved into <code>hicstuff.py</code> script for import</a></li>
   <li><a href="#results-from-bwa" id="toc-results-from-bwa" class="nav-link" data-scroll-target="#results-from-bwa">Results from <code>bwa</code></a></li>
   <li><a href="#results-from-bowtie2---end-to-end" id="toc-results-from-bowtie2---end-to-end" class="nav-link" data-scroll-target="#results-from-bowtie2---end-to-end">Results from <code>bowtie2 --end-to-end</code></a></li>
   <li><a href="#results-from-bowtie2---local" id="toc-results-from-bowtie2---local" class="nav-link" data-scroll-target="#results-from-bowtie2---local">Results from <code>bowtie2 --local</code></a></li>
@@ -243,6 +259,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#filter-the-unplaced-scaffolds-from-the-mapping" id="toc-filter-the-unplaced-scaffolds-from-the-mapping" class="nav-link" data-scroll-target="#filter-the-unplaced-scaffolds-from-the-mapping">Filter the unplaced scaffolds from the mapping</a></li>
   <li><a href="#try-to-plot-the-new-filtered-matrix" id="toc-try-to-plot-the-new-filtered-matrix" class="nav-link" data-scroll-target="#try-to-plot-the-new-filtered-matrix">Try to plot the new filtered matrix</a></li>
   <li><a href="#pooled-samples" id="toc-pooled-samples" class="nav-link" data-scroll-target="#pooled-samples">Pooled samples</a></li>
+  <li><a href="#normalize-to-the-smallest-read-count-hicnormalize--n-smallest--sz-1.0" id="toc-normalize-to-the-smallest-read-count-hicnormalize--n-smallest--sz-1.0" class="nav-link" data-scroll-target="#normalize-to-the-smallest-read-count-hicnormalize--n-smallest--sz-1.0">Normalize to the smallest read count (<code>hicNormalize -n smallest -sz 1.0</code>)</a></li>
+  <li><a href="#chromatin-compartments" id="toc-chromatin-compartments" class="nav-link" data-scroll-target="#chromatin-compartments">Chromatin Compartments</a></li>
   </ul></li>
   </ul>
 <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></nav>
@@ -531,41 +549,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>hicPlotMatrix</li>
 </ul>
 <p>We already used <code>hicFindRestSites</code> and <code>hicBuildMatrix</code> commands from the <em>HicExplorer</em> tool.</p>
-<p>First, we will make a function to read the <code>.log</code> file into a <code>pandas</code> df.</p>
-<div id="cell-7" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># All the files can be assigned to a list with glob.glob:</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># logs = glob.glob("../results/SRR*/*.log")</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># they can be read with a for loop, but it's too messy to show. </span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The .log file is a tab-separated file with 4 tables, so we have to make our own function to read it</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># I wrapped it in a class to save all tables from each log in a single variable. </span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HiCQCLog(): </span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, logfile):</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        reader <span class="op">=</span> pd.read_csv(logfile, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>, iterator<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        t1 <span class="op">=</span> reader.get_chunk(<span class="dv">4</span>).dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        t1.columns<span class="op">=</span>t1.iloc[<span class="dv">0</span>]</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t1 <span class="op">=</span> t1.drop(<span class="dv">0</span>).reset_index()</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        t2 <span class="op">=</span> reader.get_chunk(<span class="dv">6</span>).dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        t2.columns<span class="op">=</span>t2.iloc[<span class="dv">0</span>]</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t2 <span class="op">=</span> t2.drop(<span class="dv">4</span>).reset_index()</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        t3 <span class="op">=</span> reader.get_chunk(<span class="dv">7</span>) .dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        t3.columns<span class="op">=</span>t3.iloc[<span class="dv">0</span>]</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t3 <span class="op">=</span> t3.drop(<span class="dv">10</span>).reset_index()</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        t4 <span class="op">=</span> reader.get_chunk(<span class="dv">7</span>).dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        t4.columns<span class="op">=</span>t4.iloc[<span class="dv">0</span>]</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t4 <span class="op">=</span> t4.drop(<span class="dv">17</span>).reset_index()</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> view(<span class="va">self</span>):</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        display(<span class="va">self</span>.t1, <span class="va">self</span>.t2, <span class="va">self</span>.t3, <span class="va">self</span>.t4)</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="functions-that-are-also-moved-into-hicstuff.py-script-for-import" class="level2">
+<h2 class="anchored" data-anchor-id="functions-that-are-also-moved-into-hicstuff.py-script-for-import">Functions that are also moved into <code>hicstuff.py</code> script for import</h2>
+<div id="cell-8" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First, we will make a function to read the `.log` file into a `pandas` df. </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># All the files can be assigned to a list with glob.glob:</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># logs = glob.glob("../results/SRR*/*.log")</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># they can be read with a for loop, but it's too messy to show. </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The .log file is a tab-separated file with 4 tables, so we have to make our own function to read it</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># I wrapped it in a class to save all tables from each log in a single variable. </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HiCQCLog(): </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, logfile):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        reader <span class="op">=</span> pd.read_csv(logfile, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>, iterator<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        t1 <span class="op">=</span> reader.get_chunk(<span class="dv">4</span>).dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        t1.columns<span class="op">=</span>t1.iloc[<span class="dv">0</span>]</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t1 <span class="op">=</span> t1.drop(<span class="dv">0</span>).reset_index()</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        t2 <span class="op">=</span> reader.get_chunk(<span class="dv">6</span>).dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        t2.columns<span class="op">=</span>t2.iloc[<span class="dv">0</span>]</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t2 <span class="op">=</span> t2.drop(<span class="dv">4</span>).reset_index()</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        t3 <span class="op">=</span> reader.get_chunk(<span class="dv">7</span>) .dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        t3.columns<span class="op">=</span>t3.iloc[<span class="dv">0</span>]</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t3 <span class="op">=</span> t3.drop(<span class="dv">10</span>).reset_index()</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        t4 <span class="op">=</span> reader.get_chunk(<span class="dv">7</span>).dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        t4.columns<span class="op">=</span>t4.iloc[<span class="dv">0</span>]</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.t4 <span class="op">=</span> t4.drop(<span class="dv">17</span>).reset_index()</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> view(<span class="va">self</span>):</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        display(<span class="va">self</span>.t1, <span class="va">self</span>.t2, <span class="va">self</span>.t3, <span class="va">self</span>.t4)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="24">
+<div id="cell-9" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a function to plot .pngs with matplotlib</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
@@ -620,7 +641,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
 <span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="32">
+<div id="cell-10" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>glob.glob(os.path.join(<span class="st">"../steps/bwa/QC_all_samples/"</span>, <span class="ss">f'*.png'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>['../steps/bwa/QC_all_samples/read_orientation.png',
@@ -630,16 +651,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  '../steps/bwa/QC_all_samples/pairs_sequenced.png']</code></pre>
 </div>
 </div>
+</section>
 <section id="results-from-bwa" class="level2">
 <h2 class="anchored" data-anchor-id="results-from-bwa">Results from <code>bwa</code></h2>
-<div id="cell-11" class="cell">
+<div id="cell-12" class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>SRR35 <span class="op">=</span> HiCQCLog(<span class="st">"../results/SRR6502335_QC/QC.log"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>SRR35.view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="18">
+<div id="cell-13" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicQC <span class="op">--</span>logfiles $(echo ..<span class="op">/</span>results<span class="op">/*</span>_QC<span class="op">/</span>QC.log) <span class="op">--</span>labels <span class="st">"SRR35"</span> <span class="st">"SRR36"</span> <span class="st">"SRR37"</span> <span class="st">"SRR38"</span> <span class="st">"SRR39"</span> <span class="op">--</span>outputFolder ..<span class="op">/</span>steps<span class="op">/</span>bwa<span class="op">/</span>QC_all_samples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="47">
+<div id="cell-14" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plot_pngs_in_grid(<span class="st">"../steps/bwa/QC_all_samples/"</span>, ncol<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Plotting all images in '../steps/bwa/QC_all_samples/*.png'</code></pre>
@@ -654,7 +676,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="normalize-matrices" class="level3">
 <h3 class="anchored" data-anchor-id="normalize-matrices">Normalize matrices</h3>
-<div id="cell-15" class="cell" data-execution_count="14">
+<div id="cell-16" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>hicNormalize <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>SRR6502335_matrix.h5 <span class="op">--</span>normalize norm_range <span class="op">-</span>o SRR6502335_norm0_1.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -662,7 +684,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="create-a-diagnostic-plot" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-diagnostic-plot">Create a diagnostic plot</h3>
-<div id="cell-17" class="cell" data-execution_count="35">
+<div id="cell-18" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#! hicexplorer</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> hicCorrectMatrix diagnostic_plot <span class="op">--</span><span class="bu">help</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#! hicCorrectMatrix correct --help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -696,7 +718,7 @@ Optional arguments:
 </div>
 </div>
 <p>Let’s make a loop that produce a diagnostic plot for all matrices in the folder:</p>
-<div id="cell-19" class="cell" data-execution_count="12">
+<div id="cell-20" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> FILE <span class="kw">in</span> ..<span class="op">/</span>steps<span class="op">/*</span>.h5</span>
@@ -750,7 +772,7 @@ INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot SRR6502339_diag_plot.pn
 </code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="48">
+<div id="cell-21" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plot_pngs_in_grid(<span class="st">"../figures/bwa"</span>, suffix<span class="op">=</span><span class="st">"diag_plot.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Plotting all images in '../figures/bwa/*diag_plot.png'</code></pre>
@@ -763,7 +785,7 @@ INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot SRR6502339_diag_plot.pn
 </div>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="15">
+<div id="cell-22" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m SRR6502335_norm0_1.h5 <span class="op">-</span>o diag_plot_norm.png</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>INFO:hicexplorer.hicCorrectMatrix:Removing 13359 zero value bins
@@ -776,7 +798,7 @@ INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot diag_plot_norm.png
 <section id="correct-the-matrices" class="level3">
 <h3 class="anchored" data-anchor-id="correct-the-matrices">Correct the matrices</h3>
 <p>And do the correction with the suggested values and ICE. We are going to produce a corrected matrix for both with and without <code>--perchr</code> (per chromosome) option</p>
-<div id="cell-23" class="cell" data-scrolled="true" data-execution_count="16">
+<div id="cell-24" class="cell" data-scrolled="true" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix correct <span class="op">-</span>m SRR6502335_norm0_1.h5 <span class="op">-</span>o .<span class="op">/</span>SRR6502335_norm0_1_corrected.h5 <span class="op">\</span></span>
@@ -989,7 +1011,7 @@ INFO:hicexplorer.iterativeCorrection:pass 500 Estimated time 0:0:0
 INFO:hicexplorer.iterativeCorrection:max delta - 1 = 1.0154457466418232 </code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-scrolled="true" data-execution_count="17">
+<div id="cell-25" class="cell" data-scrolled="true" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicInfo <span class="op">-</span>m SRR6502335_norm0_1_corrected.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Matrix information file. Created with HiCExplorer's hicInfo version 3.7.5
@@ -1005,10 +1027,10 @@ NaN bins:   20943
 </code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="33">
+<div id="cell-26" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicMergeMatrixBins <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>SRR6502335_matrix.h5 <span class="op">-</span>o SRR6502335_nb100 <span class="op">--</span>numBins <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="20">
+<div id="cell-27" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot chr1 (NC_041755.1)</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicPlotMatrix <span class="op">-</span>m SRR6502335_norm0_1_corrected.h5 <span class="op">-</span>o SRR6502335_normcorrect_1.png <span class="op">--</span>region NC_041755<span class="fl">.1</span>:<span class="dv">0</span><span class="op">-</span><span class="dv">105000000</span> <span class="op">--</span>dpi <span class="dv">300</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1018,7 +1040,7 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 </code></pre>
 </div>
 </div>
-<div id="cell-27" class="cell" data-execution_count="21">
+<div id="cell-28" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicPlotMatrix <span class="op">-</span>m SRR6502335_norm0_1_corrected.h5 <span class="op">-</span>o SRR6502335_normcorrect_x.png <span class="op">--</span>region NC_041774<span class="fl">.1</span>:<span class="dv">0</span><span class="op">-</span><span class="dv">105000000</span> <span class="op">--</span>log1p <span class="op">--</span>dpi <span class="dv">300</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: False
@@ -1031,10 +1053,10 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 <section id="results-from-bowtie2---end-to-end" class="level2">
 <h2 class="anchored" data-anchor-id="results-from-bowtie2---end-to-end">Results from <code>bowtie2 --end-to-end</code></h2>
 <p>Let’s look at the summary logs for each of the samples</p>
-<div id="cell-31" class="cell" data-execution_count="10">
+<div id="cell-32" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>SRR39 <span class="op">=</span> HiCQCLog(<span class="st">"../steps/bowtie2/SRR6502339_QC/QC.log"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="38">
+<div id="cell-33" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span>
@@ -1132,7 +1154,7 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 </table>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="44">
+<div id="cell-34" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use hicQC to compare:</span></span>
@@ -1144,7 +1166,7 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 <pre><code>../steps/bowtie2/SRR6502335_QC/QC.log ../steps/bowtie2/SRR6502336_QC/QC.log ../steps/bowtie2/SRR6502337_QC/QC.log ../steps/bowtie2/SRR6502338_QC/QC.log ../steps/bowtie2/SRR6502339_QC/QC.log</code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="50">
+<div id="cell-35" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plot_pngs_in_grid(<span class="st">"../steps/bowtie2/QC_all_samples/"</span>, ncol<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Plotting all images in '../steps/bowtie2/QC_all_samples/*.png'</code></pre>
@@ -1160,7 +1182,7 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 </section>
 <section id="results-from-bowtie2---local" class="level2">
 <h2 class="anchored" data-anchor-id="results-from-bowtie2---local">Results from <code>bowtie2 --local</code></h2>
-<div id="cell-37" class="cell" data-execution_count="52">
+<div id="cell-38" class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use hicQC to compare:</span></span>
@@ -1172,7 +1194,7 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 <pre><code>../steps/bowtie2/SRR6502335_QC/QC.log ../steps/bowtie2/SRR6502336_QC/QC.log ../steps/bowtie2/SRR6502337_QC/QC.log ../steps/bowtie2/SRR6502338_QC/QC.log ../steps/bowtie2/SRR6502339_QC/QC.log</code></pre>
 </div>
 </div>
-<div id="cell-38" class="cell" data-execution_count="53">
+<div id="cell-39" class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>plot_pngs_in_grid(<span class="st">"../steps/bowtie2/local_mapping/QC_all_samples/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Plotting all images in '../steps/bowtie2/local_mapping/QC_all_samples/*.png'</code></pre>
@@ -1188,7 +1210,7 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 </section>
 <section id="comparing-qc-results-from-all-3-mappings" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-qc-results-from-all-3-mappings">Comparing QC results from all 3 mappings</h2>
-<div id="cell-40" class="cell" data-execution_count="2">
+<div id="cell-41" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.image <span class="im">as</span> mpimg</span>
@@ -1250,23 +1272,23 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 </section>
 <section id="filter-the-unplaced-scaffolds-from-the-mapping" class="level2">
 <h2 class="anchored" data-anchor-id="filter-the-unplaced-scaffolds-from-the-mapping">Filter the unplaced scaffolds from the mapping</h2>
-<div id="cell-43" class="cell" data-execution_count="10">
+<div id="cell-44" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>zcat <span class="st">"../data/links/ucsc_ref/rheMac10.fa.gz"</span> <span class="op">|</span> grep <span class="st">"&gt;"</span> <span class="op">|</span> sed <span class="st">'s/&gt;//'</span> <span class="op">&gt;</span> all_chromosomes.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="12">
+<div id="cell-45" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="op">-</span>v <span class="st">"_"</span> all_chromosomes.txt <span class="op">|</span> sort <span class="op">-</span>V <span class="op">&gt;</span> standard_chromosomes.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-45" class="cell" data-execution_count="18">
+<div id="cell-46" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat standard_chromosomes.txt <span class="op">|</span> tr <span class="st">'</span><span class="ch">\n</span><span class="st">'</span> <span class="st">' '</span> <span class="op">&gt;</span> chromosome_order.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-46" class="cell" data-execution_count="3">
+<div id="cell-47" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>hicAdjustMatrix <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>SRR6502335.cool <span class="op">\</span></span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="op">--</span>outFileName filtered_SRR6502335.cool <span class="op">\</span></span>
 <span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="op">--</span>chromosomes $(cat standard_chromosomes.txt <span class="op">|</span> tr <span class="st">'</span><span class="ch">\n</span><span class="st">'</span> <span class="st">' '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-47" class="cell" data-execution_count="7">
+<div id="cell-48" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the reduction in size</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>du <span class="op">-</span>ha ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/*</span><span class="fl">35.</span><span class="er">cool</span> <span class="op">-</span>d1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1279,7 +1301,7 @@ INFO:hicexplorer.hicPlotMatrix:min: 3.59173195802721e-05, max: 0.069330287553917
 <section id="try-to-plot-the-new-filtered-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="try-to-plot-the-new-filtered-matrix">Try to plot the new filtered matrix</h2>
 <p>First, check the info on the cooler</p>
-<div id="cell-49" class="cell" data-execution_count="9">
+<div id="cell-50" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicInfo <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>filtered_SRR6502335.cool</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Matrix information file. Created with HiCExplorer's hicInfo version 3.7.5
@@ -1300,8 +1322,8 @@ HiCMatrix url:  https://github.com/deeptools/HiCMatrix
 </code></pre>
 </div>
 </div>
-<div id="cell-50" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apparently, something went wrong when creating the different binSizes with hicBuildMatrix, so we will create and merge them manually (.mcool)</span></span>
+<div id="cell-51" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apparently, something went wrong when creating the different binSizes with hicBuildMatrix, so we will create and merge them manually and may convert them into .mcool</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicMergeMatrixBins <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1335,13 +1357,13 @@ Optional arguments:
 </div>
 <section id="merge-bins-from-the-raw-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="merge-bins-from-the-raw-matrix">Merge bins from the raw matrix</h3>
-<div id="cell-52" class="cell" data-execution_count="11">
+<div id="cell-53" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicMergeMatrixBins <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>SRR6502335.cool <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>SRR6502335_50kb.cool <span class="op">-</span>nb <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>WARNING:hicexplorer.hicMergeMatrixBins:*WARNING*: The matrix is probably a corrected matrix that contains NaN bins. This bins can not be merged and are removed. It is preferable to first merge bins in a uncorrected  matrix and then correct the matrix. Correction factors, if present, are removed as well.</code></pre>
 </div>
 </div>
-<div id="cell-53" class="cell" data-execution_count="19">
+<div id="cell-54" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicMergeMatrixBins <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>SRR6502335.cool <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>SRR6502335_100kb.cool <span class="op">-</span>nb <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>WARNING:hicexplorer.hicMergeMatrixBins:*WARNING*: The matrix is probably a corrected matrix that contains NaN bins. This bins can not be merged and are removed. It is preferable to first merge bins in a uncorrected  matrix and then correct the matrix. Correction factors, if present, are removed as well.</code></pre>
@@ -1350,10 +1372,10 @@ Optional arguments:
 </section>
 <section id="merge-bins-from-the-filtered-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="merge-bins-from-the-filtered-matrix">Merge bins from the filtered matrix</h3>
-<div id="cell-55" class="cell">
+<div id="cell-56" class="cell">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicMergeMatrixBins <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_SRR6502335.cool <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_SRR6502335_50kb.cool <span class="op">-</span>nb <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-56" class="cell" data-execution_count="22">
+<div id="cell-57" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicInfo <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_SRR6502335_50kb.cool</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Matrix information file. Created with HiCExplorer's hicInfo version 3.7.5
@@ -1373,7 +1395,7 @@ HiCMatrix url:  https://github.com/deeptools/HiCMatrix
 </code></pre>
 </div>
 </div>
-<div id="cell-57" class="cell" data-execution_count="10">
+<div id="cell-58" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicMergeMatrixBins <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_SRR6502335.cool <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_SRR6502335_100kb.cool <span class="op">-</span>nb <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>WARNING:hicexplorer.hicMergeMatrixBins:*WARNING*: The matrix is probably a corrected matrix that contains NaN bins. This bins can not be merged and are removed. It is preferable to first merge bins in a uncorrected  matrix and then correct the matrix. Correction factors, if present, are removed as well.</code></pre>
@@ -1382,7 +1404,7 @@ HiCMatrix url:  https://github.com/deeptools/HiCMatrix
 </section>
 <section id="create-plots-each-chromosome-separately-and-compare-filtered-vs-unfiltered-matrices" class="level3">
 <h3 class="anchored" data-anchor-id="create-plots-each-chromosome-separately-and-compare-filtered-vs-unfiltered-matrices">Create plots (each chromosome separately) and compare filtered vs unfiltered matrices</h3>
-<div id="cell-59" class="cell" data-execution_count="13">
+<div id="cell-60" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> CHR <span class="kw">in</span> $(cat standard_chromosomes.txt)</span>
@@ -1524,7 +1546,7 @@ HiCMatrix url:  https://github.com/deeptools/HiCMatrix
 <pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
 </div>
 </div>
-<div id="cell-60" class="cell" data-scrolled="true" data-execution_count="19">
+<div id="cell-61" class="cell" data-scrolled="true" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> natsort <span class="im">import</span> natsorted</span>
 <span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1580,7 +1602,7 @@ HiCMatrix url:  https://github.com/deeptools/HiCMatrix
 <h2 class="anchored" data-anchor-id="pooled-samples">Pooled samples</h2>
 <section id="pool-the-samples-matrices-into-one-big-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="pool-the-samples-matrices-into-one-big-matrix">Pool the samples (matrices) into one big matrix</h3>
-<div id="cell-63" class="cell" data-execution_count="9">
+<div id="cell-64" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
 <span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the sizes of the (unmodified, 10kb binned) matrices</span></span>
@@ -1605,17 +1627,17 @@ Size:   298,615
 </code></pre>
 </div>
 </div>
-<div id="cell-64" class="cell" data-execution_count="31">
+<div id="cell-65" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb117"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicSumMatrices <span class="op">-</span>m $(echo ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>SRR650233{<span class="fl">5..9</span>}.cool) <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>pooled_10kb.cool</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-65" class="cell" data-execution_count="12">
+<div id="cell-66" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>hicAdjustMatrix <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>pooled_10kb.cool <span class="op">\</span></span>
 <span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>outFileName filtered_pooled_10kb.cool <span class="op">\</span></span>
 <span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>chromosomes $(cat chromosome_order.txt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-66" class="cell" data-execution_count="16">
+<div id="cell-67" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb119"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicInfo <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>pooled_10kb.cool <span class="op">|</span> grep <span class="op">-</span>E <span class="st">'File|Size|Number|Non'</span></span>
 <span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>echo <span class="st">""</span></span>
 <span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicInfo <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_10kb.cool <span class="op">|</span> grep <span class="op">-</span>E <span class="st">'File|Size|Number|Non'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1634,28 +1656,34 @@ Non-zero elements:  117,090,191</code></pre>
 </section>
 <section id="create-different-bin-sizes-hicmergematrixbins" class="level3">
 <h3 class="anchored" data-anchor-id="create-different-bin-sizes-hicmergematrixbins">Create different bin sizes (<code>hicMergeMatrixBins</code>)</h3>
-<div id="cell-68" class="cell" data-execution_count="17">
+<div id="cell-69" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>hicMergeMatrixBins <span class="op">\</span></span>
-<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_10kb.cool <span class="op">\</span></span>
-<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_50kb.cool <span class="op">\</span></span>
-<span id="cb121-6"><a href="#cb121-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>nb <span class="dv">5</span> </span>
-<span id="cb121-7"><a href="#cb121-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb121-8"><a href="#cb121-8" aria-hidden="true" tabindex="-1"></a>hicMergeMatrixBins <span class="op">\</span></span>
-<span id="cb121-9"><a href="#cb121-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_10kb.cool <span class="op">\</span></span>
-<span id="cb121-10"><a href="#cb121-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_100kb.cool <span class="op">\</span></span>
-<span id="cb121-11"><a href="#cb121-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>nb <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This command requires ~14G available memory. </span></span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a><span class="co"># hicMergeMatrixBins -m ../steps/bowtie2/local/matrices/filtered_pooled_10kb.cool -o ../steps/bowtie2/local/matrices/filtered_pooled_40kb.cool -nb 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-70" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>hicMergeMatrixBins <span class="op">\</span></span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_10kb.cool <span class="op">\</span></span>
+<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_50kb.cool <span class="op">\</span></span>
+<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>nb <span class="dv">5</span> </span>
+<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a>hicMergeMatrixBins <span class="op">\</span></span>
+<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_10kb.cool <span class="op">\</span></span>
+<span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_100kb.cool <span class="op">\</span></span>
+<span id="cb122-11"><a href="#cb122-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>nb <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>WARNING:hicexplorer.hicMergeMatrixBins:*WARNING*: The matrix is probably a corrected matrix that contains NaN bins. This bins can not be merged and are removed. It is preferable to first merge bins in a uncorrected  matrix and then correct the matrix. Correction factors, if present, are removed as well.
 WARNING:hicexplorer.hicMergeMatrixBins:*WARNING*: The matrix is probably a corrected matrix that contains NaN bins. This bins can not be merged and are removed. It is preferable to first merge bins in a uncorrected  matrix and then correct the matrix. Correction factors, if present, are removed as well.</code></pre>
 </div>
 </div>
-<div id="cell-69" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
-<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a>hicInfo <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_{<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>}kb.cool <span class="op">\</span></span>
-<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> grep <span class="op">-</span>E <span class="st">'File|Size|Number|Non'</span> \</span>
-<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> sed <span class="st">'/Non/a</span><span class="ch">\\</span><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-71" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>hicInfo <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_{<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>}kb.cool <span class="op">\</span></span>
+<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> grep <span class="op">-</span>E <span class="st">'File|Size|Number|Non'</span> \</span>
+<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> sed <span class="st">'/Non/a</span><span class="ch">\\</span><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>File:   ../steps/bowtie2/local/matrices/filtered_pooled_10kb.cool
 Size:   285,406
@@ -1677,14 +1705,14 @@ Non-zero elements:  55,337,833
 </section>
 <section id="plot-the-chromosomes-seperately" class="level3">
 <h3 class="anchored" data-anchor-id="plot-the-chromosomes-seperately">Plot the chromosomes (seperately)</h3>
-<div id="cell-71" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
-<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> CHR <span class="kw">in</span> $(cat standard_chromosomes.txt)</span>
-<span id="cb125-4"><a href="#cb125-4" aria-hidden="true" tabindex="-1"></a>do </span>
-<span id="cb125-5"><a href="#cb125-5" aria-hidden="true" tabindex="-1"></a>    echo $CHR</span>
-<span id="cb125-6"><a href="#cb125-6" aria-hidden="true" tabindex="-1"></a>    hicPlotMatrix <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_50kb.cool <span class="op">--</span>chromosomeOrder $CHR <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>filter_pooled_50kb_$CHR.png <span class="op">--</span>dpi <span class="dv">200</span></span>
-<span id="cb125-7"><a href="#cb125-7" aria-hidden="true" tabindex="-1"></a>done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-73" class="cell" data-scrolled="true" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> CHR <span class="kw">in</span> $(cat standard_chromosomes.txt)</span>
+<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a>do </span>
+<span id="cb126-5"><a href="#cb126-5" aria-hidden="true" tabindex="-1"></a>    echo $CHR</span>
+<span id="cb126-6"><a href="#cb126-6" aria-hidden="true" tabindex="-1"></a>    hicPlotMatrix <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_50kb.cool <span class="op">--</span>chromosomeOrder $CHR <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>filter_pooled_50kb_$CHR.png <span class="op">--</span>dpi <span class="dv">200</span></span>
+<span id="cb126-7"><a href="#cb126-7" aria-hidden="true" tabindex="-1"></a>done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>chr1</code></pre>
 </div>
@@ -1818,25 +1846,811 @@ Non-zero elements:  55,337,833
 <pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
 </div>
 </div>
-<div id="cell-72" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hicstuff <span class="im">import</span> plot_pngs_in_grid <span class="im">as</span> plt</span>
-<span id="cb170-2"><a href="#cb170-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb170-3"><a href="#cb170-3" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/"</span>, suffix<span class="op">=</span><span class="st">"filter_pooled_50kb_*"</span>, ncol<span class="op">=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-74" class="cell" data-scrolled="true" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hicstuff <span class="im">import</span> plot_pngs_in_grid <span class="im">as</span> plt</span>
+<span id="cb171-2"><a href="#cb171-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-3"><a href="#cb171-3" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/"</span>, suffix<span class="op">=</span><span class="st">"filter_pooled_50kb_*"</span>, ncol<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Plotting all images in '../figures/bowtie2/local/*filter_pooled_50kb_*':
-['../figures/bowtie2/local/filter_pooled_50kb_chr1.png', '../figures/bowtie2/local/filter_pooled_50kb_chr2.png', '../figures/bowtie2/local/filter_pooled_50kb_chr3.png', '../figures/bowtie2/local/filter_pooled_50kb_chr4.png', '../figures/bowtie2/local/filter_pooled_50kb_chr5.png', '../figures/bowtie2/local/filter_pooled_50kb_chr6.png', '../figures/bowtie2/local/filter_pooled_50kb_chr7.png', '../figures/bowtie2/local/filter_pooled_50kb_chr8.png', '../figures/bowtie2/local/filter_pooled_50kb_chr9.png', '../figures/bowtie2/local/filter_pooled_50kb_chr10.png', '../figures/bowtie2/local/filter_pooled_50kb_chr11.png', '../figures/bowtie2/local/filter_pooled_50kb_chr12.png', '../figures/bowtie2/local/filter_pooled_50kb_chr13.png', '../figures/bowtie2/local/filter_pooled_50kb_chr14.png', '../figures/bowtie2/local/filter_pooled_50kb_chr15.png', '../figures/bowtie2/local/filter_pooled_50kb_chr16.png', '../figures/bowtie2/local/filter_pooled_50kb_chr17.png', '../figures/bowtie2/local/filter_pooled_50kb_chr18.png', '../figures/bowtie2/local/filter_pooled_50kb_chr19.png', '../figures/bowtie2/local/filter_pooled_50kb_chr20.png', '../figures/bowtie2/local/filter_pooled_50kb_chrX.png', '../figures/bowtie2/local/filter_pooled_50kb_chrY.png']</code></pre>
+<pre><code>Plotting all images in '../figures/bowtie2/local/*filter_pooled_50kb_*':</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="01_hicexplorer_files/figure-html/cell-51-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="01_hicexplorer_files/figure-html/cell-52-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-
-
 </section>
+<section id="diagnostic-plot-for-raw-sample" class="level3">
+<h3 class="anchored" data-anchor-id="diagnostic-plot-for-raw-sample">Diagnostic plot for raw sample</h3>
+<div id="cell-77" class="cell">
+<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb173-2"><a href="#cb173-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-3"><a href="#cb173-3" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_10kb.cool <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>raw<span class="op">/</span>diag_filter_pooled_10kb.png <span class="op">&amp;</span> </span>
+<span id="cb173-4"><a href="#cb173-4" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_40kb.cool <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>raw<span class="op">/</span>diag_filter_pooled_40kb.png <span class="op">&amp;</span> </span>
+<span id="cb173-5"><a href="#cb173-5" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_50kb.cool <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>raw<span class="op">/</span>diag_filter_pooled_50kb.png <span class="op">&amp;</span> </span>
+<span id="cb173-6"><a href="#cb173-6" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_100kb.cool <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>raw<span class="op">/</span>diag_filter_pooled_100kb.png <span class="op">&amp;</span> </span>
+<span id="cb173-7"><a href="#cb173-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-8"><a href="#cb173-8" aria-hidden="true" tabindex="-1"></a>wait</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="normalize-to-the-smallest-read-count-hicnormalize--n-smallest--sz-1.0" class="level2">
+<h2 class="anchored" data-anchor-id="normalize-to-the-smallest-read-count-hicnormalize--n-smallest--sz-1.0">Normalize to the smallest read count (<code>hicNormalize -n smallest -sz 1.0</code>)</h2>
+<div id="cell-79" class="cell" data-scrolled="true" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicNormalize <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>usage: hicNormalize --matrices MATRICES [MATRICES ...] --normalize
+                    {norm_range,smallest,multiplicative} --outFileName
+                    FILENAME [FILENAME ...]
+                    [--multiplicativeValue MULTIPLICATIVEVALUE]
+                    [--setToZeroThreshold SETTOZEROTHRESHOLD] [--help]
+                    [--version]
+
+Normalizes given matrices either to the smallest given read number of all matrices or to 0 - 1 range. However, it does NOT compute the contact probability.
+
+We recommend to compute first the normalization (with hicNormalize) and correct the data (with hicCorrectMatrix) in a second step.
+
+Required arguments:
+  --matrices MATRICES [MATRICES ...], -m MATRICES [MATRICES ...]
+                        The matrix (or multiple matrices) to get information
+                        about. HiCExplorer supports the following file
+                        formats: h5 (native HiCExplorer format) and cool.
+  --normalize {norm_range,smallest,multiplicative}, -n {norm_range,smallest,multiplicative}
+                        Normalize to a) 0 to 1 range, b) all matrices to the
+                        lowest read count of the given matrices (Default:
+                        smallest).
+  --outFileName FILENAME [FILENAME ...], -o FILENAME [FILENAME ...]
+                        Output file name for the Hi-C matrix.
+
+Optional arguments:
+  --multiplicativeValue MULTIPLICATIVEVALUE, -mv MULTIPLICATIVEVALUE
+                        Value to multiply if --normalize is set to
+                        multiplicative. (Default: 1).
+  --setToZeroThreshold SETTOZEROTHRESHOLD, -sz SETTOZEROTHRESHOLD
+                        A threshold to set all values after normalization to 0
+                        if smaller this threshold. Default value is 0 i.e.
+                        there is no effect.It is recommended to set it for the
+                        normalize mode "smallest" to 1.0. This parameter will
+                        influence the sparsity of the matrix by removing many
+                        values close to 0 in smallest normalization mode.
+  --help, -h            show this help message and exit
+  --version             show program's version number and exit</code></pre>
+</div>
+</div>
+<div id="cell-80" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb176-2"><a href="#cb176-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-3"><a href="#cb176-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Try to utilize more than one core (if they have been requested) by submitting lines in the background (with '&amp;')</span></span>
+<span id="cb176-4"><a href="#cb176-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-5"><a href="#cb176-5" aria-hidden="true" tabindex="-1"></a>hicNormalize <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_10kb.cool  <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_10kb.cool <span class="op">-</span>n smallest <span class="op">-</span>sz <span class="fl">1.0</span> <span class="op">&amp;</span></span>
+<span id="cb176-6"><a href="#cb176-6" aria-hidden="true" tabindex="-1"></a>hicNormalize <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_40kb.cool  <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_40kb.cool <span class="op">-</span>n smallest <span class="op">-</span>sz <span class="fl">1.0</span> <span class="op">&amp;</span></span>
+<span id="cb176-7"><a href="#cb176-7" aria-hidden="true" tabindex="-1"></a>hicNormalize <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_50kb.cool  <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_50kb.cool <span class="op">-</span>n smallest <span class="op">-</span>sz <span class="fl">1.0</span> <span class="op">&amp;</span></span>
+<span id="cb176-8"><a href="#cb176-8" aria-hidden="true" tabindex="-1"></a>hicNormalize <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>filtered_pooled_100kb.cool <span class="op">-</span>o ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_100kb.cool <span class="op">-</span>n smallest <span class="op">-</span>sz <span class="fl">1.0</span> <span class="op">&amp;</span></span>
+<span id="cb176-9"><a href="#cb176-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-10"><a href="#cb176-10" aria-hidden="true" tabindex="-1"></a>wait </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-81" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb177"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb177-1"><a href="#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<span id="cb177-2"><a href="#cb177-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-3"><a href="#cb177-3" aria-hidden="true" tabindex="-1"></a>hicInfo <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_{<span class="dv">10</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">100</span>}kb.cool <span class="op">|</span> grep <span class="op">-</span>E <span class="st">'File|Size|Number|Non'</span> <span class="op">|</span> sed <span class="st">'/Non/a</span><span class="ch">\\</span><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>File:   ../steps/bowtie2/local/matrices/normsm_filtered_pooled_10kb.cool
+Size:   285,406
+Number of chromosomes:  22
+Non-zero elements:  117,090,191
+
+File:   ../steps/bowtie2/local/matrices/normsm_filtered_pooled_40kb.cool
+Size:   70,164
+Number of chromosomes:  22
+Non-zero elements:  79,495,904
+
+File:   ../steps/bowtie2/local/matrices/normsm_filtered_pooled_50kb.cool
+Size:   56,129
+Number of chromosomes:  22
+Non-zero elements:  73,496,938
+
+File:   ../steps/bowtie2/local/matrices/normsm_filtered_pooled_100kb.cool
+Size:   28,066
+Number of chromosomes:  22
+Non-zero elements:  55,337,833
+</code></pre>
+</div>
+</div>
+<section id="plot-the-normalized-pooled-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="plot-the-normalized-pooled-matrix">Plot the normalized, pooled matrix</h3>
+<div id="cell-83" class="cell" data-scrolled="true" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb179"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<span id="cb179-2"><a href="#cb179-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-3"><a href="#cb179-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> CHR <span class="kw">in</span> $(cat standard_chromosomes.txt)</span>
+<span id="cb179-4"><a href="#cb179-4" aria-hidden="true" tabindex="-1"></a>do </span>
+<span id="cb179-5"><a href="#cb179-5" aria-hidden="true" tabindex="-1"></a>    echo $CHR</span>
+<span id="cb179-6"><a href="#cb179-6" aria-hidden="true" tabindex="-1"></a>    hicPlotMatrix <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_40kb.cool <span class="op">--</span>chromosomeOrder $CHR <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>normsm_filter_pooled_40kb_$CHR.png <span class="op">--</span>dpi <span class="dv">200</span></span>
+<span id="cb179-7"><a href="#cb179-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#hicPlotMatrix -m ../steps/bowtie2/local/matrices/normsm_filtered_pooled_50kb.cool --chromosomeOrder $CHR -o ../figures/bowtie2/local/normalized/normsm_filter_pooled_50kb_$CHR.png --dpi 200</span></span>
+<span id="cb179-8"><a href="#cb179-8" aria-hidden="true" tabindex="-1"></a>done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr5</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr6</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr7</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr8</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr9</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr10</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr11</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr12</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr13</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr14</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr15</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr16</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr17</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr18</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr19</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chr20</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chrX</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chrY</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+</div>
+</section>
+<section id="diagnose-and-correct-the-normalized-pooled-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="diagnose-and-correct-the-normalized-pooled-matrix">Diagnose and correct the normalized, pooled matrix</h3>
+<div id="cell-85" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb224"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb224-1"><a href="#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb224-2"><a href="#cb224-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb224-3"><a href="#cb224-3" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_10kb.cool <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>diag_normsm_filter_pooled_10kb.png <span class="op">&amp;</span> </span>
+<span id="cb224-4"><a href="#cb224-4" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_40kb.cool  <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>diag_normsm_filter_pooled_40kb.png <span class="op">&amp;</span> </span>
+<span id="cb224-5"><a href="#cb224-5" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_50kb.cool  <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>diag_normsm_filter_pooled_50kb.png <span class="op">&amp;</span> </span>
+<span id="cb224-6"><a href="#cb224-6" aria-hidden="true" tabindex="-1"></a>hicCorrectMatrix diagnostic_plot <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_100kb.cool <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>diag_normsm_filter_pooled_100kb.png <span class="op">&amp;</span> </span>
+<span id="cb224-7"><a href="#cb224-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb224-8"><a href="#cb224-8" aria-hidden="true" tabindex="-1"></a>wait</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicCorrectMatrix:Removing 0 zero value bins
+INFO:hicexplorer.hicCorrectMatrix:mad threshold -3.261957134177215
+INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot ../figures/bowtie2/local/normalized/diag_normsm_filter_pooled_100kb.png
+
+INFO:hicexplorer.hicCorrectMatrix:Removing 0 zero value bins
+INFO:hicexplorer.hicCorrectMatrix:mad threshold -3.3912234086628996
+INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot ../figures/bowtie2/local/normalized/diag_normsm_filter_pooled_50kb.png
+
+INFO:hicexplorer.hicCorrectMatrix:Removing 0 zero value bins
+INFO:hicexplorer.hicCorrectMatrix:mad threshold -3.3260620737327184
+INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot ../figures/bowtie2/local/normalized/diag_normsm_filter_pooled_40kb.png
+
+INFO:hicexplorer.hicCorrectMatrix:Removing 4762 zero value bins
+INFO:hicexplorer.hicCorrectMatrix:mad threshold -2.7562685931558937
+INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot ../figures/bowtie2/local/normalized/diag_normsm_filter_pooled_10kb.png
+</code></pre>
+</div>
+</div>
+<div id="cell-86" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb226"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hicstuff <span class="im">import</span> plot_pngs_in_grid <span class="im">as</span> plt</span>
+<span id="cb226-2"><a href="#cb226-2" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/normalized"</span>, suffix<span class="op">=</span><span class="st">"diag*"</span>, ncol<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb226-3"><a href="#cb226-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-4"><a href="#cb226-4" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/raw"</span>, suffix<span class="op">=</span><span class="st">"diag*"</span>, ncol<span class="op">=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../figures/bowtie2/local/normalized/*diag*':</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-60-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../figures/bowtie2/local/raw/*diag*':</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-60-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-88" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb229"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb229-1"><a href="#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicCorrectMatrix correct <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>usage: hicCorrectMatrix correct --matrix hic_matrix.h5 --filterThreshold -1.2 5 (Only if ICE)-out corrected_matrix.h5 
+
+options:
+  -h, --help            show this help message and exit
+
+Required arguments:
+  --matrix MATRIX, -m MATRIX
+                        Name of the Hi-C matrix to correct in .h5 format.
+                        (default: None)
+  --outFileName OUTFILENAME, -o OUTFILENAME
+                        File name to save the resulting matrix. The output is
+                        a .h5 file. (default: None)
+
+Optional arguments:
+  --correctionMethod STR
+                        Method to be used for matrix correction. It can be set
+                        to KR or ICE (Default: KR).
+  --filterThreshold FILTERTHRESHOLD FILTERTHRESHOLD, -t FILTERTHRESHOLD FILTERTHRESHOLD
+                        Removes bins of low or large coverage. Usually these
+                        bins do not contain valid Hi-C data or represent
+                        regions that accumulate reads and thus must be
+                        discarded. Use hicCorrectMatrix diagnostic_plot to
+                        identify the modified z-value thresholds. A lower and
+                        upper threshold are required separated by space, e.g.
+                        --filterThreshold -1.5 5. Applied only for ICE!
+                        (default: None)
+  --iterNum INT, -n INT
+                        Number of iterations to compute.only for ICE!
+                        (Default: 500).
+  --inflationCutoff INFLATIONCUTOFF
+                        Value corresponding to the maximum number of times a
+                        bin can be scaled up during the iterative correction.
+                        For example, an inflation cutoff of 3 will filter out
+                        all bins that were expanded 3 times or more during the
+                        iterative correctionself.Only for ICE! (default: None)
+  --transCutoff TRANSCUTOFF, -transcut TRANSCUTOFF
+                        Clip high counts in the top -transcut trans regions
+                        (i.e. between chromosomes). A usual value is 0.05.
+                        Only for ICE! (default: None)
+  --sequencedCountCutoff SEQUENCEDCOUNTCUTOFF
+                        Each bin receives a value indicating the fraction that
+                        is covered by reads. A cutoff of 0.5 will discard all
+                        those bins that have less than half of the bin
+                        covered. Only for ICE! (default: None)
+  --chromosomes CHROMOSOMES [CHROMOSOMES ...]
+                        List of chromosomes to be included in the iterative
+                        correction. The order of the given chromosomes will be
+                        then kept for the resulting corrected matrix (default:
+                        None)
+  --skipDiagonal, -s    If set, diagonal counts are not included. Only for
+                        ICE! (default: False)
+  --perchr              Normalize each chromosome separately. This is useful
+                        for samples from cells with uneven number of
+                        chromosomes and/or translocations. (default: False)
+  --filteredBed FILTEREDBED
+                        Print bins filtered our by --filterThreshold to this
+                        file (default: None)
+  --verbose             Print processing status. (default: False)
+  --version             show program's version number and exit</code></pre>
+</div>
+</div>
+</section>
+<section id="correcting-the-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="correcting-the-matrices">Correcting the matrices</h3>
+<p>Is memory-intensive, and was therefore run in a workflow. However, I don’t know if it went well. It spent waay less MEM than documentation suggests.</p>
+</section>
+<section id="plotting-the-corrected-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-corrected-matrices">Plotting the corrected matrices</h3>
+<section id="chromosome-1" class="level4">
+<h4 class="anchored" data-anchor-id="chromosome-1">Chromosome 1</h4>
+<div id="cell-92" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb231"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb231-1"><a href="#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb231-2"><a href="#cb231-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-3"><a href="#cb231-3" aria-hidden="true" tabindex="-1"></a>hicPlotMatrix <span class="op">\</span></span>
+<span id="cb231-4"><a href="#cb231-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_10kb_corrected.cool <span class="op">\</span></span>
+<span id="cb231-5"><a href="#cb231-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>normsm_filter_pooled_10kb_corrected_chr1<span class="op">-</span><span class="dv">20</span><span class="op">-</span><span class="dv">80</span><span class="er">Mb</span>.png <span class="op">\</span></span>
+<span id="cb231-6"><a href="#cb231-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>region chr1:<span class="dv">20000000</span><span class="op">-</span><span class="dv">80000000</span> <span class="op">--</span>log1p <span class="op">&amp;</span></span>
+<span id="cb231-7"><a href="#cb231-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-8"><a href="#cb231-8" aria-hidden="true" tabindex="-1"></a>hicPlotMatrix <span class="op">\</span></span>
+<span id="cb231-9"><a href="#cb231-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_10kb_corrected.cool <span class="op">\</span></span>
+<span id="cb231-10"><a href="#cb231-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>normsm_filter_pooled_10kb_corrected_chr1<span class="op">-</span><span class="dv">50</span><span class="op">-</span><span class="dv">60</span><span class="er">Mb</span>.png <span class="op">\</span></span>
+<span id="cb231-11"><a href="#cb231-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>region chr1:<span class="dv">50000000</span><span class="op">-</span><span class="dv">60000000</span> <span class="op">--</span>log1p <span class="op">&amp;</span></span>
+<span id="cb231-12"><a href="#cb231-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-13"><a href="#cb231-13" aria-hidden="true" tabindex="-1"></a>wait</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True
+INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+</div>
+<div id="cell-93" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb233"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb233-1"><a href="#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<span id="cb233-2"><a href="#cb233-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb233-3"><a href="#cb233-3" aria-hidden="true" tabindex="-1"></a>hicPlotMatrix <span class="op">\</span></span>
+<span id="cb233-4"><a href="#cb233-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_50kb_corrected.cool <span class="op">\</span></span>
+<span id="cb233-5"><a href="#cb233-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>normsm_filter_pooled_50kb_corrected_chr1.png <span class="op">\</span></span>
+<span id="cb233-6"><a href="#cb233-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>region chr1 <span class="op">--</span>log1p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+</div>
+<div id="cell-94" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb235"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb235-1"><a href="#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<span id="cb235-2"><a href="#cb235-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb235-3"><a href="#cb235-3" aria-hidden="true" tabindex="-1"></a>hicPlotMatrix <span class="op">\</span></span>
+<span id="cb235-4"><a href="#cb235-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_100kb_corrected.cool <span class="op">\</span></span>
+<span id="cb235-5"><a href="#cb235-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>normsm_filter_pooled_100kb_corrected_chr1.png <span class="op">\</span></span>
+<span id="cb235-6"><a href="#cb235-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>region chr1 <span class="op">--</span>log1p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+</div>
+<div id="cell-95" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb237"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb237-1"><a href="#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hicstuff <span class="im">import</span> plot_pngs_in_grid <span class="im">as</span> plt</span>
+<span id="cb237-2"><a href="#cb237-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-3"><a href="#cb237-3" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/normalized/"</span>, suffix<span class="op">=</span><span class="st">"corrected*.png"</span>, ncol<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../figures/bowtie2/local/normalized/*corrected*.png':</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-66-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="chr12-as-in-wang2019" class="level3">
+<h3 class="anchored" data-anchor-id="chr12-as-in-wang2019">Chr12 (as in Wang2019)</h3>
+<div id="cell-97" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb239"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb239-1"><a href="#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb239-2"><a href="#cb239-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-3"><a href="#cb239-3" aria-hidden="true" tabindex="-1"></a>hicPlotMatrix <span class="op">\</span></span>
+<span id="cb239-4"><a href="#cb239-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_100kb_corrected.cool <span class="op">\</span></span>
+<span id="cb239-5"><a href="#cb239-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>normsm_filter_pooled_100kb_corrected_chr12<span class="op">-</span><span class="dv">1</span><span class="op">-</span><span class="dv">105</span><span class="er">Mb</span>.png <span class="op">\</span></span>
+<span id="cb239-6"><a href="#cb239-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>region chr12:<span class="dv">1</span><span class="op">-</span><span class="dv">105000000</span> <span class="op">--</span>log1p <span class="op">\</span></span>
+<span id="cb239-7"><a href="#cb239-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>colorMap <span class="st">"Reds"</span> <span class="op">&amp;</span></span>
+<span id="cb239-8"><a href="#cb239-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-9"><a href="#cb239-9" aria-hidden="true" tabindex="-1"></a>hicPlotMatrix <span class="op">\</span></span>
+<span id="cb239-10"><a href="#cb239-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_50kb_corrected.cool <span class="op">\</span></span>
+<span id="cb239-11"><a href="#cb239-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>normsm_filter_pooled_50kb_corrected_chr12<span class="op">-</span><span class="dv">60</span><span class="op">-</span><span class="dv">70</span><span class="er">Mb</span>.png <span class="op">\</span></span>
+<span id="cb239-12"><a href="#cb239-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>region chr12:<span class="dv">60000000</span><span class="op">-</span><span class="dv">70000000</span> <span class="op">--</span>log1p <span class="op">\</span></span>
+<span id="cb239-13"><a href="#cb239-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>colorMap <span class="st">"Reds"</span> <span class="op">&amp;</span></span>
+<span id="cb239-14"><a href="#cb239-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-15"><a href="#cb239-15" aria-hidden="true" tabindex="-1"></a>hicPlotMatrix <span class="op">\</span></span>
+<span id="cb239-16"><a href="#cb239-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_40kb_corrected.cool <span class="op">\</span></span>
+<span id="cb239-17"><a href="#cb239-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>normsm_filter_pooled_40kb_corrected_chr12<span class="op">-</span><span class="dv">60</span><span class="op">-</span><span class="dv">70</span><span class="er">Mb</span>.png <span class="op">\</span></span>
+<span id="cb239-18"><a href="#cb239-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>region chr12:<span class="dv">60000000</span><span class="op">-</span><span class="dv">70000000</span> <span class="op">--</span>log1p <span class="op">\</span></span>
+<span id="cb239-19"><a href="#cb239-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>colorMap <span class="st">"Reds"</span> <span class="op">&amp;</span></span>
+<span id="cb239-20"><a href="#cb239-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-21"><a href="#cb239-21" aria-hidden="true" tabindex="-1"></a>wait</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True
+INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True
+INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
+</div>
+</div>
+<div id="cell-98" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb241"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb241-1"><a href="#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hicstuff <span class="im">import</span> plot_pngs_in_grid <span class="im">as</span> plt</span>
+<span id="cb241-2"><a href="#cb241-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb241-3"><a href="#cb241-3" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/normalized/"</span>, suffix<span class="op">=</span><span class="st">"corrected_chr12*.png"</span>, ncol<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../figures/bowtie2/local/normalized/*corrected_chr12*.png':</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-68-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="dist-versus-counts-ps-in-wang2019" class="level3">
+<h3 class="anchored" data-anchor-id="dist-versus-counts-ps-in-wang2019">Dist versus counts (P(s) in Wang2019?)</h3>
+<div id="cell-100" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb243"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb243-1"><a href="#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicPlotDistVsCounts <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>usage: hicPlotDistVsCounts --matrices MATRICES [MATRICES ...] --plotFile file
+                           name [--labels LABELS [LABELS ...]]
+                           [--skipDiagonal] [--maxdepth INT bp] [--perchr]
+                           [--chromosomeExclude CHROMOSOMEEXCLUDE [CHROMOSOMEEXCLUDE ...]]
+                           [--domains DOMAINS] [--outFileData OUTFILEDATA]
+                           [--plotsize PLOTSIZE PLOTSIZE] [--help] [--version]
+
+This program creates distance vs. Hi-C counts plots. It can use several matrix
+files to compare them at once. If the `--perchr` option is given, each
+chromosome is plotted independently. When plotting multiple matrices, denser
+matrices are scaled down to match the sum of the smallest matrix.
+
+Required arguments:
+  --matrices MATRICES [MATRICES ...], -m MATRICES [MATRICES ...]
+                        Hi-C normalized (corrected) matrices. Each path should
+                        be separated by a space.
+  --plotFile file name, -o file name
+                        File name to save the file. The given file ending will
+                        be used to determine the image format. The available
+                        options are: .png, .emf, .eps, .pdf and .svg.
+
+Optional arguments:
+  --labels LABELS [LABELS ...]
+                        Label to assign to each matrix file. Each label should
+                        be separated by a space. Quote labels that contain
+                        spaces: E.g. --labels label1 "labels 2". If no labels
+                        are given then the file name is used.
+  --skipDiagonal, -s    If set, diagonal counts are not included.
+  --maxdepth INT bp     Maximum distance from diagonal to use. In other words,
+                        distances up to maxDepth are computed. Default is 3
+                        million bp.
+  --perchr              If given, computes and display distance versus Hi-C
+                        counts plots for each chromosome stored in the
+                        matrices passed to --matrices.
+  --chromosomeExclude CHROMOSOMEEXCLUDE [CHROMOSOMEEXCLUDE ...]
+                        Exclude the given list of chromosomes. This is useful
+                        for example to exclude the Y chromosome. The names of
+                        the chromosomes should be separated by space.
+  --domains DOMAINS     Bed file with domains coordinates: instead of
+                        evaluating the distance vs. Hi-C counts for intra
+                        chromosomal counts, compute it for intra-domains.
+  --outFileData OUTFILEDATA
+                        If given, the data underlying the plots is saved on
+                        this file.
+  --plotsize PLOTSIZE PLOTSIZE
+                        Width and height of the plot (in inches). Default is
+                        6*number of cols, 4 * number of rows. The maximum
+                        number of rows is 4. Example: --plotsize 6 5
+  --help, -h            show this help message and exit
+  --version             show program's version number and exit</code></pre>
+</div>
+</div>
+<div id="cell-101" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb245"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb245-1"><a href="#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb245-2"><a href="#cb245-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-3"><a href="#cb245-3" aria-hidden="true" tabindex="-1"></a>hicPlotDistVsCounts <span class="op">\</span></span>
+<span id="cb245-4"><a href="#cb245-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_100kb_corrected.cool <span class="op">\</span></span>
+<span id="cb245-5"><a href="#cb245-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>distvscounts_100kb_corrected_chr.png <span class="op">\</span></span>
+<span id="cb245-6"><a href="#cb245-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>perchr <span class="op">\</span></span>
+<span id="cb245-7"><a href="#cb245-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>labels <span class="st">'Pooled'</span> \</span>
+<span id="cb245-8"><a href="#cb245-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>plotsize <span class="dv">6</span> <span class="dv">4</span> <span class="op">&amp;</span></span>
+<span id="cb245-9"><a href="#cb245-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-10"><a href="#cb245-10" aria-hidden="true" tabindex="-1"></a>hicPlotDistVsCounts <span class="op">\</span></span>
+<span id="cb245-11"><a href="#cb245-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_100kb_corrected.cool <span class="op">\</span></span>
+<span id="cb245-12"><a href="#cb245-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>distvscounts_100kb_corrected_all.png <span class="op">\</span></span>
+<span id="cb245-13"><a href="#cb245-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>labels <span class="st">'Pooled'</span> \</span>
+<span id="cb245-14"><a href="#cb245-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>plotsize <span class="dv">6</span> <span class="dv">4</span> <span class="op">&amp;</span></span>
+<span id="cb245-15"><a href="#cb245-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-16"><a href="#cb245-16" aria-hidden="true" tabindex="-1"></a>wait</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome all
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr1
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr2
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr3
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 47, diagonal len: 1791
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr4
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr5
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr6
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 49, diagonal len: 1724
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 50, diagonal len: 1723
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr7
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr8
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr9
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 48, diagonal len: 1265
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 49, diagonal len: 1264
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 50, diagonal len: 1263
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 51, diagonal len: 1262
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 52, diagonal len: 1261
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 53, diagonal len: 1260
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 54, diagonal len: 1259
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 55, diagonal len: 1258
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 56, diagonal len: 1257
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 57, diagonal len: 1256
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 58, diagonal len: 1255
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 59, diagonal len: 1254
+
+INFO:hicexplorer.hicPlotDistVsCounts:skipping rest of chromosome chr9. Too many emtpy diagonals
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr10
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 48, diagonal len: 908
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 49, diagonal len: 907
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 50, diagonal len: 906
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 51, diagonal len: 905
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 52, diagonal len: 904
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 53, diagonal len: 903
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 54, diagonal len: 902
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 55, diagonal len: 901
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 56, diagonal len: 900
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 57, diagonal len: 899
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 58, diagonal len: 898
+
+INFO:hicexplorer.hicPlotDistVsCounts:zero value for 59, diagonal len: 897
+
+INFO:hicexplorer.hicPlotDistVsCounts:skipping rest of chromosome chr10. Too many emtpy diagonals
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr11
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr12
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr13
+
+INFO:hicexplorer.hicPlotDistVsCounts:The scale factors used are: {'../steps/bowtie2/local/matrices/normsm_filtered_pooled_100kb_corrected.cool': 1.0}
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr14
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr15
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr16
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr17
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr18
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr19
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chr20
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chrX
+
+INFO:hicexplorer.hicPlotDistVsCounts:processing chromosome chrY
+
+INFO:hicexplorer.hicPlotDistVsCounts:The scale factors used are: {'../steps/bowtie2/local/matrices/normsm_filtered_pooled_100kb_corrected.cool': 1.0}</code></pre>
+</div>
+</div>
+<div id="cell-102" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb247"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb247-1"><a href="#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hicstuff <span class="im">import</span> plot_pngs_in_grid <span class="im">as</span> plt</span>
+<span id="cb247-2"><a href="#cb247-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb247-3"><a href="#cb247-3" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/normalized/"</span>, suffix<span class="op">=</span><span class="st">"distvscounts*.png"</span>, ncol<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../figures/bowtie2/local/normalized/*distvscounts*.png':</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-71-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="chromatin-compartments" class="level2">
+<h2 class="anchored" data-anchor-id="chromatin-compartments">Chromatin Compartments</h2>
+<div id="cell-104" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb249"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb249-1"><a href="#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicPCA <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>usage: hicPCA --matrix MATRIX --outputFileName OUTPUTFILENAME
+              [OUTPUTFILENAME ...]
+              [--whichEigenvectors WHICHEIGENVECTORS [WHICHEIGENVECTORS ...]]
+              [--format {bedgraph,bigwig}]
+              [--chromosomes CHROMOSOMES [CHROMOSOMES ...]]
+              [--method {dist_norm,lieberman}] [--ligation_factor]
+              [--extraTrack EXTRATRACK] [--histonMarkType HISTONMARKTYPE]
+              [--pearsonMatrix PEARSONMATRIX] [--obsexpMatrix OBSEXPMATRIX]
+              [--ignoreMaskedBins] [--help] [--version]
+
+Computes PCA eigenvectors for a Hi-C matrix.
+
+    $ hicPCA --matrix hic_matrix.h5 -o pca1.bedgraph pca2.bedgraph
+
+Required arguments:
+  --matrix MATRIX, -m MATRIX
+                        HiCExplorer matrix in h5 format. (default: None)
+  --outputFileName OUTPUTFILENAME [OUTPUTFILENAME ...], -o OUTPUTFILENAME [OUTPUTFILENAME ...]
+                        File names for the result of the pca.Number of output
+                        files must match the number of computed eigenvectors.
+                        (default: None)
+
+Optional arguments:
+  --whichEigenvectors WHICHEIGENVECTORS [WHICHEIGENVECTORS ...], -we WHICHEIGENVECTORS [WHICHEIGENVECTORS ...]
+                        The list of eigenvectors that the PCA should compute
+                        e.g. 1 2 5 will return the first, second and fifth
+                        eigenvector. (Default: 1 2).
+  --format {bedgraph,bigwig}, -f {bedgraph,bigwig}
+                        Output format. Either bedgraph or bigwig (Default:
+                        bigwig).
+  --chromosomes CHROMOSOMES [CHROMOSOMES ...]
+                        List of chromosomes to be included in the correlation.
+                        (default: None)
+  --method {dist_norm,lieberman}
+                        possible methods which can be used to build the obs-
+                        exp matrix are dist_norm and lieberman (Default:
+                        dist_norm).
+  --ligation_factor     Setting this flag multiplies a scaling factor to each
+                        entry of the expected matrix to take care of the
+                        proximity ligation as has been explained in Homer
+                        software. This flag is only affective with dist_norm
+                        method and will be ignored if lieberman method is
+                        chosen. (default: False)
+  --extraTrack EXTRATRACK
+                        Either a gene track or a histone mark coverage file
+                        (preferably a broad mark) is needed to decide if the
+                        values of the eigenvector need a sign flip or not.
+                        Please consider: bed files are interpreted as gene
+                        tracks and bigwig files as histone marks. (default:
+                        None)
+  --histonMarkType HISTONMARKTYPE
+                        Set it to active or inactive. This is only necessary
+                        if a histon mark coverage file is given as an
+                        extraTrack (Default: active).
+  --pearsonMatrix PEARSONMATRIX, -pm PEARSONMATRIX
+                        Internally the input matrix is converted per
+                        chromosome to obs_exp matrix and consecutively to a
+                        Pearson matrix. Set this parameter to write the
+                        pearson matrix to a file. (default: None)
+  --obsexpMatrix OBSEXPMATRIX, -oem OBSEXPMATRIX
+                        Internally the input matrix is converted per
+                        chromosome to obs_exp matrix and consecutively to a
+                        Pearson matrix. Set this parameter to write the
+                        observe/expected matrix to a file. (default: None)
+  --ignoreMaskedBins    Mask bins are usually set to 0. This option removes
+                        the masked bins before the PCA is computed. Attention:
+                        this will lead to empty PCA regions. (default: False)
+  --help, -h            show the help message and exit
+  --version             show program's version number and exit</code></pre>
+</div>
+</div>
+<div id="cell-105" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb251"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb251-1"><a href="#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<span id="cb251-2"><a href="#cb251-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb251-3"><a href="#cb251-3" aria-hidden="true" tabindex="-1"></a>hicPCA <span class="op">\</span></span>
+<span id="cb251-4"><a href="#cb251-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_100kb_corrected.cool <span class="op">\</span></span>
+<span id="cb251-5"><a href="#cb251-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>pc{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>}_100kb_corrected_all.bigwig <span class="op">\</span></span>
+<span id="cb251-6"><a href="#cb251-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>we <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-106" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb252"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb252-1"><a href="#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb252-2"><a href="#cb252-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb252-3"><a href="#cb252-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> NUM <span class="kw">in</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span><span class="op">;</span> do</span>
+<span id="cb252-4"><a href="#cb252-4" aria-hidden="true" tabindex="-1"></a>hicPlotMatrix <span class="op">\</span></span>
+<span id="cb252-5"><a href="#cb252-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>m ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>matrices<span class="op">/</span>normsm_filtered_pooled_100kb_corrected.cool <span class="op">\</span></span>
+<span id="cb252-6"><a href="#cb252-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>o ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>pc${NUM}_100kb_corrected_all.png <span class="op">\</span></span>
+<span id="cb252-7"><a href="#cb252-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>bigwig ..<span class="op">/</span>figures<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>normalized<span class="op">/</span>pc${NUM}_100kb_corrected_all.bigwig <span class="op">\</span></span>
+<span id="cb252-8"><a href="#cb252-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>bigwigAdditionalVerticalAxis <span class="op">\</span></span>
+<span id="cb252-9"><a href="#cb252-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>dpi <span class="dv">100</span></span>
+<span id="cb252-10"><a href="#cb252-10" aria-hidden="true" tabindex="-1"></a>done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True
+bash: line 2: 900291 Killed                  hicPlotMatrix -m ../steps/bowtie2/local/matrices/normsm_filtered_pooled_100kb_corrected.cool -o ../figures/bowtie2/local/normalized/pc${NUM}_100kb_corrected_all.png --bigwig ../figures/bowtie2/local/normalized/pc${NUM}_100kb_corrected_all.bigwig --bigwigAdditionalVerticalAxis --dpi 100
+INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True
+Traceback (most recent call last):
+  File "/home/sojern/miniconda3/envs/hic/bin/hicPlotMatrix", line 7, in &lt;module&gt;
+    main()
+  File "/home/sojern/miniconda3/envs/hic/lib/python3.12/site-packages/hicexplorer/hicPlotMatrix.py", line 704, in main
+    matrix = np.asarray(ma.matrix.todense().astype(float))
+                        ^^^^^^^^^^^^^^^^^^^
+  File "/home/sojern/miniconda3/envs/hic/lib/python3.12/site-packages/scipy/sparse/_base.py", line 959, in todense
+    return self._ascontainer(self.toarray(order=order, out=out))
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sojern/miniconda3/envs/hic/lib/python3.12/site-packages/scipy/sparse/_compressed.py", line 1117, in toarray
+    csr_todense(M, N, x.indptr, x.indices, x.data, y)
+KeyboardInterrupt</code></pre>
+</div>
+</div>
+
+
 </section>
 </section>
 
