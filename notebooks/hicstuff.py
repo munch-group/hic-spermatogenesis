@@ -1,8 +1,39 @@
 import os
 import glob
+import pandas as pd
 import matplotlib.pyplot as plt
-import natsort 
+from natsort import natsorted
 from PIL import Image
+
+# All the files can be assigned to a list with glob.glob:
+# logs = glob.glob("../results/SRR*/*.log")
+# they can be read with a for loop, but it's too messy to show. 
+
+# The .log file is a tab-separated file with 4 tables, so we have to make our own function to read it
+# I wrapped it in a class to save all tables from each log in a single variable. 
+
+class HiCQCLog(): 
+    def __init__(self, logfile):
+        reader = pd.read_csv(logfile, sep="\t", header=None, iterator=True)
+        t1 = reader.get_chunk(4).dropna(axis=1)
+        t1.columns=t1.iloc[0]
+        self.t1 = t1.drop(0).reset_index()
+
+        t2 = reader.get_chunk(6).dropna(axis=1)
+        t2.columns=t2.iloc[0]
+        self.t2 = t2.drop(4).reset_index()
+
+        t3 = reader.get_chunk(7) .dropna(axis=1)
+        t3.columns=t3.iloc[0]
+        self.t3 = t3.drop(10).reset_index()
+
+        t4 = reader.get_chunk(7).dropna(axis=1)
+        t4.columns=t4.iloc[0]
+        self.t4 = t4.drop(17).reset_index()
+        
+    def view(self):
+        display(self.t1, self.t2, self.t3, self.t4)
+
 
 def plot_pngs_in_grid(image_folder, suffix=".png", ncol=3):
     """
@@ -19,7 +50,7 @@ def plot_pngs_in_grid(image_folder, suffix=".png", ncol=3):
     # with a specified suffix (default: .png)
     print(f"Plotting all images in '{os.path.join(image_folder, f'*{suffix}')}':")
     image_files = glob.glob(os.path.join(image_folder, f'*{suffix}'))
-    image_files = natsort.natsorted(image_files)
+    image_files = natsorted(image_files,)
 
 
     # If no images found, print a message and return

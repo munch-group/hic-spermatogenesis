@@ -1,0 +1,9 @@
+---
+title: "Thoughts and Prayers"
+bibliography: references.bib
+date: last-modified
+date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
+---
+
+# My [unstructured] thoughts and prayers {.unnumbered}
+

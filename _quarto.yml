@@ -2,7 +2,7 @@ project:
   type: book
   # output-dir: docs
   preview:
-    port: 4200
+    port: 4202
 
 execute:
   freeze: auto
@@ -13,6 +13,7 @@ book:
   author: "Søren Jørgensen"
   chapters:
     - index.qmd
+    - thoughts.qmd
     - part: "Notebooks"
       chapters: 
       - notebooks/001_weather.ipynb
@@ -21,6 +22,8 @@ book:
     - part: "Workflows"
       chapters:
         - gwf_map_reads.py
+        - gwf_bowtie.py
+        - gwf_hiccorrect.py
     - part: "Reports"
       chapters: 
       - results/Readme.md
