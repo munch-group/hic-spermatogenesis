@@ -20,10 +20,30 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -68,6 +88,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -210,7 +233,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#my-unstructured-thoughts-and-prayers" id="toc-my-unstructured-thoughts-and-prayers" class="nav-link active" data-scroll-target="#my-unstructured-thoughts-and-prayers">My [unstructured] thoughts and prayers</a></li>
+  <li><a href="#notes-on-quarto" id="toc-notes-on-quarto" class="nav-link active" data-scroll-target="#notes-on-quarto">Notes on Quarto</a></li>
+  <li><a href="#notes-on-hicexplorer" id="toc-notes-on-hicexplorer" class="nav-link" data-scroll-target="#notes-on-hicexplorer">Notes on <code>HiCExplorer</code></a></li>
+  <li><a href="#notes-on-methods" id="toc-notes-on-methods" class="nav-link" data-scroll-target="#notes-on-methods">Notes on methods</a></li>
   </ul>
 <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></nav>
     </div>
@@ -230,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2024 <br> 07:59:28 (UTC +00:00)</p>
+      <p class="date">September 30, 2024 <br> 14:24:36 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -242,10 +267,43 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="my-unstructured-thoughts-and-prayers" class="level1 unnumbered">
-<h1 class="unnumbered">My [unstructured] thoughts and prayers</h1>
+<p><em>Here goes my thoughts and frustrations about the tools, the results, or the project in general.</em></p>
+<section id="notes-on-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="notes-on-quarto">Notes on Quarto</h2>
+<p>I feel like i have the Markdown/Quarto thing under control, which is pretty nice. It is going to be really cool when actually starting to write the manus (I think).</p>
+</section>
+<section id="notes-on-hicexplorer" class="level2">
+<h2 class="anchored" data-anchor-id="notes-on-hicexplorer">Notes on <code>HiCExplorer</code></h2>
+<p>It feels very old school and unnecessary that I can’t just output the <code>HiCExplorer</code> commands [plots] to the Jupyter display. I <em>have</em> to save the plots to <em>.png</em>s, which is flooding my <code>figures</code> directory. I should probably clean it up.</p>
+<p>I have created plots to mimic the <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> for the <code>chr12</code> as well as <code>chrX</code>. They don’t compare very well with Wang2019, and the both PC1 and PC2 plot looks like they’re highly biased (only intersects 0 one time). PC3 looks more reasonable, but I don’t know if it is reasonable at all to use the 3rd PC in stead of the 1st. I guess it means that the compartmentalization is not the most variable feature, and there are some biases that we have to get rid of. That, or the X chromosome is divided only into two compartments in fibroblasts (unlikely).</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer using macaque data" data-notebook-cellid="cell-chrX-50kb-pca">
+<div id="cell-chrX-50kb-pca" class="cell" data-execution_count="37">
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting all images in '../figures/bowtie2/local/normalized/*pc*50kb*chrX.png':</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="chrx-50kb-pca" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-01_hicexplorer-chrx-50kb-pca-output-2.png" class="img-fluid figure-img"></p>
+<figcaption>The X chromosome in 50kb bins and the first 3 PCs below. Made with HicExplorer.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="notes-on-methods" class="level2">
+<h2 class="anchored" data-anchor-id="notes-on-methods">Notes on methods</h2>
+<ul>
+<li><span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> uses a sliding window approach calculate the obs/exp matrices for the PCA. I will try that next, and work within the <code>cooler</code>/<code>cooltool</code> framework which has a Python API and more suitable to run in Jupyter Notebooks.</li>
+</ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
