@@ -5,5 +5,20 @@ date: last-modified
 date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
 ---
 
-# My [unstructured] thoughts and prayers {.unnumbered}
+*Here goes my thoughts and frustrations about the tools, the results, or the project in general.*
 
+## Notes on Quarto
+
+I feel like i have the Markdown/Quarto thing under control, which is pretty nice. It is going to be really cool when actually starting to write the manus (I think).
+
+## Notes on `HiCExplorer`
+
+It feels very old school and unnecessary that I can't just output the `HiCExplorer` commands [plots] to the Jupyter display. I *have* to save the plots to *.png*s, which is flooding my `figures` directory. I should probably clean it up.  
+
+I have created plots to mimic the [@wang_reprogramming_2019] for the `chr12` as well as `chrX`. They don't compare very well with Wang2019, and the both PC1 and PC2 plot looks like they're highly biased (only intersects 0 one time). PC3 looks more reasonable, but I don't know if it is reasonable at all to use the 3rd PC in stead of the 1st. I guess it means that the compartmentalization is not the most variable feature, and there are some biases that we have to get rid of. That, or the X chromosome is divided only into two compartments in fibroblasts (unlikely). 
+
+{{< embed notebooks/01_hicexplorer.ipynb#chrX-50kb-pca >}}
+
+## Notes on methods
+
+- [@wang_reprogramming_2019] uses a sliding window approach calculate the obs/exp matrices for the PCA. I will try that next, and work within the `cooler`/`cooltool` framework which has a Python API and more suitable to run in Jupyter Notebooks. 
