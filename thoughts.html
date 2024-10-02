@@ -165,7 +165,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/02_cooltools.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiC data analysis with <code>cooler</code> and <code>cooltools</code></span></a>
+  <a href="./notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><code>pairtools</code>: Convert sequencing data to a list of contacts</span></a>
   </div>
 </li>
       </ul>
@@ -240,6 +240,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#notes-on-quarto" id="toc-notes-on-quarto" class="nav-link active" data-scroll-target="#notes-on-quarto">Notes on Quarto</a></li>
   <li><a href="#notes-on-hicexplorer" id="toc-notes-on-hicexplorer" class="nav-link" data-scroll-target="#notes-on-hicexplorer">Notes on <code>HiCExplorer</code></a></li>
+  <li><a href="#notes-on-open2c-framework" id="toc-notes-on-open2c-framework" class="nav-link" data-scroll-target="#notes-on-open2c-framework">Notes on Open2C framework</a></li>
   <li><a href="#notes-on-methods" id="toc-notes-on-methods" class="nav-link" data-scroll-target="#notes-on-methods">Notes on methods</a></li>
   </ul>
 <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></nav>
@@ -260,7 +261,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 2, 2024 <br> 11:02:22 (UTC +00:00)</p>
+      <p class="date">October 2, 2024 <br> 21:48:54 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -308,6 +309,17 @@ div.csl-indent {
 <section id="plotting-.cool-files-with-h5py-and-pybigwig" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-.cool-files-with-h5py-and-pybigwig">Plotting .cool files with <code>h5py</code> and <code>pyBigWig</code></h3>
 <p>It does not work as I want. To read both the matrix and PC components, it requires an abnormal amount of memory (I don’t think it is strictly necessary to load 75 Gb of data into memory to make a 5x8” plot). However, <code>HicExplorer</code> advise against merging bins after correction and normalization, but I just don’t get that. I see no reason it could mess up the correction. Jupyter Display and, ultimately, my screen resolution makes that binning, so It would be completely fine to just bin the matrices after the fact.</p>
+</section>
+</section>
+<section id="notes-on-open2c-framework" class="level2">
+<h2 class="anchored" data-anchor-id="notes-on-open2c-framework">Notes on Open2C framework</h2>
+<section id="pairtools" class="level3">
+<h3 class="anchored" data-anchor-id="pairtools">pairtools</h3>
+<p>I’m considering to just map the reads again with bwa, mates together to create a pairs file in the first place. Alternatively, I will use <code>samtools sort | samtools fixmate</code> to convert them back into a paired-end alignment for inputting into <code>cooler</code>.</p>
+</section>
+<section id="cooler" class="level3">
+<h3 class="anchored" data-anchor-id="cooler">cooler</h3>
+<p>I’ve decided that this is a much better tool than HiCExplorer, the overall experience is way better. The Python API makes it optimal for Jupyter Notebooks, in stead of doing shell escapes in every cell. It can plot 10kb bins without any issue.</p>
 </section>
 </section>
 <section id="notes-on-methods" class="level2">
