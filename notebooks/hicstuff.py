@@ -48,7 +48,7 @@ def plot_pngs_in_grid(image_folder, suffix=".png", ncol=3):
     """
     # Find all .png files in the folder
     # with a specified suffix (default: .png)
-    print(f"Plotting all images in '{os.path.join(image_folder, f'*{suffix}')}':")
+    #print(f"Plotting all images in '{os.path.join(image_folder, f'*{suffix}')}':")
     image_files = glob.glob(os.path.join(image_folder, f'*{suffix}'))
     image_files = natsorted(image_files,)
 
