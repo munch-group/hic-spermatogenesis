@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../gwf_map_reads.html" rel="next">
+<link href="../notebooks/02_cooltools.html" rel="next">
 <link href="../notebooks/002_interaction.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -175,6 +175,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">HiCExplorer using macaque data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/02_cooltools.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiC data analysis with <code>cooler</code> and <code>cooltools</code></span></a>
   </div>
 </li>
       </ul>
@@ -2587,7 +2592,9 @@ INFO:hicexplorer.hicPlotDistVsCounts:The scale factors used are: {'../steps/bowt
 </section>
 <section id="chromatin-compartments" class="level2">
 <h2 class="anchored" data-anchor-id="chromatin-compartments">Chromatin Compartments</h2>
-<div id="cell-107" class="cell" data-scrolled="true" data-execution_count="34">
+<section id="hicexplorer" class="level3">
+<h3 class="anchored" data-anchor-id="hicexplorer"><code>HiCExplorer</code></h3>
+<div id="cell-108" class="cell" data-scrolled="true" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb253"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb253-1"><a href="#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>hicPCA <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>usage: hicPCA --matrix MATRIX --outputFileName OUTPUTFILENAME
@@ -2661,7 +2668,7 @@ Optional arguments:
   --version             show program's version number and exit</code></pre>
 </div>
 </div>
-<div id="cell-108" class="cell" data-execution_count="20">
+<div id="cell-109" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb255"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb255-1"><a href="#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
 <span id="cb255-2"><a href="#cb255-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb255-3"><a href="#cb255-3" aria-hidden="true" tabindex="-1"></a>hicPCA <span class="op">\</span></span>
@@ -2678,7 +2685,7 @@ Optional arguments:
 <span id="cb255-14"><a href="#cb255-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb255-15"><a href="#cb255-15" aria-hidden="true" tabindex="-1"></a>wait</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-109" class="cell" data-execution_count="34">
+<div id="cell-110" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb256"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb256-1"><a href="#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb256-2"><a href="#cb256-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb256-3"><a href="#cb256-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> NUM <span class="kw">in</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span><span class="op">;</span> do</span>
@@ -2700,25 +2707,206 @@ INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True
 INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: True</code></pre>
 </div>
 </div>
-<div id="cell-chrX-50kb-pca" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb258"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb258-1"><a href="#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hicstuff <span class="im">import</span> plot_pngs_in_grid <span class="im">as</span> plt</span>
-<span id="cb258-2"><a href="#cb258-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb258-3"><a href="#cb258-3" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/normalized"</span>, suffix<span class="op">=</span><span class="st">"pc*50kb*chrX.png"</span>, ncol<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb258-4"><a href="#cb258-4" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Plotting all images in '../figures/bowtie2/local/normalized/*pc*50kb*chrX.png':</code></pre>
-</div>
+<div id="cell-chrX-50kb-pca" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb258"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb258-1"><a href="#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hicstuff</span>
+<span id="cb258-2"><a href="#cb258-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
+<span id="cb258-3"><a href="#cb258-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(hicstuff)</span>
+<span id="cb258-4"><a href="#cb258-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hicstuff <span class="im">import</span> plot_pngs_in_grid <span class="im">as</span> plt</span>
+<span id="cb258-5"><a href="#cb258-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb258-6"><a href="#cb258-6" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/normalized"</span>, suffix<span class="op">=</span><span class="st">"pc*50kb*chrX.png"</span>, ncol<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb258-7"><a href="#cb258-7" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="chrx-50kb-pca" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="01_hicexplorer_files/figure-html/chrx-50kb-pca-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="01_hicexplorer_files/figure-html/chrx-50kb-pca-output-1.png" class="img-fluid figure-img"></p>
 <figcaption>The X chromosome in 50kb bins and the first 3 PCs below. Made with HicExplorer.</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div id="cell-chrX-100kb-pca" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb259"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb259-1"><a href="#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hicstuff</span>
+<span id="cb259-2"><a href="#cb259-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
+<span id="cb259-3"><a href="#cb259-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(hicstuff)</span>
+<span id="cb259-4"><a href="#cb259-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hicstuff <span class="im">import</span> plot_pngs_in_grid <span class="im">as</span> plt</span>
+<span id="cb259-5"><a href="#cb259-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb259-6"><a href="#cb259-6" aria-hidden="true" tabindex="-1"></a>plt(<span class="st">"../figures/bowtie2/local/normalized"</span>, suffix<span class="op">=</span><span class="st">"pc*100kb*chrX.png"</span>, ncol<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb259-7"><a href="#cb259-7" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="chrx-100kb-pca" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/chrx-100kb-pca-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>The X chromosome in 100kb bins and the first 3 PCs below. Made with HicExplorer.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="matplotlib" class="level3">
+<h3 class="anchored" data-anchor-id="matplotlib"><code>matplotlib</code></h3>
+<div id="cell-114" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb260"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb260-1"><a href="#cb260-1" aria-hidden="true" tabindex="-1"></a>[<span class="ss">f"../figures/bowtie2/local/normalized/pc</span><span class="sc">{</span>NUM<span class="sc">}</span><span class="ss">_50kb_corrected_chrX.bigwig"</span> <span class="cf">for</span> NUM <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>['../figures/bowtie2/local/normalized/pc1_50kb_corrected_chrX.bigwig',
+ '../figures/bowtie2/local/normalized/pc2_50kb_corrected_chrX.bigwig',
+ '../figures/bowtie2/local/normalized/pc3_50kb_corrected_chrX.bigwig']</code></pre>
+</div>
+</div>
+<div id="cell-115" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb262"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb262-1"><a href="#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
+<span id="cb262-2"><a href="#cb262-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyBigWig</span>
+<span id="cb262-3"><a href="#cb262-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb262-4"><a href="#cb262-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb262-5"><a href="#cb262-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb262-6"><a href="#cb262-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Hi-C matrix from .cool file</span></span>
+<span id="cb262-7"><a href="#cb262-7" aria-hidden="true" tabindex="-1"></a>cool_file <span class="op">=</span> <span class="st">'../steps/bowtie2/local/matrices/normsm_filtered_pooled_100kb_corrected.cool'</span></span>
+<span id="cb262-8"><a href="#cb262-8" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> h5py.File(cool_file, <span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-116" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb263"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb263-1"><a href="#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key <span class="kw">in</span> <span class="bu">list</span>(f.keys()):</span>
+<span id="cb263-2"><a href="#cb263-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">list</span>(f[key])<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>bins: ['chrom', 'end', 'start', 'weight']
+chroms: ['length', 'name']
+indexes: ['bin1_offset', 'chrom_offset']
+pixels: ['bin1_id', 'bin2_id', 'count']</code></pre>
+</div>
+</div>
+<div id="cell-117" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb265"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb265-1"><a href="#cb265-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> f[<span class="st">'bins'</span>]</span>
+<span id="cb265-2"><a href="#cb265-2" aria-hidden="true" tabindex="-1"></a>chroms <span class="op">=</span> f[<span class="st">'chroms'</span>]</span>
+<span id="cb265-3"><a href="#cb265-3" aria-hidden="true" tabindex="-1"></a>indexes <span class="op">=</span> f[<span class="st">'indexes'</span>]</span>
+<span id="cb265-4"><a href="#cb265-4" aria-hidden="true" tabindex="-1"></a>pixels <span class="op">=</span> f[<span class="st">'pixels'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-118" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb266"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb266-1"><a href="#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the size of the matrix</span></span>
+<span id="cb266-2"><a href="#cb266-2" aria-hidden="true" tabindex="-1"></a>num_bins <span class="op">=</span> <span class="bu">len</span>(bins[<span class="st">'start'</span>])</span>
+<span id="cb266-3"><a href="#cb266-3" aria-hidden="true" tabindex="-1"></a>hic_matrix <span class="op">=</span> np.zeros((num_bins, num_bins))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-119" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb267"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb267-1"><a href="#cb267-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB Uses 20Gb RAM</span></span>
+<span id="cb267-2"><a href="#cb267-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill the Hi-C matrix using pixels and indexes</span></span>
+<span id="cb267-3"><a href="#cb267-3" aria-hidden="true" tabindex="-1"></a>bin1_ids <span class="op">=</span> pixels[<span class="st">'bin1_id'</span>]</span>
+<span id="cb267-4"><a href="#cb267-4" aria-hidden="true" tabindex="-1"></a>bin2_ids <span class="op">=</span> pixels[<span class="st">'bin2_id'</span>]</span>
+<span id="cb267-5"><a href="#cb267-5" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> np.log1p(pixels[<span class="st">'count'</span>])  <span class="co"># Apply log1p transformation directly</span></span>
+<span id="cb267-6"><a href="#cb267-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb267-7"><a href="#cb267-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use NumPy's advanced indexing to fill the matrix</span></span>
+<span id="cb267-8"><a href="#cb267-8" aria-hidden="true" tabindex="-1"></a>hic_matrix[bin1_ids, bin2_ids] <span class="op">=</span> counts</span>
+<span id="cb267-9"><a href="#cb267-9" aria-hidden="true" tabindex="-1"></a>hic_matrix[bin2_ids, bin1_ids] <span class="op">=</span> counts  <span class="co"># Symmetric matrix</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-120" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb268"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb268-1"><a href="#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB Uses 32 Gb RAM</span></span>
+<span id="cb268-2"><a href="#cb268-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load bw files</span></span>
+<span id="cb268-3"><a href="#cb268-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb268-4"><a href="#cb268-4" aria-hidden="true" tabindex="-1"></a>bw_files <span class="op">=</span> [<span class="ss">f"../figures/bowtie2/local/normalized/pc</span><span class="sc">{</span>NUM<span class="sc">}</span><span class="ss">_100kb_corrected_chrX.bigwig"</span> <span class="cf">for</span> NUM <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">4</span>)]</span>
+<span id="cb268-5"><a href="#cb268-5" aria-hidden="true" tabindex="-1"></a>bw_data <span class="op">=</span> []</span>
+<span id="cb268-6"><a href="#cb268-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bw_file <span class="kw">in</span> bw_files:</span>
+<span id="cb268-7"><a href="#cb268-7" aria-hidden="true" tabindex="-1"></a>    bw <span class="op">=</span> pyBigWig.<span class="bu">open</span>(bw_file)</span>
+<span id="cb268-8"><a href="#cb268-8" aria-hidden="true" tabindex="-1"></a>    chroms <span class="op">=</span> bw.chroms()</span>
+<span id="cb268-9"><a href="#cb268-9" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> []</span>
+<span id="cb268-10"><a href="#cb268-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> chrom <span class="kw">in</span> chroms:</span>
+<span id="cb268-11"><a href="#cb268-11" aria-hidden="true" tabindex="-1"></a>        chrom_data <span class="op">=</span> bw.values(chrom, <span class="dv">0</span>, chroms[chrom])</span>
+<span id="cb268-12"><a href="#cb268-12" aria-hidden="true" tabindex="-1"></a>        data.append(chrom_data)</span>
+<span id="cb268-13"><a href="#cb268-13" aria-hidden="true" tabindex="-1"></a>    bw_data.append(np.concatenate(data))</span>
+<span id="cb268-14"><a href="#cb268-14" aria-hidden="true" tabindex="-1"></a>    bw.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-121" class="cell">
+<div class="sourceCode cell-code" id="cb269"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb269-1"><a href="#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB Crashed at 64 Gb RAM w/ 50 kb bins</span></span>
+<span id="cb269-2"><a href="#cb269-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-3"><a href="#cb269-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Hi-C matrix</span></span>
+<span id="cb269-4"><a href="#cb269-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="bu">len</span>(bw_files) <span class="op">+</span> <span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>] <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> <span class="bu">len</span>(bw_files)})</span>
+<span id="cb269-5"><a href="#cb269-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-6"><a href="#cb269-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Hi-C matrix with log1p transformation</span></span>
+<span id="cb269-7"><a href="#cb269-7" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].imshow(hic_matrix_dense, cmap<span class="op">=</span><span class="st">'Reds'</span>, aspect<span class="op">=</span><span class="st">'equal'</span>)</span>
+<span id="cb269-8"><a href="#cb269-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">'Hi-C Matrix (log1p transformed)'</span>)</span>
+<span id="cb269-9"><a href="#cb269-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-10"><a href="#cb269-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot bigwig tracks</span></span>
+<span id="cb269-11"><a href="#cb269-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>(bw_data):</span>
+<span id="cb269-12"><a href="#cb269-12" aria-hidden="true" tabindex="-1"></a>    ax[i <span class="op">+</span> <span class="dv">1</span>].plot(data)</span>
+<span id="cb269-13"><a href="#cb269-13" aria-hidden="true" tabindex="-1"></a>    ax[i <span class="op">+</span> <span class="dv">1</span>].set_title(<span class="ss">f'PC</span><span class="sc">{</span>i <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb269-14"><a href="#cb269-14" aria-hidden="true" tabindex="-1"></a>    ax[i <span class="op">+</span> <span class="dv">1</span>].set_xlim(<span class="dv">0</span>, <span class="bu">len</span>(data))</span>
+<span id="cb269-15"><a href="#cb269-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-16"><a href="#cb269-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb269-17"><a href="#cb269-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="first-try-copilot" class="level3">
+<h3 class="anchored" data-anchor-id="first-try-copilot">First try Copilot</h3>
+<p>I don´t want to spend more time on this now. Switching notebook to cooler.</p>
+<div id="cell-123" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb270"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb270-1"><a href="#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
+<span id="cb270-2"><a href="#cb270-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyBigWig</span>
+<span id="cb270-3"><a href="#cb270-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb270-4"><a href="#cb270-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb270-5"><a href="#cb270-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.sparse <span class="im">as</span> sp</span>
+<span id="cb270-6"><a href="#cb270-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gc</span>
+<span id="cb270-7"><a href="#cb270-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-8"><a href="#cb270-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Hi-C matrix from .cool file</span></span>
+<span id="cb270-9"><a href="#cb270-9" aria-hidden="true" tabindex="-1"></a>cool_file <span class="op">=</span> <span class="st">'../steps/bowtie2/local/matrices/normsm_filtered_pooled_100kb_corrected.cool'</span></span>
+<span id="cb270-10"><a href="#cb270-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-11"><a href="#cb270-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> h5py.File(cool_file, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb270-12"><a href="#cb270-12" aria-hidden="true" tabindex="-1"></a>    bins <span class="op">=</span> f[<span class="st">'bins'</span>]</span>
+<span id="cb270-13"><a href="#cb270-13" aria-hidden="true" tabindex="-1"></a>    pixels <span class="op">=</span> f[<span class="st">'pixels'</span>]</span>
+<span id="cb270-14"><a href="#cb270-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-15"><a href="#cb270-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Determine the size of the matrix</span></span>
+<span id="cb270-16"><a href="#cb270-16" aria-hidden="true" tabindex="-1"></a>    num_bins <span class="op">=</span> <span class="bu">len</span>(bins[<span class="st">'start'</span>])</span>
+<span id="cb270-17"><a href="#cb270-17" aria-hidden="true" tabindex="-1"></a>    hic_matrix <span class="op">=</span> sp.lil_matrix((num_bins, num_bins))</span>
+<span id="cb270-18"><a href="#cb270-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-19"><a href="#cb270-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fill the Hi-C matrix using pixels</span></span>
+<span id="cb270-20"><a href="#cb270-20" aria-hidden="true" tabindex="-1"></a>    bin1_ids <span class="op">=</span> pixels[<span class="st">'bin1_id'</span>]</span>
+<span id="cb270-21"><a href="#cb270-21" aria-hidden="true" tabindex="-1"></a>    bin2_ids <span class="op">=</span> pixels[<span class="st">'bin2_id'</span>]</span>
+<span id="cb270-22"><a href="#cb270-22" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> np.log1p(pixels[<span class="st">'count'</span>])  <span class="co"># Apply log1p transformation directly</span></span>
+<span id="cb270-23"><a href="#cb270-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-24"><a href="#cb270-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use sparse matrix to fill the matrix</span></span>
+<span id="cb270-25"><a href="#cb270-25" aria-hidden="true" tabindex="-1"></a>    hic_matrix[bin1_ids, bin2_ids] <span class="op">=</span> counts</span>
+<span id="cb270-26"><a href="#cb270-26" aria-hidden="true" tabindex="-1"></a>    hic_matrix[bin2_ids, bin1_ids] <span class="op">=</span> counts  <span class="co"># Symmetric matrix</span></span>
+<span id="cb270-27"><a href="#cb270-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-28"><a href="#cb270-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to CSR format for efficient arithmetic and matrix vector operations</span></span>
+<span id="cb270-29"><a href="#cb270-29" aria-hidden="true" tabindex="-1"></a>hic_matrix <span class="op">=</span> hic_matrix.tocsr()</span>
+<span id="cb270-30"><a href="#cb270-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-31"><a href="#cb270-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Load bw files and plot in chunks</span></span>
+<span id="cb270-32"><a href="#cb270-32" aria-hidden="true" tabindex="-1"></a>bw_files <span class="op">=</span> [<span class="ss">f"../figures/bowtie2/local/normalized/pc</span><span class="sc">{</span>NUM<span class="sc">}</span><span class="ss">_100kb_corrected_chrX.bigwig"</span> <span class="cf">for</span> NUM <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>)]</span>
+<span id="cb270-33"><a href="#cb270-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-34"><a href="#cb270-34" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="bu">len</span>(bw_files) <span class="op">+</span> <span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">3</span>] <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> <span class="bu">len</span>(bw_files)})</span>
+<span id="cb270-35"><a href="#cb270-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-36"><a href="#cb270-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Hi-C matrix with log1p transformation</span></span>
+<span id="cb270-37"><a href="#cb270-37" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].imshow(hic_matrix.toarray(), cmap<span class="op">=</span><span class="st">'Reds'</span>, aspect<span class="op">=</span><span class="st">'equal'</span>)</span>
+<span id="cb270-38"><a href="#cb270-38" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">'Hi-C Matrix (log1p transformed)'</span>)</span>
+<span id="cb270-39"><a href="#cb270-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-40"><a href="#cb270-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot bigwig tracks</span></span>
+<span id="cb270-41"><a href="#cb270-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, bw_file <span class="kw">in</span> <span class="bu">enumerate</span>(bw_files):</span>
+<span id="cb270-42"><a href="#cb270-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> pyBigWig.<span class="bu">open</span>(bw_file) <span class="im">as</span> bw:</span>
+<span id="cb270-43"><a href="#cb270-43" aria-hidden="true" tabindex="-1"></a>        chroms <span class="op">=</span> bw.chroms()</span>
+<span id="cb270-44"><a href="#cb270-44" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> []</span>
+<span id="cb270-45"><a href="#cb270-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> chrom <span class="kw">in</span> chroms:</span>
+<span id="cb270-46"><a href="#cb270-46" aria-hidden="true" tabindex="-1"></a>            chrom_data <span class="op">=</span> bw.values(chrom, <span class="dv">0</span>, chroms[chrom])</span>
+<span id="cb270-47"><a href="#cb270-47" aria-hidden="true" tabindex="-1"></a>            data.append(chrom_data)</span>
+<span id="cb270-48"><a href="#cb270-48" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> np.concatenate(data)</span>
+<span id="cb270-49"><a href="#cb270-49" aria-hidden="true" tabindex="-1"></a>        ax[i <span class="op">+</span> <span class="dv">1</span>].plot(data)</span>
+<span id="cb270-50"><a href="#cb270-50" aria-hidden="true" tabindex="-1"></a>        ax[i <span class="op">+</span> <span class="dv">1</span>].set_title(<span class="ss">f'PC</span><span class="sc">{</span>i <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb270-51"><a href="#cb270-51" aria-hidden="true" tabindex="-1"></a>        ax[i <span class="op">+</span> <span class="dv">1</span>].set_xlim(<span class="dv">0</span>, <span class="bu">len</span>(data))</span>
+<span id="cb270-52"><a href="#cb270-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-53"><a href="#cb270-53" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb270-54"><a href="#cb270-54" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb270-55"><a href="#cb270-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-56"><a href="#cb270-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Free memory</span></span>
+<span id="cb270-57"><a href="#cb270-57" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> hic_matrix</span>
+<span id="cb270-58"><a href="#cb270-58" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> data</span>
+<span id="cb270-59"><a href="#cb270-59" aria-hidden="true" tabindex="-1"></a>gc.collect()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_hicexplorer_files/figure-html/cell-87-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>9</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 </section>
 
@@ -3150,8 +3338,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../gwf_map_reads.html" class="pagination-link" aria-label="gwf_map_reads">
-        <span class="nav-page-text"><span class="chapter-title">gwf_map_reads</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notebooks/02_cooltools.html" class="pagination-link" aria-label="HiC data analysis with `cooler` and `cooltools`">
+        <span class="nav-page-text"><span class="chapter-title">HiC data analysis with <code>cooler</code> and <code>cooltools</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

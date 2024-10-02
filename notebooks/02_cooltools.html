@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Thoughts and Prayers – Søren's MSc project about Hi-C and spermatogenesis</title>
+<title>HiC data analysis with cooler and cooltools – Søren's MSc project about Hi-C and spermatogenesis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,47 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./notebooks/001_weather.html" rel="next">
-<link href="./index.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../gwf_map_reads.html" rel="next">
+<link href="../notebooks/01_hicexplorer.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -88,9 +68,6 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -104,7 +81,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./thoughts.html"><span class="chapter-title">Thoughts and Prayers</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/001_weather.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_cooltools.html"><span class="chapter-title">HiC data analysis with <code>cooler</code> and <code>cooltools</code></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -119,7 +96,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Søren’s MSc project about Hi-C and spermatogenesis</a> 
+      <a href="../">Søren’s MSc project about Hi-C and spermatogenesis</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -131,12 +108,12 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./thoughts.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Thoughts and Prayers</span></a>
+  <a href="../thoughts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Thoughts and Prayers</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -150,22 +127,22 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/001_weather.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Danish weather</span></a>
+  <a href="../notebooks/001_weather.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Danish weather</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/002_interaction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workplace interaction</span></a>
+  <a href="../notebooks/002_interaction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workplace interaction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer using macaque data</span></a>
+  <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer using macaque data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/02_cooltools.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiC data analysis with <code>cooler</code> and <code>cooltools</code></span></a>
+  <a href="../notebooks/02_cooltools.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">HiC data analysis with <code>cooler</code> and <code>cooltools</code></span></a>
   </div>
 </li>
       </ul>
@@ -181,17 +158,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./gwf_map_reads.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_map_reads</span></a>
+  <a href="../gwf_map_reads.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_map_reads</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./gwf_bowtie.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_bowtie</span></a>
+  <a href="../gwf_bowtie.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_bowtie</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./gwf_hiccorrect.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_hiccorrect</span></a>
+  <a href="../gwf_hiccorrect.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_hiccorrect</span></a>
   </div>
 </li>
       </ul>
@@ -207,24 +184,24 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./results/Readme.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Result files</span></a>
+  <a href="../results/Readme.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Result files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./reports/manuscript.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Correlating Chromatin Compartments with Selection</span></a>
+  <a href="../reports/manuscript.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Correlating Chromatin Compartments with Selection</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./reports/supplementary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Supplementary info</span></a>
+  <a href="../reports/supplementary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Supplementary info</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -234,22 +211,14 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul class="collapse">
-  <li><a href="#notes-on-quarto" id="toc-notes-on-quarto" class="nav-link active" data-scroll-target="#notes-on-quarto">Notes on Quarto</a></li>
-  <li><a href="#notes-on-hicexplorer" id="toc-notes-on-hicexplorer" class="nav-link" data-scroll-target="#notes-on-hicexplorer">Notes on <code>HiCExplorer</code></a></li>
-  <li><a href="#notes-on-methods" id="toc-notes-on-methods" class="nav-link" data-scroll-target="#notes-on-methods">Notes on methods</a></li>
-  </ul>
-<div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></nav>
-    </div>
+        
+    <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/001_weather.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_cooltools.html"><span class="chapter-title">HiC data analysis with <code>cooler</code> and <code>cooltools</code></span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Thoughts and Prayers</span></h1>
+<h1 class="title"><span class="chapter-title">HiC data analysis with <code>cooler</code> and <code>cooltools</code></span></h1>
 </div>
 
 
@@ -257,12 +226,6 @@ div.csl-indent {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">October 2, 2024 <br> 11:02:22 (UTC +00:00)</p>
-    </div>
-  </div>
   
     
   </div>
@@ -272,64 +235,8 @@ div.csl-indent {
 </header>
 
 
-<p><em>Here goes my thoughts and frustrations about the tools, the results, or the project in general.</em></p>
-<section id="notes-on-quarto" class="level2">
-<h2 class="anchored" data-anchor-id="notes-on-quarto">Notes on Quarto</h2>
-<p>I feel like i have the Markdown/Quarto thing under control, which is pretty nice. It is going to be really cool when actually starting to write the manus (I think).</p>
-</section>
-<section id="notes-on-hicexplorer" class="level2">
-<h2 class="anchored" data-anchor-id="notes-on-hicexplorer">Notes on <code>HiCExplorer</code></h2>
-<p>It feels very old school and unnecessary that I can’t just output the <code>HiCExplorer</code> commands [plots] to the Jupyter display. I <em>have</em> to save the plots to <em>.png</em>s, which is flooding my <code>figures</code> directory. I should probably clean it up.</p>
-<p>I have created plots to mimic the <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> for the <code>chr12</code> as well as <code>chrX</code>. They don’t compare very well with Wang2019, and the both PC1 and PC2 plot looks like they’re highly biased (only intersects 0 one time). PC3 looks more reasonable, but I don’t know if it is reasonable at all to use the 3rd PC in stead of the 1st. I guess it means that the compartmentalization is not the most variable feature, and there are some biases that we have to get rid of. That, or the X chromosome is divided only into two compartments in fibroblasts (unlikely).</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer using macaque data" data-notebook-cellid="cell-chrX-50kb-pca">
-<div id="cell-chrX-50kb-pca" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div id="chrx-50kb-pca" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="thoughts_files/figure-html/notebooks-01_hicexplorer-chrx-50kb-pca-output-1.png" class="img-fluid figure-img"></p>
-<figcaption>The X chromosome in 50kb bins and the first 3 PCs below. Made with HicExplorer.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer using macaque data" data-notebook-cellid="cell-chrX-100kb-pca">
-<div id="cell-chrX-100kb-pca" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div id="chrx-100kb-pca" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="thoughts_files/figure-html/notebooks-01_hicexplorer-chrx-100kb-pca-output-1.png" class="img-fluid figure-img"></p>
-<figcaption>The X chromosome in 100kb bins and the first 3 PCs below. Made with HicExplorer.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<section id="plotting-.cool-files-with-h5py-and-pybigwig" class="level3">
-<h3 class="anchored" data-anchor-id="plotting-.cool-files-with-h5py-and-pybigwig">Plotting .cool files with <code>h5py</code> and <code>pyBigWig</code></h3>
-<p>It does not work as I want. To read both the matrix and PC components, it requires an abnormal amount of memory (I don’t think it is strictly necessary to load 75 Gb of data into memory to make a 5x8” plot). However, <code>HicExplorer</code> advise against merging bins after correction and normalization, but I just don’t get that. I see no reason it could mess up the correction. Jupyter Display and, ultimately, my screen resolution makes that binning, so It would be completely fine to just bin the matrices after the fact.</p>
-</section>
-</section>
-<section id="notes-on-methods" class="level2">
-<h2 class="anchored" data-anchor-id="notes-on-methods">Notes on methods</h2>
-<ul>
-<li><span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> uses a sliding window approach <span class="citation" data-cites="dixon_chromatin_2015">(<a href="references.html#ref-dixon_chromatin_2015" role="doc-biblioref">Dixon et al. 2015</a>)</span> to calculate the obs/exp matrices for the PCA. I will try that next, and work within the <code>cooler</code>/<code>cooltools</code> framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.</li>
-<li><code>HiCExplorer</code> use a genome-wide contact-distance-based normalization method (<code>dist_norm</code>) to generate <em>obs/exp</em> matrices for PCA (similar to <span class="citation" data-cites="lieberman-aiden_comprehensive_2009">(<a href="references.html#ref-lieberman-aiden_comprehensive_2009" role="doc-biblioref">Lieberman-Aiden et al. 2009</a>)</span>) that may introduce biases. I don’t know why, but it looks more like <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> when subtracting the running average [triangular windows, <em>Kasper</em> did this] from the computed PCs.</li>
-</ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-dixon_chromatin_2015" class="csl-entry" role="listitem">
-Dixon, Jesse R., Inkyung Jung, Siddarth Selvaraj, Yin Shen, Jessica E. Antosiewicz-Bourget, Ah Young Lee, Zhen Ye, et al. 2015. <span>“Chromatin Architecture Reorganization During Stem Cell Differentiation.”</span> <em>Nature</em> 518 (7539): 331–36. <a href="https://doi.org/10.1038/nature14222">https://doi.org/10.1038/nature14222</a>.
-</div>
-<div id="ref-lieberman-aiden_comprehensive_2009" class="csl-entry" role="listitem">
-Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009. <span>“Comprehensive <span>Mapping</span> of <span>Long</span>-<span>Range</span> <span>Interactions</span> <span>Reveals</span> <span>Folding</span> <span>Principles</span> of the <span>Human</span> <span>Genome</span>.”</span> <em>Science</em> 326 (5950): 289–93. <a href="https://doi.org/10.1126/science.1181369">https://doi.org/10.1126/science.1181369</a>.
-</div>
-<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
-Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
-</div>
-</div>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -754,13 +661,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Project">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Project</span></span>
+      <a href="../notebooks/01_hicexplorer.html" class="pagination-link" aria-label="HiCExplorer using macaque data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">HiCExplorer using macaque data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./notebooks/001_weather.html" class="pagination-link" aria-label="Danish weather">
-        <span class="nav-page-text"><span class="chapter-title">Danish weather</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../gwf_map_reads.html" class="pagination-link" aria-label="gwf_map_reads">
+        <span class="nav-page-text"><span class="chapter-title">gwf_map_reads</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
