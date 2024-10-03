@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>pairtools: Convert sequencing data to a list of contacts – Søren's MSc project about Hi-C and spermatogenesis</title>
+<title>Open2C framework – Søren's MSc project about Hi-C and spermatogenesis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/001_weather.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_open2c_framework.html"><span class="chapter-title"><code>pairtools</code>: Convert sequencing data to a list of contacts</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/001_weather.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_open2c_framework.html"><span class="chapter-title">Open2C framework</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title"><code>pairtools</code>: Convert sequencing data to a list of contacts</span></a>
+  <a href="../notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Open2C framework</span></a>
   </div>
 </li>
       </ul>
@@ -252,7 +252,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#hic-data-analysis-with-cooler-and-cooltools" id="toc-hic-data-analysis-with-cooler-and-cooltools" class="nav-link active" data-scroll-target="#hic-data-analysis-with-cooler-and-cooltools">HiC data analysis with <code>cooler</code> and <code>cooltools</code></a>
+  <li><a href="#pairtools-convert-sequencing-data-to-a-list-of-contacts" id="toc-pairtools-convert-sequencing-data-to-a-list-of-contacts" class="nav-link active" data-scroll-target="#pairtools-convert-sequencing-data-to-a-list-of-contacts"><code>pairtools</code>: Convert sequencing data to a list of contacts</a></li>
+  <li><a href="#cooler-access-and-plot-hi-c-data" id="toc-cooler-access-and-plot-hi-c-data" class="nav-link" data-scroll-target="#cooler-access-and-plot-hi-c-data"><code>cooler</code>: access and plot Hi-C data</a>
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#follow-cooler-walkthrough-from-the-documentation" id="toc-follow-cooler-walkthrough-from-the-documentation" class="nav-link" data-scroll-target="#follow-cooler-walkthrough-from-the-documentation">Follow <code>cooler</code> walkthrough from the documentation</a></li>
@@ -263,9 +264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/001_weather.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_open2c_framework.html"><span class="chapter-title"><code>pairtools</code>: Convert sequencing data to a list of contacts</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/001_weather.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_open2c_framework.html"><span class="chapter-title">Open2C framework</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title"><code>pairtools</code>: Convert sequencing data to a list of contacts</span></h1>
+<h1 class="title"><span class="chapter-title">Open2C framework</span></h1>
 </div>
 
 
@@ -282,18 +283,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="pairtools-convert-sequencing-data-to-a-list-of-contacts" class="level1">
+<h1><code>pairtools</code>: Convert sequencing data to a list of contacts</h1>
 <div id="db721520-5705-44b6-b20f-2bda8182a1ff" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cd ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>bamfiles</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>samtools view SRR6502335_1.bam <span class="op">|</span> head <span class="op">-</span>n1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>samtools view SRR6502335_1.bam <span class="op">|</span> head <span class="op">-</span>n4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>SRR6502335.1    16  chr2    194419849   44  149M1S  *   0   0   AGAGAGAAAGAGTAGAAGGGAGAAACAAAGGGCAGGAGAGGGGATAGATGAAGAGGAACTAGACTTTGCACATATTGGCTGGCAATGATGGAATAGTCCAGTTTCAAAGAGTGAGATCTTGTAGTTATCTTCTCATTTATTCACTTAATN  &lt;FFAF-J7AJJA7AFA77-&lt;AAF-7-A7-7A7-FJ&lt;FA7FAA-7--AAA--&lt;&lt;A7FFJAJJJA&lt;-A-F7F7&lt;-A&lt;F7---&lt;A&lt;JJFFAAF7JFAAJ&lt;FFJF-&lt;-FJJFFFFFJFAF&lt;&lt;-AJJJJJFFF-JFJFFJF7AFJFFFAA-AAA#  AS:i:285    XN:i:0  XM:i:2  XO:i:0  XG:i:0  NM:i:2  MD:Z:44G78A25   YT:Z:UU</code></pre>
 </div>
 </div>
-<section id="hic-data-analysis-with-cooler-and-cooltools" class="level1">
-<h1>HiC data analysis with <code>cooler</code> and <code>cooltools</code></h1>
+</section>
+<section id="cooler-access-and-plot-hi-c-data" class="level1">
+<h1><code>cooler</code>: access and plot Hi-C data</h1>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>First, we have to check the data output from HiCExplorer. The output is a <code>.cool</code> file, which is a binary format for storing Hi-C data. The file contains the binned contact matrix and the genomic coordinates of the bins.</p>

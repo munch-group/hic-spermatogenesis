@@ -165,7 +165,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><code>pairtools</code>: Convert sequencing data to a list of contacts</span></a>
+  <a href="./notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open2C framework</span></a>
   </div>
 </li>
       </ul>
@@ -261,7 +261,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 2, 2024 <br> 21:48:54 (UTC +00:00)</p>
+      <p class="date">October 3, 2024 <br> 11:14:15 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -315,7 +315,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="notes-on-open2c-framework">Notes on Open2C framework</h2>
 <section id="pairtools" class="level3">
 <h3 class="anchored" data-anchor-id="pairtools">pairtools</h3>
-<p>I’m considering to just map the reads again with bwa, mates together to create a pairs file in the first place. Alternatively, I will use <code>samtools sort | samtools fixmate</code> to convert them back into a paired-end alignment for inputting into <code>cooler</code>.</p>
+<p>I’m considering to just map the reads again with bwa, mates together to create a pairs file in the first place. Alternatively, I will use <code>samtools sort | samtools fixmate</code> to convert them back into a paired-end alignment for inputting into <code>cooler</code>. Their own recommendation is to map with <code>bwa mem</code> with paired-end mates.</p>
 </section>
 <section id="cooler" class="level3">
 <h3 class="anchored" data-anchor-id="cooler">cooler</h3>
