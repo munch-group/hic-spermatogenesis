@@ -25,11 +25,11 @@ I have created plots to mimic the [@wang_reprogramming_2019] for the `chr12` as 
 
 It does not work as I want. To read both the matrix and PC components, it requires an abnormal amount of memory (I don't think it is strictly necessary to load 75 Gb of data into memory to make a 5x8" plot). However, `HicExplorer` advise against merging bins after correction and normalization, but I just don't get that. I see no reason it could mess up the correction. Jupyter Display and, ultimately, my screen resolution makes that binning, so It would be completely fine to just bin the matrices after the fact.
 
-## Notes on Open2C framework 
+## Notes on Open2C framework
 
 ### pairtools
 
-I'm considering to just map the reads again with bwa, mates together to create a pairs file in the first place. Alternatively, I will use `samtools sort | samtools fixmate` to convert them back into a paired-end alignment for inputting into `cooler`.
+I'm considering to just map the reads again with bwa, mates together to create a pairs file in the first place. Alternatively, I will use `samtools sort | samtools fixmate` to convert them back into a paired-end alignment for inputting into `cooler`. Their own recommendation is to map with `bwa mem` with paired-end mates.
 
 ### cooler
 
