@@ -252,7 +252,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#pairtools-convert-sequencing-data-to-a-list-of-contacts" id="toc-pairtools-convert-sequencing-data-to-a-list-of-contacts" class="nav-link active" data-scroll-target="#pairtools-convert-sequencing-data-to-a-list-of-contacts"><code>pairtools</code>: Convert sequencing data to a list of contacts</a></li>
+  <li><a href="#pairtools-convert-sequencing-data-to-a-list-of-contacts" id="toc-pairtools-convert-sequencing-data-to-a-list-of-contacts" class="nav-link active" data-scroll-target="#pairtools-convert-sequencing-data-to-a-list-of-contacts"><code>pairtools</code>: Convert sequencing data to a list of contacts</a>
+  <ul class="collapse">
+  <li><a href="#check-out-the-bamfiles" id="toc-check-out-the-bamfiles" class="nav-link" data-scroll-target="#check-out-the-bamfiles">Check out the bamfiles</a></li>
+  <li><a href="#pair-and-sort-the-bamfiles-workfflow" id="toc-pair-and-sort-the-bamfiles-workfflow" class="nav-link" data-scroll-target="#pair-and-sort-the-bamfiles-workfflow">Pair and sort the bamfiles (workfflow)</a></li>
+  <li><a href="#check-the-sorted-pairs" id="toc-check-the-sorted-pairs" class="nav-link" data-scroll-target="#check-the-sorted-pairs">Check the sorted pairs</a></li>
+  </ul></li>
   <li><a href="#cooler-access-and-plot-hi-c-data" id="toc-cooler-access-and-plot-hi-c-data" class="nav-link" data-scroll-target="#cooler-access-and-plot-hi-c-data"><code>cooler</code>: access and plot Hi-C data</a>
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
@@ -285,16 +290,204 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="pairtools-convert-sequencing-data-to-a-list-of-contacts" class="level1">
 <h1><code>pairtools</code>: Convert sequencing data to a list of contacts</h1>
-<div id="db721520-5705-44b6-b20f-2bda8182a1ff" class="cell" data-execution_count="7">
+<section id="check-out-the-bamfiles" class="level2">
+<h2 class="anchored" data-anchor-id="check-out-the-bamfiles">Check out the bamfiles</h2>
+<div id="db721520-5705-44b6-b20f-2bda8182a1ff" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cd ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>bamfiles</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>samtools view SRR6502335_1.bam <span class="op">|</span> head <span class="op">-</span>n4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>SRR6502335.1    16  chr2    194419849   44  149M1S  *   0   0   AGAGAGAAAGAGTAGAAGGGAGAAACAAAGGGCAGGAGAGGGGATAGATGAAGAGGAACTAGACTTTGCACATATTGGCTGGCAATGATGGAATAGTCCAGTTTCAAAGAGTGAGATCTTGTAGTTATCTTCTCATTTATTCACTTAATN  &lt;FFAF-J7AJJA7AFA77-&lt;AAF-7-A7-7A7-FJ&lt;FA7FAA-7--AAA--&lt;&lt;A7FFJAJJJA&lt;-A-F7F7&lt;-A&lt;F7---&lt;A&lt;JJFFAAF7JFAAJ&lt;FFJF-&lt;-FJJFFFFFJFAF&lt;&lt;-AJJJJJFFF-JFJFFJF7AFJFFFAA-AAA#  AS:i:285    XN:i:0  XM:i:2  XO:i:0  XG:i:0  NM:i:2  MD:Z:44G78A25   YT:Z:UU</code></pre>
+<pre><code>SRR6502335.1    16  chr2    194419849   44  149M1S  *   0   0   AGAGAGAAAGAGTAGAAGGGAGAAACAAAGGGCAGGAGAGGGGATAGATGAAGAGGAACTAGACTTTGCACATATTGGCTGGCAATGATGGAATAGTCCAGTTTCAAAGAGTGAGATCTTGTAGTTATCTTCTCATTTATTCACTTAATN  &lt;FFAF-J7AJJA7AFA77-&lt;AAF-7-A7-7A7-FJ&lt;FA7FAA-7--AAA--&lt;&lt;A7FFJAJJJA&lt;-A-F7F7&lt;-A&lt;F7---&lt;A&lt;JJFFAAF7JFAAJ&lt;FFJF-&lt;-FJJFFFFFJFAF&lt;&lt;-AJJJJJFFF-JFJFFJF7AFJFFFAA-AAA#  AS:i:285    XN:i:0  XM:i:2  XO:i:0  XG:i:0  NM:i:2  MD:Z:44G78A25   YT:Z:UU
+SRR6502335.2    16  chr9    67356907    41  149M1S  *   0   0   ATGATTCGACTGAACTAGTTCGGAGAAGTGAAAATAACCGCAGGACGTTCTTACATGGCTGGGGCCAGAGAGGGAAAGGTGGAGGTATTGGTAGGTACAGCTTGTGGGCGTGTTTACAGTGAGCGGGTCTATTGACTCCAAGAACAAACN  7-----)--7-&lt;---7-7--7---7----&lt;---A7-&lt;7--F7--7---A7-77---A77-A--7---A-7-&lt;---A7FA7-F-&lt;&lt;-7---7----&lt;--AF-A&lt;F&lt;JAF7A7A---777F7-AJ-AF----A-JA---A-FFFF&lt;--A&lt;A#  AS:i:217    XN:i:0  XM:i:16 XO:i:0  XG:i:0  NM:i:16 MD:Z:2T2A1T13T0T12C3C6T15T9C7C3C4T4C25C5C22 YT:Z:UU
+SRR6502335.3    0   chr11   38018005    14  1S149M  *   0   0   NTTTCTGAGAAACCGCTTTGTGATGTGTTAATTCGTCTCCCAGAGTTACACGATTTGTTTAATGGATCAGTTTGGTAGCACTGTTTTAGGGGAAACTGAGAAGGTATATTTTGGATCACATTGAAGCTGATTGTGACAAAGGAAATACAC  #AAAAF--AFFJFJFFJFJJJFFF-FFJFFJFAJJFA&lt;F7F&lt;A-FAA-F&lt;FJ&lt;&lt;JJ&lt;F&lt;JFFF&lt;A-A&lt;F7FJF-&lt;&lt;A-AJFA7AJFFA7---7&lt;-AF--7&lt;AJJFA7&lt;77AJ-F&lt;AA-&lt;&lt;JF&lt;-7-7A7-A-7-7AJJJ7FAF-AFJJ-7  AS:i:293    XS:i:259    XN:i:0  XM:i:1  XO:i:0  XG:i:0  NM:i:1  MD:Z:130G18 YT:Z:UU
+SRR6502335.4    16  chr12   4424732 16  68S81M1S    *   0   0   AATAAATTTCTTTTGCGTTGGGAGATGGAGTCTTGCGCCGGCACCCAGGTTGGAGTGCAGGGGCGTGATGGATCTAGGTACATTAAGATAAAACTAGAATTATAAGTATAGCACTTTCAGGAGTTCTAGGAGTCAGTGTAATAAATTATN  -7--7------A7-----7-A-----7-7A7---7A-A77--&lt;7-7AF7--JJ-&lt;A7-AJFA7---FAA-F77--&lt;-----FF&lt;JFAF&lt;JFA&lt;&lt;FFAJF-7&lt;-FJF7&lt;JJFFAAAJFJJFJJF-F-&lt;JA&lt;7AFFJJFFJFJ&lt;JAFFFAA#  AS:i:157    XS:i:64 XN:i:0  XM:i:1  XO:i:0  XG:i:0  NM:i:1  MD:Z:11C69  YT:Z:UU</code></pre>
 </div>
 </div>
+<div id="595e9671-c234-4e4e-8066-61d4d023bf06" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cd ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>bamfiles<span class="op">/</span>paired</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>samtools view SRR6502335_paired.bam <span class="op">|</span> head <span class="op">-</span>n5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SRR6502335.1    0   chr2    194419717   44  10S140M *   0   0   NTTCTGGATCGATCATTTTTACATTATTTTTGCCTATGAACCAACTTTCAAAATTATTTCTCGTTTAAAATACAATTCAATGAGGTATTCATTTTTGTCTGGGGGGAAAGATGGAAGGTAGGAAGAAGAAAGAAGTGAAGAAAGAGAGAA  #AAAFAF&lt;JJJJJJFJJJJJJJ-JJFJJJJJ&lt;JAA-FF-FFAAFJFJFJJ--7&lt;F-AJFFAJFFFJF-7FF-FJF&lt;FFJFJFFF&lt;JA&lt;AJA7&lt;AJ&lt;AJFJ&lt;---77-7--7-7&lt;AAFFAF77&lt;FJ-&lt;&lt;--7-AFJ---7AF&lt;AAF--7&lt;7  AS:i:275    XN:i:0  XM:i:1  XO:i:0  XG:i:0  NM:i:1  MD:Z:125G14 YT:Z:UU
+SRR6502335.1    16  chr2    194419849   44  149M1S  *   0   0   AGAGAGAAAGAGTAGAAGGGAGAAACAAAGGGCAGGAGAGGGGATAGATGAAGAGGAACTAGACTTTGCACATATTGGCTGGCAATGATGGAATAGTCCAGTTTCAAAGAGTGAGATCTTGTAGTTATCTTCTCATTTATTCACTTAATN  &lt;FFAF-J7AJJA7AFA77-&lt;AAF-7-A7-7A7-FJ&lt;FA7FAA-7--AAA--&lt;&lt;A7FFJAJJJA&lt;-A-F7F7&lt;-A&lt;F7---&lt;A&lt;JJFFAAF7JFAAJ&lt;FFJF-&lt;-FJJFFFFFJFAF&lt;&lt;-AJJJJJFFF-JFJFFJF7AFJFFFAA-AAA#  AS:i:285    XN:i:0  XM:i:2  XO:i:0  XG:i:0  NM:i:2  MD:Z:44G78A25   YT:Z:UU
+SRR6502335.2    0   chr9    67356716    36  28S122M *   0   0   NTTGGCTGGTGTGTGGAGCCCCAGGATCGATCCCCATTCCTAAACGACACCCCTCTGAGACCTCAGGGCCTGACCACACACCTAGGGGTGGCCGGGCCAAGACCTCCGCTCTGGTCCCTTGCGCCCTACGGGCCCTTACTGCCTACTAGC  #AAAAAAA-A7&lt;-F--7A7-AF-A----77&lt;FJF--7-&lt;F-F-F------A7A7-7&lt;&lt;-7FA----7-7-7-F&lt;--F77--7AA-A--7-77-----7-7-7-7-----------7)A)-))-)-A)))))7))--)-----77-7-7--  AS:i:181    XN:i:0  XM:i:13 XO:i:0  XG:i:0  NM:i:13 MD:Z:19G6G25G11A9G2G0A9T4A6G4A8T2A4 YT:Z:UU
+SRR6502335.3    16  chr11   38018278    17  125M25S *   0   0   GGATATTTGTGAGCGCTTTGATGACAATGGTGACAAAGAAAATATAATTAGATAAAGACCAAAAAGAAGCTTTACGATAAACTGCTTTGTGACGTGTGAACTCAACTCACAGACTTACACTGATCGATCTCTTTGCTAGCCTTATTTCTN  --77-7-A)&lt;-))-----&lt;-----&lt;7A-7---&lt;-JFJFJ&lt;FJJJFFA--7-7-FFAAA7&lt;A---77-F7--&lt;&lt;-7&lt;AJFF&lt;-7--7AAFFFAAJFFAFF7-F-&lt;FJF7&lt;7&lt;-FFFFF-&lt;-&lt;-7FF-F7FJ&lt;7FF--FF7-7F-FFFA-&lt;#  AS:i:229    XS:i:178    XN:i:0  XM:i:4  XO:i:0  XG:i:0  NM:i:4  MD:Z:9G11A1C49C51   YT:Z:UU
+SRR6502335.4    0   chr12   4948798 25  1S143M6S    *   0   0   NGACACTCAATATTAACCATCACAAGTATACCCCTTGTCAATTTTAACCCATACATATCTCCTGACATAACAATATAATTTTCAAATAAGGAAAAAAACGTCATAATTATGCCTCACCTAAAAACATCTATTCTTTGTACTAAACACATT  #AAAF7AFFFAAJJJ&lt;JFJJ--&lt;FF-&lt;-F&lt;&lt;F-7AF7&lt;FFF7J-&lt;F7&lt;AF-&lt;-A&lt;&lt;--7-7-&lt;-&lt;----&lt;7----77AF---AAA&lt;A&lt;--&lt;-77A-7-----7&lt;FFA-7-7-7-77A)-------7---------7-&lt;---&lt;&lt;A------  AS:i:251    XS:i:112    XN:i:0  XM:i:7  XO:i:0  XG:i:0  NM:i:7  MD:Z:26C16G20A29C2G18A8G17  YT:Z:UU</code></pre>
+</div>
+</div>
+<div id="5f8a39ff-1564-49b2-aa11-32e7d6a34de2" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cd <span class="op">/</span>home<span class="op">/</span>sojern<span class="op">/</span>hic<span class="op">-</span>spermatogenesis<span class="op">/</span>data<span class="op">/</span>macaque_raw<span class="op">/</span>ucsc_ref</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>gunzip <span class="op">-</span>k rheMac10.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="pair-and-sort-the-bamfiles-workfflow" class="level2">
+<h2 class="anchored" data-anchor-id="pair-and-sort-the-bamfiles-workfflow">Pair and sort the bamfiles (workfflow)</h2>
+<div id="991da872" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the content of the Python file</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'../gwf_pair_alignments.py'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    file_content <span class="op">=</span> <span class="bu">file</span>.read()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the content as Markdown</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>display(Markdown(<span class="ss">f"```python</span><span class="ch">\n</span><span class="sc">{</span>file_content<span class="sc">}</span><span class="ch">\n</span><span class="ss">```"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %% [markdown]</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ---</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># title: "gwf_bowtie_local"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># author: Søren Jørgensen</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># date: last-modified</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># execute: </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   enabled: false</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ---</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># %%</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gwf <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#######################################</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># GWF workflow to pair alignments from mate-pair sequencing, after mapping to the reference individually.</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># After mapping, the mate-pairs are merged with `samtools merge` (another workflow) and then parsed with `pairtools parse`. </span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># How to run:</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># conda activate gwf</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># gwf -f gwf_gwf_pair_alignments.py status</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Workflow:</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#   1   pairtools parse : Parse the fastq files into pairs (after merging with `samtools merge`)</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Footnote: always activate the conda environment before running the workflow:</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co"># source $(conda info --base)/etc/profile.d/conda.sh</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co"># conda activate env_name</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#######################################</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a workflow object</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>gwf <span class="op">=</span> Workflow(defaults<span class="op">=</span>{<span class="st">'nodes'</span>: <span class="dv">1</span>, <span class="st">'queue'</span>:<span class="st">"normal"</span>, <span class="st">'account'</span>:<span class="st">"hic-spermatogenesis"</span>})</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#############################################</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">############### Templates ###################</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#############################################</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pair_sort_alignments(chromsizes, bam_merged, sorted_pairs):</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Pair the merged alignments from mate-pair sequencing with `pairtools parse`"""</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> [bam_merged]</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    outputs <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>bam_merged<span class="sc">}</span><span class="ss">_parsed.stats"</span>, </span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>               sorted_pairs]</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    options <span class="op">=</span> {<span class="st">'cores'</span>:<span class="dv">12</span>, <span class="st">'memory'</span>:<span class="st">"4g"</span>, <span class="st">'walltime'</span>:<span class="st">"01:00:00"</span>}</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    spec<span class="op">=</span><span class="ss">f"""</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="ss">source $(conda info --base)/etc/profile.d/conda.sh</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="ss">conda activate hic</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="ss">pairtools parse </span><span class="ch">\</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="ss">    -c </span><span class="sc">{</span>chromsizes<span class="sc">}</span><span class="ss"> </span><span class="ch">\</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="ss">    --drop-sam --drop-seq </span><span class="ch">\</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="ss">    --output-stats </span><span class="sc">{</span>bam_merged<span class="sc">}</span><span class="ss">_parsed.stats </span><span class="ch">\</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="ss">    --add-columns mapq </span><span class="ch">\</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="ss">    --assembly rheMac10 --no-flip </span><span class="ch">\</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="ss">    --walks-policy mask </span><span class="ch">\</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="ss">    </span><span class="sc">{</span>bam_merged<span class="sc">}</span><span class="ss"> | </span><span class="ch">\</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="ss">pairtools sort -o </span><span class="sc">{</span>sorted_pairs<span class="sc">}</span><span class="ss"> </span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> AnonymousTarget(inputs<span class="op">=</span>inputs, outputs<span class="op">=</span>outputs, options<span class="op">=</span>options, spec<span class="op">=</span>spec)</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dedup(sorted_pairs, ):</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Deduplicate the sorted pairs with `pairtools dedup`"""</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>    pairs_prefix <span class="op">=</span> sorted_pairs.split(<span class="st">".sorted"</span>)[<span class="dv">0</span>]</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> [sorted_pairs]</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    outputs <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.nodups.pairs.gz"</span>,</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>               <span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.nodups.bam"</span>,</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>               <span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.unmapped.pairs.gz"</span>,</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>               <span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.unmapped.bam"</span>,</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>               <span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.dups.pairs.gz"</span>,</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>               <span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.dups.bam"</span>,</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>               <span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.dedup.stats"</span>]</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>    options <span class="op">=</span> {<span class="st">'cores'</span>:<span class="dv">12</span>, <span class="st">'memory'</span>: <span class="st">"4g"</span>, <span class="st">'walltime'</span>: <span class="st">"01:00:00"</span>}</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>    spec <span class="op">=</span> <span class="ss">f"""</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="ss">source $(conda info --base)/etc/profile.d/conda.sh</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="ss">conda activate hic</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="ss">pairtools dedup </span><span class="ch">\</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="ss">    --max-mismatch 3 </span><span class="ch">\</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="ss">    --mark-dups </span><span class="ch">\</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="ss">    --output </span><span class="ch">\</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="ss">        &gt;(pairtools split </span><span class="ch">\</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="ss">            --output-pairs </span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.nodups.pairs.gz </span><span class="ch">\</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="ss">            --output-sam </span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.nodups.bam </span><span class="ch">\</span></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="ss">         ) </span><span class="ch">\</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="ss">    --output-unmapped </span><span class="ch">\</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="ss">        &gt;( pairtools split </span><span class="ch">\</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="ss">            --output-pairs </span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.unmapped.pairs.gz </span><span class="ch">\</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="ss">            --output-sam </span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.unmapped.bam </span><span class="ch">\</span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="ss">         ) </span><span class="ch">\</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="ss">    --output-dups </span><span class="ch">\</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="ss">        &gt;( pairtools split </span><span class="ch">\</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="ss">            --output-pairs </span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.dups.pairs.gz </span><span class="ch">\</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="ss">            --output-sam </span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.dups.bam </span><span class="ch">\</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="ss">            ) </span><span class="ch">\</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="ss">    --output-stats </span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.dedup.stats </span><span class="ch">\</span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="ss">    </span><span class="sc">{</span>sorted_pairs<span class="sc">}</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="ss">    """</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> AnonymousTarget(inputs<span class="op">=</span>inputs, outputs<span class="op">=</span>outputs, options<span class="op">=</span>options, spec<span class="op">=</span>spec)</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="co">#############################################</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="co">################ Targets ####################</span></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="co">#############################################</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the chromsizes file</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>chromsizes <span class="op">=</span> <span class="st">"data/links/ucsc_ref/misc/rheMac10.chrom.sizes"</span></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the merged bam files</span></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>merged_bams <span class="op">=</span> gwf.glob(<span class="st">"steps/bowtie2/local/bamfiles/paired/*_paired.bam"</span>)</span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>sorted_bams <span class="op">=</span> <span class="bu">sorted</span>(merged_bams)</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> inbam <span class="kw">in</span> sorted_bams:</span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>    base <span class="op">=</span> op.basename(inbam)</span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>    prefix <span class="op">=</span> base.split(<span class="st">"_paired"</span>)[<span class="dv">0</span>]</span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>    outdir <span class="op">=</span> <span class="st">"steps/bowtie2/local/bamfiles/paired/"</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>    outfile <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base<span class="sc">.</span>split(<span class="st">"_paired"</span>)[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span> <span class="op">+</span> <span class="st">".sorted.pairs.gz"</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>    out_sorted_pairs <span class="op">=</span> op.join(outdir, outfile)</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>    gwf.target_from_template(<span class="ss">f"pair_sort_</span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>                            pair_sort_alignments(chromsizes, inbam, out_sorted_pairs))</span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>    gwf.target_from_template(<span class="ss">f"dedup_</span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>                            dedup(out_sorted_pairs))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="check-the-sorted-pairs" class="level2">
+<h2 class="anchored" data-anchor-id="check-the-sorted-pairs">Check the sorted pairs</h2>
+<div id="23a1e8e8-ab2a-46ae-bcf8-236ef05fd4c1" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>bash</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>cd ..<span class="op">/</span>steps<span class="op">/</span>bowtie2<span class="op">/</span>local<span class="op">/</span>bamfiles<span class="op">/</span>paired</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Unique pairs:</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>gzip <span class="op">-</span>dc SRR6502338.<span class="bu">sorted</span>.pairs.gz <span class="op">|</span> grep <span class="op">-</span>v <span class="st">'#'</span> <span class="op">|</span>  head <span class="op">-</span>n <span class="dv">5</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SRR6502338.1    !   0   !   0   -   -   XX  0   0
+SRR6502338.2    !   0   !   0   -   -   XX  0   0
+SRR6502338.3    !   0   !   0   -   -   XX  0   0
+SRR6502338.4    !   0   !   0   -   -   XX  0   0
+SRR6502338.1    !   0   !   0   -   -   XX  0   0</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="cooler-access-and-plot-hi-c-data" class="level1">
 <h1><code>cooler</code>: access and plot Hi-C data</h1>
@@ -306,74 +499,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="follow-cooler-walkthrough-from-the-documentation" class="level2">
 <h2 class="anchored" data-anchor-id="follow-cooler-walkthrough-from-the-documentation">Follow <code>cooler</code> walkthrough from the documentation</h2>
 <div id="445b04fa-9790-4f3a-88f9-9cbc18155c1b" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the packages we will use</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the packages we will use</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="9732f6f5" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The following directive activates inline plotting</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The following directive activates inline plotting</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="96606d8b-ef90-4fc4-88f2-f7a2e302db2b" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the filepath (I choose the uncorrected matrix)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>filepath <span class="op">=</span> <span class="st">"../steps/bowtie2/local/matrices/filtered_pooled_10kb.cool"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the filepath (I choose the uncorrected matrix)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>filepath <span class="op">=</span> <span class="st">"../steps/bowtie2/local/matrices/filtered_pooled_10kb.cool"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="direct-access-with-h5py" class="level3">
 <h3 class="anchored" data-anchor-id="direct-access-with-h5py">Direct access with <code>h5py</code></h3>
 <div id="1ae354b3-5a4e-4bb1-92f7-823efc1a7de8" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>h5 <span class="op">=</span> h5py.File(filepath, <span class="st">'r'</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>h5 <span class="op">=</span> h5py.File(filepath, <span class="st">'r'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>&lt;HDF5 file "filtered_pooled_10kb.cool" (mode r)&gt;</code></pre>
 </div>
 </div>
 <div id="75ce8348-16d0-4a77-bbee-16b3c6c23fd9" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>h5.keys()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>h5.keys()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>&lt;KeysViewHDF5 ['bins', 'chroms', 'indexes', 'pixels']&gt;</code></pre>
 </div>
 </div>
 <div id="d6a14187-25e0-414d-bb0c-9ab51cc5ca5c" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>h5[<span class="st">'pixels'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>h5[<span class="st">'pixels'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>&lt;HDF5 group "/pixels" (3 members)&gt;</code></pre>
 </div>
 </div>
 <div id="6ddfd61f-92f8-4be3-9e28-dbfc91a6b667" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(h5[<span class="st">'pixels'</span>].keys())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(h5[<span class="st">'pixels'</span>].keys())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>['bin1_id', 'bin2_id', 'count']</code></pre>
 </div>
 </div>
 <p>h5py dataset objects are views onto the data on disk</p>
 <div id="9f277dd7-6d30-49e0-aea4-0e2cd04a34fd" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>h5[<span class="st">'pixels'</span>][<span class="st">'bin2_id'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>h5[<span class="st">'pixels'</span>][<span class="st">'bin2_id'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>&lt;HDF5 dataset "bin2_id": shape (117090191,), type "&lt;i4"&gt;</code></pre>
 </div>
 </div>
 <p>Slicing or indexing returns a numpy array in memory.</p>
 <div id="aab334bd-35e6-4540-9157-eeefb2d4f66c" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>h5[<span class="st">'pixels'</span>][<span class="st">'bin2_id'</span>][:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>h5[<span class="st">'pixels'</span>][<span class="st">'bin2_id'</span>][:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>array([   0,    9,   30,   33,  124,  127,  145,  756, 1167, 2416],
       dtype=int32)</code></pre>
 </div>
 </div>
 <div id="8da804d9-ff8d-4f25-ad45-810ebe700b56" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>h5[<span class="st">'pixels'</span>][<span class="st">'count'</span>][:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>h5[<span class="st">'pixels'</span>][<span class="st">'count'</span>][:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])</code></pre>
 </div>
 </div>
 <div id="8f6a4251-2e28-4fc6-9d1e-0317cdded59c" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>h5.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>h5.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Python cooler package is just a thin wrapper over h5py.</p>
 <ul>
@@ -386,10 +579,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Accepts a file path or an open HDF5 file object.</p>
 <p>NOTE: Using a filepath allows the <code>Cooler</code> object to be serialized/pickled since the file is only opened when needed</p>
 <div id="18135174-671f-4843-81c8-b0b034369ccd" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> cooler.Cooler(filepath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> cooler.Cooler(filepath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="16b427a8-922c-4d56-a22b-0b76ea14111d" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>c.info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>c.info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>{'bin-size': 10000,
  'bin-type': 'fixed',
@@ -414,7 +607,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="2b215da8-dd59-461c-85a6-e449e70b1ead" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>c.chroms()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>c.chroms()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>&lt;cooler.core._selectors.RangeSelector1D at 0x146a5acf1cd0&gt;</code></pre>
 </div>
@@ -425,11 +618,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Range selections return pandas DataFrames or Series.</li>
 </ul>
 <div id="60745da2-ad77-4fa8-b1ef-0fdede48a137" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a slice of the chromosomes</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>c.chroms()[<span class="dv">0</span>:<span class="dv">5</span>]</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or the whole dict</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#c.chroms()[:]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a slice of the chromosomes</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>c.chroms()[<span class="dv">0</span>:<span class="dv">5</span>]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or the whole dict</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#c.chroms()[:]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
@@ -475,8 +668,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="4fa16853-6405-4ae2-af41-1f4acfe673aa" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convenience</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>c.chromnames, c.chromsizes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convenience</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>c.chromnames, c.chromsizes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>(['chr1',
   'chr2',
@@ -527,8 +720,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="c0b295d5-86ca-43c8-ae69-44d26953c058" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access bins</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>c.bins()[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access bins</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>c.bins()[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 
@@ -611,14 +804,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Selecting a list of columns returns a new DataFrame view on that subset of columns</p>
 <div id="dc5256e8-278e-4f7f-965e-728c2be229b1" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> c.bins()[[<span class="st">'chrom'</span>, <span class="st">'start'</span>, <span class="st">'end'</span>]]</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>bins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> c.bins()[[<span class="st">'chrom'</span>, <span class="st">'start'</span>, <span class="st">'end'</span>]]</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>bins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>&lt;cooler.core._selectors.RangeSelector1D at 0x146a60464a40&gt;</code></pre>
 </div>
 </div>
 <div id="c94a2d32-1262-471c-8f00-1a6fa5e18743" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bins[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>bins[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 
@@ -671,9 +864,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The pixel table contains the non-zero upper triangle entries of the contact map.</p>
 <div id="8fb3b186-1e8a-4126-9610-1833b975aea5" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the join=True option if you would like to expand the bin IDs into genomic bin coordinates by joining the output with the bin table.</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>display(c.pixels()[:<span class="dv">10</span>], c.pixels(join<span class="op">=</span><span class="va">True</span>)[:<span class="dv">10</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the join=True option if you would like to expand the bin IDs into genomic bin coordinates by joining the output with the bin table.</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>display(c.pixels()[:<span class="dv">10</span>], c.pixels(join<span class="op">=</span><span class="va">True</span>)[:<span class="dv">10</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 
@@ -879,18 +1072,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Dump any table selection with pandas to tabular</p>
 <div id="f7d228e2-e6f2-45db-b9c5-4c9f9c566067" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> c.pixels(join<span class="op">=</span><span class="va">True</span>)[:<span class="dv">100</span>]</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df.to_csv('data/myselection.txt'), sep='\t', index=False, header=False) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> c.pixels(join<span class="op">=</span><span class="va">True</span>)[:<span class="dv">100</span>]</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df.to_csv('data/myselection.txt'), sep='\t', index=False, header=False) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bin-annotation" class="level3">
 <h3 class="anchored" data-anchor-id="bin-annotation">Bin annotation</h3>
 <p>Another way to annotate the bins in a data frame of pixels is to use cooler.annotate. It does a left outer join from the bin1_id and bin2_id columns onto a data frame indexed by bin ID that describes the bins.</p>
 <div id="62330aef-3fd1-4134-889f-2858f8ab934a" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> c.bins()[:] <span class="co"># fetch all</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>pix <span class="op">=</span> c.pixels()[<span class="dv">100</span>:<span class="dv">110</span>] <span class="co"># select some pixels</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>pix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> c.bins()[:] <span class="co"># fetch all</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>pix <span class="op">=</span> c.pixels()[<span class="dv">100</span>:<span class="dv">110</span>] <span class="co"># select some pixels</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>pix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div>
 
@@ -972,7 +1165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="b2917d74-6579-4457-afba-7e2538b1d7e1" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>cooler.annotate(pix, bins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>cooler.annotate(pix, bins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
@@ -1120,7 +1313,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="eaacceea-e87d-497d-acee-bfecf3865026" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>cooler.annotate(pix, bins[[<span class="st">'start'</span>]], replace<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cooler.annotate(pix, bins[[<span class="st">'start'</span>]], replace<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <div>
 
@@ -1228,14 +1421,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="enter-the-matrix">Enter the Matrix</h3>
 <p>Finally, the <code>matrix</code> method provides a 2D-sliceable view on the data. It allows you to query the data on file as a full rectangular contact matrix.</p>
 <div id="6f93a797-2095-430d-9f95-7d907724bdf1" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>c.matrix()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>c.matrix()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>&lt;cooler.core._selectors.RangeSelector2D at 0x146a5ad44470&gt;</code></pre>
 </div>
 </div>
 <div id="26715ad8-71a9-4769-ba72-eea35209825e" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> c.matrix(balance<span class="op">=</span><span class="va">False</span>)[<span class="dv">1000</span>:<span class="dv">1200</span>, <span class="dv">1000</span>:<span class="dv">1200</span>]</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> c.matrix(balance<span class="op">=</span><span class="va">False</span>)[<span class="dv">1000</span>:<span class="dv">1200</span>, <span class="dv">1000</span>:<span class="dv">1200</span>]</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>array([[ 57.,  33.,   9., ...,   0.,   1.,   0.],
        [ 33.,  88.,  33., ...,   1.,   0.,   0.],
@@ -1247,10 +1440,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="d44945fd-5d61-429c-9968-fcb84ba448e9" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use sparse=True to return a scipy.sparse.coo_matrix in stead</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>mat <span class="op">=</span> c.matrix(balance<span class="op">=</span><span class="va">False</span>, sparse<span class="op">=</span><span class="va">True</span>)[<span class="dv">1000</span>:<span class="dv">1200</span>,<span class="dv">1000</span>:<span class="dv">1200</span>]</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use sparse=True to return a scipy.sparse.coo_matrix in stead</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>mat <span class="op">=</span> c.matrix(balance<span class="op">=</span><span class="va">False</span>, sparse<span class="op">=</span><span class="va">True</span>)[<span class="dv">1000</span>:<span class="dv">1200</span>,<span class="dv">1000</span>:<span class="dv">1200</span>]</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>&lt;200x200 sparse matrix of type '&lt;class 'numpy.float64'&gt;'
     with 26544 stored elements in COOrdinate format&gt;</code></pre>
@@ -1258,8 +1451,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Convert to a 2D numpy array</p>
 <div id="25e1e74d-fb72-414b-bbe6-95abea4fa701" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> mat.toarray()</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> mat.toarray()</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>array([[ 57.,  33.,   9., ...,   0.,   1.,   0.],
        [ 33.,  88.,  33., ...,   1.,   0.,   0.],
@@ -1272,15 +1465,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Notice that tha lower triangle has automatically been filled</p>
 <div id="17d698c7-0e9c-4f7b-b5a4-382e3bf769a8" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>ax  <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>)</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>im  <span class="op">=</span> ax.matshow(np.log1p(arr), cmap<span class="op">=</span><span class="st">'Reds'</span>)</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>fig.colorbar(im) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>ax  <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>im  <span class="op">=</span> ax.matshow(np.log1p(arr), cmap<span class="op">=</span><span class="st">'Reds'</span>)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>fig.colorbar(im) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_open2c_framework_files/figure-html/cell-31-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="02_open2c_framework_files/figure-html/cell-35-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
