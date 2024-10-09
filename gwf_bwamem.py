@@ -1,6 +1,6 @@
 # %% [markdown]
 # ---
-# title: "gwf_map_reads"
+# title: "gwf_bwamem"
 # author: Søren Jørgensen
 # date: last-modified
 # execute: 
@@ -72,7 +72,7 @@ def bwa_map(ref_genome, mate_1, mate_2, out_bam):
     Template for mapping reads to a reference genome using `bwa` and `samtools`. 
     NB! Here, we map the mates together, as bwa states it is no problem for Hi-C reads. 
     """
-    threads = 16
+    threads = 32
     inputs = [f"{ref_genome}.amb", 
               f"{ref_genome}.ann", 
               f"{ref_genome}.bwt", 
@@ -81,7 +81,7 @@ def bwa_map(ref_genome, mate_1, mate_2, out_bam):
               f"{ref_genome}.fai",
               mate_1, mate_2]
     outputs = [out_bam]
-    options = {'cores':threads, 'memory': "16g", 'walltime':"06:00:00"}
+    options = {'cores':threads, 'memory': "32g", 'walltime':"06:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -94,7 +94,7 @@ def pair_sort_alignments(chromsizes, bam_merged, sorted_pairs):
     inputs = [bam_merged]
     outputs = [f"{bam_merged}_parsed.stats", 
                sorted_pairs]
-    options = {'cores':12, 'memory':"4g", 'walltime':"02:00:00"}
+    options = {'cores':12, 'memory':"4g", 'walltime':"03:00:00"}
     spec=f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -110,45 +110,72 @@ pairtools sort -o {sorted_pairs}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
-def dedup(sorted_pairs):
+def select_pairs(chromsizes, sorted_pairs):
+    """Select the pairs with `pairtools select`"""
+    inputs = [sorted_pairs]
+    outputs = [sorted_pairs.replace(".sorted", ".selected"), 
+               f"{sorted_pairs.replace(".sorted", ".selected")}.done"]
+    options = {'cores':12, 'memory':"16g", 'walltime':"00:30:00"}
+    spec=f"""
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate hic
+pairtools select "True" --chrom-subset {chromsizes} {sorted_pairs} # | \
+#pairtools header generate \
+#    --chroms-path {chromsizes} \
+#    --output {sorted_pairs.replace(".sorted", ".selected.withheader")} \
+#    --extra-columns mapq1,mapq2 \
+#    --pairs 
+touch {sorted_pairs.replace(".sorted", ".selected")}.done
+"""
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
+
+
+def dedup(sorted_pairs, chromsizes):
     """Deduplicate the sorted pairs with `pairtools dedup`"""
     pairs_prefix = sorted_pairs.split(".sorted")[0]
     inputs = [sorted_pairs]
     outputs = [f"{pairs_prefix}.nodups.pairs.gz",
-               f"{pairs_prefix}.nodups.bam",
                f"{pairs_prefix}.unmapped.pairs.gz",
-               f"{pairs_prefix}.unmapped.bam",
                f"{pairs_prefix}.dups.pairs.gz",
-               f"{pairs_prefix}.dups.bam",
-               f"{pairs_prefix}.dedup.stats"]
-    options = {'cores':12, 'memory': "4g", 'walltime': "01:00:00"}
+               f"{pairs_prefix}.dedup.stats",
+               f"{pairs_prefix}.dedup.done"]
+    options = {'cores':12, 'memory': "16g", 'walltime': "02:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
 pairtools dedup \
     --max-mismatch 3 \
     --mark-dups \
-    --output \
-        >(pairtools split \
-            --output-pairs {pairs_prefix}.nodups.pairs.gz \
-            --output-sam {pairs_prefix}.nodups.bam \
-         ) \
-    --output-unmapped \
-        >( pairtools split \
-            --output-pairs {pairs_prefix}.unmapped.pairs.gz \
-            --output-sam {pairs_prefix}.unmapped.bam \
-         ) \
-    --output-dups \
-        >( pairtools split \
-            --output-pairs {pairs_prefix}.dups.pairs.gz \
-            --output-sam {pairs_prefix}.dups.bam \
-            ) \
+    --chunksize 100000 \
+    --chrom-subset {chromsizes} \
+    --output {pairs_prefix}.nodups.pairs.gz \
+    --output-unmapped {pairs_prefix}.unmapped.pairs.gz \
     --output-stats {pairs_prefix}.dedup.stats \
+    --output-dups {pairs_prefix}.dups.pairs.gz \
     {sorted_pairs}
-
-    """
+touch {pairs_prefix}.dedup.done
+"""
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
+def make_pairs_cool(chromsizes, pairs, cool_out):
+    """Create coolers from pairs with `cooler cload pairs`"""
+    base = os.path.basename(pairs).split(".pairs.gz")[0]
+    inputs = [pairs]
+    outputs = [cool_out]
+    options = {'cores':1, 'memory':"4g", 'walltime':"01:00:00"}
+    spec = f"""
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate hic
+cooler cload pairs \
+    -c1 2 -p1 3 -c2 4 -p2 5 \
+    --assembly rheMac10 \
+    --chunksize 50000 \
+    {chromsizes}:10000 \
+    {pairs} \
+    {cool_out}
+"""
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
+    
 
 
 #############################################
@@ -197,7 +224,7 @@ for f1,f2 in paired_fastq_files:
                                           out_bam=out_bam))
     
     # Create targets for sorting the pairs
-    pair_dir = "steps/bwa/PE/pairs/"
+    pair_dir = "steps/bwa/PE/pairs/sorted"
     pair_file = pairname + ".sorted.pairs.gz"
     sorted_pairs = os.path.join(pair_dir, pair_file)
 
@@ -206,11 +233,26 @@ for f1,f2 in paired_fastq_files:
                                                        bam_merged=out_bam, 
                                                        sorted_pairs=sorted_pairs))
     
-    T4 = gwf.target_from_template(f"dedup_{pairname}", dedup(sorted_pairs=sorted_pairs))
+    # Create targets for deduplicating the selected pairs
+    # NB! We are using the reduced chromsizes file (only 'real' chromosomes)
+    filtered_chromsizes = "data/links/ucsc_ref/misc/rheMac10.filtered.chrom.sizes"
+
+    T4 = gwf.target_from_template(f"dedup_{pairname}", dedup(sorted_pairs=T3.outputs[1],
+                                                             chromsizes=filtered_chromsizes))
     
+    # Create the .cools start with 10kb bins
+    # It worked with the full chromsizes file, so we will use that
+    cool_dir = "steps/bwa/PE/pairs/cool"
 
+    T4outpairs = [x for x in T4.outputs if x.endswith(".pairs.gz")]
 
+    for T4out in T4outpairs:
+        
+        # Filter to be removed if we want to
+        if 'nodups' not in T4out:
+            continue
 
-
-    
-
+        cool_name = f"{pairname}.{T4out.split('.')[1]}"
+        cool_file = os.path.join(cool_dir, f"{cool_name}.10000.cool")
+        T5 = gwf.target_from_template(f"pairs_cool_{cool_name}",
+                                        make_pairs_cool(chromsizes=chromsizes, pairs=T4out, cool_out=cool_file))

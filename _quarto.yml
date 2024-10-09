@@ -24,7 +24,10 @@ book:
       chapters:
         - gwf_map_reads.py
         - gwf_bowtie.py
+        - gwf_bowtie_local.py
         - gwf_hiccorrect.py
+        - gwf_bwamem.py
+        - gwf_pair_alignments.py
     - part: "Reports"
       chapters: 
       - results/Readme.md

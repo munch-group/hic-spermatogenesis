@@ -1,6 +1,6 @@
 # %% [markdown]
 # ---
-# title: "gwf_bowtie_local"
+# title: "gwf_pair_alignments"
 # author: Søren Jørgensen
 # date: last-modified
 # execute: 
@@ -41,7 +41,7 @@ def pair_sort_alignments(chromsizes, bam_merged, sorted_pairs):
     inputs = [bam_merged]
     outputs = [f"{bam_merged}_parsed.stats", 
                sorted_pairs]
-    options = {'cores':12, 'memory':"4g", 'walltime':"02:00:00"}
+    options = {'cores':12, 'memory':"16g", 'walltime':"03:00:00"}
     spec=f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -54,6 +54,21 @@ pairtools parse \
     --walks-policy mask \
     {bam_merged} | \
 pairtools sort -o {sorted_pairs} 
+"""
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
+
+def select_pairs(chromsizes, sorted_pairs, selected_pairs):
+    """Select the pairs with `pairtools select`"""
+    inputs = [sorted_pairs]
+    outputs = [selected_pairs]
+    options = {'cores':12, 'memory':"16g", 'walltime':"03:00:00"}
+    spec=f"""
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate hic
+pairtools select \
+    --output {selected_pairs} \
+    --chrom-subset {chromsizes} \
+    {sorted_pairs}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
@@ -113,7 +128,8 @@ sorted_bams = sorted(merged_bams)
 for inbam in sorted_bams:
     base = op.basename(inbam)
     prefix = base.split("_paired")[0]
-    
+
+    # Sort the pairs    
     outdir = "steps/bowtie2/local/bamfiles/paired/"
     outfile = f"{base.split("_paired")[0]}" + ".sorted.pairs.gz"
     out_sorted_pairs = op.join(outdir, outfile)
@@ -121,5 +137,13 @@ for inbam in sorted_bams:
     gwf.target_from_template(f"pair_sort_{prefix}",
                             pair_sort_alignments(chromsizes, inbam, out_sorted_pairs))
     
+    # Select the pairs (filter out unplaced contigs)
+    chromsizes = "data/links/ucsc_ref/misc/rheMac10.filtered.chrom.sizes"
+    selected_pairs = out_sorted_pairs.replace(".sorted", ".filtered")
+
+    gwf.target_from_template(f"select_{prefix}",
+                            select_pairs(chromsizes, out_sorted_pairs, selected_pairs))
+
+    # Deduplicate the pairs
     gwf.target_from_template(f"dedup_{prefix}",
                             dedup(out_sorted_pairs))
