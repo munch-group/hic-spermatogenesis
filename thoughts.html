@@ -276,7 +276,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 9, 2024 <br> 08:38:48 (UTC +00:00)</p>
+      <p class="date">October 9, 2024 <br> 13:26:16 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -331,6 +331,9 @@ div.csl-indent {
 <section id="pairtools" class="level3">
 <h3 class="anchored" data-anchor-id="pairtools">pairtools</h3>
 <p>I’m considering to just map the reads again with bwa, mates together to create a pairs file in the first place. Alternatively, I will use <code>samtools sort | samtools fixmate</code> to convert them back into a paired-end alignment for inputting into <code>cooler</code>. Their own recommendation is to map with <code>bwa mem</code> with paired-end mates.</p>
+<blockquote class="blockquote">
+<p>Ended up mapping them again</p>
+</blockquote>
 </section>
 <section id="cooler" class="level3">
 <h3 class="anchored" data-anchor-id="cooler">cooler</h3>
@@ -338,19 +341,32 @@ div.csl-indent {
 <section id="update-08-10-2024" class="level4">
 <h4 class="anchored" data-anchor-id="update-08-10-2024">Update: 08-10-2024</h4>
 <p>It took more than a week to get a valid <code>.pairs</code> file and to get that processed into a <code>.cool</code> matrix. But now it seems to work pretty smoothly, and I believe it is more customizable. The pairs are split up into .nodups, .dups, and .unmapped pairs, meaning all the reads are still saved. A <code>dedup.stats</code> is also generated and visualized with <code>MultiQC</code>.</p>
-<p>I made this initial plot of the uncorrected replicate cools:</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-cooler-map-uncorrected-100kb">
-<div id="cell-cooler-map-uncorrected-100kb" class="cell" data-execution_count="91">
+<p>I made these plots of both uncorrected and corrected (ICE) matrices (made with <code>cooler</code>)</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-rep1-ncol3-cooltools-uncorrected">
+<div id="cell-rep1-ncol3-cooltools-uncorrected" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
-<div id="cooler-map-uncorrected-100kb" class="quarto-figure quarto-figure-center anchored">
+<div id="rep1-ncol3-cooltools-uncorrected" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-cooler-map-uncorrected-100kb-output-1.png" class="img-fluid figure-img"></p>
-<figcaption>The X chromosome in 100kb bins and the first 3 PCs below. UNCORRECTED. Made with <code>cooler</code>.</figcaption>
+<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-rep1-ncol3-cooltools-uncorrected-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Left: All chromosomes plotted in 100kb bins. Middle: chrX in 100kb bins. Right: chrX:60Mb-70Mb in 50 kb bins</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-rep1-ncol3-cooltools-corrected">
+<div id="cell-rep1-ncol3-cooltools-corrected" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div id="rep1-ncol3-cooltools-corrected" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-rep1-ncol3-cooltools-corrected-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Left: All chromosomes plotted in 100kb bins. Middle: chrX in 100kb bins. Right: chrX:60Mb-70Mb in 50 kb bins</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Neither of them really resembles the ones from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, but we have some confidence in our method still. Next step is to do the default compartmentalization analysis from <code>cooler</code> as well.</p>
 </section>
 </section>
 </section>
