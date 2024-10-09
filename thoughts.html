@@ -191,7 +191,22 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./gwf_bowtie_local.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_bowtie_local</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./gwf_hiccorrect.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_hiccorrect</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gwf_bwamem.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_bwamem</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gwf_pair_alignments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_pair_alignments</span></a>
   </div>
 </li>
       </ul>
@@ -261,7 +276,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 3, 2024 <br> 20:22:38 (UTC +00:00)</p>
+      <p class="date">October 9, 2024 <br> 08:38:48 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -320,6 +335,23 @@ div.csl-indent {
 <section id="cooler" class="level3">
 <h3 class="anchored" data-anchor-id="cooler">cooler</h3>
 <p>I’ve decided that this is a much better tool than HiCExplorer, the overall experience is way better. The Python API makes it optimal for Jupyter Notebooks, in stead of doing shell escapes in every cell. It can plot 10kb bins without any issue.</p>
+<section id="update-08-10-2024" class="level4">
+<h4 class="anchored" data-anchor-id="update-08-10-2024">Update: 08-10-2024</h4>
+<p>It took more than a week to get a valid <code>.pairs</code> file and to get that processed into a <code>.cool</code> matrix. But now it seems to work pretty smoothly, and I believe it is more customizable. The pairs are split up into .nodups, .dups, and .unmapped pairs, meaning all the reads are still saved. A <code>dedup.stats</code> is also generated and visualized with <code>MultiQC</code>.</p>
+<p>I made this initial plot of the uncorrected replicate cools:</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-cooler-map-uncorrected-100kb">
+<div id="cell-cooler-map-uncorrected-100kb" class="cell" data-execution_count="91">
+<div class="cell-output cell-output-display">
+<div id="cooler-map-uncorrected-100kb" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-cooler-map-uncorrected-100kb-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>The X chromosome in 100kb bins and the first 3 PCs below. UNCORRECTED. Made with <code>cooler</code>.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 <section id="notes-on-methods" class="level2">
