@@ -41,7 +41,9 @@ It took more than a week to get a valid `.pairs` file and to get that processed 
 
 I made this initial plot of the uncorrected replicate cools:
 
-{{< embed notebooks/02_open2c_framework.ipynb#cooler-map-uncorrected-100kb >}}
+{{< embed notebooks/02_open2c_framework.ipynb#rep1-ncol3-cooltools >}}
+
+{{ < embed notebooks/02_open2c_framework.ipynb#rep1-ncol3-cooltools-corrected > }}
 
 ## Notes on methods
 
