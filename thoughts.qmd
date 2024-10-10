@@ -7,6 +7,12 @@ date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
 
 *Here goes my thoughts and frustrations about the tools, the results, or the project in general.*
 
+
+## Notes on methods
+
+-   [@wang_reprogramming_2019] uses a sliding window approach [@dixon_chromatin_2015] to calculate the obs/exp matrices for the PCA. I will try that next, and work within the `cooler`/`cooltools` framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.
+-   `HiCExplorer` use a genome-wide contact-distance-based normalization method (`dist_norm`) to generate *obs/exp* matrices for PCA (similar to [@lieberman-aiden_comprehensive_2009]) that may introduce biases. I don't know why, but it looks more like [@wang_reprogramming_2019] when subtracting the running average \[triangular windows, *Kasper* did this\] from the computed PCs.
+
 ## Notes on Quarto
 
 I feel like i have the Markdown/Quarto thing under control, which is pretty nice. It is going to be really cool when actually starting to write the manus (I think).
@@ -49,8 +55,16 @@ I made these plots of both uncorrected and corrected (ICE) matrices (made with `
 
 Neither of them really resembles the ones from [@wang_reprogramming_2019], but we have some confidence in our method still. Next step is to do the default compartmentalization analysis from `cooler` as well.
 
+#### Update 10-10-2024
 
-## Notes on methods
+I plotted the `weights` variable below the interaction maps. Maybe it will be useful.
 
--   [@wang_reprogramming_2019] uses a sliding window approach [@dixon_chromatin_2015] to calculate the obs/exp matrices for the PCA. I will try that next, and work within the `cooler`/`cooltools` framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.
--   `HiCExplorer` use a genome-wide contact-distance-based normalization method (`dist_norm`) to generate *obs/exp* matrices for PCA (similar to [@lieberman-aiden_comprehensive_2009]) that may introduce biases. I don't know why, but it looks more like [@wang_reprogramming_2019] when subtracting the running average \[triangular windows, *Kasper* did this\] from the computed PCs.
+{{< embed  notebooks/02_open2c_framework.ipynb#rep1-matrix-weights >}}
+
+Also, we can plot the coverage divided into cis and all contacts, as well as the cis/total coverage ratio:
+
+{{< embed notebooks/02_open2c_framework.ipynb#full-X-coverage-weights >}}
+
+Finally, before moving on, we can do some visual improvements to the plot (it does not alter the data), with `adaptive coarsegraining` and `interpolating` the matrix. It looks pretty cool:
+
+{{< embed  notebooks/02_open2c_framework.ipynb#chrX_sub_smooth_interpolate >}}
