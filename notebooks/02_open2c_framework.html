@@ -323,6 +323,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#visualize-weights-as-well" id="toc-visualize-weights-as-well" class="nav-link" data-scroll-target="#visualize-weights-as-well">Visualize weights as well</a></li>
   </ul></li>
+  <li><a href="#counts-vs.-distance" id="toc-counts-vs.-distance" class="nav-link" data-scroll-target="#counts-vs.-distance">Counts vs.&nbsp;Distance</a></li>
   <li><a href="#compartments" id="toc-compartments" class="nav-link" data-scroll-target="#compartments">Compartments</a></li>
   </ul>
 <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></nav>
@@ -2313,7 +2314,7 @@ Skipping ../steps/bwa/PE/pairs/cool/SRR6502339.nodups.10000.cool&nbsp;(exists)</
 <section id="zoomify-the-merged-replicates" class="level2">
 <h2 class="anchored" data-anchor-id="zoomify-the-merged-replicates"><code>zoomify</code> the merged replicates</h2>
 <p>Generate an <code>.mcool</code> file containing coarser resolution to be called.</p>
-<div id="32b98cd1-d8e3-4a18-bfbf-3c50a83011f2" class="cell" data-execution_count="10">
+<div id="32b98cd1-d8e3-4a18-bfbf-3c50a83011f2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
 <span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2728,7 +2729,7 @@ chromosomes: ['chr1', 'chr2', 'chr5', 'chr3', 'chr6', 'chr4', 'chr7', 'chrX', 'c
 </section>
 <section id="visualize-weights-as-well" class="level2">
 <h2 class="anchored" data-anchor-id="visualize-weights-as-well">Visualize weights as well</h2>
-<div id="d5117f8f-568e-4d2f-9946-c66b4de2f12f" class="cell" data-execution_count="1">
+<div id="d5117f8f-568e-4d2f-9946-c66b4de2f12f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb107"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -2754,179 +2755,190 @@ chromosomes: ['chr1', 'chr2', 'chr5', 'chr3', 'chr6', 'chr4', 'chr7', 'chrX', 'c
 <span id="cb107-23"><a href="#cb107-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> rotate:</span>
 <span id="cb107-24"><a href="#cb107-24" aria-hidden="true" tabindex="-1"></a>        ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>,rotation<span class="op">=</span><span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b8f22312-b91e-4cc1-b764-04571b613fa2" class="cell" data-execution_count="2">
+<div id="b8f22312-b91e-4cc1-b764-04571b613fa2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
 <span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>c100 <span class="op">=</span> cooler.Cooler(<span class="st">"../steps/bwa/PE/pairs/cool/fib_rep1.mcool::resolutions/100000"</span>)</span>
 <span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>c50 <span class="op">=</span> cooler.Cooler(<span class="st">"../steps/bwa/PE/pairs/cool/fib_rep1.mcool::resolutions/50000"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="12738d02-631d-42fe-8dc4-d4b0f92da9c3" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co">### plot the raw and corrected data in logscale </span><span class="al">###</span></span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.axes_grid1 <span class="im">import</span> make_axes_locatable</span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the plot grid: rows, cols, rel_widths etc.</span></span>
-<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>plt_width<span class="op">=</span><span class="dv">4</span></span>
-<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a>f, axs <span class="op">=</span> plt.subplots(</span>
-<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>( plt_width<span class="op">+</span>plt_width<span class="op">+</span><span class="dv">2</span>, plt_width<span class="op">+</span>plt_width<span class="op">+</span><span class="dv">1</span>),</span>
-<span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a>    ncols<span class="op">=</span><span class="dv">4</span>,</span>
-<span id="cb109-9"><a href="#cb109-9" aria-hidden="true" tabindex="-1"></a>    nrows<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb109-10"><a href="#cb109-10" aria-hidden="true" tabindex="-1"></a>    gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>:[<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>],<span class="st">"wspace"</span>:<span class="fl">0.01</span>,<span class="st">'width_ratios'</span>:[<span class="dv">1</span>,<span class="fl">.05</span>,<span class="dv">1</span>,<span class="fl">.05</span>]},</span>
-<span id="cb109-11"><a href="#cb109-11" aria-hidden="true" tabindex="-1"></a>    constrained_layout<span class="op">=</span><span class="va">True</span></span>
-<span id="cb109-12"><a href="#cb109-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb109-13"><a href="#cb109-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-14"><a href="#cb109-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the colorscale to fit the log scale</span></span>
-<span id="cb109-15"><a href="#cb109-15" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> LogNorm(vmax<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb109-16"><a href="#cb109-16" aria-hidden="true" tabindex="-1"></a>norm_raw <span class="op">=</span> LogNorm(vmin<span class="op">=</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">10_000</span>)</span>
-<span id="cb109-17"><a href="#cb109-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-18"><a href="#cb109-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the first cell in the grid</span></span>
-<span id="cb109-19"><a href="#cb109-19" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">0</span>,<span class="dv">0</span>]</span>
-<span id="cb109-20"><a href="#cb109-20" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
-<span id="cb109-21"><a href="#cb109-21" aria-hidden="true" tabindex="-1"></a>    c100.matrix(balance<span class="op">=</span><span class="va">False</span>).fetch(<span class="st">'chrX'</span>),</span>
-<span id="cb109-22"><a href="#cb109-22" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm_raw,</span>
-<span id="cb109-23"><a href="#cb109-23" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
-<span id="cb109-24"><a href="#cb109-24" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="st">'auto'</span>,</span>
-<span id="cb109-25"><a href="#cb109-25" aria-hidden="true" tabindex="-1"></a>    extent<span class="op">=</span>(<span class="dv">0</span>,c100.chromsizes[<span class="st">'chrX'</span>], c100.chromsizes[<span class="st">'chrX'</span>], <span class="dv">0</span>)</span>
-<span id="cb109-26"><a href="#cb109-26" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
-<span id="cb109-27"><a href="#cb109-27" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
-<span id="cb109-28"><a href="#cb109-28" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'chr X'</span>)</span>
-<span id="cb109-29"><a href="#cb109-29" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'raw'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb109-30"><a href="#cb109-30" aria-hidden="true" tabindex="-1"></a>format_ticks(ax, x<span class="op">=</span><span class="va">False</span>,y<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb109-31"><a href="#cb109-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-32"><a href="#cb109-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the colorbar next to the plot</span></span>
-<span id="cb109-33"><a href="#cb109-33" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> axs[<span class="dv">0</span>,<span class="dv">1</span>]</span>
-<span id="cb109-34"><a href="#cb109-34" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'raw counts'</span>)</span>
-<span id="cb109-35"><a href="#cb109-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-36"><a href="#cb109-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Second row, 1st column</span></span>
-<span id="cb109-37"><a href="#cb109-37" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">1</span>,<span class="dv">0</span>]</span>
-<span id="cb109-38"><a href="#cb109-38" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
-<span id="cb109-39"><a href="#cb109-39" aria-hidden="true" tabindex="-1"></a>    c100.matrix().fetch(<span class="st">'chrX'</span>),</span>
-<span id="cb109-40"><a href="#cb109-40" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm,</span>
-<span id="cb109-41"><a href="#cb109-41" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
-<span id="cb109-42"><a href="#cb109-42" aria-hidden="true" tabindex="-1"></a>    extent<span class="op">=</span>(<span class="dv">0</span>,c100.chromsizes[<span class="st">'chrX'</span>], c100.chromsizes[<span class="st">'chrX'</span>], <span class="dv">0</span>)</span>
-<span id="cb109-43"><a href="#cb109-43" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
-<span id="cb109-44"><a href="#cb109-44" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
-<span id="cb109-45"><a href="#cb109-45" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'balanced'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb109-46"><a href="#cb109-46" aria-hidden="true" tabindex="-1"></a>format_ticks(ax, x<span class="op">=</span><span class="va">False</span>,y<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb109-47"><a href="#cb109-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-48"><a href="#cb109-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Set colorbar</span></span>
-<span id="cb109-49"><a href="#cb109-49" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> axs[<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb109-50"><a href="#cb109-50" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'corrected freqs'</span>)</span>
-<span id="cb109-51"><a href="#cb109-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-52"><a href="#cb109-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 3rd row, 1st col (weights)</span></span>
-<span id="cb109-53"><a href="#cb109-53" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axs[<span class="dv">2</span>,<span class="dv">0</span>]</span>
-<span id="cb109-54"><a href="#cb109-54" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> c100.bins().fetch(<span class="st">'chrX'</span>)[<span class="st">'weight'</span>].values</span>
-<span id="cb109-55"><a href="#cb109-55" aria-hidden="true" tabindex="-1"></a>ax1.plot(</span>
-<span id="cb109-56"><a href="#cb109-56" aria-hidden="true" tabindex="-1"></a>    np.linspace(<span class="dv">0</span>, c100.chromsizes[<span class="st">'chrX'</span>], <span class="bu">len</span>(weights)),</span>
-<span id="cb109-57"><a href="#cb109-57" aria-hidden="true" tabindex="-1"></a>    weights</span>
-<span id="cb109-58"><a href="#cb109-58" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb109-59"><a href="#cb109-59" aria-hidden="true" tabindex="-1"></a>ax1.set_xlim([<span class="dv">0</span>, c100.chromsizes[<span class="st">'chrX'</span>]])</span>
-<span id="cb109-60"><a href="#cb109-60" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'position, bp'</span>)</span>
-<span id="cb109-61"><a href="#cb109-61" aria-hidden="true" tabindex="-1"></a>format_ticks(ax1, y<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb109-62"><a href="#cb109-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-63"><a href="#cb109-63" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axs[<span class="dv">2</span>,<span class="dv">1</span>]</span>
-<span id="cb109-64"><a href="#cb109-64" aria-hidden="true" tabindex="-1"></a>ax1.set_visible(<span class="va">False</span>)</span>
-<span id="cb109-65"><a href="#cb109-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-66"><a href="#cb109-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-67"><a href="#cb109-67" aria-hidden="true" tabindex="-1"></a><span class="co"># 2nd column</span></span>
-<span id="cb109-68"><a href="#cb109-68" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> <span class="dv">60_000_000</span></span>
-<span id="cb109-69"><a href="#cb109-69" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> <span class="dv">70_000_000</span></span>
-<span id="cb109-70"><a href="#cb109-70" aria-hidden="true" tabindex="-1"></a>region <span class="op">=</span> (<span class="st">'chrX'</span>, start, end)</span>
-<span id="cb109-71"><a href="#cb109-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-72"><a href="#cb109-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Unbalanced</span></span>
-<span id="cb109-73"><a href="#cb109-73" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">0</span>,<span class="dv">2</span>]</span>
-<span id="cb109-74"><a href="#cb109-74" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
-<span id="cb109-75"><a href="#cb109-75" aria-hidden="true" tabindex="-1"></a>    c50.matrix(balance<span class="op">=</span><span class="va">False</span>).fetch(region),</span>
-<span id="cb109-76"><a href="#cb109-76" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm_raw,</span>
-<span id="cb109-77"><a href="#cb109-77" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
-<span id="cb109-78"><a href="#cb109-78" aria-hidden="true" tabindex="-1"></a>    extent<span class="op">=</span>(start, end, end, start)</span>
-<span id="cb109-79"><a href="#cb109-79" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
-<span id="cb109-80"><a href="#cb109-80" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'chrX:</span><span class="sc">{</span>start<span class="sc">:,}</span><span class="ss">-</span><span class="sc">{</span>end<span class="sc">:,}</span><span class="ss">'</span>)</span>
-<span id="cb109-81"><a href="#cb109-81" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
-<span id="cb109-82"><a href="#cb109-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-83"><a href="#cb109-83" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> axs[<span class="dv">0</span>,<span class="dv">3</span>]</span>
-<span id="cb109-84"><a href="#cb109-84" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'raw counts'</span>)<span class="op">;</span></span>
-<span id="cb109-85"><a href="#cb109-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-86"><a href="#cb109-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Balanced</span></span>
-<span id="cb109-87"><a href="#cb109-87" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">1</span>,<span class="dv">2</span>]</span>
-<span id="cb109-88"><a href="#cb109-88" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
-<span id="cb109-89"><a href="#cb109-89" aria-hidden="true" tabindex="-1"></a>    c50.matrix().fetch(region),</span>
-<span id="cb109-90"><a href="#cb109-90" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm,</span>
-<span id="cb109-91"><a href="#cb109-91" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
-<span id="cb109-92"><a href="#cb109-92" aria-hidden="true" tabindex="-1"></a>    extent<span class="op">=</span>(start, end, end, start)</span>
-<span id="cb109-93"><a href="#cb109-93" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
-<span id="cb109-94"><a href="#cb109-94" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
-<span id="cb109-95"><a href="#cb109-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-96"><a href="#cb109-96" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> axs[<span class="dv">1</span>,<span class="dv">3</span>]</span>
-<span id="cb109-97"><a href="#cb109-97" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'corrected frequencies'</span>)<span class="op">;</span></span>
-<span id="cb109-98"><a href="#cb109-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-99"><a href="#cb109-99" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axs[<span class="dv">2</span>,<span class="dv">2</span>]</span>
-<span id="cb109-100"><a href="#cb109-100" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> c50.bins().fetch(region)[<span class="st">'weight'</span>].values</span>
-<span id="cb109-101"><a href="#cb109-101" aria-hidden="true" tabindex="-1"></a>ax1.plot(</span>
-<span id="cb109-102"><a href="#cb109-102" aria-hidden="true" tabindex="-1"></a>    np.linspace(start, end, <span class="bu">len</span>(weights)),</span>
-<span id="cb109-103"><a href="#cb109-103" aria-hidden="true" tabindex="-1"></a>    weights</span>
-<span id="cb109-104"><a href="#cb109-104" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb109-105"><a href="#cb109-105" aria-hidden="true" tabindex="-1"></a>format_ticks(ax1, y<span class="op">=</span><span class="va">False</span>, rotate<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb109-106"><a href="#cb109-106" aria-hidden="true" tabindex="-1"></a>ax1.set_xlim(start, end)<span class="op">;</span></span>
-<span id="cb109-107"><a href="#cb109-107" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'chrX position, bp'</span>)</span>
-<span id="cb109-108"><a href="#cb109-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-109"><a href="#cb109-109" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axs[<span class="dv">2</span>,<span class="dv">3</span>]</span>
-<span id="cb109-110"><a href="#cb109-110" aria-hidden="true" tabindex="-1"></a>ax1.set_visible(<span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="12738d02-631d-42fe-8dc4-d4b0f92da9c3" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture matrix_weights</span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="co">### plot the raw and corrected data in logscale </span><span class="al">###</span></span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.axes_grid1 <span class="im">import</span> make_axes_locatable</span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the plot grid: rows, cols, rel_widths etc.</span></span>
+<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a>plt_width<span class="op">=</span><span class="dv">4</span></span>
+<span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a>f, axs <span class="op">=</span> plt.subplots(</span>
+<span id="cb109-9"><a href="#cb109-9" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>( plt_width<span class="op">+</span>plt_width<span class="op">+</span><span class="dv">2</span>, plt_width<span class="op">+</span>plt_width<span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb109-10"><a href="#cb109-10" aria-hidden="true" tabindex="-1"></a>    ncols<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb109-11"><a href="#cb109-11" aria-hidden="true" tabindex="-1"></a>    nrows<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb109-12"><a href="#cb109-12" aria-hidden="true" tabindex="-1"></a>    gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>:[<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>],<span class="st">"wspace"</span>:<span class="fl">0.01</span>,<span class="st">'width_ratios'</span>:[<span class="dv">1</span>,<span class="fl">.05</span>,<span class="dv">1</span>,<span class="fl">.05</span>]},</span>
+<span id="cb109-13"><a href="#cb109-13" aria-hidden="true" tabindex="-1"></a>    constrained_layout<span class="op">=</span><span class="va">True</span></span>
+<span id="cb109-14"><a href="#cb109-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb109-15"><a href="#cb109-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-16"><a href="#cb109-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the colorscale to fit the log scale</span></span>
+<span id="cb109-17"><a href="#cb109-17" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> LogNorm(vmax<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb109-18"><a href="#cb109-18" aria-hidden="true" tabindex="-1"></a>norm_raw <span class="op">=</span> LogNorm(vmin<span class="op">=</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">10_000</span>)</span>
+<span id="cb109-19"><a href="#cb109-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-20"><a href="#cb109-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the first cell in the grid</span></span>
+<span id="cb109-21"><a href="#cb109-21" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">0</span>,<span class="dv">0</span>]</span>
+<span id="cb109-22"><a href="#cb109-22" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
+<span id="cb109-23"><a href="#cb109-23" aria-hidden="true" tabindex="-1"></a>    c100.matrix(balance<span class="op">=</span><span class="va">False</span>).fetch(<span class="st">'chrX'</span>),</span>
+<span id="cb109-24"><a href="#cb109-24" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm_raw,</span>
+<span id="cb109-25"><a href="#cb109-25" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
+<span id="cb109-26"><a href="#cb109-26" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="st">'auto'</span>,</span>
+<span id="cb109-27"><a href="#cb109-27" aria-hidden="true" tabindex="-1"></a>    extent<span class="op">=</span>(<span class="dv">0</span>,c100.chromsizes[<span class="st">'chrX'</span>], c100.chromsizes[<span class="st">'chrX'</span>], <span class="dv">0</span>)</span>
+<span id="cb109-28"><a href="#cb109-28" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb109-29"><a href="#cb109-29" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
+<span id="cb109-30"><a href="#cb109-30" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'chr X'</span>)</span>
+<span id="cb109-31"><a href="#cb109-31" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'raw'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb109-32"><a href="#cb109-32" aria-hidden="true" tabindex="-1"></a>format_ticks(ax, x<span class="op">=</span><span class="va">False</span>,y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb109-33"><a href="#cb109-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-34"><a href="#cb109-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the colorbar next to the plot</span></span>
+<span id="cb109-35"><a href="#cb109-35" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> axs[<span class="dv">0</span>,<span class="dv">1</span>]</span>
+<span id="cb109-36"><a href="#cb109-36" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'raw counts'</span>)</span>
+<span id="cb109-37"><a href="#cb109-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-38"><a href="#cb109-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Second row, 1st column</span></span>
+<span id="cb109-39"><a href="#cb109-39" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">1</span>,<span class="dv">0</span>]</span>
+<span id="cb109-40"><a href="#cb109-40" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
+<span id="cb109-41"><a href="#cb109-41" aria-hidden="true" tabindex="-1"></a>    c100.matrix().fetch(<span class="st">'chrX'</span>),</span>
+<span id="cb109-42"><a href="#cb109-42" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm,</span>
+<span id="cb109-43"><a href="#cb109-43" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
+<span id="cb109-44"><a href="#cb109-44" aria-hidden="true" tabindex="-1"></a>    extent<span class="op">=</span>(<span class="dv">0</span>,c100.chromsizes[<span class="st">'chrX'</span>], c100.chromsizes[<span class="st">'chrX'</span>], <span class="dv">0</span>)</span>
+<span id="cb109-45"><a href="#cb109-45" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb109-46"><a href="#cb109-46" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
+<span id="cb109-47"><a href="#cb109-47" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'balanced'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb109-48"><a href="#cb109-48" aria-hidden="true" tabindex="-1"></a>format_ticks(ax, x<span class="op">=</span><span class="va">False</span>,y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb109-49"><a href="#cb109-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-50"><a href="#cb109-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Set colorbar</span></span>
+<span id="cb109-51"><a href="#cb109-51" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> axs[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb109-52"><a href="#cb109-52" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'corrected freqs'</span>)</span>
+<span id="cb109-53"><a href="#cb109-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-54"><a href="#cb109-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 3rd row, 1st col (weights)</span></span>
+<span id="cb109-55"><a href="#cb109-55" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axs[<span class="dv">2</span>,<span class="dv">0</span>]</span>
+<span id="cb109-56"><a href="#cb109-56" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> c100.bins().fetch(<span class="st">'chrX'</span>)[<span class="st">'weight'</span>].values</span>
+<span id="cb109-57"><a href="#cb109-57" aria-hidden="true" tabindex="-1"></a>ax1.plot(</span>
+<span id="cb109-58"><a href="#cb109-58" aria-hidden="true" tabindex="-1"></a>    np.linspace(<span class="dv">0</span>, c100.chromsizes[<span class="st">'chrX'</span>], <span class="bu">len</span>(weights)),</span>
+<span id="cb109-59"><a href="#cb109-59" aria-hidden="true" tabindex="-1"></a>    weights</span>
+<span id="cb109-60"><a href="#cb109-60" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb109-61"><a href="#cb109-61" aria-hidden="true" tabindex="-1"></a>ax1.set_xlim([<span class="dv">0</span>, c100.chromsizes[<span class="st">'chrX'</span>]])</span>
+<span id="cb109-62"><a href="#cb109-62" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'position, bp'</span>)</span>
+<span id="cb109-63"><a href="#cb109-63" aria-hidden="true" tabindex="-1"></a>format_ticks(ax1, y<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb109-64"><a href="#cb109-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-65"><a href="#cb109-65" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axs[<span class="dv">2</span>,<span class="dv">1</span>]</span>
+<span id="cb109-66"><a href="#cb109-66" aria-hidden="true" tabindex="-1"></a>ax1.set_visible(<span class="va">False</span>)</span>
+<span id="cb109-67"><a href="#cb109-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-68"><a href="#cb109-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-69"><a href="#cb109-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 2nd column</span></span>
+<span id="cb109-70"><a href="#cb109-70" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> <span class="dv">60_000_000</span></span>
+<span id="cb109-71"><a href="#cb109-71" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> <span class="dv">70_000_000</span></span>
+<span id="cb109-72"><a href="#cb109-72" aria-hidden="true" tabindex="-1"></a>region <span class="op">=</span> (<span class="st">'chrX'</span>, start, end)</span>
+<span id="cb109-73"><a href="#cb109-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-74"><a href="#cb109-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Unbalanced</span></span>
+<span id="cb109-75"><a href="#cb109-75" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">0</span>,<span class="dv">2</span>]</span>
+<span id="cb109-76"><a href="#cb109-76" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
+<span id="cb109-77"><a href="#cb109-77" aria-hidden="true" tabindex="-1"></a>    c50.matrix(balance<span class="op">=</span><span class="va">False</span>).fetch(region),</span>
+<span id="cb109-78"><a href="#cb109-78" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm_raw,</span>
+<span id="cb109-79"><a href="#cb109-79" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
+<span id="cb109-80"><a href="#cb109-80" aria-hidden="true" tabindex="-1"></a>    extent<span class="op">=</span>(start, end, end, start)</span>
+<span id="cb109-81"><a href="#cb109-81" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb109-82"><a href="#cb109-82" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'chrX:</span><span class="sc">{</span>start<span class="sc">:,}</span><span class="ss">-</span><span class="sc">{</span>end<span class="sc">:,}</span><span class="ss">'</span>)</span>
+<span id="cb109-83"><a href="#cb109-83" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
+<span id="cb109-84"><a href="#cb109-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-85"><a href="#cb109-85" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> axs[<span class="dv">0</span>,<span class="dv">3</span>]</span>
+<span id="cb109-86"><a href="#cb109-86" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'raw counts'</span>)<span class="op">;</span></span>
+<span id="cb109-87"><a href="#cb109-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-88"><a href="#cb109-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Balanced</span></span>
+<span id="cb109-89"><a href="#cb109-89" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb109-90"><a href="#cb109-90" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
+<span id="cb109-91"><a href="#cb109-91" aria-hidden="true" tabindex="-1"></a>    c50.matrix().fetch(region),</span>
+<span id="cb109-92"><a href="#cb109-92" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm,</span>
+<span id="cb109-93"><a href="#cb109-93" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
+<span id="cb109-94"><a href="#cb109-94" aria-hidden="true" tabindex="-1"></a>    extent<span class="op">=</span>(start, end, end, start)</span>
+<span id="cb109-95"><a href="#cb109-95" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb109-96"><a href="#cb109-96" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
+<span id="cb109-97"><a href="#cb109-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-98"><a href="#cb109-98" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> axs[<span class="dv">1</span>,<span class="dv">3</span>]</span>
+<span id="cb109-99"><a href="#cb109-99" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'corrected frequencies'</span>)<span class="op">;</span></span>
+<span id="cb109-100"><a href="#cb109-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-101"><a href="#cb109-101" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axs[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb109-102"><a href="#cb109-102" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> c50.bins().fetch(region)[<span class="st">'weight'</span>].values</span>
+<span id="cb109-103"><a href="#cb109-103" aria-hidden="true" tabindex="-1"></a>ax1.plot(</span>
+<span id="cb109-104"><a href="#cb109-104" aria-hidden="true" tabindex="-1"></a>    np.linspace(start, end, <span class="bu">len</span>(weights)),</span>
+<span id="cb109-105"><a href="#cb109-105" aria-hidden="true" tabindex="-1"></a>    weights</span>
+<span id="cb109-106"><a href="#cb109-106" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb109-107"><a href="#cb109-107" aria-hidden="true" tabindex="-1"></a>format_ticks(ax1, y<span class="op">=</span><span class="va">False</span>, rotate<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb109-108"><a href="#cb109-108" aria-hidden="true" tabindex="-1"></a>ax1.set_xlim(start, end)<span class="op">;</span></span>
+<span id="cb109-109"><a href="#cb109-109" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'chrX position, bp'</span>)</span>
+<span id="cb109-110"><a href="#cb109-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-111"><a href="#cb109-111" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axs[<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb109-112"><a href="#cb109-112" aria-hidden="true" tabindex="-1"></a>ax1.set_visible(<span class="va">False</span>)</span>
+<span id="cb109-113"><a href="#cb109-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-114"><a href="#cb109-114" aria-hidden="true" tabindex="-1"></a><span class="co"># NB The output is captured and saved to a callable variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-rep1-matrix-weights" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>matrix_weights()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
+<div id="rep1-matrix-weights" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="02_open2c_framework_files/figure-html/cell-74-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="02_open2c_framework_files/figure-html/rep1-matrix-weights-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Rep1 interaction matrix with weights visualized. Top: raw counts. Bottom: corrected frequencies. Left: whole chrX. Right: chrX60:70Mb</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <section id="coverage-distinct-from-the-weights" class="level3">
 <h3 class="anchored" data-anchor-id="coverage-distinct-from-the-weights">Coverage (distinct from the weights)</h3>
-<div id="4d173140-fb00-42e5-872b-95ebfe42ef38" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>clr <span class="op">=</span> cooler.Cooler(<span class="st">"../steps/bwa/PE/pairs/cool/fib_rep1.mcool::resolutions/500000"</span>)</span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>cis_coverage, tot_coverage <span class="op">=</span> cooltools.coverage(clr, nproc<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(</span>
-<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>),</span>
-<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb110-7"><a href="#cb110-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-8"><a href="#cb110-8" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> LogNorm(vmax<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb110-9"><a href="#cb110-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-10"><a href="#cb110-10" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
-<span id="cb110-11"><a href="#cb110-11" aria-hidden="true" tabindex="-1"></a>    clr.matrix()[:],</span>
-<span id="cb110-12"><a href="#cb110-12" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm,</span>
-<span id="cb110-13"><a href="#cb110-13" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span></span>
-<span id="cb110-14"><a href="#cb110-14" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
-<span id="cb110-15"><a href="#cb110-15" aria-hidden="true" tabindex="-1"></a>divider <span class="op">=</span> make_axes_locatable(ax)</span>
-<span id="cb110-16"><a href="#cb110-16" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> divider.append_axes(<span class="st">"right"</span>, size<span class="op">=</span><span class="st">"5%"</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb110-17"><a href="#cb110-17" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'corrected frequencies'</span>)<span class="op">;</span></span>
-<span id="cb110-18"><a href="#cb110-18" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'full matrix'</span>)</span>
-<span id="cb110-19"><a href="#cb110-19" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
-<span id="cb110-20"><a href="#cb110-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-21"><a href="#cb110-21" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> divider.append_axes(<span class="st">"bottom"</span>, size<span class="op">=</span><span class="st">"25%"</span>, pad<span class="op">=</span><span class="fl">0.1</span>, sharex<span class="op">=</span>ax)</span>
-<span id="cb110-22"><a href="#cb110-22" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> clr.bins()[:][<span class="st">'weight'</span>].values</span>
-<span id="cb110-23"><a href="#cb110-23" aria-hidden="true" tabindex="-1"></a>ax1.plot( cis_coverage, label<span class="op">=</span><span class="st">'cis'</span>)</span>
-<span id="cb110-24"><a href="#cb110-24" aria-hidden="true" tabindex="-1"></a>ax1.plot( tot_coverage, label<span class="op">=</span><span class="st">'total'</span>)</span>
-<span id="cb110-25"><a href="#cb110-25" aria-hidden="true" tabindex="-1"></a>ax1.set_xlim([<span class="dv">0</span>, <span class="bu">len</span>(clr.bins()[:])])</span>
-<span id="cb110-26"><a href="#cb110-26" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Coverage'</span>)</span>
-<span id="cb110-27"><a href="#cb110-27" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
-<span id="cb110-28"><a href="#cb110-28" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks([])</span>
-<span id="cb110-29"><a href="#cb110-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-30"><a href="#cb110-30" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> divider.append_axes(<span class="st">"bottom"</span>, size<span class="op">=</span><span class="st">"25%"</span>, pad<span class="op">=</span><span class="fl">0.1</span>, sharex<span class="op">=</span>ax)</span>
-<span id="cb110-31"><a href="#cb110-31" aria-hidden="true" tabindex="-1"></a>ax2.plot( cis_coverage<span class="op">/</span> tot_coverage)</span>
-<span id="cb110-32"><a href="#cb110-32" aria-hidden="true" tabindex="-1"></a>ax2.set_xlim([<span class="dv">0</span>, <span class="bu">len</span>(clr.bins()[:])])</span>
-<span id="cb110-33"><a href="#cb110-33" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'coverage ratio'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4d173140-fb00-42e5-872b-95ebfe42ef38" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture matrix_weights_coverage</span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>clr <span class="op">=</span> cooler.Cooler(<span class="st">"../steps/bwa/PE/pairs/cool/fib_rep1.mcool::resolutions/500000"</span>)</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>cis_coverage, tot_coverage <span class="op">=</span> cooltools.coverage(clr, nproc<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(</span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>),</span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> LogNorm(vmax<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb111-11"><a href="#cb111-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-12"><a href="#cb111-12" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
+<span id="cb111-13"><a href="#cb111-13" aria-hidden="true" tabindex="-1"></a>    clr.matrix()[:],</span>
+<span id="cb111-14"><a href="#cb111-14" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm,</span>
+<span id="cb111-15"><a href="#cb111-15" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span></span>
+<span id="cb111-16"><a href="#cb111-16" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb111-17"><a href="#cb111-17" aria-hidden="true" tabindex="-1"></a>divider <span class="op">=</span> make_axes_locatable(ax)</span>
+<span id="cb111-18"><a href="#cb111-18" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> divider.append_axes(<span class="st">"right"</span>, size<span class="op">=</span><span class="st">"5%"</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb111-19"><a href="#cb111-19" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'corrected frequencies'</span>)<span class="op">;</span></span>
+<span id="cb111-20"><a href="#cb111-20" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'full matrix'</span>)</span>
+<span id="cb111-21"><a href="#cb111-21" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
+<span id="cb111-22"><a href="#cb111-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-23"><a href="#cb111-23" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> divider.append_axes(<span class="st">"bottom"</span>, size<span class="op">=</span><span class="st">"25%"</span>, pad<span class="op">=</span><span class="fl">0.1</span>, sharex<span class="op">=</span>ax)</span>
+<span id="cb111-24"><a href="#cb111-24" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> clr.bins()[:][<span class="st">'weight'</span>].values</span>
+<span id="cb111-25"><a href="#cb111-25" aria-hidden="true" tabindex="-1"></a>ax1.plot( cis_coverage, label<span class="op">=</span><span class="st">'cis'</span>)</span>
+<span id="cb111-26"><a href="#cb111-26" aria-hidden="true" tabindex="-1"></a>ax1.plot( tot_coverage, label<span class="op">=</span><span class="st">'total'</span>)</span>
+<span id="cb111-27"><a href="#cb111-27" aria-hidden="true" tabindex="-1"></a>ax1.set_xlim([<span class="dv">0</span>, <span class="bu">len</span>(clr.bins()[:])])</span>
+<span id="cb111-28"><a href="#cb111-28" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Coverage'</span>)</span>
+<span id="cb111-29"><a href="#cb111-29" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
+<span id="cb111-30"><a href="#cb111-30" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks([])</span>
+<span id="cb111-31"><a href="#cb111-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-32"><a href="#cb111-32" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> divider.append_axes(<span class="st">"bottom"</span>, size<span class="op">=</span><span class="st">"25%"</span>, pad<span class="op">=</span><span class="fl">0.1</span>, sharex<span class="op">=</span>ax)</span>
+<span id="cb111-33"><a href="#cb111-33" aria-hidden="true" tabindex="-1"></a>ax2.plot( cis_coverage<span class="op">/</span> tot_coverage)</span>
+<span id="cb111-34"><a href="#cb111-34" aria-hidden="true" tabindex="-1"></a>ax2.set_xlim([<span class="dv">0</span>, <span class="bu">len</span>(clr.bins()[:])])</span>
+<span id="cb111-35"><a href="#cb111-35" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'coverage ratio'</span>)</span>
+<span id="cb111-36"><a href="#cb111-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-37"><a href="#cb111-37" aria-hidden="true" tabindex="-1"></a><span class="co"># NB plot is captured to variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>INFO:root:creating a Pool of 4 workers
-/scratch/45765264/ipykernel_2320495/1150490948.py:31: RuntimeWarning: invalid value encountered in divide
-  ax2.plot( cis_coverage/ tot_coverage)</code></pre>
+<pre><code>INFO:root:creating a Pool of 4 workers</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>Text(0, 0.5, 'coverage ratio')</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<div>
+<div id="cell-full-X-coverage-weights" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>matrix_weights_coverage.outputs[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<div id="full-x-coverage-weights" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="02_open2c_framework_files/figure-html/cell-75-output-3.png" class="img-fluid figure-img"></p>
+<p><img src="02_open2c_framework_files/figure-html/full-x-coverage-weights-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Rep1 chrX interaction matrix with coverage for cis and total as well as cis/total coverage ratio.</figcaption>
 </figure>
 </div>
 </div>
@@ -2934,84 +2946,90 @@ chromosomes: ['chr1', 'chr2', 'chr5', 'chr3', 'chr6', 'chr4', 'chr7', 'chrX', 'c
 </section>
 <section id="smoothing-and-interpolation" class="level3">
 <h3 class="anchored" data-anchor-id="smoothing-and-interpolation">Smoothing and interpolation</h3>
-<div id="5700b288-1d3f-42f5-92f3-d54fd5336396" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
-<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
-<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools.lib.plotting</span>
-<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The following directive activates inline plotting</span></span>
-<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
-<span id="cb113-11"><a href="#cb113-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> EngFormatter</span>
-<span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
-<span id="cb113-14"><a href="#cb113-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-15"><a href="#cb113-15" aria-hidden="true" tabindex="-1"></a>bp_formatter <span class="op">=</span> EngFormatter(<span class="st">'b'</span>)</span>
-<span id="cb113-16"><a href="#cb113-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-17"><a href="#cb113-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> format_ticks(ax, x<span class="op">=</span><span class="va">True</span>, y<span class="op">=</span><span class="va">True</span>, rotate<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb113-18"><a href="#cb113-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> y:</span>
-<span id="cb113-19"><a href="#cb113-19" aria-hidden="true" tabindex="-1"></a>        ax.yaxis.set_major_formatter(bp_formatter)</span>
-<span id="cb113-20"><a href="#cb113-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x:</span>
-<span id="cb113-21"><a href="#cb113-21" aria-hidden="true" tabindex="-1"></a>        ax.xaxis.set_major_formatter(bp_formatter)</span>
-<span id="cb113-22"><a href="#cb113-22" aria-hidden="true" tabindex="-1"></a>        ax.xaxis.tick_bottom()</span>
-<span id="cb113-23"><a href="#cb113-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> rotate:</span>
-<span id="cb113-24"><a href="#cb113-24" aria-hidden="true" tabindex="-1"></a>        ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>,rotation<span class="op">=</span><span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5700b288-1d3f-42f5-92f3-d54fd5336396" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools.lib.plotting</span>
+<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The following directive activates inline plotting</span></span>
+<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb114-11"><a href="#cb114-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-12"><a href="#cb114-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> EngFormatter</span>
+<span id="cb114-13"><a href="#cb114-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
+<span id="cb114-14"><a href="#cb114-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-15"><a href="#cb114-15" aria-hidden="true" tabindex="-1"></a>bp_formatter <span class="op">=</span> EngFormatter(<span class="st">'b'</span>)</span>
+<span id="cb114-16"><a href="#cb114-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-17"><a href="#cb114-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> format_ticks(ax, x<span class="op">=</span><span class="va">True</span>, y<span class="op">=</span><span class="va">True</span>, rotate<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb114-18"><a href="#cb114-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> y:</span>
+<span id="cb114-19"><a href="#cb114-19" aria-hidden="true" tabindex="-1"></a>        ax.yaxis.set_major_formatter(bp_formatter)</span>
+<span id="cb114-20"><a href="#cb114-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x:</span>
+<span id="cb114-21"><a href="#cb114-21" aria-hidden="true" tabindex="-1"></a>        ax.xaxis.set_major_formatter(bp_formatter)</span>
+<span id="cb114-22"><a href="#cb114-22" aria-hidden="true" tabindex="-1"></a>        ax.xaxis.tick_bottom()</span>
+<span id="cb114-23"><a href="#cb114-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> rotate:</span>
+<span id="cb114-24"><a href="#cb114-24" aria-hidden="true" tabindex="-1"></a>        ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>,rotation<span class="op">=</span><span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="06846532-372f-4c24-a6f2-8d28b0633735" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cooltools.lib.numutils <span class="im">import</span> adaptive_coarsegrain, interp_nan</span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>clr_10kb <span class="op">=</span> c50</span>
-<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> <span class="dv">60_000_000</span></span>
-<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> <span class="dv">70_000_000</span></span>
-<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a>region <span class="op">=</span> (<span class="st">'chrX'</span>, start, end)</span>
-<span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a>extents <span class="op">=</span> (start, end, end, start)</span>
-<span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a>cg <span class="op">=</span> adaptive_coarsegrain(clr_10kb.matrix(balance<span class="op">=</span><span class="va">True</span>).fetch(region),</span>
-<span id="cb114-11"><a href="#cb114-11" aria-hidden="true" tabindex="-1"></a>                              clr_10kb.matrix(balance<span class="op">=</span><span class="va">False</span>).fetch(region),</span>
-<span id="cb114-12"><a href="#cb114-12" aria-hidden="true" tabindex="-1"></a>                              cutoff<span class="op">=</span><span class="dv">3</span>, max_levels<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb114-13"><a href="#cb114-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-14"><a href="#cb114-14" aria-hidden="true" tabindex="-1"></a>cgi <span class="op">=</span> interp_nan(cg)</span>
-<span id="cb114-15"><a href="#cb114-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-16"><a href="#cb114-16" aria-hidden="true" tabindex="-1"></a>f, axs <span class="op">=</span> plt.subplots(</span>
-<span id="cb114-17"><a href="#cb114-17" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">18</span>,<span class="dv">5</span>),</span>
-<span id="cb114-18"><a href="#cb114-18" aria-hidden="true" tabindex="-1"></a>    nrows<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb114-19"><a href="#cb114-19" aria-hidden="true" tabindex="-1"></a>    ncols<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb114-20"><a href="#cb114-20" aria-hidden="true" tabindex="-1"></a>    sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb114-21"><a href="#cb114-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-22"><a href="#cb114-22" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">0</span>]</span>
-<span id="cb114-23"><a href="#cb114-23" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(clr_10kb.matrix(balance<span class="op">=</span><span class="va">True</span>).fetch(region), cmap<span class="op">=</span><span class="st">'fall'</span>, norm<span class="op">=</span>norm, extent<span class="op">=</span>extents)</span>
-<span id="cb114-24"><a href="#cb114-24" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'corrected'</span>)</span>
-<span id="cb114-25"><a href="#cb114-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-26"><a href="#cb114-26" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">1</span>]</span>
-<span id="cb114-27"><a href="#cb114-27" aria-hidden="true" tabindex="-1"></a>im2 <span class="op">=</span> ax.matshow(cg, cmap<span class="op">=</span><span class="st">'fall'</span>, norm<span class="op">=</span>norm, extent<span class="op">=</span>extents)</span>
-<span id="cb114-28"><a href="#cb114-28" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'adaptively coarsegrained'</span>)</span>
-<span id="cb114-29"><a href="#cb114-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-30"><a href="#cb114-30" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">2</span>]</span>
-<span id="cb114-31"><a href="#cb114-31" aria-hidden="true" tabindex="-1"></a>im3 <span class="op">=</span> ax.matshow(cgi, cmap<span class="op">=</span><span class="st">'fall'</span>, norm<span class="op">=</span>norm, extent<span class="op">=</span>extents)</span>
-<span id="cb114-32"><a href="#cb114-32" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'interpolated'</span>)</span>
-<span id="cb114-33"><a href="#cb114-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-34"><a href="#cb114-34" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs:</span>
-<span id="cb114-35"><a href="#cb114-35" aria-hidden="true" tabindex="-1"></a>    format_ticks(ax, rotate<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb114-36"><a href="#cb114-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-37"><a href="#cb114-37" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im3, ax<span class="op">=</span>axs, fraction<span class="op">=</span><span class="fl">0.046</span>, label<span class="op">=</span><span class="st">'corrected frequencies'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/sojern/miniconda3/envs/hic/lib/python3.12/site-packages/cooltools/lib/numutils.py:1376: RuntimeWarning: invalid value encountered in divide
-  val_cur = ar_cur / armask_cur</code></pre>
+<div id="06846532-372f-4c24-a6f2-8d28b0633735" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture smoothed_interpolated</span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cooltools.lib.numutils <span class="im">import</span> adaptive_coarsegrain, interp_nan</span>
+<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-5"><a href="#cb115-5" aria-hidden="true" tabindex="-1"></a>clr_10kb <span class="op">=</span> c50</span>
+<span id="cb115-6"><a href="#cb115-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-7"><a href="#cb115-7" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> <span class="dv">60_000_000</span></span>
+<span id="cb115-8"><a href="#cb115-8" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> <span class="dv">70_000_000</span></span>
+<span id="cb115-9"><a href="#cb115-9" aria-hidden="true" tabindex="-1"></a>region <span class="op">=</span> (<span class="st">'chrX'</span>, start, end)</span>
+<span id="cb115-10"><a href="#cb115-10" aria-hidden="true" tabindex="-1"></a>extents <span class="op">=</span> (start, end, end, start)</span>
+<span id="cb115-11"><a href="#cb115-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-12"><a href="#cb115-12" aria-hidden="true" tabindex="-1"></a>cg <span class="op">=</span> adaptive_coarsegrain(clr_10kb.matrix(balance<span class="op">=</span><span class="va">True</span>).fetch(region),</span>
+<span id="cb115-13"><a href="#cb115-13" aria-hidden="true" tabindex="-1"></a>                              clr_10kb.matrix(balance<span class="op">=</span><span class="va">False</span>).fetch(region),</span>
+<span id="cb115-14"><a href="#cb115-14" aria-hidden="true" tabindex="-1"></a>                              cutoff<span class="op">=</span><span class="dv">3</span>, max_levels<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb115-15"><a href="#cb115-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-16"><a href="#cb115-16" aria-hidden="true" tabindex="-1"></a>cgi <span class="op">=</span> interp_nan(cg)</span>
+<span id="cb115-17"><a href="#cb115-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-18"><a href="#cb115-18" aria-hidden="true" tabindex="-1"></a>f, axs <span class="op">=</span> plt.subplots(</span>
+<span id="cb115-19"><a href="#cb115-19" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">18</span>,<span class="dv">5</span>),</span>
+<span id="cb115-20"><a href="#cb115-20" aria-hidden="true" tabindex="-1"></a>    nrows<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb115-21"><a href="#cb115-21" aria-hidden="true" tabindex="-1"></a>    ncols<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb115-22"><a href="#cb115-22" aria-hidden="true" tabindex="-1"></a>    sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb115-23"><a href="#cb115-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-24"><a href="#cb115-24" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">0</span>]</span>
+<span id="cb115-25"><a href="#cb115-25" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(clr_10kb.matrix(balance<span class="op">=</span><span class="va">True</span>).fetch(region), cmap<span class="op">=</span><span class="st">'fall'</span>, norm<span class="op">=</span>norm, extent<span class="op">=</span>extents)</span>
+<span id="cb115-26"><a href="#cb115-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'corrected'</span>)</span>
+<span id="cb115-27"><a href="#cb115-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-28"><a href="#cb115-28" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">1</span>]</span>
+<span id="cb115-29"><a href="#cb115-29" aria-hidden="true" tabindex="-1"></a>im2 <span class="op">=</span> ax.matshow(cg, cmap<span class="op">=</span><span class="st">'fall'</span>, norm<span class="op">=</span>norm, extent<span class="op">=</span>extents)</span>
+<span id="cb115-30"><a href="#cb115-30" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'adaptively coarsegrained'</span>)</span>
+<span id="cb115-31"><a href="#cb115-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-32"><a href="#cb115-32" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">2</span>]</span>
+<span id="cb115-33"><a href="#cb115-33" aria-hidden="true" tabindex="-1"></a>im3 <span class="op">=</span> ax.matshow(cgi, cmap<span class="op">=</span><span class="st">'fall'</span>, norm<span class="op">=</span>norm, extent<span class="op">=</span>extents)</span>
+<span id="cb115-34"><a href="#cb115-34" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'interpolated'</span>)</span>
+<span id="cb115-35"><a href="#cb115-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-36"><a href="#cb115-36" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs:</span>
+<span id="cb115-37"><a href="#cb115-37" aria-hidden="true" tabindex="-1"></a>    format_ticks(ax, rotate<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb115-38"><a href="#cb115-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-39"><a href="#cb115-39" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im3, ax<span class="op">=</span>axs, fraction<span class="op">=</span><span class="fl">0.046</span>, label<span class="op">=</span><span class="st">'corrected frequencies'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
+<div id="cell-chrX_sub_smooth_interpolate" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>smoothed_interpolated.outputs[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div id="chrx_sub_smooth_interpolate" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="02_open2c_framework_files/figure-html/cell-77-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="02_open2c_framework_files/figure-html/chrx_sub_smooth_interpolate-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Normal, smoothed, and interpolated views of the interaction matrix. Functions provided by <code>cooltools</code>.</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
 </section>
+</section>
+<section id="counts-vs.-distance" class="level1">
+<h1>Counts vs.&nbsp;Distance</h1>
+<p>To follow the <code>cooltools</code> analysis pipe, we can do this stuff before analyzing compartments.</p>
 </section>
 <section id="compartments" class="level1">
 <h1>Compartments</h1>

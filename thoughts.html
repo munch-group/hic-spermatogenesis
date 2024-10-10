@@ -253,10 +253,10 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#notes-on-quarto" id="toc-notes-on-quarto" class="nav-link active" data-scroll-target="#notes-on-quarto">Notes on Quarto</a></li>
+  <li><a href="#notes-on-methods" id="toc-notes-on-methods" class="nav-link active" data-scroll-target="#notes-on-methods">Notes on methods</a></li>
+  <li><a href="#notes-on-quarto" id="toc-notes-on-quarto" class="nav-link" data-scroll-target="#notes-on-quarto">Notes on Quarto</a></li>
   <li><a href="#notes-on-hicexplorer" id="toc-notes-on-hicexplorer" class="nav-link" data-scroll-target="#notes-on-hicexplorer">Notes on <code>HiCExplorer</code></a></li>
   <li><a href="#notes-on-open2c-framework" id="toc-notes-on-open2c-framework" class="nav-link" data-scroll-target="#notes-on-open2c-framework">Notes on Open2C framework</a></li>
-  <li><a href="#notes-on-methods" id="toc-notes-on-methods" class="nav-link" data-scroll-target="#notes-on-methods">Notes on methods</a></li>
   </ul>
 <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/" target="_blank"><i class="bi bi-github"></i>GitHub Repo</a></li></ul></div></nav>
     </div>
@@ -276,7 +276,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 9, 2024 <br> 21:03:14 (UTC +00:00)</p>
+      <p class="date">October 10, 2024 <br> 11:10:42 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -289,6 +289,13 @@ div.csl-indent {
 
 
 <p><em>Here goes my thoughts and frustrations about the tools, the results, or the project in general.</em></p>
+<section id="notes-on-methods" class="level2">
+<h2 class="anchored" data-anchor-id="notes-on-methods">Notes on methods</h2>
+<ul>
+<li><span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> uses a sliding window approach <span class="citation" data-cites="dixon_chromatin_2015">(<a href="references.html#ref-dixon_chromatin_2015" role="doc-biblioref">Dixon et al. 2015</a>)</span> to calculate the obs/exp matrices for the PCA. I will try that next, and work within the <code>cooler</code>/<code>cooltools</code> framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.</li>
+<li><code>HiCExplorer</code> use a genome-wide contact-distance-based normalization method (<code>dist_norm</code>) to generate <em>obs/exp</em> matrices for PCA (similar to <span class="citation" data-cites="lieberman-aiden_comprehensive_2009">(<a href="references.html#ref-lieberman-aiden_comprehensive_2009" role="doc-biblioref">Lieberman-Aiden et al. 2009</a>)</span>) that may introduce biases. I don’t know why, but it looks more like <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> when subtracting the running average [triangular windows, <em>Kasper</em> did this] from the computed PCs.</li>
+</ul>
+</section>
 <section id="notes-on-quarto" class="level2">
 <h2 class="anchored" data-anchor-id="notes-on-quarto">Notes on Quarto</h2>
 <p>I feel like i have the Markdown/Quarto thing under control, which is pretty nice. It is going to be really cool when actually starting to write the manus (I think).</p>
@@ -368,14 +375,47 @@ div.csl-indent {
 </div>
 <p>Neither of them really resembles the ones from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, but we have some confidence in our method still. Next step is to do the default compartmentalization analysis from <code>cooler</code> as well.</p>
 </section>
-</section>
-</section>
-<section id="notes-on-methods" class="level2">
-<h2 class="anchored" data-anchor-id="notes-on-methods">Notes on methods</h2>
-<ul>
-<li><span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> uses a sliding window approach <span class="citation" data-cites="dixon_chromatin_2015">(<a href="references.html#ref-dixon_chromatin_2015" role="doc-biblioref">Dixon et al. 2015</a>)</span> to calculate the obs/exp matrices for the PCA. I will try that next, and work within the <code>cooler</code>/<code>cooltools</code> framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.</li>
-<li><code>HiCExplorer</code> use a genome-wide contact-distance-based normalization method (<code>dist_norm</code>) to generate <em>obs/exp</em> matrices for PCA (similar to <span class="citation" data-cites="lieberman-aiden_comprehensive_2009">(<a href="references.html#ref-lieberman-aiden_comprehensive_2009" role="doc-biblioref">Lieberman-Aiden et al. 2009</a>)</span>) that may introduce biases. I don’t know why, but it looks more like <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> when subtracting the running average [triangular windows, <em>Kasper</em> did this] from the computed PCs.</li>
-</ul>
+<section id="update-10-10-2024" class="level4">
+<h4 class="anchored" data-anchor-id="update-10-10-2024">Update 10-10-2024</h4>
+<p>I plotted the <code>weights</code> variable below the interaction maps. Maybe it will be useful.</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-rep1-matrix-weights">
+<div id="cell-rep1-matrix-weights" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div id="rep1-matrix-weights" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-rep1-matrix-weights-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Rep1 interaction matrix with weights visualized. Top: raw counts. Bottom: corrected frequencies. Left: whole chrX. Right: chrX60:70Mb</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Also, we can plot the coverage divided into cis and all contacts, as well as the cis/total coverage ratio:</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-full-X-coverage-weights">
+<div id="cell-full-X-coverage-weights" class="cell" data-execution_count="35">
+<div class="cell-output cell-output-display" data-execution_count="35">
+<div id="full-x-coverage-weights" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-full-x-coverage-weights-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Rep1 chrX interaction matrix with coverage for cis and total as well as cis/total coverage ratio.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Finally, before moving on, we can do some visual improvements to the plot (it does not alter the data), with <code>adaptive coarsegraining</code> and <code>interpolating</code> the matrix. It looks pretty cool:</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX_sub_smooth_interpolate">
+<div id="cell-chrX_sub_smooth_interpolate" class="cell" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div id="chrx_sub_smooth_interpolate" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-chrx_sub_smooth_interpolate-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Normal, smoothed, and interpolated views of the interaction matrix. Functions provided by <code>cooltools</code>.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -389,6 +429,8 @@ Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobi
 Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
 </div>
 </div>
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
