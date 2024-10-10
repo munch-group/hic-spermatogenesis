@@ -68,3 +68,4 @@ Also, we can plot the coverage divided into cis and all contacts, as well as the
 Finally, before moving on, we can do some visual improvements to the plot (it does not alter the data), with `adaptive coarsegraining` and `interpolating` the matrix. It looks pretty cool:
 
 {{< embed  notebooks/02_open2c_framework.ipynb#chrX_sub_smooth_interpolate >}}
+
