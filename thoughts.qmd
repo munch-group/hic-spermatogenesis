@@ -95,3 +95,5 @@ Here, comparing to the Wang paper:
 </center>
 
 {{< embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
+
+I'm very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome *rheMac10*, where more than 99% of the segmentation is removed, compared to *rheMac2*. It is evident in the [@wang_reprogramming_2019] PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped. 
