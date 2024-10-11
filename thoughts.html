@@ -276,7 +276,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 10, 2024 <br> 13:53:11 (UTC +00:00)</p>
+      <p class="date">October 11, 2024 <br> 10:53:15 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -403,7 +403,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Finally, before moving on, we can do some visual improvements to the plot (it does not alter the data), with <code>adaptive coarsegraining</code> and <code>interpolating</code> the matrix. It looks pretty cool:</p>
+<p>Finally, before moving on, we can do some visual improvements to the plot (it does not alter the data), with <em>adaptive coarsegraining</em> and <em>interpolating</em> the matrix. It looks pretty cool:</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX_sub_smooth_interpolate">
 <div id="cell-chrX_sub_smooth_interpolate" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display" data-execution_count="40">
@@ -411,6 +411,55 @@ div.csl-indent {
 <figure class="figure">
 <p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-chrx_sub_smooth_interpolate-output-1.png" class="img-fluid figure-img"></p>
 <figcaption>Normal, smoothed, and interpolated views of the interaction matrix. Functions provided by <code>cooltools</code>.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="compartments" class="level4">
+<h4 class="anchored" data-anchor-id="compartments">Compartments</h4>
+<p>Finally, I managed to map the compartments with <code>cooler</code>. First, the depencies are imported: <code>numpy</code>, <code>pandas</code>, <code>cooler</code>, <code>cooltools</code>, <code>bioframe</code>, and some more plot-specific packages.</p>
+<ol type="1">
+<li>Load the cooler at a selected binsize.</li>
+<li>Load the reference genome<br>
+(<code>bioframe.load_fasta()</code>)</li>
+<li>Calculate the GC% in each of the bins<br>
+(<code>bioframe.frac_gc()</code>)
+<ul>
+<li>NB I found some missing values, but only 1 on the <em>X</em>. I don’t know why.</li>
+</ul></li>
+<li>Calculate the <em>cis</em> eigenvectors to each bin (<code>cooltools.eigs_cis()</code>), where the GC coverage is used as a ‘phasing’ track.<br>
+It is saved as a E1-track, with <code>[['chrom','start','end','E1']]</code></li>
+<li>Plot with <code>matplotlib</code> and submodules. Optionally, we can mark the E1 transitions on the matrix. Here, I removed the horisontal lines.</li>
+</ol>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-matrix-e1">
+<div id="cell-chrX-matrix-e1" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div id="chrx-matrix-e1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-chrx-matrix-e1-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>chrX interaction matrix with E1 eigenvector values.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Here, comparing to the Wang paper:</p>
+<center>
+<figure class="figure">
+<figcaption>
+Wang2019 PC1 on chrX
+</figcaption>
+<img src="figures/E1_chrX_fib_wang.png" width="93%" alt="E1_chrX_fib_wang" class="figure-img">
+</figure>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-e1-plot">
+<div id="cell-chrX-e1-plot" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<div id="chrx-e1-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-chrx-e1-plot-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>E1 eigenvector values for chrX. Freshly calculated from the cooler file.</figcaption>
 </figure>
 </div>
 </div>
@@ -429,7 +478,7 @@ Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobi
 Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
 </div>
 </div>
-</section>
+</center></section>
 </section>
 </section>
 
