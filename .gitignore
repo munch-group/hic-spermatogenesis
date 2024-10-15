@@ -133,5 +133,5 @@ steps
 /.quarto/
 _book/
 
-# Don't include gwf logs
+# Don't include gwf logs or config
 .gwf
