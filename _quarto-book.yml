@@ -10,7 +10,7 @@ execute:
 format:
   html:
     theme: 
-      - default
+      - cosmo
       - custom.scss
     toc-depth: 2
     notebook-links: global
@@ -25,6 +25,8 @@ book:
   repo-actions: [edit, issue, source]  
   title: "Søren's MSc project about Hi-C and spermatogenesis"
   author: "Søren Jørgensen"
+  sidebar:
+    collapse-level: 1
   chapters:
     - index.qmd
     - thoughts.qmd
@@ -36,6 +38,7 @@ book:
       - notebooks/02_open2c_framework.ipynb
     - part: "Workflows"
       chapters:
+      - master_workflow.py
       - gwf_map_reads.py
       - gwf_bowtie.py
       - gwf_bowtie_local.py
