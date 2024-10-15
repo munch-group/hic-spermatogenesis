@@ -99,7 +99,7 @@ def bwa_map(ref_genome, mate_1, mate_2, download_ok, out_bam):
               mate_1, mate_2,
               download_ok]
     outputs = [out_bam]
-    options = {'cores':threads, 'memory': "32g", 'walltime':"06:00:00"}
+    options = {'cores':threads, 'memory': "32g", 'walltime':"12:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -112,7 +112,7 @@ def pair_sort_alignments(chromsizes, bam_merged, sorted_pairs):
     inputs = [bam_merged]
     outputs = [f"{bam_merged}_parsed.stats", 
                sorted_pairs]
-    options = {'cores':12, 'memory':"4g", 'walltime':"06:00:00"}
+    options = {'cores':12, 'memory':"4g", 'walltime':"08:00:00"}
     spec=f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -137,7 +137,7 @@ def dedup(sorted_pairs, chromsizes):
                f"{pairs_prefix}.dups.pairs.gz",
                f"{pairs_prefix}.dedup.stats",
                f"{pairs_prefix}.dedup.done"]
-    options = {'cores':12, 'memory': "16g", 'walltime': "04:00:00"}
+    options = {'cores':12, 'memory': "16g", 'walltime': "06:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -160,7 +160,7 @@ def make_pairs_cool(chromsizes, pairs, cool_out):
     base = os.path.basename(pairs).split(".pairs.gz")[0]
     inputs = [pairs]
     outputs = [cool_out]
-    options = {'cores':1, 'memory':"4g", 'walltime':"01:00:00"}
+    options = {'cores':1, 'memory':"4g", 'walltime':"03:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -174,7 +174,6 @@ cooler cload pairs \
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
     
-
 
 ################################################
 # Set up the folder structure for the workflow #
@@ -299,14 +298,3 @@ for id in sra_runtable["Run"]:
 
         T5 = gwf.target_from_template(f"pairs_cool_{cool_name}",
                                         make_pairs_cool(filtered_chromsizes, pairs=T4out, cool_out=cool_file))
-
-
-    
-
-    
-
-
-
-
-
-# %%
