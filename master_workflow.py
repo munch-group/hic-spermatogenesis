@@ -99,7 +99,7 @@ def bwa_map(ref_genome, mate_1, mate_2, download_ok, out_bam):
               mate_1, mate_2,
               download_ok]
     outputs = [out_bam]
-    options = {'cores':threads, 'memory': "32g", 'walltime':"12:00:00"}
+    options = {'cores':threads, 'memory': "32g", 'walltime':"24:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
