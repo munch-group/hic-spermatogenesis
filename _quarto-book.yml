@@ -36,6 +36,7 @@ book:
       - notebooks/002_interaction.ipynb
       - notebooks/01_hicexplorer.ipynb
       - notebooks/02_open2c_framework.ipynb
+      - notebooks/03_compartments.ipynb
     - part: "Workflows"
       chapters:
       - master_workflow.py

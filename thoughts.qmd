@@ -3,6 +3,7 @@ title: "Thoughts and Prayers"
 bibliography: references.bib
 date: last-modified
 date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
+toc-depth: 4
 ---
 
 *Here goes my thoughts and frustrations about the tools, the results, or the project in general.*
@@ -87,13 +88,32 @@ It is saved as a E1-track, with `[['chrom','start','end','E1']]`
 
 Here, comparing to the Wang paper:
 
-<center>
-    <figure>
+<figure>
+    <center>
         <figcaption> Wang2019 PC1 on chrX</figcaption>
         <img src='figures/E1_chrX_fib_wang.png' width="93%" alt="E1_chrX_fib_wang">
-    </figure
-</center>
+    </center>
+</figure>
+
 
 {{< embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
 
 I'm very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome *rheMac10*, where more than 99% of the segmentation is removed, compared to *rheMac2*. It is evident in the [@wang_reprogramming_2019] PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped. 
+
+#### Compartments 500kb resolition looks smoother
+
+I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise. 
+
+{{< embed notebooks/03_compartments.ipynb#chrX-matrix-e1-500kb >}}
+
+Or the full size E1 plot:
+
+{{< embed notebooks/03_compartments.ipynb#chrX-e1-500kb-plot >}}
+
+To ease the eye, here are the 100kb E1 and 500kb E1 plots next to each other:
+
+**500kb resolution:**
+{{< embed notebooks/03_compartments.ipynb#chrX-e1-500kb-plot >}}
+
+**100kb resolution**
+{{< embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
