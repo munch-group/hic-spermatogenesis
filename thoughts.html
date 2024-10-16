@@ -177,6 +177,11 @@ div.csl-indent {
   <a href="./notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open2C framework</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/03_compartments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Compartments</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -287,13 +292,26 @@ div.csl-indent {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#notes-on-methods" id="toc-notes-on-methods" class="nav-link active" data-scroll-target="#notes-on-methods">Notes on methods</a></li>
   <li><a href="#notes-on-quarto" id="toc-notes-on-quarto" class="nav-link" data-scroll-target="#notes-on-quarto">Notes on Quarto</a></li>
-  <li><a href="#notes-on-hicexplorer" id="toc-notes-on-hicexplorer" class="nav-link" data-scroll-target="#notes-on-hicexplorer">Notes on <code>HiCExplorer</code></a></li>
-  <li><a href="#notes-on-open2c-framework" id="toc-notes-on-open2c-framework" class="nav-link" data-scroll-target="#notes-on-open2c-framework">Notes on Open2C framework</a></li>
+  <li><a href="#notes-on-hicexplorer" id="toc-notes-on-hicexplorer" class="nav-link" data-scroll-target="#notes-on-hicexplorer">Notes on <code>HiCExplorer</code></a>
+  <ul>
+  <li><a href="#plotting-.cool-files-with-h5py-and-pybigwig" id="toc-plotting-.cool-files-with-h5py-and-pybigwig" class="nav-link" data-scroll-target="#plotting-.cool-files-with-h5py-and-pybigwig">Plotting .cool files with <code>h5py</code> and <code>pyBigWig</code></a></li>
+  </ul></li>
+  <li><a href="#notes-on-open2c-framework" id="toc-notes-on-open2c-framework" class="nav-link" data-scroll-target="#notes-on-open2c-framework">Notes on Open2C framework</a>
+  <ul>
+  <li><a href="#pairtools" id="toc-pairtools" class="nav-link" data-scroll-target="#pairtools">pairtools</a></li>
+  <li><a href="#cooler" id="toc-cooler" class="nav-link" data-scroll-target="#cooler">cooler</a>
+  <ul class="collapse">
+  <li><a href="#update-08-10-2024" id="toc-update-08-10-2024" class="nav-link" data-scroll-target="#update-08-10-2024">Update: 08-10-2024</a></li>
+  <li><a href="#update-10-10-2024" id="toc-update-10-10-2024" class="nav-link" data-scroll-target="#update-10-10-2024">Update 10-10-2024</a></li>
+  <li><a href="#compartments" id="toc-compartments" class="nav-link" data-scroll-target="#compartments">Compartments</a></li>
+  <li><a href="#compartments-500kb-resolition-looks-smoother" id="toc-compartments-500kb-resolition-looks-smoother" class="nav-link" data-scroll-target="#compartments-500kb-resolition-looks-smoother">Compartments 500kb resolition looks smoother</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/thoughts.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/thoughts.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/thoughts.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/thoughts.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -311,7 +329,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 16, 2024 <br> 08:12:18 (UTC +00:00)</p>
+      <p class="date">October 16, 2024 <br> 11:32:51 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -481,12 +499,13 @@ It is saved as a E1-track, with <code>[['chrom','start','end','E1']]</code></li>
 </div>
 </div>
 <p>Here, comparing to the Wang paper:</p>
-<center>
 <figure class="figure">
+<center>
 <figcaption>
 Wang2019 PC1 on chrX
 </figcaption>
 <img src="figures/E1_chrX_fib_wang.png" width="93%" alt="E1_chrX_fib_wang" class="figure-img">
+</center>
 </figure>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-e1-plot">
 <div id="cell-chrX-e1-plot" class="cell" data-execution_count="25">
@@ -501,6 +520,62 @@ Wang2019 PC1 on chrX
 </div>
 </div>
 <p>I’m very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome <em>rheMac10</em>, where more than 99% of the segmentation is removed, compared to <em>rheMac2</em>. It is evident in the <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped.</p>
+</section>
+<section id="compartments-500kb-resolition-looks-smoother" class="level4">
+<h4 class="anchored" data-anchor-id="compartments-500kb-resolition-looks-smoother">Compartments 500kb resolition looks smoother</h4>
+<p>I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise.</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments" data-notebook-cellid="cell-chrX-matrix-e1-500kb">
+<div id="cell-chrX-matrix-e1-500kb" class="cell" data-execution_count="35">
+<div class="cell-output cell-output-display">
+<div id="chrx-matrix-e1-500kb" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-03_compartments-chrx-matrix-e1-500kb-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>chrX interaction matrix with E1 eigenvector values. 500kb resolution</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Or the full size E1 plot:</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments" data-notebook-cellid="cell-chrX-e1-500kb-plot">
+<div id="cell-chrX-e1-500kb-plot" class="cell" data-fig-height="1" data-execution_count="38">
+<div class="cell-output cell-output-display">
+<div id="chrx-e1-500kb-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-03_compartments-chrx-e1-500kb-plot-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>500kb binned E1 eigenvector values for chrX. Freshly calculated from the cooler file.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>To ease the eye, here are the 100kb E1 and 500kb E1 plots next to each other:</p>
+<p><strong>500kb resolution:</strong></p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments" data-notebook-cellid="cell-chrX-e1-500kb-plot">
+<div id="cell-chrX-e1-500kb-plot" class="cell" data-fig-height="1" data-execution_count="38">
+<div class="cell-output cell-output-display">
+<div id="chrx-e1-500kb-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-03_compartments-chrx-e1-500kb-plot-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>500kb binned E1 eigenvector values for chrX. Freshly calculated from the cooler file.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><strong>100kb resolution</strong></p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-e1-plot">
+<div id="cell-chrX-e1-plot" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<div id="chrx-e1-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-chrx-e1-plot-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>E1 eigenvector values for chrX. Freshly calculated from the cooler file.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -514,7 +589,7 @@ Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobi
 Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
 </div>
 </div>
-</center></section>
+</section>
 </section>
 </section>
 
