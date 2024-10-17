@@ -153,7 +153,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/001_weather.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_open2c_framework.html"><span class="chapter-title">Open2C framework</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/01_hicexplorer.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_open2c_framework.html"><span class="chapter-title">Open2C framework</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -200,16 +200,6 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../notebooks/001_weather.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Danish weather</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../notebooks/002_interaction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workplace interaction</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer using macaque data</span></a>
@@ -369,9 +359,9 @@ window.Quarto = {
 <div class="toc-actions"><ul class="collapse"><li><a href="https://github.dev/munch-group/hic-spermatogenesis/blob/main/notebooks/02_open2c_framework.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/notebooks/02_open2c_framework.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/001_weather.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_open2c_framework.html"><span class="chapter-title">Open2C framework</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/01_hicexplorer.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/02_open2c_framework.html"><span class="chapter-title">Open2C framework</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Open2C framework</span></h1>
 </div>
@@ -390,7 +380,7 @@ window.Quarto = {
 </header>
 
 
-<section id="pairtools-convert-sequencing-data-to-a-list-of-contacts" class="level1">
+<section id="pairtools-convert-sequencing-data-to-a-list-of-contacts" class="level1 page-columns page-full">
 <h1><code>pairtools</code>: Convert sequencing data to a list of contacts</h1>
 <section id="check-out-the-bamfiles" class="level2">
 <h2 class="anchored" data-anchor-id="check-out-the-bamfiles">Check out the bamfiles</h2>
@@ -834,7 +824,7 @@ SRR6502339.89600080 chr1    19644   chr1    62483   +   -   DD  25  60
 </div>
 </div>
 </section>
-<section id="visualize-stats-pairtools-stats" class="level2">
+<section id="visualize-stats-pairtools-stats" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="visualize-stats-pairtools-stats">Visualize Stats: <code>pairtools stats</code></h2>
 <p>It might be the same stats that are (optionally) returned from <code>pairtools parse</code>.</p>
 <p>Let’s look at the parsed stats in a nice way:</p>
@@ -848,22 +838,22 @@ SRR6502339.89600080 chr1    19644   chr1    62483   +   -   DD  25  60
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#pairtools stats SRR6502339.sorted.pairs.gz -o test.stats</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="otherwise-just-use-multiqc" class="level3">
+<section id="otherwise-just-use-multiqc" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="otherwise-just-use-multiqc">Otherwise, just use <code>MultiQC</code></h3>
 <section id="generate-the-multiqc-files" class="level4">
 <h4 class="anchored" data-anchor-id="generate-the-multiqc-files">Generate the MultiQC files</h4>
 </section>
-<section id="now-visualize" class="level4">
+<section id="now-visualize" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="now-visualize">Now visualize:</h4>
-<section id="all-results-merged-before-dedup" class="level5">
+<section id="all-results-merged-before-dedup" class="level5 page-columns page-full">
 <h5 class="anchored" data-anchor-id="all-results-merged-before-dedup">All results merged (before dedup)</h5>
-<div id="f04020ea-2ba9-458d-b750-78a88bbf35c5" class="cell" data-execution_count="104">
+<div id="f04020ea-2ba9-458d-b750-78a88bbf35c5" class="cell page-columns page-full" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> IFrame</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>IFrame(src<span class="op">=</span><span class="st">'../steps/bwa/PE/bamfiles/Fibroblasts_all_multiqc_report.html'</span>, width<span class="op">=</span><span class="dv">1400</span>, height<span class="op">=</span><span class="dv">900</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="104">
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>IFrame(src<span class="op">=</span><span class="st">'../steps/bwa/PE/bamfiles/fibroblast/Fibroblasts_all_multiqc_report.html'</span>, width<span class="op">=</span><span class="dv">1200</span>, height<span class="op">=</span><span class="dv">800</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display column-screen-inset" data-execution_count="8">
 
-        <iframe width="1400" height="900" src="../steps/bwa/PE/bamfiles/Fibroblasts_all_multiqc_report.html" frameborder="0" allowfullscreen=""></iframe>
+        <iframe width="1200" height="800" src="../steps/bwa/PE/bamfiles/fibroblast/Fibroblasts_all_multiqc_report.html" frameborder="0" allowfullscreen=""></iframe>
         
 </div>
 </div>
@@ -890,13 +880,13 @@ SRR6502339.89600080 chr1    19644   chr1    62483   +   -   DD  25  60
            multiqc | MultiQC complete</code></pre>
 </div>
 </div>
-<div id="73441774-1193-4a40-97bc-287483980151" class="cell" data-execution_count="1">
+<div id="73441774-1193-4a40-97bc-287483980151" class="cell page-columns page-full" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> IFrame</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>IFrame(src<span class="op">=</span><span class="st">'../steps/bwa/PE/pairs/fibroblast/Fibroblasts_all.dedup_multiqc_report.html'</span>, width<span class="op">=</span><span class="dv">1400</span>, height<span class="op">=</span><span class="dv">900</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>IFrame(src<span class="op">=</span><span class="st">'../data/QC/Fibroblasts_all.dedup_multiqc_report.html'</span>, width<span class="op">=</span><span class="dv">1200</span>, height<span class="op">=</span><span class="dv">800</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display column-screen-inset" data-execution_count="9">
 
-        <iframe width="1400" height="900" src="../steps/bwa/PE/pairs/fibroblast/Fibroblasts_all.dedup_multiqc_report.html" frameborder="0" allowfullscreen=""></iframe>
+        <iframe width="1200" height="800" src="../data/QC/Fibroblasts_all.dedup_multiqc_report.html" frameborder="0" allowfullscreen=""></iframe>
         
 </div>
 </div>
@@ -904,7 +894,7 @@ SRR6502339.89600080 chr1    19644   chr1    62483   +   -   DD  25  60
 </section>
 </section>
 </section>
-<section id="dedup-the-pairs-and-visualize-stats-again" class="level2">
+<section id="dedup-the-pairs-and-visualize-stats-again" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="dedup-the-pairs-and-visualize-stats-again">Dedup the pairs and visualize stats again</h2>
 <p>The pairs was deduplicated with a gwf workflow <code>gwf_bwamem.py</code></p>
 <div id="41e05aa7-8096-4dfe-aea8-a711d0f4ab1e" class="cell" data-execution_count="1">
@@ -930,13 +920,13 @@ SRR6502339.89600080 chr1    19644   chr1    62483   +   -   DD  25  60
            multiqc | MultiQC complete</code></pre>
 </div>
 </div>
-<div id="64410100-87a0-4e49-b52f-8c33a2a4c083" class="cell" data-execution_count="3">
+<div id="64410100-87a0-4e49-b52f-8c33a2a4c083" class="cell page-columns page-full" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> IFrame</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>IFrame(src<span class="op">=</span><span class="st">'../steps/bwa/PE/pairs/sorted/fibroblast.dedup_multiqc_report.html'</span>, width<span class="op">=</span><span class="dv">1400</span>, height<span class="op">=</span><span class="dv">900</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>IFrame(src<span class="op">=</span><span class="st">'../data/QC/fibroblast.dedup_multiqc_report.html'</span>, width<span class="op">=</span><span class="dv">1200</span>, height<span class="op">=</span><span class="dv">800</span>, style<span class="op">=</span><span class="st">"border:2px solid black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display column-screen-inset" data-execution_count="11">
 
-        <iframe width="1400" height="900" src="../steps/bwa/PE/pairs/sorted/fibroblast.dedup_multiqc_report.html" frameborder="0" allowfullscreen=""></iframe>
+        <iframe width="1200" height="800" src="../data/QC/fibroblast.dedup_multiqc_report.html?style=border%3A2px+solid+black" frameborder="0" allowfullscreen=""></iframe>
         
 </div>
 </div>
