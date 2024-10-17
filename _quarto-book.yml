@@ -12,6 +12,9 @@ format:
     theme: 
       - cosmo
       - custom.scss
+    grid:
+      sidebar-width: 210px
+      margin-width: 150px
     toc-depth: 2
     notebook-links: global
     number-sections: false
@@ -27,13 +30,14 @@ book:
   author: "Søren Jørgensen"
   sidebar:
     collapse-level: 1
+    reader-mode: true
   chapters:
     - index.qmd
     - thoughts.qmd
     - part: "Notebooks"
       chapters: 
-      - notebooks/001_weather.ipynb
-      - notebooks/002_interaction.ipynb
+      #- notebooks/001_weather.ipynb
+      #- notebooks/002_interaction.ipynb
       - notebooks/01_hicexplorer.ipynb
       - notebooks/02_open2c_framework.ipynb
       - notebooks/03_compartments.ipynb
