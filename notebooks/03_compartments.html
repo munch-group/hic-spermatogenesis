@@ -298,9 +298,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul class="collapse">
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#merge-all-data-from-each-cell-type" id="toc-merge-all-data-from-each-cell-type" class="nav-link" data-scroll-target="#merge-all-data-from-each-cell-type">Merge all data from each cell type</a></li>
-  <li><a href="#zoomify-the-merged-cooler-files" id="toc-zoomify-the-merged-cooler-files" class="nav-link" data-scroll-target="#zoomify-the-merged-cooler-files">Zoomify the merged cooler files</a></li>
-  <li><a href="#merge-coolers-based-on-the-biosample-id" id="toc-merge-coolers-based-on-the-biosample-id" class="nav-link" data-scroll-target="#merge-coolers-based-on-the-biosample-id">Merge coolers based on the BioSample ID</a></li>
+  <li><a href="#fullmerge-pool-all-from-each-source_name" id="toc-fullmerge-pool-all-from-each-source_name" class="nav-link" data-scroll-target="#fullmerge-pool-all-from-each-source_name">FullMerge (pool all from each source_name)</a></li>
+  <li><a href="#repmerge-pool-all-from-each-biosample-id" id="toc-repmerge-pool-all-from-each-biosample-id" class="nav-link" data-scroll-target="#repmerge-pool-all-from-each-biosample-id">RepMerge (pool all from each BioSample ID)</a></li>
   <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting">Plotting</a>
   <ul class="collapse">
   <li><a href="#kb-resolution" id="toc-kb-resolution" class="nav-link" data-scroll-target="#kb-resolution">500kb resolution</a></li>
@@ -684,10 +683,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="merge-all-data-from-each-cell-type" class="level2">
-<h2 class="anchored" data-anchor-id="merge-all-data-from-each-cell-type">Merge all data from each cell type</h2>
+<section id="fullmerge-pool-all-from-each-source_name" class="level2">
+<h2 class="anchored" data-anchor-id="fullmerge-pool-all-from-each-source_name">FullMerge (pool all from each source_name)</h2>
 <p>With <code>cooler merge</code></p>
-<div id="cell-7" class="cell" data-execution_count="24">
+<div id="cell-7" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pprint <span class="im">import</span> pprint <span class="im">as</span> pp</span>
@@ -699,9 +698,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>files_dict <span class="op">=</span> {f:glob.glob(<span class="ss">f"</span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">/*.nodups.*"</span>) <span class="cf">for</span> f <span class="kw">in</span> folders}</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>cooler_dict <span class="op">=</span> {op.basename(k): [op.basename(f) <span class="cf">for</span> f <span class="kw">in</span> v] <span class="cf">for</span> k,v <span class="kw">in</span> files_dict.items()}</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>cooler_dict_no_fib <span class="op">=</span> {k:v <span class="cf">for</span> k,v <span class="kw">in</span> cooler_dict.items() <span class="cf">if</span> <span class="st">'fib'</span> <span class="kw">not</span> <span class="kw">in</span> k}</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>pp(cooler_dict_no_fib)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>pp(cooler_dict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'pachytene_spermatocyte': ['SRR7345459.nodups.10000.cool',
+<pre><code>{'fibroblast': ['SRR6502339.nodups.10000.cool',
+                'SRR7349190.nodups.10000.cool',
+                'SRR7349189.nodups.10000.cool',
+                'SRR6502335.nodups.10000.cool',
+                'SRR6502338.nodups.10000.cool',
+                'SRR6502336.nodups.10000.cool',
+                'SRR6502337.nodups.10000.cool'],
+ 'pachytene_spermatocyte': ['SRR7345459.nodups.10000.cool',
                             'SRR6502344.nodups.10000.cool',
                             'SRR6502342.nodups.10000.cool',
                             'SRR7345458.nodups.10000.cool',
@@ -727,73 +733,112 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                    'SRR7345463.nodups.10000.cool']}</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB adjust mergebuf if you don't have 32G of RAM</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># I used </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> folder,cooler_list <span class="kw">in</span> cooler_dict_no_fib.items():</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    in_uris <span class="op">=</span> [op.join(base_dir, folder, <span class="bu">file</span>) <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> cooler_list]</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    out_uri <span class="op">=</span> op.join(base_dir, folder, <span class="ss">f'</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">.fullmerge.cool'</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> op.exists(out_uri):</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Skipping </span><span class="sc">{</span>out_uri<span class="sc">}</span><span class="ss">: exists..."</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Creating </span><span class="sc">{</span>out_uri<span class="sc">}</span><span class="ss"> by </span><span class="ch">\n</span><span class="ss">Merging </span><span class="sc">{</span><span class="bu">len</span>(cooler_list)<span class="sc">}</span><span class="ss"> coolers into one:"</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("\t",[file.split('.')[0] for file in cooler_list])</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    cooler.merge_coolers(output_uri<span class="op">=</span>out_uri,</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                         input_uris<span class="op">=</span>in_uris,</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                         mergebuf<span class="op">=</span><span class="bu">int</span>(<span class="fl">4e9</span>),</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                         )</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Done!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-8" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB adjust `mergebuf` if you don't have 32G of RAM</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> folder,cooler_list <span class="kw">in</span> cooler_dict.items():</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    in_uris <span class="op">=</span> [op.join(base_dir, folder, <span class="bu">file</span>) <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> cooler_list]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    out_uri <span class="op">=</span> op.join(base_dir, folder, <span class="ss">f'</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">.fullmerge.cool'</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> op.exists(out_uri):</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Skipping </span><span class="sc">{</span>out_uri<span class="sc">}</span><span class="ss">: exists..."</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Creating </span><span class="sc">{</span>out_uri<span class="sc">}</span><span class="ss"> by </span><span class="ch">\n</span><span class="ss">Merging </span><span class="sc">{</span><span class="bu">len</span>(cooler_list)<span class="sc">}</span><span class="ss"> coolers into one:"</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>,[<span class="bu">file</span>.split(<span class="st">'.'</span>)[<span class="dv">0</span>] <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> cooler_list])</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    cooler.merge_coolers(output_uri<span class="op">=</span>out_uri,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                         input_uris<span class="op">=</span>in_uris,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                         mergebuf<span class="op">=</span><span class="bu">int</span>(<span class="fl">4e9</span>),</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                         )</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"... Done!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Creating ../steps/bwa/PE/cool/round_spermatid/round_spermatid.fullmerge.cool by 
-Merging 6 coolers into one: </code></pre>
+<pre><code>Skipping ../steps/bwa/PE/cool/round_spermatid/round_spermatid.fullmerge.cool: exists...
+Skipping ../steps/bwa/PE/cool/spermatogonia/spermatogonia.fullmerge.cool: exists...
+Skipping ../steps/bwa/PE/cool/sperm/sperm.fullmerge.cool: exists...
+Creating ../steps/bwa/PE/cool/fibroblast/fibroblast.fullmerge.cool by 
+Merging 7 coolers into one:      ['SRR6502339', 'SRR7349190', 'SRR7349189', 'SRR6502335', 'SRR6502338', 'SRR6502336', 'SRR6502337']</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/sojern/miniconda3/envs/hic/lib/python3.12/site-packages/dask/dataframe/_pyarrow_compat.py:15: FutureWarning: Minimal version of pyarrow will soon be increased to 14.0.1. You are using 13.0.0. Please consider upgrading.
-  warnings.warn(</code></pre>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[52], line 15</span>
+<span class="ansi-green-fg ansi-bold">     13</span> <span style="color:rgb(0,135,0)">print</span>(<span style="color:rgb(175,0,0)">f</span><span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">Creating </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>out_uri<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span style="color:rgb(175,0,0)"> by </span><span style="font-weight:bold;color:rgb(175,95,0)">\n</span><span style="color:rgb(175,0,0)">Merging </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span><span style="color:rgb(0,135,0)">len</span>(cooler_list)<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span style="color:rgb(175,0,0)"> coolers into one:</span><span style="color:rgb(175,0,0)">"</span>, end<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)"> </span><span style="color:rgb(175,0,0)">"</span>)
+<span class="ansi-green-fg ansi-bold">     14</span> <span style="color:rgb(0,135,0)">print</span>(<span style="color:rgb(175,0,0)">"</span><span style="font-weight:bold;color:rgb(175,95,0)">\t</span><span style="color:rgb(175,0,0)">"</span>,[file<span style="color:rgb(98,98,98)">.</span>split(<span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">.</span><span style="color:rgb(175,0,0)">'</span>)[<span style="color:rgb(98,98,98)">0</span>] <span style="font-weight:bold;color:rgb(0,135,0)">for</span> file <span style="font-weight:bold;color:rgb(175,0,255)">in</span> cooler_list])
+<span class="ansi-green-fg">---&gt; 15</span> cooler<span style="color:rgb(98,98,98)">.</span>merge_coolers(output_uri<span style="color:rgb(98,98,98)">=</span>out_uri,
+<span class="ansi-green-fg ansi-bold">     16</span>                      input_uris<span style="color:rgb(98,98,98)">=</span>in_uris,
+<span class="ansi-green-fg ansi-bold">     17</span>                      mergebuf<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(0,135,0)">int</span>(<span style="color:rgb(98,98,98)">4e9</span>),
+<span class="ansi-green-fg ansi-bold">     18</span>                      )
+<span class="ansi-green-fg ansi-bold">     19</span> <span style="color:rgb(0,135,0)">print</span>(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">... Done!</span><span style="color:rgb(175,0,0)">"</span>)
+
+File <span class="ansi-green-fg">~/miniconda3/envs/hic/lib/python3.12/site-packages/cooler/reduce.py:298</span>, in <span class="ansi-cyan-fg">merge_coolers</span><span class="ansi-blue-fg">(output_uri, input_uris, mergebuf, columns, dtypes, agg, **kwargs)</span>
+<span class="ansi-green-fg ansi-bold">    296</span> bins <span style="color:rgb(98,98,98)">=</span> clrs[<span style="color:rgb(98,98,98)">0</span>]<span style="color:rgb(98,98,98)">.</span>bins()[[<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">chrom</span><span style="color:rgb(175,0,0)">"</span>, <span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">start</span><span style="color:rgb(175,0,0)">"</span>, <span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">end</span><span style="color:rgb(175,0,0)">"</span>]][:]
+<span class="ansi-green-fg ansi-bold">    297</span> assembly <span style="color:rgb(98,98,98)">=</span> clrs[<span style="color:rgb(98,98,98)">0</span>]<span style="color:rgb(98,98,98)">.</span>info<span style="color:rgb(98,98,98)">.</span>get(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">genome-assembly</span><span style="color:rgb(175,0,0)">"</span>, <span style="font-weight:bold;color:rgb(0,135,0)">None</span>)
+<span class="ansi-green-fg">--&gt; 298</span> iterator <span style="color:rgb(98,98,98)">=</span> CoolerMerger(clrs, mergebuf<span style="color:rgb(98,98,98)">=</span>mergebuf, columns<span style="color:rgb(98,98,98)">=</span>columns, agg<span style="color:rgb(98,98,98)">=</span>agg)
+<span class="ansi-green-fg ansi-bold">    300</span> create(
+<span class="ansi-green-fg ansi-bold">    301</span>     output_uri,
+<span class="ansi-green-fg ansi-bold">    302</span>     bins,
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-fg ansi-bold">    308</span>     <span style="color:rgb(98,98,98)">*</span><span style="color:rgb(98,98,98)">*</span>kwargs,
+<span class="ansi-green-fg ansi-bold">    309</span> )
+
+File <span class="ansi-green-fg">~/miniconda3/envs/hic/lib/python3.12/site-packages/cooler/reduce.py:161</span>, in <span class="ansi-cyan-fg">CoolerMerger.__init__</span><span class="ansi-blue-fg">(self, coolers, mergebuf, columns, agg)</span>
+<span class="ansi-green-fg ansi-bold">    159</span>     chromsizes <span style="color:rgb(98,98,98)">=</span> coolers[<span style="color:rgb(98,98,98)">0</span>]<span style="color:rgb(98,98,98)">.</span>chromsizes
+<span class="ansi-green-fg ansi-bold">    160</span>     <span style="font-weight:bold;color:rgb(0,135,0)">for</span> i <span style="font-weight:bold;color:rgb(175,0,255)">in</span> <span style="color:rgb(0,135,0)">range</span>(<span style="color:rgb(98,98,98)">1</span>, <span style="color:rgb(0,135,0)">len</span>(coolers)):
+<span class="ansi-green-fg">--&gt; 161</span>         <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> np<span style="color:rgb(98,98,98)">.</span>all(coolers[i]<span style="color:rgb(98,98,98)">.</span>chromsizes <span style="color:rgb(98,98,98)">==</span> chromsizes):
+<span class="ansi-green-fg ansi-bold">    162</span>             <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">Coolers must have the same chromosomes</span><span style="color:rgb(175,0,0)">"</span>)
+<span class="ansi-green-fg ansi-bold">    163</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+
+File <span class="ansi-green-fg">~/miniconda3/envs/hic/lib/python3.12/site-packages/pandas/core/ops/common.py:76</span>, in <span class="ansi-cyan-fg">_unpack_zerodim_and_defer.&lt;locals&gt;.new_method</span><span class="ansi-blue-fg">(self, other)</span>
+<span class="ansi-green-fg ansi-bold">     72</span>             <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="color:rgb(0,135,0)">NotImplemented</span>
+<span class="ansi-green-fg ansi-bold">     74</span> other <span style="color:rgb(98,98,98)">=</span> item_from_zerodim(other)
+<span class="ansi-green-fg">---&gt; 76</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> method(<span style="color:rgb(0,135,0)">self</span>, other)
+
+File <span class="ansi-green-fg">~/miniconda3/envs/hic/lib/python3.12/site-packages/pandas/core/arraylike.py:40</span>, in <span class="ansi-cyan-fg">OpsMixin.__eq__</span><span class="ansi-blue-fg">(self, other)</span>
+<span class="ansi-green-fg ansi-bold">     38</span> <span style="color:rgb(175,0,255)">@unpack_zerodim_and_defer</span>(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">__eq__</span><span style="color:rgb(175,0,0)">"</span>)
+<span class="ansi-green-fg ansi-bold">     39</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span> <span style="color:rgb(0,0,255)">__eq__</span>(<span style="color:rgb(0,135,0)">self</span>, other):
+<span class="ansi-green-fg">---&gt; 40</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="color:rgb(0,135,0)">self</span><span style="color:rgb(98,98,98)">.</span>_cmp_method(other, operator<span style="color:rgb(98,98,98)">.</span>eq)
+
+File <span class="ansi-green-fg">~/miniconda3/envs/hic/lib/python3.12/site-packages/pandas/core/series.py:6114</span>, in <span class="ansi-cyan-fg">Series._cmp_method</span><span class="ansi-blue-fg">(self, other, op)</span>
+<span class="ansi-green-fg ansi-bold">   6111</span> res_name <span style="color:rgb(98,98,98)">=</span> ops<span style="color:rgb(98,98,98)">.</span>get_op_result_name(<span style="color:rgb(0,135,0)">self</span>, other)
+<span class="ansi-green-fg ansi-bold">   6113</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">isinstance</span>(other, Series) <span style="font-weight:bold;color:rgb(175,0,255)">and</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="color:rgb(0,135,0)">self</span><span style="color:rgb(98,98,98)">.</span>_indexed_same(other):
+<span class="ansi-green-fg">-&gt; 6114</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">Can only compare identically-labeled Series objects</span><span style="color:rgb(175,0,0)">"</span>)
+<span class="ansi-green-fg ansi-bold">   6116</span> lvalues <span style="color:rgb(98,98,98)">=</span> <span style="color:rgb(0,135,0)">self</span><span style="color:rgb(98,98,98)">.</span>_values
+<span class="ansi-green-fg ansi-bold">   6117</span> rvalues <span style="color:rgb(98,98,98)">=</span> extract_array(other, extract_numpy<span style="color:rgb(98,98,98)">=</span><span style="font-weight:bold;color:rgb(0,135,0)">True</span>, extract_range<span style="color:rgb(98,98,98)">=</span><span style="font-weight:bold;color:rgb(0,135,0)">True</span>)
+
+<span class="ansi-red-fg">ValueError</span>: Can only compare identically-labeled Series objects</pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Done!
-Creating ../steps/bwa/PE/cool/spermatogonia/spermatogonia.fullmerge.cool by 
-Merging 7 coolers into one: Done!
-Creating ../steps/bwa/PE/cool/sperm/sperm.fullmerge.cool by 
-Merging 5 coolers into one: Done!
-Creating ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.fullmerge.cool by 
-Merging 6 coolers into one: Done!</code></pre>
 </div>
 </div>
-</section>
-<section id="zoomify-the-merged-cooler-files" class="level2">
-<h2 class="anchored" data-anchor-id="zoomify-the-merged-cooler-files">Zoomify the merged cooler files</h2>
+<section id="zoomify-the-merged-cooler-files" class="level3">
+<h3 class="anchored" data-anchor-id="zoomify-the-merged-cooler-files">Zoomify the merged cooler files</h3>
 <div id="cell-10" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB 8 cores and 32G of RAM was used</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>base_dir <span class="op">=</span> <span class="st">'../steps/bwa/PE/cool'</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>merged_coolers <span class="op">=</span> glob.glob(op.join(base_dir, <span class="st">'*/*.fullmerge.cool'</span>))</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> clr <span class="kw">in</span> merged_coolers:</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    out_uri <span class="op">=</span> clr.replace(<span class="st">'.fullmerge.cool'</span>, <span class="st">'.mcool'</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> op.exists(out_uri):</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Skipping </span><span class="sc">{</span>out_uri<span class="sc">}</span><span class="ss">: exists..."</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Zoomifying cooler: </span><span class="ch">\n\t</span><span class="ss">   </span><span class="sc">{</span>clr<span class="sc">}</span><span class="ch">\n\t</span><span class="ss">-&gt; </span><span class="sc">{</span>out_uri<span class="sc">}</span><span class="ss">"</span>, end<span class="op">=</span><span class="st">""</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    cooler.zoomify_cooler(base_uris <span class="op">=</span> clr,</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                          outfile <span class="op">=</span> out_uri,</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>                          resolutions <span class="op">=</span> [<span class="dv">10000</span>,<span class="dv">50000</span>,<span class="dv">100000</span>,<span class="dv">500000</span>],</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>                          chunksize <span class="op">=</span> <span class="dv">400000000</span>,</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                          nproc <span class="op">=</span> <span class="dv">8</span>)</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" --&gt; done"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB 8 cores and 32G of RAM was used</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>base_dir <span class="op">=</span> <span class="st">'../steps/bwa/PE/cool'</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>merged_coolers <span class="op">=</span> glob.glob(op.join(base_dir, <span class="st">'*/*.fullmerge.cool'</span>))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> clr <span class="kw">in</span> merged_coolers:</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    out_uri <span class="op">=</span> clr.replace(<span class="st">'.fullmerge.cool'</span>, <span class="st">'.mcool'</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> op.exists(out_uri):</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Skipping </span><span class="sc">{</span>out_uri<span class="sc">}</span><span class="ss">: exists..."</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Zoomifying cooler: </span><span class="ch">\n\t</span><span class="ss">   </span><span class="sc">{</span>clr<span class="sc">}</span><span class="ch">\n\t</span><span class="ss">-&gt; </span><span class="sc">{</span>out_uri<span class="sc">}</span><span class="ss">"</span>, end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    cooler.zoomify_cooler(base_uris <span class="op">=</span> clr,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                          outfile <span class="op">=</span> out_uri,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                          resolutions <span class="op">=</span> [<span class="dv">10000</span>,<span class="dv">50000</span>,<span class="dv">100000</span>,<span class="dv">500000</span>],</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                          chunksize <span class="op">=</span> <span class="dv">400000000</span>,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>                          nproc <span class="op">=</span> <span class="dv">8</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" --&gt; done"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Zoomifying cooler: 
        ../steps/bwa/PE/cool/round_spermatid/round_spermatid.fullmerge.cool
@@ -816,11 +861,23 @@ Zoomifying cooler:
     -&gt; ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mcool --&gt; done</code></pre>
 </div>
 </div>
+<div id="cell-11" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>glob.glob(<span class="st">"../steps/bwa/PE/cool/*/*.mcool"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<pre><code>['../steps/bwa/PE/cool/round_spermatid/round_spermatid.mcool',
+ '../steps/bwa/PE/cool/spermatogonia/spermatogonia.mcool',
+ '../steps/bwa/PE/cool/sperm/sperm.mcool',
+ '../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mcool']</code></pre>
+</div>
+</div>
 </section>
-<section id="merge-coolers-based-on-the-biosample-id" class="level2">
-<h2 class="anchored" data-anchor-id="merge-coolers-based-on-the-biosample-id">Merge coolers based on the BioSample ID</h2>
+</section>
+<section id="repmerge-pool-all-from-each-biosample-id" class="level2">
+<h2 class="anchored" data-anchor-id="repmerge-pool-all-from-each-biosample-id">RepMerge (pool all from each BioSample ID)</h2>
 <p>Merge into the original ‘replicates’</p>
-<div id="cell-12" class="cell" data-execution_count="90">
+<div id="cell-13" class="cell" data-execution_count="90">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">'source_name'</span>,<span class="st">'BioSample'</span>])[<span class="st">'Reads'</span>].<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="90">
 <pre><code>source_name             BioSample   
@@ -839,7 +896,7 @@ spermatogonia           SAMN08375231    3.526597e+08
 Name: Reads, dtype: float64</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="84">
+<div id="cell-14" class="cell" data-execution_count="84">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pprintpp <span class="im">import</span> pprint <span class="im">as</span> pp</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>grouped_df <span class="op">=</span> df.groupby([<span class="st">'source_name'</span>,<span class="st">'BioSample'</span>])</span>
@@ -900,7 +957,7 @@ Name: Reads, dtype: float64</code></pre>
 }</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="92">
+<div id="cell-15" class="cell" data-execution_count="92">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> source_name, BioSample_dict <span class="kw">in</span> rep_dict.items():</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"source_name: </span><span class="sc">{</span>source_name<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Changing working dir: </span><span class="sc">{</span>source_name<span class="sc">}</span><span class="ss">/"</span>)</span>
@@ -936,7 +993,7 @@ Merging samples for BioSample: SAMN09427379: ['SRR7345462', 'SRR7345463', 'SRR73
 <h1>Plotting</h1>
 <section id="kb-resolution" class="level2">
 <h2 class="anchored" data-anchor-id="kb-resolution">500kb resolution</h2>
-<div id="cell-17" class="cell" data-execution_count="1">
+<div id="cell-18" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import standard python libraries</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -944,18 +1001,18 @@ Merging samples for BioSample: SAMN09427379: ['SRR7345462', 'SRR7345463', 'SRR73
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os, subprocess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="2">
+<div id="cell-19" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import python package for working with cooler files and tools for analysis</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools.lib.plotting</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="3">
+<div id="cell-20" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cool_file <span class="op">=</span> <span class="st">"../steps/bwa/PE/cool/fibroblast/fib_rep1.mcool"</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>clr <span class="op">=</span> cooler.Cooler(<span class="ss">f"</span><span class="sc">{</span>cool_file<span class="sc">}</span><span class="ss">::resolutions/500000"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="4">
+<div id="cell-21" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bioframe</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> clr.bins()[:]</span>
@@ -1071,7 +1128,7 @@ Merging samples for BioSample: SAMN09427379: ['SRR7345462', 'SRR7345463', 'SRR73
 </div>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="5">
+<div id="cell-22" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apparently, we have som NaN values, I don't know why (and only 1 on the X)</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>gc_cov[gc_cov[<span class="st">'GC'</span>].isna()].groupby(<span class="st">'chrom'</span>).size()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -1100,7 +1157,7 @@ chrY     1
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="6">
+<div id="cell-23" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>view_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'chrom'</span>: clr.chromnames,</span>
@@ -1111,7 +1168,7 @@ dtype: int64</code></pre>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
 <span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#display(view_df)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="7">
+<div id="cell-24" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain first 3 eigenvectors</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>cis_eigs <span class="op">=</span> cooltools.eigs_cis(</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                        clr,</span>
@@ -1127,7 +1184,7 @@ dtype: int64</code></pre>
 <pre><code>5720</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="8">
+<div id="cell-25" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># full track</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>eigenvector_track</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
@@ -1229,14 +1286,14 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="9">
+<div id="cell-26" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset the chrX   </span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>eigenvector_track_chrX <span class="op">=</span> eigenvector_track.loc[eigenvector_track[<span class="st">'chrom'</span>] <span class="op">==</span> <span class="st">'chrX'</span>]</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>nbins <span class="op">=</span> <span class="bu">len</span>(eigenvector_track_chrX)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>eigenvector_track_chrX</span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>e1X_values <span class="op">=</span> eigenvector_track_chrX[<span class="st">'E1'</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="10">
+<div id="cell-27" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture chrX_matrix_e1_500kb</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
