@@ -299,6 +299,7 @@ div.csl-indent {
   <li><a href="#compartments" id="toc-compartments" class="nav-link" data-scroll-target="#compartments">Compartments</a></li>
   <li><a href="#compartments-500kb-resolition-looks-smoother" id="toc-compartments-500kb-resolition-looks-smoother" class="nav-link" data-scroll-target="#compartments-500kb-resolition-looks-smoother">Compartments 500kb resolition looks smoother</a></li>
   </ul></li>
+  <li><a href="#compartments-on-all-cell-types-by-merging-all-samples-from-each-type" id="toc-compartments-on-all-cell-types-by-merging-all-samples-from-each-type" class="nav-link" data-scroll-target="#compartments-on-all-cell-types-by-merging-all-samples-from-each-type">Compartments on all cell types (By merging all samples from each type)</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/thoughts.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/thoughts.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
@@ -319,7 +320,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 19, 2024 <br> 21:24:10 (UTC +00:00)</p>
+      <p class="date">October 21, 2024 <br> 10:07:56 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -515,7 +516,7 @@ Wang2019 PC1 on chrX
 <h4 class="anchored" data-anchor-id="compartments-500kb-resolition-looks-smoother">Compartments 500kb resolition looks smoother</h4>
 <p>I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise.</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-chrX-matrix-e1-500kb">
-<div id="cell-chrX-matrix-e1-500kb" class="cell" data-execution_count="11">
+<div id="cell-chrX-matrix-e1-500kb" class="cell" data-execution_count="100">
 <div class="cell-output cell-output-display">
 <div id="chrx-matrix-e1-500kb" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -566,6 +567,36 @@ Wang2019 PC1 on chrX
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="compartments-on-all-cell-types-by-merging-all-samples-from-each-type" class="level3">
+<h3 class="anchored" data-anchor-id="compartments-on-all-cell-types-by-merging-all-samples-from-each-type">Compartments on all cell types (By merging all samples from each type)</h3>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-500kb">
+<div id="cell-e1-fullmerged-all-500kb" class="cell" data-execution_count="103">
+<div class="cell-output cell-output-display">
+<div id="e1-fullmerged-all-500kb" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-03_compartments-e1-fullmerged-all-500kb-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>E1 eigenvector values for all merged samples at 500kb resolution.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>As they do not look that for all cell types, I wanted to see how the running average affected the E1 values:</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-500kb-running-avg">
+<div id="cell-e1-fullmerged-all-500kb-running-avg" class="cell" data-execution_count="61">
+<div class="cell-output cell-output-display">
+<div id="e1-fullmerged-all-500kb-running-avg" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="thoughts_files/figure-html/notebooks-03_compartments-e1-fullmerged-all-500kb-running-avg-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>E1 eigenvector values for all merged samples at 500kb resolution with running average.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Next I’m doing is to look at filtering of the matrix before balancing, to see if we have unreliable bins that influence the prediction.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -579,7 +610,6 @@ Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobi
 Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
 </div>
 </div>
-</section>
 </section>
 </section>
 
