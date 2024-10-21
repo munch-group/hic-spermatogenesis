@@ -117,3 +117,13 @@ To ease the eye, here are the 100kb E1 and 500kb E1 plots next to each other:
 
 **100kb resolution**
 {{< embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
+
+### Compartments on all cell types (By merging all samples from each type)
+
+{{< embed notebooks/03_compartments.ipynb#e1-fullmerged-all-500kb >}}
+
+As they do not look that for all cell types, I wanted to see how the running average affected the E1 values:
+
+{{< embed notebooks/03_compartments.ipynb#e1-fullmerged-all-500kb-running-avg >}}
+
+Next I'm doing is to look at filtering of the matrix before balancing, to see if we have unreliable bins that influence the prediction. 
