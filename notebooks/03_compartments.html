@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="toc-actions"><ul class="collapse"><li><a href="https://github.dev/munch-group/hic-spermatogenesis/blob/main/notebooks/03_compartments.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/notebooks/03_compartments.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/01_hicexplorer.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/03_compartments.html"><span class="chapter-title">Working with coolers</span></a></li></ol></nav>
 <div class="quarto-title">
@@ -2097,9 +2097,9 @@ INFO:cooler.balance:variance is 9.971744383977664e-06
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#         print(f"Merging samples for BioSample: {BioSample}: {run_list}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="plotting" class="level1">
+<section id="plotting" class="level1 page-columns page-full">
 <h1>Plotting</h1>
-<section id="kb-resolution" class="level2">
+<section id="kb-resolution" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="kb-resolution">500kb resolution</h2>
 <section id="example-with-a-single-sample" class="level3">
 <h3 class="anchored" data-anchor-id="example-with-a-single-sample">Example with a single sample</h3>
@@ -2572,7 +2572,7 @@ dtype: int64</code></pre>
 </div>
 </section>
 </section>
-<section id="all-5-full-merges" class="level3">
+<section id="all-5-full-merges" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="all-5-full-merges">All 5 full merges</h3>
 <section id="load-coolers" class="level4">
 <h4 class="anchored" data-anchor-id="load-coolers">Load coolers</h4>
@@ -2918,9 +2918,9 @@ Calculating eigenvectors for sperm</code></pre>
 </div>
 </div>
 </section>
-<section id="try-kaspers-running-average" class="level4">
+<section id="try-kaspers-running-average" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="try-kaspers-running-average">Try Kasper’s running average</h4>
-<div id="cell-e1-fullmerged-all-500kb-running-avg" class="cell" data-execution_count="67">
+<div id="cell-e1-fullmerged-all-500kb-running-avg" class="cell page-columns page-full" data-execution_count="67">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
@@ -2968,10 +2968,10 @@ Calculating eigenvectors for sperm</code></pre>
 <span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a><span class="co">#     ax.spines[:].set_visible(False)</span></span>
 <span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.tight_layout()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div id="e1-fullmerged-all-500kb-running-avg" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="03_compartments_files/figure-html/e1-fullmerged-all-500kb-running-avg-output-1.png" class="img-fluid figure-img"></p>
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="e1-fullmerged-all-500kb-running-avg" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="03_compartments_files/figure-html/e1-fullmerged-all-500kb-running-avg-output-1.png" class="img-fluid figure-img column-page"></p>
 <figcaption>E1 eigenvector values for all merged samples at 500kb resolution with running average.</figcaption>
 </figure>
 </div>
