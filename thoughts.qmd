@@ -8,7 +8,6 @@ toc-depth: 4
 
 *Here goes my thoughts and frustrations about the tools, the results, or the project in general.*
 
-
 ## Notes on methods
 
 -   [@wang_reprogramming_2019] uses a sliding window approach [@dixon_chromatin_2015] to calculate the obs/exp matrices for the PCA. I will try that next, and work within the `cooler`/`cooltools` framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.
@@ -60,7 +59,7 @@ Neither of them really resembles the ones from [@wang_reprogramming_2019], but w
 
 I plotted the `weights` variable below the interaction maps. Maybe it will be useful.
 
-{{< embed  notebooks/02_open2c_framework.ipynb#rep1-matrix-weights >}}
+{{< embed notebooks/02_open2c_framework.ipynb#rep1-matrix-weights >}}
 
 Also, we can plot the coverage divided into cis and all contacts, as well as the cis/total coverage ratio:
 
@@ -68,41 +67,47 @@ Also, we can plot the coverage divided into cis and all contacts, as well as the
 
 Finally, before moving on, we can do some visual improvements to the plot (it does not alter the data), with *adaptive coarsegraining* and *interpolating* the matrix. It looks pretty cool:
 
-{{< embed  notebooks/02_open2c_framework.ipynb#chrX_sub_smooth_interpolate >}}
+{{< embed notebooks/02_open2c_framework.ipynb#chrX_sub_smooth_interpolate >}}
 
 #### Compartments
 
 Finally, I managed to map the compartments with `cooler`. First, the depencies are imported: `numpy`, `pandas`, `cooler`, `cooltools`, `bioframe`, and some more plot-specific packages.
 
-1) Load the cooler at a selected binsize. 
-2) Load the reference genome   
-(`bioframe.load_fasta()`)
-3) Calculate the GC\% in each of the bins   
-(`bioframe.frac_gc()`)
-    * NB I found some missing values, but only 1 on the *X*. I don't know why.
-4) Calculate the *cis* eigenvectors to each bin (`cooltools.eigs_cis()`), where the GC coverage is used as a 'phasing' track.   
-It is saved as a E1-track, with `[['chrom','start','end','E1']]`
-5) Plot with `matplotlib` and submodules. Optionally, we can mark the E1 transitions on the matrix. Here, I removed the horisontal lines. 
+1)  Load the cooler at a selected binsize.
+2)  Load the reference genome\
+    (`bioframe.load_fasta()`)
+3)  Calculate the GC% in each of the bins\
+    (`bioframe.frac_gc()`)
+    -   NB I found some missing values, but only 1 on the *X*. I don't know why.
+4)  Calculate the *cis* eigenvectors to each bin (`cooltools.eigs_cis()`), where the GC coverage is used as a 'phasing' track.\
+    It is saved as a E1-track, with `[['chrom','start','end','E1']]`
+5)  Plot with `matplotlib` and submodules. Optionally, we can mark the E1 transitions on the matrix. Here, I removed the horisontal lines.
 
 {{< embed notebooks/02_open2c_framework.ipynb#chrX-matrix-e1 >}}
+
+A note from the authors of `cooltools` is that we always have to inspect the E1 values to see how well it captures the compartments in the matrix. Here, it actually doesn't do very well, So i'm not sure what went wrong. The E1 values seem to have a lot of sign changes, that are not visible in the plot. Maybe it looks better with 500kb resolution.
 
 Here, comparing to the Wang paper:
 
 <figure>
-    <center>
-        <figcaption> Wang2019 PC1 on chrX</figcaption>
-        <img src='figures/E1_chrX_fib_wang.png' width="93%" alt="E1_chrX_fib_wang">
-    </center>
-</figure>
 
+<center>
+
+<figcaption>Wang2019 PC1 on chrX</figcaption>
+
+<img src="figures/E1_chrX_fib_wang.png" alt="E1_chrX_fib_wang" width="93%"/>
+
+</center>
+
+</figure>
 
 {{< embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
 
-I'm very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome *rheMac10*, where more than 99% of the segmentation is removed, compared to *rheMac2*. It is evident in the [@wang_reprogramming_2019] PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped. 
+I'm very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome *rheMac10*, where more than 99% of the segmentation is removed, compared to *rheMac2*. It is evident in the [@wang_reprogramming_2019] PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped.
 
-#### Compartments 500kb resolition looks smoother
+#### Compartments 500kb resolution looks smoother
 
-I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise. 
+I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise. It looks more like it captures only the visible compartments in the matrix, whcih is good
 
 {{< embed notebooks/03_compartments.ipynb#chrX-matrix-e1-500kb >}}
 
@@ -112,18 +117,34 @@ Or the full size E1 plot:
 
 To ease the eye, here are the 100kb E1 and 500kb E1 plots next to each other:
 
-**500kb resolution:**
-{{< embed notebooks/03_compartments.ipynb#chrX-e1-500kb-plot >}}
+**500kb resolution:** {{< embed notebooks/03_compartments.ipynb#chrX-e1-500kb-plot >}}
 
-**100kb resolution**
-{{< embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
+**100kb resolution** {{< embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
 
 ### Compartments on all cell types (By merging all samples from each type)
 
+Now it is time for the analysis of the other cell types as well. Here, we trust [@wang_reprogramming_2019] when they state that their compartments were highly reproducible between replicates. 
+
+Thus, we merge all samples from each cell type, leaving us with 5 *coolers* at 10 kb bins. We then `zoomify` the coolers to include the resolutions 50, 100, and 500kb binned data as well.
+
+We continue with the analysis with the 500kb binned data, as it runs faster, uses less memory, while still being sufficient for chromosome-wide analysis. 
+
+# Calculating the eigenvectors again
+
+Initially, the results were not as expected, as the E1 did not reflect the plaid pattern from the matrix from all cell types. In stead, it showed two compartments.
+
+As stated in [@wang_reprogramming_2019, @lieberman-aiden_comprehensive_2009] and `cooltools` documentation, the E1 occasionally *does not* reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere). 
+
+I determined the region of the centromere from the [NCBI browser](https://www.ncbi.nlm.nih.gov/gdv/browser/genome/?id=GCF_003339765.1), in a region from 58-61Mb that have no gene annotations. That region corresponds well with `NaN` values in the calculated eigenvector (values removed because of low-count bins), as seen below:
+
+{{< embed notebooks/03_compartments.ipynb#e1_nan_hist >}}
+
+Then, the E1 for each cell type was plotted andlooks like we have succesfully reproduced the A/B compartments from [@wang_reprogramming_2019]. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know...
+
 {{< embed notebooks/03_compartments.ipynb#e1-fullmerged-all-500kb >}}
 
-As they do not look that for all cell types, I wanted to see how the running average affected the E1 values:
+After plotting the values from the 'chromosome-wide' E1, i wanted to see how it was affected by subtraction of the running average. It might produce similar results for one or two cell types, but we do not want a specific method for each cell type. 
 
 {{< embed notebooks/03_compartments.ipynb#e1-fullmerged-all-500kb-running-avg >}}
 
-Next I'm doing is to look at filtering of the matrix before balancing, to see if we have unreliable bins that influence the prediction. 
+Now we will do some planning, tidying, and writing before continuing the analysis. 
