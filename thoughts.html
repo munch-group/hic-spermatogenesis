@@ -297,10 +297,11 @@ div.csl-indent {
   <li><a href="#update-08-10-2024" id="toc-update-08-10-2024" class="nav-link" data-scroll-target="#update-08-10-2024">Update: 08-10-2024</a></li>
   <li><a href="#update-10-10-2024" id="toc-update-10-10-2024" class="nav-link" data-scroll-target="#update-10-10-2024">Update 10-10-2024</a></li>
   <li><a href="#compartments" id="toc-compartments" class="nav-link" data-scroll-target="#compartments">Compartments</a></li>
-  <li><a href="#compartments-500kb-resolition-looks-smoother" id="toc-compartments-500kb-resolition-looks-smoother" class="nav-link" data-scroll-target="#compartments-500kb-resolition-looks-smoother">Compartments 500kb resolition looks smoother</a></li>
+  <li><a href="#compartments-500kb-resolution-looks-smoother" id="toc-compartments-500kb-resolution-looks-smoother" class="nav-link" data-scroll-target="#compartments-500kb-resolution-looks-smoother">Compartments 500kb resolution looks smoother</a></li>
   </ul></li>
   <li><a href="#compartments-on-all-cell-types-by-merging-all-samples-from-each-type" id="toc-compartments-on-all-cell-types-by-merging-all-samples-from-each-type" class="nav-link" data-scroll-target="#compartments-on-all-cell-types-by-merging-all-samples-from-each-type">Compartments on all cell types (By merging all samples from each type)</a></li>
   </ul></li>
+  <li><a href="#calculating-the-eigenvectors-again" id="toc-calculating-the-eigenvectors-again" class="nav-link" data-scroll-target="#calculating-the-eigenvectors-again">Calculating the eigenvectors again</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/thoughts.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/thoughts.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -320,7 +321,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 21, 2024 <br> 13:52:24 (UTC +00:00)</p>
+      <p class="date">October 22, 2024 <br> 13:00:28 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -377,7 +378,7 @@ div.csl-indent {
 <p>It does not work as I want. To read both the matrix and PC components, it requires an abnormal amount of memory (I don’t think it is strictly necessary to load 75 Gb of data into memory to make a 5x8” plot). However, <code>HicExplorer</code> advise against merging bins after correction and normalization, but I just don’t get that. I see no reason it could mess up the correction. Jupyter Display and, ultimately, my screen resolution makes that binning, so It would be completely fine to just bin the matrices after the fact.</p>
 </section>
 </section>
-<section id="notes-on-open2c-framework" class="level2 page-columns page-full">
+<section id="notes-on-open2c-framework" class="level2">
 <h2 class="anchored" data-anchor-id="notes-on-open2c-framework">Notes on Open2C framework</h2>
 <section id="pairtools" class="level3">
 <h3 class="anchored" data-anchor-id="pairtools">pairtools</h3>
@@ -478,7 +479,7 @@ It is saved as a E1-track, with <code>[['chrom','start','end','E1']]</code></li>
 <li>Plot with <code>matplotlib</code> and submodules. Optionally, we can mark the E1 transitions on the matrix. Here, I removed the horisontal lines.</li>
 </ol>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-matrix-e1">
-<div id="cell-chrX-matrix-e1" class="cell" data-execution_count="12">
+<div id="cell-chrX-matrix-e1" class="cell" data-execution_count="61">
 <div class="cell-output cell-output-display">
 <div id="chrx-matrix-e1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -489,13 +490,14 @@ It is saved as a E1-track, with <code>[['chrom','start','end','E1']]</code></li>
 </div>
 </div>
 </div>
+<p>A note from the authors of <code>cooltools</code> is that we always have to inspect the E1 values to see how well it captures the compartments in the matrix. Here, it actually doesn’t do very well, So i’m not sure what went wrong. The E1 values seem to have a lot of sign changes, that are not visible in the plot. Maybe it looks better with 500kb resolution.</p>
 <p>Here, comparing to the Wang paper:</p>
 <figure class="figure">
 <center>
 <figcaption>
 Wang2019 PC1 on chrX
 </figcaption>
-<img src="figures/E1_chrX_fib_wang.png" width="93%" alt="E1_chrX_fib_wang" class="figure-img">
+<p><img src="figures/E1_chrX_fib_wang.png" alt="E1_chrX_fib_wang" width="93%" class="figure-img"></p>
 </center>
 </figure>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-e1-plot">
@@ -512,11 +514,11 @@ Wang2019 PC1 on chrX
 </div>
 <p>I’m very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome <em>rheMac10</em>, where more than 99% of the segmentation is removed, compared to <em>rheMac2</em>. It is evident in the <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped.</p>
 </section>
-<section id="compartments-500kb-resolition-looks-smoother" class="level4">
-<h4 class="anchored" data-anchor-id="compartments-500kb-resolition-looks-smoother">Compartments 500kb resolition looks smoother</h4>
-<p>I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise.</p>
+<section id="compartments-500kb-resolution-looks-smoother" class="level4">
+<h4 class="anchored" data-anchor-id="compartments-500kb-resolution-looks-smoother">Compartments 500kb resolution looks smoother</h4>
+<p>I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise. It looks more like it captures only the visible compartments in the matrix, whcih is good</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-chrX-matrix-e1-500kb">
-<div id="cell-chrX-matrix-e1-500kb" class="cell" data-execution_count="100">
+<div id="cell-chrX-matrix-e1-500kb" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div id="chrx-matrix-e1-500kb" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -541,38 +543,80 @@ Wang2019 PC1 on chrX
 </div>
 </div>
 <p>To ease the eye, here are the 100kb E1 and 500kb E1 plots next to each other:</p>
-<p><strong>500kb resolution:</strong></p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-chrX-e1-500kb-plot">
-<div id="cell-chrX-e1-500kb-plot" class="cell" data-fig-height="1" data-execution_count="38">
-<div class="cell-output cell-output-display">
-<div id="chrx-e1-500kb-plot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="thoughts_files/figure-html/notebooks-03_compartments-chrx-e1-500kb-plot-output-1.png" class="img-fluid figure-img"></p>
-<figcaption>500kb binned E1 eigenvector values for chrX. Freshly calculated from the cooler file.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<p><strong>100kb resolution</strong></p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-e1-plot">
-<div id="cell-chrX-e1-plot" class="cell" data-execution_count="25">
-<div class="cell-output cell-output-display">
-<div id="chrx-e1-plot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="thoughts_files/figure-html/notebooks-02_open2c_framework-chrx-e1-plot-output-1.png" class="img-fluid figure-img"></p>
-<figcaption>100kb binned E1 eigenvector values for chrX. Freshly calculated from the cooler file.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
+<p><strong>500kb resolution:</strong> {{&lt; embed notebooks/03_compartments.ipynb#chrX-e1-500kb-plot &gt;}}</p>
+<p><strong>100kb resolution</strong> {{&lt; embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot &gt;}}</p>
 </section>
 </section>
-<section id="compartments-on-all-cell-types-by-merging-all-samples-from-each-type" class="level3 page-columns page-full">
+<section id="compartments-on-all-cell-types-by-merging-all-samples-from-each-type" class="level3">
 <h3 class="anchored" data-anchor-id="compartments-on-all-cell-types-by-merging-all-samples-from-each-type">Compartments on all cell types (By merging all samples from each type)</h3>
+<p>Now it is time for the analysis of the other cell types as well. Here, we trust <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> when they state that their compartments were highly reproducible between replicates.</p>
+<p>Thus, we merge all samples from each cell type, leaving us with 5 <em>coolers</em> at 10 kb bins. We then <code>zoomify</code> the coolers to include the resolutions 50, 100, and 500kb binned data as well.</p>
+<p>We continue with the analysis with the 500kb binned data, as it runs faster, uses less memory, while still being sufficient for chromosome-wide analysis.</p>
+</section>
+</section>
+<section id="calculating-the-eigenvectors-again" class="level1 page-columns page-full">
+<h1>Calculating the eigenvectors again</h1>
+<p>Initially, the results were not as expected, as the E1 did not reflect the plaid pattern from the matrix from all cell types. In stead, it showed two compartments.</p>
+<p>As stated in <span class="citation" data-cites="wang_reprogramming_2019">Lieberman-Aiden et al. (<a href="references.html#ref-lieberman-aiden_comprehensive_2009" role="doc-biblioref">2009</a>)</span> and <code>cooltools</code> documentation, the E1 occasionally <em>does not</em> reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere).</p>
+<p>I determined the region of the centromere from the <a href="https://www.ncbi.nlm.nih.gov/gdv/browser/genome/?id=GCF_003339765.1">NCBI browser</a>, in a region from 58-61Mb that have no gene annotations. That region corresponds well with <code>NaN</code> values in the calculated eigenvector (values removed because of low-count bins), as seen below:</p>
+<div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1_nan_hist">
+<div id="e1_nan_hist" class="cell page-columns page-full" data-execution_count="45">
+<div id="e1_nan_hist-1" class="cell-output cell-output-display column-page-inset">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">length</th>
+<th data-quarto-table-cell-role="th">NaNs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">fibroblast</td>
+<td>307</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">spermatogonia</td>
+<td>307</td>
+<td>29</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">pachytene_spermatocyte</td>
+<td>307</td>
+<td>34</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">round_spermatid</td>
+<td>307</td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">sperm</td>
+<td>307</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<p>Histogram of NaN values in the E1 eigenvector for each cell type.</p>
+</div>
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="thoughts_files/figure-html/notebooks-03_compartments-e1_nan_hist-output-2.png" id="e1_nan_hist-2" class="img-fluid figure-img column-page-inset"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Then, the E1 for each cell type was plotted andlooks like we have succesfully reproduced the A/B compartments from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know…</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-500kb">
-<div id="cell-e1-fullmerged-all-500kb" class="cell" data-execution_count="66">
+<div id="cell-e1-fullmerged-all-500kb" class="cell" data-execution_count="84">
 <div class="cell-output cell-output-display">
 <div id="e1-fullmerged-all-500kb" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -583,7 +627,7 @@ Wang2019 PC1 on chrX
 </div>
 </div>
 </div>
-<p>As they do not look that for all cell types, I wanted to see how the running average affected the E1 values:</p>
+<p>After plotting the values from the ‘chromosome-wide’ E1, i wanted to see how it was affected by subtraction of the running average. It might produce similar results for one or two cell types, but we do not want a specific method for each cell type.</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-500kb-running-avg">
 <div id="cell-e1-fullmerged-all-500kb-running-avg" class="cell page-columns page-full" data-execution_count="67">
 <div class="cell-output cell-output-display page-columns page-full">
@@ -596,7 +640,7 @@ Wang2019 PC1 on chrX
 </div>
 </div>
 </div>
-<p>Next I’m doing is to look at filtering of the matrix before balancing, to see if we have unreliable bins that influence the prediction.</p>
+<p>Now we will do some planning, tidying, and writing before continuing the analysis.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -610,7 +654,6 @@ Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobi
 Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->

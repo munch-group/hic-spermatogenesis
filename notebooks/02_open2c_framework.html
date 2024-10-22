@@ -3064,7 +3064,7 @@ chromosomes: ['chr1', 'chr2', 'chr5', 'chr3', 'chr6', 'chr4', 'chr7', 'chrX', 'c
 <section id="compartments" class="level1">
 <h1>Compartments</h1>
 <p>Here, we will use <code>cooltools</code> in combination with <code>cooler</code> to find the A/B compartments in the chromatin of rep1 and rep2</p>
-<div id="d13b6397-687d-463d-852b-b97f97c8dd22" class="cell" data-execution_count="2">
+<div id="d13b6397-687d-463d-852b-b97f97c8dd22" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb117"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import standard python libraries</span></span>
 <span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -3072,18 +3072,18 @@ chromosomes: ['chr1', 'chr2', 'chr5', 'chr3', 'chr6', 'chr4', 'chr7', 'chrX', 'c
 <span id="cb117-5"><a href="#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb117-6"><a href="#cb117-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os, subprocess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="036d4fc3-abbd-4f81-a401-5b54c25641bd" class="cell" data-execution_count="3">
+<div id="036d4fc3-abbd-4f81-a401-5b54c25641bd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import python package for working with cooler files and tools for analysis</span></span>
 <span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
 <span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools.lib.plotting</span>
 <span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fa102fea-1f2c-4099-9494-b737a9212805" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>cool_file <span class="op">=</span> <span class="st">"../steps/bwa/PE/pairs/cool/fib_rep1.mcool"</span></span>
+<div id="fa102fea-1f2c-4099-9494-b737a9212805" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>cool_file <span class="op">=</span> <span class="st">"../steps/bwa/PE/cool/fibroblast/unordered/fib_rep1.mcool"</span></span>
 <span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>clr <span class="op">=</span> cooler.Cooler(<span class="ss">f"</span><span class="sc">{</span>cool_file<span class="sc">}</span><span class="ss">::resolutions/100000"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="6ae9108e-9002-4a48-99e3-cd3ce2571df2" class="cell" data-execution_count="5">
+<div id="6ae9108e-9002-4a48-99e3-cd3ce2571df2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb120"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bioframe</span>
 <span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> clr.bins()[:]</span>
@@ -3199,10 +3199,10 @@ chromosomes: ['chr1', 'chr2', 'chr5', 'chr3', 'chr6', 'chr4', 'chr7', 'chrX', 'c
 </div>
 </div>
 </div>
-<div id="ab5f427d-53a9-459b-bc99-846207a7a127" class="cell" data-execution_count="6">
+<div id="ab5f427d-53a9-459b-bc99-846207a7a127" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apparently, we have som NaN values, I don't know why (and only 1 on the X)</span></span>
 <span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>gc_cov[gc_cov[<span class="st">'GC'</span>].isna()].groupby(<span class="st">'chrom'</span>).size()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>chrom
 chr1      9
 chr10    21
@@ -3229,7 +3229,7 @@ chrY      5
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="da81fee8-e498-408a-8b65-6804e4474f67" class="cell" data-execution_count="7">
+<div id="da81fee8-e498-408a-8b65-6804e4474f67" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>view_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'chrom'</span>: clr.chromnames,</span>
@@ -3414,7 +3414,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="d672bca9-539a-408e-843f-f232b962f997" class="cell" data-execution_count="8">
+<div id="d672bca9-539a-408e-843f-f232b962f997" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb125"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain first 3 eigenvectors</span></span>
 <span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>cis_eigs <span class="op">=</span> cooltools.eigs_cis(</span>
 <span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a>                        clr,</span>
@@ -3423,17 +3423,18 @@ dtype: int64</code></pre>
 <span id="cb125-6"><a href="#cb125-6" aria-hidden="true" tabindex="-1"></a>                        n_eigs<span class="op">=</span><span class="dv">3</span>,</span>
 <span id="cb125-7"><a href="#cb125-7" aria-hidden="true" tabindex="-1"></a>                        )</span>
 <span id="cb125-8"><a href="#cb125-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb125-9"><a href="#cb125-9" aria-hidden="true" tabindex="-1"></a><span class="co"># cis_eigs[0] returns eigenvalues, here we focus on eigenvectors</span></span>
-<span id="cb125-10"><a href="#cb125-10" aria-hidden="true" tabindex="-1"></a>eigenvector_track <span class="op">=</span> cis_eigs[<span class="dv">1</span>][[<span class="st">'chrom'</span>,<span class="st">'start'</span>,<span class="st">'end'</span>,<span class="st">'E1'</span>]]</span>
-<span id="cb125-11"><a href="#cb125-11" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(eigenvector_track)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<span id="cb125-9"><a href="#cb125-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-10"><a href="#cb125-10" aria-hidden="true" tabindex="-1"></a><span class="co"># cis_eigs[0] returns eigenvalues, here we focus on eigenvectors</span></span>
+<span id="cb125-11"><a href="#cb125-11" aria-hidden="true" tabindex="-1"></a>eigenvector_track <span class="op">=</span> cis_eigs[<span class="dv">1</span>][[<span class="st">'chrom'</span>,<span class="st">'start'</span>,<span class="st">'end'</span>,<span class="st">'E1'</span>]]</span>
+<span id="cb125-12"><a href="#cb125-12" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(eigenvector_track)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
 <pre><code>28550</code></pre>
 </div>
 </div>
-<div id="063832b9-f198-49ff-ae8b-5f7fa6bb977a" class="cell" data-execution_count="9">
+<div id="063832b9-f198-49ff-ae8b-5f7fa6bb977a" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb127"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># full track</span></span>
 <span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a>eigenvector_track</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
 
@@ -3532,62 +3533,105 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="707730f1" class="cell" data-execution_count="10">
+<div id="707730f1" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb128"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset the chrX   </span></span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>eigenvector_track_chrX <span class="op">=</span> eigenvector_track.loc[eigenvector_track[<span class="st">'chrom'</span>] <span class="op">==</span> <span class="st">'chrX'</span>]</span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>eigenvector_track_chrX <span class="op">=</span> eigenvector_track.loc[eigenvector_track[<span class="st">'chrom'</span>] <span class="op">==</span> <span class="st">'chrX'</span>].reset_index()</span>
 <span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>nbins <span class="op">=</span> <span class="bu">len</span>(eigenvector_track_chrX)</span>
 <span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a>eigenvector_track_chrX</span>
-<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a>e1X_values <span class="op">=</span> eigenvector_track_chrX[<span class="st">'E1'</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a>e1X_values <span class="op">=</span> eigenvector_track_chrX[<span class="st">'E1'</span>].values</span>
+<span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a>e1X_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<pre><code>array([-0.11264475,         nan,         nan, ..., -0.20557911,
+       -0.29015582, -0.1779123 ])</code></pre>
 </div>
-<div id="fa0e9ab7-a011-466f-8413-a6919d76de9e" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture chrX_matrix_e1</span>
-<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
-<span id="cb129-4"><a href="#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.axes_grid1 <span class="im">import</span> make_axes_locatable</span>
-<span id="cb129-5"><a href="#cb129-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-6"><a href="#cb129-6" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(</span>
-<span id="cb129-7"><a href="#cb129-7" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>),</span>
-<span id="cb129-8"><a href="#cb129-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb129-9"><a href="#cb129-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-10"><a href="#cb129-10" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> LogNorm(vmax<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb129-11"><a href="#cb129-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-12"><a href="#cb129-12" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
-<span id="cb129-13"><a href="#cb129-13" aria-hidden="true" tabindex="-1"></a>    clr.matrix().fetch(<span class="st">'chrX'</span>),</span>
-<span id="cb129-14"><a href="#cb129-14" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm,</span>
-<span id="cb129-15"><a href="#cb129-15" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
-<span id="cb129-16"><a href="#cb129-16" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
-<span id="cb129-17"><a href="#cb129-17" aria-hidden="true" tabindex="-1"></a>plt.axis([<span class="dv">0</span>,nbins,nbins,<span class="dv">0</span>])</span>
-<span id="cb129-18"><a href="#cb129-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-19"><a href="#cb129-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-20"><a href="#cb129-20" aria-hidden="true" tabindex="-1"></a>divider <span class="op">=</span> make_axes_locatable(ax)</span>
-<span id="cb129-21"><a href="#cb129-21" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> divider.append_axes(<span class="st">"right"</span>, size<span class="op">=</span><span class="st">"5%"</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb129-22"><a href="#cb129-22" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'corrected frequencies'</span>)<span class="op">;</span></span>
-<span id="cb129-23"><a href="#cb129-23" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'chrX:100kb bins, #bin'</span>)</span>
-<span id="cb129-24"><a href="#cb129-24" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
-<span id="cb129-25"><a href="#cb129-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-26"><a href="#cb129-26" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> divider.append_axes(<span class="st">"top"</span>, size<span class="op">=</span><span class="st">"20%"</span>, pad<span class="op">=</span><span class="fl">0.25</span>, sharex<span class="op">=</span>ax)</span>
-<span id="cb129-27"><a href="#cb129-27" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> clr.bins()[:][<span class="st">'weight'</span>].values</span>
-<span id="cb129-28"><a href="#cb129-28" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.plot([0,nbins],[0,0],'k',lw=0.25)</span></span>
-<span id="cb129-29"><a href="#cb129-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-30"><a href="#cb129-30" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.plot(e1X_values, label='E1')</span></span>
-<span id="cb129-31"><a href="#cb129-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-32"><a href="#cb129-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill between the line and 0</span></span>
-<span id="cb129-33"><a href="#cb129-33" aria-hidden="true" tabindex="-1"></a>ax1.fill_between(<span class="bu">range</span>(<span class="bu">len</span>(e1X_values)), e1X_values, <span class="dv">0</span>, where<span class="op">=</span>(e1X_values <span class="op">&gt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:red'</span>)</span>
-<span id="cb129-34"><a href="#cb129-34" aria-hidden="true" tabindex="-1"></a>ax1.fill_between(<span class="bu">range</span>(<span class="bu">len</span>(e1X_values)), e1X_values, <span class="dv">0</span>, where<span class="op">=</span>(e1X_values <span class="op">&lt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'C0'</span>)</span>
-<span id="cb129-35"><a href="#cb129-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-36"><a href="#cb129-36" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'E1'</span>)</span>
-<span id="cb129-37"><a href="#cb129-37" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks([])<span class="op">;</span></span>
-<span id="cb129-38"><a href="#cb129-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-39"><a href="#cb129-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-40"><a href="#cb129-40" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.where(np.diff( (cis_eigs[<span class="dv">1</span>][<span class="st">'E1'</span>]<span class="op">&gt;</span><span class="dv">0</span>).astype(<span class="bu">int</span>)))[<span class="dv">0</span>]:</span>
-<span id="cb129-41"><a href="#cb129-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Horisontal lines where E1 intersects 0</span></span>
-<span id="cb129-42"><a href="#cb129-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ax.plot([0,nbins],[i,i],'k',lw=0.5)</span></span>
-<span id="cb129-43"><a href="#cb129-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-44"><a href="#cb129-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Vertical lines where E1 intersects 0</span></span>
-<span id="cb129-45"><a href="#cb129-45" aria-hidden="true" tabindex="-1"></a>    ax.plot([i,i],[<span class="dv">0</span>,nbins],<span class="st">'k'</span>,lw<span class="op">=</span><span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-chrX-matrix-e1" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>chrX_matrix_e1()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="6a23f808" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="co">#len(eigenvector_track_chrX['E1'] &lt; 0 )</span></span>
+<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( (eigenvector_track_chrX[<span class="st">'E1'</span>] <span class="op">&lt;</span> <span class="dv">0</span> ).astype(<span class="bu">int</span>))</span>
+<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.diff( (eigenvector_track_chrX[<span class="st">'E1'</span>] <span class="op">&lt;</span> <span class="dv">0</span> ).astype(<span class="bu">int</span>)))</span>
+<span id="cb130-5"><a href="#cb130-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.where(np.diff( (eigenvector_track_chrX[<span class="st">'E1'</span>] <span class="op">&lt;</span> <span class="dv">0</span> ).astype(<span class="bu">int</span>))))</span>
+<span id="cb130-6"><a href="#cb130-6" aria-hidden="true" tabindex="-1"></a><span class="co">#np.where(np.diff( (eigenvector_track_chrX['E1'] &lt; 0 ).astype(int)))[0]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0       1
+1       0
+2       0
+3       1
+4       1
+       ..
+1529    1
+1530    1
+1531    1
+1532    1
+1533    1
+Name: E1, Length: 1534, dtype: int64
+[-1  0  1 ...  0  0  0]
+(array([   0,    2,    7,    8,    9,   15,   16,   34,   64,   68,   82,
+        136,  149,  204,  215,  250,  276,  280,  286,  287,  297,  302,
+        303,  305,  309,  315,  326,  327,  329,  330,  370,  371,  372,
+        420,  423,  424,  433,  493,  494,  500,  502,  507,  510,  511,
+        512,  517,  520,  522,  524,  547,  556,  558,  560,  561,  564,
+        566,  567,  569,  572,  575,  576,  591,  592,  599,  605,  606,
+        621,  625,  634,  635,  644,  645,  651,  666,  667,  697,  709,
+        710,  711,  716,  740,  748,  774,  775,  779,  780,  789,  790,
+        817,  818,  826,  828,  888,  889,  931,  945,  973,  984,  989,
+        990,  991, 1010, 1025, 1026, 1027, 1028, 1031, 1032, 1033, 1052,
+       1061, 1079, 1083, 1084, 1092, 1095, 1114, 1115, 1116, 1121, 1126,
+       1127, 1142, 1168, 1180, 1181, 1197, 1204, 1210, 1211, 1212, 1213,
+       1255, 1266, 1269, 1270, 1279, 1280, 1282, 1284, 1288, 1291, 1294,
+       1304, 1305, 1331, 1358, 1361, 1370, 1375, 1438, 1439, 1441, 1449,
+       1451, 1470, 1487, 1515, 1517, 1518, 1520, 1522, 1523, 1524]),)</code></pre>
+</div>
+</div>
+<div id="fa0e9ab7-a011-466f-8413-a6919d76de9e" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture chrX_matrix_e1</span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.axes_grid1 <span class="im">import</span> make_axes_locatable</span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-6"><a href="#cb132-6" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(</span>
+<span id="cb132-7"><a href="#cb132-7" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>),</span>
+<span id="cb132-8"><a href="#cb132-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb132-9"><a href="#cb132-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-10"><a href="#cb132-10" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> LogNorm(vmax<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb132-11"><a href="#cb132-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-12"><a href="#cb132-12" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.matshow(</span>
+<span id="cb132-13"><a href="#cb132-13" aria-hidden="true" tabindex="-1"></a>    clr.matrix().fetch(<span class="st">'chrX'</span>),</span>
+<span id="cb132-14"><a href="#cb132-14" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>norm,</span>
+<span id="cb132-15"><a href="#cb132-15" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'fall'</span>,</span>
+<span id="cb132-16"><a href="#cb132-16" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb132-17"><a href="#cb132-17" aria-hidden="true" tabindex="-1"></a>plt.axis([<span class="dv">0</span>,nbins,nbins,<span class="dv">0</span>])</span>
+<span id="cb132-18"><a href="#cb132-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-19"><a href="#cb132-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-20"><a href="#cb132-20" aria-hidden="true" tabindex="-1"></a>divider <span class="op">=</span> make_axes_locatable(ax)</span>
+<span id="cb132-21"><a href="#cb132-21" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> divider.append_axes(<span class="st">"right"</span>, size<span class="op">=</span><span class="st">"5%"</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb132-22"><a href="#cb132-22" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, cax<span class="op">=</span>cax, label<span class="op">=</span><span class="st">'corrected frequencies'</span>)<span class="op">;</span></span>
+<span id="cb132-23"><a href="#cb132-23" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'chrX:100kb bins, #bin'</span>)</span>
+<span id="cb132-24"><a href="#cb132-24" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_visible(<span class="va">False</span>)</span>
+<span id="cb132-25"><a href="#cb132-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-26"><a href="#cb132-26" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> divider.append_axes(<span class="st">"top"</span>, size<span class="op">=</span><span class="st">"20%"</span>, pad<span class="op">=</span><span class="fl">0.25</span>, sharex<span class="op">=</span>ax)</span>
+<span id="cb132-27"><a href="#cb132-27" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> clr.bins()[:][<span class="st">'weight'</span>].values</span>
+<span id="cb132-28"><a href="#cb132-28" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.plot([0,nbins],[0,0],'k',lw=0.25)</span></span>
+<span id="cb132-29"><a href="#cb132-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-30"><a href="#cb132-30" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.plot(e1X_values, label='E1')</span></span>
+<span id="cb132-31"><a href="#cb132-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-32"><a href="#cb132-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill between the line and 0</span></span>
+<span id="cb132-33"><a href="#cb132-33" aria-hidden="true" tabindex="-1"></a>ax1.fill_between(<span class="bu">range</span>(<span class="bu">len</span>(e1X_values)), e1X_values, <span class="dv">0</span>, where<span class="op">=</span>(e1X_values <span class="op">&gt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:red'</span>)</span>
+<span id="cb132-34"><a href="#cb132-34" aria-hidden="true" tabindex="-1"></a>ax1.fill_between(<span class="bu">range</span>(<span class="bu">len</span>(e1X_values)), e1X_values, <span class="dv">0</span>, where<span class="op">=</span>(e1X_values <span class="op">&lt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'C0'</span>)</span>
+<span id="cb132-35"><a href="#cb132-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-36"><a href="#cb132-36" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'E1'</span>)</span>
+<span id="cb132-37"><a href="#cb132-37" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks([])<span class="op">;</span></span>
+<span id="cb132-38"><a href="#cb132-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-39"><a href="#cb132-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-40"><a href="#cb132-40" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.where(np.diff( (eigenvector_track_chrX[<span class="st">'E1'</span>] <span class="op">&lt;</span> <span class="dv">0</span> ).astype(<span class="bu">int</span>)))[<span class="dv">0</span>]:</span>
+<span id="cb132-41"><a href="#cb132-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Horisontal lines where E1 intersects 0</span></span>
+<span id="cb132-42"><a href="#cb132-42" aria-hidden="true" tabindex="-1"></a>    ax.plot([<span class="dv">0</span>,nbins],[i,i],<span class="st">'k'</span>,lw<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb132-43"><a href="#cb132-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-44"><a href="#cb132-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Vertical lines where E1 intersects 0</span></span>
+<span id="cb132-45"><a href="#cb132-45" aria-hidden="true" tabindex="-1"></a>    ax.plot([i,i],[<span class="dv">0</span>,nbins],<span class="st">'k'</span>,lw<span class="op">=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-chrX-matrix-e1" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>chrX_matrix_e1()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="chrx-matrix-e1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -3598,32 +3642,32 @@ dtype: int64</code></pre>
 </div>
 </div>
 <div id="cell-chrX-e1-plot" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-3"><a href="#cb131-3" aria-hidden="true" tabindex="-1"></a>f, ax1 <span class="op">=</span> plt.subplots(</span>
-<span id="cb131-4"><a href="#cb131-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>),</span>
-<span id="cb131-5"><a href="#cb131-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb131-6"><a href="#cb131-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-7"><a href="#cb131-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill between the line and 0</span></span>
-<span id="cb131-8"><a href="#cb131-8" aria-hidden="true" tabindex="-1"></a>ax1.fill_between(<span class="bu">range</span>(<span class="bu">len</span>(e1X_values)), e1X_values, <span class="dv">0</span>, where<span class="op">=</span>(e1X_values <span class="op">&gt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:red'</span>)</span>
-<span id="cb131-9"><a href="#cb131-9" aria-hidden="true" tabindex="-1"></a>ax1.fill_between(<span class="bu">range</span>(<span class="bu">len</span>(e1X_values)), e1X_values, <span class="dv">0</span>, where<span class="op">=</span>(e1X_values <span class="op">&lt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'C0'</span>)</span>
-<span id="cb131-10"><a href="#cb131-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-11"><a href="#cb131-11" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.set_ylabel('E1')</span></span>
-<span id="cb131-12"><a href="#cb131-12" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks([])</span>
-<span id="cb131-13"><a href="#cb131-13" aria-hidden="true" tabindex="-1"></a>ax1.set_yticks([])</span>
-<span id="cb131-14"><a href="#cb131-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-15"><a href="#cb131-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove borders</span></span>
-<span id="cb131-16"><a href="#cb131-16" aria-hidden="true" tabindex="-1"></a>ax1.spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
-<span id="cb131-17"><a href="#cb131-17" aria-hidden="true" tabindex="-1"></a>ax1.spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
-<span id="cb131-18"><a href="#cb131-18" aria-hidden="true" tabindex="-1"></a>ax1.spines[<span class="st">'left'</span>].set_visible(<span class="va">False</span>)</span>
-<span id="cb131-19"><a href="#cb131-19" aria-hidden="true" tabindex="-1"></a>ax1.spines[<span class="st">'bottom'</span>].set_visible(<span class="va">False</span>)</span>
-<span id="cb131-20"><a href="#cb131-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-21"><a href="#cb131-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb131-22"><a href="#cb131-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-23"><a href="#cb131-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the plot as a high-resolution PNG file</span></span>
-<span id="cb131-24"><a href="#cb131-24" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'e1_plot.png'</span>, dpi<span class="op">=</span><span class="dv">320</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
-<span id="cb131-25"><a href="#cb131-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-26"><a href="#cb131-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>f, ax1 <span class="op">=</span> plt.subplots(</span>
+<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>),</span>
+<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill between the line and 0</span></span>
+<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a>ax1.fill_between(<span class="bu">range</span>(<span class="bu">len</span>(e1X_values)), e1X_values, <span class="dv">0</span>, where<span class="op">=</span>(e1X_values <span class="op">&gt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:red'</span>)</span>
+<span id="cb134-9"><a href="#cb134-9" aria-hidden="true" tabindex="-1"></a>ax1.fill_between(<span class="bu">range</span>(<span class="bu">len</span>(e1X_values)), e1X_values, <span class="dv">0</span>, where<span class="op">=</span>(e1X_values <span class="op">&lt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'C0'</span>)</span>
+<span id="cb134-10"><a href="#cb134-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-11"><a href="#cb134-11" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.set_ylabel('E1')</span></span>
+<span id="cb134-12"><a href="#cb134-12" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks([])</span>
+<span id="cb134-13"><a href="#cb134-13" aria-hidden="true" tabindex="-1"></a>ax1.set_yticks([])</span>
+<span id="cb134-14"><a href="#cb134-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-15"><a href="#cb134-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove borders</span></span>
+<span id="cb134-16"><a href="#cb134-16" aria-hidden="true" tabindex="-1"></a>ax1.spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb134-17"><a href="#cb134-17" aria-hidden="true" tabindex="-1"></a>ax1.spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb134-18"><a href="#cb134-18" aria-hidden="true" tabindex="-1"></a>ax1.spines[<span class="st">'left'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb134-19"><a href="#cb134-19" aria-hidden="true" tabindex="-1"></a>ax1.spines[<span class="st">'bottom'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb134-20"><a href="#cb134-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-21"><a href="#cb134-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb134-22"><a href="#cb134-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-23"><a href="#cb134-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the plot as a high-resolution PNG file</span></span>
+<span id="cb134-24"><a href="#cb134-24" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'e1_plot.png'</span>, dpi<span class="op">=</span><span class="dv">320</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb134-25"><a href="#cb134-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-26"><a href="#cb134-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="chrx-e1-plot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
