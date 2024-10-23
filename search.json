@@ -440,28 +440,6 @@
     ]
   },
   {
-    "objectID": "results/Readme.html",
-    "href": "results/Readme.html",
-    "title": "Result files",
-    "section": "",
-    "text": "Quality control\nhicBuildMatrix was used to generate the matrices for the Hi-C data, doing some quality control in the process. The quality control results are available as a html file in each folder.\nTo preview the html files, prepend the following to the URL of the hicQC.html in each folder: https://html-preview.github.io/?url=\nOr click the links below:",
-    "crumbs": [
-      "Reports",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Result files</span>"
-    ]
-  },
-  {
-    "objectID": "results/Readme.html#quality-control",
-    "href": "results/Readme.html#quality-control",
-    "title": "Result files",
-    "section": "",
-    "text": "Preview sample SRR6502335 QC results\n\n\n\nName\nCount\nPercent\n\n\n\n\nSequenced reads\n244,003,806\n100\n\n\nMappable, highQ+uniq\n164,715,495\n67.5\n\n\nHi-C contacts\n110,459,727\n45.27\n\n\nInter chromosomal\n28,350,411\n25.67\n\n\nIntra short\n14,384,188\n13.02\n\n\nIntra long\n67,725,128\n61.31\n\n\n\n\n\nPreview sample SRR6502336 QC results\n\n\n\nName\nCount\nPercent\n\n\n\n\nSequenced reads\n217,066,567\n100\n\n\nMappable, highQ+uniq\n147,553,720\n68\n\n\nHi-C contacts\n94,317,987\n43.45\n\n\nInter chromosomal\n24,058,490\n25.51\n\n\nIntra short\n12,514,652\n13.27\n\n\nIntra long\n57,744,845\n61.22\n\n\n\n\n\nPreview sample SRR6502337 QC results\n\n\n\nName\nCount\nPercent\n\n\n\n\nSequenced reads\n175,897,321\n100\n\n\nMappable, highQ+uniq\n117,483,977\n66.79\n\n\nHi-C contacts\n79,573,279\n45.24\n\n\nInter chromosomal\n22,500,348\n28.28\n\n\nIntra short\n9,800,706\n12.32\n\n\nIntra long\n47,272,225\n59.41\n\n\n\n\n\nPreview sample SRR6502338 QC results\n\n\n\nName\nCount\nPercent\n\n\n\n\nSequenced reads\n174,596,497\n100\n\n\nMappable, highQ+uniq\n119,036,178\n68.18\n\n\nHi-C contacts\n84,296,486\n48.28\n\n\nInter chromosomal\n23,802,080\n28.24\n\n\nIntra short\n10,189,916\n12.09\n\n\nIntra long\n50,304,490\n59.68\n\n\n\n\n\nPreview sample SRR6502339 QC results\n\n\n\nName\nCount\nPercent\n\n\n\n\nSequenced reads\n96,286,472\n100\n\n\nMappable, highQ+uniq\n65,355,035\n67.88\n\n\nHi-C contacts\n41,072,908\n42.66\n\n\nInter chromosomal\n11,586,845\n28.21\n\n\nIntra short\n5,180,947\n12.61\n\n\nIntra long\n24,305,116\n59.18\n\n\n\n\n\nGuidelines from HiCExplorer:\nThe hicBuildMatrix command generates a bam file and a matrix file for the Hi-C data. The bam file contains only the valid Hi-C read pairs, which can be used to assess the quality of the Hi-C library on the genome browser. A good Hi-C library should have an abundance of reads near the restriction fragment sites.\nIn the QC folder, an html file is saved with plots that provide useful information for the quality control of the Hi-C sample. This includes metrics such as the number of valid pairs, duplicated pairs, and self-ligations. Typically, only 25%-40% of the reads are considered valid and used to build the Hi-C matrix, as reads on repetitive regions are discarded.\nOne important quality control measurement is the interchromosomal fraction of reads, which indirectly measures random Hi-C contacts. A good Hi-C library should have less than 10% interchromosomal contacts. The hicQC module can be used to compare the quality control measures across different samples.",
-    "crumbs": [
-      "Reports",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Result files</span>"
-    ]
-  },
-  {
     "objectID": "reports/manuscript.html",
     "href": "reports/manuscript.html",
     "title": "Correlating Chromatin Compartments with Selection",
@@ -469,7 +447,7 @@
     "text": "Abstract\nThis is a dummy abstract, dreamt up by chatGPT. Chromatin organization plays a crucial role in gene regulation and genome stability, particularly during the complex process of spermatogenesis. This thesis explores the three-dimensional chromatin architecture of the X chromosome in baboons, macaques, and humans, with a specific focus on the role of chromatin compartments during spermatogenesis. Leveraging publicly available Hi-C data, interaction maps were generated to identify Principal Component 1 (PC1) compartments, revealing distinct chromatin compartmentalization patterns across species. The analysis was extended to examine transition zones, areas where chromatin shifts from one compartment type to another, and their correlation with regions under positive selection.\nBy comparing these zones with regions of known evolutionary significance, the study aims to uncover how chromatin structure reflects and potentially drives evolutionary pressures. A key finding is the identification of conserved chromatin features that may contribute to the retention of non-advantageous alleles, suggesting a possible role for selfish genetic elements in shaping genome evolution. The results of this research provide novel insights into the interplay between chromatin architecture and evolutionary dynamics, contributing to a deeper understanding of the conservation and divergence of chromatin structures across primate species.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -480,7 +458,7 @@
     "text": "Introduction\nDenmark is …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -488,10 +466,10 @@
     "href": "reports/manuscript.html#results",
     "title": "Correlating Chromatin Compartments with Selection",
     "section": "Results",
-    "text": "Results\n\nWeather\nAs shown in Figure 14.1, the Danish weather is blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.\n\n\n\n\n\n\n\n\n\nFigure 14.1: Danish weather: This is the weather forcast for your project\n\n\n\n\n\n\n\n\nSocial norms\nIn Denmark, the workplace interaction is very informal and largely unaffected by seniority and age.\n\n\n\nI sampled 100 danaes from workplaces in Denmark. More about the sampling… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\n\n\n\nI found that neither academic seniority or age of workplace individuals much affected how informal our interaction was (see Figure 16.2).\n\n\n\n\n\n\n\n\n\nFigure 14.2: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\n\n\n\n\n\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.",
+    "text": "Results\n\nWeather\nAs shown in Figure 13.1, the Danish weather is blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.\n\n\n\n\n\n\n\n\n\nFigure 13.1: Danish weather: This is the weather forcast for your project\n\n\n\n\n\n\n\n\nSocial norms\nIn Denmark, the workplace interaction is very informal and largely unaffected by seniority and age.\n\n\n\nI sampled 100 danaes from workplaces in Denmark. More about the sampling… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\n\n\n\nI found that neither academic seniority or age of workplace individuals much affected how informal our interaction was (see Figure 16.2).\n\n\n\n\n\n\n\n\n\nFigure 13.2: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\n\n\n\n\n\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -502,7 +480,7 @@
     "text": "Discussion\nThis this investigation of Danes…, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -513,7 +491,7 @@
     "text": "Methods\n\nWeather analysis\n\n\n\nWeather data was collected… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah\n\n\n\n\n\nInteraction analysis\n\n\n\nWorkplace individuals were interviewed by …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
     ]
   },
   {
@@ -614,7 +592,7 @@
     "text": "Regression analysis of formality\nBlah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Supplementary info</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Supplementary info</span>"
     ]
   },
   {
@@ -622,10 +600,76 @@
     "href": "reports/supplementary.html#regression-analysis-of-formality",
     "title": "Supplementary info",
     "section": "",
-    "text": "Figure 15.1: Interaction among Danes: Regressions of informality against age for five levels of seniority.",
+    "text": "Figure 14.1: Interaction among Danes: Regressions of informality against age for five levels of seniority.",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Supplementary info</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Supplementary info</span>"
+    ]
+  },
+  {
+    "objectID": "reports/manus/main.html",
+    "href": "reports/manus/main.html",
+    "title": "Manuscript",
+    "section": "",
+    "text": "Chromatin Compartments and Selection on X",
+    "crumbs": [
+      "Reports",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+    ]
+  },
+  {
+    "objectID": "reports/manus/main.html#introduction",
+    "href": "reports/manus/main.html#introduction",
+    "title": "Manuscript",
+    "section": "Introduction",
+    "text": "Introduction\nHere is the intro",
+    "crumbs": [
+      "Reports",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+    ]
+  },
+  {
+    "objectID": "reports/manus/main.html#methods",
+    "href": "reports/manus/main.html#methods",
+    "title": "Manuscript",
+    "section": "Methods",
+    "text": "Methods\nHere are the methods",
+    "crumbs": [
+      "Reports",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+    ]
+  },
+  {
+    "objectID": "reports/manus/main.html#results",
+    "href": "reports/manus/main.html#results",
+    "title": "Manuscript",
+    "section": "Results",
+    "text": "Results\nHere are the glorious results",
+    "crumbs": [
+      "Reports",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+    ]
+  },
+  {
+    "objectID": "reports/manus/main.html#discussion",
+    "href": "reports/manus/main.html#discussion",
+    "title": "Manuscript",
+    "section": "Discussion",
+    "text": "Discussion\nHere is the discussion",
+    "crumbs": [
+      "Reports",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+    ]
+  },
+  {
+    "objectID": "reports/manus/main.html#supplementary-material",
+    "href": "reports/manus/main.html#supplementary-material",
+    "title": "Manuscript",
+    "section": "Supplementary material",
+    "text": "Supplementary material\nHere is appended the supplementary material",
+    "crumbs": [
+      "Reports",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
     ]
   },
   {
