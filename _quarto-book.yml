@@ -52,9 +52,10 @@ book:
       - gwf_pair_alignments.py
     - part: "Reports"
       chapters: 
-      - results/Readme.md
+      #- results/Readme.md
       - reports/manuscript.ipynb
       - reports/supplementary.qmd
+      - reports/manus/main.qmd
     - part: "Slides"
       chapters:
       # markdown slides

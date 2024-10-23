@@ -139,7 +139,7 @@ I determined the region of the centromere from the [NCBI browser](https://www.nc
 
 {{< embed notebooks/03_compartments.ipynb#e1_nan_hist >}}
 
-Then, the E1 for each cell type was plotted andlooks like we have succesfully reproduced the A/B compartments from [@wang_reprogramming_2019]. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know...
+Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from [@wang_reprogramming_2019]. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know...
 
 {{< embed notebooks/03_compartments.ipynb#e1-fullmerged-all-500kb >}}
 
