@@ -316,7 +316,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 30, 2024 <br> 12:52:21 (UTC +00:00)</p>
+      <p class="date">October 30, 2024 <br> 15:15:18 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -579,68 +579,25 @@ Wang2019 PC1 on chrX
 <p>As stated in <span class="citation" data-cites="wang_reprogramming_2019">Lieberman-Aiden et al. (<a href="references.html#ref-lieberman-aiden_comprehensive_2009" role="doc-biblioref">2009</a>)</span> and <code>cooltools</code> documentation, the E1 occasionally <em>does not</em> reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere).</p>
 <p>I determined the region of the centromere from the <a href="https://www.ncbi.nlm.nih.gov/gdv/browser/genome/?id=GCF_003339765.1">NCBI browser</a>, in a region from 58-61Mb that have no gene annotations. That region corresponds well with <code>NaN</code> values in the calculated eigenvector (values removed because of low-count bins), as seen below:</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1_nan_hist">
-<div id="e1_nan_hist" class="cell page-columns page-full" data-execution_count="45">
-<div id="e1_nan_hist-1" class="cell-output cell-output-display column-page-inset">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">length</th>
-<th data-quarto-table-cell-role="th">NaNs</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">fibroblast</td>
-<td>307</td>
-<td>6</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">spermatogonia</td>
-<td>307</td>
-<td>29</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">pachytene_spermatocyte</td>
-<td>307</td>
-<td>34</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">round_spermatid</td>
-<td>307</td>
-<td>15</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">sperm</td>
-<td>307</td>
-<td>6</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-<p>Histogram of NaN values in the E1 eigenvector for each cell type.</p>
-</div>
+<div id="cell-e1_nan_hist" class="cell page-columns page-full" data-execution_count="27">
 <div class="cell-output cell-output-display page-columns page-full">
-<div class="page-columns page-full">
+<div id="e1_nan_hist" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="thoughts_files/figure-html/notebooks-03_compartments-e1_nan_hist-output-2.png" id="e1_nan_hist-2" class="img-fluid figure-img column-page-inset"></p>
+<p class="page-columns page-full"><img src="thoughts_files/figure-html/notebooks-03_compartments-e1_nan_hist-output-1.png" class="img-fluid figure-img column-page-inset"></p>
+<figcaption>Histogram of NaN values in the E1 eigenvector for each cell type.</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <p>Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know…</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-500kb">
-<div id="cell-e1-fullmerged-all-500kb" class="cell" data-execution_count="84">
-<div class="cell-output cell-output-display">
-<div id="e1-fullmerged-all-500kb" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="thoughts_files/figure-html/notebooks-03_compartments-e1-fullmerged-all-500kb-output-1.png" class="img-fluid figure-img"></p>
-<figcaption>E1 eigenvector values for all merged samples at 500kb resolution.</figcaption>
+<div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-500kb">
+<div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="37">
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="e1-fullmerged-all-500kb" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="thoughts_files/figure-html/notebooks-03_compartments-e1-fullmerged-all-500kb-output-1.png" class="img-fluid figure-img column-page-inset"></p>
+<figcaption>E1 eigenvector values for all merged samples at 500kb resolution. Left: Chromosome-arm restricted E1. Right: 10Mb window restricted E1.</figcaption>
 </figure>
 </div>
 </div>
@@ -648,11 +605,11 @@ Wang2019 PC1 on chrX
 </div>
 <p>After plotting the values from the ‘chromosome-wide’ E1, i wanted to see how it was affected by subtraction of the running average. It might produce similar results for one or two cell types, but we do not want a specific method for each cell type.</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-500kb-running-avg">
-<div id="cell-e1-fullmerged-all-500kb-running-avg" class="cell page-columns page-full" data-execution_count="67">
+<div id="cell-e1-fullmerged-all-500kb-running-avg" class="cell page-columns page-full" data-execution_count="32">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1-fullmerged-all-500kb-running-avg" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="thoughts_files/figure-html/notebooks-03_compartments-e1-fullmerged-all-500kb-running-avg-output-1.png" class="img-fluid figure-img column-page"></p>
+<p class="page-columns page-full"><img src="thoughts_files/figure-html/notebooks-03_compartments-e1-fullmerged-all-500kb-running-avg-output-1.png" class="img-fluid figure-img column-body-outset"></p>
 <figcaption>E1 eigenvector values for all merged samples at 500kb resolution with running average.</figcaption>
 </figure>
 </div>
