@@ -117,9 +117,13 @@ Or the full size E1 plot:
 
 To ease the eye, here are the 100kb E1 and 500kb E1 plots next to each other:
 
-**500kb resolution:** {{< embed notebooks/03_compartments.ipynb#chrX-e1-500kb-plot >}}
+**500kb resolution:** 
 
-**100kb resolution** {{< embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
+{{< embed notebooks/03_compartments.ipynb#chrX-e1-500kb-plot >}}
+
+**100kb resolution** 
+
+{{< embed notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
 
 ### Compartments on all cell types (By merging all samples from each type)
 
