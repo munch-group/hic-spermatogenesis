@@ -1,6 +1,5 @@
 ---
 title: "Manuscript"
-undertitle: "lsls"
 author:
   - name: "Søren Jørgensen"
     affiliation: |
@@ -35,6 +34,4 @@ bibliography: ../../references.bib
 {{< include results.qmd >}}
 
 {{< include discussion.qmd >}}
-
-{{< include supplementary.qmd >}}
 

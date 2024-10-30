@@ -1,8 +1,9 @@
 project:
   type: book
-  post-render: 
+  post-render:
     - quarto render --profile slides
-
+  preview:
+    port: 4201
 execute:
   freeze: auto
   echo: true
@@ -53,9 +54,10 @@ book:
     - part: "Reports"
       chapters: 
       #- results/Readme.md
-      - reports/manuscript.ipynb
-      - reports/supplementary.qmd
+      #- reports/manuscript.ipynb
+      #- reports/supplementary.qmd
       - reports/manus/main.qmd
+      - reports/manus/supplementary.qmd
     - part: "Slides"
       chapters:
       # markdown slides
