@@ -440,61 +440,6 @@
     ]
   },
   {
-    "objectID": "reports/manuscript.html",
-    "href": "reports/manuscript.html",
-    "title": "Correlating Chromatin Compartments with Selection",
-    "section": "",
-    "text": "Abstract\nThis is a dummy abstract, dreamt up by chatGPT. Chromatin organization plays a crucial role in gene regulation and genome stability, particularly during the complex process of spermatogenesis. This thesis explores the three-dimensional chromatin architecture of the X chromosome in baboons, macaques, and humans, with a specific focus on the role of chromatin compartments during spermatogenesis. Leveraging publicly available Hi-C data, interaction maps were generated to identify Principal Component 1 (PC1) compartments, revealing distinct chromatin compartmentalization patterns across species. The analysis was extended to examine transition zones, areas where chromatin shifts from one compartment type to another, and their correlation with regions under positive selection.\nBy comparing these zones with regions of known evolutionary significance, the study aims to uncover how chromatin structure reflects and potentially drives evolutionary pressures. A key finding is the identification of conserved chromatin features that may contribute to the retention of non-advantageous alleles, suggesting a possible role for selfish genetic elements in shaping genome evolution. The results of this research provide novel insights into the interplay between chromatin architecture and evolutionary dynamics, contributing to a deeper understanding of the conservation and divergence of chromatin structures across primate species.",
-    "crumbs": [
-      "Reports",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
-    ]
-  },
-  {
-    "objectID": "reports/manuscript.html#introduction",
-    "href": "reports/manuscript.html#introduction",
-    "title": "Correlating Chromatin Compartments with Selection",
-    "section": "Introduction",
-    "text": "Introduction\nDenmark is …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah",
-    "crumbs": [
-      "Reports",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
-    ]
-  },
-  {
-    "objectID": "reports/manuscript.html#results",
-    "href": "reports/manuscript.html#results",
-    "title": "Correlating Chromatin Compartments with Selection",
-    "section": "Results",
-    "text": "Results\n\nWeather\nAs shown in Figure 13.1, the Danish weather is blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.\n\n\n\n\n\n\n\n\n\nFigure 13.1: Danish weather: This is the weather forcast for your project\n\n\n\n\n\n\n\n\nSocial norms\nIn Denmark, the workplace interaction is very informal and largely unaffected by seniority and age.\n\n\n\nI sampled 100 danaes from workplaces in Denmark. More about the sampling… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,\n\n\n\nI found that neither academic seniority or age of workplace individuals much affected how informal our interaction was (see Figure 16.2).\n\n\n\n\n\n\n\n\n\nFigure 13.2: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\n\n\n\n\n\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.",
-    "crumbs": [
-      "Reports",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
-    ]
-  },
-  {
-    "objectID": "reports/manuscript.html#discussion",
-    "href": "reports/manuscript.html#discussion",
-    "title": "Correlating Chromatin Compartments with Selection",
-    "section": "Discussion",
-    "text": "Discussion\nThis this investigation of Danes…, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.",
-    "crumbs": [
-      "Reports",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
-    ]
-  },
-  {
-    "objectID": "reports/manuscript.html#methods",
-    "href": "reports/manuscript.html#methods",
-    "title": "Correlating Chromatin Compartments with Selection",
-    "section": "Methods",
-    "text": "Methods\n\nWeather analysis\n\n\n\nWeather data was collected… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah\n\n\n\n\n\nInteraction analysis\n\n\n\nWorkplace individuals were interviewed by …. blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,",
-    "crumbs": [
-      "Reports",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Correlating Chromatin Compartments with Selection</span>"
-    ]
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Søren’s MSc project about Hi-C and spermatogenesis",
@@ -585,28 +530,6 @@
     ]
   },
   {
-    "objectID": "reports/supplementary.html",
-    "href": "reports/supplementary.html",
-    "title": "Supplementary info",
-    "section": "",
-    "text": "Regression analysis of formality\nBlah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah.",
-    "crumbs": [
-      "Reports",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Supplementary info</span>"
-    ]
-  },
-  {
-    "objectID": "reports/supplementary.html#regression-analysis-of-formality",
-    "href": "reports/supplementary.html#regression-analysis-of-formality",
-    "title": "Supplementary info",
-    "section": "",
-    "text": "Figure 14.1: Interaction among Danes: Regressions of informality against age for five levels of seniority.",
-    "crumbs": [
-      "Reports",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Supplementary info</span>"
-    ]
-  },
-  {
     "objectID": "reports/manus/main.html",
     "href": "reports/manus/main.html",
     "title": "Manuscript",
@@ -614,7 +537,7 @@
     "text": "Chromatin Compartments and Selection on X",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Manuscript</span>"
     ]
   },
   {
@@ -625,7 +548,7 @@
     "text": "Introduction\nHere is the intro",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Manuscript</span>"
     ]
   },
   {
@@ -636,7 +559,7 @@
     "text": "Methods\nHere are the methods",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Manuscript</span>"
     ]
   },
   {
@@ -647,7 +570,7 @@
     "text": "Results\nHere are the glorious results",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Manuscript</span>"
     ]
   },
   {
@@ -658,18 +581,18 @@
     "text": "Discussion\nHere is the discussion",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Manuscript</span>"
     ]
   },
   {
-    "objectID": "reports/manus/main.html#supplementary-material",
-    "href": "reports/manus/main.html#supplementary-material",
-    "title": "Manuscript",
-    "section": "Supplementary material",
-    "text": "Supplementary material\nHere is appended the supplementary material",
+    "objectID": "reports/manus/supplementary.html",
+    "href": "reports/manus/supplementary.html",
+    "title": "Supplementary material",
+    "section": "",
+    "text": "Here is appended the supplementary material",
     "crumbs": [
       "Reports",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Manuscript</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Supplementary material</span>"
     ]
   },
   {
@@ -680,7 +603,7 @@
     "text": "Example slide",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Main talk</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Main talk</span>"
     ]
   },
   {
@@ -691,7 +614,7 @@
     "text": "This is a subtitle\nHere we have some text that may run over several lines of the slide frame, depending on how long it is.\n\nfirst item\n\nA sub item\n\n\nNext, we’ll brief review some theme-specific components.\n\nNote that all of the standard Reveal.js features can be used with this theme, even if we don’t highlight them here.",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Main talk</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Main talk</span>"
     ]
   },
   {
@@ -702,7 +625,7 @@
     "text": "Additional theme classes\n\nSome extra things you can do with the clean theme\nSpecial classes for emphasis\n\n.alert class for default emphasis, e.g. important note.\n.fg class for custom colour, e.g. important note.\n.bg class for custom background, e.g. important note.\n\nCross-references\n\n.button class provides a Beamer-like button, e.g. Summary",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Main talk</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Main talk</span>"
     ]
   },
   {
@@ -713,7 +636,7 @@
     "text": "Social norms\n\nSampling\nIn Denmark, the workplace interaction is very informal and largely unaffected by seniority and age.\n\n\n\nI sampled 100 danaes from workplaces in Denmark. More about the sampling… blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah,",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Main talk</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Main talk</span>"
     ]
   },
   {
@@ -721,10 +644,10 @@
     "href": "slides/slides.html#social-norms-1",
     "title": "Main talk",
     "section": "Social norms",
-    "text": "Social norms\n\nNeither academic seniority or age affected interaction\n\n\n\n\n\n\n\n\n\nFigure 16.1: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\n\n\n\n\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.",
+    "text": "Social norms\n\nNeither academic seniority or age affected interaction\n\n\n\n\n\n\n\n\n\nFigure 15.1: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.\n\n\n\n\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Main talk</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Main talk</span>"
     ]
   },
   {
@@ -735,7 +658,7 @@
     "text": "Slide title\n\n\nEat spaghetti\nDrink wine",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Main talk</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Main talk</span>"
     ]
   },
   {
@@ -746,7 +669,7 @@
     "text": "Slide title\n\n\nLeft column\n\n\nOne\nTwo\nThree",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Main talk</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Main talk</span>"
     ]
   },
   {
@@ -754,10 +677,10 @@
     "href": "slides/slides.html#slide-title-2",
     "title": "Main talk",
     "section": "Slide title",
-    "text": "Slide title\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 16.2: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.",
+    "text": "Slide title\n\n\n\n\n\nThe correlation between informality and age was -0.131 and the correlation between informality and seniority was 0.029.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 15.2: Interaction among Danes: How Danes interact is has very little to do with age and seniority, compared to most other contries.",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Main talk</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Main talk</span>"
     ]
   },
   {
@@ -768,7 +691,7 @@
     "text": "Slide Title\nSlide content\n\n\n\n\nSchumer et al. (2018)",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Main talk</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Main talk</span>"
     ]
   },
   {
@@ -779,7 +702,7 @@
     "text": "Suppl. slides\nSupplementary slides …",
     "crumbs": [
       "Slides",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Suppl. slides</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Suppl. slides</span>"
     ]
   },
   {
