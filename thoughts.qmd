@@ -147,8 +147,10 @@ Then, the E1 for each cell type was plotted and looks like we have succesfully r
 
 {{< embed notebooks/03_compartments.ipynb#e1-fullmerged-all-500kb >}}
 
-After plotting the values from the 'chromosome-wide' E1, i wanted to see how it was affected by subtraction of the running average. It might produce similar results for one or two cell types, but we do not want a specific method for each cell type. 
+Furthermoere, we wanted to see if we could apply the same smoothing as they did: They calculate the obs/exp matrix on a smoothed 100kb matrix: they slide a 400kb window with a step size of 100kb, summing the values. 
 
-{{< embed notebooks/03_compartments.ipynb#e1-fullmerged-all-500kb-running-avg >}}
+It turned out to be practically very hard to do in the *Open2c* ecosystem, so I decided to apply the smoothing directly on the calculated E1 values. 
+
+{{< embed notebooks/03_compartments.ipynb#e1-fullmerged-all-100kb-5smoothed >}}
 
 Now we will do some planning, tidying, and writing before continuing the analysis. 
