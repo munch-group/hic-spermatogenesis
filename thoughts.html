@@ -316,7 +316,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 30, 2024 <br> 21:18:41 (UTC +00:00)</p>
+      <p class="date">November 1, 2024 <br> 12:31:51 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -513,7 +513,7 @@ Wang2019 PC1 on chrX
 <h4 class="anchored" data-anchor-id="compartments-500kb-resolution-looks-smoother">Compartments 500kb resolution looks smoother</h4>
 <p>I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise. It looks more like it captures only the visible compartments in the matrix, whcih is good</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-chrX-matrix-e1-500kb">
-<div id="cell-chrX-matrix-e1-500kb" class="cell" data-execution_count="14">
+<div id="cell-chrX-matrix-e1-500kb" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div id="chrx-matrix-e1-500kb" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -526,7 +526,7 @@ Wang2019 PC1 on chrX
 </div>
 <p>Or the full size E1 plot:</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-chrX-e1-500kb-plot">
-<div id="cell-chrX-e1-500kb-plot" class="cell" data-fig-height="1" data-execution_count="38">
+<div id="cell-chrX-e1-500kb-plot" class="cell" data-fig-height="1">
 <div class="cell-output cell-output-display">
 <div id="chrx-e1-500kb-plot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -540,7 +540,7 @@ Wang2019 PC1 on chrX
 <p>To ease the eye, here are the 100kb E1 and 500kb E1 plots next to each other:</p>
 <p><strong>500kb resolution:</strong></p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-chrX-e1-500kb-plot">
-<div id="cell-chrX-e1-500kb-plot" class="cell" data-fig-height="1" data-execution_count="38">
+<div id="cell-chrX-e1-500kb-plot" class="cell" data-fig-height="1">
 <div class="cell-output cell-output-display">
 <div id="chrx-e1-500kb-plot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -579,7 +579,7 @@ Wang2019 PC1 on chrX
 <p>As stated in <span class="citation" data-cites="wang_reprogramming_2019">Lieberman-Aiden et al. (<a href="references.html#ref-lieberman-aiden_comprehensive_2009" role="doc-biblioref">2009</a>)</span> and <code>cooltools</code> documentation, the E1 occasionally <em>does not</em> reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere).</p>
 <p>I determined the region of the centromere from the <a href="https://www.ncbi.nlm.nih.gov/gdv/browser/genome/?id=GCF_003339765.1">NCBI browser</a>, in a region from 58-61Mb that have no gene annotations. That region corresponds well with <code>NaN</code> values in the calculated eigenvector (values removed because of low-count bins), as seen below:</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1_nan_hist">
-<div id="cell-e1_nan_hist" class="cell page-columns page-full" data-execution_count="21">
+<div id="cell-e1_nan_hist" class="cell page-columns page-full" data-execution_count="111">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1_nan_hist" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -592,7 +592,7 @@ Wang2019 PC1 on chrX
 </div>
 <p>Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know…</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-500kb">
-<div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="25">
+<div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="112">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1-fullmerged-all-500kb" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -603,14 +603,15 @@ Wang2019 PC1 on chrX
 </div>
 </div>
 </div>
-<p>After plotting the values from the ‘chromosome-wide’ E1, i wanted to see how it was affected by subtraction of the running average. It might produce similar results for one or two cell types, but we do not want a specific method for each cell type.</p>
-<div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-500kb-running-avg">
-<div id="cell-e1-fullmerged-all-500kb-running-avg" class="cell page-columns page-full" data-execution_count="32">
+<p>Furthermoere, we wanted to see if we could apply the same smoothing as they did: They calculate the obs/exp matrix on a smoothed 100kb matrix: they slide a 400kb window with a step size of 100kb, summing the values.</p>
+<p>It turned out to be practically very hard to do in the <em>Open2c</em> ecosystem, so I decided to apply the smoothing directly on the calculated E1 values.</p>
+<div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Working with coolers" data-notebook-cellid="cell-e1-fullmerged-all-100kb-5smoothed">
+<div id="cell-e1-fullmerged-all-100kb-5smoothed" class="cell page-columns page-full" data-execution_count="155">
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="e1-fullmerged-all-500kb-running-avg" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<div id="e1-fullmerged-all-100kb-5smoothed" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="thoughts_files/figure-html/notebooks-03_compartments-e1-fullmerged-all-500kb-running-avg-output-1.png" class="img-fluid figure-img column-body-outset"></p>
-<figcaption>E1 eigenvector values for all merged samples at 500kb resolution with running average.</figcaption>
+<p class="page-columns page-full"><img src="thoughts_files/figure-html/notebooks-03_compartments-e1-fullmerged-all-100kb-5smoothed-output-1.png" class="img-fluid figure-img column-page-inset"></p>
+<figcaption>E1 eigenvector values for all merged samples at 100kb resolution. Left: Chromosomes (not restricted) Middle: Chromosome-arm restricted E1. Right: 10Mb window restricted E1.Values are smoothed with a sliding window of 5 bins, step size 1 bin.</figcaption>
 </figure>
 </div>
 </div>
