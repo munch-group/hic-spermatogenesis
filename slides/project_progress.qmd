@@ -1,0 +1,154 @@
+---
+title: "Project Progress Day: Msc. Project 2024"
+subtitle: "Correlating Chromatin Compartments with Selection"
+author: 
+    - "Søren Jørgensen" 
+    - "Kasper Munch (Supervisor)"
+institute: 
+    - "Stud. MSc. Bioinformatics, BiRC"
+    - "Associate Professor, BiRC"
+date: last-modified
+title-slide-attributes: 
+  data-notes: "Hi, I'm Søren. I'm doing my MSc thesis with Kasper about Chromatin Structures and Selection."
+format: 
+    clean-revealjs:
+        toc: true
+        toc-title: "Overview"
+bibliography: ../references.bib
+
+---
+
+
+# Problem 1: Chromatin Compartments {background-image="images/chromatin-intro.jpg" background-opacity=0.2}
+
+## {background-image="images/chromatin-intro.jpg" }
+
+::: {.notes}
+Ok, very briefly: The DNA is organized into higher-order structures by the histones/nucleosomes. This illustration is a nice view of the higher-order structures of DNA inside the nucleus; Nucleosome, Chromatin fiber, Chromatin loops, Chromatin domains, and Chromatin compartments
+:::
+
+## 3D organization of Chromatin into Compartments
+
+:::: {.columns}
+
+::: {.column width="40%"}
+- Data
+    - Special library construction
+    - Sequencing (Hi-C)
+:::
+
+::: {.column width="60%"}
+![](images/hic-intro.jpg)
+:::
+
+::::
+
+::: {.notes}
+To infer this 3-dimensional structure, we need a specialized sequence library, which is made by cross-linking close-proximity DNA (at a specific site), digestion, proximity-ligation, amplification.
+Now the amplified fragments are pairs of sequences that are close in physical space, but not in necessarily in bp position. All this lab-work is done by others, and now it's our turn.
+:::
+
+## Hi-C pipeline
+
+:::: {.columns}
+::: {.column width="80%"}
+![](images/HiCschematic.png)
+:::
+
+::: {.column width="20%" margin-left='auto'}
+**The *plaid* pattern is reflected by the E1**
+{{< embed ../notebooks/03_compartments.ipynb#chrX-matrix-e1-500kb >}}
+:::
+::::
+
+::: {.notes}
+When the pairs are sequenced, we map (align) them back onto the reference genome (to get a coordinate for each of the pairs). After filtering out poorly mapped and unmapped reads and matrix-balancing, we construct a heat map at some chosen resolution. We should see *plaid* patterns like these, which indicate that regions of the genome interact more closely than others, marked by a sharp increase in interaction frequency.
+:::
+
+## Hi-C pipeline
+
+:::: {.columns}
+::: {.column width="38%"}
+![](images/HiCschematic.png)
+:::
+
+::: {.column width="62%" }
+{{< embed ../notebooks/03_compartments.ipynb#chrX-matrix-e1-500kb >}}
+:::
+::::
+
+::: {.notes}
+Now, it has been shown that the first eigenvector (the vector of PC1) can well predict these compartments, and we label them 'A' for active and 'B' for inactive compartments. We use (binned) GC content to *phase* or calibrate the sign. It is convention to eyeball how well we capture the plaid pattern as this point. 
+:::
+
+## Reconstructing figures from [@wang_reprogramming_2019]
+
+::: {.incremental}
+- [@wang_reprogramming_2019] identified compartments in *rhesus macaque* in five different stages of spermatogenesis: 
+    - fibroblast, spermatogonia, pachytene spermatocyte, round spermatids, and sperm
+- The edges of some compartments look suspiciously close to some of the regions of weirdly selected genes of *papio anubis* (olive baboons)
+:::
+
+::: {.fragment .fade-in style="top-margin: 0px; margin-left:auto; margin-right:auto;"}
+<figure>
+    <center>
+    <figcaption>Wang2019 PC1 on chrX</figcaption>
+    <img src="../figures/E1_chrX_fib_wang.png" alt="E1_chrX_fib_wang" style="height: 150px; width: 880px;"/>
+    </center>
+</figure>
+
+:::
+
+::: {.fragment .fade-in style="top-margin: 0px; margin-left:auto; margin-right:auto; height: 150px;"}
+{{< embed ../notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
+:::
+
+
+## Reconstructing figures from [@wang_reprogramming_2019]
+
+- [@wang_reprogramming_2019] identified compartments in *rhesus macaque* in five different stages of spermatogenesis: 
+    - fibroblast, spermatogonia, pachytene spermatocyte, round spermatids, and sperm
+- The edges of some compartments look suspiciously close to some of the regions of weirdly selected genes of *papio anubis* (olive baboons)
+
+::: {.r-stretch}
+![](images/overlay-smoothed.png){style="height:200px; width:1200px"}
+:::
+
+::: {.notes}
+The initial results were good for fibroblasts, but they were not so good for the rest of the cell types (next slide)
+:::
+
+## Partition the genome
+
+{{< embed ../notebooks/03_compartments.ipynb#e1-fullmerged-all-500kb >}} 
+
+## Partition the genome and smooth
+
+{{< embed ../notebooks/03_compartments.ipynb#e1-fullmerged-all-100kb-5smoothed >}}
+
+::: {.notes}
+It seems it has a big effect how we partition the genome when calculating the E1. What it actually means (biologically), I don't know. Do we remove noise or actual information? 
+:::
+
+
+# Problem 2: Correlating with regions of interest {background-image="https://upload.wikimedia.org/wikipedia/commons/3/35/Olive_baboon_Ngorongoro.jpg" background-opacity=0.3}
+
+::: footer
+By <a href="https://en.wikipedia.org/wiki/User:Muhammad_Mahdi_Karim" class="extiw" title="w:User:Muhammad Mahdi Karim">Muhammad Mahdi Karim</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="http://www.gnu.org/licenses/old-licenses/fdl-1.2.html" title="GNU Free Documentation License 1.2">GFDL 1.2</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=11193550">Link</a>
+:::
+
+## What regions
+
+::: {.incremental}
+- Some genes behave weirdly during spermatogenesis
+- Why are they selected (seemingly) against fitness? 
+:::
+
+## *Macaque* vs *Baboon* 
+
+::: {.incremental}
+- Do they correlate? 
+- Do we have to work on sperm samples (laborious - hard to get data) 
+:::
+
+## References

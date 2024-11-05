@@ -62,8 +62,9 @@ book:
       chapters:
       # markdown slides
       # (the same files must be listed _quarto-slides.yml to render as slides)
-      - slides/slides.qmd 
-      - slides/suppl_slides.qmd 
+      - slides/project_progress.qmd
+      #- slides/slides.qmd 
+      #- slides/suppl_slides.qmd 
     - references.qmd
 
 bibliography: references.bib
