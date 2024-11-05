@@ -266,12 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/slides.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Main talk</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../slides/suppl_slides.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Suppl. slides</span></a>
+  <a href="../slides/project_progress.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project Progress Day: Msc. Project 2024</span></a>
   </div>
 </li>
       </ul>
@@ -3426,7 +3421,7 @@ None</code></pre>
 </section>
 <section id="plot-the-e1-compartments-1" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="plot-the-e1-compartments-1">Plot the E1 compartments</h4>
-<div id="cell-e1-fullmerged-all-100kb-5smoothed" class="cell page-columns page-full" data-execution_count="155">
+<div id="cell-e1-fullmerged-all-100kb-5smoothed" class="cell page-columns page-full" data-execution_count="156">
 <div class="sourceCode cell-code" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
@@ -3474,8 +3469,9 @@ None</code></pre>
 <span id="cb115-45"><a href="#cb115-45" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
 <span id="cb115-46"><a href="#cb115-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb115-47"><a href="#cb115-47" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb115-48"><a href="#cb115-48" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb115-49"><a href="#cb115-49" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb115-48"><a href="#cb115-48" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'../steps/e1_plot_full_100kb_smoothed.svg'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb115-49"><a href="#cb115-49" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb115-50"><a href="#cb115-50" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1-fullmerged-all-100kb-5smoothed" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
