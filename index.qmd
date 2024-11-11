@@ -10,7 +10,7 @@ date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
 - Visit the [project guide](ttps://munch-group.org/project-guide/) for help.
 - Visit Open Chromosome Collective ([Open2C](https://github.com/open2c/)) for tools and tutorials on 3D Chromosome biology
 - Visit [HiCExplorer docs](https://hicexplorer.readthedocs.io/en/latest/)
-- Raw data from Wang2019 can be download [here](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA430777&o=acc_s%3Aa), but requires [`SRA toolkit`](https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit)
+- Raw data from [@wang_reprogramming_2019] can be download [here](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA430777&o=acc_s%3Aa), but requires [`SRA toolkit`](https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit)
 
 ## Outline
 
