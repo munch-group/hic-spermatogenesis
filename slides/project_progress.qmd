@@ -62,7 +62,7 @@ Now the amplified fragments are pairs of sequences that are close in physical sp
 **The *plaid* pattern is reflected by the E1**
 
 ::: {.data-id='boxright'}
-{{< embed ../notebooks/03_compartments.ipynb#chrX-matrix-e1-500kb >}}
+{{< embed ../notebooks/03_compartments.ipynb#fig-chrX_matrix_e1_500kb >}}
 :::
 :::
 ::::
@@ -80,7 +80,7 @@ When the pairs are sequenced, we map (align) them back onto the reference genome
 
 ::: {.column style="width: 62%; text-align: right; margin-left: auto;"}
 ::: {.data-id='boxright'}
-{{< embed ../notebooks/03_compartments.ipynb#chrX-matrix-e1-500kb >}}
+{{< embed ../notebooks/03_compartments.ipynb#fig-chrX_matrix_e1_500kb >}}
 :::
 :::
 ::::

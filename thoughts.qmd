@@ -111,7 +111,7 @@ I'm very positive about the results. The compartments do not match completely, b
 
 I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise. It looks more like it captures only the visible compartments in the matrix, whcih is good
 
-{{< embed notebooks/03_compartments.ipynb#chrX-matrix-e1-500kb >}}
+{{< embed notebooks/03_compartments.ipynb#fig-chrX_matrix_e1_500kb >}}
 
 Or the full size E1 plot:
 

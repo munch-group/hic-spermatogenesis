@@ -1,3 +1,9 @@
 ## Methods
 
-Here are the methods
+{{< embed ../../notebooks/03_compartments.ipynb#md-data-accessions >}}
+
+{{< embed ../../notebooks/03_compartments.ipynb#tbl-runtable-summary >}}
+
+{{< embed ../../notebooks/03_compartments.ipynb#md-folder-structure >}}
+
+{{< embed ../../notebooks/03_compartments.ipynb#folder-structure >}}
