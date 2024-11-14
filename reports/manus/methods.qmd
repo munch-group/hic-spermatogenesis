@@ -1,9 +1,17 @@
 ## Methods
 
+In this project, we formulate two objectives: 
+
+**A**: Reproduce the Hi-C interaction maps and eigendecomposition from [@wang_reprogramming_2019], with some modifications. We briefly use *HiCExplorer*, but change the analyses to use the *Open2C Ecosystem* [@open2c] which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a *gwf* workflow, and the commands that were visually inspected were run in Jupyter Notebooks. 
+
+**B** Compare with regions of selection that are found in *papio anubis*, and maybe in *human* too. Investigate the biological meaning of the results. 
+
+### Data and structure
+
 {{< embed ../../notebooks/03_compartments.ipynb#md-data-accessions >}}
 
 {{< embed ../../notebooks/03_compartments.ipynb#tbl-runtable-summary >}}
 
 {{< embed ../../notebooks/03_compartments.ipynb#md-folder-structure >}}
 
-{{< embed ../../notebooks/03_compartments.ipynb#folder-structure >}}
+{{< embed ../../notebooks/03_compartments.ipynb#fig-folder-structure >}}    

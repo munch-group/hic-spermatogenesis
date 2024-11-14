@@ -19,7 +19,6 @@ format:
     toc-depth: 2
     notebook-links: global
     number-sections: false
-
 comments:
   hypothesis: true
 

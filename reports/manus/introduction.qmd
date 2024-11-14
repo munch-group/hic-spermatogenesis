@@ -1,3 +1,3 @@
 ## Introduction
 
-Here is the intro
+The conventional story of gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes that are each responsible for their own survival, and nothing more. That seems like a fair game, but what if some genes are cheating the system by making other participants less viable. Say, some genes on the X chromosome creates a disadvantage for gametes that *do not* contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is excactly what is coined *sex chromosome meiotic drive* .
