@@ -22,7 +22,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -287,7 +307,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 12, 2024 <br> 21:22:37 (UTC +00:00)</p>
+      <p class="date">November 14, 2024 <br> 15:20:29 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -315,10 +335,15 @@ ul.task-list li input[type="checkbox"] {
 <h1>Chromatin Compartments and Selection on <em>X</em></h1>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Here is the intro</p>
+<p>The conventional story of gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes that are each responsible for their own survival, and nothing more. That seems like a fair game, but what if some genes are cheating the system by making other participants less viable. Say, some genes on the X chromosome creates a disadvantage for gametes that <em>do not</em> contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is excactly what is coined <em>sex chromosome meiotic drive</em> .</p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p>In this project, we formulate two objectives:</p>
+<p><strong>A</strong>: Reproduce the Hi-C interaction maps and eigendecomposition from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, with some modifications. We briefly use <em>HiCExplorer</em>, but change the analyses to use the <em>Open2C Ecosystem</em> <span class="citation" data-cites="open2c">(<a href="../../references.html#ref-open2c" role="doc-biblioref"><span>“Open2C”</span> 2024</a>)</span> which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a <em>gwf</em> workflow, and the commands that were visually inspected were run in Jupyter Notebooks.</p>
+<p><strong>B</strong> Compare with regions of selection that are found in <em>papio anubis</em>, and maybe in <em>human</em> too. Investigate the biological meaning of the results.</p>
+<section id="data-and-structure" class="level3">
+<h3 class="anchored" data-anchor-id="data-and-structure">Data and structure</h3>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-md-data-accessions">
 <div id="cell-md-data-accessions" class="cell" data-execution_count="3">
 <div id="md-data-accessions" class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
@@ -399,8 +424,10 @@ Table&nbsp;14.1: Summary of the data accessions used in this analysis
 </div>
 </div>
 </div>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-folder-structure">
-<div id="folder-structure" class="cell">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-fig-folder-structure">
+<div id="fig-folder-structure" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="12">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-folder-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-stdout">
 <pre><code>../steps/bwa/PE
 ├── bamfiles
@@ -425,7 +452,13 @@ Table&nbsp;14.1: Summary of the data accessions used in this analysis
 18 directories</code></pre>
 </div>
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-folder-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.1
+</figcaption>
+</figure>
 </div>
+</div>
+</section>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
@@ -436,6 +469,14 @@ Table&nbsp;14.1: Summary of the data accessions used in this analysis
 <p>Here is the discussion</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-open2c" class="csl-entry" role="listitem">
+<span>“Open2C.”</span> 2024. <a href="https://open2c.github.io" class="uri">https://open2c.github.io</a>.
+</div>
+<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
+</div>
+</div>
 </section>
 </section>
 

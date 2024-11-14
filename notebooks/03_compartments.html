@@ -798,7 +798,9 @@ Table&nbsp;6.2: Summary of the data accessions used in this analysis
 <p>For ease of mind, here is the folder structure of the project. <code>../steps/bwa/PE/</code> is the base directory artificially defined in the <code>master_workflow.py</code>. It ccould be any other directory inside <code>steps</code>. It is defined relative to the <code>master_workflow.py</code> file (inside the worklow), and converted to an absolute path by python.</p>
 </div>
 </div>
-<div id="folder-structure" class="cell">
+<div id="fig-folder-structure" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="12">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-folder-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-stdout">
 <pre><code>../steps/bwa/PE
 ├── bamfiles
@@ -822,6 +824,11 @@ Table&nbsp;6.2: Summary of the data accessions used in this analysis
 
 18 directories</code></pre>
 </div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-folder-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1
+</figcaption>
+</figure>
 </div>
 </section>
 </section>
@@ -847,7 +854,7 @@ Table&nbsp;6.2: Summary of the data accessions used in this analysis
 <p>First, we will create a dictionary with the paths to the coolers for each sample. We use <code>glob.glob</code> to fetch all the coolers in each sub-folder that remain after filtering and (automatic) quality control (those are the ones with <code>nodups</code> in their names).</p>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="16">
+<div id="cell-17" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pprint <span class="im">import</span> pprint <span class="im">as</span> pp</span>
@@ -948,7 +955,7 @@ Table&nbsp;6.2: Summary of the data accessions used in this analysis
 <p>The coolers are merged by summing each bin in the matrices, meaning we can only merge matrices with same dimensions. We iterate through the dictionary and merge the coolers with <code>cooler merge</code>. The <code>mergebuf</code> parameter should be adjusted if you don’t have 32G memory. Default: <code>mergebuf = 20000000</code>. Below, we also check if the output file already exists. If it does, we skip the merge.</p>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="5">
+<div id="cell-20" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB adjust `mergebuf` if you don't have 32G of RAM</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
@@ -986,7 +993,7 @@ Skipping ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.full
 <p>Finally, I list the resolutions in the mcool file.</p>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="7">
+<div id="cell-23" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB 8 cores and 32G of RAM was used</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
@@ -1021,7 +1028,7 @@ Zoomifying cooler:
 Skipping ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mcool: exists...</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell">
+<div id="cell-24" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mcools <span class="op">=</span> glob.glob(<span class="st">"../steps/bwa/PE/cool/*/*.mcool"</span>)</span>
@@ -1064,7 +1071,7 @@ Skipping ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mcoo
 <p>Conveniently, <code>cooler balance</code> automatically checks if there is already a <code>weight</code> column, and skips the balancing if it already exists. We can overwrite with <code>--force</code>.</p>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="27">
+<div id="cell-27" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture balance_out <span class="op">--</span>no<span class="op">-</span>stderr</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
@@ -1111,7 +1118,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
     resolution 500000... --&gt; Done!</code></pre>
 </div>
 </div>
-<div id="cell-27" class="cell">
+<div id="cell-28" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the balancing stdout if you want (but it is up to 200 lines per cooler)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>balance_out()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1147,10 +1154,10 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <p>Therefore, this section was only briefly initialized, and now it is commented out.</p>
 </div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="1">
+<div id="cell-31" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#df.groupby(['source_name','BioSample'])['Reads'].sum()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="2">
+<div id="cell-32" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from pprintpp import pprint as pp</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># grouped_df = df.groupby(['source_name','BioSample'])</span></span>
@@ -1170,7 +1177,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># pp(rep_dict)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="3">
+<div id="cell-33" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for source_name, BioSample_dict in rep_dict.items():</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     print(f"source_name: {source_name}")</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     print(f"Changing working dir: {source_name}/")</span></span>
@@ -1201,7 +1208,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 </div>
 <section id="imports" class="level4">
 <h4 class="anchored" data-anchor-id="imports">Imports</h4>
-<div id="cell-39" class="cell" data-execution_count="2">
+<div id="cell-40" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import standard python libraries</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1209,7 +1216,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os, subprocess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="3">
+<div id="cell-41" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import python package for working with cooler files and tools for analysis</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools.lib.plotting</span>
@@ -1218,7 +1225,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 </section>
 <section id="load-cooler" class="level4">
 <h4 class="anchored" data-anchor-id="load-cooler">Load cooler</h4>
-<div id="cell-42" class="cell" data-execution_count="4">
+<div id="cell-43" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mclr <span class="op">=</span> <span class="st">"../steps/bwa/PE/cool/fibroblast/fibroblast.mcool"</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>clr <span class="op">=</span> cooler.Cooler(<span class="ss">f"</span><span class="sc">{</span>mclr<span class="sc">}</span><span class="ss">::resolutions/500000"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1231,7 +1238,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <p>I will use <code>bioframe</code> to load the reference and calculate the GC content of each bin in the cooler file. The convention in Hi-C is to use GC content as a phasing track to orient eigenvector track to positively correlated with the GC content. In this subsection, I calculate the GC content for all chromosomes and filter afterwards to only include the ‘X’ chromosome. I will do that smarter in the next subsection.</p>
 </div>
 </div>
-<div id="cell-45" class="cell" data-execution_count="6">
+<div id="cell-46" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bioframe</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1359,7 +1366,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <p>I this example, I will use the simplest ‘view’ (chromosome-wide) of the chromosome to calculate the E1 values, but later I will explore how partitioning the chromosome affects the E1 values. As the GC content was calculated for all chromosomes, the eigenvectors are also calculated for the whole matrix. This will <em>also</em> be optimized in the next subsection, as we only ever look at the ‘X’ chromosome.</p>
 </div>
 </div>
-<div id="cell-48" class="cell" data-execution_count="8">
+<div id="cell-49" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the full view frame</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>view_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    {</span>
@@ -1371,7 +1378,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                      )</span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#display(view_df)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-49" class="cell" data-execution_count="9">
+<div id="cell-50" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain first 3 eigenvectors</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>cis_eigs <span class="op">=</span> cooltools.eigs_cis(</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                        clr,</span>
@@ -1387,7 +1394,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <pre><code>5720</code></pre>
 </div>
 </div>
-<div id="cell-50" class="cell" data-execution_count="10">
+<div id="cell-51" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># full track</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>eigenvector_track</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
@@ -1494,14 +1501,14 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <p>As I have made myself a detour and calculated the eigenvectors for all chromosomes, I will now filter the eigenvector track to only include the ‘X’ chromosome. Then, I will (in the name of explicitness) construct an array of all the indices where the E1 values change sign. This is the simplest way to save the coordinates of the compartment boundaries. It can later on be saved to .csv or whatever for comparison between different samples. Also, it will be simplified in the next subsection.</p>
 </div>
 </div>
-<div id="cell-52" class="cell" data-execution_count="12">
+<div id="cell-53" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset the chrX   </span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>eigenvector_track_chrX <span class="op">=</span> eigenvector_track.loc[eigenvector_track[<span class="st">'chrom'</span>] <span class="op">==</span> <span class="st">'chrX'</span>]</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>nbins <span class="op">=</span> <span class="bu">len</span>(eigenvector_track_chrX)</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>eigenvector_track_chrX</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>e1X_values <span class="op">=</span> eigenvector_track_chrX[<span class="st">'E1'</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-53" class="cell" data-execution_count="13">
+<div id="cell-54" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Where does the E1 change sign</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>np.where(np.diff( (cis_eigs[<span class="dv">1</span>][cis_eigs[<span class="dv">1</span>][<span class="st">'chrom'</span>]<span class="op">==</span><span class="st">'chrX'</span>][<span class="st">'E1'</span>]<span class="op">&gt;</span><span class="dv">0</span>).astype(<span class="bu">int</span>)))[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -1523,7 +1530,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <p>I’m testing out the <code>%%capture</code> magic to capture the plot to a variable, then displaying it in the next cell. Initially, the plot took a while to generate, and I wanted to avoid re-generating when adjusting graphics on cell level with the YAML options. Now it is not necessary, but I keep it for the sake of the example.</p>
 </div>
 </div>
-<div id="cell-56" class="cell" data-execution_count="42">
+<div id="cell-57" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture chrX_matrix_e1_500kb</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
@@ -1690,7 +1697,7 @@ Figure&nbsp;7.1: chrX interaction matrix with E1 eigenvector values in 500kb res
 <h3 class="anchored" data-anchor-id="all-5-full-merges">All 5 full merges</h3>
 <section id="load-coolers" class="level4">
 <h4 class="anchored" data-anchor-id="load-coolers">Load coolers</h4>
-<div id="cell-66" class="cell" data-execution_count="41">
+<div id="cell-67" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
@@ -1716,7 +1723,7 @@ Figure&nbsp;7.1: chrX interaction matrix with E1 eigenvector values in 500kb res
 <section id="calculate-gc-covariance-from-the-reference-genome-1" class="level4">
 <h4 class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-1">Calculate gc covariance (from the reference genome)</h4>
 <p>Do this with any of the clrs - it just needs the bins positions.</p>
-<div id="cell-68" class="cell" data-execution_count="42">
+<div id="cell-69" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try with only the gc_cov for chrX</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bioframe</span>
@@ -1758,7 +1765,7 @@ None</code></pre>
 <p>Loop: view_df, cis_eigs, e1_values</p>
 <section id="plot-gc-covariance" class="level5">
 <h5 class="anchored" data-anchor-id="plot-gc-covariance">Plot GC covariance</h5>
-<div id="cell-71" class="cell" data-execution_count="43">
+<div id="cell-72" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(</span>
@@ -1771,7 +1778,7 @@ None</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03_compartments_files/figure-html/cell-46-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="03_compartments_files/figure-html/cell-47-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1779,7 +1786,7 @@ None</code></pre>
 </section>
 <section id="chromosome-restricted-e1-compartments" class="level5">
 <h5 class="anchored" data-anchor-id="chromosome-restricted-e1-compartments">Chromosome restricted E1 compartments</h5>
-<div id="cell-73" class="cell" data-execution_count="44">
+<div id="cell-74" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use gc_cov to calculate eigenvectors with cooltools.eigs_cis</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span>
@@ -1853,7 +1860,7 @@ None</code></pre>
 </section>
 <section id="chromosome-arms-restricted" class="level5">
 <h5 class="anchored" data-anchor-id="chromosome-arms-restricted">Chromosome arms restricted</h5>
-<div id="cell-75" class="cell" data-execution_count="45">
+<div id="cell-76" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use gc_cov to calculate eigenvectors with cooltools.eigs_cis</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span>
@@ -1918,7 +1925,7 @@ Calculating eigenvectors for round_spermatid</code></pre>
 </section>
 <section id="refined-10mb-windows-restricted" class="level5">
 <h5 class="anchored" data-anchor-id="refined-10mb-windows-restricted">Refined: 10Mb windows restricted</h5>
-<div id="cell-77" class="cell" data-execution_count="46">
+<div id="cell-78" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use gc_cov to calculate eigenvectors with cooltools.eigs_cis</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span>
@@ -2301,7 +2308,7 @@ Calculating eigenvectors for round_spermatid</code></pre>
 <h3 class="anchored" data-anchor-id="all-5-full-merges-1">All 5 full merges</h3>
 <section id="load-coolers-1" class="level4">
 <h4 class="anchored" data-anchor-id="load-coolers-1">Load coolers</h4>
-<div id="cell-91" class="cell" data-execution_count="1">
+<div id="cell-92" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
@@ -2329,7 +2336,7 @@ Calculating eigenvectors for round_spermatid</code></pre>
 <section id="calculate-gc-covariance-from-the-reference-genome-2" class="level4">
 <h4 class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-2">Calculate gc covariance (from the reference genome)</h4>
 <p>Do this with any of the clrs - it just needs the bins positions.</p>
-<div id="cell-93" class="cell" data-execution_count="2">
+<div id="cell-94" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try with only the gc_cov for chrX</span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bioframe</span>
@@ -2371,7 +2378,7 @@ None</code></pre>
 <p>Loop: view_df, cis_eigs, e1_values</p>
 <section id="plot-gc-covariance-1" class="level5">
 <h5 class="anchored" data-anchor-id="plot-gc-covariance-1">Plot GC covariance</h5>
-<div id="cell-96" class="cell" data-execution_count="3">
+<div id="cell-97" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">2</span>))</span>
@@ -2381,7 +2388,7 @@ None</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03_compartments_files/figure-html/cell-56-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="03_compartments_files/figure-html/cell-57-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -2389,7 +2396,7 @@ None</code></pre>
 </section>
 <section id="create-viewframes-full-arms-10mb-windows" class="level5">
 <h5 class="anchored" data-anchor-id="create-viewframes-full-arms-10mb-windows">Create viewframes: full, arms, 10Mb windows</h5>
-<div id="cell-98" class="cell" data-execution_count="4">
+<div id="cell-99" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch the chromsize of X from one of the coolers</span></span>
@@ -2427,7 +2434,7 @@ None</code></pre>
 </section>
 <section id="calulate-the-e1-compartments" class="level5">
 <h5 class="anchored" data-anchor-id="calulate-the-e1-compartments">Calulate the E1 compartments</h5>
-<div id="cell-100" class="cell" data-execution_count="5">
+<div id="cell-101" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>eigs <span class="op">=</span> {}</span>
@@ -2703,7 +2710,7 @@ None</code></pre>
 <h3 class="anchored" data-anchor-id="smooth-the-observedexpected-matrix">Smooth the Observed/Expected matrix</h3>
 <p>Wang et al.&nbsp;2019 used a 400Kb window with a step size of 100Kb to smooth the O/E matrix before calculating the E1. I have tried various different methods to smooth the interaction matrix, but I can’t get dimensions of the <code>pixels</code> to match with the <code>bins</code>. Also, <code>cooltools.eigs_cis</code> need a full <code>cooler</code> to fetch data from, and I can’t get it to work without a <code>pixels</code> object.</p>
 <p>Thus, I will try smoothing the E1 values instead, as I can’t really rationalize what biological difference it would make. I think I need help figuring that out.</p>
-<div id="cell-107" class="cell">
+<div id="cell-108" class="cell">
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
@@ -2728,7 +2735,7 @@ None</code></pre>
 <section id="calculate-gc-covariance-from-the-reference-genome-3" class="level4">
 <h4 class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-3">Calculate gc covariance (from the reference genome)</h4>
 <p>Do this with any of the clrs - it just needs the bins positions.</p>
-<div id="cell-109" class="cell">
+<div id="cell-110" class="cell">
 <div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bioframe</span>
 <span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
@@ -2762,7 +2769,7 @@ memory usage: 48.1+ KB
 None</code></pre>
 </div>
 </div>
-<div id="cell-110" class="cell">
+<div id="cell-111" class="cell">
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
 <span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2787,7 +2794,7 @@ None</code></pre>
 <span id="cb112-22"><a href="#cb112-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Smooth the matrix</span></span>
 <span id="cb112-23"><a href="#cb112-23" aria-hidden="true" tabindex="-1"></a>smoothed_matrix <span class="op">=</span> smooth_matrix(matrix, window_size<span class="op">=</span><span class="dv">4</span>, step_size<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-111" class="cell">
+<div id="cell-112" class="cell">
 <div class="sourceCode cell-code" id="cb113"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co">#clr.bins().fetch('chrX')[:]</span></span>
 <span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>clr.pixels().fetch(<span class="st">'chrX'</span>)[:]</span>
 <span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="co">#print(matrix.shape)</span></span>
@@ -2879,7 +2886,7 @@ None</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-112" class="cell">
+<div id="cell-113" class="cell">
 <div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
 <span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -2974,7 +2981,7 @@ None</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-113" class="cell">
+<div id="cell-114" class="cell">
 <div class="sourceCode cell-code" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the eigs</span></span>
 <span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span>
@@ -3053,7 +3060,7 @@ File <span class="ansi-green-fg">~/miniconda3/envs/hic/lib/python3.12/site-packa
 </div>
 </div>
 </div>
-<div id="cell-114" class="cell">
+<div id="cell-115" class="cell">
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # create a cooler for the smoothed matrix</span></span>
 <span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="co"># import cooler</span></span>
