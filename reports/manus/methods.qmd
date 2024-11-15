@@ -15,3 +15,11 @@ In this project, we formulate two objectives:
 {{< embed ../../notebooks/03_compartments.ipynb#md-folder-structure >}}
 
 {{< embed ../../notebooks/03_compartments.ipynb#fig-folder-structure >}}    
+
+{{< embed ../../notebooks/03_compartments.ipynb#md-plotting-main >}} 
+
+{{< embed ../../notebooks/03_compartments.ipynb#md-plotting-500kb-single >}} 
+
+{{< embed ../../notebooks/03_compartments.ipynb#fig-matrix_e1_500kb >}} 
+
+Here we see that @fig-matrix_e1_500kb...

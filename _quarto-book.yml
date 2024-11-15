@@ -1,7 +1,7 @@
 project:
   type: book
-  post-render:
-    - quarto render --profile slides
+#  post-render:
+#    - quarto render --profile slides
   preview:
     port: 4201
 execute:
@@ -19,6 +19,7 @@ format:
     toc-depth: 2
     notebook-links: global
     number-sections: false
+    number-offset: [0]
 comments:
   hypothesis: true
 
