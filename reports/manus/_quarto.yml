@@ -1,0 +1,33 @@
+project:
+  type: manuscript
+  title: "Manuscript"
+
+manuscript:
+  article: index.qmd
+
+format:
+  html: default
+  docx: default
+  jats: default
+  pdf:
+    documentclass: scrarticle
+    papersize: a4
+    toc: true
+    toc-depth: 2
+    highlight-style: kate 
+    geometry: 
+      - textheight=9in
+      - textwidth=6.5in
+      - top=1in
+      - headheight=14pt
+      - headsep=25pt
+      - footskip=30pt    
+    include-in-header:
+      - file: header_extra.tex
+
+notebook-links: false
+
+execute:
+  freeze: auto
+
+bibliography: ../../references.bib

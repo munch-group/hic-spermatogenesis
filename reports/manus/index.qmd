@@ -14,16 +14,20 @@ keywords:
   - Selection
 abstract: |
   This is a dummy abstract, dreamt up by chatGPT. This thesis investigates the 3D chromatin architecture of the X chromosome in baboons, macaques, and humans, focusing on chromatin compartments during spermatogenesis. Using publicly available Hi-C data, interaction maps were created to identify Principal Component 1 (PC1) compartments, revealing distinct compartmentalization patterns among species. The analysis included transition zones, where chromatin shifts between compartment types, and their correlation with positively selected regions. By comparing these zones with evolutionarily significant regions, the study explores how chromatin structure influences evolutionary pressures. Key findings include conserved chromatin features that may help retain non-advantageous alleles, suggesting a role for selfish genetic elements in genome evolution. This research offers new insights into the relationship between chromatin architecture and evolutionary dynamics across primate species.
-# plain-language-summary: |
-#   3-dimensional structure of chromatin brings light onto the mystery of selfish genes.
-# key-points:
-#   - Figures from a paper was reproduced, analyzing A/B compartments of rhesus macaque X chromosomes
-#   - Differential compartment analysis was conducted comparing with papio anubis
-#   - Regions was overlayed with genes of interest (positive selection)
+plain-language-summary: |
+  3-dimensional structure of chromatin brings light onto the mystery of selfish genes.
+key-points:
+  - Figures from a paper was reproduced, analyzing A/B compartments of rhesus macaque X chromosomes
+  - Differential compartment analysis was conducted comparing with papio anubis
+  - Regions was overlayed with genes of interest (positive selection)
 date: last-modified
 date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
 crossref:
   chapters: false
+# # format:
+# #   pdf: 
+# #     documentclass: article
+# #     include-in-header: preamble.tex
 ---
 
 # Chromatin Compartments and Selection on *X*
@@ -36,3 +40,4 @@ crossref:
 
 {{< include discussion.qmd >}}
 
+## Bibliography {.unnumbered}

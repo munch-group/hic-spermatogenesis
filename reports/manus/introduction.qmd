@@ -1,8 +1,24 @@
+---
+#bibliography: ../../references.bib
+from: markdown+emoji
+---
+
 ## Introduction
+
+:memo: = *draft block* 
+
+### Sexual reproduction (spermatogenesis, meiosis)
+
+> :memo: The production of gametes in a sexually reproducing organism is a highly complex process that involves numeruous elements. Spermatogenesis, the process of forming male gametes, involves four stages of differentiation from a germ cell through *spermatogonia*, *pachytene spermatocyte*, and *round spermatids* to *spermatozoa*, or *sperm* [@wang_reprogramming_2019]. 
+
 
 ### Selfish genes
 
-The conventional story of gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes that are each responsible for their own survival, and nothing more. That seems like a fair game, but what if some genes are cheating the system by making other participants less viable. Say, some genes on the X chromosome creates a disadvantage for gametes that *do not* contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is exactly what is coined *sex chromosome meiotic drive* [@jaenike_sex_2001], a result of selfish genetic elements. Motivated by previous results in the Munch Research group [@munch_group_2024] on hybrid incompatibility and extended common haplotypes [@skov_extraordinary_2023; @sorensen_genome_wide_2023] that could be explained by meiotic drive, we wanted to investigate how these patterns correlate with chromatin compartments. 
+> :memo: The conventional story of meiosis in gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes that are each responsible for their own survival, and nothing more. That seems like a fair game, but what if some genes are cheating the system by making other participants less viable. Say, some genes on the X chromosome creates a disadvantage for gametes that *do not* contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is exactly what is coined *sex chromosome meiotic drive* [@jaenike_sex_2001], a result of selfish genetic elements. 
 
-### Chromosome conformation capture
+> :memo: Motivated by previous results in the Munch Research group [@munch_group_2024] on hybrid incompatibility and extended common haplotypes [@skov_extraordinary_2023; @sorensen_genome_wide_2023] that could be explained by meiotic drive, we wanted to investigate how these patterns correlate with chromatin compartments. 
+
+### High-Throughput Chromosome conformation capture (Hi-C)
+
+Our DNA can be divided into different orders of structure. *3C* focus on identifying the highest orders of organization inside the nucleus, that is, when the 30 nm thick coil of chromatin fibers folds into loops, Topologically Associating Domains (TADs), and chromatin compartments. Here, we narrow our focus on the largest of the structures, *compartments*, that is known to determine availability to transcription factors, thus making an *A* compartment *active*---and the *B* compartment *inactive*. The introduction of the Hi-C method [@lieberman-aiden_comprehensive_2009] (high-throughput 3C) opened new possibilities for exploring the three-dimensional organization of the genome. 
 
