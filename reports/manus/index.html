@@ -22,27 +22,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -53,7 +33,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../reports/manus/supplementary.html" rel="next">
-<link href="../../gwf_pair_alignments.html" rel="prev">
+<link href="../../notebooks/03_compartments.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +92,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../reports/manus/main.html">Reports</a></li><li class="breadcrumb-item"><a href="../../reports/manus/main.html"><span class="chapter-title">Manuscript</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../reports/manus/index.html">Reports</a></li><li class="breadcrumb-item"><a href="../../reports/manus/index.html"><span class="chapter-title">Manuscript</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,6 +110,7 @@ div.csl-indent {
       <a href="../../">Søren’s MSc project about Hi-C and spermatogenesis</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/munch-group/hic-spermatogenesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="../../msc-project-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -143,11 +124,6 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../thoughts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Thoughts and Prayers</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -178,62 +154,16 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Workflows</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../master_workflow.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">master_workflow</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../gwf_map_reads.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_map_reads</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../gwf_bowtie.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_bowtie</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../gwf_bowtie_local.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_bowtie_local</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../gwf_hiccorrect.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_hiccorrect</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../gwf_bwamem.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_bwamem</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../gwf_pair_alignments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">gwf_pair_alignments</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Reports</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../reports/manus/main.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Manuscript</span></a>
+  <a href="../../reports/manus/index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Manuscript</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -245,13 +175,13 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Slides</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../slides/project_progress.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project Progress Day: Msc. Project 2024</span></a>
@@ -281,14 +211,15 @@ div.csl-indent {
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/reports/manus/main.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/reports/manus/main.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/reports/manus/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/reports/manus/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../reports/manus/main.html">Reports</a></li><li class="breadcrumb-item"><a href="../../reports/manus/main.html"><span class="chapter-title">Manuscript</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../reports/manus/index.html">Reports</a></li><li class="breadcrumb-item"><a href="../../reports/manus/index.html"><span class="chapter-title">Manuscript</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Manuscript</span></h1>
 </div>
@@ -307,7 +238,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 15, 2024 <br> 23:12:12 (UTC +00:00)</p>
+      <p class="date">November 19, 2024 <br> 12:58:01 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -335,18 +266,31 @@ div.csl-indent {
 <h1>Chromatin Compartments and Selection on <em>X</em></h1>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p><span class="emoji" data-emoji="memo">📝</span> = <em>draft block</em></p>
+<section id="sexual-reproduction-spermatogenesis-meiosis" class="level3">
+<h3 class="anchored" data-anchor-id="sexual-reproduction-spermatogenesis-meiosis">Sexual reproduction (spermatogenesis, meiosis)</h3>
+<blockquote class="blockquote">
+<p><span class="emoji" data-emoji="memo">📝</span> The production of gametes in a sexually reproducing organism is a highly complex process that involves numeruous elements. Spermatogenesis, the process of forming male gametes, involves four stages of differentiation from a germ cell through <em>spermatogonia</em>, <em>pachytene spermatocyte</em>, and <em>round spermatids</em> to <em>spermatozoa</em>, or <em>sperm</em> <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref"><strong>wang_reprogramming_2019?</strong></a>)</span>.</p>
+</blockquote>
+</section>
 <section id="selfish-genes" class="level3">
 <h3 class="anchored" data-anchor-id="selfish-genes">Selfish genes</h3>
-<p>The conventional story of gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes that are each responsible for their own survival, and nothing more. That seems like a fair game, but what if some genes are cheating the system by making other participants less viable. Say, some genes on the X chromosome creates a disadvantage for gametes that <em>do not</em> contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is exactly what is coined <em>sex chromosome meiotic drive</em> <span class="citation" data-cites="jaenike_sex_2001">(<a href="../../references.html#ref-jaenike_sex_2001" role="doc-biblioref">Jaenike 2001</a>)</span>, a result of selfish genetic elements. Motivated by previous results in the Munch Research group <span class="citation" data-cites="munch_group_2024">(<a href="../../references.html#ref-munch_group_2024" role="doc-biblioref">Munch 2024</a>)</span> on hybrid incompatibility and extended common haplotypes <span class="citation" data-cites="skov_extraordinary_2023 sorensen_genome_wide_2023">(<a href="../../references.html#ref-skov_extraordinary_2023" role="doc-biblioref">Skov et al. 2023</a>; <a href="../../references.html#ref-sorensen_genome_wide_2023" role="doc-biblioref">Sørensen et al. 2023</a>)</span> that could be explained by meiotic drive, we wanted to investigate how these patterns correlate with chromatin compartments.</p>
+<blockquote class="blockquote">
+<p><span class="emoji" data-emoji="memo">📝</span> The conventional story of meiosis in gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes that are each responsible for their own survival, and nothing more. That seems like a fair game, but what if some genes are cheating the system by making other participants less viable. Say, some genes on the X chromosome creates a disadvantage for gametes that <em>do not</em> contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is exactly what is coined <em>sex chromosome meiotic drive</em> <span class="citation" data-cites="jaenike_sex_2001">(<a href="../../references.html#ref-jaenike_sex_2001" role="doc-biblioref"><strong>jaenike_sex_2001?</strong></a>)</span>, a result of selfish genetic elements.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><span class="emoji" data-emoji="memo">📝</span> Motivated by previous results in the Munch Research group <span class="citation" data-cites="munch_group_2024">(<a href="../../references.html#ref-munch_group_2024" role="doc-biblioref"><strong>munch_group_2024?</strong></a>)</span> on hybrid incompatibility and extended common haplotypes <span class="citation" data-cites="skov_extraordinary_2023 sorensen_genome_wide_2023">(<a href="../../references.html#ref-skov_extraordinary_2023" role="doc-biblioref"><strong>skov_extraordinary_2023?</strong></a>; <a href="../../references.html#ref-sorensen_genome_wide_2023" role="doc-biblioref"><strong>sorensen_genome_wide_2023?</strong></a>)</span> that could be explained by meiotic drive, we wanted to investigate how these patterns correlate with chromatin compartments.</p>
+</blockquote>
 </section>
-<section id="chromosome-conformation-capture" class="level3">
-<h3 class="anchored" data-anchor-id="chromosome-conformation-capture">Chromosome conformation capture</h3>
+<section id="high-throughput-chromosome-conformation-capture-hi-c" class="level3">
+<h3 class="anchored" data-anchor-id="high-throughput-chromosome-conformation-capture-hi-c">High-Throughput Chromosome conformation capture (Hi-C)</h3>
+<p>Our DNA can be divided into different orders of structure. <em>3C</em> focus on identifying the highest orders of organization inside the nucleus, that is, when the 30 nm thick coil of chromatin fibers folds into loops, Topologically Associating Domains (TADs), and chromatin compartments. Here, we narrow our focus on the largest of the structures, <em>compartments</em>, that is known to determine availability to transcription factors, thus making an <em>A</em> compartment <em>active</em>—and the <em>B</em> compartment <em>inactive</em>. The introduction of the Hi-C method <span class="citation" data-cites="lieberman-aiden_comprehensive_2009">(<a href="../../references.html#ref-lieberman-aiden_comprehensive_2009" role="doc-biblioref"><strong>lieberman-aiden_comprehensive_2009?</strong></a>)</span> (high-throughput 3C) opened new possibilities for exploring the three-dimensional organization of the genome.</p>
 </section>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <p>In this project, we formulate two objectives:</p>
-<p><strong>A</strong>: Reproduce the Hi-C interaction maps and eigendecomposition from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, with some modifications. We briefly use <em>HiCExplorer</em>, but change the analyses to use the <em>Open2C Ecosystem</em> <span class="citation" data-cites="open2c">(<a href="../../references.html#ref-open2c" role="doc-biblioref"><span>“Open2C”</span> 2024</a>)</span> which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a <em>gwf</em> workflow, and the commands that were visually inspected were run in Jupyter Notebooks.</p>
+<p><strong>A</strong>: Reproduce the Hi-C interaction maps and eigendecomposition from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref"><strong>wang_reprogramming_2019?</strong></a>)</span>, with some modifications. We briefly use <em>HiCExplorer</em>, but change the analyses to use the <em>Open2C Ecosystem</em> <span class="citation" data-cites="open2c">(<a href="../../references.html#ref-open2c" role="doc-biblioref"><strong>open2c?</strong></a>)</span> which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a <em>gwf</em> workflow, and the commands that were visually inspected were run in Jupyter Notebooks.</p>
 <p><strong>B</strong> Compare with regions of selection that are found in <em>papio anubis</em>, and maybe in <em>human</em> too. Investigate the biological meaning of the results.</p>
 <section id="data-and-structure" class="level3">
 <h3 class="anchored" data-anchor-id="data-and-structure">Data and structure</h3>
@@ -467,7 +411,7 @@ Figure&nbsp;1
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-md-plotting-main">
 <div id="cell-md-plotting-main" class="cell">
 <div id="md-plotting-main" class="cell-output cell-output-display cell-output-markdown" data-execution_count="1">
-<p>The following section contains the visualization of the matrices and includes the calculation of the E1 compartments and their visualization. I discuss differents methods for construction and try to get both methodologically and result-wise close to <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>.</p>
+<p>The following section contains the visualization of the matrices and includes the calculation of the E1 compartments and their visualization. I discuss differents methods for construction and try to get both methodologically and result-wise close to <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref"><strong>wang_reprogramming_2019?</strong></a>)</span>.</p>
 <p>First, we will work on matrices in 500kb resolution, as documentation [maybe it was HiCExplorer??] states it is sufficient for chromosome-wide analysis and plotting. We will follow the <code>cooltools</code>-recommended pipeline (except that they use a 100kb cooler) for <a href="https://cooltools.readthedocs.io/en/latest/notebooks/viz.html">visualization</a> and <a href="https://cooltools.readthedocs.io/en/latest/notebooks/compartments_and_saddles.html">compartment calling</a> with one example cooler (the merged fibroblast cooler at 500kb resolution).</p>
 <p>Then, the most relevant parts will be generalized to run in a loop over all the coolers. First at 500kb resolution, then at 100kb resolution.</p>
 <p>To accomodate the approach (barely) described in the paper, we will discuss a smoothing step to the observed/expected matrices before compartment calling, and we will apply a smoothing step to the E1 compartments and compare to the raw compartments.</p>
@@ -488,7 +432,7 @@ Figure&nbsp;1
 <div id="fig-matrix_e1_500kb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-matrix_e1_500kb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="main_files/figure-html/..-..-notebooks-03_compartments-fig-matrix_e1_500kb-output-1.png" class="img-fluid figure-img">
+<img src="index_files/figure-html/..-..-notebooks-03_compartments-fig-matrix_e1_500kb-output-1.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matrix_e1_500kb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: chrX interaction matrix with E1 eigenvector values in 500kb resolution. The sign change of the E1 is overlayed as thin black lines, making it more easily interpretable. We should qualitatively determine how well the E1 values capture the <em>plaid</em> pattern in the matrix.
@@ -498,7 +442,7 @@ Figure&nbsp;2: chrX interaction matrix with E1 eigenvector values in 500kb resol
 </div>
 </div>
 </div>
-<p>Here we see that <a href="../../slides/project_progress.html#fig-matrix_e1_500kb" class="quarto-xref">Figure&nbsp;<span>16.2</span></a>…</p>
+<p>Here we see that <a href="../../slides/project_progress.html#fig-matrix_e1_500kb" class="quarto-xref">Figure&nbsp;<span>8.2</span></a>…</p>
 </section>
 </section>
 <section id="results" class="level2">
@@ -508,28 +452,11 @@ Figure&nbsp;2: chrX interaction matrix with E1 eigenvector values in 500kb resol
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
 <p>Here is the discussion</p>
+</section>
+<section id="bibliography" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="bibliography">Bibliography</h2>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-jaenike_sex_2001" class="csl-entry" role="listitem">
-Jaenike, John. 2001. <span>“Sex <span>Chromosome</span> <span>Meiotic</span> <span>Drive</span>.”</span> <em>Annual Review of Ecology and Systematics</em> 32 (1): 25–49. <a href="https://doi.org/10.1146/annurev.ecolsys.32.081501.113958">https://doi.org/10.1146/annurev.ecolsys.32.081501.113958</a>.
-</div>
-<div id="ref-munch_group_2024" class="csl-entry" role="listitem">
-Munch, Kasper. 2024. <span>“Munch-Group.”</span> <a href="https://munch-group.org/research.html">https://munch-group.org/research.html</a>.
-</div>
-<div id="ref-open2c" class="csl-entry" role="listitem">
-<span>“Open2C.”</span> 2024. <a href="https://open2c.github.io" class="uri">https://open2c.github.io</a>.
-</div>
-<div id="ref-skov_extraordinary_2023" class="csl-entry" role="listitem">
-Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch. 2023. <span>“Extraordinary Selection on the Human <span>X</span> Chromosome Associated with Archaic Admixture.”</span> <em>Cell Genomics</em> 3 (3): 100274. <a href="https://doi.org/10.1016/j.xgen.2023.100274">https://doi.org/10.1016/j.xgen.2023.100274</a>.
-</div>
-<div id="ref-sorensen_genome_wide_2023" class="csl-entry" role="listitem">
-Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran, Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023. <span>“Genome-Wide Coancestry Reveals Details of Ancient and Recent Male-Driven Reticulation in Baboons.”</span> <em>Science</em> 380 (6648): eabn8153. <a href="https://doi.org/10.1126/science.abn8153">https://doi.org/10.1126/science.abn8153</a>.
-</div>
-<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
-Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
-</div>
-</div>
 </section>
 </section>
 
@@ -956,8 +883,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../gwf_pair_alignments.html" class="pagination-link" aria-label="gwf_pair_alignments">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">gwf_pair_alignments</span></span>
+      <a href="../../notebooks/03_compartments.html" class="pagination-link" aria-label="Compartments Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Compartments Analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -971,4 +898,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/reports/manus/main.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/reports/manus/main.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/reports/manus/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/reports/manus/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
