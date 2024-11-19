@@ -1,6 +1,6 @@
 ---
 title: "Project"
-bibliography: references.bib
+#bibliography: references.bib
 date: last-modified
 date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
 ---
@@ -11,6 +11,7 @@ date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
 - Visit Open Chromosome Collective ([Open2C](https://github.com/open2c/)) for tools and tutorials on 3D Chromosome biology
 - Visit [HiCExplorer docs](https://hicexplorer.readthedocs.io/en/latest/)
 - Raw data from [@wang_reprogramming_2019] can be download [here](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA430777&o=acc_s%3Aa), but requires [`SRA toolkit`](https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit)
+
 
 ## Outline
 
@@ -92,3 +93,4 @@ Revise thesis draft based on feedback. Continue refinement of analyses if necess
 
 **Week 3 (Jan 13 - Jan 15):**\
 Final revisions and hand-in on Wednesday, January 15th.
+

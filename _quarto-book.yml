@@ -4,6 +4,7 @@ project:
     - quarto render --profile slides
   preview:
     port: 4201
+
 execute:
   freeze: auto
   echo: true
@@ -19,7 +20,28 @@ format:
     toc-depth: 2
     notebook-links: global
     number-sections: false
-    number-offset: [0]
+  pdf:
+    documentclass: scrbook
+    papersize: a4
+    highlight-style: kate
+    fig-width: 7
+    fig-height: 5
+    toc-depth: 2
+    geometry: 
+      - textheight=9in
+      - textwidth=6.5in
+      - top=1in
+      - headheight=14pt
+      - headsep=25pt
+      - footskip=30pt
+    header-includes: # for resetting numbers in each part so the pdf report sections begins with one
+      - \makeatletter
+      - \@addtoreset{chapter}{part}
+      - \makeatother  
+    include-in-header:
+      - file: header_extra.tex
+    #   - file: reports/manus/arxiv.sty
+    #   - file: reports/manus/preamble.tex
 comments:
   hypothesis: true
 
@@ -28,35 +50,37 @@ book:
   repo-url: "https://github.com/munch-group/hic-spermatogenesis"
   repo-actions: [edit, issue, source]  
   title: "Søren's MSc project about Hi-C and spermatogenesis"
+  output-file: "msc-project-book"
   author: "Søren Jørgensen"
   sidebar:
     collapse-level: 1
     reader-mode: true
   chapters:
     - index.qmd
-    - thoughts.qmd
+    - master_manus.ipynb
+    #- thoughts.qmd
     - part: "Notebooks"
       chapters: 
-      #- notebooks/001_weather.ipynb
+      - notebooks/001_weather.ipynb
       #- notebooks/002_interaction.ipynb
       - notebooks/01_hicexplorer.ipynb
       - notebooks/02_open2c_framework.ipynb
       - notebooks/03_compartments.ipynb
-    - part: "Workflows"
-      chapters:
-      - master_workflow.py
-      - gwf_map_reads.py
-      - gwf_bowtie.py
-      - gwf_bowtie_local.py
-      - gwf_hiccorrect.py
-      - gwf_bwamem.py
-      - gwf_pair_alignments.py
+    # - part: "Workflows"
+    #   chapters:
+    #   - master_workflow.py
+    #   - gwf_map_reads.py
+    #   - gwf_bowtie.py
+    #   - gwf_bowtie_local.py
+    #   - gwf_hiccorrect.py
+    #   - gwf_bwamem.py
+    #   - gwf_pair_alignments.py
     - part: "Reports"
       chapters: 
       #- results/Readme.md
       #- reports/manuscript.ipynb
       #- reports/supplementary.qmd
-      - reports/manus/main.qmd
+      - reports/manus/index.qmd
       - reports/manus/supplementary.qmd
     - part: "Slides"
       chapters:
@@ -66,5 +90,6 @@ book:
       #- slides/slides.qmd 
       #- slides/suppl_slides.qmd 
     - references.qmd
+  downloads: [pdf]
 
 bibliography: references.bib

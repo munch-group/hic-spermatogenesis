@@ -1,6 +1,6 @@
 ---
 title: "Thoughts and Prayers"
-bibliography: references.bib
+#bibliography: references.bib
 date: last-modified
 date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
 toc-depth: 4
@@ -23,9 +23,9 @@ It feels very old school and unnecessary that I can't just output the `HiCExplor
 
 I have created plots to mimic the [@wang_reprogramming_2019] for the `chr12` as well as `chrX`. They don't compare very well with Wang2019, and the both PC1 and PC2 plot looks like they're highly biased (only intersects 0 one time). PC3 looks more reasonable, but I don't know if it is reasonable at all to use the 3rd PC in stead of the 1st. I guess it means that the compartmentalization is not the most variable feature, and there are some biases that we have to get rid of. That, or the X chromosome is divided only into two compartments in fibroblasts (unlikely).
 
-{{< embed notebooks/01_hicexplorer.ipynb#chrX-50kb-pca >}}
+{{< embed notebooks/01_hicexplorer.ipynb#chrx-50kb-pca >}}
 
-{{< embed notebooks/01_hicexplorer.ipynb#chrX-100kb-pca >}}
+{{< embed notebooks/01_hicexplorer.ipynb#chrx-100kb-pca >}}
 
 ### Plotting .cool files with `h5py` and `pyBigWig`
 
@@ -135,7 +135,7 @@ Thus, we merge all samples from each cell type, leaving us with 5 *coolers* at 1
 
 We continue with the analysis with the 500kb binned data, as it runs faster, uses less memory, while still being sufficient for chromosome-wide analysis. 
 
-# Calculating the eigenvectors again
+## Calculating the eigenvectors again
 
 Initially, the results were not as expected, as the E1 did not reflect the plaid pattern from the matrix from all cell types. In stead, it showed two compartments.
 
