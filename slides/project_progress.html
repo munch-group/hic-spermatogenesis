@@ -31,7 +31,27 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="project_progress_files/libs/revealjs/dist/theme/quarto.css">
   <link href="project_progress_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="project_progress_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -364,8 +384,8 @@ Kasper Munch (Supervisor)
 <li><a href="#/d-organization-of-chromatin-into-compartments" id="/toc-d-organization-of-chromatin-into-compartments">3D organization of Chromatin into Compartments</a></li>
 <li><a href="#/hi-c-pipeline" id="/toc-hi-c-pipeline">Hi-C pipeline</a></li>
 <li><a href="#/hi-c-pipeline-1" id="/toc-hi-c-pipeline-1">Hi-C pipeline</a></li>
-<li><a href="#/reconstructing-figures-from-wang_reprogramming_2019" id="/toc-reconstructing-figures-from-wang_reprogramming_2019">Reconstructing figures from <span class="citation" data-cites="wang_reprogramming_2019">(<strong>wang_reprogramming_2019?</strong>)</span></a></li>
-<li><a href="#/reconstructing-figures-from-wang_reprogramming_2019-1" id="/toc-reconstructing-figures-from-wang_reprogramming_2019-1">Reconstructing figures from <span class="citation" data-cites="wang_reprogramming_2019">(<strong>wang_reprogramming_2019?</strong>)</span></a></li>
+<li><a href="#/reconstructing-figures-from-wang_reprogramming_2019" id="/toc-reconstructing-figures-from-wang_reprogramming_2019">Reconstructing figures from <span class="citation" data-cites="wang_reprogramming_2019">(Wang et al. 2019)</span></a></li>
+<li><a href="#/reconstructing-figures-from-wang_reprogramming_2019-1" id="/toc-reconstructing-figures-from-wang_reprogramming_2019-1">Reconstructing figures from <span class="citation" data-cites="wang_reprogramming_2019">(Wang et al. 2019)</span></a></li>
 <li><a href="#/partition-the-genome" id="/toc-partition-the-genome">Partition the genome</a></li>
 <li><a href="#/partition-the-genome-and-smooth" id="/toc-partition-the-genome-and-smooth">Partition the genome and smooth</a></li>
 <li><a href="#/check-with-the-matrix" id="/toc-check-with-the-matrix">Check with the matrix</a></li>
@@ -508,10 +528,10 @@ Figure&nbsp;2: chrX interaction matrix with E1 eigenvector values in 500kb resol
       }</style></aside>
 </section>
 <section id="reconstructing-figures-from-wang_reprogramming_2019" class="slide level2">
-<h2>Reconstructing figures from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="" role="doc-biblioref" onclick="return false;"><strong>wang_reprogramming_2019?</strong></a>)</span></h2>
+<h2>Reconstructing figures from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#/references" role="doc-biblioref" onclick="">Wang et al. 2019</a>)</span></h2>
 <div>
 <ul>
-<li class="fragment"><span class="citation" data-cites="wang_reprogramming_2019">(<a href="" role="doc-biblioref" onclick="return false;"><strong>wang_reprogramming_2019?</strong></a>)</span> identified compartments in <em>rhesus macaque</em> in five different stages of spermatogenesis:
+<li class="fragment"><span class="citation" data-cites="wang_reprogramming_2019">(<a href="#/references" role="doc-biblioref" onclick="">Wang et al. 2019</a>)</span> identified compartments in <em>rhesus macaque</em> in five different stages of spermatogenesis:
 <ul>
 <li class="fragment">fibroblast, spermatogonia, pachytene spermatocyte, round spermatids, and sperm</li>
 </ul></li>
@@ -546,9 +566,9 @@ Wang2019 PC1 on chrX
 </div>
 </section>
 <section id="reconstructing-figures-from-wang_reprogramming_2019-1" class="slide level2">
-<h2>Reconstructing figures from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="" role="doc-biblioref" onclick="return false;"><strong>wang_reprogramming_2019?</strong></a>)</span></h2>
+<h2>Reconstructing figures from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#/references" role="doc-biblioref" onclick="">Wang et al. 2019</a>)</span></h2>
 <ul>
-<li><span class="citation" data-cites="wang_reprogramming_2019">(<a href="" role="doc-biblioref" onclick="return false;"><strong>wang_reprogramming_2019?</strong></a>)</span> identified compartments in <em>rhesus macaque</em> in five different stages of spermatogenesis:
+<li><span class="citation" data-cites="wang_reprogramming_2019">(<a href="#/references" role="doc-biblioref" onclick="">Wang et al. 2019</a>)</span> identified compartments in <em>rhesus macaque</em> in five different stages of spermatogenesis:
 <ul>
 <li>fibroblast, spermatogonia, pachytene spermatocyte, round spermatids, and sperm</li>
 </ul></li>
@@ -664,11 +684,16 @@ Wang2019 PC1 on chrX
 </ul>
 </div>
 </section>
-<section id="references" class="slide level2">
+<section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
 </div>
 </div>
 </section></section>
