@@ -1,33 +1,51 @@
 project:
-  type: book
+  type: manuscript
   title: "Manuscript"
 
 manuscript:
   article: index.qmd
+  meca-bundle: false
+
 
 format:
   html: default
-  docx: default
-  jats: default
+  #docx: default
+  #jats: default
   pdf:
-    documentclass: scrarticle
+    #pdf-engine: pdflatex
+    documentclass: scrartcl
+    keep-tex: true
     papersize: a4
     toc: true
     toc-depth: 2
     highlight-style: kate 
+    shift-heading-level-by: -1
+    number-sections: true
+    number-depth: 3
+    colorlinks: false
     geometry: 
       - textheight=9in
       - textwidth=6.5in
       - top=1in
       - headheight=14pt
       - headsep=25pt
-      - footskip=30pt    
+      - footskip=30pt   
+    cite-method: natbib 
+    #natbiboptions: numbers
     include-in-header:
-      - file: header_extra.tex
+      #- file: header_extra.tex
+      - file: preamble.tex
+    include-before-body:
+      - text: | 
+          \newpage
+          \tableofcontents
+          \newpage
+
+    output-file: manuscript.pdf
 
 notebook-links: false
 
 execute:
   freeze: auto
 
-bibliography: ../../references.bib
+bibliography: sub-references.bib

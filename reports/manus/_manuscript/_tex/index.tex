@@ -1,12 +1,11 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   a4paper,
   DIV=11,
-  numbers=noendperiod]{scrarticle}
+  numbers=noendperiod]{scrartcl}
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -42,7 +41,7 @@
 \usepackage{xcolor}
 \usepackage[textheight=9in,textwidth=6.5in,top=1in,headheight=14pt,headsep=25pt,footskip=30pt]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\setcounter{secnumdepth}{3}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -93,128 +92,64 @@
 \def\fps@figure{htbp}
 \makeatother
 
-%% Palatino font:
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{palatino}
 
-\usepackage{pifont}
+\usepackage{arxiv}
 
-\usepackage{upquote}
-
-% \pagestyle{plain} % no running header
-
-% \usepackage[many]{tcolorbox}
-% \definecolor{quotegray}{HTML}{505050}
-% \newtcolorbox{myquote}{%
-%     enhanced jigsaw, 
-%     breakable,      % allow page breaks
-%     frame hidden,   % hide the default frame
-%     left=1cm,       % left margin
-%     right=1cm,      % right margin
-%     colback=white,
-%     fontupper=\color{quotegray},
-%     overlay={%
-%         \node [scale=4,
-%             text=lightgray,
-%             inner sep=0pt,] at ([xshift=0.5cm,yshift=-0.7cm]frame.north west){``}; 
-%         \node [scale=4,
-%             text=lightgray,
-%             inner sep=0pt,] at ([xshift=-0.5cm]frame.south east){''};  
-%             },
-%         % paragraph skips obeyed within tcolorbox
-%                 parbox=false,
-% }
-% % redefine the 'quote' environment to use this 'myquote' environment
-% \renewenvironment{quote}{\begin{myquote}}{\end{myquote}}
-
-
-% \usepackage{framed} % not sure i need this anymore
-
-% \usepackage[T1]{fontenc}
-% \usepackage{inconsolata}
-
-% % I have to only define Shaded if it is already defined.
-% % The reason is that pandoc does not define the macro if there are not code blocks in the a markdown file.
-% \ifx \@Shaded \@empty
-
-% \renewcommand{\KeywordTok}[1]{\textcolor[rgb]{0, 0, 0}{\textbf{{#1}}}} % def and or not reg
-% \renewcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.373, 0.298, 0.580}{\textbf{{#1}}}} % print open 
-% \renewcommand{\VariableTok}[1]{\textcolor[rgb]{0.141, 0.392, 0.824}{\textbf{{#1}}}}
-% \renewcommand{\OperatorTok}[1]{\textcolor[rgb]{0, 0, 0}{{#1}}} % def and or not reg
-% \renewcommand{\DataTypeTok}[1]{\textcolor[rgb]{1.0,0.13,0.00}{{#1}}}
-% \renewcommand{\DecValTok}[1]{\textcolor[rgb]{0.655, 0.498, 0.161}{{#1}}}
-% \renewcommand{\BaseNTok}[1]{\textcolor[rgb]{0.259, 0.592, 0.596}{{#1}}}
-% \renewcommand{\FloatTok}[1]{\textcolor[rgb]{0.655, 0.498, 0.161}{{#1}}}
-% \renewcommand{\CharTok}[1]{\textcolor[rgb]{0.678,0.141,0.098}{{#1}}}
-% \renewcommand{\StringTok}[1]{\textcolor[rgb]{0.678,0.141,0.098}{{#1}}}
-% \renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.135, 0.134, 0.133}{{#1}}}
-% \renewcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
-% \renewcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
-% \renewcommand{\FunctionTok}[1]{\textcolor[rgb]{0.549, 0.102, 0.063}{\textbf{{#1}}}}  % function name
-% \renewcommand{\RegionMarkerTok}[1]{{#1}}
-% \renewcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
-% \renewcommand{\NormalTok}[1]{\textcolor[rgb]{0, 0, 0}{{#1}}}
-
-
-% \else
-%   % no code blocks with markup...
-% \fi
+\usepackage{lmodern}
+\usepackage[hidelinks]{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}		
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[numbers]{natbib}
+\usepackage{doi}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{svg}
+\usepackage{verbatim}
+\usepackage{subcaption}
+\usepackage[linesnumbered, ruled, vlined]{algorithm2e}
+% Redefine the name for algorithm environment
+% \renewcommand{\algorithmautorefname}{Algorithm}
+\captionsetup{font=small, labelfont=bf}
+\captionsetup[sub]{font=small, labelfont=bf} 
+\captionsetup[subfigure]{justification=justified, singlelinecheck=false, skip=3pt}
+\svgsetup{pretex=\tiny}
 
 
 
-% \usepackage{etoolbox}
-% \makeatletter
-% \g@addto@macro{\appendix}{%
-%   \patchcmd{\@@makechapterhead}% <cmd>
-%     {\endgraf\nobreak\vskip.5\baselineskip}% <search>
-%     {\hspace*{-.5em}:\space}% <replace>
-%     {}{}% <success><failure>
-%   \patchcmd{\@chapter}% <cmd>
-%     {\addchaptertocentry{\thechapter}}% <search>
-%     {\addchaptertocentry{Appendix~\thechapter:}}% <replace>
-%     {}{}% <success><failure>
-%   \addtocontents{toc}{%
-%     \protect\patchcmd{\protect\l@chapter}% <cmd>
-%       {1.5em}% <search>
-%       {6.5em}% <replace>
-%       {}{}}% <success><failure>
-% }
-% \renewcommand{\autodot}{}% Remove all end-of-counter dots
-% \makeatother
+\title{Chromatin Compartments correlates with Selection}
 
-% \makeatletter
-% \@addtoreset{chapter}{part}
-% \makeatother
+\date{January 15, 2024}		
 
+\author{{\emph{Author:}\\
+    Søren Jørgensen}	\\
+    \emph{Stud. MSc Bioinformatics} \\
+    Bioinformatics Research Center (BiRC),\\
+    Dept. of Molecular Biology and Genetics,\\
+	Aarhus University, Denmark \\
+	\texttt{201906763@post.au.dk} \\
+    \And
+    {\emph{Supervisor:}\\
+    Kasper ~Munch}	\\
+    \emph{Associate Professor} \\
+    Bioinformatics Research Center (BiRC),\\
+    Dept. of Molecular Biology and Genetics,\\
+	Aarhus University, Denmark \\
+	\texttt{cstorm@birc.au.dk} \\
+}
 
-% \usepackage{chngcntr}
-% \counterwithin*{subsubsection}{chapter}
-% \counterwithout*{subsubsection}{section}
-% \counterwithout*{subsubsection}{subsection}
+% Uncomment to remove the date
+%\date{}
 
-% %  % KMT only use subsubsection number (this increments though the book 
-% %  % when we supress numbering with  {.unnumbered} after each header except Exerisices
-% \renewcommand\thesubsubsection{\arabic{section}}
-% \renewcommand\thesubsubsection{\arabic{subsection}}
-% \renewcommand\thesubsubsection{\arabic{chapter}-\arabic{subsubsection}}
-
-
-% \renewcommand*{\chapterformat}{%
-%   \textcolor[rgb]{0.8, 0.8, 0.8}{\thechapter}\autodot\enskip%
-% }
-
-
-% % prevent latex from "floating" the figures
-% \usepackage{float}
-% \let\origfigure\figure
-% \let\endorigfigure\endfigure
-% \renewenvironment{figure}[1][2] {
-%     \expandafter\origfigure\expandafter[H]
-% } {
-%     \endorigfigure
-% }
-
+% Uncomment to override  the `A preprint' in the header
+\renewcommand{\headeright}{MSc Autumn2024}
+\renewcommand{\undertitle}{30 ECTS Master's Thesis, Autumn 2024}
+\renewcommand{\shorttitle}{Chromatin Compartments and selection}
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -261,25 +196,23 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
 \usepackage{bookmark}
 
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={Manuscript},
+  pdftitle={Chromatin Compartments and Selection on X},
   pdfauthor={Søren Jørgensen},
   pdfkeywords={Hi-C, Chromatin Compartments, Selection},
-  colorlinks=true,
-  linkcolor={blue},
-  filecolor={Maroon},
-  citecolor={Blue},
-  urlcolor={Blue},
+  hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 
-\title{Manuscript}
+\title{Chromatin Compartments and Selection on X}
 \author{Søren Jørgensen}
-\date{November 19, 2024 13:23:43 (UTC +01:00)}
+\date{2024-11-20}
 
 \begin{document}
 \maketitle
@@ -301,21 +234,21 @@ relationship between chromatin architecture and evolutionary dynamics
 across primate species.
 \end{abstract}
 
+\newpage
+\tableofcontents
+\newpage
+
 \renewcommand*\contentsname{Table of contents}
 {
-\hypersetup{linkcolor=}
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
 
-\section{\texorpdfstring{Chromatin Compartments and Selection on
-\emph{X}}{Chromatin Compartments and Selection on X}}\label{chromatin-compartments-and-selection-on-x}
-
-\subsection{Introduction}\label{introduction}
+\section{Introduction}\label{introduction}
 
 {📝} = \emph{draft block}
 
-\subsubsection{Sexual reproduction (spermatogenesis,
+\subsection{Sexual reproduction (spermatogenesis,
 meiosis)}\label{sexual-reproduction-spermatogenesis-meiosis}
 
 \begin{quote}
@@ -324,11 +257,10 @@ highly complex process that involves numeruous elements.
 Spermatogenesis, the process of forming male gametes, involves four
 stages of differentiation from a germ cell through \emph{spermatogonia},
 \emph{pachytene spermatocyte}, and \emph{round spermatids} to
-\emph{spermatozoa}, or \emph{sperm}
-(\textbf{wang\_reprogramming\_2019?}).
+\emph{spermatozoa}, or \emph{sperm} \citep{wang_reprogramming_2019}.
 \end{quote}
 
-\subsubsection{Selfish genes}\label{selfish-genes}
+\subsection{Selfish genes}\label{selfish-genes}
 
 \begin{quote}
 {📝} The conventional story of meiosis in gametogenesis is one of random
@@ -340,20 +272,18 @@ chromosome creates a disadvantage for gametes that \emph{do not} contain
 those genes, making sure the Y chromosome is not as viable as the X,
 resulting in a sex imbalance and possibly numerous other downstream
 effects. That is exactly what is coined \emph{sex chromosome meiotic
-drive} (\textbf{jaenike\_sex\_2001?}), a result of selfish genetic
-elements.
+drive} \citep{jaenike_sex_2001}, a result of selfish genetic elements.
 \end{quote}
 
 \begin{quote}
 {📝} Motivated by previous results in the Munch Research group
-(\textbf{munch\_group\_2024?}) on hybrid incompatibility and extended
-common haplotypes (\textbf{skov\_extraordinary\_2023?};
-\textbf{sorensen\_genome\_wide\_2023?}) that could be explained by
-meiotic drive, we wanted to investigate how these patterns correlate
-with chromatin compartments.
+\citep{munch_group_2024} on hybrid incompatibility and extended common
+haplotypes \citep{skov_extraordinary_2023, sorensen_genome_wide_2023}
+that could be explained by meiotic drive, we wanted to investigate how
+these patterns correlate with chromatin compartments.
 \end{quote}
 
-\subsubsection{High-Throughput Chromosome conformation capture
+\subsection{High-Throughput Chromosome conformation capture
 (Hi-C)}\label{high-throughput-chromosome-conformation-capture-hi-c}
 
 Our DNA can be divided into different orders of structure. \emph{3C}
@@ -365,28 +295,28 @@ structures, \emph{compartments}, that is known to determine availability
 to transcription factors, thus making an \emph{A} compartment
 \emph{active}---and the \emph{B} compartment \emph{inactive}. The
 introduction of the Hi-C method
-(\textbf{lieberman-aiden\_comprehensive\_2009?}) (high-throughput 3C)
-opened new possibilities for exploring the three-dimensional
-organization of the genome.
+\citep{lieberman_aiden_comprehensive_2009} (high-throughput 3C) opened
+new possibilities for exploring the three-dimensional organization of
+the genome.
 
-\subsection{Methods}\label{methods}
+\section{Methods}\label{methods}
 
 In this project, we formulate two objectives:
 
 \textbf{A}: Reproduce the Hi-C interaction maps and eigendecomposition
-from (\textbf{wang\_reprogramming\_2019?}), with some modifications. We
+from \citep{wang_reprogramming_2019}, with some modifications. We
 briefly use \emph{HiCExplorer}, but change the analyses to use the
-\emph{Open2C Ecosystem} (\textbf{open2c?}) which have a Pyton API as
-well as command-line functions, which can be paired very well with
-Jupyter Notebooks. The majority of the data analysis was run with a
-\emph{gwf} workflow, and the commands that were visually inspected were
-run in Jupyter Notebooks.
+\emph{Open2C Ecosystem} \citep{open2c} which have a Pyton API as well as
+command-line functions, which can be paired very well with Jupyter
+Notebooks. The majority of the data analysis was run with a \emph{gwf}
+workflow, and the commands that were visually inspected were run in
+Jupyter Notebooks.
 
 \textbf{B} Compare with regions of selection that are found in
 \emph{papio anubis}, and maybe in \emph{human} too. Investigate the
 biological meaning of the results.
 
-\subsubsection{Data and structure}\label{data-and-structure}
+\subsection{Data and structure}\label{data-and-structure}
 
 \phantomsection\label{md-data-accessions}
 To get an overview of the data accessions used in this analysis, we will
@@ -468,7 +398,7 @@ The following section contains the visualization of the matrices and
 includes the calculation of the E1 compartments and their visualization.
 I discuss differents methods for construction and try to get both
 methodologically and result-wise close to
-(\textbf{wang\_reprogramming\_2019?}).
+\citep{wang_reprogramming_2019}.
 
 First, we will work on matrices in 500kb resolution, as documentation
 {[}maybe it was HiCExplorer??{]} states it is sufficient for
@@ -519,17 +449,17 @@ should qualitatively determine how well the E1 values capture the
 
 Here we see that Figure~\ref{fig-matrix_e1_500kb}\ldots{}
 
-\subsection{Results}\label{results}
+\section{Results}\label{results}
 
 Here are the glorious results
 
-\subsection{Discussion}\label{discussion}
+\section{Discussion}\label{discussion}
 
 Here is the discussion
 
-\subsection*{Bibliography}\label{bibliography}
-\addcontentsline{toc}{subsection}{Bibliography}
 
+\renewcommand\refname{Bibliography}
+  \bibliography{sub-references.bib}
 
 
 

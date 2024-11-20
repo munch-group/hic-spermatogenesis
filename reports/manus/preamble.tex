@@ -1,8 +1,7 @@
 
 \usepackage{arxiv}
 
-\usepackage[utf8]{inputenc} % allow utf-8 input
-\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{lmodern}
 \usepackage[hidelinks]{hyperref}       % hyperlinks
 \usepackage{url}            % simple URL typesetting
 \usepackage{booktabs}       % professional-quality tables
@@ -21,7 +20,7 @@
 \usepackage{subcaption}
 \usepackage[linesnumbered, ruled, vlined]{algorithm2e}
 % Redefine the name for algorithm environment
-\renewcommand{\algorithmautorefname}{Algorithm}
+% \renewcommand{\algorithmautorefname}{Algorithm}
 \captionsetup{font=small, labelfont=bf}
 \captionsetup[sub]{font=small, labelfont=bf} 
 \captionsetup[subfigure]{justification=justified, singlelinecheck=false, skip=3pt}
@@ -57,13 +56,3 @@
 \renewcommand{\headeright}{MSc Autumn2024}
 \renewcommand{\undertitle}{30 ECTS Master's Thesis, Autumn 2024}
 \renewcommand{\shorttitle}{Chromatin Compartments and selection}
-
-%%% Add PDF metadata to help others organize their library
-%%% Once the PDF is generated, you can check the metadata with
-%%% $ pdfinfo template.pdf
-\hypersetup{
-pdftitle={Finding Tandem Repeats in Genomic Data using Suffix Trees},
-pdfsubject={algorithm implementation},
-pdfauthor={Søren Jørgensen},
-pdfkeywords={Tandem Repeats, Suffix Trees, Optimization}
-}

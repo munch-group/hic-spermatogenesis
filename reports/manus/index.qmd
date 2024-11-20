@@ -1,5 +1,6 @@
 ---
-title: "Manuscript"
+title: "Chromatin Compartments and Selection on X"
+subtitle: "How Edges of Active Chromatin Align with Selection Regions in Primates"
 author:
   - name: "Søren Jørgensen"
     # affiliation: |
@@ -21,16 +22,8 @@ key-points:
   - Differential compartment analysis was conducted comparing with papio anubis
   - Regions was overlayed with genes of interest (positive selection)
 date: last-modified
-date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
-crossref:
-  chapters: false
-# # format:
-# #   pdf: 
-# #     documentclass: article
-# #     include-in-header: preamble.tex
 ---
 
-# Chromatin Compartments and Selection on *X*
 
 {{< include introduction.qmd >}}
 
