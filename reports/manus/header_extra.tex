@@ -7,31 +7,82 @@
 
 \usepackage{upquote}
 
+\usepackage{fontspec}
+\newfontfamily\mytitlefont{Lucida Grande}
+
+% front page
+\usepackage[colorlinks]{hyperref} % for text color on title
+\usepackage{titling} % makes \thetitle etc available...
+\usepackage{lipsum}
+\usepackage{tikz}
+\tikzstyle{bag} = [align=center] % allows new lines in text below
+\AtBeginDocument{\thispagestyle{empty}
+\definecolor{titlecolor}{HTML}{1C2404}
+\begin{tikzpicture}[remember picture,overlay]
+\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+\draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
+% \draw (current page.center) node[bag] {  
+        \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+    \mytitlefont \color{titlecolor} \Large Master of Science in Bioinformatics \\ 
+    \\ 
+    \mytitlefont \color{titlecolor} \Huge \thetitle \\ 
+    \\ 
+    \mytitlefont \color{titlecolor} \huge \theauthor \\
+    \\
+    \mytitlefont \color{titlecolor} \Large \thedate 
+    };
+\end{tikzpicture}
+\clearpage}
+
+% back side
+\AtEndDocument{\clearpage\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+% \draw (current page.center) node[bag] {  
+    \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+        \mytitlefont \color{titlecolor} \large Bioinformatics Research Centre \\ 
+        \mytitlefont \color{titlecolor} \large Department of Molecular Biology and Genetics \\ 
+        \mytitlefont \color{titlecolor} \large Aarhus University \\
+        \mytitlefont \color{titlecolor} \large Universitetsbyen 81 \\
+        \mytitlefont \color{titlecolor} \large 8000 Aarhus C \\
+        \mytitlefont \color{titlecolor} \large Denmark
+        };
+
+\end{tikzpicture}}
+
+
+% % picture (AU logo in title page)
+% \usepackage{titlepic}
+% \usepackage{graphicx}
+% \titlepic{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}}}
+
+
+
 % \pagestyle{plain} % no running header
 
-% \usepackage[many]{tcolorbox}
-% \definecolor{quotegray}{HTML}{505050}
-% \newtcolorbox{myquote}{%
-%     enhanced jigsaw, 
-%     breakable,      % allow page breaks
-%     frame hidden,   % hide the default frame
-%     left=1cm,       % left margin
-%     right=1cm,      % right margin
-%     colback=white,
-%     fontupper=\color{quotegray},
-%     overlay={%
-%         \node [scale=4,
-%             text=lightgray,
-%             inner sep=0pt,] at ([xshift=0.5cm,yshift=-0.7cm]frame.north west){``}; 
-%         \node [scale=4,
-%             text=lightgray,
-%             inner sep=0pt,] at ([xshift=-0.5cm]frame.south east){''};  
-%             },
-%         % paragraph skips obeyed within tcolorbox
-%                 parbox=false,
-% }
-% % redefine the 'quote' environment to use this 'myquote' environment
-% \renewenvironment{quote}{\begin{myquote}}{\end{myquote}}
+\usepackage[many]{tcolorbox}
+\definecolor{quotegray}{HTML}{505050}
+\newtcolorbox{myquote}{%
+    enhanced jigsaw, 
+    breakable,      % allow page breaks
+    frame hidden,   % hide the default frame
+    left=1cm,       % left margin
+    right=1cm,      % right margin
+    colback=white,
+    fontupper=\color{quotegray},
+    overlay={%
+        \node [scale=4,
+            text=lightgray,
+            inner sep=0pt,] at ([xshift=0.5cm,yshift=-0.7cm]frame.north west){``}; 
+        \node [scale=4,
+            text=lightgray,
+            inner sep=0pt,] at ([xshift=-0.5cm]frame.south east){''};  
+            },
+        % paragraph skips obeyed within tcolorbox
+                parbox=false,
+}
+% redefine the 'quote' environment to use this 'myquote' environment
+\renewenvironment{quote}{\begin{myquote}}{\end{myquote}}
 
 
 % \usepackage{framed} % not sure i need this anymore
@@ -68,29 +119,31 @@
 
 
 
-% \usepackage{etoolbox}
-% \makeatletter
-% \g@addto@macro{\appendix}{%
-%   \patchcmd{\@@makechapterhead}% <cmd>
-%     {\endgraf\nobreak\vskip.5\baselineskip}% <search>
-%     {\hspace*{-.5em}:\space}% <replace>
-%     {}{}% <success><failure>
-%   \patchcmd{\@chapter}% <cmd>
-%     {\addchaptertocentry{\thechapter}}% <search>
-%     {\addchaptertocentry{Appendix~\thechapter:}}% <replace>
-%     {}{}% <success><failure>
-%   \addtocontents{toc}{%
-%     \protect\patchcmd{\protect\l@chapter}% <cmd>
-%       {1.5em}% <search>
-%       {6.5em}% <replace>
-%       {}{}}% <success><failure>
-% }
-% \renewcommand{\autodot}{}% Remove all end-of-counter dots
-% \makeatother
+\usepackage{etoolbox}
+\makeatletter
+\g@addto@macro{\appendix}{%
+  \patchcmd{\@@makechapterhead}% <cmd>
+    {\endgraf\nobreak\vskip.5\baselineskip}% <search>
+    {\hspace*{-.5em}:\space}% <replace>
+    {}{}% <success><failure>
+  \patchcmd{\@chapter}% <cmd>
+    {\addchaptertocentry{\thechapter}}% <search>
+    {\addchaptertocentry{Appendix~\thechapter:}}% <replace>
+    {}{}% <success><failure>
+  \addtocontents{toc}{%
+    \protect\patchcmd{\protect\l@chapter}% <cmd>
+      {1.5em}% <search>
+      {6.5em}% <replace>
+      {}{}}% <success><failure>
+}
+\renewcommand{\autodot}{}% Remove all end-of-counter dots
+\makeatother
 
-% \makeatletter
-% \@addtoreset{chapter}{part}
-% \makeatother
+
+% restart chapter numbers in each part
+\makeatletter
+\@addtoreset{chapter}{part}
+\makeatother
 
 
 % \usepackage{chngcntr}
@@ -104,10 +157,11 @@
 % \renewcommand\thesubsubsection{\arabic{subsection}}
 % \renewcommand\thesubsubsection{\arabic{chapter}-\arabic{subsubsection}}
 
-
+% scrartcl does not have chapters
 % \renewcommand*{\chapterformat}{%
 %   \textcolor[rgb]{0.8, 0.8, 0.8}{\thechapter}\autodot\enskip%
 % }
+
 
 
 % % prevent latex from "floating" the figures
@@ -119,4 +173,3 @@
 % } {
 %     \endorigfigure
 % }
-

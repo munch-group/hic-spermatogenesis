@@ -80,23 +80,200 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 
+%% Palatino font:
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{palatino}
+
+\usepackage{pifont}
+
+\usepackage{upquote}
+
+\usepackage{fontspec}
+\newfontfamily\mytitlefont{Lucida Grande}
+
+% front page
+\usepackage[colorlinks]{hyperref} % for text color on title
+\usepackage{titling} % makes \thetitle etc available...
+\usepackage{lipsum}
+\usepackage{tikz}
+\tikzstyle{bag} = [align=center] % allows new lines in text below
+\AtBeginDocument{\thispagestyle{empty}
+\definecolor{titlecolor}{HTML}{1C2404}
+\begin{tikzpicture}[remember picture,overlay]
+\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+\draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
+% \draw (current page.center) node[bag] {  
+        \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+    \mytitlefont \color{titlecolor} \Large Master of Science in Bioinformatics \\ 
+    \\ 
+    \mytitlefont \color{titlecolor} \Huge \thetitle \\ 
+    \\ 
+    \mytitlefont \color{titlecolor} \huge \theauthor \\
+    \\
+    \mytitlefont \color{titlecolor} \Large \thedate 
+    };
+\end{tikzpicture}
+\clearpage}
+
+% back side
+\AtEndDocument{\clearpage\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+% \draw (current page.center) node[bag] {  
+    \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+        \mytitlefont \color{titlecolor} \large Bioinformatics Research Centre \\ 
+        \mytitlefont \color{titlecolor} \large Department of Molecular Biology and Genetics \\ 
+        \mytitlefont \color{titlecolor} \large Aarhus University \\
+        \mytitlefont \color{titlecolor} \large Universitetsbyen 81 \\
+        \mytitlefont \color{titlecolor} \large 8000 Aarhus C \\
+        \mytitlefont \color{titlecolor} \large Denmark
+        };
+
+\end{tikzpicture}}
+
+
+% % picture (AU logo in title page)
+% \usepackage{titlepic}
+% \usepackage{graphicx}
+% \titlepic{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}}}
+
+
+
+% \pagestyle{plain} % no running header
+
+\usepackage[many]{tcolorbox}
+\definecolor{quotegray}{HTML}{505050}
+\newtcolorbox{myquote}{%
+    enhanced jigsaw, 
+    breakable,      % allow page breaks
+    frame hidden,   % hide the default frame
+    left=1cm,       % left margin
+    right=1cm,      % right margin
+    colback=white,
+    fontupper=\color{quotegray},
+    overlay={%
+        \node [scale=4,
+            text=lightgray,
+            inner sep=0pt,] at ([xshift=0.5cm,yshift=-0.7cm]frame.north west){``}; 
+        \node [scale=4,
+            text=lightgray,
+            inner sep=0pt,] at ([xshift=-0.5cm]frame.south east){''};  
+            },
+        % paragraph skips obeyed within tcolorbox
+                parbox=false,
+}
+% redefine the 'quote' environment to use this 'myquote' environment
+\renewenvironment{quote}{\begin{myquote}}{\end{myquote}}
+
+
+% \usepackage{framed} % not sure i need this anymore
+
+% \usepackage[T1]{fontenc}
+% \usepackage{inconsolata}
+
+% % I have to only define Shaded if it is already defined.
+% % The reason is that pandoc does not define the macro if there are not code blocks in the a markdown file.
+% \ifx \@Shaded \@empty
+
+% \renewcommand{\KeywordTok}[1]{\textcolor[rgb]{0, 0, 0}{\textbf{{#1}}}} % def and or not reg
+% \renewcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.373, 0.298, 0.580}{\textbf{{#1}}}} % print open 
+% \renewcommand{\VariableTok}[1]{\textcolor[rgb]{0.141, 0.392, 0.824}{\textbf{{#1}}}}
+% \renewcommand{\OperatorTok}[1]{\textcolor[rgb]{0, 0, 0}{{#1}}} % def and or not reg
+% \renewcommand{\DataTypeTok}[1]{\textcolor[rgb]{1.0,0.13,0.00}{{#1}}}
+% \renewcommand{\DecValTok}[1]{\textcolor[rgb]{0.655, 0.498, 0.161}{{#1}}}
+% \renewcommand{\BaseNTok}[1]{\textcolor[rgb]{0.259, 0.592, 0.596}{{#1}}}
+% \renewcommand{\FloatTok}[1]{\textcolor[rgb]{0.655, 0.498, 0.161}{{#1}}}
+% \renewcommand{\CharTok}[1]{\textcolor[rgb]{0.678,0.141,0.098}{{#1}}}
+% \renewcommand{\StringTok}[1]{\textcolor[rgb]{0.678,0.141,0.098}{{#1}}}
+% \renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.135, 0.134, 0.133}{{#1}}}
+% \renewcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+% \renewcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+% \renewcommand{\FunctionTok}[1]{\textcolor[rgb]{0.549, 0.102, 0.063}{\textbf{{#1}}}}  % function name
+% \renewcommand{\RegionMarkerTok}[1]{{#1}}
+% \renewcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+% \renewcommand{\NormalTok}[1]{\textcolor[rgb]{0, 0, 0}{{#1}}}
+
+
+% \else
+%   % no code blocks with markup...
+% \fi
+
+
+
+\usepackage{etoolbox}
+\makeatletter
+\g@addto@macro{\appendix}{%
+  \patchcmd{\@@makechapterhead}% <cmd>
+    {\endgraf\nobreak\vskip.5\baselineskip}% <search>
+    {\hspace*{-.5em}:\space}% <replace>
+    {}{}% <success><failure>
+  \patchcmd{\@chapter}% <cmd>
+    {\addchaptertocentry{\thechapter}}% <search>
+    {\addchaptertocentry{Appendix~\thechapter:}}% <replace>
+    {}{}% <success><failure>
+  \addtocontents{toc}{%
+    \protect\patchcmd{\protect\l@chapter}% <cmd>
+      {1.5em}% <search>
+      {6.5em}% <replace>
+      {}{}}% <success><failure>
+}
+\renewcommand{\autodot}{}% Remove all end-of-counter dots
+\makeatother
+
+
+% restart chapter numbers in each part
+\makeatletter
+\@addtoreset{chapter}{part}
+\makeatother
+
+
+% \usepackage{chngcntr}
+% \counterwithin*{subsubsection}{chapter}
+% \counterwithout*{subsubsection}{section}
+% \counterwithout*{subsubsection}{subsection}
+
+% %  % KMT only use subsubsection number (this increments though the book 
+% %  % when we supress numbering with  {.unnumbered} after each header except Exerisices
+% \renewcommand\thesubsubsection{\arabic{section}}
+% \renewcommand\thesubsubsection{\arabic{subsection}}
+% \renewcommand\thesubsubsection{\arabic{chapter}-\arabic{subsubsection}}
+
+% scrartcl does not have chapters
+% \renewcommand*{\chapterformat}{%
+%   \textcolor[rgb]{0.8, 0.8, 0.8}{\thechapter}\autodot\enskip%
+% }
+
+
+
+% % prevent latex from "floating" the figures
+% \usepackage{float}
+% \let\origfigure\figure
+% \let\endorigfigure\endfigure
+% \renewenvironment{figure}[1][2] {
+%     \expandafter\origfigure\expandafter[H]
+% } {
+%     \endorigfigure
+% }
 
 \usepackage{arxiv}
 
 \usepackage{lmodern}
-\usepackage[hidelinks]{hyperref}       % hyperlinks
+%\usepackage[hidelinks]{hyperref}       % hyperlinks % clashed with header_extra.tex
 \usepackage{url}            % simple URL typesetting
 \usepackage{booktabs}       % professional-quality tables
 \usepackage{amsfonts}       % blackboard math symbols
@@ -124,8 +301,6 @@
 
 \title{Chromatin Compartments correlates with Selection}
 
-\date{January 15, 2024}		
-
 \author{{\emph{Author:}\\
     Søren Jørgensen}	\\
     \emph{Stud. MSc Bioinformatics} \\
@@ -149,7 +324,7 @@
 % Uncomment to override  the `A preprint' in the header
 \renewcommand{\headeright}{MSc Autumn2024}
 \renewcommand{\undertitle}{30 ECTS Master's Thesis, Autumn 2024}
-\renewcommand{\shorttitle}{Chromatin Compartments and selection}
+\renewcommand{\shorttitle}{Chromatin Compartments and Selection}
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -193,9 +368,6 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
 \usepackage[]{natbib}
 \bibliographystyle{plainnat}
 \usepackage{bookmark}
@@ -211,6 +383,14 @@
 
 
 \title{Chromatin Compartments and Selection on X}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{How Edges of Active Chromatin Align with Selection Regions in
+Primates}
 \author{Søren Jørgensen}
 \date{2024-11-20}
 
@@ -246,34 +426,44 @@ across primate species.
 
 \section{Introduction}\label{introduction}
 
-{📝} = \emph{draft block}
+{📝} = \emph{draft paragraph}
 
 \subsection{Sexual reproduction (spermatogenesis,
 meiosis)}\label{sexual-reproduction-spermatogenesis-meiosis}
 
-\begin{quote}
 {📝} The production of gametes in a sexually reproducing organism is a
 highly complex process that involves numeruous elements.
 Spermatogenesis, the process of forming male gametes, involves four
 stages of differentiation from a germ cell through \emph{spermatogonia},
 \emph{pachytene spermatocyte}, and \emph{round spermatids} to
-\emph{spermatozoa}, or \emph{sperm} \citep{wang_reprogramming_2019}.
-\end{quote}
+\emph{spermatozoa}, or \emph{sperm} \citep{wang_reprogramming_2019}, and
+it is the very basis of male reproduction. The specialized cell division
+of meiosis neatly handles the pairing, recombination, and segregation of
+homologous chromosomes, thereby ensuring proper genetic distribution.
+Deeply understanding the steps of molecular steps of reproduction and
+how our genetic material is inherited is essential in biology, bringing
+insight to areas such as speciation, population diversity, and (male)
+infertility.
 
-\subsection{Selfish genes}\label{selfish-genes}
+\subsection{Selfish genes (and
+randomness)}\label{selfish-genes-and-randomness}
 
-\begin{quote}
 {📝} The conventional story of meiosis in gametogenesis is one of random
-segregation of the sex chromosomes. They split into haploid gametes that
-are each responsible for their own survival, and nothing more. That
-seems like a fair game, but what if some genes are cheating the system
-by making other participants less viable. Say, some genes on the X
-chromosome creates a disadvantage for gametes that \emph{do not} contain
+segregation of the sex chromosomes. They split into haploid gametes,
+where each chromosome has an equal chance of being passed on to a
+gamete. That seems like a fair game, but what if some genes are cheating
+the system by making others less viable. A meiotic driver is a selfish
+gene element that modulates meiosis and preferentially transmits its own
+allele through meiosis, regardless of the downstream fitness effects it
+may have (good or bad) on the organism it is part of. This phenomenon
+challenges the traditional understanding of selection, extending its
+scope beyond the fitness effects on an organism to include selective
+pressures at the molecular level. For example, if some genes on the X
+chromosome create a disadvantage for gametes that \emph{do not} contain
 those genes, making sure the Y chromosome is not as viable as the X,
 resulting in a sex imbalance and possibly numerous other downstream
 effects. That is exactly what is coined \emph{sex chromosome meiotic
 drive} \citep{jaenike_sex_2001}, a result of selfish genetic elements.
-\end{quote}
 
 \begin{quote}
 {📝} Motivated by previous results in the Munch Research group
@@ -283,7 +473,7 @@ that could be explained by meiotic drive, we wanted to investigate how
 these patterns correlate with chromatin compartments.
 \end{quote}
 
-\subsection{High-Throughput Chromosome conformation capture
+\subsection{High-Throughput Chromosome Conformation Capture
 (Hi-C)}\label{high-throughput-chromosome-conformation-capture-hi-c}
 
 Our DNA can be divided into different orders of structure. \emph{3C}
@@ -435,7 +625,7 @@ the difference.
 
 \centering{
 
-\includegraphics{index_files/figure-latex/..-..-notebooks-03_compartments-fig-matrix_e1_500kb-output-1.png}
+\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-latex/..-..-notebooks-03_compartments-fig-matrix_e1_500kb-output-1.png}}
 
 }
 

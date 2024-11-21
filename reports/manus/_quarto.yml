@@ -15,6 +15,7 @@ format:
     #pdf-engine: pdflatex
     documentclass: scrartcl
     keep-tex: true
+    dpi: 320
     papersize: a4
     toc: true
     toc-depth: 2
@@ -33,13 +34,14 @@ format:
     cite-method: natbib 
     #natbiboptions: numbers
     include-in-header:
-      #- file: header_extra.tex
+      - file: header_extra.tex
       - file: preamble.tex
     include-before-body:
-      - text: | 
+      - text: |
           \newpage
           \tableofcontents
           \newpage
+
 
     output-file: manuscript.pdf
 
