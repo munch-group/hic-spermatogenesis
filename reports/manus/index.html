@@ -307,10 +307,11 @@ div.csl-indent {
 <p>In this project, we formulate two objectives:</p>
 <p><strong>A</strong>: Reproduce the Hi-C interaction maps and eigendecomposition from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, with some modifications. We briefly use <em>HiCExplorer</em>, but change the analyses to use the <em>Open2C Ecosystem</em> <span class="citation" data-cites="open2c">(<a href="../../references.html#ref-open2c" role="doc-biblioref">Open Chromosome Collective 2024</a>)</span> which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a <em>gwf</em> workflow, and the commands that were visually inspected were run in Jupyter Notebooks.</p>
 <p><strong>B</strong> Compare with regions of selection that are found in <em>papio anubis</em>, and maybe in <em>human</em> too. Investigate the biological meaning of the results.</p>
-<p>The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code and text is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages []. To make this possible, the Quarto documentation has been extensively studied and discussed with <em>KMT</em>.</p>
+<p>All computations were performed on GenomeDK (GDK) [ref], an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was nested into a <em>gwf</em> workflow [ref], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.</p>
+<p>The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code, virtual environments and text is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages []. To make this possible, the Quarto documentation has been extensively studied and discussed with <em>KMT</em> [ref, aknowledge].</p>
 <section id="downloading-data-and-project-structure" class="level3">
 <h3 class="anchored" data-anchor-id="downloading-data-and-project-structure">Downloading Data and Project Structure</h3>
-<p>To reproduce the results from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable <code>SRA-runtable.tsv</code>. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (<a href="#tbl-runtable-summary" class="quarto-xref">Table&nbsp;<span>5.1</span></a>). It adds up to ~ 1Tb of compressed <code>fastq</code> files, holding ~ 9.5 billion reads.</p>
+<p>To reproduce the results from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable <code>SRA-runtable.tsv</code>. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (<a href="#tbl-runtable-summary" class="quarto-xref">Table&nbsp;<span>5.1</span></a>). It adds up to ~1Tb of compressed <code>fastq</code> files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-tbl-runtable-summary">
 <div class="cell" data-execution_count="6">
 <div id="tbl-runtable-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="6">
@@ -378,24 +379,55 @@ Table&nbsp;5.1: Summary of the data accessions used in this analysis
 </div>
 </div>
 </section>
-<section id="handling-coolers" class="level3">
-<h3 class="anchored" data-anchor-id="handling-coolers">Handling coolers</h3>
-<section id="merge-samples-from-each-source" class="level5">
-<h5 class="anchored" data-anchor-id="merge-samples-from-each-source">Merge samples from each source</h5>
+<section id="handling-coolers-or-preparing-coolers" class="level3">
+<h3 class="anchored" data-anchor-id="handling-coolers-or-preparing-coolers">Handling coolers (Or: preparing coolers)</h3>
 <div id="fig-flowchart-handling-coolers" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flowchart-handling-coolers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aCA9ICI1MDAiIGhlaWdodCA9ICIxMDAiIHhtbG5zID0gImh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94ID0gIjAgMCA1MDAgMTAwIj48cmVjdCB3aWR0aCA9ICI1MDAiIGhlaWdodCA9ICIxMDAiIGZpbGwgPSAiI2RkZCIgLz48dGV4dCB4ID0gIjUwJSIgeSA9ICI1MCUiIGZvbnQtZmFtaWx5ID0gInNhbnMtc2VyaWYiIGZvbnQtc2l6ZSA9ICIxMCIgZmlsbCA9ICIjMDAwIiB0ZXh0LWFuY2hvciA9ICJtaWRkbGUiPjUwMCB4IDEwMDwvdGV4dD48L3N2Zz4=" class="img-fluid figure-img"></p>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flowchart-handling-coolers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.1: A flowchart showing the pipeline from <code>.fastq</code> to <code>.mcool</code>. Probably BioRender or Inkscape.
+Figure&nbsp;5.1: A flowchart showing the pipeline from <code>.fastq</code> to <code>.mcool</code>. The first 6 steps were done with a Probably BioRender or Inkscape.
 </figcaption>
 </figure>
 </div>
-<p>We will use <code>cooler merge</code> to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal.</p>
-<p>Thus, we will merge all samples from the same source_name into a single cooler file. The coolers are produced to only contain the real chromosomes (1-22, X, Y), and not the mitochondrial DNA or the unplaced contigs (~2,900), as they would not bring any information to the analysis.</p>
-<p>First, we will create a dictionary with the paths to the coolers for each sample. We use <code>glob</code> to fetch all the coolers in each sub-folder that remain after filtering and (automatic) quality control (those are the ones with <code>nodups</code> in their names).</p>
+<section id="the-gwf-workflow-targets" class="level4">
+<h4 class="anchored" data-anchor-id="the-gwf-workflow-targets">The <em>gwf</em> workflow targets</h4>
+<p>A <em>gwf</em> workflow was created to handle the first part of the data processing, and each accesion number (read pair, mate pair) from the Hi-C sequencing was processed in parallel, so their execution was independen on the other samples.</p>
+<section id="downloading-the-reads" class="level5">
+<h5 class="anchored" data-anchor-id="downloading-the-reads">Downloading the reads</h5>
+<p>The reads were downloaded from NCBI SRA portal [ref] directly to GDK using <code>sra-downloader</code> [ref] through docker [ref] as <code>.fastq.gz</code> files.</p>
+</section>
+<section id="handling-the-reference" class="level5">
+<h5 class="anchored" data-anchor-id="handling-the-reference">Handling the reference</h5>
+<p>The latest reference genome for rhesus macaque (<em>macaca mulata</em>), <em>rheMac10</em> (or <em>Mmul_10</em>, UCSC or NCBI naming conventions, respectively) was downloaded to GDK from UCSC web servers with <code>wget</code> [ref]. To use <code>bwa</code> (Burrow Wheeler’s Aligner) [ref] for mapping, rheMac10 needs to be indexed with both <code>bwa index</code> with the <code>--bwtsw</code> option and <code>samtools faidx</code>, which results in six indexing files for <code>bwa mem</code> to use.</p>
+</section>
+<section id="mapping-paired-end-reads" class="level5">
+<h5 class="anchored" data-anchor-id="mapping-paired-end-reads">Mapping paired-end reads</h5>
+</section>
+<section id="pair-and-sort-the-reads" class="level5">
+<h5 class="anchored" data-anchor-id="pair-and-sort-the-reads">Pair and sort the reads</h5>
+</section>
+<section id="filter-deduplicate-pairs" class="level5">
+<h5 class="anchored" data-anchor-id="filter-deduplicate-pairs">Filter (deduplicate) pairs</h5>
+</section>
+<section id="create-interaction-matrices-coolers" class="level5">
+<h5 class="anchored" data-anchor-id="create-interaction-matrices-coolers">Create interaction matrices (coolers)</h5>
+</section>
+<section id="pooling-samples-merging-coolers" class="level5">
+<h5 class="anchored" data-anchor-id="pooling-samples-merging-coolers">Pooling samples (Merging coolers)</h5>
+<p>The strategy to get the best signal was by pooling the interaction matrices. <code>cooler merge</code> was used to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal.</p>
+</section>
+<section id="create-multi-resolution-coolers-zoomify" class="level5">
+<h5 class="anchored" data-anchor-id="create-multi-resolution-coolers-zoomify">Create multi-resolution coolers (zoomify)</h5>
+</section>
+<section id="matrix-balancing-iterative-correction" class="level5">
+<h5 class="anchored" data-anchor-id="matrix-balancing-iterative-correction">Matrix balancing (Iterative correction)</h5>
+</section>
+<section id="eigendecomposition" class="level5">
+<h5 class="anchored" data-anchor-id="eigendecomposition">Eigendecomposition</h5>
 <div style="page-break-after: always;"></div>
+</section>
 </section>
 </section>
 </section>
