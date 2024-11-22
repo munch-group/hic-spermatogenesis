@@ -13,6 +13,8 @@ format:
   #jats: default
   pdf:
     #pdf-engine: pdflatex
+    pdf-engine-opts: 
+      - "--shell-escape"
     documentclass: scrartcl
     keep-tex: true
     dpi: 320

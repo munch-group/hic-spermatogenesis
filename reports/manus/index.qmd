@@ -27,10 +27,18 @@ date: last-modified
 
 {{< include introduction.qmd >}}
 
+{{< pagebreak >}}
+
 {{< include methods.qmd >}}
+
+{{< pagebreak >}}
 
 {{< include results.qmd >}}
 
+{{< pagebreak >}}
+
 {{< include discussion.qmd >}}
+
+{{< pagebreak >}}
 
 ## Bibliography {.unnumbered}

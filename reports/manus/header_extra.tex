@@ -19,7 +19,7 @@
 \AtBeginDocument{\thispagestyle{empty}
 \definecolor{titlecolor}{HTML}{1C2404}
 \begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+\draw (current page.center) node[inner sep=0, opacity=0.4] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
 \draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
 % \draw (current page.center) node[bag] {  
         \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
@@ -37,7 +37,7 @@
 % back side
 \AtEndDocument{\clearpage\thispagestyle{empty}
 \begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+\draw (current page.center) node[inner sep=0, opacity=0.4] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
 % \draw (current page.center) node[bag] {  
     \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
         \mytitlefont \color{titlecolor} \large Bioinformatics Research Centre \\ 
@@ -51,10 +51,10 @@
 \end{tikzpicture}}
 
 
-% % picture (AU logo in title page)
-% \usepackage{titlepic}
-% \usepackage{graphicx}
-% \titlepic{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}}}
+% picture (AU logo in title page)
+\usepackage{titlepic}
+\usepackage{graphicx}
+\titlepic{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}}}
 
 
 
@@ -173,3 +173,11 @@
 % } {
 %     \endorigfigure
 % }
+
+
+%%%%%%% TO DO BEFORE HAND IN %%%%%%%%
+%%%%%%%% OR: MAKE KASPER DO %%%%%%%%%
+
+% Add Kasper (supervisor) to front matter
+% Make page numbers until TOC roman numerals
+% Restart with Latin numbers from page after TOC (Introduction)

@@ -40,6 +40,7 @@
 \makeatother
 \usepackage{xcolor}
 \usepackage[textheight=9in,textwidth=6.5in,top=1in,headheight=14pt,headsep=25pt,footskip=30pt]{geometry}
+\usepackage{svg}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{3}
 % Make \paragraph and \subparagraph free-standing
@@ -115,7 +116,7 @@
 \AtBeginDocument{\thispagestyle{empty}
 \definecolor{titlecolor}{HTML}{1C2404}
 \begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+\draw (current page.center) node[inner sep=0, opacity=0.4] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
 \draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
 % \draw (current page.center) node[bag] {  
         \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
@@ -133,7 +134,7 @@
 % back side
 \AtEndDocument{\clearpage\thispagestyle{empty}
 \begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+\draw (current page.center) node[inner sep=0, opacity=0.4] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
 % \draw (current page.center) node[bag] {  
     \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
         \mytitlefont \color{titlecolor} \large Bioinformatics Research Centre \\ 
@@ -147,10 +148,10 @@
 \end{tikzpicture}}
 
 
-% % picture (AU logo in title page)
-% \usepackage{titlepic}
-% \usepackage{graphicx}
-% \titlepic{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}}}
+% picture (AU logo in title page)
+\usepackage{titlepic}
+\usepackage{graphicx}
+\titlepic{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}}}
 
 
 
@@ -392,7 +393,7 @@
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2024-11-20}
+\date{2024-11-22}
 
 \begin{document}
 \maketitle
@@ -484,10 +485,11 @@ compartments. Here, we narrow our focus on the largest of the
 structures, \emph{compartments}, that is known to determine availability
 to transcription factors, thus making an \emph{A} compartment
 \emph{active}---and the \emph{B} compartment \emph{inactive}. The
-introduction of the Hi-C method
-\citep{lieberman_aiden_comprehensive_2009} (high-throughput 3C) opened
-new possibilities for exploring the three-dimensional organization of
-the genome.
+introduction of the Hi-C (high-throughput 3C) method
+\citep{lieberman_aiden_comprehensive_2009} opened new possibilities for
+exploring the three-dimensional organization of the genome.
+
+\newpage{}
 
 \section{Methods}\label{methods}
 
@@ -506,13 +508,29 @@ Jupyter Notebooks.
 \emph{papio anubis}, and maybe in \emph{human} too. Investigate the
 biological meaning of the results.
 
-\subsection{Data and structure}\label{data-and-structure}
+The whole of this project is carried out with reproducibility in mind,
+so an effort (and quite a significant amount of time) has been put into
+documenting code and organizing the project for readbility and
+transparency through a Quarto project {[}ref{]}. Therefore, all code and
+text is made available as a Quarto book, rendered directly from the
+GitHub repository with GitHub Pages {[}{]}. To make this possible, the
+Quarto documentation has been extensively studied and discussed with
+\emph{KMT}.
 
-\phantomsection\label{md-data-accessions}
-To get an overview of the data accessions used in this analysis, we will
-first summarize the \texttt{SRA-runtable.tsv} that contains the
-accession numbers and some metadata for each sample
-(Table~\ref{tbl-runtable-summary}).
+\subsection{Downloading Data and Project
+Structure}\label{downloading-data-and-project-structure}
+
+To reproduce the results from \citep{wang_reprogramming_2019}, I chose
+to use their raw data directly from the SRA portal {[}ref{]}. I filtered
+the data to contain all their paired-end Hi-C reads, and included only
+macaque samples. The data set also contains RNAseq data, and the same
+tissues for both macaque and mouse. The meta data for the data set was
+extracted into a runtable \texttt{SRA-runtable.tsv}. To get an overview
+of the data accessions used in this analysis, we will first summarize
+the runtable that contains the accession numbers and some metadata for
+each sample (Table~\ref{tbl-runtable-summary}). It adds up to
+\textasciitilde{} 1Tb of compressed \texttt{fastq} files, holding
+\textasciitilde{} 9.5 billion reads.
 
 \begin{longtable}[]{@{}lllll@{}}
 
@@ -541,111 +559,56 @@ in this analysis}
 
 \end{longtable}
 
-\phantomsection\label{md-folder-structure}
-For ease of mind, here is the folder structure of the project.
-\texttt{../steps/bwa/PE/} is the base directory artificially defined in
-the \texttt{master\_workflow.py}. It ccould be any other directory
-inside \texttt{steps}. It is defined relative to the
-\texttt{master\_workflow.py} file (inside the worklow), and converted to
-an absolute path by python.
+\subsection{Handling coolers}\label{handling-coolers}
+
+\paragraph{Merge samples from each
+source}\label{merge-samples-from-each-source}
 
 \begin{figure}
 
 \centering{
 
-\begin{verbatim}
-../steps/bwa/PE
-├── bamfiles
-│   ├── fibroblast
-│   ├── pachytene_spermatocyte
-│   ├── round_spermatid
-│   ├── sperm
-│   └── spermatogonia
-├── cool
-│   ├── fibroblast
-│   ├── pachytene_spermatocyte
-│   ├── round_spermatid
-│   ├── sperm
-│   └── spermatogonia
-└── pairs
-    ├── fibroblast
-    ├── pachytene_spermatocyte
-    ├── round_spermatid
-    ├── sperm
-    └── spermatogonia
-
-18 directories
-\end{verbatim}
+\pandocbounded{\includesvg[keepaspectratio]{index_files/mediabag/svg-xml-base64,PHN2Z.svg}}
 
 }
 
-\caption{\label{fig-folder-structure}}
+\caption{\label{fig-flowchart-handling-coolers}A flowchart showing the
+pipeline from \texttt{.fastq} to \texttt{.mcool}. Probably BioRender or
+Inkscape.}
 
 \end{figure}%
 
-\phantomsection\label{md-plotting-main}
-The following section contains the visualization of the matrices and
-includes the calculation of the E1 compartments and their visualization.
-I discuss differents methods for construction and try to get both
-methodologically and result-wise close to
-\citep{wang_reprogramming_2019}.
+We will use \texttt{cooler\ merge} to merge all samples in each
+sub-folder (cell type) to just one interaction matrix for each cell
+type. The reason for that is that we choose to trust
+\citep{wang_reprogramming_2019} when they say that compartments are
+highly reproducible between replicates, and by merging all replicates,
+we will have a more robust signal.
 
-First, we will work on matrices in 500kb resolution, as documentation
-{[}maybe it was HiCExplorer??{]} states it is sufficient for
-chromosome-wide analysis and plotting. We will follow the
-\texttt{cooltools}-recommended pipeline (except that they use a 100kb
-cooler) for
-\href{https://cooltools.readthedocs.io/en/latest/notebooks/viz.html}{visualization}
-and
-\href{https://cooltools.readthedocs.io/en/latest/notebooks/compartments_and_saddles.html}{compartment
-calling} with one example cooler (the merged fibroblast cooler at 500kb
-resolution).
+Thus, we will merge all samples from the same source\_name into a single
+cooler file. The coolers are produced to only contain the real
+chromosomes (1-22, X, Y), and not the mitochondrial DNA or the unplaced
+contigs (\textasciitilde2,900), as they would not bring any information
+to the analysis.
 
-Then, the most relevant parts will be generalized to run in a loop over
-all the coolers. First at 500kb resolution, then at 100kb resolution.
+First, we will create a dictionary with the paths to the coolers for
+each sample. We use \texttt{glob} to fetch all the coolers in each
+sub-folder that remain after filtering and (automatic) quality control
+(those are the ones with \texttt{nodups} in their names).
 
-To accomodate the approach (barely) described in the paper, we will
-discuss a smoothing step to the observed/expected matrices before
-compartment calling, and we will apply a smoothing step to the E1
-compartments and compare to the raw compartments.
-
-\phantomsection\label{md-plotting-500kb-single}
-First, I will explore the visualization pipeline for a single cooler at
-500kb resolution. I will modify the plot to be `stairs' in stead of just
-a regular line plot, as it is both a more accurate representation of the
-data and it is more aesthetically pleasing with less spiky lines and
-holes.
-
-In practice, the length of the dataframe is doubled, as it now contains
-an E1 value for both the start and end position for each bin in stead of
-only for the start. However, I first make the regular line plot to show
-the difference.
-
-\begin{figure}[H]
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-latex/..-..-notebooks-03_compartments-fig-matrix_e1_500kb-output-1.png}}
-
-}
-
-\caption{\label{fig-matrix_e1_500kb}chrX interaction matrix with E1
-eigenvector values in 500kb resolution. The sign change of the E1 is
-overlayed as thin black lines, making it more easily interpretable. We
-should qualitatively determine how well the E1 values capture the
-\emph{plaid} pattern in the matrix.}
-
-\end{figure}%
-
-Here we see that Figure~\ref{fig-matrix_e1_500kb}\ldots{}
+\newpage{}
 
 \section{Results}\label{results}
 
 Here are the glorious results
 
+\newpage{}
+
 \section{Discussion}\label{discussion}
 
 Here is the discussion
+
+\newpage{}
 
 
 \renewcommand\refname{Bibliography}

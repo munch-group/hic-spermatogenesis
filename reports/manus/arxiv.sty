@@ -8,8 +8,10 @@
 
 % % set page geometry % % Is set in _quarto.yml
 % % \usepackage[verbose=true,letterpaper]{geometry}
+
 % % Pass the geometry options to the package in stead - it is already loaded in template 
 \PassOptionsToPackage{geometry}{verbose=true,letterpaper}
+
 % \AtBeginDocument{
 %   \newgeometry{
 %     textheight=9in,
@@ -32,14 +34,35 @@
 \newcommand{\undertitle}{A Preprint}
 \newcommand{\shorttitle}{\@title}
 
-\usepackage{fancyhdr}
-\fancyhf{}
-\pagestyle{fancy}
-\renewcommand{\headrulewidth}{0.4pt}
-\fancyheadoffset{0pt}
-\rhead{\scshape \footnotesize \headeright}
-\chead{\shorttitle}
-\cfoot{\thepage}
+% fancyhdr is discouraged with KOMA: use the KOMA integrated commands
+% \usepackage{fancyhdr}
+% \fancyhf{}
+% \pagestyle{fancy}
+% \renewcommand{\headrulewidth}{0.4pt}
+% \fancyheadoffset{0pt}
+% \rhead{\scshape \footnotesize \headeright}
+% \chead{\shorttitle}
+% \cfoot{\thepage}
+
+
+% Use KOMA's scrlayer-scrpage for headers/footers
+\usepackage[headsepline]{scrlayer-scrpage}
+
+% Clear predefined header and footer
+\clearpairofpagestyles
+
+% Define the right header
+\ohead{\normalfont\footnotesize\scshape \headeright} % Outer header (right)
+
+% Define the center header
+\chead{\normalfont\footnotesize \shorttitle} % Center header
+
+% Define the center footer with page number
+\cfoot{\footnotesize \pagemark} % Center footer
+
+% Add a rule for the header
+\setheadsepline{0.4pt} % Line under the header
+
 
 
 %Handling Keywords
@@ -74,46 +97,41 @@
 % \renewcommand{\huge}{\@setfontsize\huge\@xxpt{23}}
 % \renewcommand{\Huge}{\@setfontsize\Huge\@xxvpt{28}}
 
-% sections with less space
-\providecommand{\section}{}
-\renewcommand{\section}{%
-  \@startsection{section}{1}{\z@}%
-                {-2.0ex \@plus -0.5ex \@minus -0.2ex}%
-                { 1.5ex \@plus  0.3ex \@minus  0.2ex}%
-                {\large\textbf\raggedright}%
-}
-\providecommand{\subsection}{}
-\renewcommand{\subsection}{%
-  \@startsection{subsection}{2}{\z@}%
-                {-1.8ex \@plus -0.5ex \@minus -0.2ex}%
-                { 0.8ex \@plus  0.2ex}%
-                {\normalsize\textbf\raggedright}%
-}
-\providecommand{\subsubsection}{}
-\renewcommand{\subsubsection}{%
-  \@startsection{subsubsection}{3}{\z@}%
-                {-1.5ex \@plus -0.5ex \@minus -0.2ex}%
-                { 0.5ex \@plus  0.2ex}%
-                {\normalsize\textbf\raggedright}%
-}
-\providecommand{\paragraph}{}
-\renewcommand{\paragraph}{%
-  \@startsection{paragraph}{4}{\z@}%
-                {1.5ex \@plus 0.5ex \@minus 0.2ex}%
-                {-1em}%
-                {\normalsize\textbf}%
-}
-\providecommand{\subparagraph}{}
-\renewcommand{\subparagraph}{%
-  \@startsection{subparagraph}{5}{\z@}%
-                {1.5ex \@plus 0.5ex \@minus 0.2ex}%
-                {-1em}%
-                {\normalsize\textbf}%
-}
-\providecommand{\subsubsubsection}{}
-\renewcommand{\subsubsubsection}{%
-  \vskip5pt{\noindent\normalsize\rm\raggedright}%
-}
+% % sections with less space 
+% arxiv.sty adapted for KOMA-script via chatGPT:
+\RedeclareSectionCommand[
+  beforeskip=-2.0ex plus -0.5ex minus -0.2ex,
+  afterskip=1.5ex plus 0.3ex minus 0.2ex
+]{section}
+
+\RedeclareSectionCommand[
+  beforeskip=-1.8ex plus -0.5ex minus -0.2ex,
+  afterskip=0.8ex plus 0.2ex
+]{subsection}
+
+\RedeclareSectionCommand[
+  beforeskip=-1.5ex plus -0.5ex minus -0.2ex,
+  afterskip=0.5ex plus 0.2ex
+]{subsubsection}
+
+\RedeclareSectionCommand[
+  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+  afterskip=-1em
+]{paragraph}
+
+\RedeclareSectionCommand[
+  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+  afterskip=-1em
+]{subparagraph}
+
+
+\setkomafont{section}{\normalfont\Large\bfseries\raggedright}
+\setkomafont{subsection}{\normalfont\large\bfseries\raggedright}
+\setkomafont{subsubsection}{\normalfont\normalsize\bfseries\raggedright}
+\setkomafont{paragraph}{\normalfont\normalsize\bfseries}
+\setkomafont{subparagraph}{\normalfont\normalsize\bfseries}
+
+
 
 % float placement
 \renewcommand{\topfraction      }{0.85}
