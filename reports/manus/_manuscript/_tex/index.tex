@@ -271,6 +271,16 @@
 %     \endorigfigure
 % }
 
+
+%%%%%%% TO DO BEFORE HAND IN %%%%%%%%
+%%%%%%%% OR: MAKE KASPER DO %%%%%%%%%
+
+% Add Kasper (supervisor) to front matter
+% Make page numbers until TOC roman numerals
+% Restart with Latin numbers from page after TOC (Introduction)
+% Think about changing fonts for captions, maybe to sans serif
+% Looks like Table captions shows two (identical) labels
+
 \usepackage{arxiv}
 
 \usepackage{lmodern}
@@ -289,11 +299,12 @@
 \usepackage{amssymb}
 \usepackage{svg}
 \usepackage{verbatim}
+\usepackage{caption}
 \usepackage{subcaption}
 \usepackage[linesnumbered, ruled, vlined]{algorithm2e}
 % Redefine the name for algorithm environment
 % \renewcommand{\algorithmautorefname}{Algorithm}
-\captionsetup{font=small, labelfont=bf}
+\captionsetup{font=small, labelfont={bf,sf}}
 \captionsetup[sub]{font=small, labelfont=bf} 
 \captionsetup[subfigure]{justification=justified, singlelinecheck=false, skip=3pt}
 \svgsetup{pretex=\tiny}
@@ -417,13 +428,14 @@ across primate species.
 
 \newpage
 \tableofcontents
-\newpage
 
 \renewcommand*\contentsname{Table of contents}
 {
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
+
+\newpage{}
 
 \section{Introduction}\label{introduction}
 
@@ -581,7 +593,7 @@ Inkscape.}
 We will use \texttt{cooler\ merge} to merge all samples in each
 sub-folder (cell type) to just one interaction matrix for each cell
 type. The reason for that is that we choose to trust
-\citep{wang_reprogramming_2019} when they say that compartments are
+\citet{wang_reprogramming_2019} when they say that compartments are
 highly reproducible between replicates, and by merging all replicates,
 we will have a more robust signal.
 
@@ -594,7 +606,8 @@ to the analysis.
 First, we will create a dictionary with the paths to the coolers for
 each sample. We use \texttt{glob} to fetch all the coolers in each
 sub-folder that remain after filtering and (automatic) quality control
-(those are the ones with \texttt{nodups} in their names).
+(those are the ones with \texttt{nodups} in their names). \(x\) is the
+new \(\frac{x}{2}\)\ldots{}
 
 \newpage{}
 

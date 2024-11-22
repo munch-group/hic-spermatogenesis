@@ -23,15 +23,14 @@ To reproduce the results from [@wang_reprogramming_2019], I chose to use their r
 
 ::: {#fig-flowchart-handling-coolers}
 
-{{< placeholder 500 300 format=svg >}}
+{{< placeholder 500 100 format=svg >}}
 
 A flowchart showing the pipeline from `.fastq` to `.mcool`. Probably BioRender or Inkscape.
 :::
 
-We will use `cooler merge` to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust [@wang_reprogramming_2019] when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal. 
+We will use `cooler merge` to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust @wang_reprogramming_2019 when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal. 
 
 Thus, we will merge all samples from the same source_name into a single cooler file. The coolers are produced to only contain the real chromosomes (1-22, X, Y), and not the mitochondrial DNA or the unplaced contigs (~2,900), as they would not bring any information to the analysis.
 
-First, we will create a dictionary with the paths to the coolers for each sample. We use `glob` to fetch all the coolers in each sub-folder that remain after filtering and (automatic) quality control (those are the ones with `nodups` in their names).
-
+First, we will create a dictionary with the paths to the coolers for each sample. We use `glob` to fetch all the coolers in each sub-folder that remain after filtering and (automatic) quality control (those are the ones with `nodups` in their names). 
 

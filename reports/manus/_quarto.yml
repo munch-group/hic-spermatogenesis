@@ -42,7 +42,6 @@ format:
       - text: |
           \newpage
           \tableofcontents
-          \newpage
 
 
     output-file: manuscript.pdf
