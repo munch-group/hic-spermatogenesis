@@ -1,6 +1,7 @@
 project:
   type: manuscript
   title: "Manuscript"
+  post-render: mv -v _manuscript/_tex/index.tex _manuscript/_tex/manuscript.tex
 
 manuscript:
   article: index.qmd
