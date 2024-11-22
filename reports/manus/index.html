@@ -281,6 +281,7 @@ div.csl-indent {
 </header>
 
 
+<div style="page-break-after: always;"></div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p><span class="emoji" data-emoji="memo">📝</span> = <em>draft paragraph</em></p>
@@ -384,14 +385,14 @@ Table&nbsp;5.1: Summary of the data accessions used in this analysis
 <div id="fig-flowchart-handling-coolers" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flowchart-handling-coolers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aCA9ICI1MDAiIGhlaWdodCA9ICIzMDAiIHhtbG5zID0gImh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94ID0gIjAgMCA1MDAgMzAwIj48cmVjdCB3aWR0aCA9ICI1MDAiIGhlaWdodCA9ICIzMDAiIGZpbGwgPSAiI2RkZCIgLz48dGV4dCB4ID0gIjUwJSIgeSA9ICI1MCUiIGZvbnQtZmFtaWx5ID0gInNhbnMtc2VyaWYiIGZvbnQtc2l6ZSA9ICIzMCIgZmlsbCA9ICIjMDAwIiB0ZXh0LWFuY2hvciA9ICJtaWRkbGUiPjUwMCB4IDMwMDwvdGV4dD48L3N2Zz4=" class="img-fluid figure-img"></p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aCA9ICI1MDAiIGhlaWdodCA9ICIxMDAiIHhtbG5zID0gImh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94ID0gIjAgMCA1MDAgMTAwIj48cmVjdCB3aWR0aCA9ICI1MDAiIGhlaWdodCA9ICIxMDAiIGZpbGwgPSAiI2RkZCIgLz48dGV4dCB4ID0gIjUwJSIgeSA9ICI1MCUiIGZvbnQtZmFtaWx5ID0gInNhbnMtc2VyaWYiIGZvbnQtc2l6ZSA9ICIxMCIgZmlsbCA9ICIjMDAwIiB0ZXh0LWFuY2hvciA9ICJtaWRkbGUiPjUwMCB4IDEwMDwvdGV4dD48L3N2Zz4=" class="img-fluid figure-img"></p>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flowchart-handling-coolers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5.1: A flowchart showing the pipeline from <code>.fastq</code> to <code>.mcool</code>. Probably BioRender or Inkscape.
 </figcaption>
 </figure>
 </div>
-<p>We will use <code>cooler merge</code> to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal.</p>
+<p>We will use <code>cooler merge</code> to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="../../references.html#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal.</p>
 <p>Thus, we will merge all samples from the same source_name into a single cooler file. The coolers are produced to only contain the real chromosomes (1-22, X, Y), and not the mitochondrial DNA or the unplaced contigs (~2,900), as they would not bring any information to the analysis.</p>
 <p>First, we will create a dictionary with the paths to the coolers for each sample. We use <code>glob</code> to fetch all the coolers in each sub-folder that remain after filtering and (automatic) quality control (those are the ones with <code>nodups</code> in their names).</p>
 <div style="page-break-after: always;"></div>
