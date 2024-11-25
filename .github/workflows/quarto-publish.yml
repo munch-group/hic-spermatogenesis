@@ -17,6 +17,12 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+      - run: pip install jupyter pandas pyyaml tabulate pycryptodome>3.10 pbkdf2 cryptography && sudo apt-get install -y librsvg2-bin #&& sudo apt install texlive-base && sudo tlmgr init-usertree && sudo wget https://mirror.ctan.org/systems/texlive/tlnet/update-tlmgr-latest.sh && sudo sh update-tlmgr-latest.sh -- --upgrade #sudo tlmgr update --all && sudo tlmgr install collection-fontsrecommended 
+      
         
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -25,12 +31,6 @@ jobs:
           tinytex: true 
         #   # uncomment below and fill to pin a version
         #   # version: SPECIFIC-QUARTO-VERSION-HERE
-
-     - name: Set up Python
-       uses: actions/setup-python@v4
-       with:
-         python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-     - run: pip install jupyter && sudo apt-get install -y librsvg2-bin
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
