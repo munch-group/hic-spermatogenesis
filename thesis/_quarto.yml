@@ -2,7 +2,8 @@ project:
   type: manuscript
   title: "Thesis"
   output-dir: ../_book/thesis
-  pre-render: rm ../_book/thesis/_tex/sub-references.bib # I don't know why this is not auto-cleaned when keep-tex:false
+  pre-render: [ -f ../_book/thesis/_tex/sub-references.bib ] && rm ../_book/thesis/_tex/sub-references.bib
+ # I don't know why this is not auto-cleaned when keep-tex:false
   # post-render: mv -v ../_book/thesis/_tex/index.tex ../_book/thesis/_tex/manuscript.tex # for debugging (coupled with `keep-tex: true` in the format section)
 
 manuscript:
