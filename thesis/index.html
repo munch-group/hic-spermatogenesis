@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Jørgensen">
+<meta name="dcterms.date" content="2024-11-25">
+<meta name="keywords" content="Hi-C, Chromatin Compartments, Selection">
+
+<title>Chromatin Compartments and Selection on X</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<meta name="citation_title" content="Chromatin Compartments and Selection on X">
+<meta name="citation_abstract" content="This is a dummy abstract, dreamt up by chatGPT. This thesis investigates the 3D chromatin architecture of the X chromosome in baboons, macaques, and humans, focusing on chromatin compartments during spermatogenesis. Using publicly available Hi-C data, interaction maps were created to identify Principal Component 1 (PC1) compartments, revealing distinct compartmentalization patterns among species. The analysis included transition zones, where chromatin shifts between compartment types, and their correlation with positively selected regions. By comparing these zones with evolutionarily significant regions, the study explores how chromatin structure influences evolutionary pressures. Key findings include conserved chromatin features that may help retain non-advantageous alleles, suggesting a role for selfish genetic elements in genome evolution. This research offers new insights into the relationship between chromatin architecture and evolutionary dynamics across primate species.
+">
+<meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Selection">
+<meta name="citation_author" content="Søren Jørgensen">
+<meta name="citation_publication_date" content="2024-11-25">
+<meta name="citation_cover_date" content="2024-11-25">
+<meta name="citation_year" content="2024">
+<meta name="citation_online_date" content="2024-11-25">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Principal components analysis corrects for stratification in genome-wide association studies;,citation_author=Alkes L Price;,citation_author=Nick J Patterson;,citation_author=Robert M Plenge;,citation_author=Michael E Weinblatt;,citation_author=Nancy A Shadick;,citation_author=David Reich;,citation_publication_date=2006-08;,citation_cover_date=2006-08;,citation_year=2006;,citation_fulltext_html_url=https://www.nature.com/articles/ng1847;,citation_issue=8;,citation_doi=10.1038/ng1847;,citation_issn=1061-4036, 1546-1718;,citation_volume=38;,citation_journal_title=Nature Genetics;">
+<meta name="citation_reference" content="citation_title=Accurate assembly of the olive baboon ( &amp;amp;amp;lt;i&amp;gt;Papio anubis&amp;lt;/i&amp;gt; ) genome using long-read and Hi-C data;,citation_abstract=AbstractBackground Baboons are a widely used nonhuman primate model for biomedical, evolutionary, and basic genetics research. Despite this importance, the genomic resources for baboons are limited. In particular, the current baboon reference genome Panu_3.0 is a highly fragmented, reference-guided (i.e., not fully de novo) assembly, and its poor quality inhibits our ability to conduct downstream genomic analyses.Findings Here we present a de novo genome assembly of the olive baboon (Papio anubis) that uses data from several recently developed single-molecule technologies. Our assembly, Panubis1.0, has an N50 contig size of ∼1.46 Mb (as opposed to 139 kb for Panu_3.0) and has single scaffolds that span each of the 20 autosomes and the X chromosome.Conclusions We highlight multiple lines of evidence (including Bionano Genomics data, pedigree linkage information, and linkage disequilibrium data) suggesting that there are several large assembly errors in Panu_3.0, which have been corrected in Panubis1.0.;,citation_author=Sanjit Singh Batra;,citation_author=Michal Levy-Sakin;,citation_author=Jacqueline Robinson;,citation_author=Joseph Guillory;,citation_author=Steffen Durinck;,citation_author=Tauras P Vilgalys;,citation_author=Pui-Yan Kwok;,citation_author=Laura A Cox;,citation_author=Somasekar Seshagiri;,citation_author=Yun S Song;,citation_author=Jeffrey D Wall;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaa134/6025063;,citation_issue=12;,citation_doi=10.1093/gigascience/giaa134;,citation_issn=2047-217X;,citation_volume=9;,citation_journal_title=GigaScience;">
+<meta name="citation_reference" content="citation_title=HiC-Pro: An optimized and flexible pipeline for Hi-C data processing;,citation_author=Nicolas Servant;,citation_author=Nelle Varoquaux;,citation_author=Bryan R. Lajoie;,citation_author=Eric Viara;,citation_author=Chong-Jian Chen;,citation_author=Jean-Philippe Vert;,citation_author=Edith Heard;,citation_author=Job Dekker;,citation_author=Emmanuel Barillot;,citation_publication_date=2015-12;,citation_cover_date=2015-12;,citation_year=2015;,citation_fulltext_html_url=https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0831-x;,citation_issue=1;,citation_doi=10.1186/s13059-015-0831-x;,citation_issn=1474-760X;,citation_volume=16;,citation_journal_title=Genome Biology;">
+<meta name="citation_reference" content="citation_title=Comprehensive Mapping of Long-Range Interactions Reveals Folding Principles of the Human Genome;,citation_abstract=We describe Hi-C, a method that probes the three-dimensional architecture of whole genomes by coupling proximity-based ligation with massively parallel sequencing. We constructed spatial proximity maps of the human genome with Hi-C at a resolution of 1 megabase. These maps confirm the presence of chromosome territories and the spatial proximity of small, gene-rich chromosomes. We identified an additional level of genome organization that is characterized by the spatial segregation of open and closed chromatin to form two genome-wide compartments. At the megabase scale, the chromatin conformation is consistent with a fractal globule, a knot-free, polymer conformation that enables maximally dense packing while preserving the ability to easily fold and unfold any genomic locus. The fractal globule is distinct from the more commonly used globular equilibrium model. Our results demonstrate the power of Hi-C to map the dynamic conformations of whole genomes.;,citation_author=Erez Lieberman-Aiden;,citation_author=Nynke L. Van Berkum;,citation_author=Louise Williams;,citation_author=Maxim Imakaev;,citation_author=Tobias Ragoczy;,citation_author=Agnes Telling;,citation_author=Ido Amit;,citation_author=Bryan R. Lajoie;,citation_author=Peter J. Sabo;,citation_author=Michael O. Dorschner;,citation_author=Richard Sandstrom;,citation_author=Bradley Bernstein;,citation_author=M. A. Bender;,citation_author=Mark Groudine;,citation_author=Andreas Gnirke;,citation_author=John Stamatoyannopoulos;,citation_author=Leonid A. Mirny;,citation_author=Eric S. Lander;,citation_author=Job Dekker;,citation_publication_date=2009-10;,citation_cover_date=2009-10;,citation_year=2009;,citation_fulltext_html_url=https://www.science.org/doi/10.1126/science.1181369;,citation_issue=5950;,citation_doi=10.1126/science.1181369;,citation_issn=0036-8075, 1095-9203;,citation_volume=326;,citation_journal_title=Science;">
+<meta name="citation_reference" content="citation_title=Stage-resolved Hi-C analyses reveal meiotic chromosome organizational features influencing homolog alignment;,citation_abstract=Abstract During meiosis, chromosomes exhibit dramatic changes in morphology and intranuclear positioning. How these changes influence homolog pairing, alignment, and recombination remain elusive. Using Hi-C, we systematically mapped 3D genome architecture throughout all meiotic prophase substages during mouse spermatogenesis. Our data uncover two major chromosome organizational features varying along the chromosome axis during early meiotic prophase, when homolog alignment occurs. First, transcriptionally active and inactive genomic regions form alternating domains consisting of shorter and longer chromatin loops, respectively. Second, the force-transmitting LINC complex promotes the alignment of ends of different chromosomes over a range of up to 20% of chromosome length. Both features correlate with the pattern of homolog interactions and the distribution of recombination events. Collectively, our data reveal the influences of transcription and force on meiotic chromosome structure and suggest chromosome organization may provide an infrastructure for the modulation of meiotic recombination in higher eukaryotes.;,citation_author=Wu Zuo;,citation_author=Guangming Chen;,citation_author=Zhimei Gao;,citation_author=Shuai Li;,citation_author=Yanyan Chen;,citation_author=Chenhui Huang;,citation_author=Juan Chen;,citation_author=Zhengjun Chen;,citation_author=Ming Lei;,citation_author=Qian Bian;,citation_publication_date=2021-10;,citation_cover_date=2021-10;,citation_year=2021;,citation_fulltext_html_url=https://www.nature.com/articles/s41467-021-26033-0;,citation_issue=1;,citation_doi=10.1038/s41467-021-26033-0;,citation_issn=2041-1723;,citation_volume=12;,citation_journal_title=Nature Communications;">
+<meta name="citation_reference" content="citation_title=Single-Cell RNA Sequencing of Human, Macaque, and Mouse Testes Uncovers Conserved and Divergent Features of Mammalian Spermatogenesis;,citation_author=Adrienne Niederriter Shami;,citation_author=Xianing Zheng;,citation_author=Sarah K. Munyoki;,citation_author=Qianyi Ma;,citation_author=Gabriel L. Manske;,citation_author=Christopher D. Green;,citation_author=Meena Sukhwani;,citation_author=Kyle E. Orwig;,citation_author=Jun Z. Li;,citation_author=Saher Sue Hammoud;,citation_publication_date=2020-08;,citation_cover_date=2020-08;,citation_year=2020;,citation_fulltext_html_url=https://linkinghub.elsevier.com/retrieve/pii/S1534580720303993;,citation_issue=4;,citation_doi=10.1016/j.devcel.2020.05.010;,citation_issn=15345807;,citation_volume=54;,citation_journal_title=Developmental Cell;">
+<meta name="citation_reference" content="citation_title=Reprogramming of Meiotic Chromatin Architecture during Spermatogenesis;,citation_author=Yao Wang;,citation_author=Hanben Wang;,citation_author=Yu Zhang;,citation_author=Zhenhai Du;,citation_author=Wei Si;,citation_author=Suixing Fan;,citation_author=Dongdong Qin;,citation_author=Mei Wang;,citation_author=Yanchao Duan;,citation_author=Lufan Li;,citation_author=Yuying Jiao;,citation_author=Yuanyuan Li;,citation_author=Qiujun Wang;,citation_author=Qinghua Shi;,citation_author=Xin Wu;,citation_author=Wei Xie;,citation_publication_date=2019-02;,citation_cover_date=2019-02;,citation_year=2019;,citation_fulltext_html_url=https://linkinghub.elsevier.com/retrieve/pii/S1097276518309894;,citation_issue=3;,citation_doi=10.1016/j.molcel.2018.11.019;,citation_issn=10972765;,citation_volume=73;,citation_journal_title=Molecular Cell;">
+<meta name="citation_reference" content="citation_title=dcHiC detects differential compartments across multiple Hi-C datasets;,citation_abstract=AbstractThe compartmental organization of mammalian genomes and its changes play important roles in distinct biological processes. Here, we introduce dcHiC, which utilizes a multivariate distance measure to identify significant changes in compartmentalization among multiple contact maps. Evaluating dcHiC on four collections of bulk and single-cell contact maps from in vitro mouse neural differentiation (n=3), mouse hematopoiesis (n=10), human LCLs (n=20) and post-natal mouse brain development (n=3 stages), we show its effectiveness and sensitivity in detecting biologically relevant changes, including those orthogonally validated. dcHiC reported regions with dynamically regulated genes associated with cell identity, along with correlated changes in chromatin states, subcompartments, replication timing and lamin association. With its efficient implementation, dcHiC enables high-resolution compartment analysis as well as standalone browser visualization, differential interaction identification and time-series clustering. dcHiC is an essential addition to the Hi-C analysis toolbox for the ever-growing number of bulk and single-cell contact maps. Available at: https://github.com/ay-lab/dcHiC .;,citation_author=Abhijit Chakraborty;,citation_author=Jeffrey G. Wang;,citation_author=Ferhat Ay;,citation_publication_date=2022-11;,citation_cover_date=2022-11;,citation_year=2022;,citation_fulltext_html_url=https://www.nature.com/articles/s41467-022-34626-6;,citation_issue=1;,citation_doi=10.1038/s41467-022-34626-6;,citation_issn=2041-1723;,citation_volume=13;,citation_journal_title=Nature Communications;">
+<meta name="citation_reference" content="citation_title=Hi-C Data Analysis: Methods and Protocols;,citation_editor=Silvio Bicciato;,citation_editor=Francesco Ferrari;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://link.springer.com/10.1007/978-1-0716-1390-0;,citation_doi=10.1007/978-1-0716-1390-0;,citation_isbn=978-1-07-161389-4 978-1-07-161390-0;,citation_volume=2301;,citation_series_title=Methods in Molecular Biology;">
+<meta name="citation_reference" content="citation_title=Extraordinary selection on the human X chromosome associated with archaic admixture;,citation_author=Laurits Skov;,citation_author=Moisès Coll Macià;,citation_author=Elise Anne Lucotte;,citation_author=Maria Izabel Alves Cavassim;,citation_author=David Castellano;,citation_author=Mikkel Heide Schierup;,citation_author=Kasper Munch;,citation_publication_date=2023-03;,citation_cover_date=2023-03;,citation_year=2023;,citation_fulltext_html_url=https://linkinghub.elsevier.com/retrieve/pii/S2666979X23000344;,citation_issue=3;,citation_doi=10.1016/j.xgen.2023.100274;,citation_issn=2666979X;,citation_volume=3;,citation_journal_title=Cell Genomics;">
+<meta name="citation_reference" content="citation_title=Genetic Villains: Killer Meiotic Drivers;,citation_abstract=Unbiased allele transmission into progeny is a fundamental genetic concept canonized as Mendel’s Law of Segregation. Not all alleles, however, abide by the law. Killer meiotic drivers are ultra-selfish DNA sequences that are transmitted into more than half (sometimes all) of the meiotic products generated by a heterozygote. As their name implies, these loci gain a transmission advantage in heterozygotes by destroying otherwise viable meiotic products that do not inherit the driver. We review and classify killer meiotic drive genes across a wide spectrum of eukaryotes. We discuss how analyses of these ultra-selfish genes can lead to greater insight into the mechanisms of gametogenesis and the causes of infertility.;,citation_author=María Angélica Bravo Núñez;,citation_author=Nicole L. Nuckolls;,citation_author=Sarah E. Zanders;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S016895251830026X;,citation_issue=6;,citation_doi=https://doi.org/10.1016/j.tig.2018.02.003;,citation_issn=0168-9525;,citation_volume=34;,citation_journal_title=Trends in Genetics;">
+<meta name="citation_reference" content="citation_title=Chromatin architecture reorganization during stem cell differentiation;,citation_abstract=Higher-order chromatin structure is emerging as an important regulator of gene expression. Although dynamic chromatin structures have been identified in the genome, the full scope of chromatin dynamics during mammalian development and lineage specification remains to be determined. By mapping genome-wide chromatin interactions in human embryonic stem (ES) cells and four human ES-cell-derived lineages, we uncover extensive chromatin reorganization during lineage specification. We observe that although self-associating chromatin domains are stable during differentiation, chromatin interactions both within and between domains change in a striking manner, altering 36% of active and inactive chromosomal compartments throughout the genome. By integrating chromatin interaction maps with haplotype-resolved epigenome and transcriptome data sets, we find widespread allelic bias in gene expression correlated with allele-biased chromatin states of linked promoters and distal enhancers. Our results therefore provide a global view of chromatin dynamics and a resource for studying long-range control of gene expression in distinct human cell lineages.;,citation_author=Jesse R. Dixon;,citation_author=Inkyung Jung;,citation_author=Siddarth Selvaraj;,citation_author=Yin Shen;,citation_author=Jessica E. Antosiewicz-Bourget;,citation_author=Ah Young Lee;,citation_author=Zhen Ye;,citation_author=Audrey Kim;,citation_author=Nisha Rajagopal;,citation_author=Wei Xie;,citation_author=Yarui Diao;,citation_author=Jing Liang;,citation_author=Huimin Zhao;,citation_author=Victor V. Lobanenkov;,citation_author=Joseph R. Ecker;,citation_author=James A. Thomson;,citation_author=Bing Ren;,citation_publication_date=2015-02;,citation_cover_date=2015-02;,citation_year=2015;,citation_fulltext_html_url=https://doi.org/10.1038/nature14222;,citation_issue=7539;,citation_doi=10.1038/nature14222;,citation_issn=1476-4687;,citation_volume=518;,citation_journal_title=Nature;">
+<meta name="citation_reference" content="citation_title=The Hitchhiker’s Guide to Hi-C Analysis: Practical guidelines;,citation_abstract=Over the last decade, development and application of a set of molecular genomic approaches based on the chromosome conformation capture method (3C), combined with increasingly powerful imaging approaches, have enabled high resolution and genome-wide analysis of the spatial organization of chromosomes. The aim of this paper is to provide guidelines for analyzing and interpreting data obtained with genome-wide 3C methods such as Hi-C and 3C-seq that rely on deep sequencing to detect and quantify pairwise chromatin interactions genome-wide.;,citation_author=Bryan R. Lajoie;,citation_author=Job Dekker;,citation_author=Noam Kaplan;,citation_publication_date=2015-01;,citation_cover_date=2015-01;,citation_year=2015;,citation_fulltext_html_url=https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4347522/;,citation_doi=10.1016/j.ymeth.2014.10.031;,citation_issn=1046-2023;,citation_pmid=25448293;,citation_volume=72;,citation_journal_title=Methods (San Diego, Calif.);">
+<meta name="citation_reference" content="citation_title=Chromatin alternates between A and B compartments at kilobase scale for subgenic organization;,citation_abstract=Abstract Nuclear compartments are prominent features of 3D chromatin organization, but sequencing depth limitations have impeded investigation at ultra fine-scale. CTCF loops are generally studied at a finer scale, but the impact of looping on proximal interactions remains enigmatic. Here, we critically examine nuclear compartments and CTCF loop-proximal interactions using a combination of in situ Hi-C at unparalleled depth, algorithm development, and biophysical modeling. Producing a large Hi-C map with 33 billion contacts in conjunction with an algorithm for performing principal component analysis on sparse, super massive matrices&nbsp;(POSSUMM), we resolve compartments to 500 bp. Our results demonstrate that essentially all active promoters and distal enhancers localize in the A compartment, even when flanking sequences do not. Furthermore, we find that the TSS and TTS of paused genes are often segregated into separate compartments. We then identify diffuse interactions that radiate from CTCF loop anchors, which correlate with strong enhancer-promoter interactions and proximal transcription. We also find that these diffuse interactions depend on CTCF’s RNA binding domains. In this work, we demonstrate features of fine-scale chromatin organization consistent with a revised model in which compartments are more precise than commonly thought while CTCF loops are more protracted.;,citation_author=Hannah L. Harris;,citation_author=Huiya Gu;,citation_author=Moshe Olshansky;,citation_author=Ailun Wang;,citation_author=Irene Farabella;,citation_author=Yossi Eliaz;,citation_author=Achyuth Kalluchi;,citation_author=Akshay Krishna;,citation_author=Mozes Jacobs;,citation_author=Gesine Cauer;,citation_author=Melanie Pham;,citation_author=Suhas S. P. Rao;,citation_author=Olga Dudchenko;,citation_author=Arina Omer;,citation_author=Kiana Mohajeri;,citation_author=Sungjae Kim;,citation_author=Michael H. Nichols;,citation_author=Eric S. Davis;,citation_author=Dimos Gkountaroulis;,citation_author=Devika Udupa;,citation_author=Aviva Presser Aiden;,citation_author=Victor G. Corces;,citation_author=Douglas H. Phanstiel;,citation_author=William Stafford Noble;,citation_author=Guy Nir;,citation_author=Michele Di Pierro;,citation_author=Jeong-Sun Seo;,citation_author=Michael E. Talkowski;,citation_author=Erez Lieberman Aiden;,citation_author=M. Jordan Rowley;,citation_publication_date=2023-06;,citation_cover_date=2023-06;,citation_year=2023;,citation_fulltext_html_url=https://www.nature.com/articles/s41467-023-38429-1;,citation_issue=1;,citation_doi=10.1038/s41467-023-38429-1;,citation_issn=2041-1723;,citation_volume=14;,citation_journal_title=Nature Communications;">
+<meta name="citation_reference" content="citation_title=Iterative correction of Hi-C data reveals hallmarks of chromosome organization;,citation_author=Maxim Imakaev;,citation_author=Geoffrey Fudenberg;,citation_author=Rachel Patton McCord;,citation_author=Natalia Naumova;,citation_author=Anton Goloborodko;,citation_author=Bryan R Lajoie;,citation_author=Job Dekker;,citation_author=Leonid A Mirny;,citation_publication_date=2012-10;,citation_cover_date=2012-10;,citation_year=2012;,citation_fulltext_html_url=https://www.nature.com/articles/nmeth.2148;,citation_issue=10;,citation_doi=10.1038/nmeth.2148;,citation_issn=1548-7091, 1548-7105;,citation_volume=9;,citation_journal_title=Nature Methods;">
+<meta name="citation_reference" content="citation_title=Open Chromosome Collective (Open2C);,citation_abstract=We are the Open Chromosome Collective (Open2C). We are a group of computational biologists working on chromosome structure and interested in developing open source tools for the wider community.We are particularly interested in the 3D organization of chromosomes, and most of the tools are focused on the analysis of data obtained using Hi-C and related technologies. We like our tools to be easy to use, flexible, to facilitate active development of novel analytical approaches, and scalable, to make use of the latest and largest datasets.;,citation_author=Open Chromosome Collective;,citation_publication_date=2024-11-13;,citation_cover_date=2024-11-13;,citation_year=2024;,citation_fulltext_html_url=https://open2c.github.io/;,citation_journal_title=Open2C;">
+<meta name="citation_reference" content="citation_title=High resolution maps of chromatin reorganization through mouse meiosis reveal novel features of the 3D meiotic structure;,citation_abstract=Abstract When germ cells transition from the mitotic cycle into meiotic prophase I (MPI), chromosomes condense into an array of chromatin loops that are required to promote homolog pairing and genetic recombination. To identify the changes in chromosomal conformation, we isolated nuclei on a trajectory from spermatogonia to the end of MPI. At each stage along this trajectory, we built genomic interaction maps with the highest temporal and spatial resolution to date. The changes in chromatin folding coincided with a concurrent decline in mitotic cohesion and a rise in meiotic cohesin complexes. We found that the stereotypical large-scale A and B compartmentalization was lost during meiotic prophase I alongside the loss of topological associating domains (TADs). Still, local subcompartments were detected and maintained throughout meiosis. The enhanced Micro-C resolution revealed that, despite the loss of TADs, higher frequency contact sites between two loci were detectable during meiotic prophase I coinciding with CTCF bound sites. The pattern of interactions around these CTCF sites with their neighboring loci showed that CTCF sites were often anchoring the meiotic loops. Additionally, the localization of CTCF to the meiotic axes indicated that these anchors were at the base of loops. Strikingly, even in the face of the dramatic reconfiguration of interphase chromatin into a condensed loop-array, the interactions between regulatory elements remained well preserved. This establishes a potential mechanism for how the meiotic chromatin maintains active transcription within a highly structured genome. In summary, the high temporal and spatial resolution of these data revealed previously unappreciated aspects of mammalian meiotic chromatin organization.;,citation_author=Gang Cheng;,citation_author=Florencia Pratto;,citation_author=Kevin Brick;,citation_author=Xin Li;,citation_author=Benjamin Alleva;,citation_author=Mini Huang;,citation_author=Gabriel Lam;,citation_author=R. Daniel Camerini-Otero;,citation_publication_date=2024-03;,citation_cover_date=2024-03;,citation_year=2024;,citation_fulltext_html_url=http://biorxiv.org/lookup/doi/10.1101/2024.03.25.586627;,citation_doi=10.1101/2024.03.25.586627;">
+<meta name="citation_reference" content="citation_title=3D chromatin structure changes during spermatogenesis and oogenesis;,citation_author=Shiqiang Zhang;,citation_author=Wanyu Tao;,citation_author=Jing-Dong J. Han;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://linkinghub.elsevier.com/retrieve/pii/S200103702200188X;,citation_doi=10.1016/j.csbj.2022.05.032;,citation_issn=20010370;,citation_volume=20;,citation_journal_title=Computational and Structural Biotechnology Journal;">
+<meta name="citation_reference" content="citation_title=Sex Chromosome Meiotic Drive;,citation_abstract=▪ Abstract  Sex chromosome drive refers to the unequal transmission of X and Y chromosomes from individuals of the heterogametic sex, resulting in biased sex ratios among progeny and within populations. The presence of driving sex chromosomes can reduce mean fitness within a population, bring about intragenomic conflict between the X chromosome, the Y, and the autosomes, and alter the intensity or mode of sexual selection within species. Sex chromosome drive, or its genetic equivalent, is known in plants, mammals, and flies. Many species harboring driving X chromosomes have evolved Y-linked and autosomal suppressors of drive. If a drive polymorphism is not stable, then driving chromosomes may spread to fixation and cause the extinction of a species. Certain characteristics of species, such as population density and female mating rate, may affect the probability of fixation of driving chromosomes. Thus, sex chromosome drive could be an agent of species-level selection.;,citation_author=John Jaenike;,citation_publication_date=2001-11;,citation_cover_date=2001-11;,citation_year=2001;,citation_fulltext_html_url=https://www.annualreviews.org/doi/10.1146/annurev.ecolsys.32.081501.113958;,citation_issue=1;,citation_doi=10.1146/annurev.ecolsys.32.081501.113958;,citation_issn=0066-4162;,citation_volume=32;,citation_journal_title=Annual Review of Ecology and Systematics;">
+<meta name="citation_reference" content="citation_title=Do sex-linked male meiotic drivers contribute to intrinsic hybrid incompatibilities? Recent empirical studies from flies and rodents;,citation_author=Jun Kitano;,citation_author=Kohta Yoshida;,citation_publication_date=2023-08;,citation_cover_date=2023-08;,citation_year=2023;,citation_fulltext_html_url=https://linkinghub.elsevier.com/retrieve/pii/S0959437X23000485;,citation_doi=10.1016/j.gde.2023.102068;,citation_issn=0959437X;,citation_volume=81;,citation_journal_title=Current Opinion in Genetics &amp;amp;amp; Development;">
+<meta name="citation_reference" content="citation_title=Munch-group;,citation_author=Kasper Munch;,citation_publication_date=2024-11;,citation_cover_date=2024-11;,citation_year=2024;,citation_fulltext_html_url=https://munch-group.org/research.html;">
+<meta name="citation_reference" content="citation_title=Genome-wide coancestry reveals details of ancient and recent male-driven reticulation in baboons;,citation_abstract=Baboons (genus Papio ) are a morphologically and behaviorally diverse clade of catarrhine monkeys that have experienced hybridization between phenotypically and genetically distinct phylogenetic species. We used high-coverage whole-genome sequences from 225 wild baboons representing 19 geographic localities to investigate population genomics and interspecies gene flow. Our analyses provide an expanded picture of evolutionary reticulation among species and reveal patterns of population structure within and among species, including differential admixture among conspecific populations. We describe the first example of a baboon population with a genetic composition that is derived from three distinct lineages. The results reveal processes, both ancient and recent, that produced the observed mismatch between phylogenetic relationships based on matrilineal, patrilineal, and biparental inheritance. We also identified several candidate genes that may contribute to species-specific phenotypes.;,citation_author=Erik F. Sørensen;,citation_author=R. Alan Harris;,citation_author=Liye Zhang;,citation_author=Muthuswamy Raveendran;,citation_author=Lukas F. K. Kuderna;,citation_author=Jerilyn A. Walker;,citation_author=Jessica M. Storer;,citation_author=Martin Kuhlwilm;,citation_author=Claudia Fontsere;,citation_author=Lakshmi Seshadri;,citation_author=Christina M. Bergey;,citation_author=Andrew S. Burrell;,citation_author=Juraj Bergman;,citation_author=Jane E. Phillips-Conroy;,citation_author=Fekadu Shiferaw;,citation_author=Kenneth L. Chiou;,citation_author=Idrissa S. Chuma;,citation_author=Julius D. Keyyu;,citation_author=Julia Fischer;,citation_author=Marie-Claude Gingras;,citation_author=Sejal Salvi;,citation_author=Harshavardhan Doddapaneni;,citation_author=Mikkel H. Schierup;,citation_author=Mark A. Batzer;,citation_author=Clifford J. Jolly;,citation_author=Sascha Knauf;,citation_author=Dietmar Zinner;,citation_author=Kyle K.-H. Farh;,citation_author=Tomas Marques-Bonet;,citation_author=Kasper Munch;,citation_author=Christian Roos;,citation_author=Jeffrey Rogers;,citation_publication_date=2023-06;,citation_cover_date=2023-06;,citation_year=2023;,citation_fulltext_html_url=https://www.science.org/doi/10.1126/science.abn8153;,citation_issue=6648;,citation_doi=10.1126/science.abn8153;,citation_issn=0036-8075, 1095-9203;,citation_volume=380;,citation_journal_title=Science;">
+<meta name="citation_reference" content="citation_title=Loops, topologically associating domains, compartments, and territories are elastic and robust to dramatic nuclear volume swelling;,citation_abstract=Abstract Layers of genome organization are becoming increasingly better characterized, but less is known about how these structures respond to perturbation or shape changes. Low-salt swelling of isolated chromatin fibers or nuclei has been used for decades to investigate the structural properties of chromatin. But, visible changes in chromatin appearance have not been linked to known building blocks of genome structure or features along the genome sequence. We combine low-salt swelling of isolated nuclei with genome-wide chromosome conformation capture (Hi-C) and imaging approaches to probe the effects of chromatin extension genome-wide. Photoconverted patterns on nuclei during expansion and contraction indicate that global genome structure is preserved after dramatic nuclear volume swelling, suggesting a highly elastic chromosome topology. Hi-C experiments before, during, and after nuclear swelling show changes in average contact probabilities at short length scales, reflecting the extension of the local chromatin fiber. But, surprisingly, during this large increase in nuclear volume, there is a striking maintenance of loops, TADs, active and inactive compartments, and chromosome territories. Subtle differences after expansion are observed, suggesting that the local chromatin state, protein interactions, and location in the nucleus can affect how strongly a given structure is maintained under stress. From these observations, we propose that genome topology is robust to extension of the chromatin fiber and isotropic shape change, and that this elasticity may be beneficial in physiological circumstances of changes in nuclear size and volume.;,citation_author=Jacob T. Sanders;,citation_author=Rosela Golloshi;,citation_author=Priyojit Das;,citation_author=Yang Xu;,citation_author=Peyton H. Terry;,citation_author=Darrian G. Nash;,citation_author=Job Dekker;,citation_author=Rachel Patton McCord;,citation_publication_date=2022-03;,citation_cover_date=2022-03;,citation_year=2022;,citation_fulltext_html_url=https://www.nature.com/articles/s41598-022-08602-5;,citation_issue=1;,citation_doi=10.1038/s41598-022-08602-5;,citation_issn=2045-2322;,citation_volume=12;,citation_journal_title=Scientific Reports;">
+<meta name="citation_reference" content="citation_title=Application of hi-c and other omics data analysis in human cancer and cell differentiation research;,citation_abstract=With the development of 3C (chromosome conformation capture) and its derivative technology Hi-C (High-throughput chromosome conformation capture) research, the study of the spatial structure of the genomic sequence in the nucleus helps researchers understand the functions of biological processes such as gene transcription, replication, repair, and regulation. In this paper, we first introduce the research background and purpose of Hi-C data visualization analysis. After that, we discuss the Hi-C data analysis methods from genome 3D structure, A/B compartment, TADs (topologically associated domain), and loop detection. We also discuss how to apply genome visualization technologies to the identification of chromosome feature structures. We continue with a review of correlation analysis differences among multi-omics data, and how to apply Hi-C and other omics data analysis into cancer and cell differentiation research. Finally, we summarize the various problems in joint analyses based on Hi-C and other multi-omics data. We believe this review can help researchers better understand the progress and applications of 3D genome technology.;,citation_author=Haiyan Gong;,citation_author=Yi Yang;,citation_author=Sichen Zhang;,citation_author=Minghong Li;,citation_author=Xiaotong Zhang;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2001037021001276;,citation_doi=https://doi.org/10.1016/j.csbj.2021.04.016;,citation_issn=2001-0370;,citation_volume=19;,citation_journal_title=Computational and Structural Biotechnology Journal;">
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Chromatin Compartments and Selection on X</h1>
+            <p class="subtitle lead">How Edges of Active Chromatin Align with Selection Regions in Primates</p>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+        
+        <div class="quarto-title-meta">
+
+                <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                        <p>Søren Jørgensen <a href="mailto:201906763@post.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+                      </div>
+          </div>
+                
+                <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">November 25, 2024</p>
+            </div>
+          </div>
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      <div class="quarto-alternate-formats"><div class="quarto-title-meta-heading">Other Formats</div><div class="quarto-title-meta-contents"><p><a href="index.docx"><i class="bi bi-file-word"></i>MS Word</a></p></div><div class="quarto-title-meta-contents"><p><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></p></div><div class="quarto-title-meta-contents"><p><a href="index-meca.zip" data-meca-link="true"><i class="bi bi-archive"></i>MECA Bundle</a></p></div></div></div>
+    </div>
+
+    <div>
+      <div class="abstract">
+        <div class="block-title">Abstract</div>
+        <p>This is a dummy abstract, dreamt up by chatGPT. This thesis investigates the 3D chromatin architecture of the X chromosome in baboons, macaques, and humans, focusing on chromatin compartments during spermatogenesis. Using publicly available Hi-C data, interaction maps were created to identify Principal Component 1 (PC1) compartments, revealing distinct compartmentalization patterns among species. The analysis included transition zones, where chromatin shifts between compartment types, and their correlation with positively selected regions. By comparing these zones with evolutionarily significant regions, the study explores how chromatin structure influences evolutionary pressures. Key findings include conserved chromatin features that may help retain non-advantageous alleles, suggesting a role for selfish genetic elements in genome evolution. This research offers new insights into the relationship between chromatin architecture and evolutionary dynamics across primate species.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="keywords">
+        <div class="block-title">Keywords</div>
+        <p>Hi-C, Chromatin Compartments, Selection</p>
+      </div>
+    </div>
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#sexual-reproduction-spermatogenesis-meiosis" id="toc-sexual-reproduction-spermatogenesis-meiosis" class="nav-link" data-scroll-target="#sexual-reproduction-spermatogenesis-meiosis">Sexual reproduction (spermatogenesis, meiosis)</a></li>
+  <li><a href="#selfish-genes-and-randomness" id="toc-selfish-genes-and-randomness" class="nav-link" data-scroll-target="#selfish-genes-and-randomness">Selfish genes (and randomness)</a></li>
+  <li><a href="#high-throughput-chromosome-conformation-capture-hi-c" id="toc-high-throughput-chromosome-conformation-capture-hi-c" class="nav-link" data-scroll-target="#high-throughput-chromosome-conformation-capture-hi-c">High-Throughput Chromosome Conformation Capture (Hi-C)</a></li>
+  </ul></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#downloading-data-and-project-structure" id="toc-downloading-data-and-project-structure" class="nav-link" data-scroll-target="#downloading-data-and-project-structure">Downloading Data and Project Structure</a></li>
+  <li><a href="#handling-coolers-or-preparing-coolers" id="toc-handling-coolers-or-preparing-coolers" class="nav-link" data-scroll-target="#handling-coolers-or-preparing-coolers">Handling coolers (Or: preparing coolers)</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+  
+
+
+<div style="page-break-after: always;"></div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="sexual-reproduction-spermatogenesis-meiosis" class="level3">
+<h3 class="anchored" data-anchor-id="sexual-reproduction-spermatogenesis-meiosis">Sexual reproduction (spermatogenesis, meiosis)</h3>
+<p>The production of gametes in a sexually reproducing organism is a highly complex process that involves numeruous elements. Spermatogenesis, the process of forming male gametes, involves four stages of differentiation from a germ cell through <em>spermatogonia</em>, <em>pachytene spermatocyte</em>, and <em>round spermatids</em> to <em>spermatozoa</em>, or <em>sperm</em> <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, and it is the very basis of male reproduction. The specialized cell division of meiosis neatly handles the pairing, recombination, and segregation of homologous chromosomes, thereby ensuring proper genetic distribution. Deeply understanding the steps of molecular steps of reproduction and how our genetic material is inherited is essential in biology, bringing insight to areas such as speciation, population diversity, and (male) infertility.</p>
+</section>
+<section id="selfish-genes-and-randomness" class="level3">
+<h3 class="anchored" data-anchor-id="selfish-genes-and-randomness">Selfish genes (and randomness)</h3>
+<p>The conventional story of meiosis in gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes, where each chromosome has an equal chance of being passed on to a gamete. That seems like a fair game, but what if some genes are cheating the system by making others less viable. A meiotic driver is a selfish gene element that modulates meiosis and preferentially transmits its own allele through meiosis, regardless of the downstream fitness effects it may have (good or bad) on the organism it is part of. This phenomenon challenges the traditional understanding of selection, extending its scope beyond the fitness effects on an organism to include selective pressures at the molecular level. For example, if some genes on the X chromosome create a disadvantage for gametes that <em>do not</em> contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is exactly what is coined <em>sex chromosome meiotic drive</em> <span class="citation" data-cites="jaenike_sex_2001">(<a href="#ref-jaenike_sex_2001" role="doc-biblioref">Jaenike 2001</a>)</span>, a result of selfish genetic elements.</p>
+<p>Motivated by previous results in the Munch Research group <span class="citation" data-cites="munch_group_2024">(<a href="#ref-munch_group_2024" role="doc-biblioref">Munch 2024</a>)</span> on hybrid incompatibility and extended common haplotypes <span class="citation" data-cites="skov_extraordinary_2023 sorensen_genome_wide_2023">(<a href="#ref-skov_extraordinary_2023" role="doc-biblioref">Skov et al. 2023</a>; <a href="#ref-sorensen_genome_wide_2023" role="doc-biblioref">Sørensen et al. 2023</a>)</span> that could be explained by meiotic drive, we wanted to investigate how these patterns correlate with chromatin compartments.</p>
+</section>
+<section id="high-throughput-chromosome-conformation-capture-hi-c" class="level3">
+<h3 class="anchored" data-anchor-id="high-throughput-chromosome-conformation-capture-hi-c">High-Throughput Chromosome Conformation Capture (Hi-C)</h3>
+<p>Our DNA can be divided into different orders of structure. <em>3C</em> focus on identifying the highest orders of organization inside the nucleus, that is, when the 30 nm thick coil of chromatin fibers folds into loops, Topologically Associating Domains (TADs), and chromatin compartments. Here, we narrow our focus on the largest of the structures, <em>compartments</em>, that is known to determine availability to transcription factors, thus making an <em>A</em> compartment <em>active</em>—and the <em>B</em> compartment <em>inactive</em>. The introduction of the Hi-C (high-throughput 3C) method <span class="citation" data-cites="lieberman_aiden_comprehensive_2009">(<a href="#ref-lieberman_aiden_comprehensive_2009" role="doc-biblioref">Lieberman-Aiden et al. 2009</a>)</span> opened new possibilities for exploring the three-dimensional organization of the genome.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p>In this project, we formulate two objectives:</p>
+<p><strong>A</strong>: Reproduce the Hi-C interaction maps and eigendecomposition from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, with some modifications. We briefly use <em>HiCExplorer</em>, but change the analyses to use the <em>Open2C Ecosystem</em> <span class="citation" data-cites="open2c">(<a href="#ref-open2c" role="doc-biblioref">Open Chromosome Collective 2024</a>)</span> which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a <em>gwf</em> workflow, and the commands that were visually inspected were run in Jupyter Notebooks.</p>
+<p><strong>B</strong> Compare with regions of selection that are found in <em>papio anubis</em>, and maybe in <em>human</em> too. Investigate the biological meaning of the results.</p>
+<p>All computations were performed on GenomeDK (GDK) [ref], an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was nested into a <em>gwf</em> workflow [ref], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.</p>
+<p>The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code, virtual environments and text is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages []. To make this possible, the Quarto documentation has been extensively studied and discussed with <em>KMT</em> [ref, aknowledge].</p>
+<section id="downloading-data-and-project-structure" class="level3">
+<h3 class="anchored" data-anchor-id="downloading-data-and-project-structure">Downloading Data and Project Structure</h3>
+<p>To reproduce the results from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable <code>SRA-runtable.tsv</code>. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (<a href="#tbl-runtable-summary" class="quarto-xref">Table&nbsp;1</a>). It adds up to ~1Tb of compressed <code>fastq</code> files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-tbl-runtable-summary">
+<div class="cell">
+<div id="tbl-runtable-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-runtable-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Summary of the data accessions used in this analysis
+</figcaption>
+<div aria-describedby="tbl-runtable-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_0aa9c" class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_0aa9c_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">source_name</th>
+<th id="T_0aa9c_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">GB</th>
+<th id="T_0aa9c_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Bases</th>
+<th id="T_0aa9c_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Reads</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_0aa9c_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_0aa9c_row0_col0" class="data row0 col0">fibroblast</td>
+<td id="T_0aa9c_row0_col1" class="data row0 col1">211.403275</td>
+<td id="T_0aa9c_row0_col2" class="data row0 col2">553,968,406,500</td>
+<td id="T_0aa9c_row0_col3" class="data row0 col3">1,846,561,355</td>
+</tr>
+<tr class="even">
+<td id="T_0aa9c_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_0aa9c_row1_col0" class="data row1 col0">pachytene spermatocyte</td>
+<td id="T_0aa9c_row1_col1" class="data row1 col1">274.835160</td>
+<td id="T_0aa9c_row1_col2" class="data row1 col2">715,656,614,700</td>
+<td id="T_0aa9c_row1_col3" class="data row1 col3">2,385,522,049</td>
+</tr>
+<tr class="odd">
+<td id="T_0aa9c_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_0aa9c_row2_col0" class="data row2 col0">round spermatid</td>
+<td id="T_0aa9c_row2_col1" class="data row2 col1">243.128044</td>
+<td id="T_0aa9c_row2_col2" class="data row2 col2">655,938,457,200</td>
+<td id="T_0aa9c_row2_col3" class="data row2 col3">2,186,461,524</td>
+</tr>
+<tr class="even">
+<td id="T_0aa9c_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_0aa9c_row3_col0" class="data row3 col0">sperm</td>
+<td id="T_0aa9c_row3_col1" class="data row3 col1">164.131640</td>
+<td id="T_0aa9c_row3_col2" class="data row3 col2">428,913,635,400</td>
+<td id="T_0aa9c_row3_col3" class="data row3 col3">1,429,712,118</td>
+</tr>
+<tr class="odd">
+<td id="T_0aa9c_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_0aa9c_row4_col0" class="data row4 col0">spermatogonia</td>
+<td id="T_0aa9c_row4_col1" class="data row4 col1">192.794420</td>
+<td id="T_0aa9c_row4_col2" class="data row4 col2">518,665,980,300</td>
+<td id="T_0aa9c_row4_col3" class="data row4 col3">1,728,886,601</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="handling-coolers-or-preparing-coolers" class="level3">
+<h3 class="anchored" data-anchor-id="handling-coolers-or-preparing-coolers">Handling coolers (Or: preparing coolers)</h3>
+<div id="fig-flowchart-handling-coolers" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flowchart-handling-coolers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>A flowchart showing the pipeline from <code>.fastq</code> to <code>.mcool</code>. The first 6 steps were done with a Probably BioRender or Inkscape.</p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-flowchart-handling-coolers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1
+</figcaption>
+</figure>
+</div>
+<section id="the-gwf-workflow-targets" class="level4">
+<h4 class="anchored" data-anchor-id="the-gwf-workflow-targets">The <em>gwf</em> workflow targets</h4>
+<p>A <em>gwf</em> workflow was created to handle the first part of the data processing, and each accesion number (read pair, mate pair) from the Hi-C sequencing was processed in parallel, so their execution was independen on the other samples.</p>
+<section id="downloading-the-reads" class="level5">
+<h5 class="anchored" data-anchor-id="downloading-the-reads">Downloading the reads</h5>
+<p>The reads were downloaded from NCBI SRA portal [ref] directly to GDK using <code>sra-downloader</code> [ref] through docker [ref] as <code>.fastq.gz</code> files.</p>
+</section>
+<section id="handling-the-reference" class="level5">
+<h5 class="anchored" data-anchor-id="handling-the-reference">Handling the reference</h5>
+<p>The latest reference genome for rhesus macaque (<em>macaca mulata</em>), <em>rheMac10</em> (or <em>Mmul_10</em>, UCSC or NCBI naming conventions, respectively) was downloaded to GDK from UCSC web servers with <code>wget</code> [ref]. To use <code>bwa</code> (Burrow Wheeler’s Aligner) [ref] for mapping, rheMac10 needs to be indexed with both <code>bwa index</code> with the <code>--bwtsw</code> option and <code>samtools faidx</code>, which results in six indexing files for <code>bwa mem</code> to use.</p>
+</section>
+<section id="mapping-paired-end-reads" class="level5">
+<h5 class="anchored" data-anchor-id="mapping-paired-end-reads">Mapping paired-end reads</h5>
+</section>
+<section id="pair-and-sort-the-reads" class="level5">
+<h5 class="anchored" data-anchor-id="pair-and-sort-the-reads">Pair and sort the reads</h5>
+</section>
+<section id="filter-deduplicate-pairs" class="level5">
+<h5 class="anchored" data-anchor-id="filter-deduplicate-pairs">Filter (deduplicate) pairs</h5>
+</section>
+<section id="create-interaction-matrices-coolers" class="level5">
+<h5 class="anchored" data-anchor-id="create-interaction-matrices-coolers">Create interaction matrices (coolers)</h5>
+</section>
+<section id="pooling-samples-merging-coolers" class="level5">
+<h5 class="anchored" data-anchor-id="pooling-samples-merging-coolers">Pooling samples (Merging coolers)</h5>
+<p>The strategy to get the best signal was by pooling the interaction matrices. <code>cooler merge</code> was used to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal.</p>
+</section>
+<section id="create-multi-resolution-coolers-zoomify" class="level5">
+<h5 class="anchored" data-anchor-id="create-multi-resolution-coolers-zoomify">Create multi-resolution coolers (zoomify)</h5>
+</section>
+<section id="matrix-balancing-iterative-correction" class="level5">
+<h5 class="anchored" data-anchor-id="matrix-balancing-iterative-correction">Matrix balancing (Iterative correction)</h5>
+</section>
+<section id="eigendecomposition" class="level5">
+<h5 class="anchored" data-anchor-id="eigendecomposition">Eigendecomposition</h5>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>Here are the glorious results</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<p>Here is the discussion</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="bibliography" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="bibliography">Bibliography</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-jaenike_sex_2001" class="csl-entry" role="listitem">
+Jaenike, John. 2001. <span>“Sex <span>Chromosome</span> <span>Meiotic</span> <span>Drive</span>.”</span> <em>Annual Review of Ecology and Systematics</em> 32 (1): 25–49. <a href="https://doi.org/10.1146/annurev.ecolsys.32.081501.113958">https://doi.org/10.1146/annurev.ecolsys.32.081501.113958</a>.
+</div>
+<div id="ref-lieberman_aiden_comprehensive_2009" class="csl-entry" role="listitem">
+Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009. <span>“Comprehensive <span>Mapping</span> of <span>Long</span>-<span>Range</span> <span>Interactions</span> <span>Reveals</span> <span>Folding</span> <span>Principles</span> of the <span>Human</span> <span>Genome</span>.”</span> <em>Science</em> 326 (5950): 289–93. <a href="https://doi.org/10.1126/science.1181369">https://doi.org/10.1126/science.1181369</a>.
+</div>
+<div id="ref-munch_group_2024" class="csl-entry" role="listitem">
+Munch, Kasper. 2024. <span>“Munch-Group.”</span> <a href="https://munch-group.org/research.html">https://munch-group.org/research.html</a>.
+</div>
+<div id="ref-open2c" class="csl-entry" role="listitem">
+Open Chromosome Collective. 2024. <span>“Open <span>Chromosome</span> <span>Collective</span> (<span>Open2C</span>).”</span> Resource. <em>Open2C</em>. <a href="https://open2c.github.io/">https://open2c.github.io/</a>.
+</div>
+<div id="ref-skov_extraordinary_2023" class="csl-entry" role="listitem">
+Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch. 2023. <span>“Extraordinary Selection on the Human <span>X</span> Chromosome Associated with Archaic Admixture.”</span> <em>Cell Genomics</em> 3 (3): 100274. <a href="https://doi.org/10.1016/j.xgen.2023.100274">https://doi.org/10.1016/j.xgen.2023.100274</a>.
+</div>
+<div id="ref-sorensen_genome_wide_2023" class="csl-entry" role="listitem">
+Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran, Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023. <span>“Genome-Wide Coancestry Reveals Details of Ancient and Recent Male-Driven Reticulation in Baboons.”</span> <em>Science</em> 380 (6648): eabn8153. <a href="https://doi.org/10.1126/science.abn8153">https://doi.org/10.1126/science.abn8153</a>.
+</div>
+<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

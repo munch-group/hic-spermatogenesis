@@ -1,0 +1,733 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  a4paper,
+]{scrbook}
+
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[left=2.54cm,right=2.54cm]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+% Palatino font:
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{palatino}
+
+\usepackage{mathpazo}
+
+\usepackage{upquote}
+
+% front page
+\usepackage[colorlinks]{hyperref} % for text color on title
+\usepackage{titling} % makes \thetitle etc available...
+\usepackage{lipsum}
+\usepackage{tikz}
+\tikzstyle{bag} = [align=center] % allows new lines in text below
+\AtBeginDocument{\thispagestyle{empty}
+\definecolor{titlecolor}{HTML}{1C2404}
+\begin{tikzpicture}[remember picture,overlay]
+\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+\draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
+% \draw (current page.center) node[bag] {  
+        \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+    % \mytitlefont 
+    \color{titlecolor} \Large \textbf{Thesis} \\ 
+    \\ 
+    % \mytitlefont 
+    \color{titlecolor} \Huge \textbf{\thetitle} \\ 
+    \\ 
+    % \mytitlefont
+    \color{titlecolor} \huge \theauthor \\
+    \\
+    % \mytitlefont 
+    \color{titlecolor} \Large \thedate 
+    };
+\end{tikzpicture}
+\clearpage}
+
+% back side
+\AtEndDocument{\clearpage\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+% \draw (current page.center) node[bag] {  
+    \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+        % \mytitlefont 
+        \color{titlecolor} \large Bioinformatics Research Centre \\ 
+        % \mytitlefont 
+        \color{titlecolor} \large Department of Molecular Biology and Genetics \\ 
+        % \mytitlefont 
+        \color{titlecolor} \large Aarhus University \\
+        % \mytitlefont 
+        \color{titlecolor} \large Universitetsbyen 81 \\
+        % \mytitlefont 
+        \color{titlecolor} \large 8000 Aarhus C \\
+        % \mytitlefont 
+        \color{titlecolor} \large Denmark
+        };
+
+\end{tikzpicture}}
+
+
+% % picture (AU logo in title page)
+% \usepackage{titlepic}
+% % \usepackage{graphicx}
+% \titlepic{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}}}
+
+
+
+% \pagestyle{plain} % no running header
+
+\usepackage[many]{tcolorbox}
+\definecolor{quotegray}{HTML}{505050}
+\newtcolorbox{myquote}{%
+    enhanced jigsaw, 
+    breakable,      % allow page breaks
+    frame hidden,   % hide the default frame
+    left=1cm,       % left margin
+    right=1cm,      % right margin
+    colback=white,
+    fontupper=\color{quotegray},
+    overlay={%
+        \node [scale=4,
+            text=lightgray,
+            inner sep=0pt,] at ([xshift=0.5cm,yshift=-0.7cm]frame.north west){``}; 
+        \node [scale=4,
+            text=lightgray,
+            inner sep=0pt,] at ([xshift=-0.5cm]frame.south east){''};  
+            },
+        % paragraph skips obeyed within tcolorbox
+                parbox=false,
+}
+% redefine the 'quote' environment to use this 'myquote' environment
+\renewenvironment{quote}{\begin{myquote}}{\end{myquote}}
+
+% add a dummy abstract environment that is defined in quarto manuscript 
+% but not in the quarto book that we run first to give it a slot in the 
+% side bar
+\ifcsmacro{abstract}{}{
+  \let\endmyenvironment\undefined%
+  \newenvironment{abstract}{\chapter*{Abstract}}{}
+}
+
+% \usepackage{framed} % not sure i need this anymore
+
+% \usepackage[T1]{fontenc}
+% \usepackage{inconsolata}
+
+% % I have to only define Shaded if it is already defined.
+% % The reason is that pandoc does not define the macro if there are not code blocks in the a markdown file.
+% \ifx \@Shaded \@empty
+
+% \renewcommand{\KeywordTok}[1]{\textcolor[rgb]{0, 0, 0}{\textbf{{#1}}}} % def and or not reg
+% \renewcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.373, 0.298, 0.580}{\textbf{{#1}}}} % print open 
+% \renewcommand{\VariableTok}[1]{\textcolor[rgb]{0.141, 0.392, 0.824}{\textbf{{#1}}}}
+% \renewcommand{\OperatorTok}[1]{\textcolor[rgb]{0, 0, 0}{{#1}}} % def and or not reg
+% \renewcommand{\DataTypeTok}[1]{\textcolor[rgb]{1.0,0.13,0.00}{{#1}}}
+% \renewcommand{\DecValTok}[1]{\textcolor[rgb]{0.655, 0.498, 0.161}{{#1}}}
+% \renewcommand{\BaseNTok}[1]{\textcolor[rgb]{0.259, 0.592, 0.596}{{#1}}}
+% \renewcommand{\FloatTok}[1]{\textcolor[rgb]{0.655, 0.498, 0.161}{{#1}}}
+% \renewcommand{\CharTok}[1]{\textcolor[rgb]{0.678,0.141,0.098}{{#1}}}
+% \renewcommand{\StringTok}[1]{\textcolor[rgb]{0.678,0.141,0.098}{{#1}}}
+% \renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.135, 0.134, 0.133}{{#1}}}
+% \renewcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+% \renewcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+% \renewcommand{\FunctionTok}[1]{\textcolor[rgb]{0.549, 0.102, 0.063}{\textbf{{#1}}}}  % function name
+% \renewcommand{\RegionMarkerTok}[1]{{#1}}
+% \renewcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+% \renewcommand{\NormalTok}[1]{\textcolor[rgb]{0, 0, 0}{{#1}}}
+
+
+% \else
+%   % no code blocks with markup...
+% \fi
+
+
+
+\usepackage{etoolbox}
+\makeatletter
+\g@addto@macro{\appendix}{%
+  \patchcmd{\@@makechapterhead}% <cmd>
+    {\endgraf\nobreak\vskip.5\baselineskip}% <search>
+    {\hspace*{-.5em}:\space}% <replace>
+    {}{}% <success><failure>
+  \patchcmd{\@chapter}% <cmd>
+    {\addchaptertocentry{\thechapter}}% <search>
+    {\addchaptertocentry{Appendix~\thechapter:}}% <replace>
+    {}{}% <success><failure>
+  \addtocontents{toc}{%
+    \protect\patchcmd{\protect\l@chapter}% <cmd>
+      {1.5em}% <search>
+      {6.5em}% <replace>
+      {}{}}% <success><failure>
+}
+\renewcommand{\autodot}{}% Remove all end-of-counter dots
+\makeatother
+
+
+% restart chapter numbers in each part
+\makeatletter
+\@addtoreset{chapter}{part}
+\makeatother
+
+
+% \usepackage{chngcntr}
+% \counterwithin*{subsubsection}{chapter}
+% \counterwithout*{subsubsection}{section}
+% \counterwithout*{subsubsection}{subsection}
+
+% %  % KMT only use subsubsection number (this increments though the book 
+% %  % when we supress numbering with  {.unnumbered} after each header except Exerisices
+% \renewcommand\thesubsubsection{\arabic{section}}
+% \renewcommand\thesubsubsection{\arabic{subsection}}
+% \renewcommand\thesubsubsection{\arabic{chapter}-\arabic{subsubsection}}
+
+
+\renewcommand*{\chapterformat}{%
+\textcolor[rgb]{0.7, 0.7, 0.7}{\thechapter}\autodot\enskip%
+}
+\renewcommand*{\sectionformat}{%
+\textcolor[rgb]{0.7, 0.7, 0.7}{\thesection}\autodot\enskip%
+}
+\renewcommand*{\subsectionformat}{%
+\textcolor[rgb]{0.7, 0.7, 0.7}{\thesubsection}\autodot\enskip%
+}
+\renewcommand*{\subsubsectionformat}{%
+\textcolor[rgb]{0.7, 0.7, 0.7}{\thesubsubsection}\autodot\enskip%
+}
+
+
+
+% % prevent latex from "floating" the figures
+% \usepackage{float}
+% \let\origfigure\figure
+% \let\endorigfigure\endfigure
+% \renewenvironment{figure}[1][2] {
+%     \expandafter\origfigure\expandafter[H]
+% } {
+%     \endorigfigure
+% }
+
+\usepackage{xcolor}
+% \let\oldtextit\textit 
+% \renewcommand\textit[1]{\oldtextit{\color{blue}#1}}
+\let\oldemph\emph
+\renewcommand\emph[1]{\oldemph{\color{gray}#1}}
+
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Chromatin Compartments and Selection on X},
+  pdfauthor={Søren Jørgensen},
+  pdfkeywords={Hi-C, Chromatin Compartments, Selection},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Chromatin Compartments and Selection on X}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{How Edges of Active Chromatin Align with Selection Regions in
+Primates}
+\author{Søren Jørgensen}
+\date{2024-11-25}
+
+\begin{document}
+\frontmatter
+\cleardoublepage
+\thispagestyle{empty}
+{\centering
+\hbox{}\vskip 0cm plus 1fill
+
+{%\mytitlefont 
+\Huge\bfseries Chromatin Compartments and Selection on X \par}
+\vspace{3ex}
+{\Large\bfseries How Edges of Active Chromatin Align with Selection
+Regions in Primates \par}
+\vspace{6ex}
+
+    {\Large\bfseries Søren Jørgensen \par}
+    %
+%
+\vskip 0cm plus 2fill
+
+{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}} \par}
+\vskip 0cm plus 2fill
+
+{\bfseries\Large\textit{} \par}
+\vspace{3ex}
+
+{\bfseries\large 2024-11-25 \par}
+\vspace{3ex}
+
+\vspace{12ex}
+{\small Submitted in fulfillment of the requirements
+of the degree of  \par}
+\pagebreak
+
+\begin{quote}
+\raggedright    
+3-dimensional structure of chromatin brings light onto the mystery of
+selfish genes. \par
+\raggedleft    
+    {- Søren Jørgensen \par}
+%    
+\end{quote}
+}
+
+\renewcommand*\contentsname{Table of contents}
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+
+\setstretch{1}
+\mainmatter
+\newpage{}
+
+\chapter{Introduction}\label{introduction}
+
+\section{Sexual reproduction (spermatogenesis,
+meiosis)}\label{sexual-reproduction-spermatogenesis-meiosis}
+
+The production of gametes in a sexually reproducing organism is a highly
+complex process that involves numeruous elements. Spermatogenesis, the
+process of forming male gametes, involves four stages of differentiation
+from a germ cell through \emph{spermatogonia}, \emph{pachytene
+spermatocyte}, and \emph{round spermatids} to \emph{spermatozoa}, or
+\emph{sperm} (Wang et al. 2019), and it is the very basis of male
+reproduction. The specialized cell division of meiosis neatly handles
+the pairing, recombination, and segregation of homologous chromosomes,
+thereby ensuring proper genetic distribution. Deeply understanding the
+steps of molecular steps of reproduction and how our genetic material is
+inherited is essential in biology, bringing insight to areas such as
+speciation, population diversity, and (male) infertility.
+
+\section{Selfish genes (and
+randomness)}\label{selfish-genes-and-randomness}
+
+The conventional story of meiosis in gametogenesis is one of random
+segregation of the sex chromosomes. They split into haploid gametes,
+where each chromosome has an equal chance of being passed on to a
+gamete. That seems like a fair game, but what if some genes are cheating
+the system by making others less viable. A meiotic driver is a selfish
+gene element that modulates meiosis and preferentially transmits its own
+allele through meiosis, regardless of the downstream fitness effects it
+may have (good or bad) on the organism it is part of. This phenomenon
+challenges the traditional understanding of selection, extending its
+scope beyond the fitness effects on an organism to include selective
+pressures at the molecular level. For example, if some genes on the X
+chromosome create a disadvantage for gametes that \emph{do not} contain
+those genes, making sure the Y chromosome is not as viable as the X,
+resulting in a sex imbalance and possibly numerous other downstream
+effects. That is exactly what is coined \emph{sex chromosome meiotic
+drive} (Jaenike 2001), a result of selfish genetic elements.
+
+Motivated by previous results in the Munch Research group (Munch 2024)
+on hybrid incompatibility and extended common haplotypes (Skov et al.
+2023; Sørensen et al. 2023) that could be explained by meiotic drive, we
+wanted to investigate how these patterns correlate with chromatin
+compartments.
+
+\section{High-Throughput Chromosome Conformation Capture
+(Hi-C)}\label{high-throughput-chromosome-conformation-capture-hi-c}
+
+Our DNA can be divided into different orders of structure. \emph{3C}
+focus on identifying the highest orders of organization inside the
+nucleus, that is, when the 30 nm thick coil of chromatin fibers folds
+into loops, Topologically Associating Domains (TADs), and chromatin
+compartments. Here, we narrow our focus on the largest of the
+structures, \emph{compartments}, that is known to determine availability
+to transcription factors, thus making an \emph{A} compartment
+\emph{active}---and the \emph{B} compartment \emph{inactive}. The
+introduction of the Hi-C (high-throughput 3C) method (Lieberman-Aiden et
+al. 2009) opened new possibilities for exploring the three-dimensional
+organization of the genome.
+
+\newpage{}
+
+\chapter{Methods}\label{methods}
+
+In this project, we formulate two objectives:
+
+\textbf{A}: Reproduce the Hi-C interaction maps and eigendecomposition
+from (Wang et al. 2019), with some modifications. We briefly use
+\emph{HiCExplorer}, but change the analyses to use the \emph{Open2C
+Ecosystem} (Open Chromosome Collective 2024) which have a Pyton API as
+well as command-line functions, which can be paired very well with
+Jupyter Notebooks. The majority of the data analysis was run with a
+\emph{gwf} workflow, and the commands that were visually inspected were
+run in Jupyter Notebooks.
+
+\textbf{B} Compare with regions of selection that are found in
+\emph{papio anubis}, and maybe in \emph{human} too. Investigate the
+biological meaning of the results.
+
+All computations were performed on GenomeDK (GDK) {[}ref{]}, an HPC
+cluster located on Aarhus Uninversity, and most of the processing of the
+data was nested into a \emph{gwf} workflow {[}ref{]}, a workflow manager
+developed at GDK. I would like to thank GDK and Aarhus University for
+providing computational resources and support that contributed to these
+research results.
+
+The whole of this project is carried out with reproducibility in mind,
+so an effort (and quite a significant amount of time) has been put into
+documenting code and organizing the project for readbility and
+transparency through a Quarto project {[}ref{]}. Therefore, all code,
+virtual environments and text is made available as a Quarto book,
+rendered directly from the GitHub repository with GitHub Pages {[}{]}.
+To make this possible, the Quarto documentation has been extensively
+studied and discussed with \emph{KMT} {[}ref, aknowledge{]}.
+
+\section{Downloading Data and Project
+Structure}\label{downloading-data-and-project-structure}
+
+To reproduce the results from (Wang et al. 2019), I chose to use their
+raw data directly from the SRA portal {[}ref{]}. I filtered the data to
+contain all their paired-end Hi-C reads, and included only macaque
+samples. The data set also contains RNAseq data, and the same tissues
+for both macaque and mouse. The meta data for the data set was extracted
+into a runtable \texttt{SRA-runtable.tsv}. To get an overview of the
+data accessions used in this analysis, we will first summarize the
+runtable that contains the accession numbers and some metadata for each
+sample (Table~\ref{tbl-runtable-summary}). It adds up to
+\textasciitilde1Tb of compressed \texttt{fastq} files, holding
+\textasciitilde9.5 billion reads, roughly evenly spread on the 5 tissue
+types.
+
+\begin{longtable}[]{@{}lllll@{}}
+
+\caption{\label{tbl-runtable-summary}Summary of the data accessions used
+in this analysis}
+
+\tabularnewline
+
+\caption{}\label{T_0aa9c}\tabularnewline
+\toprule\noalign{}
+~ & source\_name & GB & Bases & Reads \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+~ & source\_name & GB & Bases & Reads \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & fibroblast & 211.403275 & 553,968,406,500 & 1,846,561,355 \\
+1 & pachytene spermatocyte & 274.835160 & 715,656,614,700 &
+2,385,522,049 \\
+2 & round spermatid & 243.128044 & 655,938,457,200 & 2,186,461,524 \\
+3 & sperm & 164.131640 & 428,913,635,400 & 1,429,712,118 \\
+4 & spermatogonia & 192.794420 & 518,665,980,300 & 1,728,886,601 \\
+
+\end{longtable}
+
+\section{Handling coolers (Or: preparing
+coolers)}\label{handling-coolers-or-preparing-coolers}
+
+\begin{figure}
+
+\centering{
+
+A flowchart showing the pipeline from \texttt{.fastq} to
+\texttt{.mcool}. The first 6 steps were done with a Probably BioRender
+or Inkscape.
+
+}
+
+\caption{\label{fig-flowchart-handling-coolers}}
+
+\end{figure}%
+
+\subsection{\texorpdfstring{The \emph{gwf} workflow
+targets}{The gwf workflow targets}}\label{the-gwf-workflow-targets}
+
+A \emph{gwf} workflow was created to handle the first part of the data
+processing, and each accesion number (read pair, mate pair) from the
+Hi-C sequencing was processed in parallel, so their execution was
+independen on the other samples.
+
+\subsubsection{Downloading the reads}\label{downloading-the-reads}
+
+The reads were downloaded from NCBI SRA portal {[}ref{]} directly to GDK
+using \texttt{sra-downloader} {[}ref{]} through docker {[}ref{]} as
+\texttt{.fastq.gz} files.
+
+\subsubsection{Handling the reference}\label{handling-the-reference}
+
+The latest reference genome for rhesus macaque (\emph{macaca mulata}),
+\emph{rheMac10} (or \emph{Mmul\_10}, UCSC or NCBI naming conventions,
+respectively) was downloaded to GDK from UCSC web servers with
+\texttt{wget} {[}ref{]}. To use \texttt{bwa} (Burrow Wheeler's Aligner)
+{[}ref{]} for mapping, rheMac10 needs to be indexed with both
+\texttt{bwa\ index} with the \texttt{-\/-bwtsw} option and
+\texttt{samtools\ faidx}, which results in six indexing files for
+\texttt{bwa\ mem} to use.
+
+\subsubsection{Mapping paired-end reads}\label{mapping-paired-end-reads}
+
+\subsubsection{Pair and sort the reads}\label{pair-and-sort-the-reads}
+
+\subsubsection{Filter (deduplicate)
+pairs}\label{filter-deduplicate-pairs}
+
+\subsubsection{Create interaction matrices
+(coolers)}\label{create-interaction-matrices-coolers}
+
+\subsubsection{Pooling samples (Merging
+coolers)}\label{pooling-samples-merging-coolers}
+
+The strategy to get the best signal was by pooling the interaction
+matrices. \texttt{cooler\ merge} was used to merge all samples in each
+sub-folder (cell type) to just one interaction matrix for each cell
+type. The reason for that is that we choose to trust Wang et al. (2019)
+when they say that compartments are highly reproducible between
+replicates, and by merging all replicates, we will have a more robust
+signal.
+
+\subsubsection{Create multi-resolution coolers
+(zoomify)}\label{create-multi-resolution-coolers-zoomify}
+
+\subsubsection{Matrix balancing (Iterative
+correction)}\label{matrix-balancing-iterative-correction}
+
+\subsubsection{Eigendecomposition}\label{eigendecomposition}
+
+\newpage{}
+
+\chapter{Results}\label{results}
+
+Here are the glorious results
+
+\newpage{}
+
+\chapter{Discussion}\label{discussion}
+
+Here is the discussion
+
+\newpage{}
+
+\chapter*{Bibliography}\label{bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\begingroup
+\raggedright
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-jaenike_sex_2001}
+Jaenike, John. 2001. {``Sex {Chromosome} {Meiotic} {Drive}.''}
+\emph{Annual Review of Ecology and Systematics} 32 (1): 25--49.
+\url{https://doi.org/10.1146/annurev.ecolsys.32.081501.113958}.
+
+\bibitem[\citeproctext]{ref-lieberman_aiden_comprehensive_2009}
+Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim
+Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009.
+{``Comprehensive {Mapping} of {Long}-{Range} {Interactions} {Reveals}
+{Folding} {Principles} of the {Human} {Genome}.''} \emph{Science} 326
+(5950): 289--93. \url{https://doi.org/10.1126/science.1181369}.
+
+\bibitem[\citeproctext]{ref-munch_group_2024}
+Munch, Kasper. 2024. {``Munch-Group.''}
+\url{https://munch-group.org/research.html}.
+
+\bibitem[\citeproctext]{ref-open2c}
+Open Chromosome Collective. 2024. {``Open {Chromosome} {Collective}
+({Open2C}).''} Resource. \emph{Open2C}. \url{https://open2c.github.io/}.
+
+\bibitem[\citeproctext]{ref-skov_extraordinary_2023}
+Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves
+Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch.
+2023. {``Extraordinary Selection on the Human {X} Chromosome Associated
+with Archaic Admixture.''} \emph{Cell Genomics} 3 (3): 100274.
+\url{https://doi.org/10.1016/j.xgen.2023.100274}.
+
+\bibitem[\citeproctext]{ref-sorensen_genome_wide_2023}
+Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran,
+Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023.
+{``Genome-Wide Coancestry Reveals Details of Ancient and Recent
+Male-Driven Reticulation in Baboons.''} \emph{Science} 380 (6648):
+eabn8153. \url{https://doi.org/10.1126/science.abn8153}.
+
+\bibitem[\citeproctext]{ref-wang_reprogramming_2019}
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan,
+Dongdong Qin, et al. 2019. {``Reprogramming of {Meiotic} {Chromatin}
+{Architecture} During {Spermatogenesis}.''} \emph{Molecular Cell} 73
+(3): 547--561.e6. \url{https://doi.org/10.1016/j.molcel.2018.11.019}.
+
+\end{CSLReferences}
+
+\endgroup
+
+
+\backmatter
+
+
+\end{document}

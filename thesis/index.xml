@@ -1,0 +1,1081 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving
+and Interchange DTD v1.2 20190208//EN" "JATS-archivearticle1.dtd">
+
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+
+<front>
+
+
+<article-meta>
+
+
+<title-group>
+<article-title>Chromatin Compartments and Selection on X</article-title>
+<subtitle>How Edges of Active Chromatin Align with Selection Regions in
+Primates</subtitle>
+</title-group>
+
+<contrib-group>
+<contrib contrib-type="author">
+<name>
+<surname>Jørgensen</surname>
+<given-names>Søren</given-names>
+</name>
+<string-name>Søren Jørgensen</string-name>
+
+<email>201906763@post.au.dk</email>
+</contrib>
+</contrib-group>
+
+
+
+
+
+
+
+
+
+<history></history>
+
+
+<abstract>
+<p>This is a dummy abstract, dreamt up by chatGPT. This thesis
+investigates the 3D chromatin architecture of the X chromosome in
+baboons, macaques, and humans, focusing on chromatin compartments during
+spermatogenesis. Using publicly available Hi-C data, interaction maps
+were created to identify Principal Component 1 (PC1) compartments,
+revealing distinct compartmentalization patterns among species. The
+analysis included transition zones, where chromatin shifts between
+compartment types, and their correlation with positively selected
+regions. By comparing these zones with evolutionarily significant
+regions, the study explores how chromatin structure influences
+evolutionary pressures. Key findings include conserved chromatin
+features that may help retain non-advantageous alleles, suggesting a
+role for selfish genetic elements in genome evolution. This research
+offers new insights into the relationship between chromatin architecture
+and evolutionary dynamics across primate species.</p>
+</abstract>
+<kwd-group kwd-group-type="author">
+<kwd>Hi-C</kwd>
+<kwd>Chromatin Compartments</kwd>
+<kwd>Selection</kwd>
+</kwd-group>
+
+
+
+
+</article-meta>
+
+</front>
+
+<body>
+<p></p>
+<sec id="introduction">
+  <title>Introduction</title>
+  <sec id="sexual-reproduction-spermatogenesis-meiosis">
+    <title>Sexual reproduction (spermatogenesis, meiosis)</title>
+    <p>The production of gametes in a sexually reproducing organism is a
+    highly complex process that involves numeruous elements.
+    Spermatogenesis, the process of forming male gametes, involves four
+    stages of differentiation from a germ cell through
+    <italic>spermatogonia</italic>, <italic>pachytene
+    spermatocyte</italic>, and <italic>round spermatids</italic> to
+    <italic>spermatozoa</italic>, or <italic>sperm</italic>
+    (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
+    et al. 2019</xref>), and it is the very basis of male reproduction.
+    The specialized cell division of meiosis neatly handles the pairing,
+    recombination, and segregation of homologous chromosomes, thereby
+    ensuring proper genetic distribution. Deeply understanding the steps
+    of molecular steps of reproduction and how our genetic material is
+    inherited is essential in biology, bringing insight to areas such as
+    speciation, population diversity, and (male) infertility.</p>
+  </sec>
+  <sec id="selfish-genes-and-randomness">
+    <title>Selfish genes (and randomness)</title>
+    <p>The conventional story of meiosis in gametogenesis is one of
+    random segregation of the sex chromosomes. They split into haploid
+    gametes, where each chromosome has an equal chance of being passed
+    on to a gamete. That seems like a fair game, but what if some genes
+    are cheating the system by making others less viable. A meiotic
+    driver is a selfish gene element that modulates meiosis and
+    preferentially transmits its own allele through meiosis, regardless
+    of the downstream fitness effects it may have (good or bad) on the
+    organism it is part of. This phenomenon challenges the traditional
+    understanding of selection, extending its scope beyond the fitness
+    effects on an organism to include selective pressures at the
+    molecular level. For example, if some genes on the X chromosome
+    create a disadvantage for gametes that <italic>do not</italic>
+    contain those genes, making sure the Y chromosome is not as viable
+    as the X, resulting in a sex imbalance and possibly numerous other
+    downstream effects. That is exactly what is coined <italic>sex
+    chromosome meiotic drive</italic>
+    (<xref alt="Jaenike 2001" rid="ref-jaenike_sex_2001" ref-type="bibr">Jaenike
+    2001</xref>), a result of selfish genetic elements.</p>
+    <p>Motivated by previous results in the Munch Research group
+    (<xref alt="Munch 2024" rid="ref-munch_group_2024" ref-type="bibr">Munch
+    2024</xref>) on hybrid incompatibility and extended common
+    haplotypes
+    (<xref alt="Skov et al. 2023" rid="ref-skov_extraordinary_2023" ref-type="bibr">Skov
+    et al. 2023</xref>;
+    <xref alt="Sørensen et al. 2023" rid="ref-sorensen_genome_wide_2023" ref-type="bibr">Sørensen
+    et al. 2023</xref>) that could be explained by meiotic drive, we
+    wanted to investigate how these patterns correlate with chromatin
+    compartments.</p>
+  </sec>
+  <sec id="high-throughput-chromosome-conformation-capture-hi-c">
+    <title>High-Throughput Chromosome Conformation Capture
+    (Hi-C)</title>
+    <p>Our DNA can be divided into different orders of structure.
+    <italic>3C</italic> focus on identifying the highest orders of
+    organization inside the nucleus, that is, when the 30 nm thick coil
+    of chromatin fibers folds into loops, Topologically Associating
+    Domains (TADs), and chromatin compartments. Here, we narrow our
+    focus on the largest of the structures,
+    <italic>compartments</italic>, that is known to determine
+    availability to transcription factors, thus making an
+    <italic>A</italic> compartment <italic>active</italic>—and the
+    <italic>B</italic> compartment <italic>inactive</italic>. The
+    introduction of the Hi-C (high-throughput 3C) method
+    (<xref alt="Lieberman-Aiden et al. 2009" rid="ref-lieberman_aiden_comprehensive_2009" ref-type="bibr">Lieberman-Aiden
+    et al. 2009</xref>) opened new possibilities for exploring the
+    three-dimensional organization of the genome.</p>
+    <p></p>
+  </sec>
+</sec>
+<sec id="methods">
+  <title>Methods</title>
+  <p>In this project, we formulate two objectives:</p>
+  <p><bold>A</bold>: Reproduce the Hi-C interaction maps and
+  eigendecomposition from
+  (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
+  et al. 2019</xref>), with some modifications. We briefly use
+  <italic>HiCExplorer</italic>, but change the analyses to use the
+  <italic>Open2C Ecosystem</italic>
+  (<xref alt="Open Chromosome Collective 2024" rid="ref-open2c" ref-type="bibr">Open
+  Chromosome Collective 2024</xref>) which have a Pyton API as well as
+  command-line functions, which can be paired very well with Jupyter
+  Notebooks. The majority of the data analysis was run with a
+  <italic>gwf</italic> workflow, and the commands that were visually
+  inspected were run in Jupyter Notebooks.</p>
+  <p><bold>B</bold> Compare with regions of selection that are found in
+  <italic>papio anubis</italic>, and maybe in <italic>human</italic>
+  too. Investigate the biological meaning of the results.</p>
+  <p>All computations were performed on GenomeDK (GDK) [ref], an HPC
+  cluster located on Aarhus Uninversity, and most of the processing of
+  the data was nested into a <italic>gwf</italic> workflow [ref], a
+  workflow manager developed at GDK. I would like to thank GDK and
+  Aarhus University for providing computational resources and support
+  that contributed to these research results.</p>
+  <p>The whole of this project is carried out with reproducibility in
+  mind, so an effort (and quite a significant amount of time) has been
+  put into documenting code and organizing the project for readbility
+  and transparency through a Quarto project [ref]. Therefore, all code,
+  virtual environments and text is made available as a Quarto book,
+  rendered directly from the GitHub repository with GitHub Pages []. To
+  make this possible, the Quarto documentation has been extensively
+  studied and discussed with <italic>KMT</italic> [ref, aknowledge].</p>
+  <sec id="downloading-data-and-project-structure">
+    <title>Downloading Data and Project Structure</title>
+    <p>To reproduce the results from
+    (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
+    et al. 2019</xref>), I chose to use their raw data directly from the
+    SRA portal [ref]. I filtered the data to contain all their
+    paired-end Hi-C reads, and included only macaque samples. The data
+    set also contains RNAseq data, and the same tissues for both macaque
+    and mouse. The meta data for the data set was extracted into a
+    runtable <monospace>SRA-runtable.tsv</monospace>. To get an overview
+    of the data accessions used in this analysis, we will first
+    summarize the runtable that contains the accession numbers and some
+    metadata for each sample
+    (<xref alt="Table 1" rid="tbl-runtable-summary">Table 1</xref>). It
+    adds up to ~1Tb of compressed <monospace>fastq</monospace> files,
+    holding ~9.5 billion reads, roughly evenly spread on the 5 tissue
+    types.</p>
+    <fig id="tbl-runtable-summary">
+      <caption><p>Table 1: Summary of the data accessions used in this
+      analysis</p></caption>
+      <table-wrap>
+        <table id="T_0aa9c">
+          <thead>
+            <tr>
+              <th> </th>
+              <th id="T_0aa9c_level0_col0">source_name</th>
+              <th id="T_0aa9c_level0_col1">GB</th>
+              <th id="T_0aa9c_level0_col2">Bases</th>
+              <th id="T_0aa9c_level0_col3">Reads</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="T_0aa9c_level0_row0">0</td>
+              <td id="T_0aa9c_row0_col0">fibroblast</td>
+              <td id="T_0aa9c_row0_col1">211.403275</td>
+              <td id="T_0aa9c_row0_col2">553,968,406,500</td>
+              <td id="T_0aa9c_row0_col3">1,846,561,355</td>
+            </tr>
+            <tr>
+              <td id="T_0aa9c_level0_row1">1</td>
+              <td id="T_0aa9c_row1_col0">pachytene spermatocyte</td>
+              <td id="T_0aa9c_row1_col1">274.835160</td>
+              <td id="T_0aa9c_row1_col2">715,656,614,700</td>
+              <td id="T_0aa9c_row1_col3">2,385,522,049</td>
+            </tr>
+            <tr>
+              <td id="T_0aa9c_level0_row2">2</td>
+              <td id="T_0aa9c_row2_col0">round spermatid</td>
+              <td id="T_0aa9c_row2_col1">243.128044</td>
+              <td id="T_0aa9c_row2_col2">655,938,457,200</td>
+              <td id="T_0aa9c_row2_col3">2,186,461,524</td>
+            </tr>
+            <tr>
+              <td id="T_0aa9c_level0_row3">3</td>
+              <td id="T_0aa9c_row3_col0">sperm</td>
+              <td id="T_0aa9c_row3_col1">164.131640</td>
+              <td id="T_0aa9c_row3_col2">428,913,635,400</td>
+              <td id="T_0aa9c_row3_col3">1,429,712,118</td>
+            </tr>
+            <tr>
+              <td id="T_0aa9c_level0_row4">4</td>
+              <td id="T_0aa9c_row4_col0">spermatogonia</td>
+              <td id="T_0aa9c_row4_col1">192.794420</td>
+              <td id="T_0aa9c_row4_col2">518,665,980,300</td>
+              <td id="T_0aa9c_row4_col3">1,728,886,601</td>
+            </tr>
+          </tbody>
+        </table>
+      </table-wrap>
+    </fig>
+  </sec>
+  <sec id="handling-coolers-or-preparing-coolers">
+    <title>Handling coolers (Or: preparing coolers)</title>
+    <fig id="fig-flowchart-handling-coolers">
+      <caption><p>Figure 1</p></caption>
+      <p>A flowchart showing the pipeline from
+      <monospace>.fastq</monospace> to <monospace>.mcool</monospace>.
+      The first 6 steps were done with a Probably BioRender or
+      Inkscape.</p>
+    </fig>
+    <sec id="the-gwf-workflow-targets">
+      <title>The <italic>gwf</italic> workflow targets</title>
+      <p>A <italic>gwf</italic> workflow was created to handle the first
+      part of the data processing, and each accesion number (read pair,
+      mate pair) from the Hi-C sequencing was processed in parallel, so
+      their execution was independen on the other samples.</p>
+      <sec id="downloading-the-reads">
+        <title>Downloading the reads</title>
+        <p>The reads were downloaded from NCBI SRA portal [ref] directly
+        to GDK using <monospace>sra-downloader</monospace> [ref] through
+        docker [ref] as <monospace>.fastq.gz</monospace> files.</p>
+      </sec>
+      <sec id="handling-the-reference">
+        <title>Handling the reference</title>
+        <p>The latest reference genome for rhesus macaque
+        (<italic>macaca mulata</italic>), <italic>rheMac10</italic> (or
+        <italic>Mmul_10</italic>, UCSC or NCBI naming conventions,
+        respectively) was downloaded to GDK from UCSC web servers with
+        <monospace>wget</monospace> [ref]. To use
+        <monospace>bwa</monospace> (Burrow Wheeler’s Aligner) [ref] for
+        mapping, rheMac10 needs to be indexed with both
+        <monospace>bwa index</monospace> with the
+        <monospace>--bwtsw</monospace> option and
+        <monospace>samtools faidx</monospace>, which results in six
+        indexing files for <monospace>bwa mem</monospace> to use.</p>
+      </sec>
+      <sec id="mapping-paired-end-reads">
+        <title>Mapping paired-end reads</title>
+      </sec>
+      <sec id="pair-and-sort-the-reads">
+        <title>Pair and sort the reads</title>
+      </sec>
+      <sec id="filter-deduplicate-pairs">
+        <title>Filter (deduplicate) pairs</title>
+      </sec>
+      <sec id="create-interaction-matrices-coolers">
+        <title>Create interaction matrices (coolers)</title>
+      </sec>
+      <sec id="pooling-samples-merging-coolers">
+        <title>Pooling samples (Merging coolers)</title>
+        <p>The strategy to get the best signal was by pooling the
+        interaction matrices. <monospace>cooler merge</monospace> was
+        used to merge all samples in each sub-folder (cell type) to just
+        one interaction matrix for each cell type. The reason for that
+        is that we choose to trust Wang et al.
+        (<xref alt="2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">2019</xref>)
+        when they say that compartments are highly reproducible between
+        replicates, and by merging all replicates, we will have a more
+        robust signal.</p>
+      </sec>
+      <sec id="create-multi-resolution-coolers-zoomify">
+        <title>Create multi-resolution coolers (zoomify)</title>
+      </sec>
+      <sec id="matrix-balancing-iterative-correction">
+        <title>Matrix balancing (Iterative correction)</title>
+      </sec>
+      <sec id="eigendecomposition">
+        <title>Eigendecomposition</title>
+        <p></p>
+      </sec>
+    </sec>
+  </sec>
+</sec>
+<sec id="results">
+  <title>Results</title>
+  <p>Here are the glorious results</p>
+  <p></p>
+</sec>
+<sec id="discussion">
+  <title>Discussion</title>
+  <p>Here is the discussion</p>
+  <p></p>
+</sec>
+<sec id="bibliography">
+  <title>Bibliography</title>
+</sec>
+</body>
+
+<back>
+<ref-list>
+  <title></title>
+  <ref id="ref-lieberman_aiden_comprehensive_2009">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Lieberman-Aiden</surname><given-names>Erez</given-names></name>
+        <name><surname>Van Berkum</surname><given-names>Nynke L.</given-names></name>
+        <name><surname>Williams</surname><given-names>Louise</given-names></name>
+        <name><surname>Imakaev</surname><given-names>Maxim</given-names></name>
+        <name><surname>Ragoczy</surname><given-names>Tobias</given-names></name>
+        <name><surname>Telling</surname><given-names>Agnes</given-names></name>
+        <name><surname>Amit</surname><given-names>Ido</given-names></name>
+        <name><surname>Lajoie</surname><given-names>Bryan R.</given-names></name>
+        <name><surname>Sabo</surname><given-names>Peter J.</given-names></name>
+        <name><surname>Dorschner</surname><given-names>Michael O.</given-names></name>
+        <name><surname>Sandstrom</surname><given-names>Richard</given-names></name>
+        <name><surname>Bernstein</surname><given-names>Bradley</given-names></name>
+        <name><surname>Bender</surname><given-names>M. A.</given-names></name>
+        <name><surname>Groudine</surname><given-names>Mark</given-names></name>
+        <name><surname>Gnirke</surname><given-names>Andreas</given-names></name>
+        <name><surname>Stamatoyannopoulos</surname><given-names>John</given-names></name>
+        <name><surname>Mirny</surname><given-names>Leonid A.</given-names></name>
+        <name><surname>Lander</surname><given-names>Eric S.</given-names></name>
+        <name><surname>Dekker</surname><given-names>Job</given-names></name>
+      </person-group>
+      <article-title>Comprehensive Mapping of Long-Range Interactions Reveals Folding Principles of the Human Genome</article-title>
+      <source>Science</source>
+      <year iso-8601-date="2009-10">2009</year><month>10</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-29">2024</year><month>08</month><day>29</day></date-in-citation>
+      <volume>326</volume>
+      <issue>5950</issue>
+      <issn>0036-8075, 1095-9203</issn>
+      <uri>https://www.science.org/doi/10.1126/science.1181369</uri>
+      <pub-id pub-id-type="doi">10.1126/science.1181369</pub-id>
+      <fpage>289</fpage>
+      <lpage>293</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-wang_reprogramming_2019">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Wang</surname><given-names>Yao</given-names></name>
+        <name><surname>Wang</surname><given-names>Hanben</given-names></name>
+        <name><surname>Zhang</surname><given-names>Yu</given-names></name>
+        <name><surname>Du</surname><given-names>Zhenhai</given-names></name>
+        <name><surname>Si</surname><given-names>Wei</given-names></name>
+        <name><surname>Fan</surname><given-names>Suixing</given-names></name>
+        <name><surname>Qin</surname><given-names>Dongdong</given-names></name>
+        <name><surname>Wang</surname><given-names>Mei</given-names></name>
+        <name><surname>Duan</surname><given-names>Yanchao</given-names></name>
+        <name><surname>Li</surname><given-names>Lufan</given-names></name>
+        <name><surname>Jiao</surname><given-names>Yuying</given-names></name>
+        <name><surname>Li</surname><given-names>Yuanyuan</given-names></name>
+        <name><surname>Wang</surname><given-names>Qiujun</given-names></name>
+        <name><surname>Shi</surname><given-names>Qinghua</given-names></name>
+        <name><surname>Wu</surname><given-names>Xin</given-names></name>
+        <name><surname>Xie</surname><given-names>Wei</given-names></name>
+      </person-group>
+      <article-title>Reprogramming of Meiotic Chromatin Architecture during Spermatogenesis</article-title>
+      <source>Molecular Cell</source>
+      <year iso-8601-date="2019-02">2019</year><month>02</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-29">2024</year><month>08</month><day>29</day></date-in-citation>
+      <volume>73</volume>
+      <issue>3</issue>
+      <issn>10972765</issn>
+      <uri>https://linkinghub.elsevier.com/retrieve/pii/S1097276518309894</uri>
+      <pub-id pub-id-type="doi">10.1016/j.molcel.2018.11.019</pub-id>
+      <fpage>547</fpage>
+      <lpage>561.e6</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-skov_extraordinary_2023">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Skov</surname><given-names>Laurits</given-names></name>
+        <name><surname>Coll Macià</surname><given-names>Moisès</given-names></name>
+        <name><surname>Lucotte</surname><given-names>Elise Anne</given-names></name>
+        <name><surname>Cavassim</surname><given-names>Maria Izabel Alves</given-names></name>
+        <name><surname>Castellano</surname><given-names>David</given-names></name>
+        <name><surname>Schierup</surname><given-names>Mikkel Heide</given-names></name>
+        <name><surname>Munch</surname><given-names>Kasper</given-names></name>
+      </person-group>
+      <article-title>Extraordinary selection on the human X chromosome associated with archaic admixture</article-title>
+      <source>Cell Genomics</source>
+      <year iso-8601-date="2023-03">2023</year><month>03</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-30">2024</year><month>08</month><day>30</day></date-in-citation>
+      <volume>3</volume>
+      <issue>3</issue>
+      <issn>2666979X</issn>
+      <uri>https://linkinghub.elsevier.com/retrieve/pii/S2666979X23000344</uri>
+      <pub-id pub-id-type="doi">10.1016/j.xgen.2023.100274</pub-id>
+      <fpage>100274</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-open2c">
+    <element-citation>
+      <person-group person-group-type="author">
+        <string-name>Open Chromosome Collective</string-name>
+      </person-group>
+      <article-title>Open Chromosome Collective (Open2C)</article-title>
+      <source>Open2C</source>
+      <year iso-8601-date="2024-11-13">2024</year><month>11</month><day>13</day>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-13">2024</year><month>11</month><day>13</day></date-in-citation>
+      <uri>https://open2c.github.io/</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-jaenike_sex_2001">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Jaenike</surname><given-names>John</given-names></name>
+      </person-group>
+      <article-title>Sex Chromosome Meiotic Drive</article-title>
+      <source>Annual Review of Ecology and Systematics</source>
+      <year iso-8601-date="2001-11">2001</year><month>11</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-14">2024</year><month>11</month><day>14</day></date-in-citation>
+      <volume>32</volume>
+      <issue>1</issue>
+      <issn>0066-4162</issn>
+      <uri>https://www.annualreviews.org/doi/10.1146/annurev.ecolsys.32.081501.113958</uri>
+      <pub-id pub-id-type="doi">10.1146/annurev.ecolsys.32.081501.113958</pub-id>
+      <fpage>25</fpage>
+      <lpage>49</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-munch_group_2024">
+    <element-citation>
+      <person-group person-group-type="author">
+        <name><surname>Munch</surname><given-names>Kasper</given-names></name>
+      </person-group>
+      <article-title>Munch-group</article-title>
+      <year iso-8601-date="2024-11">2024</year><month>11</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-15">2024</year><month>11</month><day>15</day></date-in-citation>
+      <uri>https://munch-group.org/research.html</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-sorensen_genome_wide_2023">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Sørensen</surname><given-names>Erik F.</given-names></name>
+        <name><surname>Harris</surname><given-names>R. Alan</given-names></name>
+        <name><surname>Zhang</surname><given-names>Liye</given-names></name>
+        <name><surname>Raveendran</surname><given-names>Muthuswamy</given-names></name>
+        <name><surname>Kuderna</surname><given-names>Lukas F. K.</given-names></name>
+        <name><surname>Walker</surname><given-names>Jerilyn A.</given-names></name>
+        <name><surname>Storer</surname><given-names>Jessica M.</given-names></name>
+        <name><surname>Kuhlwilm</surname><given-names>Martin</given-names></name>
+        <name><surname>Fontsere</surname><given-names>Claudia</given-names></name>
+        <name><surname>Seshadri</surname><given-names>Lakshmi</given-names></name>
+        <name><surname>Bergey</surname><given-names>Christina M.</given-names></name>
+        <name><surname>Burrell</surname><given-names>Andrew S.</given-names></name>
+        <name><surname>Bergman</surname><given-names>Juraj</given-names></name>
+        <name><surname>Phillips-Conroy</surname><given-names>Jane E.</given-names></name>
+        <name><surname>Shiferaw</surname><given-names>Fekadu</given-names></name>
+        <name><surname>Chiou</surname><given-names>Kenneth L.</given-names></name>
+        <name><surname>Chuma</surname><given-names>Idrissa S.</given-names></name>
+        <name><surname>Keyyu</surname><given-names>Julius D.</given-names></name>
+        <name><surname>Fischer</surname><given-names>Julia</given-names></name>
+        <name><surname>Gingras</surname><given-names>Marie-Claude</given-names></name>
+        <name><surname>Salvi</surname><given-names>Sejal</given-names></name>
+        <name><surname>Doddapaneni</surname><given-names>Harshavardhan</given-names></name>
+        <name><surname>Schierup</surname><given-names>Mikkel H.</given-names></name>
+        <name><surname>Batzer</surname><given-names>Mark A.</given-names></name>
+        <name><surname>Jolly</surname><given-names>Clifford J.</given-names></name>
+        <name><surname>Knauf</surname><given-names>Sascha</given-names></name>
+        <name><surname>Zinner</surname><given-names>Dietmar</given-names></name>
+        <name><surname>Farh</surname><given-names>Kyle K.-H.</given-names></name>
+        <name><surname>Marques-Bonet</surname><given-names>Tomas</given-names></name>
+        <name><surname>Munch</surname><given-names>Kasper</given-names></name>
+        <name><surname>Roos</surname><given-names>Christian</given-names></name>
+        <name><surname>Rogers</surname><given-names>Jeffrey</given-names></name>
+      </person-group>
+      <article-title>Genome-wide coancestry reveals details of ancient and recent male-driven reticulation in baboons</article-title>
+      <source>Science</source>
+      <year iso-8601-date="2023-06">2023</year><month>06</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-15">2024</year><month>11</month><day>15</day></date-in-citation>
+      <volume>380</volume>
+      <issue>6648</issue>
+      <issn>0036-8075, 1095-9203</issn>
+      <uri>https://www.science.org/doi/10.1126/science.abn8153</uri>
+      <pub-id pub-id-type="doi">10.1126/science.abn8153</pub-id>
+      <fpage>eabn8153</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+</ref-list>
+</back>
+
+<sub-article article-type="notebook" id="nb-2-nb-1">
+<front-stub>
+</front-stub>
+
+<body>
+<sec id="methods-nb-1">
+  <title>Methods</title>
+  <p>In this project, we formulate two objectives:</p>
+  <p><bold>A</bold>: Reproduce the Hi-C interaction maps and
+  eigendecomposition from
+  (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019-nb-1" ref-type="bibr">Wang
+  et al. 2019</xref>), with some modifications. We briefly use
+  <italic>HiCExplorer</italic>, but change the analyses to use the
+  <italic>Open2C Ecosystem</italic>
+  (<xref alt="Open Chromosome Collective 2024" rid="ref-open2c-nb-1" ref-type="bibr">Open
+  Chromosome Collective 2024</xref>) which have a Pyton API as well as
+  command-line functions, which can be paired very well with Jupyter
+  Notebooks. The majority of the data analysis was run with a
+  <italic>gwf</italic> workflow, and the commands that were visually
+  inspected were run in Jupyter Notebooks.</p>
+  <p><bold>B</bold> Compare with regions of selection that are found in
+  <italic>papio anubis</italic>, and maybe in <italic>human</italic>
+  too. Investigate the biological meaning of the results.</p>
+  <p>All computations were performed on GenomeDK (GDK) [ref], an HPC
+  cluster located on Aarhus Uninversity, and most of the processing of
+  the data was nested into a <italic>gwf</italic> workflow [ref], a
+  workflow manager developed at GDK. I would like to thank GDK and
+  Aarhus University for providing computational resources and support
+  that contributed to these research results.</p>
+  <p>The whole of this project is carried out with reproducibility in
+  mind, so an effort (and quite a significant amount of time) has been
+  put into documenting code and organizing the project for readbility
+  and transparency through a Quarto project [ref]. Therefore, all code,
+  virtual environments and text is made available as a Quarto book,
+  rendered directly from the GitHub repository with GitHub Pages []. To
+  make this possible, the Quarto documentation has been extensively
+  studied and discussed with <italic>KMT</italic> [ref, aknowledge].</p>
+  <sec id="downloading-data-and-project-structure-nb-1">
+    <title>Downloading Data and Project Structure</title>
+    <p>To reproduce the results from
+    (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019-nb-1" ref-type="bibr">Wang
+    et al. 2019</xref>), I chose to use their raw data directly from the
+    SRA portal [ref]. I filtered the data to contain all their
+    paired-end Hi-C reads, and included only macaque samples. The data
+    set also contains RNAseq data, and the same tissues for both macaque
+    and mouse. The meta data for the data set was extracted into a
+    runtable <monospace>SRA-runtable.tsv</monospace>. To get an overview
+    of the data accessions used in this analysis, we will first
+    summarize the runtable that contains the accession numbers and some
+    metadata for each sample
+    ((<xref alt="tbl-runtable-summary?" rid="ref-tbl-runtable-summary-nb-1" ref-type="bibr"><bold>tbl-runtable-summary?</bold></xref>)).
+    It adds up to ~1Tb of compressed <monospace>fastq</monospace> files,
+    holding ~9.5 billion reads, roughly evenly spread on the 5 tissue
+    types.</p>
+    <sec specific-use="notebook-content">
+    <code language="python">display(df_grouped)
+    </code>
+    <fig id="tbl-runtable-summary-nb-1">
+      <caption><p>Summary of the data accessions used in this
+      analysis</p></caption>
+      <boxed-text>
+        <table-wrap>
+          <table id="T_0aa9c-nb-1">
+            <thead>
+              <tr>
+                <th> </th>
+                <th id="T_0aa9c_level0_col0-nb-1">source_name</th>
+                <th id="T_0aa9c_level0_col1-nb-1">GB</th>
+                <th id="T_0aa9c_level0_col2-nb-1">Bases</th>
+                <th id="T_0aa9c_level0_col3-nb-1">Reads</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="T_0aa9c_level0_row0-nb-1">0</td>
+                <td id="T_0aa9c_row0_col0-nb-1">fibroblast</td>
+                <td id="T_0aa9c_row0_col1-nb-1">211.403275</td>
+                <td id="T_0aa9c_row0_col2-nb-1">553,968,406,500</td>
+                <td id="T_0aa9c_row0_col3-nb-1">1,846,561,355</td>
+              </tr>
+              <tr>
+                <td id="T_0aa9c_level0_row1-nb-1">1</td>
+                <td id="T_0aa9c_row1_col0-nb-1">pachytene spermatocyte</td>
+                <td id="T_0aa9c_row1_col1-nb-1">274.835160</td>
+                <td id="T_0aa9c_row1_col2-nb-1">715,656,614,700</td>
+                <td id="T_0aa9c_row1_col3-nb-1">2,385,522,049</td>
+              </tr>
+              <tr>
+                <td id="T_0aa9c_level0_row2-nb-1">2</td>
+                <td id="T_0aa9c_row2_col0-nb-1">round spermatid</td>
+                <td id="T_0aa9c_row2_col1-nb-1">243.128044</td>
+                <td id="T_0aa9c_row2_col2-nb-1">655,938,457,200</td>
+                <td id="T_0aa9c_row2_col3-nb-1">2,186,461,524</td>
+              </tr>
+              <tr>
+                <td id="T_0aa9c_level0_row3-nb-1">3</td>
+                <td id="T_0aa9c_row3_col0-nb-1">sperm</td>
+                <td id="T_0aa9c_row3_col1-nb-1">164.131640</td>
+                <td id="T_0aa9c_row3_col2-nb-1">428,913,635,400</td>
+                <td id="T_0aa9c_row3_col3-nb-1">1,429,712,118</td>
+              </tr>
+              <tr>
+                <td id="T_0aa9c_level0_row4-nb-1">4</td>
+                <td id="T_0aa9c_row4_col0-nb-1">spermatogonia</td>
+                <td id="T_0aa9c_row4_col1-nb-1">192.794420</td>
+                <td id="T_0aa9c_row4_col2-nb-1">518,665,980,300</td>
+                <td id="T_0aa9c_row4_col3-nb-1">1,728,886,601</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+      </boxed-text>
+    </fig>
+    </sec>
+  </sec>
+  <sec id="handling-coolers-or-preparing-coolers-nb-1">
+    <title>Handling coolers (Or: preparing coolers)</title>
+    <fig id="fig-flowchart-handling-coolers-nb-1">
+      <p>A flowchart showing the pipeline from
+      <monospace>.fastq</monospace> to <monospace>.mcool</monospace>.
+      The first 6 steps were done with a Probably BioRender or
+      Inkscape.</p>
+    </fig>
+    <sec id="the-gwf-workflow-targets-nb-1">
+      <title>The <italic>gwf</italic> workflow targets</title>
+      <p>A <italic>gwf</italic> workflow was created to handle the first
+      part of the data processing, and each accesion number (read pair,
+      mate pair) from the Hi-C sequencing was processed in parallel, so
+      their execution was independen on the other samples.</p>
+      <sec id="downloading-the-reads-nb-1">
+        <title>Downloading the reads</title>
+        <p>The reads were downloaded from NCBI SRA portal [ref] directly
+        to GDK using <monospace>sra-downloader</monospace> [ref] through
+        docker [ref] as <monospace>.fastq.gz</monospace> files.</p>
+      </sec>
+      <sec id="handling-the-reference-nb-1">
+        <title>Handling the reference</title>
+        <p>The latest reference genome for rhesus macaque
+        (<italic>macaca mulata</italic>), <italic>rheMac10</italic> (or
+        <italic>Mmul_10</italic>, UCSC or NCBI naming conventions,
+        respectively) was downloaded to GDK from UCSC web servers with
+        <monospace>wget</monospace> [ref]. To use
+        <monospace>bwa</monospace> (Burrow Wheeler’s Aligner) [ref] for
+        mapping, rheMac10 needs to be indexed with both
+        <monospace>bwa index</monospace> with the
+        <monospace>--bwtsw</monospace> option and
+        <monospace>samtools faidx</monospace>, which results in six
+        indexing files for <monospace>bwa mem</monospace> to use.</p>
+      </sec>
+      <sec id="mapping-paired-end-reads-nb-1">
+        <title>Mapping paired-end reads</title>
+      </sec>
+      <sec id="pair-and-sort-the-reads-nb-1">
+        <title>Pair and sort the reads</title>
+      </sec>
+      <sec id="filter-deduplicate-pairs-nb-1">
+        <title>Filter (deduplicate) pairs</title>
+      </sec>
+      <sec id="create-interaction-matrices-coolers-nb-1">
+        <title>Create interaction matrices (coolers)</title>
+      </sec>
+      <sec id="pooling-samples-merging-coolers-nb-1">
+        <title>Pooling samples (Merging coolers)</title>
+        <p>The strategy to get the best signal was by pooling the
+        interaction matrices. <monospace>cooler merge</monospace> was
+        used to merge all samples in each sub-folder (cell type) to just
+        one interaction matrix for each cell type. The reason for that
+        is that we choose to trust Wang et al.
+        (<xref alt="2019" rid="ref-wang_reprogramming_2019-nb-1" ref-type="bibr">2019</xref>)
+        when they say that compartments are highly reproducible between
+        replicates, and by merging all replicates, we will have a more
+        robust signal.</p>
+      </sec>
+      <sec id="create-multi-resolution-coolers-zoomify-nb-1">
+        <title>Create multi-resolution coolers (zoomify)</title>
+      </sec>
+      <sec id="matrix-balancing-iterative-correction-nb-1">
+        <title>Matrix balancing (Iterative correction)</title>
+      </sec>
+      <sec id="eigendecomposition-nb-1">
+        <title>Eigendecomposition</title>
+        <ref-list>
+          <ref id="ref-wang_reprogramming_2019-nb-1">
+            <element-citation publication-type="article-journal">
+              <person-group person-group-type="author">
+                <name><surname>Wang</surname><given-names>Yao</given-names></name>
+                <name><surname>Wang</surname><given-names>Hanben</given-names></name>
+                <name><surname>Zhang</surname><given-names>Yu</given-names></name>
+                <name><surname>Du</surname><given-names>Zhenhai</given-names></name>
+                <name><surname>Si</surname><given-names>Wei</given-names></name>
+                <name><surname>Fan</surname><given-names>Suixing</given-names></name>
+                <name><surname>Qin</surname><given-names>Dongdong</given-names></name>
+                <name><surname>Wang</surname><given-names>Mei</given-names></name>
+                <name><surname>Duan</surname><given-names>Yanchao</given-names></name>
+                <name><surname>Li</surname><given-names>Lufan</given-names></name>
+                <name><surname>Jiao</surname><given-names>Yuying</given-names></name>
+                <name><surname>Li</surname><given-names>Yuanyuan</given-names></name>
+                <name><surname>Wang</surname><given-names>Qiujun</given-names></name>
+                <name><surname>Shi</surname><given-names>Qinghua</given-names></name>
+                <name><surname>Wu</surname><given-names>Xin</given-names></name>
+                <name><surname>Xie</surname><given-names>Wei</given-names></name>
+              </person-group>
+              <article-title>Reprogramming of Meiotic Chromatin Architecture during Spermatogenesis</article-title>
+              <source>Molecular Cell</source>
+              <year iso-8601-date="2019-02">2019</year><month>02</month>
+              <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-29">2024</year><month>08</month><day>29</day></date-in-citation>
+              <volume>73</volume>
+              <issue>3</issue>
+              <issn>10972765</issn>
+              <uri>https://linkinghub.elsevier.com/retrieve/pii/S1097276518309894</uri>
+              <pub-id pub-id-type="doi">10.1016/j.molcel.2018.11.019</pub-id>
+              <fpage>547</fpage>
+              <lpage>561.e6</lpage>
+            </element-citation>
+          </ref>
+          <ref id="ref-open2c-nb-1">
+            <element-citation>
+              <person-group person-group-type="author">
+                <string-name>Open Chromosome Collective</string-name>
+              </person-group>
+              <article-title>Open Chromosome Collective (Open2C)</article-title>
+              <source>Open2C</source>
+              <year iso-8601-date="2024-11-13">2024</year><month>11</month><day>13</day>
+              <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-13">2024</year><month>11</month><day>13</day></date-in-citation>
+              <uri>https://open2c.github.io/</uri>
+            </element-citation>
+          </ref>
+        </ref-list>
+      </sec>
+    </sec>
+  </sec>
+</sec>
+</body>
+
+
+
+<back>
+</back>
+
+
+</sub-article>
+<sub-article article-type="notebook" id="nb-4-nb-2">
+<front-stub>
+</front-stub>
+
+<body>
+<sec id="discussion-nb-2">
+  <title>Discussion</title>
+  <p>Here is the discussion</p>
+</sec>
+</body>
+
+
+
+<back>
+</back>
+
+
+</sub-article>
+<sub-article article-type="notebook" id="nb-6-nb-3">
+<front-stub>
+</front-stub>
+
+<body>
+<sec id="introduction-nb-3">
+  <title>Introduction</title>
+  <sec id="sexual-reproduction-spermatogenesis-meiosis-nb-3">
+    <title>Sexual reproduction (spermatogenesis, meiosis)</title>
+    <p>The production of gametes in a sexually reproducing organism is a
+    highly complex process that involves numeruous elements.
+    Spermatogenesis, the process of forming male gametes, involves four
+    stages of differentiation from a germ cell through
+    <italic>spermatogonia</italic>, <italic>pachytene
+    spermatocyte</italic>, and <italic>round spermatids</italic> to
+    <italic>spermatozoa</italic>, or <italic>sperm</italic>
+    (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019-nb-3" ref-type="bibr">Wang
+    et al. 2019</xref>), and it is the very basis of male reproduction.
+    The specialized cell division of meiosis neatly handles the pairing,
+    recombination, and segregation of homologous chromosomes, thereby
+    ensuring proper genetic distribution. Deeply understanding the steps
+    of molecular steps of reproduction and how our genetic material is
+    inherited is essential in biology, bringing insight to areas such as
+    speciation, population diversity, and (male) infertility.</p>
+  </sec>
+  <sec id="selfish-genes-and-randomness-nb-3">
+    <title>Selfish genes (and randomness)</title>
+    <p>The conventional story of meiosis in gametogenesis is one of
+    random segregation of the sex chromosomes. They split into haploid
+    gametes, where each chromosome has an equal chance of being passed
+    on to a gamete. That seems like a fair game, but what if some genes
+    are cheating the system by making others less viable. A meiotic
+    driver is a selfish gene element that modulates meiosis and
+    preferentially transmits its own allele through meiosis, regardless
+    of the downstream fitness effects it may have (good or bad) on the
+    organism it is part of. This phenomenon challenges the traditional
+    understanding of selection, extending its scope beyond the fitness
+    effects on an organism to include selective pressures at the
+    molecular level. For example, if some genes on the X chromosome
+    create a disadvantage for gametes that <italic>do not</italic>
+    contain those genes, making sure the Y chromosome is not as viable
+    as the X, resulting in a sex imbalance and possibly numerous other
+    downstream effects. That is exactly what is coined <italic>sex
+    chromosome meiotic drive</italic>
+    (<xref alt="Jaenike 2001" rid="ref-jaenike_sex_2001-nb-3" ref-type="bibr">Jaenike
+    2001</xref>), a result of selfish genetic elements.</p>
+    <p>Motivated by previous results in the Munch Research group
+    (<xref alt="Munch 2024" rid="ref-munch_group_2024-nb-3" ref-type="bibr">Munch
+    2024</xref>) on hybrid incompatibility and extended common
+    haplotypes
+    (<xref alt="Skov et al. 2023" rid="ref-skov_extraordinary_2023-nb-3" ref-type="bibr">Skov
+    et al. 2023</xref>;
+    <xref alt="Sørensen et al. 2023" rid="ref-sorensen_genome_wide_2023-nb-3" ref-type="bibr">Sørensen
+    et al. 2023</xref>) that could be explained by meiotic drive, we
+    wanted to investigate how these patterns correlate with chromatin
+    compartments.</p>
+  </sec>
+  <sec id="high-throughput-chromosome-conformation-capture-hi-c-nb-3">
+    <title>High-Throughput Chromosome Conformation Capture
+    (Hi-C)</title>
+    <p>Our DNA can be divided into different orders of structure.
+    <italic>3C</italic> focus on identifying the highest orders of
+    organization inside the nucleus, that is, when the 30 nm thick coil
+    of chromatin fibers folds into loops, Topologically Associating
+    Domains (TADs), and chromatin compartments. Here, we narrow our
+    focus on the largest of the structures,
+    <italic>compartments</italic>, that is known to determine
+    availability to transcription factors, thus making an
+    <italic>A</italic> compartment <italic>active</italic>—and the
+    <italic>B</italic> compartment <italic>inactive</italic>. The
+    introduction of the Hi-C (high-throughput 3C) method
+    (<xref alt="Lieberman-Aiden et al. 2009" rid="ref-lieberman_aiden_comprehensive_2009-nb-3" ref-type="bibr">Lieberman-Aiden
+    et al. 2009</xref>) opened new possibilities for exploring the
+    three-dimensional organization of the genome.</p>
+  </sec>
+</sec>
+</body>
+
+
+
+<back>
+<ref-list>
+  <title></title>
+  <ref id="ref-lieberman_aiden_comprehensive_2009-nb-3">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Lieberman-Aiden</surname><given-names>Erez</given-names></name>
+        <name><surname>Van Berkum</surname><given-names>Nynke L.</given-names></name>
+        <name><surname>Williams</surname><given-names>Louise</given-names></name>
+        <name><surname>Imakaev</surname><given-names>Maxim</given-names></name>
+        <name><surname>Ragoczy</surname><given-names>Tobias</given-names></name>
+        <name><surname>Telling</surname><given-names>Agnes</given-names></name>
+        <name><surname>Amit</surname><given-names>Ido</given-names></name>
+        <name><surname>Lajoie</surname><given-names>Bryan R.</given-names></name>
+        <name><surname>Sabo</surname><given-names>Peter J.</given-names></name>
+        <name><surname>Dorschner</surname><given-names>Michael O.</given-names></name>
+        <name><surname>Sandstrom</surname><given-names>Richard</given-names></name>
+        <name><surname>Bernstein</surname><given-names>Bradley</given-names></name>
+        <name><surname>Bender</surname><given-names>M. A.</given-names></name>
+        <name><surname>Groudine</surname><given-names>Mark</given-names></name>
+        <name><surname>Gnirke</surname><given-names>Andreas</given-names></name>
+        <name><surname>Stamatoyannopoulos</surname><given-names>John</given-names></name>
+        <name><surname>Mirny</surname><given-names>Leonid A.</given-names></name>
+        <name><surname>Lander</surname><given-names>Eric S.</given-names></name>
+        <name><surname>Dekker</surname><given-names>Job</given-names></name>
+      </person-group>
+      <article-title>Comprehensive Mapping of Long-Range Interactions Reveals Folding Principles of the Human Genome</article-title>
+      <source>Science</source>
+      <year iso-8601-date="2009-10">2009</year><month>10</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-29">2024</year><month>08</month><day>29</day></date-in-citation>
+      <volume>326</volume>
+      <issue>5950</issue>
+      <issn>0036-8075, 1095-9203</issn>
+      <uri>https://www.science.org/doi/10.1126/science.1181369</uri>
+      <pub-id pub-id-type="doi">10.1126/science.1181369</pub-id>
+      <fpage>289</fpage>
+      <lpage>293</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-wang_reprogramming_2019-nb-3">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Wang</surname><given-names>Yao</given-names></name>
+        <name><surname>Wang</surname><given-names>Hanben</given-names></name>
+        <name><surname>Zhang</surname><given-names>Yu</given-names></name>
+        <name><surname>Du</surname><given-names>Zhenhai</given-names></name>
+        <name><surname>Si</surname><given-names>Wei</given-names></name>
+        <name><surname>Fan</surname><given-names>Suixing</given-names></name>
+        <name><surname>Qin</surname><given-names>Dongdong</given-names></name>
+        <name><surname>Wang</surname><given-names>Mei</given-names></name>
+        <name><surname>Duan</surname><given-names>Yanchao</given-names></name>
+        <name><surname>Li</surname><given-names>Lufan</given-names></name>
+        <name><surname>Jiao</surname><given-names>Yuying</given-names></name>
+        <name><surname>Li</surname><given-names>Yuanyuan</given-names></name>
+        <name><surname>Wang</surname><given-names>Qiujun</given-names></name>
+        <name><surname>Shi</surname><given-names>Qinghua</given-names></name>
+        <name><surname>Wu</surname><given-names>Xin</given-names></name>
+        <name><surname>Xie</surname><given-names>Wei</given-names></name>
+      </person-group>
+      <article-title>Reprogramming of Meiotic Chromatin Architecture during Spermatogenesis</article-title>
+      <source>Molecular Cell</source>
+      <year iso-8601-date="2019-02">2019</year><month>02</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-29">2024</year><month>08</month><day>29</day></date-in-citation>
+      <volume>73</volume>
+      <issue>3</issue>
+      <issn>10972765</issn>
+      <uri>https://linkinghub.elsevier.com/retrieve/pii/S1097276518309894</uri>
+      <pub-id pub-id-type="doi">10.1016/j.molcel.2018.11.019</pub-id>
+      <fpage>547</fpage>
+      <lpage>561.e6</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-skov_extraordinary_2023-nb-3">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Skov</surname><given-names>Laurits</given-names></name>
+        <name><surname>Coll Macià</surname><given-names>Moisès</given-names></name>
+        <name><surname>Lucotte</surname><given-names>Elise Anne</given-names></name>
+        <name><surname>Cavassim</surname><given-names>Maria Izabel Alves</given-names></name>
+        <name><surname>Castellano</surname><given-names>David</given-names></name>
+        <name><surname>Schierup</surname><given-names>Mikkel Heide</given-names></name>
+        <name><surname>Munch</surname><given-names>Kasper</given-names></name>
+      </person-group>
+      <article-title>Extraordinary selection on the human X chromosome associated with archaic admixture</article-title>
+      <source>Cell Genomics</source>
+      <year iso-8601-date="2023-03">2023</year><month>03</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-30">2024</year><month>08</month><day>30</day></date-in-citation>
+      <volume>3</volume>
+      <issue>3</issue>
+      <issn>2666979X</issn>
+      <uri>https://linkinghub.elsevier.com/retrieve/pii/S2666979X23000344</uri>
+      <pub-id pub-id-type="doi">10.1016/j.xgen.2023.100274</pub-id>
+      <fpage>100274</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-jaenike_sex_2001-nb-3">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Jaenike</surname><given-names>John</given-names></name>
+      </person-group>
+      <article-title>Sex Chromosome Meiotic Drive</article-title>
+      <source>Annual Review of Ecology and Systematics</source>
+      <year iso-8601-date="2001-11">2001</year><month>11</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-14">2024</year><month>11</month><day>14</day></date-in-citation>
+      <volume>32</volume>
+      <issue>1</issue>
+      <issn>0066-4162</issn>
+      <uri>https://www.annualreviews.org/doi/10.1146/annurev.ecolsys.32.081501.113958</uri>
+      <pub-id pub-id-type="doi">10.1146/annurev.ecolsys.32.081501.113958</pub-id>
+      <fpage>25</fpage>
+      <lpage>49</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-munch_group_2024-nb-3">
+    <element-citation>
+      <person-group person-group-type="author">
+        <name><surname>Munch</surname><given-names>Kasper</given-names></name>
+      </person-group>
+      <article-title>Munch-group</article-title>
+      <year iso-8601-date="2024-11">2024</year><month>11</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-15">2024</year><month>11</month><day>15</day></date-in-citation>
+      <uri>https://munch-group.org/research.html</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-sorensen_genome_wide_2023-nb-3">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Sørensen</surname><given-names>Erik F.</given-names></name>
+        <name><surname>Harris</surname><given-names>R. Alan</given-names></name>
+        <name><surname>Zhang</surname><given-names>Liye</given-names></name>
+        <name><surname>Raveendran</surname><given-names>Muthuswamy</given-names></name>
+        <name><surname>Kuderna</surname><given-names>Lukas F. K.</given-names></name>
+        <name><surname>Walker</surname><given-names>Jerilyn A.</given-names></name>
+        <name><surname>Storer</surname><given-names>Jessica M.</given-names></name>
+        <name><surname>Kuhlwilm</surname><given-names>Martin</given-names></name>
+        <name><surname>Fontsere</surname><given-names>Claudia</given-names></name>
+        <name><surname>Seshadri</surname><given-names>Lakshmi</given-names></name>
+        <name><surname>Bergey</surname><given-names>Christina M.</given-names></name>
+        <name><surname>Burrell</surname><given-names>Andrew S.</given-names></name>
+        <name><surname>Bergman</surname><given-names>Juraj</given-names></name>
+        <name><surname>Phillips-Conroy</surname><given-names>Jane E.</given-names></name>
+        <name><surname>Shiferaw</surname><given-names>Fekadu</given-names></name>
+        <name><surname>Chiou</surname><given-names>Kenneth L.</given-names></name>
+        <name><surname>Chuma</surname><given-names>Idrissa S.</given-names></name>
+        <name><surname>Keyyu</surname><given-names>Julius D.</given-names></name>
+        <name><surname>Fischer</surname><given-names>Julia</given-names></name>
+        <name><surname>Gingras</surname><given-names>Marie-Claude</given-names></name>
+        <name><surname>Salvi</surname><given-names>Sejal</given-names></name>
+        <name><surname>Doddapaneni</surname><given-names>Harshavardhan</given-names></name>
+        <name><surname>Schierup</surname><given-names>Mikkel H.</given-names></name>
+        <name><surname>Batzer</surname><given-names>Mark A.</given-names></name>
+        <name><surname>Jolly</surname><given-names>Clifford J.</given-names></name>
+        <name><surname>Knauf</surname><given-names>Sascha</given-names></name>
+        <name><surname>Zinner</surname><given-names>Dietmar</given-names></name>
+        <name><surname>Farh</surname><given-names>Kyle K.-H.</given-names></name>
+        <name><surname>Marques-Bonet</surname><given-names>Tomas</given-names></name>
+        <name><surname>Munch</surname><given-names>Kasper</given-names></name>
+        <name><surname>Roos</surname><given-names>Christian</given-names></name>
+        <name><surname>Rogers</surname><given-names>Jeffrey</given-names></name>
+      </person-group>
+      <article-title>Genome-wide coancestry reveals details of ancient and recent male-driven reticulation in baboons</article-title>
+      <source>Science</source>
+      <year iso-8601-date="2023-06">2023</year><month>06</month>
+      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-15">2024</year><month>11</month><day>15</day></date-in-citation>
+      <volume>380</volume>
+      <issue>6648</issue>
+      <issn>0036-8075, 1095-9203</issn>
+      <uri>https://www.science.org/doi/10.1126/science.abn8153</uri>
+      <pub-id pub-id-type="doi">10.1126/science.abn8153</pub-id>
+      <fpage>eabn8153</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+</ref-list>
+</back>
+
+
+</sub-article>
+<sub-article article-type="notebook" id="nb-8-nb-4">
+<front-stub>
+</front-stub>
+
+<body>
+<sec id="supplementary-material-nb-4">
+  <title>Supplementary material</title>
+  <p>Here is appended the supplementary material</p>
+</sec>
+</body>
+
+
+
+<back>
+</back>
+
+
+</sub-article>
+<sub-article article-type="notebook" id="nb-10-nb-5">
+<front-stub>
+</front-stub>
+
+<body>
+<sec id="results-nb-5">
+  <title>Results</title>
+  <p>Here are the glorious results</p>
+</sec>
+</body>
+
+
+
+<back>
+</back>
+
+
+</sub-article>
+
+</article>

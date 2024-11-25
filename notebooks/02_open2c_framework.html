@@ -171,7 +171,6 @@ window.Quarto = {
       <a href="../">Søren’s MSc project about Hi-C and spermatogenesis</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/munch-group/hic-spermatogenesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="../msc-project-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -216,7 +215,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Reports</span></a>
+ <span class="menu-text">Workflows</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -224,12 +223,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reports/manus/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chromatin Compartments and Selection on X</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reports/manus/supplementary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Supplementary material</span></a>
+  <a href="../scripts/master_workflow.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">master_workflow</span></a>
   </div>
 </li>
       </ul>
@@ -237,7 +231,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Slides</span></a>
+ <span class="menu-text">Reports</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -245,17 +239,53 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/project_progress.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project Progress Day: Msc. Project 2024</span></a>
+  <a href="../reports/thoughts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Thoughts and Prayers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../results/Readme.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Result files</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+  <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project Progress Day: Msc. Project 2024</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Thesis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../thesis/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chromatin Compartments and Selection on X</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../thesis/supplementary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Supplementary material</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -265,25 +295,44 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#pairtools-convert-sequencing-data-to-a-list-of-contacts" id="toc-pairtools-convert-sequencing-data-to-a-list-of-contacts" class="nav-link active" data-scroll-target="#pairtools-convert-sequencing-data-to-a-list-of-contacts"><code>pairtools</code>: Convert sequencing data to a list of contacts</a>
   <ul class="collapse">
-  <li><a href="#check-out-the-bamfiles" id="toc-check-out-the-bamfiles" class="nav-link" data-scroll-target="#check-out-the-bamfiles">Check out the bamfiles</a></li>
+  <li><a href="#check-out-the-bamfiles" id="toc-check-out-the-bamfiles" class="nav-link" data-scroll-target="#check-out-the-bamfiles">Check out the bamfiles</a>
+  <ul class="collapse">
+  <li><a href="#i-had-to-decompress-the-reference-genome" id="toc-i-had-to-decompress-the-reference-genome" class="nav-link" data-scroll-target="#i-had-to-decompress-the-reference-genome">I had to decompress the reference genome</a></li>
+  </ul></li>
   <li><a href="#pair-and-sort-the-bamfiles-workfflow---turned-out-not-to-work-no-mapped-reads-were-left-after-filtering" id="toc-pair-and-sort-the-bamfiles-workfflow---turned-out-not-to-work-no-mapped-reads-were-left-after-filtering" class="nav-link" data-scroll-target="#pair-and-sort-the-bamfiles-workfflow---turned-out-not-to-work-no-mapped-reads-were-left-after-filtering">Pair and sort the bamfiles (workfflow) - turned out not to work (no mapped reads were left after filtering)</a></li>
   <li><a href="#map-the-reads-again-but-as-pe-reads-in-stead-cooler-recommendation-workflow" id="toc-map-the-reads-again-but-as-pe-reads-in-stead-cooler-recommendation-workflow" class="nav-link" data-scroll-target="#map-the-reads-again-but-as-pe-reads-in-stead-cooler-recommendation-workflow">Map the reads again but as PE reads in stead (<code>cooler</code> recommendation, workflow)</a></li>
   <li><a href="#check-the-sorted-pairs" id="toc-check-the-sorted-pairs" class="nav-link" data-scroll-target="#check-the-sorted-pairs">Check the sorted pairs</a></li>
-  <li><a href="#visualize-stats-pairtools-stats" id="toc-visualize-stats-pairtools-stats" class="nav-link" data-scroll-target="#visualize-stats-pairtools-stats">Visualize Stats: <code>pairtools stats</code></a></li>
+  <li><a href="#visualize-stats-pairtools-stats" id="toc-visualize-stats-pairtools-stats" class="nav-link" data-scroll-target="#visualize-stats-pairtools-stats">Visualize Stats: <code>pairtools stats</code></a>
+  <ul class="collapse">
+  <li><a href="#if-it-is-not-the-same-then-run-this-command-on-all-the-sorted-pairs." id="toc-if-it-is-not-the-same-then-run-this-command-on-all-the-sorted-pairs." class="nav-link" data-scroll-target="#if-it-is-not-the-same-then-run-this-command-on-all-the-sorted-pairs.">If it is not the same, then run this command on all the sorted pairs.</a></li>
+  <li><a href="#otherwise-just-use-multiqc" id="toc-otherwise-just-use-multiqc" class="nav-link" data-scroll-target="#otherwise-just-use-multiqc">Otherwise, just use <code>MultiQC</code></a></li>
+  </ul></li>
   <li><a href="#dedup-the-pairs-and-visualize-stats-again" id="toc-dedup-the-pairs-and-visualize-stats-again" class="nav-link" data-scroll-target="#dedup-the-pairs-and-visualize-stats-again">Dedup the pairs and visualize stats again</a></li>
   </ul></li>
   <li><a href="#cooler-make-the-pairs-cool" id="toc-cooler-make-the-pairs-cool" class="nav-link" data-scroll-target="#cooler-make-the-pairs-cool"><code>cooler</code>: Make the pairs <code>cool</code></a></li>
   <li><a href="#cooler-access-and-plot-hi-c-data" id="toc-cooler-access-and-plot-hi-c-data" class="nav-link" data-scroll-target="#cooler-access-and-plot-hi-c-data"><code>cooler</code>: access and plot Hi-C data</a>
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#follow-cooler-walkthrough-from-the-documentation" id="toc-follow-cooler-walkthrough-from-the-documentation" class="nav-link" data-scroll-target="#follow-cooler-walkthrough-from-the-documentation">Follow <code>cooler</code> walkthrough from the documentation</a></li>
+  <li><a href="#follow-cooler-walkthrough-from-the-documentation" id="toc-follow-cooler-walkthrough-from-the-documentation" class="nav-link" data-scroll-target="#follow-cooler-walkthrough-from-the-documentation">Follow <code>cooler</code> walkthrough from the documentation</a>
+  <ul class="collapse">
+  <li><a href="#direct-access-with-h5py" id="toc-direct-access-with-h5py" class="nav-link" data-scroll-target="#direct-access-with-h5py">Direct access with <code>h5py</code></a></li>
+  <li><a href="#the-cooler-class" id="toc-the-cooler-class" class="nav-link" data-scroll-target="#the-cooler-class">The <code>Cooler</code> class</a></li>
+  <li><a href="#bin-annotation" id="toc-bin-annotation" class="nav-link" data-scroll-target="#bin-annotation">Bin annotation</a></li>
+  <li><a href="#enter-the-matrix" id="toc-enter-the-matrix" class="nav-link" data-scroll-target="#enter-the-matrix">Enter the Matrix</a></li>
+  </ul></li>
   <li><a href="#use-the-new-pairs" id="toc-use-the-new-pairs" class="nav-link" data-scroll-target="#use-the-new-pairs">Use the new pairs</a></li>
-  <li><a href="#merge-the-replicates-according-to-sra-id" id="toc-merge-the-replicates-according-to-sra-id" class="nav-link" data-scroll-target="#merge-the-replicates-according-to-sra-id">Merge the replicates according to SRA ID</a></li>
+  <li><a href="#merge-the-replicates-according-to-sra-id" id="toc-merge-the-replicates-according-to-sra-id" class="nav-link" data-scroll-target="#merge-the-replicates-according-to-sra-id">Merge the replicates according to SRA ID</a>
+  <ul class="collapse">
+  <li><a href="#first-subset-the-chromosomes-to-only-the-real-chromosomes" id="toc-first-subset-the-chromosomes-to-only-the-real-chromosomes" class="nav-link" data-scroll-target="#first-subset-the-chromosomes-to-only-the-real-chromosomes">First, subset the chromosomes to only the real chromosomes</a></li>
+  </ul></li>
   <li><a href="#zoomify-the-merged-replicates" id="toc-zoomify-the-merged-replicates" class="nav-link" data-scroll-target="#zoomify-the-merged-replicates"><code>zoomify</code> the merged replicates</a></li>
-  <li><a href="#visualize-the-matrices" id="toc-visualize-the-matrices" class="nav-link" data-scroll-target="#visualize-the-matrices">Visualize the matrices</a></li>
+  <li><a href="#visualize-the-matrices" id="toc-visualize-the-matrices" class="nav-link" data-scroll-target="#visualize-the-matrices">Visualize the matrices</a>
+  <ul class="collapse">
+  <li><a href="#plot-the-uncorrected-matrix" id="toc-plot-the-uncorrected-matrix" class="nav-link" data-scroll-target="#plot-the-uncorrected-matrix">Plot the uncorrected matrix</a></li>
+  </ul></li>
   <li><a href="#balance-the-matrices-iterative-correction" id="toc-balance-the-matrices-iterative-correction" class="nav-link" data-scroll-target="#balance-the-matrices-iterative-correction">Balance the matrices (iterative correction)</a></li>
   </ul></li>
   <li><a href="#we-balance-the-matrix-with-the-command-line-tool-at-it-will-make-quick-work-of-the-job" id="toc-we-balance-the-matrix-with-the-command-line-tool-at-it-will-make-quick-work-of-the-job" class="nav-link" data-scroll-target="#we-balance-the-matrix-with-the-command-line-tool-at-it-will-make-quick-work-of-the-job">We balance the matrix with the command line tool, at it will make quick work of the job</a></li>
@@ -291,12 +340,17 @@ window.Quarto = {
   <li><a href="#it-works-best-with-at-least-8-cores-default." id="toc-it-works-best-with-at-least-8-cores-default." class="nav-link" data-scroll-target="#it-works-best-with-at-least-8-cores-default.">It works best with at least 8 cores (default).</a></li>
   <li><a href="#bash-command" id="toc-bash-command" class="nav-link" data-scroll-target="#bash-command">Bash command:</a>
   <ul class="collapse">
-  <li><a href="#visualize-weights-as-well" id="toc-visualize-weights-as-well" class="nav-link" data-scroll-target="#visualize-weights-as-well">Visualize weights as well</a></li>
+  <li><a href="#plot-the-corrected-balanced-matrix" id="toc-plot-the-corrected-balanced-matrix" class="nav-link" data-scroll-target="#plot-the-corrected-balanced-matrix">Plot the corrected (balanced) matrix</a></li>
+  <li><a href="#visualize-weights-as-well" id="toc-visualize-weights-as-well" class="nav-link" data-scroll-target="#visualize-weights-as-well">Visualize weights as well</a>
+  <ul class="collapse">
+  <li><a href="#coverage-distinct-from-the-weights" id="toc-coverage-distinct-from-the-weights" class="nav-link" data-scroll-target="#coverage-distinct-from-the-weights">Coverage (distinct from the weights)</a></li>
+  <li><a href="#smoothing-and-interpolation" id="toc-smoothing-and-interpolation" class="nav-link" data-scroll-target="#smoothing-and-interpolation">Smoothing and interpolation</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#counts-vs.-distance" id="toc-counts-vs.-distance" class="nav-link" data-scroll-target="#counts-vs.-distance">Counts vs.&nbsp;Distance</a></li>
   <li><a href="#compartments" id="toc-compartments" class="nav-link" data-scroll-target="#compartments">Compartments</a></li>
   </ul>
-<div class="toc-actions"><ul class="collapse"><li><a href="https://github.dev/munch-group/hic-spermatogenesis/blob/main/notebooks/02_open2c_framework.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/notebooks/02_open2c_framework.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.dev/munch-group/hic-spermatogenesis/blob/main/notebooks/02_open2c_framework.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/notebooks/02_open2c_framework.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
