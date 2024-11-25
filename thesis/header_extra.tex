@@ -1,14 +1,11 @@
-%% Palatino font:
+% Palatino font:
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{palatino}
 
-\usepackage{pifont}
+\usepackage{mathpazo}
 
 \usepackage{upquote}
-
-\usepackage{fontspec}
-\newfontfamily\mytitlefont{Sans}
 
 % front page
 \usepackage[colorlinks]{hyperref} % for text color on title
@@ -19,17 +16,21 @@
 \AtBeginDocument{\thispagestyle{empty}
 \definecolor{titlecolor}{HTML}{1C2404}
 \begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0, opacity=0.4] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
 \draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
 % \draw (current page.center) node[bag] {  
         \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
-    \mytitlefont \color{titlecolor} \Large Master of Science in Bioinformatics \\ 
+    % \mytitlefont 
+    \color{titlecolor} \Large \textbf{Thesis} \\ 
     \\ 
-    \mytitlefont \color{titlecolor} \Huge \thetitle \\ 
+    % \mytitlefont 
+    \color{titlecolor} \Huge \textbf{\thetitle} \\ 
     \\ 
-    \mytitlefont \color{titlecolor} \huge \theauthor \\
+    % \mytitlefont
+    \color{titlecolor} \huge \theauthor \\
     \\
-    \mytitlefont \color{titlecolor} \Large \thedate 
+    % \mytitlefont 
+    \color{titlecolor} \Large \thedate 
     };
 \end{tikzpicture}
 \clearpage}
@@ -37,24 +38,30 @@
 % back side
 \AtEndDocument{\clearpage\thispagestyle{empty}
 \begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0, opacity=0.4] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+\draw (current page.center) node[inner sep=0] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
 % \draw (current page.center) node[bag] {  
     \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
-        \mytitlefont \color{titlecolor} \large Bioinformatics Research Centre \\ 
-        \mytitlefont \color{titlecolor} \large Department of Molecular Biology and Genetics \\ 
-        \mytitlefont \color{titlecolor} \large Aarhus University \\
-        \mytitlefont \color{titlecolor} \large Universitetsbyen 81 \\
-        \mytitlefont \color{titlecolor} \large 8000 Aarhus C \\
-        \mytitlefont \color{titlecolor} \large Denmark
+        % \mytitlefont 
+        \color{titlecolor} \large Bioinformatics Research Centre \\ 
+        % \mytitlefont 
+        \color{titlecolor} \large Department of Molecular Biology and Genetics \\ 
+        % \mytitlefont 
+        \color{titlecolor} \large Aarhus University \\
+        % \mytitlefont 
+        \color{titlecolor} \large Universitetsbyen 81 \\
+        % \mytitlefont 
+        \color{titlecolor} \large 8000 Aarhus C \\
+        % \mytitlefont 
+        \color{titlecolor} \large Denmark
         };
 
 \end{tikzpicture}}
 
 
-% picture (AU logo in title page)
-\usepackage{titlepic}
-\usepackage{graphicx}
-\titlepic{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}}}
+% % picture (AU logo in title page)
+% \usepackage{titlepic}
+% % \usepackage{graphicx}
+% \titlepic{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}}}
 
 
 
@@ -84,6 +91,13 @@
 % redefine the 'quote' environment to use this 'myquote' environment
 \renewenvironment{quote}{\begin{myquote}}{\end{myquote}}
 
+% add a dummy abstract environment that is defined in quarto manuscript 
+% but not in the quarto book that we run first to give it a slot in the 
+% side bar
+\ifcsmacro{abstract}{}{
+  \let\endmyenvironment\undefined%
+  \newenvironment{abstract}{\chapter*{Abstract}}{}
+}
 
 % \usepackage{framed} % not sure i need this anymore
 
@@ -157,10 +171,19 @@
 % \renewcommand\thesubsubsection{\arabic{subsection}}
 % \renewcommand\thesubsubsection{\arabic{chapter}-\arabic{subsubsection}}
 
-% scrartcl does not have chapters
-% \renewcommand*{\chapterformat}{%
-%   \textcolor[rgb]{0.8, 0.8, 0.8}{\thechapter}\autodot\enskip%
-% }
+
+\renewcommand*{\chapterformat}{%
+\textcolor[rgb]{0.7, 0.7, 0.7}{\thechapter}\autodot\enskip%
+}
+\renewcommand*{\sectionformat}{%
+\textcolor[rgb]{0.7, 0.7, 0.7}{\thesection}\autodot\enskip%
+}
+\renewcommand*{\subsectionformat}{%
+\textcolor[rgb]{0.7, 0.7, 0.7}{\thesubsection}\autodot\enskip%
+}
+\renewcommand*{\subsubsectionformat}{%
+\textcolor[rgb]{0.7, 0.7, 0.7}{\thesubsubsection}\autodot\enskip%
+}
 
 
 
@@ -174,10 +197,9 @@
 %     \endorigfigure
 % }
 
-
-
-
-
-
-
+\usepackage{xcolor}
+% \let\oldtextit\textit 
+% \renewcommand\textit[1]{\oldtextit{\color{blue}#1}}
+\let\oldemph\emph
+\renewcommand\emph[1]{\oldemph{\color{gray}#1}}
 
