@@ -1,4 +1,70 @@
-profile:
-  group: 
-    - [book, slides]
-  default: book
+project:
+  type: book
+  post-render:
+    - quarto render slides/
+    - quarto render thesis/
+    #- quarto render --profile slides
+  preview:
+    port: 4201
+
+execute:
+  freeze: auto
+  echo: true
+
+format:
+  html:
+    theme: 
+      - cosmo
+      - custom.scss
+    grid:
+      sidebar-width: 210px
+      margin-width: 150px
+    toc-depth: 3
+    notebook-links: global
+    number-sections: false
+
+comments:
+  hypothesis: true
+
+
+book:
+  repo-url: "https://github.com/munch-group/hic-spermatogenesis"
+  repo-actions: [edit, issue, source]  
+  title: "Søren's MSc project about Hi-C and spermatogenesis"
+  output-file: "msc-project-book"
+  author: "Søren Jørgensen"
+  sidebar:
+    collapse-level: 1
+    reader-mode: true
+  chapters:
+    - index.qmd
+    - part: "Notebooks"
+      chapters: 
+      - notebooks/01_hicexplorer.ipynb
+      - notebooks/02_open2c_framework.ipynb
+      - notebooks/03_compartments.ipynb
+    - part: "Workflows"
+      chapters:
+        - scripts/master_workflow.py
+        # - scripts/gwf_map_reads.py
+        # - scripts/gwf_bowtie.py
+        # - scripts/gwf_bowtie_local.py
+        # - scripts/gwf_hiccorrect.py
+        # - scripts/gwf_bwamem.py
+        # - scripts/gwf_pair_alignments.py
+    - part: "Reports"
+      chapters:
+        - reports/thoughts.qmd
+        - results/Readme.md
+    - part: "Slides"
+      chapters:
+      # markdown slides
+      # (the same files must be listed _quarto-slides.yml to render as slides)
+      - slides/index.qmd
+    - part: "Thesis"
+      chapters: 
+      - thesis/index.qmd
+      - thesis/supplementary.qmd
+  # downloads: [pdf]
+
+bibliography: references.bib
