@@ -39,7 +39,7 @@ jobs:
         env:
           QUARTO_PROFILE: default
         with:
-          path: .
+          # path: .
           to: html
 
       - name: Publish to GitHub Pages
