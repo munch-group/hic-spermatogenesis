@@ -11,7 +11,7 @@ toc-depth: 4
 ## Notes on methods
 
 -   [@wang_reprogramming_2019] uses a sliding window approach [@dixon_chromatin_2015] to calculate the obs/exp matrices for the PCA. I will try that next, and work within the `cooler`/`cooltools` framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.
--   `HiCExplorer` use a genome-wide contact-distance-based normalization method (`dist_norm`) to generate *obs/exp* matrices for PCA (similar to [@lieberman-aiden_comprehensive_2009]) that may introduce biases. I don't know why, but it looks more like [@wang_reprogramming_2019] when subtracting the running average \[triangular windows, *Kasper* did this\] from the computed PCs.
+-   `HiCExplorer` use a genome-wide contact-distance-based normalization method (`dist_norm`) to generate *obs/exp* matrices for PCA (similar to [@lieberman_aiden_comprehensive_2009]) that may introduce biases. I don't know why, but it looks more like [@wang_reprogramming_2019] when subtracting the running average \[triangular windows, *Kasper* did this\] from the computed PCs.
 
 ## Notes on Quarto
 
