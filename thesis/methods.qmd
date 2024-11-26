@@ -14,9 +14,9 @@ The whole of this project is carried out with reproducibility in mind, so an eff
 
 ### Downloading Data and Project Structure
 
-To reproduce the results from [@wang_reprogramming_2019], I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable `SRA-runtable.tsv`. To get an overview of the data accessions used in this analysis, we will first summarize the runtable  that contains the accession numbers and some metadata for each sample (@tbl-runtable-summary). It adds up to ~1Tb of compressed `fastq` files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.
+To reproduce the results from [@wang_reprogramming_2019], I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable `SRA-runtable.tsv`. To get an overview of the data accessions used in this analysis, we will first summarize the runtable  that contains the accession numbers and some metadata for each sample (@tbl-runtable). It adds up to ~1Tb of compressed `fastq` files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.
 
-{{< embed ../notebooks/03_compartments.ipynb#tbl-runtable-summary >}}
+{{< embed ../notebooks/03_compartments.ipynb#tbl-runtable >}}
 
 
 
@@ -25,7 +25,9 @@ To reproduce the results from [@wang_reprogramming_2019], I chose to use their r
 ::: {#fig-flowchart-handling-coolers}
 
 
-A flowchart showing the pipeline from `.fastq` to `.mcool`. The first 6 steps were done with a Probably BioRender or Inkscape.
+***[A flowchart showing the pipeline from `.fastq` to `.mcool`. The first 6 steps were done with a Probably BioRender or Inkscape.]***
+
+
 :::
 
 #### The *gwf* workflow targets
