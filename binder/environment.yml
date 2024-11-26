@@ -6,6 +6,7 @@ channels:
   - gwforg
   - kaspermunch
   - micknudsen
+  - r
   - genomedk
 dependencies:
   - git
@@ -19,4 +20,19 @@ dependencies:
   - seaborn
   - statsmodels
   - hicexplorer
+  - r-essentials
+  - rpy2
+  - bwa
+  - cooler
+  - samtools
+  - jupyter
+  - slurm-jupyter
+  - bowtie2
+  - natsort
+  - pybigwig
+  - pairtools
+  - multiqc
+  - conda-forge::pprintpp
+  - cooltools
+  - genominterv
 prefix: /home/sojern/miniconda3/envs/hic
