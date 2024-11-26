@@ -88,7 +88,7 @@ def plot_pngs_in_grid(image_folder, suffix=".png", ncol=3):
     #plt.show()
 
 
-def extract_a_coordinates(e1, name, restriction = 'full', chrom='chrX', smooth = False, res = None, csv = None, output_dir='../results'):
+def extract_a_coordinates(e1, name, restriction = 'full', chrom='chrX', smooth = False, res = None, csv = None, output_dir='../results', force = False):
     """
     Calculates the A-compartment intervals based on the sign of an E1 eigenvector
     and saves the intervals to a CSV file.
@@ -108,18 +108,21 @@ def extract_a_coordinates(e1, name, restriction = 'full', chrom='chrX', smooth =
     """
     # Handle NaN values by forward-filling up to 2 bins in gaps
     e1 = pd.Series(e1)  # Ensure e1 is a pandas Series
-    e1_filled = e1.ffill(limit=2, limit_area='inside')
-
-    # Smooth the eigenvector values using a rolling window
     if smooth:
-        e1_filled = e1_filled.rolling(5,1, center=True).sum()
+        # Smooth the eigenvector values using a rolling window
+        e1_filled = e1.rolling(5,1, center=True).sum()
+    else:
+        # Forward-fill NaN values up to 2 bins in gaps
+        e1_filled = e1.ffill(limit=2, limit_area='inside')
+
+
 
     # Detect changes in the sign of the eigenvector
     sign_change_coords = np.where(np.diff((e1_filled > 0).astype(int)))[0]
 
     # Determine start and end bins for A compartments
-    a_start_bin = sign_change_coords[e1_filled.iloc[sign_change_coords + 1] > 0]
-    a_end_bin = sign_change_coords[e1_filled.iloc[sign_change_coords] > 0]
+    a_start_bin = sign_change_coords[e1_filled.iloc[sign_change_coords + 1] > 0] + 1
+    a_end_bin = sign_change_coords[e1_filled.iloc[sign_change_coords] > 0] + 1
 
     print(f"Calculating A-compartment intervals for {name}")
     #print(f"Initial counts: {len(a_start_bin)} starts, {len(a_end_bin)} ends")
@@ -145,11 +148,14 @@ def extract_a_coordinates(e1, name, restriction = 'full', chrom='chrX', smooth =
     if not csv:
         print("`csv`= None. Returning DataFrame only.")
         return df
-    csv_name = f'{output_dir}/{name}_a_comp_coords_{int(res * 0.001)}kb_{restriction}.csv'
+    csv_name = op.join(output_dir,f'{name}_a_comp_coords_{int(res * 0.001)}kb_{restriction}.csv')
     if smooth:
         csv_name = csv_name.replace('.csv', '_smoothed.csv')
     if not op.exists(csv_name):
         print(f"Saving A-compartment intervals to: {csv_name}")
+        df[['chrom', 'start', 'end']].to_csv(csv_name, index=False)
+    elif force:
+        print(f"File {csv_name} already exists. Overwriting.")
         df[['chrom', 'start', 'end']].to_csv(csv_name, index=False)
     else: 
         print(f"File {csv_name} already exists. Returning DataFrame only.")
