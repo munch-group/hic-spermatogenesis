@@ -188,59 +188,304 @@ and evolutionary dynamics across primate species.</p>
     of the data accessions used in this analysis, we will first
     summarize the runtable that contains the accession numbers and some
     metadata for each sample
-    (<xref alt="Table 1" rid="tbl-runtable-summary">Table 1</xref>). It
-    adds up to ~1Tb of compressed <monospace>fastq</monospace> files,
-    holding ~9.5 billion reads, roughly evenly spread on the 5 tissue
-    types.</p>
-    <fig id="tbl-runtable-summary">
-      <caption><p>Table 1: Summary of the data accessions used in this
-      analysis</p></caption>
+    (<xref alt="Table 1" rid="tbl-runtable">Table 1</xref>). It adds up
+    to ~1Tb of compressed <monospace>fastq</monospace> files, holding
+    ~9.5 billion reads, roughly evenly spread on the 5 tissue types.</p>
+    <fig id="tbl-runtable">
+      <caption><p>Table 1: The most relevant columns of the
+      <monospace>SRA-runtable.tsv</monospace> file</p></caption>
       <table-wrap>
-        <table id="T_55add">
+        <table id="T_c1ff2">
           <thead>
             <tr>
               <th> </th>
-              <th id="T_55add_level0_col0">source_name</th>
-              <th id="T_55add_level0_col1">GB</th>
-              <th id="T_55add_level0_col2">Bases</th>
-              <th id="T_55add_level0_col3">Reads</th>
+              <th id="T_c1ff2_level0_col0">source_name</th>
+              <th id="T_c1ff2_level0_col1">BioSample</th>
+              <th id="T_c1ff2_level0_col2">Run</th>
+              <th id="T_c1ff2_level0_col3">GB</th>
+              <th id="T_c1ff2_level0_col4">Bases</th>
+              <th id="T_c1ff2_level0_col5">Reads</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td id="T_55add_level0_row0">0</td>
-              <td id="T_55add_row0_col0">fibroblast</td>
-              <td id="T_55add_row0_col1">211.403275</td>
-              <td id="T_55add_row0_col2">553,968,406,500</td>
-              <td id="T_55add_row0_col3">1,846,561,355</td>
+              <td id="T_c1ff2_level0_row0">16</td>
+              <td id="T_c1ff2_row0_col0">fibroblast</td>
+              <td id="T_c1ff2_row0_col1">SAMN08375237</td>
+              <td id="T_c1ff2_row0_col2">SRR6502335</td>
+              <td id="T_c1ff2_row0_col3">29.771059</td>
+              <td id="T_c1ff2_row0_col4">73,201,141,800</td>
+              <td id="T_c1ff2_row0_col5">244,003,806</td>
             </tr>
             <tr>
-              <td id="T_55add_level0_row1">1</td>
-              <td id="T_55add_row1_col0">pachytene spermatocyte</td>
-              <td id="T_55add_row1_col1">274.835160</td>
-              <td id="T_55add_row1_col2">715,656,614,700</td>
-              <td id="T_55add_row1_col3">2,385,522,049</td>
+              <td id="T_c1ff2_level0_row1">17</td>
+              <td id="T_c1ff2_row1_col0">fibroblast</td>
+              <td id="T_c1ff2_row1_col1">SAMN08375237</td>
+              <td id="T_c1ff2_row1_col2">SRR6502336</td>
+              <td id="T_c1ff2_row1_col3">22.755361</td>
+              <td id="T_c1ff2_row1_col4">65,119,970,100</td>
+              <td id="T_c1ff2_row1_col5">217,066,567</td>
             </tr>
             <tr>
-              <td id="T_55add_level0_row2">2</td>
-              <td id="T_55add_row2_col0">round spermatid</td>
-              <td id="T_55add_row2_col1">243.128044</td>
-              <td id="T_55add_row2_col2">655,938,457,200</td>
-              <td id="T_55add_row2_col3">2,186,461,524</td>
+              <td id="T_c1ff2_level0_row2">18</td>
+              <td id="T_c1ff2_row2_col0">fibroblast</td>
+              <td id="T_c1ff2_row2_col1">SAMN08375236</td>
+              <td id="T_c1ff2_row2_col2">SRR6502337</td>
+              <td id="T_c1ff2_row2_col3">21.434722</td>
+              <td id="T_c1ff2_row2_col4">52,769,196,300</td>
+              <td id="T_c1ff2_row2_col5">175,897,321</td>
             </tr>
             <tr>
-              <td id="T_55add_level0_row3">3</td>
-              <td id="T_55add_row3_col0">sperm</td>
-              <td id="T_55add_row3_col1">164.131640</td>
-              <td id="T_55add_row3_col2">428,913,635,400</td>
-              <td id="T_55add_row3_col3">1,429,712,118</td>
+              <td id="T_c1ff2_level0_row3">19</td>
+              <td id="T_c1ff2_row3_col0">fibroblast</td>
+              <td id="T_c1ff2_row3_col1">SAMN08375236</td>
+              <td id="T_c1ff2_row3_col2">SRR6502338</td>
+              <td id="T_c1ff2_row3_col3">21.420030</td>
+              <td id="T_c1ff2_row3_col4">52,378,949,100</td>
+              <td id="T_c1ff2_row3_col5">174,596,497</td>
             </tr>
             <tr>
-              <td id="T_55add_level0_row4">4</td>
-              <td id="T_55add_row4_col0">spermatogonia</td>
-              <td id="T_55add_row4_col1">192.794420</td>
-              <td id="T_55add_row4_col2">518,665,980,300</td>
-              <td id="T_55add_row4_col3">1,728,886,601</td>
+              <td id="T_c1ff2_level0_row4">20</td>
+              <td id="T_c1ff2_row4_col0">fibroblast</td>
+              <td id="T_c1ff2_row4_col1">SAMN08375236</td>
+              <td id="T_c1ff2_row4_col2">SRR6502339</td>
+              <td id="T_c1ff2_row4_col3">10.207410</td>
+              <td id="T_c1ff2_row4_col4">28,885,941,600</td>
+              <td id="T_c1ff2_row4_col5">96,286,472</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row5">9</td>
+              <td id="T_c1ff2_row5_col0">fibroblast</td>
+              <td id="T_c1ff2_row5_col1">SAMN08375237</td>
+              <td id="T_c1ff2_row5_col2">SRR7349189</td>
+              <td id="T_c1ff2_row5_col3">52.729173</td>
+              <td id="T_c1ff2_row5_col4">139,604,854,200</td>
+              <td id="T_c1ff2_row5_col5">465,349,514</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row6">10</td>
+              <td id="T_c1ff2_row6_col0">fibroblast</td>
+              <td id="T_c1ff2_row6_col1">SAMN08375236</td>
+              <td id="T_c1ff2_row6_col2">SRR7349190</td>
+              <td id="T_c1ff2_row6_col3">53.085520</td>
+              <td id="T_c1ff2_row6_col4">142,008,353,400</td>
+              <td id="T_c1ff2_row6_col5">473,361,178</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row7">21</td>
+              <td id="T_c1ff2_row7_col0">pachytene spermatocyte</td>
+              <td id="T_c1ff2_row7_col1">SAMN08375234</td>
+              <td id="T_c1ff2_row7_col2">SRR6502342</td>
+              <td id="T_c1ff2_row7_col3">60.258880</td>
+              <td id="T_c1ff2_row7_col4">150,370,993,500</td>
+              <td id="T_c1ff2_row7_col5">501,236,645</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row8">22</td>
+              <td id="T_c1ff2_row8_col0">pachytene spermatocyte</td>
+              <td id="T_c1ff2_row8_col1">SAMN08375234</td>
+              <td id="T_c1ff2_row8_col2">SRR6502344</td>
+              <td id="T_c1ff2_row8_col3">27.146048</td>
+              <td id="T_c1ff2_row8_col4">65,697,684,300</td>
+              <td id="T_c1ff2_row8_col5">218,992,281</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row9">23</td>
+              <td id="T_c1ff2_row9_col0">pachytene spermatocyte</td>
+              <td id="T_c1ff2_row9_col1">SAMN08375234</td>
+              <td id="T_c1ff2_row9_col2">SRR6502345</td>
+              <td id="T_c1ff2_row9_col3">26.202707</td>
+              <td id="T_c1ff2_row9_col4">63,490,538,700</td>
+              <td id="T_c1ff2_row9_col5">211,635,129</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row10">0</td>
+              <td id="T_c1ff2_row10_col0">pachytene spermatocyte</td>
+              <td id="T_c1ff2_row10_col1">SAMN09427370</td>
+              <td id="T_c1ff2_row10_col2">SRR7345458</td>
+              <td id="T_c1ff2_row10_col3">55.970557</td>
+              <td id="T_c1ff2_row10_col4">153,281,577,900</td>
+              <td id="T_c1ff2_row10_col5">510,938,593</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row11">1</td>
+              <td id="T_c1ff2_row11_col0">pachytene spermatocyte</td>
+              <td id="T_c1ff2_row11_col1">SAMN09427370</td>
+              <td id="T_c1ff2_row11_col2">SRR7345459</td>
+              <td id="T_c1ff2_row11_col3">53.982492</td>
+              <td id="T_c1ff2_row11_col4">144,993,841,200</td>
+              <td id="T_c1ff2_row11_col5">483,312,804</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row12">11</td>
+              <td id="T_c1ff2_row12_col0">pachytene spermatocyte</td>
+              <td id="T_c1ff2_row12_col1">SAMN08375235</td>
+              <td id="T_c1ff2_row12_col2">SRR7349191</td>
+              <td id="T_c1ff2_row12_col3">51.274476</td>
+              <td id="T_c1ff2_row12_col4">137,821,979,100</td>
+              <td id="T_c1ff2_row12_col5">459,406,597</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row13">24</td>
+              <td id="T_c1ff2_row13_col0">round spermatid</td>
+              <td id="T_c1ff2_row13_col1">SAMN08375232</td>
+              <td id="T_c1ff2_row13_col2">SRR6502351</td>
+              <td id="T_c1ff2_row13_col3">20.924497</td>
+              <td id="T_c1ff2_row13_col4">55,095,075,300</td>
+              <td id="T_c1ff2_row13_col5">183,650,251</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row14">25</td>
+              <td id="T_c1ff2_row14_col0">round spermatid</td>
+              <td id="T_c1ff2_row14_col1">SAMN08375232</td>
+              <td id="T_c1ff2_row14_col2">SRR6502352</td>
+              <td id="T_c1ff2_row14_col3">41.133960</td>
+              <td id="T_c1ff2_row14_col4">115,578,475,800</td>
+              <td id="T_c1ff2_row14_col5">385,261,586</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row15">26</td>
+              <td id="T_c1ff2_row15_col0">round spermatid</td>
+              <td id="T_c1ff2_row15_col1">SAMN08375232</td>
+              <td id="T_c1ff2_row15_col2">SRR6502353</td>
+              <td id="T_c1ff2_row15_col3">36.444117</td>
+              <td id="T_c1ff2_row15_col4">96,195,161,400</td>
+              <td id="T_c1ff2_row15_col5">320,650,538</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row16">2</td>
+              <td id="T_c1ff2_row16_col0">round spermatid</td>
+              <td id="T_c1ff2_row16_col1">SAMN09427369</td>
+              <td id="T_c1ff2_row16_col2">SRR7345460</td>
+              <td id="T_c1ff2_row16_col3">38.244654</td>
+              <td id="T_c1ff2_row16_col4">104,105,827,200</td>
+              <td id="T_c1ff2_row16_col5">347,019,424</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row17">3</td>
+              <td id="T_c1ff2_row17_col0">round spermatid</td>
+              <td id="T_c1ff2_row17_col1">SAMN09427369</td>
+              <td id="T_c1ff2_row17_col2">SRR7345461</td>
+              <td id="T_c1ff2_row17_col3">53.996261</td>
+              <td id="T_c1ff2_row17_col4">144,532,309,500</td>
+              <td id="T_c1ff2_row17_col5">481,774,365</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row18">12</td>
+              <td id="T_c1ff2_row18_col0">round spermatid</td>
+              <td id="T_c1ff2_row18_col1">SAMN08375232</td>
+              <td id="T_c1ff2_row18_col2">SRR7349192</td>
+              <td id="T_c1ff2_row18_col3">52.384556</td>
+              <td id="T_c1ff2_row18_col4">140,431,608,000</td>
+              <td id="T_c1ff2_row18_col5">468,105,360</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row19">29</td>
+              <td id="T_c1ff2_row19_col0">sperm</td>
+              <td id="T_c1ff2_row19_col1">SAMN08375229</td>
+              <td id="T_c1ff2_row19_col2">SRR6502360</td>
+              <td id="T_c1ff2_row19_col3">26.653940</td>
+              <td id="T_c1ff2_row19_col4">64,752,370,800</td>
+              <td id="T_c1ff2_row19_col5">215,841,236</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row20">30</td>
+              <td id="T_c1ff2_row20_col0">sperm</td>
+              <td id="T_c1ff2_row20_col1">SAMN08375228</td>
+              <td id="T_c1ff2_row20_col2">SRR6502362</td>
+              <td id="T_c1ff2_row20_col3">23.973440</td>
+              <td id="T_c1ff2_row20_col4">58,369,232,700</td>
+              <td id="T_c1ff2_row20_col5">194,564,109</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row21">13</td>
+              <td id="T_c1ff2_row21_col0">sperm</td>
+              <td id="T_c1ff2_row21_col1">SAMN08375229</td>
+              <td id="T_c1ff2_row21_col2">SRR7349193</td>
+              <td id="T_c1ff2_row21_col3">52.806276</td>
+              <td id="T_c1ff2_row21_col4">141,148,572,300</td>
+              <td id="T_c1ff2_row21_col5">470,495,241</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row22">14</td>
+              <td id="T_c1ff2_row22_col0">sperm</td>
+              <td id="T_c1ff2_row22_col1">SAMN08375229</td>
+              <td id="T_c1ff2_row22_col2">SRR7349195</td>
+              <td id="T_c1ff2_row22_col3">22.444378</td>
+              <td id="T_c1ff2_row22_col4">60,523,788,600</td>
+              <td id="T_c1ff2_row22_col5">201,745,962</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row23">15</td>
+              <td id="T_c1ff2_row23_col0">sperm</td>
+              <td id="T_c1ff2_row23_col1">SAMN08375229</td>
+              <td id="T_c1ff2_row23_col2">SRR7349196</td>
+              <td id="T_c1ff2_row23_col3">38.253606</td>
+              <td id="T_c1ff2_row23_col4">104,119,671,000</td>
+              <td id="T_c1ff2_row23_col5">347,065,570</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row24">27</td>
+              <td id="T_c1ff2_row24_col0">spermatogonia</td>
+              <td id="T_c1ff2_row24_col1">SAMN08375231</td>
+              <td id="T_c1ff2_row24_col2">SRR6502356</td>
+              <td id="T_c1ff2_row24_col3">22.845286</td>
+              <td id="T_c1ff2_row24_col4">58,909,579,800</td>
+              <td id="T_c1ff2_row24_col5">196,365,266</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row25">28</td>
+              <td id="T_c1ff2_row25_col0">spermatogonia</td>
+              <td id="T_c1ff2_row25_col1">SAMN08375231</td>
+              <td id="T_c1ff2_row25_col2">SRR6502357</td>
+              <td id="T_c1ff2_row25_col3">17.947471</td>
+              <td id="T_c1ff2_row25_col4">46,888,332,900</td>
+              <td id="T_c1ff2_row25_col5">156,294,443</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row26">4</td>
+              <td id="T_c1ff2_row26_col0">spermatogonia</td>
+              <td id="T_c1ff2_row26_col1">SAMN09427379</td>
+              <td id="T_c1ff2_row26_col2">SRR7345462</td>
+              <td id="T_c1ff2_row26_col3">18.686342</td>
+              <td id="T_c1ff2_row26_col4">52,032,780,000</td>
+              <td id="T_c1ff2_row26_col5">173,442,600</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row27">5</td>
+              <td id="T_c1ff2_row27_col0">spermatogonia</td>
+              <td id="T_c1ff2_row27_col1">SAMN09427379</td>
+              <td id="T_c1ff2_row27_col2">SRR7345463</td>
+              <td id="T_c1ff2_row27_col3">29.956561</td>
+              <td id="T_c1ff2_row27_col4">82,384,836,000</td>
+              <td id="T_c1ff2_row27_col5">274,616,120</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row28">6</td>
+              <td id="T_c1ff2_row28_col0">spermatogonia</td>
+              <td id="T_c1ff2_row28_col1">SAMN09427379</td>
+              <td id="T_c1ff2_row28_col2">SRR7345464</td>
+              <td id="T_c1ff2_row28_col3">39.145759</td>
+              <td id="T_c1ff2_row28_col4">105,153,716,100</td>
+              <td id="T_c1ff2_row28_col5">350,512,387</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row29">7</td>
+              <td id="T_c1ff2_row29_col0">spermatogonia</td>
+              <td id="T_c1ff2_row29_col1">SAMN09427378</td>
+              <td id="T_c1ff2_row29_col2">SRR7345465</td>
+              <td id="T_c1ff2_row29_col3">35.816184</td>
+              <td id="T_c1ff2_row29_col4">96,048,594,600</td>
+              <td id="T_c1ff2_row29_col5">320,161,982</td>
+            </tr>
+            <tr>
+              <td id="T_c1ff2_level0_row30">8</td>
+              <td id="T_c1ff2_row30_col0">spermatogonia</td>
+              <td id="T_c1ff2_row30_col1">SAMN09427378</td>
+              <td id="T_c1ff2_row30_col2">SRR7345467</td>
+              <td id="T_c1ff2_row30_col3">28.396816</td>
+              <td id="T_c1ff2_row30_col4">77,248,140,900</td>
+              <td id="T_c1ff2_row30_col5">257,493,803</td>
             </tr>
           </tbody>
         </table>
@@ -251,10 +496,10 @@ and evolutionary dynamics across primate species.</p>
     <title>Handling coolers (Or: preparing coolers)</title>
     <fig id="fig-flowchart-handling-coolers">
       <caption><p>Figure 1</p></caption>
-      <p>A flowchart showing the pipeline from
+      <p><bold><italic>[A flowchart showing the pipeline from
       <monospace>.fastq</monospace> to <monospace>.mcool</monospace>.
       The first 6 steps were done with a Probably BioRender or
-      Inkscape.</p>
+      Inkscape.]</italic></bold></p>
     </fig>
     <sec id="the-gwf-workflow-targets">
       <title>The <italic>gwf</italic> workflow targets</title>
@@ -573,63 +818,309 @@ and evolutionary dynamics across primate species.</p>
     of the data accessions used in this analysis, we will first
     summarize the runtable that contains the accession numbers and some
     metadata for each sample
-    ((<xref alt="tbl-runtable-summary?" rid="ref-tbl-runtable-summary-nb-1" ref-type="bibr"><bold>tbl-runtable-summary?</bold></xref>)).
+    ((<xref alt="tbl-runtable?" rid="ref-tbl-runtable-nb-1" ref-type="bibr"><bold>tbl-runtable?</bold></xref>)).
     It adds up to ~1Tb of compressed <monospace>fastq</monospace> files,
     holding ~9.5 billion reads, roughly evenly spread on the 5 tissue
     types.</p>
     <sec specific-use="notebook-content">
-    <code language="python">display(df_grouped)
+    <code language="python">display(df1)
     </code>
-    <fig id="tbl-runtable-summary-nb-1">
-      <caption><p>Summary of the data accessions used in this
-      analysis</p></caption>
+    <fig id="tbl-runtable-nb-1">
+      <caption><p>The most relevant columns of the
+      <monospace>SRA-runtable.tsv</monospace> file</p></caption>
       <boxed-text>
         <table-wrap>
-          <table id="T_55add-nb-1">
+          <table id="T_c1ff2-nb-1">
             <thead>
               <tr>
                 <th> </th>
-                <th id="T_55add_level0_col0-nb-1">source_name</th>
-                <th id="T_55add_level0_col1-nb-1">GB</th>
-                <th id="T_55add_level0_col2-nb-1">Bases</th>
-                <th id="T_55add_level0_col3-nb-1">Reads</th>
+                <th id="T_c1ff2_level0_col0-nb-1">source_name</th>
+                <th id="T_c1ff2_level0_col1-nb-1">BioSample</th>
+                <th id="T_c1ff2_level0_col2-nb-1">Run</th>
+                <th id="T_c1ff2_level0_col3-nb-1">GB</th>
+                <th id="T_c1ff2_level0_col4-nb-1">Bases</th>
+                <th id="T_c1ff2_level0_col5-nb-1">Reads</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td id="T_55add_level0_row0-nb-1">0</td>
-                <td id="T_55add_row0_col0-nb-1">fibroblast</td>
-                <td id="T_55add_row0_col1-nb-1">211.403275</td>
-                <td id="T_55add_row0_col2-nb-1">553,968,406,500</td>
-                <td id="T_55add_row0_col3-nb-1">1,846,561,355</td>
+                <td id="T_c1ff2_level0_row0-nb-1">16</td>
+                <td id="T_c1ff2_row0_col0-nb-1">fibroblast</td>
+                <td id="T_c1ff2_row0_col1-nb-1">SAMN08375237</td>
+                <td id="T_c1ff2_row0_col2-nb-1">SRR6502335</td>
+                <td id="T_c1ff2_row0_col3-nb-1">29.771059</td>
+                <td id="T_c1ff2_row0_col4-nb-1">73,201,141,800</td>
+                <td id="T_c1ff2_row0_col5-nb-1">244,003,806</td>
               </tr>
               <tr>
-                <td id="T_55add_level0_row1-nb-1">1</td>
-                <td id="T_55add_row1_col0-nb-1">pachytene spermatocyte</td>
-                <td id="T_55add_row1_col1-nb-1">274.835160</td>
-                <td id="T_55add_row1_col2-nb-1">715,656,614,700</td>
-                <td id="T_55add_row1_col3-nb-1">2,385,522,049</td>
+                <td id="T_c1ff2_level0_row1-nb-1">17</td>
+                <td id="T_c1ff2_row1_col0-nb-1">fibroblast</td>
+                <td id="T_c1ff2_row1_col1-nb-1">SAMN08375237</td>
+                <td id="T_c1ff2_row1_col2-nb-1">SRR6502336</td>
+                <td id="T_c1ff2_row1_col3-nb-1">22.755361</td>
+                <td id="T_c1ff2_row1_col4-nb-1">65,119,970,100</td>
+                <td id="T_c1ff2_row1_col5-nb-1">217,066,567</td>
               </tr>
               <tr>
-                <td id="T_55add_level0_row2-nb-1">2</td>
-                <td id="T_55add_row2_col0-nb-1">round spermatid</td>
-                <td id="T_55add_row2_col1-nb-1">243.128044</td>
-                <td id="T_55add_row2_col2-nb-1">655,938,457,200</td>
-                <td id="T_55add_row2_col3-nb-1">2,186,461,524</td>
+                <td id="T_c1ff2_level0_row2-nb-1">18</td>
+                <td id="T_c1ff2_row2_col0-nb-1">fibroblast</td>
+                <td id="T_c1ff2_row2_col1-nb-1">SAMN08375236</td>
+                <td id="T_c1ff2_row2_col2-nb-1">SRR6502337</td>
+                <td id="T_c1ff2_row2_col3-nb-1">21.434722</td>
+                <td id="T_c1ff2_row2_col4-nb-1">52,769,196,300</td>
+                <td id="T_c1ff2_row2_col5-nb-1">175,897,321</td>
               </tr>
               <tr>
-                <td id="T_55add_level0_row3-nb-1">3</td>
-                <td id="T_55add_row3_col0-nb-1">sperm</td>
-                <td id="T_55add_row3_col1-nb-1">164.131640</td>
-                <td id="T_55add_row3_col2-nb-1">428,913,635,400</td>
-                <td id="T_55add_row3_col3-nb-1">1,429,712,118</td>
+                <td id="T_c1ff2_level0_row3-nb-1">19</td>
+                <td id="T_c1ff2_row3_col0-nb-1">fibroblast</td>
+                <td id="T_c1ff2_row3_col1-nb-1">SAMN08375236</td>
+                <td id="T_c1ff2_row3_col2-nb-1">SRR6502338</td>
+                <td id="T_c1ff2_row3_col3-nb-1">21.420030</td>
+                <td id="T_c1ff2_row3_col4-nb-1">52,378,949,100</td>
+                <td id="T_c1ff2_row3_col5-nb-1">174,596,497</td>
               </tr>
               <tr>
-                <td id="T_55add_level0_row4-nb-1">4</td>
-                <td id="T_55add_row4_col0-nb-1">spermatogonia</td>
-                <td id="T_55add_row4_col1-nb-1">192.794420</td>
-                <td id="T_55add_row4_col2-nb-1">518,665,980,300</td>
-                <td id="T_55add_row4_col3-nb-1">1,728,886,601</td>
+                <td id="T_c1ff2_level0_row4-nb-1">20</td>
+                <td id="T_c1ff2_row4_col0-nb-1">fibroblast</td>
+                <td id="T_c1ff2_row4_col1-nb-1">SAMN08375236</td>
+                <td id="T_c1ff2_row4_col2-nb-1">SRR6502339</td>
+                <td id="T_c1ff2_row4_col3-nb-1">10.207410</td>
+                <td id="T_c1ff2_row4_col4-nb-1">28,885,941,600</td>
+                <td id="T_c1ff2_row4_col5-nb-1">96,286,472</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row5-nb-1">9</td>
+                <td id="T_c1ff2_row5_col0-nb-1">fibroblast</td>
+                <td id="T_c1ff2_row5_col1-nb-1">SAMN08375237</td>
+                <td id="T_c1ff2_row5_col2-nb-1">SRR7349189</td>
+                <td id="T_c1ff2_row5_col3-nb-1">52.729173</td>
+                <td id="T_c1ff2_row5_col4-nb-1">139,604,854,200</td>
+                <td id="T_c1ff2_row5_col5-nb-1">465,349,514</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row6-nb-1">10</td>
+                <td id="T_c1ff2_row6_col0-nb-1">fibroblast</td>
+                <td id="T_c1ff2_row6_col1-nb-1">SAMN08375236</td>
+                <td id="T_c1ff2_row6_col2-nb-1">SRR7349190</td>
+                <td id="T_c1ff2_row6_col3-nb-1">53.085520</td>
+                <td id="T_c1ff2_row6_col4-nb-1">142,008,353,400</td>
+                <td id="T_c1ff2_row6_col5-nb-1">473,361,178</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row7-nb-1">21</td>
+                <td id="T_c1ff2_row7_col0-nb-1">pachytene spermatocyte</td>
+                <td id="T_c1ff2_row7_col1-nb-1">SAMN08375234</td>
+                <td id="T_c1ff2_row7_col2-nb-1">SRR6502342</td>
+                <td id="T_c1ff2_row7_col3-nb-1">60.258880</td>
+                <td id="T_c1ff2_row7_col4-nb-1">150,370,993,500</td>
+                <td id="T_c1ff2_row7_col5-nb-1">501,236,645</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row8-nb-1">22</td>
+                <td id="T_c1ff2_row8_col0-nb-1">pachytene spermatocyte</td>
+                <td id="T_c1ff2_row8_col1-nb-1">SAMN08375234</td>
+                <td id="T_c1ff2_row8_col2-nb-1">SRR6502344</td>
+                <td id="T_c1ff2_row8_col3-nb-1">27.146048</td>
+                <td id="T_c1ff2_row8_col4-nb-1">65,697,684,300</td>
+                <td id="T_c1ff2_row8_col5-nb-1">218,992,281</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row9-nb-1">23</td>
+                <td id="T_c1ff2_row9_col0-nb-1">pachytene spermatocyte</td>
+                <td id="T_c1ff2_row9_col1-nb-1">SAMN08375234</td>
+                <td id="T_c1ff2_row9_col2-nb-1">SRR6502345</td>
+                <td id="T_c1ff2_row9_col3-nb-1">26.202707</td>
+                <td id="T_c1ff2_row9_col4-nb-1">63,490,538,700</td>
+                <td id="T_c1ff2_row9_col5-nb-1">211,635,129</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row10-nb-1">0</td>
+                <td id="T_c1ff2_row10_col0-nb-1">pachytene spermatocyte</td>
+                <td id="T_c1ff2_row10_col1-nb-1">SAMN09427370</td>
+                <td id="T_c1ff2_row10_col2-nb-1">SRR7345458</td>
+                <td id="T_c1ff2_row10_col3-nb-1">55.970557</td>
+                <td id="T_c1ff2_row10_col4-nb-1">153,281,577,900</td>
+                <td id="T_c1ff2_row10_col5-nb-1">510,938,593</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row11-nb-1">1</td>
+                <td id="T_c1ff2_row11_col0-nb-1">pachytene spermatocyte</td>
+                <td id="T_c1ff2_row11_col1-nb-1">SAMN09427370</td>
+                <td id="T_c1ff2_row11_col2-nb-1">SRR7345459</td>
+                <td id="T_c1ff2_row11_col3-nb-1">53.982492</td>
+                <td id="T_c1ff2_row11_col4-nb-1">144,993,841,200</td>
+                <td id="T_c1ff2_row11_col5-nb-1">483,312,804</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row12-nb-1">11</td>
+                <td id="T_c1ff2_row12_col0-nb-1">pachytene spermatocyte</td>
+                <td id="T_c1ff2_row12_col1-nb-1">SAMN08375235</td>
+                <td id="T_c1ff2_row12_col2-nb-1">SRR7349191</td>
+                <td id="T_c1ff2_row12_col3-nb-1">51.274476</td>
+                <td id="T_c1ff2_row12_col4-nb-1">137,821,979,100</td>
+                <td id="T_c1ff2_row12_col5-nb-1">459,406,597</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row13-nb-1">24</td>
+                <td id="T_c1ff2_row13_col0-nb-1">round spermatid</td>
+                <td id="T_c1ff2_row13_col1-nb-1">SAMN08375232</td>
+                <td id="T_c1ff2_row13_col2-nb-1">SRR6502351</td>
+                <td id="T_c1ff2_row13_col3-nb-1">20.924497</td>
+                <td id="T_c1ff2_row13_col4-nb-1">55,095,075,300</td>
+                <td id="T_c1ff2_row13_col5-nb-1">183,650,251</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row14-nb-1">25</td>
+                <td id="T_c1ff2_row14_col0-nb-1">round spermatid</td>
+                <td id="T_c1ff2_row14_col1-nb-1">SAMN08375232</td>
+                <td id="T_c1ff2_row14_col2-nb-1">SRR6502352</td>
+                <td id="T_c1ff2_row14_col3-nb-1">41.133960</td>
+                <td id="T_c1ff2_row14_col4-nb-1">115,578,475,800</td>
+                <td id="T_c1ff2_row14_col5-nb-1">385,261,586</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row15-nb-1">26</td>
+                <td id="T_c1ff2_row15_col0-nb-1">round spermatid</td>
+                <td id="T_c1ff2_row15_col1-nb-1">SAMN08375232</td>
+                <td id="T_c1ff2_row15_col2-nb-1">SRR6502353</td>
+                <td id="T_c1ff2_row15_col3-nb-1">36.444117</td>
+                <td id="T_c1ff2_row15_col4-nb-1">96,195,161,400</td>
+                <td id="T_c1ff2_row15_col5-nb-1">320,650,538</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row16-nb-1">2</td>
+                <td id="T_c1ff2_row16_col0-nb-1">round spermatid</td>
+                <td id="T_c1ff2_row16_col1-nb-1">SAMN09427369</td>
+                <td id="T_c1ff2_row16_col2-nb-1">SRR7345460</td>
+                <td id="T_c1ff2_row16_col3-nb-1">38.244654</td>
+                <td id="T_c1ff2_row16_col4-nb-1">104,105,827,200</td>
+                <td id="T_c1ff2_row16_col5-nb-1">347,019,424</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row17-nb-1">3</td>
+                <td id="T_c1ff2_row17_col0-nb-1">round spermatid</td>
+                <td id="T_c1ff2_row17_col1-nb-1">SAMN09427369</td>
+                <td id="T_c1ff2_row17_col2-nb-1">SRR7345461</td>
+                <td id="T_c1ff2_row17_col3-nb-1">53.996261</td>
+                <td id="T_c1ff2_row17_col4-nb-1">144,532,309,500</td>
+                <td id="T_c1ff2_row17_col5-nb-1">481,774,365</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row18-nb-1">12</td>
+                <td id="T_c1ff2_row18_col0-nb-1">round spermatid</td>
+                <td id="T_c1ff2_row18_col1-nb-1">SAMN08375232</td>
+                <td id="T_c1ff2_row18_col2-nb-1">SRR7349192</td>
+                <td id="T_c1ff2_row18_col3-nb-1">52.384556</td>
+                <td id="T_c1ff2_row18_col4-nb-1">140,431,608,000</td>
+                <td id="T_c1ff2_row18_col5-nb-1">468,105,360</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row19-nb-1">29</td>
+                <td id="T_c1ff2_row19_col0-nb-1">sperm</td>
+                <td id="T_c1ff2_row19_col1-nb-1">SAMN08375229</td>
+                <td id="T_c1ff2_row19_col2-nb-1">SRR6502360</td>
+                <td id="T_c1ff2_row19_col3-nb-1">26.653940</td>
+                <td id="T_c1ff2_row19_col4-nb-1">64,752,370,800</td>
+                <td id="T_c1ff2_row19_col5-nb-1">215,841,236</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row20-nb-1">30</td>
+                <td id="T_c1ff2_row20_col0-nb-1">sperm</td>
+                <td id="T_c1ff2_row20_col1-nb-1">SAMN08375228</td>
+                <td id="T_c1ff2_row20_col2-nb-1">SRR6502362</td>
+                <td id="T_c1ff2_row20_col3-nb-1">23.973440</td>
+                <td id="T_c1ff2_row20_col4-nb-1">58,369,232,700</td>
+                <td id="T_c1ff2_row20_col5-nb-1">194,564,109</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row21-nb-1">13</td>
+                <td id="T_c1ff2_row21_col0-nb-1">sperm</td>
+                <td id="T_c1ff2_row21_col1-nb-1">SAMN08375229</td>
+                <td id="T_c1ff2_row21_col2-nb-1">SRR7349193</td>
+                <td id="T_c1ff2_row21_col3-nb-1">52.806276</td>
+                <td id="T_c1ff2_row21_col4-nb-1">141,148,572,300</td>
+                <td id="T_c1ff2_row21_col5-nb-1">470,495,241</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row22-nb-1">14</td>
+                <td id="T_c1ff2_row22_col0-nb-1">sperm</td>
+                <td id="T_c1ff2_row22_col1-nb-1">SAMN08375229</td>
+                <td id="T_c1ff2_row22_col2-nb-1">SRR7349195</td>
+                <td id="T_c1ff2_row22_col3-nb-1">22.444378</td>
+                <td id="T_c1ff2_row22_col4-nb-1">60,523,788,600</td>
+                <td id="T_c1ff2_row22_col5-nb-1">201,745,962</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row23-nb-1">15</td>
+                <td id="T_c1ff2_row23_col0-nb-1">sperm</td>
+                <td id="T_c1ff2_row23_col1-nb-1">SAMN08375229</td>
+                <td id="T_c1ff2_row23_col2-nb-1">SRR7349196</td>
+                <td id="T_c1ff2_row23_col3-nb-1">38.253606</td>
+                <td id="T_c1ff2_row23_col4-nb-1">104,119,671,000</td>
+                <td id="T_c1ff2_row23_col5-nb-1">347,065,570</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row24-nb-1">27</td>
+                <td id="T_c1ff2_row24_col0-nb-1">spermatogonia</td>
+                <td id="T_c1ff2_row24_col1-nb-1">SAMN08375231</td>
+                <td id="T_c1ff2_row24_col2-nb-1">SRR6502356</td>
+                <td id="T_c1ff2_row24_col3-nb-1">22.845286</td>
+                <td id="T_c1ff2_row24_col4-nb-1">58,909,579,800</td>
+                <td id="T_c1ff2_row24_col5-nb-1">196,365,266</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row25-nb-1">28</td>
+                <td id="T_c1ff2_row25_col0-nb-1">spermatogonia</td>
+                <td id="T_c1ff2_row25_col1-nb-1">SAMN08375231</td>
+                <td id="T_c1ff2_row25_col2-nb-1">SRR6502357</td>
+                <td id="T_c1ff2_row25_col3-nb-1">17.947471</td>
+                <td id="T_c1ff2_row25_col4-nb-1">46,888,332,900</td>
+                <td id="T_c1ff2_row25_col5-nb-1">156,294,443</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row26-nb-1">4</td>
+                <td id="T_c1ff2_row26_col0-nb-1">spermatogonia</td>
+                <td id="T_c1ff2_row26_col1-nb-1">SAMN09427379</td>
+                <td id="T_c1ff2_row26_col2-nb-1">SRR7345462</td>
+                <td id="T_c1ff2_row26_col3-nb-1">18.686342</td>
+                <td id="T_c1ff2_row26_col4-nb-1">52,032,780,000</td>
+                <td id="T_c1ff2_row26_col5-nb-1">173,442,600</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row27-nb-1">5</td>
+                <td id="T_c1ff2_row27_col0-nb-1">spermatogonia</td>
+                <td id="T_c1ff2_row27_col1-nb-1">SAMN09427379</td>
+                <td id="T_c1ff2_row27_col2-nb-1">SRR7345463</td>
+                <td id="T_c1ff2_row27_col3-nb-1">29.956561</td>
+                <td id="T_c1ff2_row27_col4-nb-1">82,384,836,000</td>
+                <td id="T_c1ff2_row27_col5-nb-1">274,616,120</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row28-nb-1">6</td>
+                <td id="T_c1ff2_row28_col0-nb-1">spermatogonia</td>
+                <td id="T_c1ff2_row28_col1-nb-1">SAMN09427379</td>
+                <td id="T_c1ff2_row28_col2-nb-1">SRR7345464</td>
+                <td id="T_c1ff2_row28_col3-nb-1">39.145759</td>
+                <td id="T_c1ff2_row28_col4-nb-1">105,153,716,100</td>
+                <td id="T_c1ff2_row28_col5-nb-1">350,512,387</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row29-nb-1">7</td>
+                <td id="T_c1ff2_row29_col0-nb-1">spermatogonia</td>
+                <td id="T_c1ff2_row29_col1-nb-1">SAMN09427378</td>
+                <td id="T_c1ff2_row29_col2-nb-1">SRR7345465</td>
+                <td id="T_c1ff2_row29_col3-nb-1">35.816184</td>
+                <td id="T_c1ff2_row29_col4-nb-1">96,048,594,600</td>
+                <td id="T_c1ff2_row29_col5-nb-1">320,161,982</td>
+              </tr>
+              <tr>
+                <td id="T_c1ff2_level0_row30-nb-1">8</td>
+                <td id="T_c1ff2_row30_col0-nb-1">spermatogonia</td>
+                <td id="T_c1ff2_row30_col1-nb-1">SAMN09427378</td>
+                <td id="T_c1ff2_row30_col2-nb-1">SRR7345467</td>
+                <td id="T_c1ff2_row30_col3-nb-1">28.396816</td>
+                <td id="T_c1ff2_row30_col4-nb-1">77,248,140,900</td>
+                <td id="T_c1ff2_row30_col5-nb-1">257,493,803</td>
               </tr>
             </tbody>
           </table>
@@ -641,10 +1132,10 @@ and evolutionary dynamics across primate species.</p>
   <sec id="handling-coolers-or-preparing-coolers-nb-1">
     <title>Handling coolers (Or: preparing coolers)</title>
     <fig id="fig-flowchart-handling-coolers-nb-1">
-      <p>A flowchart showing the pipeline from
+      <p><bold><italic>[A flowchart showing the pipeline from
       <monospace>.fastq</monospace> to <monospace>.mcool</monospace>.
       The first 6 steps were done with a Probably BioRender or
-      Inkscape.</p>
+      Inkscape.]</italic></bold></p>
     </fig>
     <sec id="the-gwf-workflow-targets-nb-1">
       <title>The <italic>gwf</italic> workflow targets</title>

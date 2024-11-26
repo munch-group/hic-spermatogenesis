@@ -291,7 +291,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 26, 2024 <br> 19:19:43 (UTC +00:00)</p>
+      <p class="date">November 26, 2024 <br> 22:28:18 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -579,7 +579,7 @@ Figure&nbsp;6.3: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 </div>
 <p>Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../thesis/index.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know…</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-e1-fullmerged-all-500kb">
-<div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="9">
+<div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="46">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1-fullmerged-all-500kb" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -593,7 +593,7 @@ Figure&nbsp;6.3: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 <p>Furthermoere, we wanted to see if we could apply the same smoothing as they did: They calculate the obs/exp matrix on a smoothed 100kb matrix: they slide a 400kb window with a step size of 100kb, summing the values.</p>
 <p>It turned out to be practically very hard to do in the <em>Open2c</em> ecosystem, so I decided to apply the smoothing directly on the calculated E1 values.</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-e1-fullmerged-all-100kb-5smoothed">
-<div id="cell-e1-fullmerged-all-100kb-5smoothed" class="cell page-columns page-full" data-execution_count="6">
+<div id="cell-e1-fullmerged-all-100kb-5smoothed" class="cell page-columns page-full" data-execution_count="65">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1-fullmerged-all-100kb-5smoothed" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">

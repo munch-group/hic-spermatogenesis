@@ -208,64 +208,310 @@ div.csl-indent {
 <p>The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code, virtual environments and text is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages []. To make this possible, the Quarto documentation has been extensively studied and discussed with <em>KMT</em> [ref, aknowledge].</p>
 <section id="downloading-data-and-project-structure" class="level3">
 <h3 class="anchored" data-anchor-id="downloading-data-and-project-structure">Downloading Data and Project Structure</h3>
-<p>To reproduce the results from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable <code>SRA-runtable.tsv</code>. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (<a href="#tbl-runtable-summary" class="quarto-xref">Table&nbsp;1</a>). It adds up to ~1Tb of compressed <code>fastq</code> files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-tbl-runtable-summary">
-<div class="cell" data-execution_count="5">
-<div id="tbl-runtable-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
+<p>To reproduce the results from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable <code>SRA-runtable.tsv</code>. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (<a href="#tbl-runtable" class="quarto-xref">Table&nbsp;1</a>). It adds up to ~1Tb of compressed <code>fastq</code> files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-tbl-runtable">
+<div class="cell" data-execution_count="4">
+<div id="tbl-runtable" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-runtable-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Summary of the data accessions used in this analysis
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-runtable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The most relevant columns of the <code>SRA-runtable.tsv</code> file
 </figcaption>
-<div aria-describedby="tbl-runtable-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-runtable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
 <style type="text/css">
 </style>
 
-<table id="T_55add" class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_c1ff2" class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_55add_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">source_name</th>
-<th id="T_55add_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">GB</th>
-<th id="T_55add_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Bases</th>
-<th id="T_55add_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Reads</th>
+<th id="T_c1ff2_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">source_name</th>
+<th id="T_c1ff2_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">BioSample</th>
+<th id="T_c1ff2_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Run</th>
+<th id="T_c1ff2_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">GB</th>
+<th id="T_c1ff2_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">Bases</th>
+<th id="T_c1ff2_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Reads</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_55add_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
-<td id="T_55add_row0_col0" class="data row0 col0">fibroblast</td>
-<td id="T_55add_row0_col1" class="data row0 col1">211.403275</td>
-<td id="T_55add_row0_col2" class="data row0 col2">553,968,406,500</td>
-<td id="T_55add_row0_col3" class="data row0 col3">1,846,561,355</td>
+<td id="T_c1ff2_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">16</td>
+<td id="T_c1ff2_row0_col0" class="data row0 col0">fibroblast</td>
+<td id="T_c1ff2_row0_col1" class="data row0 col1">SAMN08375237</td>
+<td id="T_c1ff2_row0_col2" class="data row0 col2">SRR6502335</td>
+<td id="T_c1ff2_row0_col3" class="data row0 col3">29.771059</td>
+<td id="T_c1ff2_row0_col4" class="data row0 col4">73,201,141,800</td>
+<td id="T_c1ff2_row0_col5" class="data row0 col5">244,003,806</td>
 </tr>
 <tr class="even">
-<td id="T_55add_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
-<td id="T_55add_row1_col0" class="data row1 col0">pachytene spermatocyte</td>
-<td id="T_55add_row1_col1" class="data row1 col1">274.835160</td>
-<td id="T_55add_row1_col2" class="data row1 col2">715,656,614,700</td>
-<td id="T_55add_row1_col3" class="data row1 col3">2,385,522,049</td>
+<td id="T_c1ff2_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">17</td>
+<td id="T_c1ff2_row1_col0" class="data row1 col0">fibroblast</td>
+<td id="T_c1ff2_row1_col1" class="data row1 col1">SAMN08375237</td>
+<td id="T_c1ff2_row1_col2" class="data row1 col2">SRR6502336</td>
+<td id="T_c1ff2_row1_col3" class="data row1 col3">22.755361</td>
+<td id="T_c1ff2_row1_col4" class="data row1 col4">65,119,970,100</td>
+<td id="T_c1ff2_row1_col5" class="data row1 col5">217,066,567</td>
 </tr>
 <tr class="odd">
-<td id="T_55add_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
-<td id="T_55add_row2_col0" class="data row2 col0">round spermatid</td>
-<td id="T_55add_row2_col1" class="data row2 col1">243.128044</td>
-<td id="T_55add_row2_col2" class="data row2 col2">655,938,457,200</td>
-<td id="T_55add_row2_col3" class="data row2 col3">2,186,461,524</td>
+<td id="T_c1ff2_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">18</td>
+<td id="T_c1ff2_row2_col0" class="data row2 col0">fibroblast</td>
+<td id="T_c1ff2_row2_col1" class="data row2 col1">SAMN08375236</td>
+<td id="T_c1ff2_row2_col2" class="data row2 col2">SRR6502337</td>
+<td id="T_c1ff2_row2_col3" class="data row2 col3">21.434722</td>
+<td id="T_c1ff2_row2_col4" class="data row2 col4">52,769,196,300</td>
+<td id="T_c1ff2_row2_col5" class="data row2 col5">175,897,321</td>
 </tr>
 <tr class="even">
-<td id="T_55add_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
-<td id="T_55add_row3_col0" class="data row3 col0">sperm</td>
-<td id="T_55add_row3_col1" class="data row3 col1">164.131640</td>
-<td id="T_55add_row3_col2" class="data row3 col2">428,913,635,400</td>
-<td id="T_55add_row3_col3" class="data row3 col3">1,429,712,118</td>
+<td id="T_c1ff2_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">19</td>
+<td id="T_c1ff2_row3_col0" class="data row3 col0">fibroblast</td>
+<td id="T_c1ff2_row3_col1" class="data row3 col1">SAMN08375236</td>
+<td id="T_c1ff2_row3_col2" class="data row3 col2">SRR6502338</td>
+<td id="T_c1ff2_row3_col3" class="data row3 col3">21.420030</td>
+<td id="T_c1ff2_row3_col4" class="data row3 col4">52,378,949,100</td>
+<td id="T_c1ff2_row3_col5" class="data row3 col5">174,596,497</td>
 </tr>
 <tr class="odd">
-<td id="T_55add_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
-<td id="T_55add_row4_col0" class="data row4 col0">spermatogonia</td>
-<td id="T_55add_row4_col1" class="data row4 col1">192.794420</td>
-<td id="T_55add_row4_col2" class="data row4 col2">518,665,980,300</td>
-<td id="T_55add_row4_col3" class="data row4 col3">1,728,886,601</td>
+<td id="T_c1ff2_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">20</td>
+<td id="T_c1ff2_row4_col0" class="data row4 col0">fibroblast</td>
+<td id="T_c1ff2_row4_col1" class="data row4 col1">SAMN08375236</td>
+<td id="T_c1ff2_row4_col2" class="data row4 col2">SRR6502339</td>
+<td id="T_c1ff2_row4_col3" class="data row4 col3">10.207410</td>
+<td id="T_c1ff2_row4_col4" class="data row4 col4">28,885,941,600</td>
+<td id="T_c1ff2_row4_col5" class="data row4 col5">96,286,472</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">9</td>
+<td id="T_c1ff2_row5_col0" class="data row5 col0">fibroblast</td>
+<td id="T_c1ff2_row5_col1" class="data row5 col1">SAMN08375237</td>
+<td id="T_c1ff2_row5_col2" class="data row5 col2">SRR7349189</td>
+<td id="T_c1ff2_row5_col3" class="data row5 col3">52.729173</td>
+<td id="T_c1ff2_row5_col4" class="data row5 col4">139,604,854,200</td>
+<td id="T_c1ff2_row5_col5" class="data row5 col5">465,349,514</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">10</td>
+<td id="T_c1ff2_row6_col0" class="data row6 col0">fibroblast</td>
+<td id="T_c1ff2_row6_col1" class="data row6 col1">SAMN08375236</td>
+<td id="T_c1ff2_row6_col2" class="data row6 col2">SRR7349190</td>
+<td id="T_c1ff2_row6_col3" class="data row6 col3">53.085520</td>
+<td id="T_c1ff2_row6_col4" class="data row6 col4">142,008,353,400</td>
+<td id="T_c1ff2_row6_col5" class="data row6 col5">473,361,178</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">21</td>
+<td id="T_c1ff2_row7_col0" class="data row7 col0">pachytene spermatocyte</td>
+<td id="T_c1ff2_row7_col1" class="data row7 col1">SAMN08375234</td>
+<td id="T_c1ff2_row7_col2" class="data row7 col2">SRR6502342</td>
+<td id="T_c1ff2_row7_col3" class="data row7 col3">60.258880</td>
+<td id="T_c1ff2_row7_col4" class="data row7 col4">150,370,993,500</td>
+<td id="T_c1ff2_row7_col5" class="data row7 col5">501,236,645</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">22</td>
+<td id="T_c1ff2_row8_col0" class="data row8 col0">pachytene spermatocyte</td>
+<td id="T_c1ff2_row8_col1" class="data row8 col1">SAMN08375234</td>
+<td id="T_c1ff2_row8_col2" class="data row8 col2">SRR6502344</td>
+<td id="T_c1ff2_row8_col3" class="data row8 col3">27.146048</td>
+<td id="T_c1ff2_row8_col4" class="data row8 col4">65,697,684,300</td>
+<td id="T_c1ff2_row8_col5" class="data row8 col5">218,992,281</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">23</td>
+<td id="T_c1ff2_row9_col0" class="data row9 col0">pachytene spermatocyte</td>
+<td id="T_c1ff2_row9_col1" class="data row9 col1">SAMN08375234</td>
+<td id="T_c1ff2_row9_col2" class="data row9 col2">SRR6502345</td>
+<td id="T_c1ff2_row9_col3" class="data row9 col3">26.202707</td>
+<td id="T_c1ff2_row9_col4" class="data row9 col4">63,490,538,700</td>
+<td id="T_c1ff2_row9_col5" class="data row9 col5">211,635,129</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row10" class="row_heading level0 row10" data-quarto-table-cell-role="th">0</td>
+<td id="T_c1ff2_row10_col0" class="data row10 col0">pachytene spermatocyte</td>
+<td id="T_c1ff2_row10_col1" class="data row10 col1">SAMN09427370</td>
+<td id="T_c1ff2_row10_col2" class="data row10 col2">SRR7345458</td>
+<td id="T_c1ff2_row10_col3" class="data row10 col3">55.970557</td>
+<td id="T_c1ff2_row10_col4" class="data row10 col4">153,281,577,900</td>
+<td id="T_c1ff2_row10_col5" class="data row10 col5">510,938,593</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row11" class="row_heading level0 row11" data-quarto-table-cell-role="th">1</td>
+<td id="T_c1ff2_row11_col0" class="data row11 col0">pachytene spermatocyte</td>
+<td id="T_c1ff2_row11_col1" class="data row11 col1">SAMN09427370</td>
+<td id="T_c1ff2_row11_col2" class="data row11 col2">SRR7345459</td>
+<td id="T_c1ff2_row11_col3" class="data row11 col3">53.982492</td>
+<td id="T_c1ff2_row11_col4" class="data row11 col4">144,993,841,200</td>
+<td id="T_c1ff2_row11_col5" class="data row11 col5">483,312,804</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row12" class="row_heading level0 row12" data-quarto-table-cell-role="th">11</td>
+<td id="T_c1ff2_row12_col0" class="data row12 col0">pachytene spermatocyte</td>
+<td id="T_c1ff2_row12_col1" class="data row12 col1">SAMN08375235</td>
+<td id="T_c1ff2_row12_col2" class="data row12 col2">SRR7349191</td>
+<td id="T_c1ff2_row12_col3" class="data row12 col3">51.274476</td>
+<td id="T_c1ff2_row12_col4" class="data row12 col4">137,821,979,100</td>
+<td id="T_c1ff2_row12_col5" class="data row12 col5">459,406,597</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row13" class="row_heading level0 row13" data-quarto-table-cell-role="th">24</td>
+<td id="T_c1ff2_row13_col0" class="data row13 col0">round spermatid</td>
+<td id="T_c1ff2_row13_col1" class="data row13 col1">SAMN08375232</td>
+<td id="T_c1ff2_row13_col2" class="data row13 col2">SRR6502351</td>
+<td id="T_c1ff2_row13_col3" class="data row13 col3">20.924497</td>
+<td id="T_c1ff2_row13_col4" class="data row13 col4">55,095,075,300</td>
+<td id="T_c1ff2_row13_col5" class="data row13 col5">183,650,251</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row14" class="row_heading level0 row14" data-quarto-table-cell-role="th">25</td>
+<td id="T_c1ff2_row14_col0" class="data row14 col0">round spermatid</td>
+<td id="T_c1ff2_row14_col1" class="data row14 col1">SAMN08375232</td>
+<td id="T_c1ff2_row14_col2" class="data row14 col2">SRR6502352</td>
+<td id="T_c1ff2_row14_col3" class="data row14 col3">41.133960</td>
+<td id="T_c1ff2_row14_col4" class="data row14 col4">115,578,475,800</td>
+<td id="T_c1ff2_row14_col5" class="data row14 col5">385,261,586</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row15" class="row_heading level0 row15" data-quarto-table-cell-role="th">26</td>
+<td id="T_c1ff2_row15_col0" class="data row15 col0">round spermatid</td>
+<td id="T_c1ff2_row15_col1" class="data row15 col1">SAMN08375232</td>
+<td id="T_c1ff2_row15_col2" class="data row15 col2">SRR6502353</td>
+<td id="T_c1ff2_row15_col3" class="data row15 col3">36.444117</td>
+<td id="T_c1ff2_row15_col4" class="data row15 col4">96,195,161,400</td>
+<td id="T_c1ff2_row15_col5" class="data row15 col5">320,650,538</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row16" class="row_heading level0 row16" data-quarto-table-cell-role="th">2</td>
+<td id="T_c1ff2_row16_col0" class="data row16 col0">round spermatid</td>
+<td id="T_c1ff2_row16_col1" class="data row16 col1">SAMN09427369</td>
+<td id="T_c1ff2_row16_col2" class="data row16 col2">SRR7345460</td>
+<td id="T_c1ff2_row16_col3" class="data row16 col3">38.244654</td>
+<td id="T_c1ff2_row16_col4" class="data row16 col4">104,105,827,200</td>
+<td id="T_c1ff2_row16_col5" class="data row16 col5">347,019,424</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row17" class="row_heading level0 row17" data-quarto-table-cell-role="th">3</td>
+<td id="T_c1ff2_row17_col0" class="data row17 col0">round spermatid</td>
+<td id="T_c1ff2_row17_col1" class="data row17 col1">SAMN09427369</td>
+<td id="T_c1ff2_row17_col2" class="data row17 col2">SRR7345461</td>
+<td id="T_c1ff2_row17_col3" class="data row17 col3">53.996261</td>
+<td id="T_c1ff2_row17_col4" class="data row17 col4">144,532,309,500</td>
+<td id="T_c1ff2_row17_col5" class="data row17 col5">481,774,365</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row18" class="row_heading level0 row18" data-quarto-table-cell-role="th">12</td>
+<td id="T_c1ff2_row18_col0" class="data row18 col0">round spermatid</td>
+<td id="T_c1ff2_row18_col1" class="data row18 col1">SAMN08375232</td>
+<td id="T_c1ff2_row18_col2" class="data row18 col2">SRR7349192</td>
+<td id="T_c1ff2_row18_col3" class="data row18 col3">52.384556</td>
+<td id="T_c1ff2_row18_col4" class="data row18 col4">140,431,608,000</td>
+<td id="T_c1ff2_row18_col5" class="data row18 col5">468,105,360</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row19" class="row_heading level0 row19" data-quarto-table-cell-role="th">29</td>
+<td id="T_c1ff2_row19_col0" class="data row19 col0">sperm</td>
+<td id="T_c1ff2_row19_col1" class="data row19 col1">SAMN08375229</td>
+<td id="T_c1ff2_row19_col2" class="data row19 col2">SRR6502360</td>
+<td id="T_c1ff2_row19_col3" class="data row19 col3">26.653940</td>
+<td id="T_c1ff2_row19_col4" class="data row19 col4">64,752,370,800</td>
+<td id="T_c1ff2_row19_col5" class="data row19 col5">215,841,236</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row20" class="row_heading level0 row20" data-quarto-table-cell-role="th">30</td>
+<td id="T_c1ff2_row20_col0" class="data row20 col0">sperm</td>
+<td id="T_c1ff2_row20_col1" class="data row20 col1">SAMN08375228</td>
+<td id="T_c1ff2_row20_col2" class="data row20 col2">SRR6502362</td>
+<td id="T_c1ff2_row20_col3" class="data row20 col3">23.973440</td>
+<td id="T_c1ff2_row20_col4" class="data row20 col4">58,369,232,700</td>
+<td id="T_c1ff2_row20_col5" class="data row20 col5">194,564,109</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row21" class="row_heading level0 row21" data-quarto-table-cell-role="th">13</td>
+<td id="T_c1ff2_row21_col0" class="data row21 col0">sperm</td>
+<td id="T_c1ff2_row21_col1" class="data row21 col1">SAMN08375229</td>
+<td id="T_c1ff2_row21_col2" class="data row21 col2">SRR7349193</td>
+<td id="T_c1ff2_row21_col3" class="data row21 col3">52.806276</td>
+<td id="T_c1ff2_row21_col4" class="data row21 col4">141,148,572,300</td>
+<td id="T_c1ff2_row21_col5" class="data row21 col5">470,495,241</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row22" class="row_heading level0 row22" data-quarto-table-cell-role="th">14</td>
+<td id="T_c1ff2_row22_col0" class="data row22 col0">sperm</td>
+<td id="T_c1ff2_row22_col1" class="data row22 col1">SAMN08375229</td>
+<td id="T_c1ff2_row22_col2" class="data row22 col2">SRR7349195</td>
+<td id="T_c1ff2_row22_col3" class="data row22 col3">22.444378</td>
+<td id="T_c1ff2_row22_col4" class="data row22 col4">60,523,788,600</td>
+<td id="T_c1ff2_row22_col5" class="data row22 col5">201,745,962</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row23" class="row_heading level0 row23" data-quarto-table-cell-role="th">15</td>
+<td id="T_c1ff2_row23_col0" class="data row23 col0">sperm</td>
+<td id="T_c1ff2_row23_col1" class="data row23 col1">SAMN08375229</td>
+<td id="T_c1ff2_row23_col2" class="data row23 col2">SRR7349196</td>
+<td id="T_c1ff2_row23_col3" class="data row23 col3">38.253606</td>
+<td id="T_c1ff2_row23_col4" class="data row23 col4">104,119,671,000</td>
+<td id="T_c1ff2_row23_col5" class="data row23 col5">347,065,570</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row24" class="row_heading level0 row24" data-quarto-table-cell-role="th">27</td>
+<td id="T_c1ff2_row24_col0" class="data row24 col0">spermatogonia</td>
+<td id="T_c1ff2_row24_col1" class="data row24 col1">SAMN08375231</td>
+<td id="T_c1ff2_row24_col2" class="data row24 col2">SRR6502356</td>
+<td id="T_c1ff2_row24_col3" class="data row24 col3">22.845286</td>
+<td id="T_c1ff2_row24_col4" class="data row24 col4">58,909,579,800</td>
+<td id="T_c1ff2_row24_col5" class="data row24 col5">196,365,266</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row25" class="row_heading level0 row25" data-quarto-table-cell-role="th">28</td>
+<td id="T_c1ff2_row25_col0" class="data row25 col0">spermatogonia</td>
+<td id="T_c1ff2_row25_col1" class="data row25 col1">SAMN08375231</td>
+<td id="T_c1ff2_row25_col2" class="data row25 col2">SRR6502357</td>
+<td id="T_c1ff2_row25_col3" class="data row25 col3">17.947471</td>
+<td id="T_c1ff2_row25_col4" class="data row25 col4">46,888,332,900</td>
+<td id="T_c1ff2_row25_col5" class="data row25 col5">156,294,443</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row26" class="row_heading level0 row26" data-quarto-table-cell-role="th">4</td>
+<td id="T_c1ff2_row26_col0" class="data row26 col0">spermatogonia</td>
+<td id="T_c1ff2_row26_col1" class="data row26 col1">SAMN09427379</td>
+<td id="T_c1ff2_row26_col2" class="data row26 col2">SRR7345462</td>
+<td id="T_c1ff2_row26_col3" class="data row26 col3">18.686342</td>
+<td id="T_c1ff2_row26_col4" class="data row26 col4">52,032,780,000</td>
+<td id="T_c1ff2_row26_col5" class="data row26 col5">173,442,600</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row27" class="row_heading level0 row27" data-quarto-table-cell-role="th">5</td>
+<td id="T_c1ff2_row27_col0" class="data row27 col0">spermatogonia</td>
+<td id="T_c1ff2_row27_col1" class="data row27 col1">SAMN09427379</td>
+<td id="T_c1ff2_row27_col2" class="data row27 col2">SRR7345463</td>
+<td id="T_c1ff2_row27_col3" class="data row27 col3">29.956561</td>
+<td id="T_c1ff2_row27_col4" class="data row27 col4">82,384,836,000</td>
+<td id="T_c1ff2_row27_col5" class="data row27 col5">274,616,120</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row28" class="row_heading level0 row28" data-quarto-table-cell-role="th">6</td>
+<td id="T_c1ff2_row28_col0" class="data row28 col0">spermatogonia</td>
+<td id="T_c1ff2_row28_col1" class="data row28 col1">SAMN09427379</td>
+<td id="T_c1ff2_row28_col2" class="data row28 col2">SRR7345464</td>
+<td id="T_c1ff2_row28_col3" class="data row28 col3">39.145759</td>
+<td id="T_c1ff2_row28_col4" class="data row28 col4">105,153,716,100</td>
+<td id="T_c1ff2_row28_col5" class="data row28 col5">350,512,387</td>
+</tr>
+<tr class="even">
+<td id="T_c1ff2_level0_row29" class="row_heading level0 row29" data-quarto-table-cell-role="th">7</td>
+<td id="T_c1ff2_row29_col0" class="data row29 col0">spermatogonia</td>
+<td id="T_c1ff2_row29_col1" class="data row29 col1">SAMN09427378</td>
+<td id="T_c1ff2_row29_col2" class="data row29 col2">SRR7345465</td>
+<td id="T_c1ff2_row29_col3" class="data row29 col3">35.816184</td>
+<td id="T_c1ff2_row29_col4" class="data row29 col4">96,048,594,600</td>
+<td id="T_c1ff2_row29_col5" class="data row29 col5">320,161,982</td>
+</tr>
+<tr class="odd">
+<td id="T_c1ff2_level0_row30" class="row_heading level0 row30" data-quarto-table-cell-role="th">8</td>
+<td id="T_c1ff2_row30_col0" class="data row30 col0">spermatogonia</td>
+<td id="T_c1ff2_row30_col1" class="data row30 col1">SAMN09427378</td>
+<td id="T_c1ff2_row30_col2" class="data row30 col2">SRR7345467</td>
+<td id="T_c1ff2_row30_col3" class="data row30 col3">28.396816</td>
+<td id="T_c1ff2_row30_col4" class="data row30 col4">77,248,140,900</td>
+<td id="T_c1ff2_row30_col5" class="data row30 col5">257,493,803</td>
 </tr>
 </tbody>
 </table>
@@ -281,7 +527,7 @@ Table&nbsp;1: Summary of the data accessions used in this analysis
 <div id="fig-flowchart-handling-coolers" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flowchart-handling-coolers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<p>A flowchart showing the pipeline from <code>.fastq</code> to <code>.mcool</code>. The first 6 steps were done with a Probably BioRender or Inkscape.</p>
+<p><strong><em>[A flowchart showing the pipeline from <code>.fastq</code> to <code>.mcool</code>. The first 6 steps were done with a Probably BioRender or Inkscape.]</em></strong></p>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-flowchart-handling-coolers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1
