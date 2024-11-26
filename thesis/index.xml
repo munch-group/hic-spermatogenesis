@@ -196,51 +196,51 @@ and evolutionary dynamics across primate species.</p>
       <caption><p>Table 1: Summary of the data accessions used in this
       analysis</p></caption>
       <table-wrap>
-        <table id="T_0aa9c">
+        <table id="T_55add">
           <thead>
             <tr>
               <th> </th>
-              <th id="T_0aa9c_level0_col0">source_name</th>
-              <th id="T_0aa9c_level0_col1">GB</th>
-              <th id="T_0aa9c_level0_col2">Bases</th>
-              <th id="T_0aa9c_level0_col3">Reads</th>
+              <th id="T_55add_level0_col0">source_name</th>
+              <th id="T_55add_level0_col1">GB</th>
+              <th id="T_55add_level0_col2">Bases</th>
+              <th id="T_55add_level0_col3">Reads</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td id="T_0aa9c_level0_row0">0</td>
-              <td id="T_0aa9c_row0_col0">fibroblast</td>
-              <td id="T_0aa9c_row0_col1">211.403275</td>
-              <td id="T_0aa9c_row0_col2">553,968,406,500</td>
-              <td id="T_0aa9c_row0_col3">1,846,561,355</td>
+              <td id="T_55add_level0_row0">0</td>
+              <td id="T_55add_row0_col0">fibroblast</td>
+              <td id="T_55add_row0_col1">211.403275</td>
+              <td id="T_55add_row0_col2">553,968,406,500</td>
+              <td id="T_55add_row0_col3">1,846,561,355</td>
             </tr>
             <tr>
-              <td id="T_0aa9c_level0_row1">1</td>
-              <td id="T_0aa9c_row1_col0">pachytene spermatocyte</td>
-              <td id="T_0aa9c_row1_col1">274.835160</td>
-              <td id="T_0aa9c_row1_col2">715,656,614,700</td>
-              <td id="T_0aa9c_row1_col3">2,385,522,049</td>
+              <td id="T_55add_level0_row1">1</td>
+              <td id="T_55add_row1_col0">pachytene spermatocyte</td>
+              <td id="T_55add_row1_col1">274.835160</td>
+              <td id="T_55add_row1_col2">715,656,614,700</td>
+              <td id="T_55add_row1_col3">2,385,522,049</td>
             </tr>
             <tr>
-              <td id="T_0aa9c_level0_row2">2</td>
-              <td id="T_0aa9c_row2_col0">round spermatid</td>
-              <td id="T_0aa9c_row2_col1">243.128044</td>
-              <td id="T_0aa9c_row2_col2">655,938,457,200</td>
-              <td id="T_0aa9c_row2_col3">2,186,461,524</td>
+              <td id="T_55add_level0_row2">2</td>
+              <td id="T_55add_row2_col0">round spermatid</td>
+              <td id="T_55add_row2_col1">243.128044</td>
+              <td id="T_55add_row2_col2">655,938,457,200</td>
+              <td id="T_55add_row2_col3">2,186,461,524</td>
             </tr>
             <tr>
-              <td id="T_0aa9c_level0_row3">3</td>
-              <td id="T_0aa9c_row3_col0">sperm</td>
-              <td id="T_0aa9c_row3_col1">164.131640</td>
-              <td id="T_0aa9c_row3_col2">428,913,635,400</td>
-              <td id="T_0aa9c_row3_col3">1,429,712,118</td>
+              <td id="T_55add_level0_row3">3</td>
+              <td id="T_55add_row3_col0">sperm</td>
+              <td id="T_55add_row3_col1">164.131640</td>
+              <td id="T_55add_row3_col2">428,913,635,400</td>
+              <td id="T_55add_row3_col3">1,429,712,118</td>
             </tr>
             <tr>
-              <td id="T_0aa9c_level0_row4">4</td>
-              <td id="T_0aa9c_row4_col0">spermatogonia</td>
-              <td id="T_0aa9c_row4_col1">192.794420</td>
-              <td id="T_0aa9c_row4_col2">518,665,980,300</td>
-              <td id="T_0aa9c_row4_col3">1,728,886,601</td>
+              <td id="T_55add_level0_row4">4</td>
+              <td id="T_55add_row4_col0">spermatogonia</td>
+              <td id="T_55add_row4_col1">192.794420</td>
+              <td id="T_55add_row4_col2">518,665,980,300</td>
+              <td id="T_55add_row4_col3">1,728,886,601</td>
             </tr>
           </tbody>
         </table>
@@ -585,51 +585,51 @@ and evolutionary dynamics across primate species.</p>
       analysis</p></caption>
       <boxed-text>
         <table-wrap>
-          <table id="T_0aa9c-nb-1">
+          <table id="T_55add-nb-1">
             <thead>
               <tr>
                 <th> </th>
-                <th id="T_0aa9c_level0_col0-nb-1">source_name</th>
-                <th id="T_0aa9c_level0_col1-nb-1">GB</th>
-                <th id="T_0aa9c_level0_col2-nb-1">Bases</th>
-                <th id="T_0aa9c_level0_col3-nb-1">Reads</th>
+                <th id="T_55add_level0_col0-nb-1">source_name</th>
+                <th id="T_55add_level0_col1-nb-1">GB</th>
+                <th id="T_55add_level0_col2-nb-1">Bases</th>
+                <th id="T_55add_level0_col3-nb-1">Reads</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td id="T_0aa9c_level0_row0-nb-1">0</td>
-                <td id="T_0aa9c_row0_col0-nb-1">fibroblast</td>
-                <td id="T_0aa9c_row0_col1-nb-1">211.403275</td>
-                <td id="T_0aa9c_row0_col2-nb-1">553,968,406,500</td>
-                <td id="T_0aa9c_row0_col3-nb-1">1,846,561,355</td>
+                <td id="T_55add_level0_row0-nb-1">0</td>
+                <td id="T_55add_row0_col0-nb-1">fibroblast</td>
+                <td id="T_55add_row0_col1-nb-1">211.403275</td>
+                <td id="T_55add_row0_col2-nb-1">553,968,406,500</td>
+                <td id="T_55add_row0_col3-nb-1">1,846,561,355</td>
               </tr>
               <tr>
-                <td id="T_0aa9c_level0_row1-nb-1">1</td>
-                <td id="T_0aa9c_row1_col0-nb-1">pachytene spermatocyte</td>
-                <td id="T_0aa9c_row1_col1-nb-1">274.835160</td>
-                <td id="T_0aa9c_row1_col2-nb-1">715,656,614,700</td>
-                <td id="T_0aa9c_row1_col3-nb-1">2,385,522,049</td>
+                <td id="T_55add_level0_row1-nb-1">1</td>
+                <td id="T_55add_row1_col0-nb-1">pachytene spermatocyte</td>
+                <td id="T_55add_row1_col1-nb-1">274.835160</td>
+                <td id="T_55add_row1_col2-nb-1">715,656,614,700</td>
+                <td id="T_55add_row1_col3-nb-1">2,385,522,049</td>
               </tr>
               <tr>
-                <td id="T_0aa9c_level0_row2-nb-1">2</td>
-                <td id="T_0aa9c_row2_col0-nb-1">round spermatid</td>
-                <td id="T_0aa9c_row2_col1-nb-1">243.128044</td>
-                <td id="T_0aa9c_row2_col2-nb-1">655,938,457,200</td>
-                <td id="T_0aa9c_row2_col3-nb-1">2,186,461,524</td>
+                <td id="T_55add_level0_row2-nb-1">2</td>
+                <td id="T_55add_row2_col0-nb-1">round spermatid</td>
+                <td id="T_55add_row2_col1-nb-1">243.128044</td>
+                <td id="T_55add_row2_col2-nb-1">655,938,457,200</td>
+                <td id="T_55add_row2_col3-nb-1">2,186,461,524</td>
               </tr>
               <tr>
-                <td id="T_0aa9c_level0_row3-nb-1">3</td>
-                <td id="T_0aa9c_row3_col0-nb-1">sperm</td>
-                <td id="T_0aa9c_row3_col1-nb-1">164.131640</td>
-                <td id="T_0aa9c_row3_col2-nb-1">428,913,635,400</td>
-                <td id="T_0aa9c_row3_col3-nb-1">1,429,712,118</td>
+                <td id="T_55add_level0_row3-nb-1">3</td>
+                <td id="T_55add_row3_col0-nb-1">sperm</td>
+                <td id="T_55add_row3_col1-nb-1">164.131640</td>
+                <td id="T_55add_row3_col2-nb-1">428,913,635,400</td>
+                <td id="T_55add_row3_col3-nb-1">1,429,712,118</td>
               </tr>
               <tr>
-                <td id="T_0aa9c_level0_row4-nb-1">4</td>
-                <td id="T_0aa9c_row4_col0-nb-1">spermatogonia</td>
-                <td id="T_0aa9c_row4_col1-nb-1">192.794420</td>
-                <td id="T_0aa9c_row4_col2-nb-1">518,665,980,300</td>
-                <td id="T_0aa9c_row4_col3-nb-1">1,728,886,601</td>
+                <td id="T_55add_level0_row4-nb-1">4</td>
+                <td id="T_55add_row4_col0-nb-1">spermatogonia</td>
+                <td id="T_55add_row4_col1-nb-1">192.794420</td>
+                <td id="T_55add_row4_col2-nb-1">518,665,980,300</td>
+                <td id="T_55add_row4_col3-nb-1">1,728,886,601</td>
               </tr>
             </tbody>
           </table>

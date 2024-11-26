@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -57,10 +57,10 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2368a3d5f59fbab228ac76d85455886e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -291,7 +291,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 25, 2024 <br> 14:37:42 (UTC +00:00)</p>
+      <p class="date">November 26, 2024 <br> 15:12:17 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -566,11 +566,11 @@ Figure&nbsp;6.3: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 <p>As stated in <span class="citation" data-cites="wang_reprogramming_2019">Lieberman-Aiden et al. (<a href="../thesis/index.html#ref-lieberman_aiden_comprehensive_2009" role="doc-biblioref">2009</a>)</span> and <code>cooltools</code> documentation, the E1 occasionally <em>does not</em> reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere).</p>
 <p>I determined the region of the centromere from the <a href="https://www.ncbi.nlm.nih.gov/gdv/browser/genome/?id=GCF_003339765.1">NCBI browser</a>, in a region from 58-61Mb that have no gene annotations. That region corresponds well with <code>NaN</code> values in the calculated eigenvector (values removed because of low-count bins), as seen below:</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-e1_nan_hist">
-<div id="cell-e1_nan_hist" class="cell page-columns page-full" data-execution_count="47">
+<div id="cell-e1_nan_hist" class="cell page-columns page-full" data-execution_count="9">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1_nan_hist" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="thoughts_files/figure-html/..-notebooks-03_compartments-e1_nan_hist-output-1.png" class="img-fluid figure-img column-page-inset"></p>
+<p class="page-columns page-full"><img src="thoughts_files/figure-html/..-notebooks-03_compartments-e1_nan_hist-output-1.png" width="1602" height="262" class="figure-img column-page-inset"></p>
 <figcaption>Histogram of NaN values in the E1 eigenvector for each cell type.</figcaption>
 </figure>
 </div>
@@ -579,7 +579,7 @@ Figure&nbsp;6.3: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 </div>
 <p>Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../thesis/index.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know…</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-e1-fullmerged-all-500kb">
-<div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="48">
+<div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="9">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1-fullmerged-all-500kb" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -703,8 +703,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -815,7 +813,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
