@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Compartments Analysis – Søren's MSc project about Hi-C and spermatogenesis</title>
+<title>Compartments Analysis – Søren's MSc project about Hi-C and spermatogenesis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -287,59 +287,59 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#working-with-coolers" id="toc-working-with-coolers" class="nav-link active" data-scroll-target="#working-with-coolers"><span class="header-section-number">5</span> Working with coolers</a>
+  <li><a href="#working-with-coolers" id="toc-working-with-coolers" class="nav-link active" data-scroll-target="#working-with-coolers">Working with coolers</a>
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">5.1</span> Overview</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
-  <li><a href="#data-accessions" id="toc-data-accessions" class="nav-link" data-scroll-target="#data-accessions"><span class="header-section-number">5.1.1</span> Data (Accessions)</a></li>
-  <li><a href="#folder-structure" id="toc-folder-structure" class="nav-link" data-scroll-target="#folder-structure"><span class="header-section-number">5.1.2</span> Folder structure</a></li>
+  <li><a href="#data-accessions" id="toc-data-accessions" class="nav-link" data-scroll-target="#data-accessions">Data (Accessions)</a></li>
+  <li><a href="#folder-structure" id="toc-folder-structure" class="nav-link" data-scroll-target="#folder-structure">Folder structure</a></li>
   </ul></li>
-  <li><a href="#fullmerge-pool-all-from-each-source_name" id="toc-fullmerge-pool-all-from-each-source_name" class="nav-link" data-scroll-target="#fullmerge-pool-all-from-each-source_name"><span class="header-section-number">5.2</span> FullMerge (pool all from each source_name)</a>
+  <li><a href="#fullmerge-pool-all-from-each-source_name" id="toc-fullmerge-pool-all-from-each-source_name" class="nav-link" data-scroll-target="#fullmerge-pool-all-from-each-source_name">FullMerge (pool all from each source_name)</a>
   <ul class="collapse">
-  <li><a href="#create-cooler-dictionary-glob" id="toc-create-cooler-dictionary-glob" class="nav-link" data-scroll-target="#create-cooler-dictionary-glob"><span class="header-section-number">5.2.1</span> Create cooler dictionary (<code>glob</code>)</a></li>
-  <li><a href="#merge-coolers" id="toc-merge-coolers" class="nav-link" data-scroll-target="#merge-coolers"><span class="header-section-number">5.2.2</span> Merge coolers</a></li>
-  <li><a href="#zoomify-the-merged-cooler-files" id="toc-zoomify-the-merged-cooler-files" class="nav-link" data-scroll-target="#zoomify-the-merged-cooler-files"><span class="header-section-number">5.2.3</span> Zoomify the merged cooler files</a></li>
-  <li><a href="#balance-the-matrices" id="toc-balance-the-matrices" class="nav-link" data-scroll-target="#balance-the-matrices"><span class="header-section-number">5.2.4</span> Balance the matrices</a></li>
+  <li><a href="#create-cooler-dictionary-glob" id="toc-create-cooler-dictionary-glob" class="nav-link" data-scroll-target="#create-cooler-dictionary-glob">Create cooler dictionary (<code>glob</code>)</a></li>
+  <li><a href="#merge-coolers" id="toc-merge-coolers" class="nav-link" data-scroll-target="#merge-coolers">Merge coolers</a></li>
+  <li><a href="#zoomify-the-merged-cooler-files" id="toc-zoomify-the-merged-cooler-files" class="nav-link" data-scroll-target="#zoomify-the-merged-cooler-files">Zoomify the merged cooler files</a></li>
+  <li><a href="#balance-the-matrices" id="toc-balance-the-matrices" class="nav-link" data-scroll-target="#balance-the-matrices">Balance the matrices</a></li>
   </ul></li>
-  <li><a href="#repmerge-pool-all-from-each-biosample-id" id="toc-repmerge-pool-all-from-each-biosample-id" class="nav-link" data-scroll-target="#repmerge-pool-all-from-each-biosample-id"><span class="header-section-number">5.3</span> RepMerge (pool all from each BioSample ID)</a></li>
+  <li><a href="#repmerge-pool-all-from-each-biosample-id" id="toc-repmerge-pool-all-from-each-biosample-id" class="nav-link" data-scroll-target="#repmerge-pool-all-from-each-biosample-id">RepMerge (pool all from each BioSample ID)</a></li>
   </ul></li>
-  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting"><span class="header-section-number">6</span> Plotting</a>
+  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting">Plotting</a>
   <ul>
-  <li><a href="#kb-resolution" id="toc-kb-resolution" class="nav-link" data-scroll-target="#kb-resolution"><span class="header-section-number">6.1</span> 500kb resolution</a>
+  <li><a href="#kb-resolution" id="toc-kb-resolution" class="nav-link" data-scroll-target="#kb-resolution">500kb resolution</a>
   <ul class="collapse">
-  <li><a href="#example-with-a-single-sample" id="toc-example-with-a-single-sample" class="nav-link" data-scroll-target="#example-with-a-single-sample"><span class="header-section-number">6.1.1</span> Example with a single sample</a>
+  <li><a href="#example-with-a-single-sample" id="toc-example-with-a-single-sample" class="nav-link" data-scroll-target="#example-with-a-single-sample">Example with a single sample</a>
   <ul class="collapse">
-  <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports"><span class="header-section-number">6.1.1.1</span> Imports</a></li>
-  <li><a href="#load-cooler" id="toc-load-cooler" class="nav-link" data-scroll-target="#load-cooler"><span class="header-section-number">6.1.1.2</span> Load cooler</a></li>
-  <li><a href="#calculate-gc-covariance-from-the-reference-genome" id="toc-calculate-gc-covariance-from-the-reference-genome" class="nav-link" data-scroll-target="#calculate-gc-covariance-from-the-reference-genome"><span class="header-section-number">6.1.1.3</span> Calculate gc covariance (from the reference genome)</a></li>
-  <li><a href="#calculate-the-e1-compartments" id="toc-calculate-the-e1-compartments" class="nav-link" data-scroll-target="#calculate-the-e1-compartments"><span class="header-section-number">6.1.1.4</span> Calculate the E1 compartments</a></li>
-  <li><a href="#plot-e1-and-matrix" id="toc-plot-e1-and-matrix" class="nav-link" data-scroll-target="#plot-e1-and-matrix"><span class="header-section-number">6.1.1.5</span> Plot E1 and matrix</a></li>
-  <li><a href="#stairs-plot-of-the-e1-compartments" id="toc-stairs-plot-of-the-e1-compartments" class="nav-link" data-scroll-target="#stairs-plot-of-the-e1-compartments"><span class="header-section-number">6.1.1.6</span> Stairs plot of the E1 compartments</a></li>
+  <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports">Imports</a></li>
+  <li><a href="#load-cooler" id="toc-load-cooler" class="nav-link" data-scroll-target="#load-cooler">Load cooler</a></li>
+  <li><a href="#calculate-gc-covariance-from-the-reference-genome" id="toc-calculate-gc-covariance-from-the-reference-genome" class="nav-link" data-scroll-target="#calculate-gc-covariance-from-the-reference-genome">Calculate gc covariance (from the reference genome)</a></li>
+  <li><a href="#calculate-the-e1-compartments" id="toc-calculate-the-e1-compartments" class="nav-link" data-scroll-target="#calculate-the-e1-compartments">Calculate the E1 compartments</a></li>
+  <li><a href="#plot-e1-and-matrix" id="toc-plot-e1-and-matrix" class="nav-link" data-scroll-target="#plot-e1-and-matrix">Plot E1 and matrix</a></li>
+  <li><a href="#stairs-plot-of-the-e1-compartments" id="toc-stairs-plot-of-the-e1-compartments" class="nav-link" data-scroll-target="#stairs-plot-of-the-e1-compartments">Stairs plot of the E1 compartments</a></li>
   </ul></li>
-  <li><a href="#all-5-full-merges" id="toc-all-5-full-merges" class="nav-link" data-scroll-target="#all-5-full-merges"><span class="header-section-number">6.1.2</span> All 5 full merges</a>
+  <li><a href="#all-5-full-merges" id="toc-all-5-full-merges" class="nav-link" data-scroll-target="#all-5-full-merges">All 5 full merges</a>
   <ul class="collapse">
-  <li><a href="#load-coolers" id="toc-load-coolers" class="nav-link" data-scroll-target="#load-coolers"><span class="header-section-number">6.1.2.1</span> Load coolers</a></li>
-  <li><a href="#calculate-gc-covariance-from-the-reference-genome-1" id="toc-calculate-gc-covariance-from-the-reference-genome-1" class="nav-link" data-scroll-target="#calculate-gc-covariance-from-the-reference-genome-1"><span class="header-section-number">6.1.2.2</span> Calculate gc covariance (from the reference genome)</a></li>
-  <li><a href="#calculate-the-e1-compartments-1" id="toc-calculate-the-e1-compartments-1" class="nav-link" data-scroll-target="#calculate-the-e1-compartments-1"><span class="header-section-number">6.1.2.3</span> Calculate the E1 compartments</a></li>
-  <li><a href="#plot-the-e1-compartments" id="toc-plot-the-e1-compartments" class="nav-link" data-scroll-target="#plot-the-e1-compartments"><span class="header-section-number">6.1.2.4</span> Plot the E1 compartments</a></li>
-  <li><a href="#plot-matrices-with-compartments-round-spermatid" id="toc-plot-matrices-with-compartments-round-spermatid" class="nav-link" data-scroll-target="#plot-matrices-with-compartments-round-spermatid"><span class="header-section-number">6.1.2.5</span> Plot matrices with compartments (round spermatid)</a></li>
-  <li><a href="#sliding-window-summed-e1-compartments" id="toc-sliding-window-summed-e1-compartments" class="nav-link" data-scroll-target="#sliding-window-summed-e1-compartments"><span class="header-section-number">6.1.2.6</span> Sliding window summed E1 compartments</a></li>
+  <li><a href="#load-coolers" id="toc-load-coolers" class="nav-link" data-scroll-target="#load-coolers">Load coolers</a></li>
+  <li><a href="#calculate-gc-covariance-from-the-reference-genome-1" id="toc-calculate-gc-covariance-from-the-reference-genome-1" class="nav-link" data-scroll-target="#calculate-gc-covariance-from-the-reference-genome-1">Calculate gc covariance (from the reference genome)</a></li>
+  <li><a href="#calculate-the-e1-compartments-1" id="toc-calculate-the-e1-compartments-1" class="nav-link" data-scroll-target="#calculate-the-e1-compartments-1">Calculate the E1 compartments</a></li>
+  <li><a href="#plot-the-e1-compartments" id="toc-plot-the-e1-compartments" class="nav-link" data-scroll-target="#plot-the-e1-compartments">Plot the E1 compartments</a></li>
+  <li><a href="#plot-matrices-with-compartments-round-spermatid" id="toc-plot-matrices-with-compartments-round-spermatid" class="nav-link" data-scroll-target="#plot-matrices-with-compartments-round-spermatid">Plot matrices with compartments (round spermatid)</a></li>
+  <li><a href="#sliding-window-summed-e1-compartments" id="toc-sliding-window-summed-e1-compartments" class="nav-link" data-scroll-target="#sliding-window-summed-e1-compartments">Sliding window summed E1 compartments</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#kb-resolution-1" id="toc-kb-resolution-1" class="nav-link" data-scroll-target="#kb-resolution-1"><span class="header-section-number">6.2</span> 100kb resolution</a>
+  <li><a href="#kb-resolution-1" id="toc-kb-resolution-1" class="nav-link" data-scroll-target="#kb-resolution-1">100kb resolution</a>
   <ul class="collapse">
-  <li><a href="#all-5-full-merges-1" id="toc-all-5-full-merges-1" class="nav-link" data-scroll-target="#all-5-full-merges-1"><span class="header-section-number">6.2.1</span> All 5 full merges</a>
+  <li><a href="#all-5-full-merges-1" id="toc-all-5-full-merges-1" class="nav-link" data-scroll-target="#all-5-full-merges-1">All 5 full merges</a>
   <ul class="collapse">
-  <li><a href="#load-coolers-1" id="toc-load-coolers-1" class="nav-link" data-scroll-target="#load-coolers-1"><span class="header-section-number">6.2.1.1</span> Load coolers</a></li>
-  <li><a href="#calculate-gc-covariance-from-the-reference-genome-2" id="toc-calculate-gc-covariance-from-the-reference-genome-2" class="nav-link" data-scroll-target="#calculate-gc-covariance-from-the-reference-genome-2"><span class="header-section-number">6.2.1.2</span> Calculate gc covariance (from the reference genome)</a></li>
-  <li><a href="#calculate-the-e1-compartments-2" id="toc-calculate-the-e1-compartments-2" class="nav-link" data-scroll-target="#calculate-the-e1-compartments-2"><span class="header-section-number">6.2.1.3</span> Calculate the E1 compartments</a></li>
-  <li><a href="#extract-the-a-compartment-coordinates" id="toc-extract-the-a-compartment-coordinates" class="nav-link" data-scroll-target="#extract-the-a-compartment-coordinates"><span class="header-section-number">6.2.1.4</span> Extract the A compartment coordinates</a></li>
-  <li><a href="#plot-the-e1-compartments-1" id="toc-plot-the-e1-compartments-1" class="nav-link" data-scroll-target="#plot-the-e1-compartments-1"><span class="header-section-number">6.2.1.5</span> Plot the E1 compartments</a></li>
-  <li><a href="#plot-matrices-with-compartments" id="toc-plot-matrices-with-compartments" class="nav-link" data-scroll-target="#plot-matrices-with-compartments"><span class="header-section-number">6.2.1.6</span> Plot matrices with compartments</a></li>
+  <li><a href="#load-coolers-1" id="toc-load-coolers-1" class="nav-link" data-scroll-target="#load-coolers-1">Load coolers</a></li>
+  <li><a href="#calculate-gc-covariance-from-the-reference-genome-2" id="toc-calculate-gc-covariance-from-the-reference-genome-2" class="nav-link" data-scroll-target="#calculate-gc-covariance-from-the-reference-genome-2">Calculate gc covariance (from the reference genome)</a></li>
+  <li><a href="#calculate-the-e1-compartments-2" id="toc-calculate-the-e1-compartments-2" class="nav-link" data-scroll-target="#calculate-the-e1-compartments-2">Calculate the E1 compartments</a></li>
+  <li><a href="#extract-the-a-compartment-coordinates" id="toc-extract-the-a-compartment-coordinates" class="nav-link" data-scroll-target="#extract-the-a-compartment-coordinates">Extract the A compartment coordinates</a></li>
+  <li><a href="#plot-the-e1-compartments-1" id="toc-plot-the-e1-compartments-1" class="nav-link" data-scroll-target="#plot-the-e1-compartments-1">Plot the E1 compartments</a></li>
+  <li><a href="#plot-matrices-with-compartments" id="toc-plot-matrices-with-compartments" class="nav-link" data-scroll-target="#plot-matrices-with-compartments">Plot matrices with compartments</a></li>
   </ul></li>
-  <li><a href="#smooth-the-observedexpected-matrix" id="toc-smooth-the-observedexpected-matrix" class="nav-link" data-scroll-target="#smooth-the-observedexpected-matrix"><span class="header-section-number">6.2.2</span> Smooth the Observed/Expected matrix</a>
+  <li><a href="#smooth-the-observedexpected-matrix" id="toc-smooth-the-observedexpected-matrix" class="nav-link" data-scroll-target="#smooth-the-observedexpected-matrix">Smooth the Observed/Expected matrix</a>
   <ul class="collapse">
-  <li><a href="#calculate-gc-covariance-from-the-reference-genome-3" id="toc-calculate-gc-covariance-from-the-reference-genome-3" class="nav-link" data-scroll-target="#calculate-gc-covariance-from-the-reference-genome-3"><span class="header-section-number">6.2.2.1</span> Calculate gc covariance (from the reference genome)</a></li>
+  <li><a href="#calculate-gc-covariance-from-the-reference-genome-3" id="toc-calculate-gc-covariance-from-the-reference-genome-3" class="nav-link" data-scroll-target="#calculate-gc-covariance-from-the-reference-genome-3">Calculate gc covariance (from the reference genome)</a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -369,8 +369,8 @@ div.csl-indent {
 </header>
 
 
-<section id="working-with-coolers" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Working with coolers</h1>
+<section id="working-with-coolers" class="level1">
+<h1>Working with coolers</h1>
 <p>In this notebook, we use files generated by the workflow <code>master_workflow</code> that, in short, does the following:</p>
 <ol type="1">
 <li>Download the data from the source</li>
@@ -388,10 +388,10 @@ div.csl-indent {
 <li>Balance the matrices (use commandline <code>cooler balance</code>)</li>
 <li>Calculate E1 compartments with <code>cooltools compute_cis_eig</code></li>
 </ol>
-<section id="overview" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">5.1</span> Overview</h2>
-<section id="data-accessions" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="data-accessions"><span class="header-section-number">5.1.1</span> Data (Accessions)</h3>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<section id="data-accessions" class="level3">
+<h3 class="anchored" data-anchor-id="data-accessions">Data (Accessions)</h3>
 <div id="cell-md-data-accessions" class="cell" data-execution_count="2">
 <div id="md-data-accessions" class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
 <p>To get an overview of the data accessions used in this analysis, we will first summarize the <code>SRA-runtable.tsv</code> that contains the accession numbers and some metadata for each sample (<a href="#tbl-runtable-summary" class="quarto-xref">Table&nbsp;<span>5.2</span></a>).</p>
@@ -772,8 +772,8 @@ Table&nbsp;5.2: Summary of the data accessions used in this analysis
 </div>
 </div>
 </section>
-<section id="folder-structure" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="folder-structure"><span class="header-section-number">5.1.2</span> Folder structure</h3>
+<section id="folder-structure" class="level3">
+<h3 class="anchored" data-anchor-id="folder-structure">Folder structure</h3>
 <div id="cell-md-folder-structure" class="cell" data-execution_count="6">
 <div id="md-folder-structure" class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
 <p>For ease of mind, here is the folder structure of the project. <code>../steps/bwa/PE/</code> is the base directory artificially defined in the <code>master_workflow.py</code>. It ccould be any other directory inside <code>steps</code>. It is defined relative to the <code>master_workflow.py</code> file (inside the worklow), and converted to an absolute path by python.</p>
@@ -813,8 +813,8 @@ Figure&nbsp;5.1
 </div>
 </section>
 </section>
-<section id="fullmerge-pool-all-from-each-source_name" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="fullmerge-pool-all-from-each-source_name"><span class="header-section-number">5.2</span> FullMerge (pool all from each source_name)</h2>
+<section id="fullmerge-pool-all-from-each-source_name" class="level2">
+<h2 class="anchored" data-anchor-id="fullmerge-pool-all-from-each-source_name">FullMerge (pool all from each source_name)</h2>
 <div id="cell-md-fullmerge-coolers" class="cell" data-execution_count="8">
 <div id="md-fullmerge-coolers" class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
 <p>We will use <code>cooler merge</code> to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../thesis/index.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal.</p>
@@ -828,8 +828,8 @@ Figure&nbsp;5.1
 </ul>
 </div>
 </div>
-<section id="create-cooler-dictionary-glob" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="create-cooler-dictionary-glob"><span class="header-section-number">5.2.1</span> Create cooler dictionary (<code>glob</code>)</h3>
+<section id="create-cooler-dictionary-glob" class="level3">
+<h3 class="anchored" data-anchor-id="create-cooler-dictionary-glob">Create cooler dictionary (<code>glob</code>)</h3>
 <div id="cell-md-create-cooler-dict" class="cell" data-execution_count="9">
 <div id="md-create-cooler-dict" class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
 <p>First, we will create a dictionary with the paths to the coolers for each sample. We use <code>glob.glob</code> to fetch all the coolers in each sub-folder that remain after filtering and (automatic) quality control (those are the ones with <code>nodups</code> in their names).</p>
@@ -938,8 +938,8 @@ Table&nbsp;5.3: Dictionary of coolers for each cell type
 </div>
 </div>
 </section>
-<section id="merge-coolers" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="merge-coolers"><span class="header-section-number">5.2.2</span> Merge coolers</h3>
+<section id="merge-coolers" class="level3">
+<h3 class="anchored" data-anchor-id="merge-coolers">Merge coolers</h3>
 <div id="cell-md-merge-coolers" class="cell" data-execution_count="11">
 <div id="md-merge-coolers" class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
 <p>The coolers are merged by summing each bin in the matrices, meaning we can only merge matrices with same dimensions. We iterate through the dictionary and merge the coolers with <code>cooler merge</code>. The <code>mergebuf</code> parameter should be adjusted if you don’t have 32G memory. Default: <code>mergebuf = 20000000</code>. Below, we also check if the output file already exists. If it does, we skip the merge.</p>
@@ -974,8 +974,8 @@ Skipping ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.full
 </div>
 </div>
 </section>
-<section id="zoomify-the-merged-cooler-files" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="zoomify-the-merged-cooler-files"><span class="header-section-number">5.2.3</span> Zoomify the merged cooler files</h3>
+<section id="zoomify-the-merged-cooler-files" class="level3">
+<h3 class="anchored" data-anchor-id="zoomify-the-merged-cooler-files">Zoomify the merged cooler files</h3>
 <div id="cell-md-zoomify-coolers" class="cell" data-execution_count="13">
 <div id="md-zoomify-coolers" class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
 <p>After merging the coolers, we will zoomify them to resolutions: 10kb, 50kb, 100kb, 500kb. It will recursively create the zoom levels for the cooler file from the ‘base’ resolution (in our case 10kb bins) to the ‘max’ resolution (in our case 500kb bins), and save all zoom levels in a multi-resolution cooler (<code>.mcool</code>) file. The resolutions are stored under the <code>resolutions</code> key in the cooler file (e.g.&nbsp;cell_type.mcool::/resolutions/10000).</p>
@@ -1044,8 +1044,8 @@ Skipping ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mcoo
 </div>
 </div>
 </section>
-<section id="balance-the-matrices" class="level3" data-number="5.2.4">
-<h3 data-number="5.2.4" class="anchored" data-anchor-id="balance-the-matrices"><span class="header-section-number">5.2.4</span> Balance the matrices</h3>
+<section id="balance-the-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="balance-the-matrices">Balance the matrices</h3>
 <div id="cell-md-balance-coolers" class="cell" data-execution_count="16">
 <div id="md-balance-coolers" class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
 <p>Finally, we balance the matrices using the cooler CLI. We use the <code>cooler balance</code> command with the default options using 32 cores, which iteratively balances the matrix (Iterative Corecction). It is first described as a method for bias correction of Hi-C matrices in <span class="citation" data-cites="imakaev_iterative_2012">(<a href="../thesis/index.html#ref-imakaev_iterative_2012" role="doc-biblioref">Imakaev et al. 2012</a>)</span>, where it is paired with eigenvector decomposition (ICE). Here the eigenvector decomposition of the obtained maps is shown to provide insights into local chromatin states.</p>
@@ -1112,8 +1112,8 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 </div>
 </section>
 </section>
-<section id="repmerge-pool-all-from-each-biosample-id" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="repmerge-pool-all-from-each-biosample-id"><span class="header-section-number">5.3</span> RepMerge (pool all from each BioSample ID)</h2>
+<section id="repmerge-pool-all-from-each-biosample-id" class="level2">
+<h2 class="anchored" data-anchor-id="repmerge-pool-all-from-each-biosample-id">RepMerge (pool all from each BioSample ID)</h2>
 <div id="cell-md-merge-replicates" class="cell" data-execution_count="19">
 <div id="md-merge-replicates" class="cell-output cell-output-display cell-output-markdown" data-execution_count="19">
 <p>Initially, I planned to re-create the replicates that they used in the paper, but I reason that it is not necessary and might even be better to pool all the samples in stead. They state alredy that their compartments are highly repdoducible between replicates, so I choose to trust that and not bother with the replicates.</p>
@@ -1152,8 +1152,8 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 </div>
 </section>
 </section>
-<section id="plotting" class="level1 page-columns page-full" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Plotting</h1>
+<section id="plotting" class="level1 page-columns page-full">
+<h1>Plotting</h1>
 <div id="cell-md-plotting-main" class="cell" data-execution_count="20">
 <div id="md-plotting-main" class="cell-output cell-output-display cell-output-markdown" data-execution_count="20">
 <p>The following section contains the visualization of the matrices and includes the calculation of the E1 compartments and their visualization. I discuss differents methods for construction and try to get both methodologically and result-wise close to <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../thesis/index.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>.</p>
@@ -1162,18 +1162,18 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <p>To accomodate the approach (barely) described in the paper, we will discuss a smoothing step to the observed/expected matrices before compartment calling, and we will apply a smoothing step to the E1 compartments and compare to the raw compartments.</p>
 </div>
 </div>
-<section id="kb-resolution" class="level2 page-columns page-full" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="kb-resolution"><span class="header-section-number">6.1</span> 500kb resolution</h2>
-<section id="example-with-a-single-sample" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="example-with-a-single-sample"><span class="header-section-number">6.1.1</span> Example with a single sample</h3>
+<section id="kb-resolution" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="kb-resolution">500kb resolution</h2>
+<section id="example-with-a-single-sample" class="level3">
+<h3 class="anchored" data-anchor-id="example-with-a-single-sample">Example with a single sample</h3>
 <div id="cell-md-plotting-500kb-single" class="cell" data-execution_count="21">
 <div id="md-plotting-500kb-single" class="cell-output cell-output-display cell-output-markdown" data-execution_count="21">
 <p>First, I will explore the visualization pipeline for a single cooler at 500kb resolution. I will modify the plot to be ‘stairs’ in stead of just a regular line plot, as it is both a more accurate representation of the data and it is more aesthetically pleasing with less spiky lines and holes.</p>
 <p>In practice, the length of the dataframe is doubled, as it now contains an E1 value for both the start and end position for each bin in stead of only for the start. However, I first make the regular line plot to show the difference.</p>
 </div>
 </div>
-<section id="imports" class="level4" data-number="6.1.1.1">
-<h4 data-number="6.1.1.1" class="anchored" data-anchor-id="imports"><span class="header-section-number">6.1.1.1</span> Imports</h4>
+<section id="imports" class="level4">
+<h4 class="anchored" data-anchor-id="imports">Imports</h4>
 <div id="cell-39" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import standard python libraries</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1189,16 +1189,16 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="load-cooler" class="level4" data-number="6.1.1.2">
-<h4 data-number="6.1.1.2" class="anchored" data-anchor-id="load-cooler"><span class="header-section-number">6.1.1.2</span> Load cooler</h4>
+<section id="load-cooler" class="level4">
+<h4 class="anchored" data-anchor-id="load-cooler">Load cooler</h4>
 <div id="cell-42" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mclr <span class="op">=</span> <span class="st">"../steps/bwa/PE/cool/fibroblast/fibroblast.mcool"</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>clr <span class="op">=</span> cooler.Cooler(<span class="ss">f"</span><span class="sc">{</span>mclr<span class="sc">}</span><span class="ss">::resolutions/500000"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="calculate-gc-covariance-from-the-reference-genome" class="level4" data-number="6.1.1.3">
-<h4 data-number="6.1.1.3" class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome"><span class="header-section-number">6.1.1.3</span> Calculate gc covariance (from the reference genome)</h4>
+<section id="calculate-gc-covariance-from-the-reference-genome" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome">Calculate gc covariance (from the reference genome)</h4>
 <div id="cell-md-plotting-500kb-single-gc" class="cell" data-execution_count="6">
 <div id="md-plotting-500kb-single-gc" class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
 <p>I will use <code>bioframe</code> to load the reference and calculate the GC content of each bin in the cooler file. The convention in Hi-C is to use GC content as a phasing track to orient eigenvector track to positively correlated with the GC content. In this subsection, I calculate the GC content for all chromosomes and filter afterwards to only include the ‘X’ chromosome. I will do that smarter in the next subsection.</p>
@@ -1323,8 +1323,8 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 </div>
 </div>
 </section>
-<section id="calculate-the-e1-compartments" class="level4" data-number="6.1.1.4">
-<h4 data-number="6.1.1.4" class="anchored" data-anchor-id="calculate-the-e1-compartments"><span class="header-section-number">6.1.1.4</span> Calculate the E1 compartments</h4>
+<section id="calculate-the-e1-compartments" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-the-e1-compartments">Calculate the E1 compartments</h4>
 <div id="cell-md-plotting-500kb-single-e1" class="cell" data-execution_count="8">
 <div id="md-plotting-500kb-single-e1" class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
 <p>Here, I will calculate the E1 compartments for the ‘X’ chromosome in the fibroblast cooler at 500kb resolution. I will use the <code>cooltools</code> package to do eigendecomposition and calculate the E1 compartments. I use the GC content (<code>gc_cov</code> obtained above) as a phasing track.</p>
@@ -1486,8 +1486,8 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 </div>
 </div>
 </section>
-<section id="plot-e1-and-matrix" class="level4" data-number="6.1.1.5">
-<h4 data-number="6.1.1.5" class="anchored" data-anchor-id="plot-e1-and-matrix"><span class="header-section-number">6.1.1.5</span> Plot E1 and matrix</h4>
+<section id="plot-e1-and-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="plot-e1-and-matrix">Plot E1 and matrix</h4>
 <div id="cell-md-plotting-500kb-single-plot" class="cell" data-execution_count="15">
 <div id="md-plotting-500kb-single-plot" class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
 <p>Finally, I will plot the matrix, the GC content, and the E1 compartments for the ‘X’ chromosome in the fibroblast cooler at 500kb resolution. I will use the <code>cooltools</code> package to plot the matrix and the compartments. I will use the <code>matplotlib</code> package to plot the GC content.</p>
@@ -1607,8 +1607,8 @@ Figure&nbsp;6.2: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 </div>
 <p>Markdown the next plot: <a href="../reports/thoughts.html#fig-e1_500kb_plot" class="quarto-xref">Figure&nbsp;<span>6.3</span></a> that is</p>
 </section>
-<section id="stairs-plot-of-the-e1-compartments" class="level4" data-number="6.1.1.6">
-<h4 data-number="6.1.1.6" class="anchored" data-anchor-id="stairs-plot-of-the-e1-compartments"><span class="header-section-number">6.1.1.6</span> Stairs plot of the E1 compartments</h4>
+<section id="stairs-plot-of-the-e1-compartments" class="level4">
+<h4 class="anchored" data-anchor-id="stairs-plot-of-the-e1-compartments">Stairs plot of the E1 compartments</h4>
 <p>(Less spiky, more smooth)</p>
 <div id="cell-chrX-e1-500kb-stairs" class="cell" data-fig-height="2">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1663,10 +1663,10 @@ Figure&nbsp;6.2: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 </div>
 </section>
 </section>
-<section id="all-5-full-merges" class="level3 page-columns page-full" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="all-5-full-merges"><span class="header-section-number">6.1.2</span> All 5 full merges</h3>
-<section id="load-coolers" class="level4" data-number="6.1.2.1">
-<h4 data-number="6.1.2.1" class="anchored" data-anchor-id="load-coolers"><span class="header-section-number">6.1.2.1</span> Load coolers</h4>
+<section id="all-5-full-merges" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="all-5-full-merges">All 5 full merges</h3>
+<section id="load-coolers" class="level4">
+<h4 class="anchored" data-anchor-id="load-coolers">Load coolers</h4>
 <div id="cell-67" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
@@ -1690,8 +1690,8 @@ Figure&nbsp;6.2: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 </div>
 </div>
 </section>
-<section id="calculate-gc-covariance-from-the-reference-genome-1" class="level4" data-number="6.1.2.2">
-<h4 data-number="6.1.2.2" class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-1"><span class="header-section-number">6.1.2.2</span> Calculate gc covariance (from the reference genome)</h4>
+<section id="calculate-gc-covariance-from-the-reference-genome-1" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-1">Calculate gc covariance (from the reference genome)</h4>
 <p>Do this with any of the clrs - it just needs the bins positions.</p>
 <div id="cell-69" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try with only the gc_cov for chrX</span></span>
@@ -1730,11 +1730,11 @@ None</code></pre>
 </div>
 </div>
 </section>
-<section id="calculate-the-e1-compartments-1" class="level4 page-columns page-full" data-number="6.1.2.3">
-<h4 data-number="6.1.2.3" class="anchored" data-anchor-id="calculate-the-e1-compartments-1"><span class="header-section-number">6.1.2.3</span> Calculate the E1 compartments</h4>
+<section id="calculate-the-e1-compartments-1" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="calculate-the-e1-compartments-1">Calculate the E1 compartments</h4>
 <p>Loop: view_df, cis_eigs, e1_values</p>
-<section id="plot-gc-covariance" class="level5" data-number="6.1.2.3.1">
-<h5 data-number="6.1.2.3.1" class="anchored" data-anchor-id="plot-gc-covariance"><span class="header-section-number">6.1.2.3.1</span> Plot GC covariance</h5>
+<section id="plot-gc-covariance" class="level5">
+<h5 class="anchored" data-anchor-id="plot-gc-covariance">Plot GC covariance</h5>
 <div id="cell-72" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1754,8 +1754,8 @@ None</code></pre>
 </div>
 </div>
 </section>
-<section id="chromosome-restricted-e1-compartments" class="level5" data-number="6.1.2.3.2">
-<h5 data-number="6.1.2.3.2" class="anchored" data-anchor-id="chromosome-restricted-e1-compartments"><span class="header-section-number">6.1.2.3.2</span> Chromosome restricted E1 compartments</h5>
+<section id="chromosome-restricted-e1-compartments" class="level5">
+<h5 class="anchored" data-anchor-id="chromosome-restricted-e1-compartments">Chromosome restricted E1 compartments</h5>
 <div id="cell-74" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use gc_cov to calculate eigenvectors with cooltools.eigs_cis</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1828,8 +1828,8 @@ None</code></pre>
 </div>
 </div>
 </section>
-<section id="chromosome-arms-restricted" class="level5" data-number="6.1.2.3.3">
-<h5 data-number="6.1.2.3.3" class="anchored" data-anchor-id="chromosome-arms-restricted"><span class="header-section-number">6.1.2.3.3</span> Chromosome arms restricted</h5>
+<section id="chromosome-arms-restricted" class="level5">
+<h5 class="anchored" data-anchor-id="chromosome-arms-restricted">Chromosome arms restricted</h5>
 <div id="cell-76" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use gc_cov to calculate eigenvectors with cooltools.eigs_cis</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1893,8 +1893,8 @@ Calculating eigenvectors for round_spermatid</code></pre>
 </div>
 </div>
 </section>
-<section id="refined-10mb-windows-restricted" class="level5" data-number="6.1.2.3.4">
-<h5 data-number="6.1.2.3.4" class="anchored" data-anchor-id="refined-10mb-windows-restricted"><span class="header-section-number">6.1.2.3.4</span> Refined: 10Mb windows restricted</h5>
+<section id="refined-10mb-windows-restricted" class="level5">
+<h5 class="anchored" data-anchor-id="refined-10mb-windows-restricted">Refined: 10Mb windows restricted</h5>
 <div id="cell-78" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use gc_cov to calculate eigenvectors with cooltools.eigs_cis</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1972,8 +1972,8 @@ Calculating eigenvectors for round_spermatid</code></pre>
 </div>
 </div>
 </section>
-<section id="save-the-a-compartment-coordinates" class="level5" data-number="6.1.2.3.5">
-<h5 data-number="6.1.2.3.5" class="anchored" data-anchor-id="save-the-a-compartment-coordinates"><span class="header-section-number">6.1.2.3.5</span> Save the A compartment coordinates</h5>
+<section id="save-the-a-compartment-coordinates" class="level5">
+<h5 class="anchored" data-anchor-id="save-the-a-compartment-coordinates">Save the A compartment coordinates</h5>
 <div id="cell-80" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Just testing for a single sample</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2008,8 +2008,8 @@ Calculating eigenvectors for round_spermatid</code></pre>
 <span id="cb65-31"><a href="#cb65-31" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="this-is-copied-to-hicstuff.py-as-a-function-for-later-import" class="level5" data-number="6.1.2.3.6">
-<h5 data-number="6.1.2.3.6" class="anchored" data-anchor-id="this-is-copied-to-hicstuff.py-as-a-function-for-later-import"><span class="header-section-number">6.1.2.3.6</span> This is copied to hicstuff.py as a function for later import</h5>
+<section id="this-is-copied-to-hicstuff.py-as-a-function-for-later-import" class="level5">
+<h5 class="anchored" data-anchor-id="this-is-copied-to-hicstuff.py-as-a-function-for-later-import">This is copied to hicstuff.py as a function for later import</h5>
 <div id="cell-82" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ###### Restriction: full chromosome E1 values #######</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2114,8 +2114,8 @@ File ../results/compartments/sperm_a_comp_coords_500kb_10Mb.csv already exists. 
 </div>
 </div>
 </section>
-<section id="plot-nan-histogram" class="level5 page-columns page-full" data-number="6.1.2.3.7">
-<h5 data-number="6.1.2.3.7" class="anchored" data-anchor-id="plot-nan-histogram"><span class="header-section-number">6.1.2.3.7</span> Plot NaN histogram</h5>
+<section id="plot-nan-histogram" class="level5 page-columns page-full">
+<h5 class="anchored" data-anchor-id="plot-nan-histogram">Plot NaN histogram</h5>
 <div id="cell-e1_nan_hist" class="cell page-columns page-full" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the number of NaN values in the E1 column</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -2160,8 +2160,8 @@ File ../results/compartments/sperm_a_comp_coords_500kb_10Mb.csv already exists. 
 </div>
 </section>
 </section>
-<section id="plot-the-e1-compartments" class="level4 page-columns page-full" data-number="6.1.2.4">
-<h4 data-number="6.1.2.4" class="anchored" data-anchor-id="plot-the-e1-compartments"><span class="header-section-number">6.1.2.4</span> Plot the E1 compartments</h4>
+<section id="plot-the-e1-compartments" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="plot-the-e1-compartments">Plot the E1 compartments</h4>
 <div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -2270,8 +2270,8 @@ File ../results/compartments/sperm_a_comp_coords_500kb_10Mb.csv already exists. 
 </div>
 </div>
 </section>
-<section id="plot-matrices-with-compartments-round-spermatid" class="level4" data-number="6.1.2.5">
-<h4 data-number="6.1.2.5" class="anchored" data-anchor-id="plot-matrices-with-compartments-round-spermatid"><span class="header-section-number">6.1.2.5</span> Plot matrices with compartments (round spermatid)</h4>
+<section id="plot-matrices-with-compartments-round-spermatid" class="level4">
+<h4 class="anchored" data-anchor-id="plot-matrices-with-compartments-round-spermatid">Plot matrices with compartments (round spermatid)</h4>
 <div id="cell-e1-matrix-500kb-full-arms-10mb-round_spermatid" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools.lib.plotting</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
@@ -2361,8 +2361,8 @@ File ../results/compartments/sperm_a_comp_coords_500kb_10Mb.csv already exists. 
 </div>
 </div>
 </section>
-<section id="sliding-window-summed-e1-compartments" class="level4 page-columns page-full" data-number="6.1.2.6">
-<h4 data-number="6.1.2.6" class="anchored" data-anchor-id="sliding-window-summed-e1-compartments"><span class="header-section-number">6.1.2.6</span> Sliding window summed E1 compartments</h4>
+<section id="sliding-window-summed-e1-compartments" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="sliding-window-summed-e1-compartments">Sliding window summed E1 compartments</h4>
 <p>To mimic the smoothing applied in the Wang et al.&nbsp;2019 paper, where they slide a 400kb window in 100kb steps on the obs/exp matrix, we will similarly slide a 400kb window in 100kb steps directly on the E1 compartments.</p>
 <div id="cell-e1-fullmerged-all-500kb-running-avg" class="cell page-columns page-full">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -2435,12 +2435,12 @@ File ../results/compartments/sperm_a_comp_coords_500kb_10Mb.csv already exists. 
 </section>
 </section>
 </section>
-<section id="kb-resolution-1" class="level2 page-columns page-full" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="kb-resolution-1"><span class="header-section-number">6.2</span> 100kb resolution</h2>
-<section id="all-5-full-merges-1" class="level3 page-columns page-full" data-number="6.2.1">
-<h3 data-number="6.2.1" class="anchored" data-anchor-id="all-5-full-merges-1"><span class="header-section-number">6.2.1</span> All 5 full merges</h3>
-<section id="load-coolers-1" class="level4" data-number="6.2.1.1">
-<h4 data-number="6.2.1.1" class="anchored" data-anchor-id="load-coolers-1"><span class="header-section-number">6.2.1.1</span> Load coolers</h4>
+<section id="kb-resolution-1" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="kb-resolution-1">100kb resolution</h2>
+<section id="all-5-full-merges-1" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="all-5-full-merges-1">All 5 full merges</h3>
+<section id="load-coolers-1" class="level4">
+<h4 class="anchored" data-anchor-id="load-coolers-1">Load coolers</h4>
 <div id="cell-96" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
@@ -2466,8 +2466,8 @@ File ../results/compartments/sperm_a_comp_coords_500kb_10Mb.csv already exists. 
 <span id="cb73-22"><a href="#cb73-22" aria-hidden="true" tabindex="-1"></a>binsize <span class="op">=</span> clrs[<span class="st">'fibroblast'</span>].binsize</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="calculate-gc-covariance-from-the-reference-genome-2" class="level4" data-number="6.2.1.2">
-<h4 data-number="6.2.1.2" class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-2"><span class="header-section-number">6.2.1.2</span> Calculate gc covariance (from the reference genome)</h4>
+<section id="calculate-gc-covariance-from-the-reference-genome-2" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-2">Calculate gc covariance (from the reference genome)</h4>
 <p>Do this with any of the clrs - it just needs the bins positions.</p>
 <div id="cell-98" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try with only the gc_cov for chrX</span></span>
@@ -2506,11 +2506,11 @@ None</code></pre>
 </div>
 </div>
 </section>
-<section id="calculate-the-e1-compartments-2" class="level4" data-number="6.2.1.3">
-<h4 data-number="6.2.1.3" class="anchored" data-anchor-id="calculate-the-e1-compartments-2"><span class="header-section-number">6.2.1.3</span> Calculate the E1 compartments</h4>
+<section id="calculate-the-e1-compartments-2" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-the-e1-compartments-2">Calculate the E1 compartments</h4>
 <p>Loop: view_df, cis_eigs, e1_values</p>
-<section id="plot-gc-covariance-1" class="level5" data-number="6.2.1.3.1">
-<h5 data-number="6.2.1.3.1" class="anchored" data-anchor-id="plot-gc-covariance-1"><span class="header-section-number">6.2.1.3.1</span> Plot GC covariance</h5>
+<section id="plot-gc-covariance-1" class="level5">
+<h5 class="anchored" data-anchor-id="plot-gc-covariance-1">Plot GC covariance</h5>
 <div id="cell-101" class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2527,8 +2527,8 @@ None</code></pre>
 </div>
 </div>
 </section>
-<section id="create-viewframes-full-arms-10mb-windows" class="level5" data-number="6.2.1.3.2">
-<h5 data-number="6.2.1.3.2" class="anchored" data-anchor-id="create-viewframes-full-arms-10mb-windows"><span class="header-section-number">6.2.1.3.2</span> Create viewframes: full, arms, 10Mb windows</h5>
+<section id="create-viewframes-full-arms-10mb-windows" class="level5">
+<h5 class="anchored" data-anchor-id="create-viewframes-full-arms-10mb-windows">Create viewframes: full, arms, 10Mb windows</h5>
 <div id="cell-103" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2565,8 +2565,8 @@ None</code></pre>
 <span id="cb77-33"><a href="#cb77-33" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="calulate-the-e1-compartments" class="level5" data-number="6.2.1.3.3">
-<h5 data-number="6.2.1.3.3" class="anchored" data-anchor-id="calulate-the-e1-compartments"><span class="header-section-number">6.2.1.3.3</span> Calulate the E1 compartments</h5>
+<section id="calulate-the-e1-compartments" class="level5">
+<h5 class="anchored" data-anchor-id="calulate-the-e1-compartments">Calulate the E1 compartments</h5>
 <div id="cell-105" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2696,8 +2696,8 @@ None</code></pre>
 </div>
 </section>
 </section>
-<section id="extract-the-a-compartment-coordinates" class="level4" data-number="6.2.1.4">
-<h4 data-number="6.2.1.4" class="anchored" data-anchor-id="extract-the-a-compartment-coordinates"><span class="header-section-number">6.2.1.4</span> Extract the A compartment coordinates</h4>
+<section id="extract-the-a-compartment-coordinates" class="level4">
+<h4 class="anchored" data-anchor-id="extract-the-a-compartment-coordinates">Extract the A compartment coordinates</h4>
 <div id="cell-107" class="cell" data-execution_count="60">
 <div class="sourceCode cell-code" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
 <span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hicstuff</span>
@@ -2816,8 +2816,8 @@ File ../results/compartments/sperm_a_comp_coords_100kb_10Mb_smoothed.csv already
 </div>
 </div>
 </section>
-<section id="plot-the-e1-compartments-1" class="level4 page-columns page-full" data-number="6.2.1.5">
-<h4 data-number="6.2.1.5" class="anchored" data-anchor-id="plot-the-e1-compartments-1"><span class="header-section-number">6.2.1.5</span> Plot the E1 compartments</h4>
+<section id="plot-the-e1-compartments-1" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="plot-the-e1-compartments-1">Plot the E1 compartments</h4>
 <div id="cell-e1-fullmerged-all-100kb-5smoothed" class="cell page-columns page-full" data-execution_count="65">
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -2883,8 +2883,8 @@ File ../results/compartments/sperm_a_comp_coords_100kb_10Mb_smoothed.csv already
 </div>
 </div>
 </section>
-<section id="plot-matrices-with-compartments" class="level4" data-number="6.2.1.6">
-<h4 data-number="6.2.1.6" class="anchored" data-anchor-id="plot-matrices-with-compartments"><span class="header-section-number">6.2.1.6</span> Plot matrices with compartments</h4>
+<section id="plot-matrices-with-compartments" class="level4">
+<h4 class="anchored" data-anchor-id="plot-matrices-with-compartments">Plot matrices with compartments</h4>
 <div id="cell-e1-matrix-100kb-full-arms-10mb-all-5smoothed" class="cell" data-execution_count="66">
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools.lib.plotting</span>
 <span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
@@ -2966,8 +2966,8 @@ File ../results/compartments/sperm_a_comp_coords_100kb_10Mb_smoothed.csv already
 </div>
 </section>
 </section>
-<section id="smooth-the-observedexpected-matrix" class="level3" data-number="6.2.2">
-<h3 data-number="6.2.2" class="anchored" data-anchor-id="smooth-the-observedexpected-matrix"><span class="header-section-number">6.2.2</span> Smooth the Observed/Expected matrix</h3>
+<section id="smooth-the-observedexpected-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="smooth-the-observedexpected-matrix">Smooth the Observed/Expected matrix</h3>
 <p>Wang et al.&nbsp;2019 used a 400Kb window with a step size of 100Kb to smooth the O/E matrix before calculating the E1. I have tried various different methods to smooth the interaction matrix, but I can’t get dimensions of the <code>pixels</code> to match with the <code>bins</code>. Also, <code>cooltools.eigs_cis</code> need a full <code>cooler</code> to fetch data from, and I can’t get it to work without a <code>pixels</code> object.</p>
 <p>Thus, I will try smoothing the E1 values instead, as I can’t really rationalize what biological difference it would make. I think I need help figuring that out.</p>
 <div id="cell-114" class="cell" data-execution_count="4">
@@ -2985,8 +2985,8 @@ File ../results/compartments/sperm_a_comp_coords_100kb_10Mb_smoothed.csv already
 <span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a><span class="co"># clrs100kb = {key: clrs100kb[key] for key in chron_order}</span></span>
 <span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a><span class="co"># clrs100kb</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="calculate-gc-covariance-from-the-reference-genome-3" class="level4" data-number="6.2.2.1">
-<h4 data-number="6.2.2.1" class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-3"><span class="header-section-number">6.2.2.1</span> Calculate gc covariance (from the reference genome)</h4>
+<section id="calculate-gc-covariance-from-the-reference-genome-3" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-3">Calculate gc covariance (from the reference genome)</h4>
 <p>Do this with any of the clrs - it just needs the bins positions.</p>
 <div id="cell-116" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import bioframe</span></span>
