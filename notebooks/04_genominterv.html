@@ -315,7 +315,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>E1 restriction: full-chromosome, chromosome arms, 10Mb windows</li>
 <li>Resolution: 100 kb, 500 kb</li>
 </ul>
-<p>The following parameter was only changed for 100kb resolution: * Smoothing: No smoothing, 5 bins (500kb)</p>
+<p>The following parameter was only changed for 100kb resolution:</p>
+<ul>
+<li>Smoothing: No smoothing, 5 bins (500kb)</li>
+</ul>
 <p>Resulting in <strong>45</strong> .csv files. They are saved to <code>../results/compartments/</code>.</p>
 <section id="load-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="load-the-data">Load the data</h3>
@@ -429,8 +432,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="test-with-a-subsample-of-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="test-with-a-subsample-of-the-data">Test with a subsample of the data</h3>
-<div id="cell-11" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> proximity_test, interval_collapse, interval_diff, jaccard</span>
+<div id="cell-11" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> proximity_test, interval_collapse, interval_diff, interval_intersect, jaccard</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>annot <span class="op">=</span> dataframes[<span class="st">'fibroblast_500kb_arms'</span>]</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> ech90</span>
@@ -441,32 +444,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter out subset</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="st">'round_spermatid_100'</span>) <span class="kw">in</span> key <span class="kw">and</span> <span class="kw">not</span> <span class="st">'full'</span> <span class="kw">in</span> key:</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Plot the intervals</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        plot_intervals(query<span class="op">=</span>query, annot<span class="op">=</span>annot)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        plt.title(key)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Do a proximity test</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Tests for </span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        annot_collapsed <span class="op">=</span> interval_collapse(annot)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        non_ovl_query <span class="op">=</span> interval_diff(query, annot_collapsed)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Proximity:"</span>, proximity_test(non_ovl_query, annot_collapsed))</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Jaccard:"</span>, jaccard(query, annot))</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        intersection <span class="op">=</span> interval_intersect(query, annot)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        plot_intervals(query<span class="op">=</span>query, annot<span class="op">=</span>annot, intersection<span class="op">=</span>intersection)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        plt.title(key)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Do a proximity test</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Tests for </span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        annot_collapsed <span class="op">=</span> interval_collapse(annot)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        non_ovl_query <span class="op">=</span> interval_diff(query, annot_collapsed)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Proximity:"</span>, proximity_test(non_ovl_query, annot_collapsed))</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Jaccard:"</span>, jaccard(query, annot))</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tests for round_spermatid_100kb_arms_smoothed
-Proximity: TestResult(statistic=0.30453333333333343, pvalue=0.0218)
+Proximity: TestResult(statistic=0.30453333333333343, pvalue=0.0212)
 Jaccard: 0.035452077710120426
 
 Tests for round_spermatid_100kb_arms
-Proximity: TestResult(statistic=0.4966666666666664, pvalue=0.0004)
+Proximity: TestResult(statistic=0.4966666666666664, pvalue=0.0003)
 Jaccard: 0.03919324886292875
 
 Tests for round_spermatid_100kb_10Mb
-Proximity: TestResult(statistic=0.40763636363636385, pvalue=0.0081)
+Proximity: TestResult(statistic=0.40763636363636385, pvalue=0.009)
 Jaccard: 0.04849757649383784
 
 Tests for round_spermatid_100kb_10Mb_smoothed
-Proximity: TestResult(statistic=0.4469090909090912, pvalue=0.0051)
+Proximity: TestResult(statistic=0.4469090909090912, pvalue=0.0044)
 Jaccard: 0.0451828466064548
 </code></pre>
 </div>
@@ -502,7 +506,7 @@ Jaccard: 0.0451828466064548
 </section>
 <section id="bootstrap-to-get-a-p-value" class="level3">
 <h3 class="anchored" data-anchor-id="bootstrap-to-get-a-p-value">Bootstrap to get a p-value</h3>
-<div id="cell-13" class="cell">
+<div id="cell-13" class="cell" data-execution_count="60">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> bootstrap</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>annot <span class="op">=</span> dataframes[<span class="st">'round_spermatid_100kb_arms'</span>]</span>
@@ -514,33 +518,9 @@ Jaccard: 0.0451828466064548
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jaccard(query, annot)</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>jacccard_stat, p_value <span class="op">=</span> jaccard_bootstrap(query, annot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>{'chr1': 223616942,
- 'chr2': 196197964,
- 'chr3': 185288947,
- 'chr4': 169963040,
- 'chr5': 187317192,
- 'chr6': 179085566,
- 'chr7': 169868564,
- 'chr8': 145679320,
- 'chr9': 134124166,
- 'chr10': 99517758,
- 'chr11': 133066086,
- 'chr12': 130043856,
- 'chr13': 108737130,
- 'chr14': 128056306,
- 'chr15': 113283604,
- 'chr16': 79627064,
- 'chr17': 95433459,
- 'chr18': 74474043,
- 'chr19': 58315233,
- 'chr20': 77137495,
- 'chrX': 153388924,
- 'chrY': 11753682}</code></pre>
-</div>
 </div>
 <div id="cell-14" class="cell" data-execution_count="59">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>jacccard_stat, p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>jacccard_stat, p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="59">
 <pre><code>(0.03919324886292875, 0.285)</code></pre>
 </div>
