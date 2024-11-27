@@ -43,6 +43,7 @@ book:
       - notebooks/01_hicexplorer.ipynb
       - notebooks/02_open2c_framework.ipynb
       - notebooks/03_compartments.ipynb
+      - notebooks/04_genominterv.ipynb
     - part: "Workflows"
       chapters:
         - scripts/master_workflow.py
