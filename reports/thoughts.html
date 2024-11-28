@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.38">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -57,10 +57,10 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b663525e4b92bb903b2199e2d401bf36.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2368a3d5f59fbab228ac76d85455886e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-778124c2d7ccc6d50a3d79039f574abb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -296,7 +296,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 27, 2024 <br> 12:51:05 (UTC +00:00)</p>
+      <p class="date">November 28, 2024 <br> 14:38:54 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -493,8 +493,8 @@ Wang2019 PC1 on chrX
 <h4 class="anchored" data-anchor-id="compartments-500kb-resolution-looks-smoother">Compartments 500kb resolution looks smoother</h4>
 <p>I made the same plot as above, but using a 500kb bin size in stead. It looks more smooth, but it is not obvious if we a removing valid information or noise. It looks more like it captures only the visible compartments in the matrix, whcih is good</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-fig-matrix_e1_500kb">
-<div id="cell-fig-matrix_e1_500kb" class="cell" data-execution_count="43">
-<div class="cell-output cell-output-display" data-execution_count="43">
+<div id="cell-fig-matrix_e1_500kb" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div id="fig-matrix_e1_500kb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-matrix_e1_500kb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -510,7 +510,7 @@ Figure&nbsp;7.1: chrX interaction matrix with E1 eigenvector values in 500kb res
 </div>
 <p>Or the full size E1 plot:</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-fig-e1_500kb_plot">
-<div id="cell-fig-e1_500kb_plot" class="cell" data-execution_count="44">
+<div id="cell-fig-e1_500kb_plot" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div id="fig-e1_500kb_plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -528,7 +528,7 @@ Figure&nbsp;7.2: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 <p>To ease the eye, here are the 100kb E1 and 500kb E1 plots next to each other:</p>
 <p><strong>500kb resolution:</strong></p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-fig-e1_500kb_plot">
-<div id="cell-fig-e1_500kb_plot" class="cell" data-execution_count="44">
+<div id="cell-fig-e1_500kb_plot" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div id="fig-e1_500kb_plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -571,11 +571,11 @@ Figure&nbsp;7.3: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 <p>As stated in <span class="citation" data-cites="wang_reprogramming_2019">Lieberman-Aiden et al. (<a href="../thesis/index.html#ref-lieberman_aiden_comprehensive_2009" role="doc-biblioref">2009</a>)</span> and <code>cooltools</code> documentation, the E1 occasionally <em>does not</em> reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere).</p>
 <p>I determined the region of the centromere from the <a href="https://www.ncbi.nlm.nih.gov/gdv/browser/genome/?id=GCF_003339765.1">NCBI browser</a>, in a region from 58-61Mb that have no gene annotations. That region corresponds well with <code>NaN</code> values in the calculated eigenvector (values removed because of low-count bins), as seen below:</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-e1_nan_hist">
-<div id="cell-e1_nan_hist" class="cell page-columns page-full" data-execution_count="9">
+<div id="cell-e1_nan_hist" class="cell page-columns page-full" data-execution_count="30">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1_nan_hist" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="thoughts_files/figure-html/..-notebooks-03_compartments-e1_nan_hist-output-1.png" width="1602" height="262" class="figure-img column-page-inset"></p>
+<p class="page-columns page-full"><img src="thoughts_files/figure-html/..-notebooks-03_compartments-e1_nan_hist-output-1.png" class="img-fluid figure-img column-page-inset"></p>
 <figcaption>Histogram of NaN values in the E1 eigenvector for each cell type.</figcaption>
 </figure>
 </div>
@@ -584,7 +584,7 @@ Figure&nbsp;7.3: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 </div>
 <p>Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="../thesis/index.html#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know…</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-e1-fullmerged-all-500kb">
-<div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="46">
+<div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="31">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1-fullmerged-all-500kb" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -598,7 +598,7 @@ Figure&nbsp;7.3: 500kb binned E1 eigenvector values for chrX. Freshly calculated
 <p>Furthermoere, we wanted to see if we could apply the same smoothing as they did: They calculate the obs/exp matrix on a smoothed 100kb matrix: they slide a 400kb window with a step size of 100kb, summing the values.</p>
 <p>It turned out to be practically very hard to do in the <em>Open2c</em> ecosystem, so I decided to apply the smoothing directly on the calculated E1 values.</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-e1-fullmerged-all-100kb-5smoothed">
-<div id="cell-e1-fullmerged-all-100kb-5smoothed" class="cell page-columns page-full" data-execution_count="65">
+<div id="cell-e1-fullmerged-all-100kb-5smoothed" class="cell page-columns page-full" data-execution_count="40">
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="e1-fullmerged-all-100kb-5smoothed" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
