@@ -141,9 +141,10 @@ def extract_a_coordinates(e1, name, restriction = 'full', chrom='chrX', smooth =
         'bin_end': a_end_bin,
         'start': a_start_bin * res,
         'end': a_end_bin * res,
-        'length': (a_end_bin - a_start_bin) * res
+        'length': (a_end_bin - a_start_bin) * res,
+        'resolution': res
     })
-
+    csv_columns = ['chrom', 'start', 'end', 'resolution']
     # Save the results to a CSV file
     if not csv:
         print("`csv`= None. Returning DataFrame only.")
@@ -153,10 +154,10 @@ def extract_a_coordinates(e1, name, restriction = 'full', chrom='chrX', smooth =
         csv_name = csv_name.replace('.csv', '_smoothed.csv')
     if not op.exists(csv_name):
         print(f"Saving A-compartment intervals to: {csv_name}")
-        df[['chrom', 'start', 'end']].to_csv(csv_name, index=False)
+        df[csv_columns].to_csv(csv_name, index=False)
     elif force:
         print(f"File {csv_name} already exists. Overwriting.")
-        df[['chrom', 'start', 'end']].to_csv(csv_name, index=False)
+        df[csv_columns].to_csv(csv_name, index=False)
     else: 
         print(f"File {csv_name} already exists. Returning DataFrame only.")
 
