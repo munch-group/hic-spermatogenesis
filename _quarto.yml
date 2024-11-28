@@ -3,7 +3,6 @@ project:
   post-render:
     - quarto render slides/
     - quarto render thesis/
-    #- quarto render --profile slides
   preview:
     port: 4201
 
@@ -67,5 +66,7 @@ book:
       - thesis/index.qmd
       - thesis/supplementary.qmd
   # downloads: [pdf]
+
+lightbox: true
 
 bibliography: references.bib
