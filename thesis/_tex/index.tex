@@ -556,90 +556,35 @@ for both macaque and mouse. The meta data for the data set was extracted
 into a runtable \texttt{SRA-runtable.tsv}. To get an overview of the
 data accessions used in this analysis, we will first summarize the
 runtable that contains the accession numbers and some metadata for each
-sample (Table~\ref{tbl-runtable}). It adds up to \textasciitilde1Tb of
-compressed \texttt{fastq} files, holding \textasciitilde9.5 billion
-reads, roughly evenly spread on the 5 tissue types.
+sample (Table~\ref{tbl-runtable-summary}). It adds up to
+\textasciitilde1Tb of compressed \texttt{fastq} files, holding
+\textasciitilde9.5 billion reads, roughly evenly spread on the 5 tissue
+types.
 
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}lllll@{}}
 
-\caption{\label{tbl-runtable}The most relevant columns of the
-\texttt{SRA-runtable.tsv} file}
+\caption{\label{tbl-runtable-summary}Summary of the data accessions used
+in this analysis}
 
 \tabularnewline
 
-\caption{}\label{T_c1ff2}\tabularnewline
+\caption{}\label{T_55add}\tabularnewline
 \toprule\noalign{}
-~ & source\_name & BioSample & Run & GB & Bases & Reads \\
+~ & source\_name & GB & Bases & Reads \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-~ & source\_name & BioSample & Run & GB & Bases & Reads \\
+~ & source\_name & GB & Bases & Reads \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-16 & fibroblast & SAMN08375237 & SRR6502335 & 29.771059 & 73,201,141,800
-& 244,003,806 \\
-17 & fibroblast & SAMN08375237 & SRR6502336 & 22.755361 & 65,119,970,100
-& 217,066,567 \\
-18 & fibroblast & SAMN08375236 & SRR6502337 & 21.434722 & 52,769,196,300
-& 175,897,321 \\
-19 & fibroblast & SAMN08375236 & SRR6502338 & 21.420030 & 52,378,949,100
-& 174,596,497 \\
-20 & fibroblast & SAMN08375236 & SRR6502339 & 10.207410 & 28,885,941,600
-& 96,286,472 \\
-9 & fibroblast & SAMN08375237 & SRR7349189 & 52.729173 & 139,604,854,200
-& 465,349,514 \\
-10 & fibroblast & SAMN08375236 & SRR7349190 & 53.085520 &
-142,008,353,400 & 473,361,178 \\
-21 & pachytene spermatocyte & SAMN08375234 & SRR6502342 & 60.258880 &
-150,370,993,500 & 501,236,645 \\
-22 & pachytene spermatocyte & SAMN08375234 & SRR6502344 & 27.146048 &
-65,697,684,300 & 218,992,281 \\
-23 & pachytene spermatocyte & SAMN08375234 & SRR6502345 & 26.202707 &
-63,490,538,700 & 211,635,129 \\
-0 & pachytene spermatocyte & SAMN09427370 & SRR7345458 & 55.970557 &
-153,281,577,900 & 510,938,593 \\
-1 & pachytene spermatocyte & SAMN09427370 & SRR7345459 & 53.982492 &
-144,993,841,200 & 483,312,804 \\
-11 & pachytene spermatocyte & SAMN08375235 & SRR7349191 & 51.274476 &
-137,821,979,100 & 459,406,597 \\
-24 & round spermatid & SAMN08375232 & SRR6502351 & 20.924497 &
-55,095,075,300 & 183,650,251 \\
-25 & round spermatid & SAMN08375232 & SRR6502352 & 41.133960 &
-115,578,475,800 & 385,261,586 \\
-26 & round spermatid & SAMN08375232 & SRR6502353 & 36.444117 &
-96,195,161,400 & 320,650,538 \\
-2 & round spermatid & SAMN09427369 & SRR7345460 & 38.244654 &
-104,105,827,200 & 347,019,424 \\
-3 & round spermatid & SAMN09427369 & SRR7345461 & 53.996261 &
-144,532,309,500 & 481,774,365 \\
-12 & round spermatid & SAMN08375232 & SRR7349192 & 52.384556 &
-140,431,608,000 & 468,105,360 \\
-29 & sperm & SAMN08375229 & SRR6502360 & 26.653940 & 64,752,370,800 &
-215,841,236 \\
-30 & sperm & SAMN08375228 & SRR6502362 & 23.973440 & 58,369,232,700 &
-194,564,109 \\
-13 & sperm & SAMN08375229 & SRR7349193 & 52.806276 & 141,148,572,300 &
-470,495,241 \\
-14 & sperm & SAMN08375229 & SRR7349195 & 22.444378 & 60,523,788,600 &
-201,745,962 \\
-15 & sperm & SAMN08375229 & SRR7349196 & 38.253606 & 104,119,671,000 &
-347,065,570 \\
-27 & spermatogonia & SAMN08375231 & SRR6502356 & 22.845286 &
-58,909,579,800 & 196,365,266 \\
-28 & spermatogonia & SAMN08375231 & SRR6502357 & 17.947471 &
-46,888,332,900 & 156,294,443 \\
-4 & spermatogonia & SAMN09427379 & SRR7345462 & 18.686342 &
-52,032,780,000 & 173,442,600 \\
-5 & spermatogonia & SAMN09427379 & SRR7345463 & 29.956561 &
-82,384,836,000 & 274,616,120 \\
-6 & spermatogonia & SAMN09427379 & SRR7345464 & 39.145759 &
-105,153,716,100 & 350,512,387 \\
-7 & spermatogonia & SAMN09427378 & SRR7345465 & 35.816184 &
-96,048,594,600 & 320,161,982 \\
-8 & spermatogonia & SAMN09427378 & SRR7345467 & 28.396816 &
-77,248,140,900 & 257,493,803 \\
+0 & fibroblast & 211.403275 & 553,968,406,500 & 1,846,561,355 \\
+1 & pachytene spermatocyte & 274.835160 & 715,656,614,700 &
+2,385,522,049 \\
+2 & round spermatid & 243.128044 & 655,938,457,200 & 2,186,461,524 \\
+3 & sperm & 164.131640 & 428,913,635,400 & 1,429,712,118 \\
+4 & spermatogonia & 192.794420 & 518,665,980,300 & 1,728,886,601 \\
 
 \end{longtable}
 
@@ -650,13 +595,13 @@ coolers)}\label{handling-coolers-or-preparing-coolers}
 
 \centering{
 
-\textbf{\emph{{[}A flowchart showing the pipeline from \texttt{.fastq}
-to \texttt{.mcool}. The first 6 steps were done with a Probably
-BioRender or Inkscape.{]}}}
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{../figures/placeholder2000x360.png}
 
 }
 
-\caption{\label{fig-flowchart-handling-coolers}}
+\caption{\label{fig-flowchart-handling-coolers}A flowchart showing the
+pipeline from \texttt{.fastq} to \texttt{.mcool}. The first 6 steps were
+done with a Probably BioRender or Inkscape.}
 
 \end{figure}%
 
@@ -666,7 +611,7 @@ targets}{The gwf workflow targets}}\label{the-gwf-workflow-targets}
 A \emph{gwf} workflow was created to handle the first part of the data
 processing, and each accesion number (read pair, mate pair) from the
 Hi-C sequencing was processed in parallel, so their execution was
-independen on the other samples.
+independent from each other.
 
 \subsubsection{Downloading the reads}\label{downloading-the-reads}
 
@@ -695,22 +640,65 @@ pairs}\label{filter-deduplicate-pairs}
 \subsubsection{Create interaction matrices
 (coolers)}\label{create-interaction-matrices-coolers}
 
+\subsection{Notebook edits}\label{notebook-edits}
+
+As \texttt{cooler} and \texttt{cooltools} have a Python API, the more
+experimental parts of the analysis were moved to Jupyter Notebooks
+(still running on GenomeDK)
+
 \subsubsection{Pooling samples (Merging
 coolers)}\label{pooling-samples-merging-coolers}
 
-The strategy to get the best signal was by pooling the interaction
-matrices. \texttt{cooler\ merge} was used to merge all samples in each
-sub-folder (cell type) to just one interaction matrix for each cell
-type. The reason for that is that we choose to trust Wang et al. (2019)
-when they say that compartments are highly reproducible between
-replicates, and by merging all replicates, we will have a more robust
-signal.
+The samples are grouped into \emph{replicates} with a unique
+\textbf{BioSample} ID, but we chose to pool all the interaction matrices
+for each cell type. We argue that when Wang et al. (2019) determine
+compartments to be highly reproducible between replicates, by merging
+the replicates we can get a more robust signal.
+
+\texttt{cooler\ merge} was used to merge all samples in each sub-folder
+(cell type) to just one interaction matrix for each cell type. The
+function merges matrices of the same dimensions by simply adding the
+interaction frequencies of each genomic position together, resulting in
+less empty positions by chance.
 
 \subsubsection{Create multi-resolution coolers
 (zoomify)}\label{create-multi-resolution-coolers-zoomify}
 
+A feature of working inside the ecosystem of \emph{Open2C} {[}ref{]} is
+that it natively provides support for storing sparse interaction
+matrices in multiple resolutions in the same file by adding groups to
+the hdf5-file {[}ref{]}. We can then efficiently store resolutions
+(i.e., different bin sizes) that is multiples of the smallest bin size.
+We chose to use 10kb, 50kb, 100kb, and 500kb bins.
+
 \subsubsection{Matrix balancing (Iterative
 correction)}\label{matrix-balancing-iterative-correction}
+
+Finally, we balance the matrices using the cooler CLI. We use the
+\texttt{cooler\ balance} command with the default options using 32
+cores, which iteratively balances the matrix (Iterative Corecction). It
+is first described as a method for bias correction of Hi-C matrices in
+(Imakaev et al. 2012), where it is paired with eigenvector decomposition
+(ICE). Here the eigenvector decomposition of the obtained maps is shown
+to provide insights into local chromatin states.
+
+According to \texttt{cooler} documentation, we have to balance the
+matrices on each resolution, and thus it cannot be done prior to
+zoomifying. The argument is that the balancing weights are
+resolution-specific and will no longer retain its meaning when binned
+with other weights. Therefore, we use a nested for-loop that iterates
+through all the \texttt{.mcools} and all the resolutions in each
+\texttt{.mcool}. \texttt{cooler\ balance} will create a new column in
+the \texttt{bins} group of each cooler , \texttt{weight}, which can then
+be included or not in the downstream analysis. This means we will have
+access to both the balanced and the unbalanced matrix.
+
+The default mode uses genome-wide data to calculate the weights for each
+bin. It would maybe be more suitable to calculate the weights for
+\emph{cis} contacts only, and that is possible through the
+\texttt{-\/-cis-only} flag, and that can be added to another column, so
+that we can compare the difference between the two methods easily.
+However, we will only use the default mode for now.
 
 \subsubsection{Eigendecomposition}\label{eigendecomposition}
 
@@ -736,6 +724,13 @@ Here is the discussion
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-imakaev_iterative_2012}
+Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia
+Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A
+Mirny. 2012. {``Iterative Correction of {Hi}-{C} Data Reveals Hallmarks
+of Chromosome Organization.''} \emph{Nature Methods} 9 (10): 999--1003.
+\url{https://doi.org/10.1038/nmeth.2148}.
+
 \bibitem[\citeproctext]{ref-jaenike_sex_2001}
 Jaenike, John. 2001. {``Sex {Chromosome} {Meiotic} {Drive}.''}
 \emph{Annual Review of Ecology and Systematics} 32 (1): 25--49.
