@@ -17,7 +17,7 @@ Primates</subtitle>
 </title-group>
 
 <contrib-group>
-<contrib contrib-type="author">
+<contrib contrib-type="author" corresp="yes">
 <name>
 <surname>Jørgensen</surname>
 <given-names>Søren</given-names>
@@ -25,8 +25,14 @@ Primates</subtitle>
 <string-name>Søren Jørgensen</string-name>
 
 <email>201906763@post.au.dk</email>
+<role vocab="https://credit.niso.org" vocab-term="writing – original
+draft" vocab-term-identifier="https://credit.niso.org/contributor-roles/writing-original-draft/">writing</role>
+<xref ref-type="corresp" rid="cor-1">&#x002A;</xref>
 </contrib>
 </contrib-group>
+<author-notes>
+<corresp id="cor-1">201906763@post.au.dk</corresp>
+</author-notes>
 
 
 
@@ -70,7 +76,6 @@ and evolutionary dynamics across primate species.</p>
 </front>
 
 <body>
-<p></p>
 <sec id="introduction">
   <title>Introduction</title>
   <sec id="sexual-reproduction-spermatogenesis-meiosis">
@@ -254,7 +259,7 @@ and evolutionary dynamics across primate species.</p>
       <monospace>.fastq</monospace> to <monospace>.mcool</monospace>.
       The first 6 steps were done with a Probably BioRender or
       Inkscape.</p></caption>
-      <graphic mimetype="image" mime-subtype="png" xlink:href="../figures/placeholder2000x360.png" />
+      <graphic mimetype="image" mime-subtype="png" xlink:href="illustrations/placeholder2000x360.png" />
     </fig>
     <sec id="the-gwf-workflow-targets">
       <title>The <italic>gwf</italic> workflow targets</title>
@@ -281,18 +286,114 @@ and evolutionary dynamics across primate species.</p>
         <monospace>--bwtsw</monospace> option and
         <monospace>samtools faidx</monospace>, which results in six
         indexing files for <monospace>bwa mem</monospace> to use.</p>
+        <p>Needs:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Wang et al. used <italic>rheMac2</italic>, the first
+            assembly of rhesus</p>
+          </list-item>
+          <list-item>
+            <p>Bowtie2 indexing</p>
+          </list-item>
+        </list>
       </sec>
       <sec id="mapping-paired-end-reads">
         <title>Mapping paired-end reads</title>
+        <p>Needs:</p>
+        <p><bold>HiCExplorer</bold> Initially, recommendations from
+        HiCExplorer were used. According to their documentation [ref] it
+        is crucial to 1) align reads locally, as Hi-C has a higher
+        fraction of reads that are chimeric, and 2) mapping mates
+        separately to mitigate some of the heuristics made by aligners
+        for standard paired-end libraries. However, the resulting files
+        were incompatible with the <italic>open2C</italic> ecosystem,
+        and I therefore followed <italic>HiCExplorer</italic> pipeline
+        to plot and explore the matrices created from this mapping.
+        However, the work was laborious for experimentation, as the
+        provided functions all write plots to files. I did not manage to
+        make an efficient implementation for plotting the
+        <monospace>.h5</monospace> files produced by the pipeline, and I
+        relatively quickly shifted to <italic>Open2C</italic> for their
+        promises of the greener grass.</p>
+        <p>It was not feasible to follow the same approach as Wang et
+        al.
+        (<xref alt="2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">2019</xref>)
+        with both <italic>HiCExplorer</italic> and
+        <italic>Open2C</italic>, as they use a third software,
+        <italic>HiC-Pro</italic>. Hic-Pro uses bowtie2 in end-to-end
+        mode, followed by remapping of 5’-ends of the unmapped reads to
+        rescue chimeric fragments along with other mitigations. I argue
+        that even though we are trying to reproduce results, it is
+        nonsensical to use methods that are not state-of-the-art. That
+        said, either widely used method should produce similar
+        results.</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Bowtie2 (local and end-to-end)</p>
+          </list-item>
+          <list-item>
+            <p>Open2C formats and <monospace>bwa</monospace></p>
+          </list-item>
+        </list>
       </sec>
       <sec id="pair-and-sort-the-reads">
         <title>Pair and sort the reads</title>
+        <p>Needs:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>mapping mates separately vs. as paired-end reads</p>
+          </list-item>
+          <list-item>
+            <p><monospace>pairtools parse</monospace> and
+            <monospace>pairtools sort</monospace></p>
+          </list-item>
+          <list-item>
+            <p>discuss the use of default parameters:
+            <ext-link ext-link-type="uri" xlink:href="https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</ext-link></p>
+          </list-item>
+        </list>
       </sec>
       <sec id="filter-deduplicate-pairs">
         <title>Filter (deduplicate) pairs</title>
+        <p>At this point we will remove all reads that are mapped to an
+        unplaced scaffold. Even though the publication of
+        <italic>rhemac10</italic> assembly states they have closed gaps
+        between 99% of the contigs since <italic>rhemac8</italic>,
+        <italic>rheMac10</italic> still contain more than 2,500 unplaced
+        contigs, which are all uninformative when calculating the
+        chromatin compartments as is the goal of this analysis.
+        Therefore, we simply only include the list of conventional
+        chromosomes (1..22, X, Y) when doing the deduplication.
+        Initially, the default values were used to remove duplicates,
+        where pairs with both sides mapped within 3 base pairs from each
+        other are considered duplicates.</p>
+        <p><monospace>cooler</monospace> recommend to store the most
+        comprehensive and unfilteres list of pairs, and then applying a
+        filter on it on the fly by piping from
+        <monospace>pairtools select</monospace> I have missed this step,
+        so I have not filtered for mapping quality. I will make a
+        histogram showing the distribution of mapq scores to see the
+        significance of this. Or just rerun that part of the
+        analysis.</p>
       </sec>
       <sec id="create-interaction-matrices-coolers">
         <title>Create interaction matrices (coolers)</title>
+        <p>The final part of the <italic>gwf</italic> workflow takes
+        <monospace>.pairs</monospace> as input and outputs a
+        <monospace>.cool</monospace> file (<italic>cooler</italic>).
+        Initially, we read directly from the newly generated
+        deduplicated pairs without additional filtering, but here, the
+        official recommendation is to filter out everything below
+        <inline-formula><alternatives>
+        <tex-math><![CDATA[mapq = 30]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>p</mml:mi><mml:mi>q</mml:mi><mml:mo>=</mml:mo><mml:mn>30</mml:mn></mml:mrow></mml:math></alternatives></inline-formula>
+        by piping the pairs through
+        <monospace>pairtools select &quot;(mapq1&gt;=30) and (mapq2&gt;=30)&quot;</monospace>
+        to <monospace>cooler cload pairs</monospace>.</p>
+        <p>We should have plenty of data to do the filtering, but I
+        argue it is not strictly necessary. I will show a histogram of
+        the <italic>mapq</italic> scores to convince you [ref].
+        Otherwise, I will have fixed this issue.</p>
       </sec>
     </sec>
     <sec id="notebook-edits">
@@ -300,7 +401,9 @@ and evolutionary dynamics across primate species.</p>
       <p>As <monospace>cooler</monospace> and
       <monospace>cooltools</monospace> have a Python API, the more
       experimental parts of the analysis were moved to Jupyter Notebooks
-      (still running on GenomeDK)</p>
+      (still running on GenomeDK). <monospace>cooltools</monospace>
+      comes with a helper library for operations on genomic intervals
+      called <monospace>bioframe</monospace>.</p>
       <sec id="pooling-samples-merging-coolers">
         <title>Pooling samples (Merging coolers)</title>
         <p>The samples are grouped into <italic>replicates</italic> with
@@ -323,31 +426,33 @@ and evolutionary dynamics across primate species.</p>
         <p>A feature of working inside the ecosystem of
         <italic>Open2C</italic> [ref] is that it natively provides
         support for storing sparse interaction matrices in multiple
-        resolutions in the same file by adding groups to the hdf5-file
+        resolutions in the same file by adding groups to the cooler
         [ref]. We can then efficiently store resolutions (i.e.,
         different bin sizes) that is multiples of the smallest bin size.
-        We chose to use 10kb, 50kb, 100kb, and 500kb bins.</p>
+        We chose to use 10kb, 50kb, 100kb, and 500kb bins, and the
+        resolutions are made by recursively binning the base resolution.
+        We call this process zoomifying.</p>
       </sec>
       <sec id="matrix-balancing-iterative-correction">
         <title>Matrix balancing (Iterative correction)</title>
         <p>Finally, we balance the matrices using the cooler CLI. We use
-        the <monospace>cooler balance</monospace> command with the
-        default options using 32 cores, which iteratively balances the
-        matrix (Iterative Corecction). It is first described as a method
-        for bias correction of Hi-C matrices in
+        <monospace>cooler balance</monospace> with the default options
+        which iteratively balances the matrix (Iterative Correction). It
+        is first described as a method for bias correction of Hi-C
+        matrices in
         (<xref alt="Imakaev et al. 2012" rid="ref-imakaev_iterative_2012" ref-type="bibr">Imakaev
         et al. 2012</xref>), where it is paired with eigenvector
-        decomposition (ICE). Here the eigenvector decomposition of the
-        obtained maps is shown to provide insights into local chromatin
-        states.</p>
-        <p>According to <monospace>cooler</monospace> documentation, we
+        decomposition, coining the combined analysis <bold>ICE</bold>.
+        Here, the eigenvector decomposition of the obtained maps is
+        experimentally validated to provide insights into local
+        chromatin states.</p>
+        <p>[According to <monospace>cooler</monospace> documentation] We
         have to balance the matrices on each resolution, and thus it
-        cannot be done prior to zoomifying. The argument is that the
+        cannot be done prior to zoomifying. They state that the
         balancing weights are resolution-specific and will no longer
-        retain its meaning when binned with other weights. Therefore, we
-        use a nested for-loop that iterates through all the
-        <monospace>.mcools</monospace> and all the resolutions in each
-        <monospace>.mcool</monospace>.
+        retain its biological meaning when binned with other weights.
+        Therefore, we apply <monospace>cooler balance</monospace> to
+        each resolution separately.
         <monospace>cooler balance</monospace> will create a new column
         in the <monospace>bins</monospace> group of each cooler ,
         <monospace>weight</monospace>, which can then be included or not
@@ -364,6 +469,47 @@ and evolutionary dynamics across primate species.</p>
       </sec>
       <sec id="eigendecomposition">
         <title>Eigendecomposition</title>
+        <p>The eigendecomposition of a Hi-C interaction matrix is
+        performed in multiple steps. As value of the eigenvector is only
+        <italic>significant</italic> up to a sign, it is convention
+        [ref] to use GC content as a phasing track to orient the vector.
+        E1 is arbitrarily defined to be positively correlated with GC
+        content, meaning a positive E1 value signifies an active
+        chromatin state, which we denote a A-type compartment (or simply
+        A-compartment). We performed eigendecomposition of two
+        resolutions, 100 Kbp and 500 Kbp.</p>
+        <p>First, we calculate the GC content of each bin of the
+        reference genome, <italic>rheMac10</italic>, which is binned to
+        the resolution of the Hi-C matrix we are handling. It is done
+        with <monospace>bioframe.frac_gc</monospace>
+        (<italic>Open2C</italic>). To calculate the E1 compartments, we
+        use only within-chromosome contacts (<italic>cis</italic>), as
+        we are not interested in the genome-wide contacts.
+        <monospace>cooltools.eigs_cis</monospace> will decorrelate the
+        contact-frequency by distance before performing the
+        eigendecomposition. <monospace>eigs_cis</monospace> needs a
+        <italic>viewframe</italic> (view) to calculate E1 values, the
+        simplest view being the full chromosome. However, when there is
+        more variance between chromosome arms than within arms, the sign
+        of the first eigenvector will be determined largely by the
+        chromosome arm it sits on, and not by the chromatin
+        compartments. To mitigate this, we apply a
+        chromosome-arm-partitioned view of the chromosome (as a bedlike
+        format, described in <monospace>bioframe</monospace> docs
+        [ref]).</p>
+      </sec>
+      <sec id="plotting">
+        <title>Plotting</title>
+        <p>Needs:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>HiCExplorer: plot with CLI, writes to pngs</p>
+          </list-item>
+          <list-item>
+            <p>cooler: plot through python API (fetch matrix from
+            cooler)</p>
+          </list-item>
+        </list>
         <p></p>
       </sec>
     </sec>
@@ -603,621 +749,9 @@ and evolutionary dynamics across primate species.</p>
 </front-stub>
 
 <body>
-<sec id="methods-nb-1">
-  <title>Methods</title>
-  <p>In this project, we formulate two objectives:</p>
-  <p><bold>A</bold>: Reproduce the Hi-C interaction maps and
-  eigendecomposition from
-  (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019-nb-1" ref-type="bibr">Wang
-  et al. 2019</xref>), with some modifications. We briefly use
-  <italic>HiCExplorer</italic>, but change the analyses to use the
-  <italic>Open2C Ecosystem</italic>
-  (<xref alt="Open Chromosome Collective 2024" rid="ref-open2c-nb-1" ref-type="bibr">Open
-  Chromosome Collective 2024</xref>) which have a Pyton API as well as
-  command-line functions, which can be paired very well with Jupyter
-  Notebooks. The majority of the data analysis was run with a
-  <italic>gwf</italic> workflow, and the commands that were visually
-  inspected were run in Jupyter Notebooks.</p>
-  <p><bold>B</bold> Compare with regions of selection that are found in
-  <italic>papio anubis</italic>, and maybe in <italic>human</italic>
-  too. Investigate the biological meaning of the results.</p>
-  <p>All computations were performed on GenomeDK (GDK) [ref], an HPC
-  cluster located on Aarhus Uninversity, and most of the processing of
-  the data was nested into a <italic>gwf</italic> workflow [ref], a
-  workflow manager developed at GDK. I would like to thank GDK and
-  Aarhus University for providing computational resources and support
-  that contributed to these research results.</p>
-  <p>The whole of this project is carried out with reproducibility in
-  mind, so an effort (and quite a significant amount of time) has been
-  put into documenting code and organizing the project for readbility
-  and transparency through a Quarto project [ref]. Therefore, all code,
-  virtual environments and text is made available as a Quarto book,
-  rendered directly from the GitHub repository with GitHub Pages []. To
-  make this possible, the Quarto documentation has been extensively
-  studied and discussed with <italic>KMT</italic> [ref, aknowledge].</p>
-  <sec id="downloading-data-and-project-structure-nb-1">
-    <title>Downloading Data and Project Structure</title>
-    <p>To reproduce the results from
-    (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019-nb-1" ref-type="bibr">Wang
-    et al. 2019</xref>), I chose to use their raw data directly from the
-    SRA portal [ref]. I filtered the data to contain all their
-    paired-end Hi-C reads, and included only macaque samples. The data
-    set also contains RNAseq data, and the same tissues for both macaque
-    and mouse. The meta data for the data set was extracted into a
-    runtable <monospace>SRA-runtable.tsv</monospace>. To get an overview
-    of the data accessions used in this analysis, we will first
-    summarize the runtable that contains the accession numbers and some
-    metadata for each sample
-    ((<xref alt="tbl-runtable-summary?" rid="ref-tbl-runtable-summary-nb-1" ref-type="bibr"><bold>tbl-runtable-summary?</bold></xref>)).
-    It adds up to ~1Tb of compressed <monospace>fastq</monospace> files,
-    holding ~9.5 billion reads, roughly evenly spread on the 5 tissue
-    types.</p>
-    <sec specific-use="notebook-content">
-    <code language="python">display(df_grouped)
-    </code>
-    <fig id="tbl-runtable-summary-nb-1">
-      <caption><p>Summary of the data accessions used in this
-      analysis</p></caption>
-      <boxed-text>
-        <table-wrap>
-          <table id="T_55add-nb-1">
-            <thead>
-              <tr>
-                <th> </th>
-                <th id="T_55add_level0_col0-nb-1">source_name</th>
-                <th id="T_55add_level0_col1-nb-1">GB</th>
-                <th id="T_55add_level0_col2-nb-1">Bases</th>
-                <th id="T_55add_level0_col3-nb-1">Reads</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td id="T_55add_level0_row0-nb-1">0</td>
-                <td id="T_55add_row0_col0-nb-1">fibroblast</td>
-                <td id="T_55add_row0_col1-nb-1">211.403275</td>
-                <td id="T_55add_row0_col2-nb-1">553,968,406,500</td>
-                <td id="T_55add_row0_col3-nb-1">1,846,561,355</td>
-              </tr>
-              <tr>
-                <td id="T_55add_level0_row1-nb-1">1</td>
-                <td id="T_55add_row1_col0-nb-1">pachytene spermatocyte</td>
-                <td id="T_55add_row1_col1-nb-1">274.835160</td>
-                <td id="T_55add_row1_col2-nb-1">715,656,614,700</td>
-                <td id="T_55add_row1_col3-nb-1">2,385,522,049</td>
-              </tr>
-              <tr>
-                <td id="T_55add_level0_row2-nb-1">2</td>
-                <td id="T_55add_row2_col0-nb-1">round spermatid</td>
-                <td id="T_55add_row2_col1-nb-1">243.128044</td>
-                <td id="T_55add_row2_col2-nb-1">655,938,457,200</td>
-                <td id="T_55add_row2_col3-nb-1">2,186,461,524</td>
-              </tr>
-              <tr>
-                <td id="T_55add_level0_row3-nb-1">3</td>
-                <td id="T_55add_row3_col0-nb-1">sperm</td>
-                <td id="T_55add_row3_col1-nb-1">164.131640</td>
-                <td id="T_55add_row3_col2-nb-1">428,913,635,400</td>
-                <td id="T_55add_row3_col3-nb-1">1,429,712,118</td>
-              </tr>
-              <tr>
-                <td id="T_55add_level0_row4-nb-1">4</td>
-                <td id="T_55add_row4_col0-nb-1">spermatogonia</td>
-                <td id="T_55add_row4_col1-nb-1">192.794420</td>
-                <td id="T_55add_row4_col2-nb-1">518,665,980,300</td>
-                <td id="T_55add_row4_col3-nb-1">1,728,886,601</td>
-              </tr>
-            </tbody>
-          </table>
-        </table-wrap>
-      </boxed-text>
-    </fig>
-    </sec>
-  </sec>
-  <sec id="handling-coolers-or-preparing-coolers-nb-1">
-    <title>Handling coolers (Or: preparing coolers)</title>
-    <fig id="fig-flowchart-handling-coolers-nb-1">
-      <caption><p>A flowchart showing the pipeline from
-      <monospace>.fastq</monospace> to <monospace>.mcool</monospace>.
-      The first 6 steps were done with a Probably BioRender or
-      Inkscape.</p></caption>
-      <graphic mimetype="image" mime-subtype="png" xlink:href="../figures/placeholder2000x360.png" />
-    </fig>
-    <sec id="the-gwf-workflow-targets-nb-1">
-      <title>The <italic>gwf</italic> workflow targets</title>
-      <p>A <italic>gwf</italic> workflow was created to handle the first
-      part of the data processing, and each accesion number (read pair,
-      mate pair) from the Hi-C sequencing was processed in parallel, so
-      their execution was independent from each other.</p>
-      <sec id="downloading-the-reads-nb-1">
-        <title>Downloading the reads</title>
-        <p>The reads were downloaded from NCBI SRA portal [ref] directly
-        to GDK using <monospace>sra-downloader</monospace> [ref] through
-        docker [ref] as <monospace>.fastq.gz</monospace> files.</p>
-      </sec>
-      <sec id="handling-the-reference-nb-1">
-        <title>Handling the reference</title>
-        <p>The latest reference genome for rhesus macaque
-        (<italic>macaca mulata</italic>), <italic>rheMac10</italic> (or
-        <italic>Mmul_10</italic>, UCSC or NCBI naming conventions,
-        respectively) was downloaded to GDK from UCSC web servers with
-        <monospace>wget</monospace> [ref]. To use
-        <monospace>bwa</monospace> (Burrow Wheeler’s Aligner) [ref] for
-        mapping, rheMac10 needs to be indexed with both
-        <monospace>bwa index</monospace> with the
-        <monospace>--bwtsw</monospace> option and
-        <monospace>samtools faidx</monospace>, which results in six
-        indexing files for <monospace>bwa mem</monospace> to use.</p>
-      </sec>
-      <sec id="mapping-paired-end-reads-nb-1">
-        <title>Mapping paired-end reads</title>
-      </sec>
-      <sec id="pair-and-sort-the-reads-nb-1">
-        <title>Pair and sort the reads</title>
-      </sec>
-      <sec id="filter-deduplicate-pairs-nb-1">
-        <title>Filter (deduplicate) pairs</title>
-      </sec>
-      <sec id="create-interaction-matrices-coolers-nb-1">
-        <title>Create interaction matrices (coolers)</title>
-      </sec>
-    </sec>
-    <sec id="notebook-edits-nb-1">
-      <title>Notebook edits</title>
-      <p>As <monospace>cooler</monospace> and
-      <monospace>cooltools</monospace> have a Python API, the more
-      experimental parts of the analysis were moved to Jupyter Notebooks
-      (still running on GenomeDK)</p>
-      <sec id="pooling-samples-merging-coolers-nb-1">
-        <title>Pooling samples (Merging coolers)</title>
-        <p>The samples are grouped into <italic>replicates</italic> with
-        a unique <bold>BioSample</bold> ID, but we chose to pool all the
-        interaction matrices for each cell type. We argue that when Wang
-        et al.
-        (<xref alt="2019" rid="ref-wang_reprogramming_2019-nb-1" ref-type="bibr">2019</xref>)
-        determine compartments to be highly reproducible between
-        replicates, by merging the replicates we can get a more robust
-        signal.</p>
-        <p><monospace>cooler merge</monospace> was used to merge all
-        samples in each sub-folder (cell type) to just one interaction
-        matrix for each cell type. The function merges matrices of the
-        same dimensions by simply adding the interaction frequencies of
-        each genomic position together, resulting in less empty
-        positions by chance.</p>
-      </sec>
-      <sec id="create-multi-resolution-coolers-zoomify-nb-1">
-        <title>Create multi-resolution coolers (zoomify)</title>
-        <p>A feature of working inside the ecosystem of
-        <italic>Open2C</italic> [ref] is that it natively provides
-        support for storing sparse interaction matrices in multiple
-        resolutions in the same file by adding groups to the hdf5-file
-        [ref]. We can then efficiently store resolutions (i.e.,
-        different bin sizes) that is multiples of the smallest bin size.
-        We chose to use 10kb, 50kb, 100kb, and 500kb bins.</p>
-      </sec>
-      <sec id="matrix-balancing-iterative-correction-nb-1">
-        <title>Matrix balancing (Iterative correction)</title>
-        <p>Finally, we balance the matrices using the cooler CLI. We use
-        the <monospace>cooler balance</monospace> command with the
-        default options using 32 cores, which iteratively balances the
-        matrix (Iterative Corecction). It is first described as a method
-        for bias correction of Hi-C matrices in
-        (<xref alt="Imakaev et al. 2012" rid="ref-imakaev_iterative_2012-nb-1" ref-type="bibr">Imakaev
-        et al. 2012</xref>), where it is paired with eigenvector
-        decomposition (ICE). Here the eigenvector decomposition of the
-        obtained maps is shown to provide insights into local chromatin
-        states.</p>
-        <p>According to <monospace>cooler</monospace> documentation, we
-        have to balance the matrices on each resolution, and thus it
-        cannot be done prior to zoomifying. The argument is that the
-        balancing weights are resolution-specific and will no longer
-        retain its meaning when binned with other weights. Therefore, we
-        use a nested for-loop that iterates through all the
-        <monospace>.mcools</monospace> and all the resolutions in each
-        <monospace>.mcool</monospace>.
-        <monospace>cooler balance</monospace> will create a new column
-        in the <monospace>bins</monospace> group of each cooler ,
-        <monospace>weight</monospace>, which can then be included or not
-        in the downstream analysis. This means we will have access to
-        both the balanced and the unbalanced matrix.</p>
-        <p>The default mode uses genome-wide data to calculate the
-        weights for each bin. It would maybe be more suitable to
-        calculate the weights for <italic>cis</italic> contacts only,
-        and that is possible through the
-        <monospace>--cis-only</monospace> flag, and that can be added to
-        another column, so that we can compare the difference between
-        the two methods easily. However, we will only use the default
-        mode for now.</p>
-      </sec>
-      <sec id="eigendecomposition-nb-1">
-        <title>Eigendecomposition</title>
-        <ref-list>
-          <ref id="ref-wang_reprogramming_2019-nb-1">
-            <element-citation publication-type="article-journal">
-              <person-group person-group-type="author">
-                <name><surname>Wang</surname><given-names>Yao</given-names></name>
-                <name><surname>Wang</surname><given-names>Hanben</given-names></name>
-                <name><surname>Zhang</surname><given-names>Yu</given-names></name>
-                <name><surname>Du</surname><given-names>Zhenhai</given-names></name>
-                <name><surname>Si</surname><given-names>Wei</given-names></name>
-                <name><surname>Fan</surname><given-names>Suixing</given-names></name>
-                <name><surname>Qin</surname><given-names>Dongdong</given-names></name>
-                <name><surname>Wang</surname><given-names>Mei</given-names></name>
-                <name><surname>Duan</surname><given-names>Yanchao</given-names></name>
-                <name><surname>Li</surname><given-names>Lufan</given-names></name>
-                <name><surname>Jiao</surname><given-names>Yuying</given-names></name>
-                <name><surname>Li</surname><given-names>Yuanyuan</given-names></name>
-                <name><surname>Wang</surname><given-names>Qiujun</given-names></name>
-                <name><surname>Shi</surname><given-names>Qinghua</given-names></name>
-                <name><surname>Wu</surname><given-names>Xin</given-names></name>
-                <name><surname>Xie</surname><given-names>Wei</given-names></name>
-              </person-group>
-              <article-title>Reprogramming of Meiotic Chromatin Architecture during Spermatogenesis</article-title>
-              <source>Molecular Cell</source>
-              <year iso-8601-date="2019-02">2019</year><month>02</month>
-              <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-29">2024</year><month>08</month><day>29</day></date-in-citation>
-              <volume>73</volume>
-              <issue>3</issue>
-              <issn>10972765</issn>
-              <uri>https://linkinghub.elsevier.com/retrieve/pii/S1097276518309894</uri>
-              <pub-id pub-id-type="doi">10.1016/j.molcel.2018.11.019</pub-id>
-              <fpage>547</fpage>
-              <lpage>561.e6</lpage>
-            </element-citation>
-          </ref>
-          <ref id="ref-imakaev_iterative_2012-nb-1">
-            <element-citation publication-type="article-journal">
-              <person-group person-group-type="author">
-                <name><surname>Imakaev</surname><given-names>Maxim</given-names></name>
-                <name><surname>Fudenberg</surname><given-names>Geoffrey</given-names></name>
-                <name><surname>McCord</surname><given-names>Rachel Patton</given-names></name>
-                <name><surname>Naumova</surname><given-names>Natalia</given-names></name>
-                <name><surname>Goloborodko</surname><given-names>Anton</given-names></name>
-                <name><surname>Lajoie</surname><given-names>Bryan R</given-names></name>
-                <name><surname>Dekker</surname><given-names>Job</given-names></name>
-                <name><surname>Mirny</surname><given-names>Leonid A</given-names></name>
-              </person-group>
-              <article-title>Iterative correction of Hi-C data reveals hallmarks of chromosome organization</article-title>
-              <source>Nature Methods</source>
-              <year iso-8601-date="2012-10">2012</year><month>10</month>
-              <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-08">2024</year><month>11</month><day>08</day></date-in-citation>
-              <volume>9</volume>
-              <issue>10</issue>
-              <issn>1548-7091, 1548-7105</issn>
-              <uri>https://www.nature.com/articles/nmeth.2148</uri>
-              <pub-id pub-id-type="doi">10.1038/nmeth.2148</pub-id>
-              <fpage>999</fpage>
-              <lpage>1003</lpage>
-            </element-citation>
-          </ref>
-          <ref id="ref-open2c-nb-1">
-            <element-citation>
-              <person-group person-group-type="author">
-                <string-name>Open Chromosome Collective</string-name>
-              </person-group>
-              <article-title>Open Chromosome Collective (Open2C)</article-title>
-              <source>Open2C</source>
-              <year iso-8601-date="2024-11-13">2024</year><month>11</month><day>13</day>
-              <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-13">2024</year><month>11</month><day>13</day></date-in-citation>
-              <uri>https://open2c.github.io/</uri>
-            </element-citation>
-          </ref>
-        </ref-list>
-      </sec>
-    </sec>
-  </sec>
-</sec>
-</body>
-
-
-
-<back>
-</back>
-
-
-</sub-article>
-<sub-article article-type="notebook" id="nb-4-nb-2">
-<front-stub>
-</front-stub>
-
-<body>
-<sec id="discussion-nb-2">
-  <title>Discussion</title>
-  <p>Here is the discussion</p>
-</sec>
-</body>
-
-
-
-<back>
-</back>
-
-
-</sub-article>
-<sub-article article-type="notebook" id="nb-6-nb-3">
-<front-stub>
-</front-stub>
-
-<body>
-<sec id="introduction-nb-3">
-  <title>Introduction</title>
-  <sec id="sexual-reproduction-spermatogenesis-meiosis-nb-3">
-    <title>Sexual reproduction (spermatogenesis, meiosis)</title>
-    <p>The production of gametes in a sexually reproducing organism is a
-    highly complex process that involves numeruous elements.
-    Spermatogenesis, the process of forming male gametes, involves four
-    stages of differentiation from a germ cell through
-    <italic>spermatogonia</italic>, <italic>pachytene
-    spermatocyte</italic>, and <italic>round spermatids</italic> to
-    <italic>spermatozoa</italic>, or <italic>sperm</italic>
-    (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019-nb-3" ref-type="bibr">Wang
-    et al. 2019</xref>), and it is the very basis of male reproduction.
-    The specialized cell division of meiosis neatly handles the pairing,
-    recombination, and segregation of homologous chromosomes, thereby
-    ensuring proper genetic distribution. Deeply understanding the steps
-    of molecular steps of reproduction and how our genetic material is
-    inherited is essential in biology, bringing insight to areas such as
-    speciation, population diversity, and (male) infertility.</p>
-  </sec>
-  <sec id="selfish-genes-and-randomness-nb-3">
-    <title>Selfish genes (and randomness)</title>
-    <p>The conventional story of meiosis in gametogenesis is one of
-    random segregation of the sex chromosomes. They split into haploid
-    gametes, where each chromosome has an equal chance of being passed
-    on to a gamete. That seems like a fair game, but what if some genes
-    are cheating the system by making others less viable. A meiotic
-    driver is a selfish gene element that modulates meiosis and
-    preferentially transmits its own allele through meiosis, regardless
-    of the downstream fitness effects it may have (good or bad) on the
-    organism it is part of. This phenomenon challenges the traditional
-    understanding of selection, extending its scope beyond the fitness
-    effects on an organism to include selective pressures at the
-    molecular level. For example, if some genes on the X chromosome
-    create a disadvantage for gametes that <italic>do not</italic>
-    contain those genes, making sure the Y chromosome is not as viable
-    as the X, resulting in a sex imbalance and possibly numerous other
-    downstream effects. That is exactly what is coined <italic>sex
-    chromosome meiotic drive</italic>
-    (<xref alt="Jaenike 2001" rid="ref-jaenike_sex_2001-nb-3" ref-type="bibr">Jaenike
-    2001</xref>), a result of selfish genetic elements.</p>
-    <p>Motivated by previous results in the Munch Research group
-    (<xref alt="Munch 2024" rid="ref-munch_group_2024-nb-3" ref-type="bibr">Munch
-    2024</xref>) on hybrid incompatibility and extended common
-    haplotypes
-    (<xref alt="Skov et al. 2023" rid="ref-skov_extraordinary_2023-nb-3" ref-type="bibr">Skov
-    et al. 2023</xref>;
-    <xref alt="Sørensen et al. 2023" rid="ref-sorensen_genome_wide_2023-nb-3" ref-type="bibr">Sørensen
-    et al. 2023</xref>) that could be explained by meiotic drive, we
-    wanted to investigate how these patterns correlate with chromatin
-    compartments.</p>
-  </sec>
-  <sec id="high-throughput-chromosome-conformation-capture-hi-c-nb-3">
-    <title>High-Throughput Chromosome Conformation Capture
-    (Hi-C)</title>
-    <p>Our DNA can be divided into different orders of structure.
-    <italic>3C</italic> focus on identifying the highest orders of
-    organization inside the nucleus, that is, when the 30 nm thick coil
-    of chromatin fibers folds into loops, Topologically Associating
-    Domains (TADs), and chromatin compartments. Here, we narrow our
-    focus on the largest of the structures,
-    <italic>compartments</italic>, that is known to determine
-    availability to transcription factors, thus making an
-    <italic>A</italic> compartment <italic>active</italic>—and the
-    <italic>B</italic> compartment <italic>inactive</italic>. The
-    introduction of the Hi-C (high-throughput 3C) method
-    (<xref alt="Lieberman-Aiden et al. 2009" rid="ref-lieberman_aiden_comprehensive_2009-nb-3" ref-type="bibr">Lieberman-Aiden
-    et al. 2009</xref>) opened new possibilities for exploring the
-    three-dimensional organization of the genome.</p>
-  </sec>
-</sec>
-</body>
-
-
-
-<back>
-<ref-list>
-  <title></title>
-  <ref id="ref-lieberman_aiden_comprehensive_2009-nb-3">
-    <element-citation publication-type="article-journal">
-      <person-group person-group-type="author">
-        <name><surname>Lieberman-Aiden</surname><given-names>Erez</given-names></name>
-        <name><surname>Van Berkum</surname><given-names>Nynke L.</given-names></name>
-        <name><surname>Williams</surname><given-names>Louise</given-names></name>
-        <name><surname>Imakaev</surname><given-names>Maxim</given-names></name>
-        <name><surname>Ragoczy</surname><given-names>Tobias</given-names></name>
-        <name><surname>Telling</surname><given-names>Agnes</given-names></name>
-        <name><surname>Amit</surname><given-names>Ido</given-names></name>
-        <name><surname>Lajoie</surname><given-names>Bryan R.</given-names></name>
-        <name><surname>Sabo</surname><given-names>Peter J.</given-names></name>
-        <name><surname>Dorschner</surname><given-names>Michael O.</given-names></name>
-        <name><surname>Sandstrom</surname><given-names>Richard</given-names></name>
-        <name><surname>Bernstein</surname><given-names>Bradley</given-names></name>
-        <name><surname>Bender</surname><given-names>M. A.</given-names></name>
-        <name><surname>Groudine</surname><given-names>Mark</given-names></name>
-        <name><surname>Gnirke</surname><given-names>Andreas</given-names></name>
-        <name><surname>Stamatoyannopoulos</surname><given-names>John</given-names></name>
-        <name><surname>Mirny</surname><given-names>Leonid A.</given-names></name>
-        <name><surname>Lander</surname><given-names>Eric S.</given-names></name>
-        <name><surname>Dekker</surname><given-names>Job</given-names></name>
-      </person-group>
-      <article-title>Comprehensive Mapping of Long-Range Interactions Reveals Folding Principles of the Human Genome</article-title>
-      <source>Science</source>
-      <year iso-8601-date="2009-10">2009</year><month>10</month>
-      <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-29">2024</year><month>08</month><day>29</day></date-in-citation>
-      <volume>326</volume>
-      <issue>5950</issue>
-      <issn>0036-8075, 1095-9203</issn>
-      <uri>https://www.science.org/doi/10.1126/science.1181369</uri>
-      <pub-id pub-id-type="doi">10.1126/science.1181369</pub-id>
-      <fpage>289</fpage>
-      <lpage>293</lpage>
-    </element-citation>
-  </ref>
-  <ref id="ref-wang_reprogramming_2019-nb-3">
-    <element-citation publication-type="article-journal">
-      <person-group person-group-type="author">
-        <name><surname>Wang</surname><given-names>Yao</given-names></name>
-        <name><surname>Wang</surname><given-names>Hanben</given-names></name>
-        <name><surname>Zhang</surname><given-names>Yu</given-names></name>
-        <name><surname>Du</surname><given-names>Zhenhai</given-names></name>
-        <name><surname>Si</surname><given-names>Wei</given-names></name>
-        <name><surname>Fan</surname><given-names>Suixing</given-names></name>
-        <name><surname>Qin</surname><given-names>Dongdong</given-names></name>
-        <name><surname>Wang</surname><given-names>Mei</given-names></name>
-        <name><surname>Duan</surname><given-names>Yanchao</given-names></name>
-        <name><surname>Li</surname><given-names>Lufan</given-names></name>
-        <name><surname>Jiao</surname><given-names>Yuying</given-names></name>
-        <name><surname>Li</surname><given-names>Yuanyuan</given-names></name>
-        <name><surname>Wang</surname><given-names>Qiujun</given-names></name>
-        <name><surname>Shi</surname><given-names>Qinghua</given-names></name>
-        <name><surname>Wu</surname><given-names>Xin</given-names></name>
-        <name><surname>Xie</surname><given-names>Wei</given-names></name>
-      </person-group>
-      <article-title>Reprogramming of Meiotic Chromatin Architecture during Spermatogenesis</article-title>
-      <source>Molecular Cell</source>
-      <year iso-8601-date="2019-02">2019</year><month>02</month>
-      <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-29">2024</year><month>08</month><day>29</day></date-in-citation>
-      <volume>73</volume>
-      <issue>3</issue>
-      <issn>10972765</issn>
-      <uri>https://linkinghub.elsevier.com/retrieve/pii/S1097276518309894</uri>
-      <pub-id pub-id-type="doi">10.1016/j.molcel.2018.11.019</pub-id>
-      <fpage>547</fpage>
-      <lpage>561.e6</lpage>
-    </element-citation>
-  </ref>
-  <ref id="ref-skov_extraordinary_2023-nb-3">
-    <element-citation publication-type="article-journal">
-      <person-group person-group-type="author">
-        <name><surname>Skov</surname><given-names>Laurits</given-names></name>
-        <name><surname>Coll Macià</surname><given-names>Moisès</given-names></name>
-        <name><surname>Lucotte</surname><given-names>Elise Anne</given-names></name>
-        <name><surname>Cavassim</surname><given-names>Maria Izabel Alves</given-names></name>
-        <name><surname>Castellano</surname><given-names>David</given-names></name>
-        <name><surname>Schierup</surname><given-names>Mikkel Heide</given-names></name>
-        <name><surname>Munch</surname><given-names>Kasper</given-names></name>
-      </person-group>
-      <article-title>Extraordinary selection on the human X chromosome associated with archaic admixture</article-title>
-      <source>Cell Genomics</source>
-      <year iso-8601-date="2023-03">2023</year><month>03</month>
-      <date-in-citation content-type="access-date"><year iso-8601-date="2024-08-30">2024</year><month>08</month><day>30</day></date-in-citation>
-      <volume>3</volume>
-      <issue>3</issue>
-      <issn>2666979X</issn>
-      <uri>https://linkinghub.elsevier.com/retrieve/pii/S2666979X23000344</uri>
-      <pub-id pub-id-type="doi">10.1016/j.xgen.2023.100274</pub-id>
-      <fpage>100274</fpage>
-      <lpage></lpage>
-    </element-citation>
-  </ref>
-  <ref id="ref-jaenike_sex_2001-nb-3">
-    <element-citation publication-type="article-journal">
-      <person-group person-group-type="author">
-        <name><surname>Jaenike</surname><given-names>John</given-names></name>
-      </person-group>
-      <article-title>Sex Chromosome Meiotic Drive</article-title>
-      <source>Annual Review of Ecology and Systematics</source>
-      <year iso-8601-date="2001-11">2001</year><month>11</month>
-      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-14">2024</year><month>11</month><day>14</day></date-in-citation>
-      <volume>32</volume>
-      <issue>1</issue>
-      <issn>0066-4162</issn>
-      <uri>https://www.annualreviews.org/doi/10.1146/annurev.ecolsys.32.081501.113958</uri>
-      <pub-id pub-id-type="doi">10.1146/annurev.ecolsys.32.081501.113958</pub-id>
-      <fpage>25</fpage>
-      <lpage>49</lpage>
-    </element-citation>
-  </ref>
-  <ref id="ref-munch_group_2024-nb-3">
-    <element-citation>
-      <person-group person-group-type="author">
-        <name><surname>Munch</surname><given-names>Kasper</given-names></name>
-      </person-group>
-      <article-title>Munch-group</article-title>
-      <year iso-8601-date="2024-11">2024</year><month>11</month>
-      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-15">2024</year><month>11</month><day>15</day></date-in-citation>
-      <uri>https://munch-group.org/research.html</uri>
-    </element-citation>
-  </ref>
-  <ref id="ref-sorensen_genome_wide_2023-nb-3">
-    <element-citation publication-type="article-journal">
-      <person-group person-group-type="author">
-        <name><surname>Sørensen</surname><given-names>Erik F.</given-names></name>
-        <name><surname>Harris</surname><given-names>R. Alan</given-names></name>
-        <name><surname>Zhang</surname><given-names>Liye</given-names></name>
-        <name><surname>Raveendran</surname><given-names>Muthuswamy</given-names></name>
-        <name><surname>Kuderna</surname><given-names>Lukas F. K.</given-names></name>
-        <name><surname>Walker</surname><given-names>Jerilyn A.</given-names></name>
-        <name><surname>Storer</surname><given-names>Jessica M.</given-names></name>
-        <name><surname>Kuhlwilm</surname><given-names>Martin</given-names></name>
-        <name><surname>Fontsere</surname><given-names>Claudia</given-names></name>
-        <name><surname>Seshadri</surname><given-names>Lakshmi</given-names></name>
-        <name><surname>Bergey</surname><given-names>Christina M.</given-names></name>
-        <name><surname>Burrell</surname><given-names>Andrew S.</given-names></name>
-        <name><surname>Bergman</surname><given-names>Juraj</given-names></name>
-        <name><surname>Phillips-Conroy</surname><given-names>Jane E.</given-names></name>
-        <name><surname>Shiferaw</surname><given-names>Fekadu</given-names></name>
-        <name><surname>Chiou</surname><given-names>Kenneth L.</given-names></name>
-        <name><surname>Chuma</surname><given-names>Idrissa S.</given-names></name>
-        <name><surname>Keyyu</surname><given-names>Julius D.</given-names></name>
-        <name><surname>Fischer</surname><given-names>Julia</given-names></name>
-        <name><surname>Gingras</surname><given-names>Marie-Claude</given-names></name>
-        <name><surname>Salvi</surname><given-names>Sejal</given-names></name>
-        <name><surname>Doddapaneni</surname><given-names>Harshavardhan</given-names></name>
-        <name><surname>Schierup</surname><given-names>Mikkel H.</given-names></name>
-        <name><surname>Batzer</surname><given-names>Mark A.</given-names></name>
-        <name><surname>Jolly</surname><given-names>Clifford J.</given-names></name>
-        <name><surname>Knauf</surname><given-names>Sascha</given-names></name>
-        <name><surname>Zinner</surname><given-names>Dietmar</given-names></name>
-        <name><surname>Farh</surname><given-names>Kyle K.-H.</given-names></name>
-        <name><surname>Marques-Bonet</surname><given-names>Tomas</given-names></name>
-        <name><surname>Munch</surname><given-names>Kasper</given-names></name>
-        <name><surname>Roos</surname><given-names>Christian</given-names></name>
-        <name><surname>Rogers</surname><given-names>Jeffrey</given-names></name>
-      </person-group>
-      <article-title>Genome-wide coancestry reveals details of ancient and recent male-driven reticulation in baboons</article-title>
-      <source>Science</source>
-      <year iso-8601-date="2023-06">2023</year><month>06</month>
-      <date-in-citation content-type="access-date"><year iso-8601-date="2024-11-15">2024</year><month>11</month><day>15</day></date-in-citation>
-      <volume>380</volume>
-      <issue>6648</issue>
-      <issn>0036-8075, 1095-9203</issn>
-      <uri>https://www.science.org/doi/10.1126/science.abn8153</uri>
-      <pub-id pub-id-type="doi">10.1126/science.abn8153</pub-id>
-      <fpage>eabn8153</fpage>
-      <lpage></lpage>
-    </element-citation>
-  </ref>
-</ref-list>
-</back>
-
-
-</sub-article>
-<sub-article article-type="notebook" id="nb-8-nb-4">
-<front-stub>
-</front-stub>
-
-<body>
-<sec id="supplementary-material-nb-4">
+<sec id="supplementary-material-nb-1">
   <title>Supplementary material</title>
   <p>Here is appended the supplementary material</p>
-</sec>
-</body>
-
-
-
-<back>
-</back>
-
-
-</sub-article>
-<sub-article article-type="notebook" id="nb-10-nb-5">
-<front-stub>
-</front-stub>
-
-<body>
-<sec id="results-nb-5">
-  <title>Results</title>
-  <p>Here are the glorious results</p>
 </sec>
 </body>
 
