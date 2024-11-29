@@ -36,7 +36,7 @@ format:
     linestretch: 1.0
     number-sections: true
     highlight-style: kate 
- 
+    tbl-cap-location: bottom
     include-in-header:
       - file: header_extra.tex
     template-partials:

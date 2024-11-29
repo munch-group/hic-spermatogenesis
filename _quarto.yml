@@ -3,8 +3,8 @@ project:
   post-render:
     - quarto render slides/
     - quarto render thesis/
-  preview:
-    port: 4201
+  # preview:
+  #   port: 4201
 
 execute:
   freeze: auto
@@ -15,9 +15,9 @@ format:
     theme: 
       - cosmo
       - custom.scss
-    grid:
-      sidebar-width: 210px
-      margin-width: 150px
+    # grid:
+    #   sidebar-width: 210px
+    #   margin-width: 150px
     toc-depth: 3
     notebook-links: global
     number-sections: false
@@ -32,9 +32,9 @@ book:
   title: "Søren's MSc project about Hi-C and spermatogenesis"
   output-file: "msc-project-book"
   author: "Søren Jørgensen"
-  sidebar:
-    collapse-level: 1
-    reader-mode: true
+  # sidebar:
+  #   collapse-level: 1
+  #   reader-mode: true
   chapters:
     - index.qmd
     - part: "Notebooks"
@@ -64,7 +64,7 @@ book:
     - part: "Thesis"
       chapters: 
       - thesis/index.qmd
-      - thesis/supplementary.qmd
+      # - thesis/supplementary.qmd
   # downloads: [pdf]
 
 lightbox: true
