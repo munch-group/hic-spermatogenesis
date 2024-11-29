@@ -103,7 +103,7 @@ Needs:
 
 **HiCExplorer** Initially, recommendations from HiCExplorer were used. According to their documentation [ref] it is crucial to 1) align reads locally, as Hi-C has a higher fraction of reads that are chimeric, and 2) mapping mates separately to mitigate some of the heuristics made by aligners for standard paired-end libraries. However, the resulting files were incompatible with the *open2C* ecosystem, and I therefore followed *HiCExplorer* pipeline to plot and explore the matrices created from this mapping. However, the work was laborious for experimentation, as the provided functions all write plots to files. I did not manage to make an efficient implementation for plotting the `.h5` files produced by the pipeline, and I relatively quickly shifted to *Open2C* for their promises of the greener grass. 
 
-It was not feasible to follow the same approach as @wang_reprogramming_2019 with both *HiCExplorer* and *Open2C*, as they use a third software, *HiC-Pro*. Their 
+It was not feasible to follow the same approach as @wang_reprogramming_2019 with both *HiCExplorer* and *Open2C*, as they use a third software, *HiC-Pro*. Hic-Pro uses bowtie2 in end-to-end mode, followed by remapping of 5'-ends of the unmapped reads to rescue chimeric fragments along with other mitigations. I argue that even though we are trying to reproduce results, it is nonsensical to use methods that are not state-of-the-art. That said, either widely used method should produce similar results. 
 
 
 * Bowtie2 (local and end-to-end)
