@@ -26,8 +26,6 @@ key-points:
 date: last-modified
 ---
 
-{{< pagebreak >}}
-
 # Introduction
 
 ## Sexual reproduction (spermatogenesis, meiosis)
