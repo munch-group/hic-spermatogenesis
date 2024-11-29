@@ -72,7 +72,7 @@ To reproduce the results from [@wang_reprogramming_2019], I chose to use their r
 
 ::: {#fig-flowchart-handling-coolers}
 
-![](illustrations//placeholder2000x360.png)
+![](illustrations/placeholder2000x360.png)
 
 A flowchart showing the pipeline from `.fastq` to `.mcool`. The first 6 steps were done with a Probably BioRender or Inkscape.
 ::: 
