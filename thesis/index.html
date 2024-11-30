@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-11-29">
+<meta name="dcterms.date" content="2024-11-30">
 <meta name="keywords" content="Hi-C, Chromatin Compartments, Selection">
 
 <title>Chromatin Compartments and Selection on X</title>
@@ -97,10 +97,10 @@ window.Quarto = {
 ">
 <meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Selection">
 <meta name="citation_author" content="Søren Jørgensen">
-<meta name="citation_publication_date" content="2024-11-29">
-<meta name="citation_cover_date" content="2024-11-29">
+<meta name="citation_publication_date" content="2024-11-30">
+<meta name="citation_cover_date" content="2024-11-30">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-11-29">
+<meta name="citation_online_date" content="2024-11-30">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Principal components analysis corrects for stratification in genome-wide association studies;,citation_author=Alkes L Price;,citation_author=Nick J Patterson;,citation_author=Robert M Plenge;,citation_author=Michael E Weinblatt;,citation_author=Nancy A Shadick;,citation_author=David Reich;,citation_publication_date=2006-08;,citation_cover_date=2006-08;,citation_year=2006;,citation_fulltext_html_url=https://www.nature.com/articles/ng1847;,citation_issue=8;,citation_doi=10.1038/ng1847;,citation_issn=1061-4036, 1546-1718;,citation_volume=38;,citation_journal_title=Nature Genetics;">
 <meta name="citation_reference" content="citation_title=Accurate assembly of the olive baboon ( &amp;amp;amp;lt;i&amp;gt;Papio anubis&amp;lt;/i&amp;gt; ) genome using long-read and Hi-C data;,citation_abstract=AbstractBackground Baboons are a widely used nonhuman primate model for biomedical, evolutionary, and basic genetics research. Despite this importance, the genomic resources for baboons are limited. In particular, the current baboon reference genome Panu_3.0 is a highly fragmented, reference-guided (i.e., not fully de novo) assembly, and its poor quality inhibits our ability to conduct downstream genomic analyses.Findings Here we present a de novo genome assembly of the olive baboon (Papio anubis) that uses data from several recently developed single-molecule technologies. Our assembly, Panubis1.0, has an N50 contig size of ∼1.46 Mb (as opposed to 139 kb for Panu_3.0) and has single scaffolds that span each of the 20 autosomes and the X chromosome.Conclusions We highlight multiple lines of evidence (including Bionano Genomics data, pedigree linkage information, and linkage disequilibrium data) suggesting that there are several large assembly errors in Panu_3.0, which have been corrected in Panubis1.0.;,citation_author=Sanjit Singh Batra;,citation_author=Michal Levy-Sakin;,citation_author=Jacqueline Robinson;,citation_author=Joseph Guillory;,citation_author=Steffen Durinck;,citation_author=Tauras P Vilgalys;,citation_author=Pui-Yan Kwok;,citation_author=Laura A Cox;,citation_author=Somasekar Seshagiri;,citation_author=Yun S Song;,citation_author=Jeffrey D Wall;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaa134/6025063;,citation_issue=12;,citation_doi=10.1093/gigascience/giaa134;,citation_issn=2047-217X;,citation_volume=9;,citation_journal_title=GigaScience;">
@@ -153,7 +153,7 @@ window.Quarto = {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">November 29, 2024</p>
+              <p class="date">November 30, 2024</p>
             </div>
           </div>
           
@@ -239,7 +239,7 @@ window.Quarto = {
 <p><strong>A</strong>: Reproduce the Hi-C interaction maps and eigendecomposition from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, with some modifications. We briefly use <em>HiCExplorer</em>, but change the analyses to use the <em>Open2C Ecosystem</em> <span class="citation" data-cites="open2c">(<a href="#ref-open2c" role="doc-biblioref">Open Chromosome Collective 2024</a>)</span> which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a <em>gwf</em> workflow, and the commands that were visually inspected were run in Jupyter Notebooks.</p>
 <p><strong>B</strong> Compare with regions of selection that are found in <em>papio anubis</em>, and maybe in <em>human</em> too. Investigate the biological meaning of the results.</p>
 <p>All computations were performed on GenomeDK (GDK) [ref], an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was nested into a <em>gwf</em> workflow [ref], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.</p>
-<p>The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code, virtual environments and text is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages []. To make this possible, the Quarto documentation has been extensively studied and discussed with <em>KMT</em> [ref, aknowledge].</p>
+<p>The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code, virtual environments and text is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages [ref]. To make this possible, the Quarto documentation has been extensively studied and discussed with <em>KMT</em> [ref, aknowledge].</p>
 <section id="downloading-data-and-project-structure" class="level2">
 <h2 class="anchored" data-anchor-id="downloading-data-and-project-structure">Downloading Data and Project Structure</h2>
 <p>To reproduce the results from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable <code>SRA-runtable.tsv</code>. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (<a href="#tbl-runtable-summary" class="quarto-xref">Table&nbsp;1</a>). It adds up to ~1Tb of compressed <code>fastq</code> files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.</p>
@@ -331,35 +331,44 @@ Figure&nbsp;1: A flowchart showing the pipeline from <code>.fastq</code> to <cod
 </section>
 <section id="handling-the-reference" class="level4">
 <h4 class="anchored" data-anchor-id="handling-the-reference">Handling the reference</h4>
+<p>Needs:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked=""><em>rheMac10</em>, <code>bwa</code> indexing</label></li>
+<li><label><input type="checkbox" checked="">Wang et al.&nbsp;used <em>rheMac2</em>, the first assembly of rhesus</label></li>
+<li><label><input type="checkbox" checked="">Bowtie2 indexing</label></li>
+</ul>
 <p>The latest reference genome for rhesus macaque (<em>macaca mulata</em>), <em>rheMac10</em> (or <em>Mmul_10</em>, UCSC or NCBI naming conventions, respectively) was downloaded to GDK from UCSC web servers with <code>wget</code> [ref]. To use <code>bwa</code> (Burrow Wheeler’s Aligner) [ref] for mapping, rheMac10 needs to be indexed with both <code>bwa index</code> with the <code>--bwtsw</code> option and <code>samtools faidx</code>, which results in six indexing files for <code>bwa mem</code> to use.</p>
-<p>Needs:</p>
-<ul>
-<li>Wang et al.&nbsp;used <em>rheMac2</em>, the first assembly of rhesus</li>
-<li>Bowtie2 indexing</li>
-</ul>
+<p>Since <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span>, the reference genome for rhesus macaque has changed several times from <em>rheMac2</em> to <em>rheMac10</em>, each time resulting in a much less fragmented reference assembly. Part of the reasoning for reproducing their results was doing so on the latest assembly of the Macaca mulata genome, which arguably will result in a more accurate mapping of the reads, and a better inference of the chromatin compartments as well.</p>
+<p>Several mappers were used in different configurations (described in below), and <code>bowtie2</code> requires its own indexing of the reference, using <code>bowtie2-build --large-index</code>, which creates six index files for <code>bowtie2</code> to use.</p>
 </section>
-<section id="mapping-paired-end-reads" class="level4">
-<h4 class="anchored" data-anchor-id="mapping-paired-end-reads">Mapping paired-end reads</h4>
+<section id="mapping-hi-c-reads" class="level4">
+<h4 class="anchored" data-anchor-id="mapping-hi-c-reads">Mapping Hi-C reads</h4>
 <p>Needs:</p>
-<p><strong>HiCExplorer</strong> Initially, recommendations from HiCExplorer were used. According to their documentation [ref] it is crucial to 1) align reads locally, as Hi-C has a higher fraction of reads that are chimeric, and 2) mapping mates separately to mitigate some of the heuristics made by aligners for standard paired-end libraries. However, the resulting files were incompatible with the <em>open2C</em> ecosystem, and I therefore followed <em>HiCExplorer</em> pipeline to plot and explore the matrices created from this mapping. However, the work was laborious for experimentation, as the provided functions all write plots to files. I did not manage to make an efficient implementation for plotting the <code>.h5</code> files produced by the pipeline, and I relatively quickly shifted to <em>Open2C</em> for their promises of the greener grass.</p>
-<p>It was not feasible to follow the same approach as <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> with both <em>HiCExplorer</em> and <em>Open2C</em>, as they use a third software, <em>HiC-Pro</em>. Hic-Pro uses bowtie2 in end-to-end mode, followed by remapping of 5’-ends of the unmapped reads to rescue chimeric fragments along with other mitigations. I argue that even though we are trying to reproduce results, it is nonsensical to use methods that are not state-of-the-art. That said, either widely used method should produce similar results.</p>
-<ul>
-<li>Bowtie2 (local and end-to-end)</li>
-<li>Open2C formats and <code>bwa</code></li>
+<ul class="task-list">
+<li><label><input type="checkbox">Genereal problems from standard PE reads to Hi-C reads (rescue chimeric fragments)</label></li>
+<li><label><input type="checkbox" checked="">HiCExplorer, bwa, mapping reads seperately</label></li>
+<li><label><input type="checkbox">Bowtie2 (local and end-to-end)</label></li>
+<li><label><input type="checkbox">Open2C formats and <code>bwa</code></label></li>
 </ul>
+<p><strong>Reproduction</strong> It was not feasible to follow the same approach as <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> with both <em>HiCExplorer</em> and <em>Open2C</em>, as they use a third software, <em>HiC-Pro</em>. Hic-Pro uses bowtie2 in end-to-end mode, followed by remapping of 5’-ends of the unmapped reads to rescue chimeric fragments along with another approach. I argue that even though we are trying to reproduce results, it is nonsensical to use methods that are not state-of-the-art. That said, either widely used method should produce similar results.</p>
+<ul>
+<li>Hi-C is a rapidly evolving concept and a lot has changed in 5 years <span class="citation" data-cites="wang_reprogramming_2019">(since <a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span></li>
+</ul>
+<p><strong>HiCExplorer</strong> Initially, recommendations from HiCExplorer were used. According to their documentation [ref] it is crucial to 1) align reads locally, as Hi-C has a higher fraction of reads that are chimeric, and 2) mapping mates separately to mitigate some of the heuristics made by aligners for standard paired-end libraries. However, the resulting files were incompatible with the <em>open2C</em> ecosystem, and I therefore followed <em>HiCExplorer</em> pipeline to plot and explore the matrices created from this mapping. However, the work was laborious for experimentation, as the provided functions all write plots to files. I did not manage to make an efficient implementation for plotting the <code>.h5</code> files produced by the pipeline, and I relatively quickly shifted to <em>Open2C</em> for their promises of the greener grass.</p>
+<p><strong>Open2C</strong> Suspiciously, <span class="citation" data-cites="open2c">Open Chromosome Collective (<a href="#ref-open2c" role="doc-biblioref">2024</a>)</span> never mentions the</p>
 </section>
 <section id="pair-and-sort-the-reads" class="level4">
 <h4 class="anchored" data-anchor-id="pair-and-sort-the-reads">Pair and sort the reads</h4>
 <p>Needs:</p>
-<ul>
-<li>mapping mates separately vs.&nbsp;as paired-end reads</li>
-<li><code>pairtools parse</code> and <code>pairtools sort</code></li>
-<li>discuss the use of default parameters: <a href="https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</a></li>
+<ul class="task-list">
+<li><label><input type="checkbox">mapping mates separately vs.&nbsp;as paired-end reads</label></li>
+<li><label><input type="checkbox"><code>pairtools parse</code> and <code>pairtools sort</code></label></li>
+<li><label><input type="checkbox">discuss the use of default parameters: <a href="https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</a></label></li>
 </ul>
 </section>
 <section id="filter-deduplicate-pairs" class="level4">
 <h4 class="anchored" data-anchor-id="filter-deduplicate-pairs">Filter (deduplicate) pairs</h4>
-<p>At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of <em>rhemac10</em> assembly states they have closed gaps between 99% of the contigs since <em>rhemac8</em>, <em>rheMac10</em> still contain more than 2,500 unplaced contigs, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates.</p>
+<p>At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of <em>rhemac10</em> assembly states they have closed 99% of the gaps since <em>rhemac8</em>, <em>rheMac10</em> still contain more than 2,500 unplaced scaffolds, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates.</p>
 <p><code>cooler</code> recommend to store the most comprehensive and unfilteres list of pairs, and then applying a filter on it on the fly by piping from <code>pairtools select</code> I have missed this step, so I have not filtered for mapping quality. I will make a histogram showing the distribution of mapq scores to see the significance of this. Or just rerun that part of the analysis.</p>
 </section>
 <section id="create-interaction-matrices-coolers" class="level4">
@@ -394,9 +403,9 @@ Figure&nbsp;1: A flowchart showing the pipeline from <code>.fastq</code> to <cod
 <section id="plotting" class="level4">
 <h4 class="anchored" data-anchor-id="plotting">Plotting</h4>
 <p>Needs:</p>
-<ul>
-<li>HiCExplorer: plot with CLI, writes to pngs</li>
-<li>cooler: plot through python API (fetch matrix from cooler)</li>
+<ul class="task-list">
+<li><label><input type="checkbox">HiCExplorer: plot with CLI, writes to pngs</label></li>
+<li><label><input type="checkbox">cooler: plot through python API (fetch matrix from cooler)</label></li>
 </ul>
 <div style="page-break-after: always;"></div>
 </section>

@@ -177,8 +177,8 @@ and evolutionary dynamics across primate species.</p>
   put into documenting code and organizing the project for readbility
   and transparency through a Quarto project [ref]. Therefore, all code,
   virtual environments and text is made available as a Quarto book,
-  rendered directly from the GitHub repository with GitHub Pages []. To
-  make this possible, the Quarto documentation has been extensively
+  rendered directly from the GitHub repository with GitHub Pages [ref].
+  To make this possible, the Quarto documentation has been extensively
   studied and discussed with <italic>KMT</italic> [ref, aknowledge].</p>
   <sec id="downloading-data-and-project-structure">
     <title>Downloading Data and Project Structure</title>
@@ -275,6 +275,20 @@ and evolutionary dynamics across primate species.</p>
       </sec>
       <sec id="handling-the-reference">
         <title>Handling the reference</title>
+        <p>Needs:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>☒ <italic>rheMac10</italic>, <monospace>bwa</monospace>
+            indexing</p>
+          </list-item>
+          <list-item>
+            <p>☒ Wang et al. used <italic>rheMac2</italic>, the first
+            assembly of rhesus</p>
+          </list-item>
+          <list-item>
+            <p>☒ Bowtie2 indexing</p>
+          </list-item>
+        </list>
         <p>The latest reference genome for rhesus macaque
         (<italic>macaca mulata</italic>), <italic>rheMac10</italic> (or
         <italic>Mmul_10</italic>, UCSC or NCBI naming conventions,
@@ -286,20 +300,60 @@ and evolutionary dynamics across primate species.</p>
         <monospace>--bwtsw</monospace> option and
         <monospace>samtools faidx</monospace>, which results in six
         indexing files for <monospace>bwa mem</monospace> to use.</p>
+        <p>Since
+        (<xref alt="2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">2019</xref>),
+        the reference genome for rhesus macaque has changed several
+        times from <italic>rheMac2</italic> to
+        <italic>rheMac10</italic>, each time resulting in a much less
+        fragmented reference assembly. Part of the reasoning for
+        reproducing their results was doing so on the latest assembly of
+        the Macaca mulata genome, which arguably will result in a more
+        accurate mapping of the reads, and a better inference of the
+        chromatin compartments as well.</p>
+        <p>Several mappers were used in different configurations
+        (described in below), and <monospace>bowtie2</monospace>
+        requires its own indexing of the reference, using
+        <monospace>bowtie2-build --large-index</monospace>, which
+        creates six index files for <monospace>bowtie2</monospace> to
+        use.</p>
+      </sec>
+      <sec id="mapping-hi-c-reads">
+        <title>Mapping Hi-C reads</title>
         <p>Needs:</p>
         <list list-type="bullet">
           <list-item>
-            <p>Wang et al. used <italic>rheMac2</italic>, the first
-            assembly of rhesus</p>
+            <p>☐ Genereal problems from standard PE reads to Hi-C reads
+            (rescue chimeric fragments)</p>
           </list-item>
           <list-item>
-            <p>Bowtie2 indexing</p>
+            <p>☒ HiCExplorer, bwa, mapping reads seperately</p>
+          </list-item>
+          <list-item>
+            <p>☐ Bowtie2 (local and end-to-end)</p>
+          </list-item>
+          <list-item>
+            <p>☐ Open2C formats and <monospace>bwa</monospace></p>
           </list-item>
         </list>
-      </sec>
-      <sec id="mapping-paired-end-reads">
-        <title>Mapping paired-end reads</title>
-        <p>Needs:</p>
+        <p><bold>Reproduction</bold> It was not feasible to follow the
+        same approach as Wang et al.
+        (<xref alt="2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">2019</xref>)
+        with both <italic>HiCExplorer</italic> and
+        <italic>Open2C</italic>, as they use a third software,
+        <italic>HiC-Pro</italic>. Hic-Pro uses bowtie2 in end-to-end
+        mode, followed by remapping of 5’-ends of the unmapped reads to
+        rescue chimeric fragments along with another approach. I argue
+        that even though we are trying to reproduce results, it is
+        nonsensical to use methods that are not state-of-the-art. That
+        said, either widely used method should produce similar
+        results.</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Hi-C is a rapidly evolving concept and a lot has changed
+            in 5 years (since
+            <xref alt="2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">2019</xref>)</p>
+          </list-item>
+        </list>
         <p><bold>HiCExplorer</bold> Initially, recommendations from
         HiCExplorer were used. According to their documentation [ref] it
         is crucial to 1) align reads locally, as Hi-C has a higher
@@ -315,40 +369,23 @@ and evolutionary dynamics across primate species.</p>
         <monospace>.h5</monospace> files produced by the pipeline, and I
         relatively quickly shifted to <italic>Open2C</italic> for their
         promises of the greener grass.</p>
-        <p>It was not feasible to follow the same approach as Wang et
-        al.
-        (<xref alt="2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">2019</xref>)
-        with both <italic>HiCExplorer</italic> and
-        <italic>Open2C</italic>, as they use a third software,
-        <italic>HiC-Pro</italic>. Hic-Pro uses bowtie2 in end-to-end
-        mode, followed by remapping of 5’-ends of the unmapped reads to
-        rescue chimeric fragments along with other mitigations. I argue
-        that even though we are trying to reproduce results, it is
-        nonsensical to use methods that are not state-of-the-art. That
-        said, either widely used method should produce similar
-        results.</p>
-        <list list-type="bullet">
-          <list-item>
-            <p>Bowtie2 (local and end-to-end)</p>
-          </list-item>
-          <list-item>
-            <p>Open2C formats and <monospace>bwa</monospace></p>
-          </list-item>
-        </list>
+        <p><bold>Open2C</bold> Suspiciously, Open Chromosome Collective
+        (<xref alt="2024" rid="ref-open2c" ref-type="bibr">2024</xref>)
+        never mentions the</p>
       </sec>
       <sec id="pair-and-sort-the-reads">
         <title>Pair and sort the reads</title>
         <p>Needs:</p>
         <list list-type="bullet">
           <list-item>
-            <p>mapping mates separately vs. as paired-end reads</p>
+            <p>☐ mapping mates separately vs. as paired-end reads</p>
           </list-item>
           <list-item>
-            <p><monospace>pairtools parse</monospace> and
+            <p>☐ <monospace>pairtools parse</monospace> and
             <monospace>pairtools sort</monospace></p>
           </list-item>
           <list-item>
-            <p>discuss the use of default parameters:
+            <p>☐ discuss the use of default parameters:
             <ext-link ext-link-type="uri" xlink:href="https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</ext-link></p>
           </list-item>
         </list>
@@ -357,10 +394,10 @@ and evolutionary dynamics across primate species.</p>
         <title>Filter (deduplicate) pairs</title>
         <p>At this point we will remove all reads that are mapped to an
         unplaced scaffold. Even though the publication of
-        <italic>rhemac10</italic> assembly states they have closed gaps
-        between 99% of the contigs since <italic>rhemac8</italic>,
+        <italic>rhemac10</italic> assembly states they have closed 99%
+        of the gaps since <italic>rhemac8</italic>,
         <italic>rheMac10</italic> still contain more than 2,500 unplaced
-        contigs, which are all uninformative when calculating the
+        scaffolds, which are all uninformative when calculating the
         chromatin compartments as is the goal of this analysis.
         Therefore, we simply only include the list of conventional
         chromosomes (1..22, X, Y) when doing the deduplication.
@@ -503,10 +540,10 @@ and evolutionary dynamics across primate species.</p>
         <p>Needs:</p>
         <list list-type="bullet">
           <list-item>
-            <p>HiCExplorer: plot with CLI, writes to pngs</p>
+            <p>☐ HiCExplorer: plot with CLI, writes to pngs</p>
           </list-item>
           <list-item>
-            <p>cooler: plot through python API (fetch matrix from
+            <p>☐ cooler: plot through python API (fetch matrix from
             cooler)</p>
           </list-item>
         </list>
