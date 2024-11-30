@@ -512,6 +512,11 @@ rendered directly from the GitHub repository with GitHub Pages
 {[}ref{]}. To make this possible, the Quarto documentation has been
 extensively studied and discussed with \emph{KMT} {[}ref, aknowledge{]}.
 
+\section{Initial Exploration with
+HiCExplorer}\label{initial-exploration-with-hicexplorer}
+
+Here moves most of the text about HiCExplorer\ldots{}
+
 \section{Downloading Data and Project
 Structure}\label{downloading-data-and-project-structure}
 
@@ -621,7 +626,8 @@ inference of the chromatin compartments as well.
 Several mappers were used in different configurations (described in
 below), and \texttt{bowtie2} requires its own indexing of the reference,
 using \texttt{bowtie2-build\ -\/-large-index}, which creates six index
-files for \texttt{bowtie2} to use.
+files for \texttt{bowtie2} to use. \texttt{-\/-large-index} creates the
+special indexing format required for large genomes such as macaque.
 
 \subsubsection{Mapping Hi-C reads}\label{mapping-hi-c-reads}
 
@@ -629,47 +635,68 @@ Needs:
 
 \begin{itemize}
 \tightlist
-\item[$\square$]
+\item[$\boxtimes$]
   Genereal problems from standard PE reads to Hi-C reads (rescue
   chimeric fragments)
 \item[$\boxtimes$]
   HiCExplorer, bwa, mapping reads seperately
-\item[$\square$]
+\item[$\boxtimes$]
   Bowtie2 (local and end-to-end)
 \item[$\square$]
   Open2C formats and \texttt{bwa}
 \end{itemize}
 
+\textbf{General Approach} The main difference between Hi-C libraries and
+standard paired-end libraries is the high fraction of chimeric reads in
+Hi-C. As a contact pair is crosslinked and ligated before sequencing,
+chimeric reads occur as a feature, and standard mapping techniques seeks
+to filter out this type of reads {[}ref{]}. Thus, we need specialized
+tools for rescuing chimeric reads.
+
 \textbf{Reproduction} It was not feasible to follow the same approach as
-\citet{wang_reprogramming_2019} with both \emph{HiCExplorer} and
+\citet{wang_reprogramming_2019} with either \emph{HiCExplorer} or
 \emph{Open2C}, as they use a third software, \emph{HiC-Pro}. Hic-Pro
 uses bowtie2 in end-to-end mode, followed by remapping of 5'-ends of the
 unmapped reads to rescue chimeric fragments along with another approach.
-I argue that even though we are trying to reproduce results, it is
-nonsensical to use methods that are not state-of-the-art. That said,
-either widely used method should produce similar results.
+I argue that even when trying to reproduce results, it is nonsensical to
+use methods that are not state-of-the-art. The HiC-Pro pipeline stops at
+a normalized contact map, and is thus not sufficient for downstream
+analysis.
 
 \begin{itemize}
 \tightlist
 \item
   Hi-C is a rapidly evolving concept and a lot has changed in 5 years
-  \citeyearpar[since][]{wang_reprogramming_2019}
+  \citep[since][]{wang_reprogramming_2019}
 \end{itemize}
 
 \textbf{HiCExplorer} Initially, recommendations from HiCExplorer were
 used. According to their documentation {[}ref{]} it is crucial to 1)
-align reads locally, as Hi-C has a higher fraction of reads that are
-chimeric, and 2) mapping mates separately to mitigate some of the
-heuristics made by aligners for standard paired-end libraries. However,
-the resulting files were incompatible with the \emph{open2C} ecosystem,
-and I therefore followed \emph{HiCExplorer} pipeline to plot and explore
-the matrices created from this mapping. However, the work was laborious
-for experimentation, as the provided functions all write plots to files.
-I did not manage to make an efficient implementation for plotting the
-\texttt{.h5} files produced by the pipeline, and I relatively quickly
-shifted to \emph{Open2C} for their promises of the greener grass.
+align reads locally, and 2) map mates separately. They recommend either
+of \texttt{bwa} or \texttt{bowtie2}, so I tested both with their
+recommended settings. \texttt{bowtie2} turned out to be a lot more
+resource-intensive and to produce almost no mapped reads {[}ref
+sup-fig-bowtie2-stats{]}, so I suspect some settings was not set
+correctly. The mapped reads was converted to a Hi-C Matrix with
+\emph{HiCExplorers} \texttt{hicBuildMatrix}, which is extremely
+memory-intensive.
 
-\textbf{Open2C} Suspiciously, \citet{open2c} never mentions the
+However, the resulting files were incompatible with the \emph{open2C}
+ecosystem, and I therefore followed \emph{HiCExplorer} pipeline to plot
+and explore the matrices created from this mapping. However, the work
+was laborious for experimentation, as the provided functions all write
+plots to files. I did not manage to make an efficient implementation for
+plotting the \texttt{.h5} files produced by the pipeline, and I
+relatively quickly shifted to \emph{Open2C} for their promises of the
+greener grass.
+
+\textbf{Open2C} Suspiciously, \citet{open2c} never mentions any problems
+with aligning the Hi-C reads, they just provide an example using
+\texttt{bwa\ mem} with the \texttt{-P} option set, which activates the
+Smith-Waterman {[}ref{]} algorithm to rescue missing hits. The
+documentation of \texttt{bwa}
+\href{https://bio-bwa.sourceforge.net}{ref} state that both
+\texttt{bwa-mem} and \texttt{bwa-sw} will rescue chimeric reads.
 
 \subsubsection{Pair and sort the reads}\label{pair-and-sort-the-reads}
 

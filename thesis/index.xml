@@ -180,6 +180,10 @@ and evolutionary dynamics across primate species.</p>
   rendered directly from the GitHub repository with GitHub Pages [ref].
   To make this possible, the Quarto documentation has been extensively
   studied and discussed with <italic>KMT</italic> [ref, aknowledge].</p>
+  <sec id="initial-exploration-with-hicexplorer">
+    <title>Initial Exploration with HiCExplorer</title>
+    <p>Here moves most of the text about HiCExplorer…</p>
+  </sec>
   <sec id="downloading-data-and-project-structure">
     <title>Downloading Data and Project Structure</title>
     <p>To reproduce the results from
@@ -315,63 +319,86 @@ and evolutionary dynamics across primate species.</p>
         requires its own indexing of the reference, using
         <monospace>bowtie2-build --large-index</monospace>, which
         creates six index files for <monospace>bowtie2</monospace> to
-        use.</p>
+        use. <monospace>--large-index</monospace> creates the special
+        indexing format required for large genomes such as macaque.</p>
       </sec>
       <sec id="mapping-hi-c-reads">
         <title>Mapping Hi-C reads</title>
         <p>Needs:</p>
         <list list-type="bullet">
           <list-item>
-            <p>☐ Genereal problems from standard PE reads to Hi-C reads
+            <p>☒ Genereal problems from standard PE reads to Hi-C reads
             (rescue chimeric fragments)</p>
           </list-item>
           <list-item>
             <p>☒ HiCExplorer, bwa, mapping reads seperately</p>
           </list-item>
           <list-item>
-            <p>☐ Bowtie2 (local and end-to-end)</p>
+            <p>☒ Bowtie2 (local and end-to-end)</p>
           </list-item>
           <list-item>
             <p>☐ Open2C formats and <monospace>bwa</monospace></p>
           </list-item>
         </list>
+        <p><bold>General Approach</bold> The main difference between
+        Hi-C libraries and standard paired-end libraries is the high
+        fraction of chimeric reads in Hi-C. As a contact pair is
+        crosslinked and ligated before sequencing, chimeric reads occur
+        as a feature, and standard mapping techniques seeks to filter
+        out this type of reads [ref]. Thus, we need specialized tools
+        for rescuing chimeric reads.</p>
         <p><bold>Reproduction</bold> It was not feasible to follow the
         same approach as Wang et al.
         (<xref alt="2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">2019</xref>)
-        with both <italic>HiCExplorer</italic> and
+        with either <italic>HiCExplorer</italic> or
         <italic>Open2C</italic>, as they use a third software,
         <italic>HiC-Pro</italic>. Hic-Pro uses bowtie2 in end-to-end
         mode, followed by remapping of 5’-ends of the unmapped reads to
         rescue chimeric fragments along with another approach. I argue
-        that even though we are trying to reproduce results, it is
-        nonsensical to use methods that are not state-of-the-art. That
-        said, either widely used method should produce similar
-        results.</p>
+        that even when trying to reproduce results, it is nonsensical to
+        use methods that are not state-of-the-art. The HiC-Pro pipeline
+        stops at a normalized contact map, and is thus not sufficient
+        for downstream analysis.</p>
         <list list-type="bullet">
           <list-item>
             <p>Hi-C is a rapidly evolving concept and a lot has changed
             in 5 years (since
-            <xref alt="2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">2019</xref>)</p>
+            <xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
+            et al. 2019</xref>)</p>
           </list-item>
         </list>
         <p><bold>HiCExplorer</bold> Initially, recommendations from
         HiCExplorer were used. According to their documentation [ref] it
-        is crucial to 1) align reads locally, as Hi-C has a higher
-        fraction of reads that are chimeric, and 2) mapping mates
-        separately to mitigate some of the heuristics made by aligners
-        for standard paired-end libraries. However, the resulting files
-        were incompatible with the <italic>open2C</italic> ecosystem,
-        and I therefore followed <italic>HiCExplorer</italic> pipeline
-        to plot and explore the matrices created from this mapping.
-        However, the work was laborious for experimentation, as the
-        provided functions all write plots to files. I did not manage to
-        make an efficient implementation for plotting the
-        <monospace>.h5</monospace> files produced by the pipeline, and I
-        relatively quickly shifted to <italic>Open2C</italic> for their
-        promises of the greener grass.</p>
+        is crucial to 1) align reads locally, and 2) map mates
+        separately. They recommend either of <monospace>bwa</monospace>
+        or <monospace>bowtie2</monospace>, so I tested both with their
+        recommended settings. <monospace>bowtie2</monospace> turned out
+        to be a lot more resource-intensive and to produce almost no
+        mapped reads [ref sup-fig-bowtie2-stats], so I suspect some
+        settings was not set correctly. The mapped reads was converted
+        to a Hi-C Matrix with <italic>HiCExplorers</italic>
+        <monospace>hicBuildMatrix</monospace>, which is extremely
+        memory-intensive.</p>
+        <p>However, the resulting files were incompatible with the
+        <italic>open2C</italic> ecosystem, and I therefore followed
+        <italic>HiCExplorer</italic> pipeline to plot and explore the
+        matrices created from this mapping. However, the work was
+        laborious for experimentation, as the provided functions all
+        write plots to files. I did not manage to make an efficient
+        implementation for plotting the <monospace>.h5</monospace> files
+        produced by the pipeline, and I relatively quickly shifted to
+        <italic>Open2C</italic> for their promises of the greener
+        grass.</p>
         <p><bold>Open2C</bold> Suspiciously, Open Chromosome Collective
         (<xref alt="2024" rid="ref-open2c" ref-type="bibr">2024</xref>)
-        never mentions the</p>
+        never mentions any problems with aligning the Hi-C reads, they
+        just provide an example using <monospace>bwa mem</monospace>
+        with the <monospace>-P</monospace> option set, which activates
+        the Smith-Waterman [ref] algorithm to rescue missing hits. The
+        documentation of <monospace>bwa</monospace>
+        <ext-link ext-link-type="uri" xlink:href="https://bio-bwa.sourceforge.net">ref</ext-link>
+        state that both <monospace>bwa-mem</monospace> and
+        <monospace>bwa-sw</monospace> will rescue chimeric reads.</p>
       </sec>
       <sec id="pair-and-sort-the-reads">
         <title>Pair and sort the reads</title>
