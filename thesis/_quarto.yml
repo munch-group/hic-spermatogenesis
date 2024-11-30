@@ -14,6 +14,8 @@ format:
     # latex-clean: false
     documentclass: scrbook
     pdf-engine: pdflatex
+    cite-method: natbib
+    natbiboptions: numbers
     papersize: A4
     toc: true
     toc-depth: 2
