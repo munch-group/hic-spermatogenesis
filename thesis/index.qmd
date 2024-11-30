@@ -4,13 +4,20 @@ subtitle: "How Edges of Active Chromatin Align with Selection Regions in Primate
 authors:
   - name: "Søren Jørgensen"
     affiliation: |
-      Stud. MSc Bioinformatics \\
       Bioinformatics Research Center (BiRC), \\
       Dept. of Molecular Biology and Genetics, \\
       Aarhus University, Denmark
+    degree: MSc. Bioinformatics
     roles: writing
     corresponding: true
     email: 201906763@post.au.dk
+  # - name: "Kasper Munch"
+  #   affiliation: |
+  #     Ass. Prof. Bioinformatics \\
+  #     Bioinformatics Research Center (BiRC), \\
+  #     Dept. of Molecular Biology and Genetics, \\
+  #     Aarhus University, Denmark
+  #   roles: supervision
 keywords:
   - Hi-C
   - Chromatin Compartments
@@ -58,7 +65,7 @@ In this project, we formulate two objectives:
 
 All computations were performed on GenomeDK (GDK) [ref], an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was nested into a *gwf* workflow [ref], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.
 
-The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code, virtual environments and text  is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages []. To make this possible, the Quarto documentation has been extensively studied and discussed with *KMT* [ref, aknowledge]. 
+The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code, virtual environments and text  is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages [ref]. To make this possible, the Quarto documentation has been extensively studied and discussed with *KMT* [ref, aknowledge]. 
 
 
 ## Downloading Data and Project Structure
@@ -88,37 +95,47 @@ The reads were downloaded from NCBI SRA portal [ref] directly to GDK using `sra-
 
 #### Handling the reference
 
-The latest reference genome for rhesus macaque (*macaca mulata*), *rheMac10* (or *Mmul_10*, UCSC or NCBI naming conventions, respectively) was downloaded to GDK from UCSC web servers with `wget` [ref]. To use `bwa` (Burrow Wheeler's Aligner) [ref] for mapping, rheMac10 needs to be indexed with both `bwa index` with the `--bwtsw` option and `samtools faidx`, which results in six indexing files for `bwa mem` to use. 
-
 Needs: 
 
-* Wang et al. used *rheMac2*, the first assembly of rhesus
-* Bowtie2 indexing
+- [x] *rheMac10*, `bwa` indexing
+- [x] Wang et al. used *rheMac2*, the first assembly of rhesus
+- [x] Bowtie2 indexing
 
-#### Mapping paired-end reads
+The latest reference genome for rhesus macaque (*macaca mulata*), *rheMac10* (or *Mmul_10*, UCSC or NCBI naming conventions, respectively) was downloaded to GDK from UCSC web servers with `wget` [ref]. To use `bwa` (Burrow Wheeler's Aligner) [ref] for mapping, rheMac10 needs to be indexed with both `bwa index` with the `--bwtsw` option and `samtools faidx`, which results in six indexing files for `bwa mem` to use. 
+
+Since [-@wang_reprogramming_2019], the reference genome for rhesus macaque has changed several times from *rheMac2* to *rheMac10*, each time resulting in a much less fragmented reference assembly. Part of the reasoning for reproducing their results was doing so on the latest assembly of the Macaca mulata genome, which arguably will result in a more accurate mapping of the reads, and a better inference of the chromatin compartments as well. 
+
+Several mappers were used in different configurations (described in below), and `bowtie2` requires its own indexing of the reference, using `bowtie2-build --large-index`, which creates six index files for `bowtie2` to use. 
+
+#### Mapping Hi-C reads
 
 Needs:
 
-**HiCExplorer** Initially, recommendations from HiCExplorer were used. According to their documentation [ref] it is crucial to 1) align reads locally, as Hi-C has a higher fraction of reads that are chimeric, and 2) mapping mates separately to mitigate some of the heuristics made by aligners for standard paired-end libraries. However, the resulting files were incompatible with the *open2C* ecosystem, and I therefore followed *HiCExplorer* pipeline to plot and explore the matrices created from this mapping. However, the work was laborious for experimentation, as the provided functions all write plots to files. I did not manage to make an efficient implementation for plotting the `.h5` files produced by the pipeline, and I relatively quickly shifted to *Open2C* for their promises of the greener grass. 
+- [ ] Genereal problems from standard PE reads to Hi-C reads (rescue chimeric fragments)
+- [x] HiCExplorer, bwa, mapping reads seperately
+- [ ] Bowtie2 (local and end-to-end)
+- [ ] Open2C formats and `bwa`
 
-It was not feasible to follow the same approach as @wang_reprogramming_2019 with both *HiCExplorer* and *Open2C*, as they use a third software, *HiC-Pro*. Hic-Pro uses bowtie2 in end-to-end mode, followed by remapping of 5'-ends of the unmapped reads to rescue chimeric fragments along with other mitigations. I argue that even though we are trying to reproduce results, it is nonsensical to use methods that are not state-of-the-art. That said, either widely used method should produce similar results. 
+**Reproduction**  It was not feasible to follow the same approach as @wang_reprogramming_2019 with both *HiCExplorer* and *Open2C*, as they use a third software, *HiC-Pro*. Hic-Pro uses bowtie2 in end-to-end mode, followed by remapping of 5'-ends of the unmapped reads to rescue chimeric fragments along with another approach. I argue that even though we are trying to reproduce results, it is nonsensical to use methods that are not state-of-the-art. That said, either widely used method should produce similar results. 
 
+- Hi-C is a rapidly evolving concept and a lot has changed in 5 years [since -@wang_reprogramming_2019]
 
-* Bowtie2 (local and end-to-end)
-* Open2C formats and `bwa`
+**HiCExplorer**  Initially, recommendations from HiCExplorer were used. According to their documentation [ref] it is crucial to 1) align reads locally, as Hi-C has a higher fraction of reads that are chimeric, and 2) mapping mates separately to mitigate some of the heuristics made by aligners for standard paired-end libraries. However, the resulting files were incompatible with the *open2C* ecosystem, and I therefore followed *HiCExplorer* pipeline to plot and explore the matrices created from this mapping. However, the work was laborious for experimentation, as the provided functions all write plots to files. I did not manage to make an efficient implementation for plotting the `.h5` files produced by the pipeline, and I relatively quickly shifted to *Open2C* for their promises of the greener grass. 
+
+**Open2C**  Suspiciously, @open2c never mentions the 
 
 #### Pair and sort the reads
 
 Needs:
 
-* mapping mates separately vs. as paired-end reads
-* `pairtools parse` and `pairtools sort`
-* discuss the use of default parameters: [docs](https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols)
+- [ ] mapping mates separately vs. as paired-end reads
+- [ ] `pairtools parse` and `pairtools sort`
+- [ ] discuss the use of default parameters: [docs](https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols)
 
 
 #### Filter (deduplicate) pairs
 
-At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of *rhemac10* assembly states they have closed gaps between 99% of the contigs since *rhemac8*, *rheMac10* still contain more than 2,500 unplaced contigs, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates. 
+At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of *rhemac10* assembly states they have closed 99% of the gaps since *rhemac8*, *rheMac10* still contain more than 2,500 unplaced scaffolds, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates. 
 
 `cooler` recommend to store the most comprehensive and unfilteres list of pairs, and then applying a filter on it on the fly by piping from `pairtools select` I have missed this step, so I have not filtered for mapping quality. I will make a histogram showing the distribution of mapq scores to see the significance of this. Or just rerun that part of the analysis. 
 
@@ -161,14 +178,18 @@ First, we calculate the GC content of each bin of the reference genome, *rheMac1
 
 Needs:
 
-* HiCExplorer: plot with CLI, writes to pngs
-* cooler: plot through python API (fetch matrix from cooler) 
+- [ ] HiCExplorer: plot with CLI, writes to pngs
+- [ ] cooler: plot through python API (fetch matrix from cooler) 
+
+
 
 {{< pagebreak >}}
 
 # Results
 
 Here are the glorious results
+
+
 
 {{< pagebreak >}}
 
