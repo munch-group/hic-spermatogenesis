@@ -346,24 +346,29 @@ and evolutionary dynamics across primate species.</p>
         crosslinked and ligated before sequencing, chimeric reads occur
         as a feature, and standard mapping techniques seeks to filter
         out this type of reads [ref]. Thus, we need specialized tools
-        for rescuing chimeric reads.</p>
+        for rescuing chimeric reads. That said, we have to be cautious
+        distinguishing the intended chimerism for Hi-C and that of
+        technical artefacts.</p>
         <p><bold>Reproduction</bold> It was not feasible to follow the
-        same approach as Wang et al.
-        (<xref alt="2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">2019</xref>)
-        with either <italic>HiCExplorer</italic> or
+        same approach as
+        (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
+        et al. 2019</xref>) with either <italic>HiCExplorer</italic> or
         <italic>Open2C</italic>, as they use a third software,
         <italic>HiC-Pro</italic>. Hic-Pro uses bowtie2 in end-to-end
         mode, followed by remapping of 5’-ends of the unmapped reads to
-        rescue chimeric fragments along with another approach. I argue
-        that even when trying to reproduce results, it is nonsensical to
-        use methods that are not state-of-the-art. The HiC-Pro pipeline
-        stops at a normalized contact map, and is thus not sufficient
-        for downstream analysis.</p>
+        rescue chimeric fragments along with another approach. I mapped
+        the reads using <monospace>bowtie2 --end-to-end</monospace>
+        without the rescue-remapping, and it returned a very high
+        fraction of discarded reads. I argue that even when trying to
+        reproduce results, it is nonsensical to use methods that are not
+        state-of-the-art. The HiC-Pro pipeline stops at a normalized
+        contact map, and is thus not sufficient for downstream
+        analysis.</p>
         <list list-type="bullet">
           <list-item>
             <p>Hi-C is a rapidly evolving concept and a lot has changed
-            in 5 years (since
-            <xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
+            in 5 years
+            (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
             et al. 2019</xref>)</p>
           </list-item>
         </list>
@@ -376,32 +381,48 @@ and evolutionary dynamics across primate species.</p>
         to be a lot more resource-intensive and to produce almost no
         mapped reads [ref sup-fig-bowtie2-stats], so I suspect some
         settings was not set correctly. The mapped reads was converted
-        to a Hi-C Matrix with <italic>HiCExplorers</italic>
+        to a Hi-C Matrix (<monospace>.h5</monospace>) with
+        <italic>HiCExplorers</italic>
         <monospace>hicBuildMatrix</monospace>, which is extremely
-        memory-intensive.</p>
-        <p>However, the resulting files were incompatible with the
-        <italic>open2C</italic> ecosystem, and I therefore followed
-        <italic>HiCExplorer</italic> pipeline to plot and explore the
-        matrices created from this mapping. However, the work was
-        laborious for experimentation, as the provided functions all
-        write plots to files. I did not manage to make an efficient
-        implementation for plotting the <monospace>.h5</monospace> files
-        produced by the pipeline, and I relatively quickly shifted to
-        <italic>Open2C</italic> for their promises of the greener
-        grass.</p>
-        <p><bold>Open2C</bold> Suspiciously, Open Chromosome Collective
-        (<xref alt="2024" rid="ref-open2c" ref-type="bibr">2024</xref>)
-        never mentions any problems with aligning the Hi-C reads, they
-        just provide an example using <monospace>bwa mem</monospace>
-        with the <monospace>-P</monospace> option set, which activates
-        the Smith-Waterman [ref] algorithm to rescue missing hits. The
-        documentation of <monospace>bwa</monospace>
+        memory-intensive, using ~120 GB memory for the biggest matrix. I
+        followed <italic>HiCExplorer</italic> pipeline to plot and
+        explore the matrices created from this mapping. However, the
+        work was laborious for experimentation, as, even though written
+        in Python, <monospace>HicExplorer</monospace> only comes with a
+        command-line interface and provided functions all write plots to
+        files. I did not manage to make an efficient implementation for
+        plotting the <monospace>.h5</monospace> files produced by the
+        pipeline, as would be required for utilizing Jupyter Notebooks
+        for customizing plots. I relatively quickly shifted to
+        <italic>Open2C</italic> for their promises of the greener grass
+        (a Python API).</p>
+        <p><bold>Open2C</bold> Suspiciously,
+        (<xref alt="Open Chromosome Collective 2024" rid="ref-open2c" ref-type="bibr">Open
+        Chromosome Collective 2024</xref>) never mentions any problems
+        with aligning the Hi-C reads, they just provide an example using
+        <monospace>bwa mem</monospace> in paired-end mode and with the
+        <monospace>-P</monospace> option set, which activates the
+        Smith-Waterman [ref] algorithm to rescue missing hits, by
+        focusing on assigning only of of the mates to a good mapping and
+        escape mate-rescue. The documentation of
+        <monospace>bwa</monospace>
         <ext-link ext-link-type="uri" xlink:href="https://bio-bwa.sourceforge.net">ref</ext-link>
-        state that both <monospace>bwa-mem</monospace> and
-        <monospace>bwa-sw</monospace> will rescue chimeric reads.</p>
+        state that both bwa-mem and bwa-sw will rescue chimeric reads.
+        Consequently, Open2C does not have a builtin way of pairing the
+        reads after mapping, and I was left with two options:
+        <bold>1)</bold> to re(-)pair the individually mapped read-mates
+        (.bam) with <monospace>samtools-fixmate</monospace> into one of
+        the specific input formats required for
+        <monospace>cooler</monospace> to create an interaction matrix
+        <italic>cooler</italic>, or <bold>2)</bold> re-map the reads
+        using Open2C’s recommendations and use their established
+        pipeline for producing a cooler. I chose the latter, where I
+        mapped the fastq files to <italic>rheMac10</italic> in paired
+        end mode for a pair (m1, m2) with
+        <monospace>bwa mem -SP rheMac10 m1 m2</monospace>.</p>
       </sec>
-      <sec id="pair-and-sort-the-reads">
-        <title>Pair and sort the reads</title>
+      <sec id="parse-and-sort-the-reads">
+        <title>Parse and sort the reads</title>
         <p>Needs:</p>
         <list list-type="bullet">
           <list-item>
@@ -416,13 +437,31 @@ and evolutionary dynamics across primate species.</p>
             <ext-link ext-link-type="uri" xlink:href="https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</ext-link></p>
           </list-item>
         </list>
+        <p><bold>HiCExplorer</bold> No action is needed, as this step is
+        done implicitly when building the matrix</p>
+        <p><bold>Open2C</bold> We need to convert the alignments into
+        ligation events, and distinguish between several types of
+        ligation events. The simplest event is when each side only maps
+        to one unique segment in the genome ‘UU’. Other events, where
+        one or both sides map to multiple segments or the reads are long
+        enough (&gt;150bp) to contain two alignments (multiple
+        ligations) have to be considered as well. Multiple ligations
+        (walks) are treated according to the
+        <monospace>--walks-policy</monospace>, where
+        <monospace>mask</monospace> is the most conservative and masks
+        all complex walks, whereas <monospace>5unique</monospace>
+        reports the 5’-most unique alignment on each side. The pairs are
+        piped directly into <monospace>pairtools sort</monospace> after
+        parsing, as the deduplication step requires.</p>
       </sec>
       <sec id="filter-deduplicate-pairs">
         <title>Filter (deduplicate) pairs</title>
+        <p><bold>HiCExplorer</bold> No action is needed, as this step is
+        done implicitly when building the matrix</p>
         <p>At this point we will remove all reads that are mapped to an
         unplaced scaffold. Even though the publication of
         <italic>rhemac10</italic> assembly states they have closed 99%
-        of the gaps since <italic>rhemac8</italic>,
+        of the gaps since <italic>rhemac8</italic> [ref],
         <italic>rheMac10</italic> still contain more than 2,500 unplaced
         scaffolds, which are all uninformative when calculating the
         chromatin compartments as is the goal of this analysis.
@@ -442,7 +481,15 @@ and evolutionary dynamics across primate species.</p>
       </sec>
       <sec id="create-interaction-matrices-coolers">
         <title>Create interaction matrices (coolers)</title>
-        <p>The final part of the <italic>gwf</italic> workflow takes
+        <p><bold>HiCExplorer</bold>
+        <monospace>hicBuildMatrix</monospace> both parse and filter the
+        mapped reads. The default value was used, alignments with
+        <inline-formula><alternatives>
+        <tex-math><![CDATA[mapq < 15]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>p</mml:mi><mml:mi>q</mml:mi><mml:mo>&lt;</mml:mo><mml:mn>15</mml:mn></mml:mrow></mml:math></alternatives></inline-formula>
+        are discarded.</p>
+        <p><bold>Open2C</bold> The final part of the
+        <italic>gwf</italic> workflow takes
         <monospace>.pairs</monospace> as input and outputs a
         <monospace>.cool</monospace> file (<italic>cooler</italic>).
         Initially, we read directly from the newly generated

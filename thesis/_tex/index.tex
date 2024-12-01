@@ -364,7 +364,7 @@
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2024-11-30}
+\date{2024-12-01}
 
 \begin{document}
 \frontmatter
@@ -391,7 +391,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{} \par}
 \vspace{3ex}
 
-{\bfseries\large 2024-11-30 \par}
+{\bfseries\large 2024-12-01 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -651,23 +651,27 @@ standard paired-end libraries is the high fraction of chimeric reads in
 Hi-C. As a contact pair is crosslinked and ligated before sequencing,
 chimeric reads occur as a feature, and standard mapping techniques seeks
 to filter out this type of reads {[}ref{]}. Thus, we need specialized
-tools for rescuing chimeric reads.
+tools for rescuing chimeric reads. That said, we have to be cautious
+distinguishing the intended chimerism for Hi-C and that of technical
+artefacts.
 
 \textbf{Reproduction} It was not feasible to follow the same approach as
-\citet{wang_reprogramming_2019} with either \emph{HiCExplorer} or
+\citep{wang_reprogramming_2019} with either \emph{HiCExplorer} or
 \emph{Open2C}, as they use a third software, \emph{HiC-Pro}. Hic-Pro
 uses bowtie2 in end-to-end mode, followed by remapping of 5'-ends of the
 unmapped reads to rescue chimeric fragments along with another approach.
-I argue that even when trying to reproduce results, it is nonsensical to
-use methods that are not state-of-the-art. The HiC-Pro pipeline stops at
-a normalized contact map, and is thus not sufficient for downstream
-analysis.
+I mapped the reads using \texttt{bowtie2\ -\/-end-to-end} without the
+rescue-remapping, and it returned a very high fraction of discarded
+reads. I argue that even when trying to reproduce results, it is
+nonsensical to use methods that are not state-of-the-art. The HiC-Pro
+pipeline stops at a normalized contact map, and is thus not sufficient
+for downstream analysis.
 
 \begin{itemize}
 \tightlist
 \item
   Hi-C is a rapidly evolving concept and a lot has changed in 5 years
-  \citep[since][]{wang_reprogramming_2019}
+  \citep{wang_reprogramming_2019}
 \end{itemize}
 
 \textbf{HiCExplorer} Initially, recommendations from HiCExplorer were
@@ -677,28 +681,38 @@ of \texttt{bwa} or \texttt{bowtie2}, so I tested both with their
 recommended settings. \texttt{bowtie2} turned out to be a lot more
 resource-intensive and to produce almost no mapped reads {[}ref
 sup-fig-bowtie2-stats{]}, so I suspect some settings was not set
-correctly. The mapped reads was converted to a Hi-C Matrix with
-\emph{HiCExplorers} \texttt{hicBuildMatrix}, which is extremely
-memory-intensive.
+correctly. The mapped reads was converted to a Hi-C Matrix
+(\texttt{.h5}) with \emph{HiCExplorers} \texttt{hicBuildMatrix}, which
+is extremely memory-intensive, using \textasciitilde120 GB memory for
+the biggest matrix. I followed \emph{HiCExplorer} pipeline to plot and
+explore the matrices created from this mapping. However, the work was
+laborious for experimentation, as, even though written in Python,
+\texttt{HicExplorer} only comes with a command-line interface and
+provided functions all write plots to files. I did not manage to make an
+efficient implementation for plotting the \texttt{.h5} files produced by
+the pipeline, as would be required for utilizing Jupyter Notebooks for
+customizing plots. I relatively quickly shifted to \emph{Open2C} for
+their promises of the greener grass (a Python API).
 
-However, the resulting files were incompatible with the \emph{open2C}
-ecosystem, and I therefore followed \emph{HiCExplorer} pipeline to plot
-and explore the matrices created from this mapping. However, the work
-was laborious for experimentation, as the provided functions all write
-plots to files. I did not manage to make an efficient implementation for
-plotting the \texttt{.h5} files produced by the pipeline, and I
-relatively quickly shifted to \emph{Open2C} for their promises of the
-greener grass.
-
-\textbf{Open2C} Suspiciously, \citet{open2c} never mentions any problems
+\textbf{Open2C} Suspiciously, \citep{open2c} never mentions any problems
 with aligning the Hi-C reads, they just provide an example using
-\texttt{bwa\ mem} with the \texttt{-P} option set, which activates the
-Smith-Waterman {[}ref{]} algorithm to rescue missing hits. The
-documentation of \texttt{bwa}
-\href{https://bio-bwa.sourceforge.net}{ref} state that both
-\texttt{bwa-mem} and \texttt{bwa-sw} will rescue chimeric reads.
+\texttt{bwa\ mem} in paired-end mode and with the \texttt{-P} option
+set, which activates the Smith-Waterman {[}ref{]} algorithm to rescue
+missing hits, by focusing on assigning only of of the mates to a good
+mapping and escape mate-rescue. The documentation of \texttt{bwa}
+\href{https://bio-bwa.sourceforge.net}{ref} state that both bwa-mem and
+bwa-sw will rescue chimeric reads. Consequently, Open2C does not have a
+builtin way of pairing the reads after mapping, and I was left with two
+options: \textbf{1)} to re(-)pair the individually mapped read-mates
+(.bam) with \texttt{samtools-fixmate} into one of the specific input
+formats required for \texttt{cooler} to create an interaction matrix
+\emph{cooler}, or \textbf{2)} re-map the reads using Open2C's
+recommendations and use their established pipeline for producing a
+cooler. I chose the latter, where I mapped the fastq files to
+\emph{rheMac10} in paired end mode for a pair (m1, m2) with
+\texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
 
-\subsubsection{Pair and sort the reads}\label{pair-and-sort-the-reads}
+\subsubsection{Parse and sort the reads}\label{parse-and-sort-the-reads}
 
 Needs:
 
@@ -713,15 +727,33 @@ Needs:
   \href{https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html\#recommended-pairtools-parameters-for-standard-hi-c-protocols}{docs}
 \end{itemize}
 
+\textbf{HiCExplorer} No action is needed, as this step is done
+implicitly when building the matrix
+
+\textbf{Open2C} We need to convert the alignments into ligation events,
+and distinguish between several types of ligation events. The simplest
+event is when each side only maps to one unique segment in the genome
+`UU'. Other events, where one or both sides map to multiple segments or
+the reads are long enough (\textgreater150bp) to contain two alignments
+(multiple ligations) have to be considered as well. Multiple ligations
+(walks) are treated according to the \texttt{-\/-walks-policy}, where
+\texttt{mask} is the most conservative and masks all complex walks,
+whereas \texttt{5unique} reports the 5'-most unique alignment on each
+side. The pairs are piped directly into \texttt{pairtools\ sort} after
+parsing, as the deduplication step requires.
+
 \subsubsection{Filter (deduplicate)
 pairs}\label{filter-deduplicate-pairs}
 
+\textbf{HiCExplorer} No action is needed, as this step is done
+implicitly when building the matrix
+
 At this point we will remove all reads that are mapped to an unplaced
 scaffold. Even though the publication of \emph{rhemac10} assembly states
-they have closed 99\% of the gaps since \emph{rhemac8}, \emph{rheMac10}
-still contain more than 2,500 unplaced scaffolds, which are all
-uninformative when calculating the chromatin compartments as is the goal
-of this analysis. Therefore, we simply only include the list of
+they have closed 99\% of the gaps since \emph{rhemac8} {[}ref{]},
+\emph{rheMac10} still contain more than 2,500 unplaced scaffolds, which
+are all uninformative when calculating the chromatin compartments as is
+the goal of this analysis. Therefore, we simply only include the list of
 conventional chromosomes (1..22, X, Y) when doing the deduplication.
 Initially, the default values were used to remove duplicates, where
 pairs with both sides mapped within 3 base pairs from each other are
@@ -737,11 +769,16 @@ rerun that part of the analysis.
 \subsubsection{Create interaction matrices
 (coolers)}\label{create-interaction-matrices-coolers}
 
-The final part of the \emph{gwf} workflow takes \texttt{.pairs} as input
-and outputs a \texttt{.cool} file (\emph{cooler}). Initially, we read
-directly from the newly generated deduplicated pairs without additional
-filtering, but here, the official recommendation is to filter out
-everything below \(mapq = 30\) by piping the pairs through
+\textbf{HiCExplorer} \texttt{hicBuildMatrix} both parse and filter the
+mapped reads. The default value was used, alignments with \(mapq < 15\)
+are discarded.
+
+\textbf{Open2C} The final part of the \emph{gwf} workflow takes
+\texttt{.pairs} as input and outputs a \texttt{.cool} file
+(\emph{cooler}). Initially, we read directly from the newly generated
+deduplicated pairs without additional filtering, but here, the official
+recommendation is to filter out everything below \(mapq = 30\) by piping
+the pairs through
 \texttt{pairtools\ select\ "(mapq1\textgreater{}=30)\ and\ (mapq2\textgreater{}=30)"}
 to \texttt{cooler\ cload\ pairs}.
 
