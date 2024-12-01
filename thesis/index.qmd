@@ -119,19 +119,17 @@ Needs:
 - [x] Bowtie2 (local and end-to-end)
 - [ ] Open2C formats and `bwa`
 
-**General Approach** The main difference between Hi-C libraries and standard paired-end libraries is the high fraction of chimeric reads in Hi-C. As a contact pair is crosslinked and ligated before sequencing, chimeric reads occur as a feature, and standard mapping techniques seeks to filter out this type of reads [ref]. Thus, we need specialized tools for rescuing chimeric reads.
+**General Approach** The main difference between Hi-C libraries and standard paired-end libraries is the high fraction of chimeric reads in Hi-C. As a contact pair is crosslinked and ligated before sequencing, chimeric reads occur as a feature, and standard mapping techniques seeks to filter out this type of reads [ref]. Thus, we need specialized tools for rescuing chimeric reads. That said, we have to be cautious distinguishing the intended chimerism for Hi-C and that of technical artefacts. 
 
-**Reproduction**  It was not feasible to follow the same approach as @wang_reprogramming_2019 with either *HiCExplorer* or *Open2C*, as they use a third software, *HiC-Pro*. Hic-Pro uses bowtie2 in end-to-end mode, followed by remapping of 5'-ends of the unmapped reads to rescue chimeric fragments along with another approach. I argue that even when trying to reproduce results, it is nonsensical to use methods that are not state-of-the-art. The HiC-Pro pipeline stops at a normalized contact map, and is thus not sufficient for downstream analysis. 
+**Reproduction**  It was not feasible to follow the same approach as [@wang_reprogramming_2019] with either *HiCExplorer* or *Open2C*, as they use a third software, *HiC-Pro*. Hic-Pro uses bowtie2 in end-to-end mode, followed by remapping of 5'-ends of the unmapped reads to rescue chimeric fragments along with another approach. I mapped the reads using `bowtie2 --end-to-end` without the rescue-remapping, and it returned a very high fraction of discarded reads. I argue that even when trying to reproduce results, it is nonsensical to use methods that are not state-of-the-art. The HiC-Pro pipeline stops at a normalized contact map, and is thus not sufficient for downstream analysis. 
 
-- Hi-C is a rapidly evolving concept and a lot has changed in 5 years [since @wang_reprogramming_2019]
+- Hi-C is a rapidly evolving concept and a lot has changed in 5 years [@wang_reprogramming_2019]
 
-**HiCExplorer**  Initially, recommendations from HiCExplorer were used. According to their documentation [ref] it is crucial to 1) align reads locally, and 2) map mates separately. They recommend either of `bwa` or `bowtie2`, so I tested both with their recommended settings. `bowtie2` turned out to be a lot more resource-intensive and to produce almost no mapped reads [ref sup-fig-bowtie2-stats], so I suspect some settings was not set correctly. The mapped reads was converted to a Hi-C Matrix with *HiCExplorers* `hicBuildMatrix`, which is extremely memory-intensive. 
+**HiCExplorer**  Initially, recommendations from HiCExplorer were used. According to their documentation [ref] it is crucial to 1) align reads locally, and 2) map mates separately. They recommend either of `bwa` or `bowtie2`, so I tested both with their recommended settings. `bowtie2` turned out to be a lot more resource-intensive and to produce almost no mapped reads [ref sup-fig-bowtie2-stats], so I suspect some settings was not set correctly. The mapped reads was converted to a Hi-C Matrix (`.h5`) with *HiCExplorers* `hicBuildMatrix`, which is extremely memory-intensive, using ~120 GB memory for the biggest matrix. I followed *HiCExplorer* pipeline to plot and explore the matrices created from this mapping. However, the work was laborious for experimentation, as, even though written in Python, `HicExplorer` only comes with a command-line interface and provided functions all write plots to files. I did not manage to make an efficient implementation for plotting the `.h5` files produced by the pipeline, as would be required for utilizing Jupyter Notebooks for customizing plots. I relatively quickly shifted to *Open2C* for their promises of the greener grass (a Python API). 
 
-However, the resulting files were incompatible with the *open2C* ecosystem, and I therefore followed *HiCExplorer* pipeline to plot and explore the matrices created from this mapping. However, the work was laborious for experimentation, as the provided functions all write plots to files. I did not manage to make an efficient implementation for plotting the `.h5` files produced by the pipeline, and I relatively quickly shifted to *Open2C* for their promises of the greener grass. 
+**Open2C**  Suspiciously, [@open2c] never mentions any problems with aligning the Hi-C reads, they just provide an example using `bwa mem` in paired-end mode and with the `-P` option set, which activates the Smith-Waterman [ref] algorithm to rescue missing hits, by focusing on assigning only of of the mates to a good mapping and escape mate-rescue.  The documentation of `bwa` [ref](https://bio-bwa.sourceforge.net) state that both bwa-mem and bwa-sw will rescue chimeric reads. Consequently, Open2C does not have a builtin way of pairing the reads after mapping, and I was left with two options: **1)** to re(-)pair the individually mapped read-mates (.bam)  with `samtools-fixmate` into one of the specific input formats required for `cooler` to create an interaction matrix *cooler*, or **2)** re-map the reads  using Open2C's recommendations and use their established pipeline for producing a cooler. I chose the latter, where I mapped the fastq files to *rheMac10* in paired end mode for a pair (m1, m2) with `bwa mem -SP rheMac10 m1 m2`.
 
-**Open2C**  Suspiciously, @open2c never mentions any problems with aligning the Hi-C reads, they just provide an example using `bwa mem` with the `-P` option set, which activates the Smith-Waterman [ref] algorithm to rescue missing hits. The documentation of `bwa` [ref](https://bio-bwa.sourceforge.net) state that both `bwa-mem` and `bwa-sw` will rescue chimeric reads. 
-
-#### Pair and sort the reads
+#### Parse and sort the reads
 
 Needs:
 
@@ -139,16 +137,23 @@ Needs:
 - [ ] `pairtools parse` and `pairtools sort`
 - [ ] discuss the use of default parameters: [docs](https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols)
 
+**HiCExplorer** No action is needed, as this step is done implicitly when building the matrix
+
+**Open2C** We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome 'UU'. Other events, where one or both sides map to multiple segments or the reads are long enough (>150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the `--walks-policy`, where `mask` is the most conservative and masks all complex walks, whereas `5unique` reports the 5'-most unique alignment on each side. The pairs are piped directly into `pairtools sort` after parsing, as the deduplication step requires.
 
 #### Filter (deduplicate) pairs
 
-At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of *rhemac10* assembly states they have closed 99% of the gaps since *rhemac8*, *rheMac10* still contain more than 2,500 unplaced scaffolds, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates. 
+**HiCExplorer** No action is needed, as this step is done implicitly when building the matrix
+
+At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of *rhemac10* assembly states they have closed 99% of the gaps since *rhemac8* [ref], *rheMac10* still contain more than 2,500 unplaced scaffolds, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates. 
 
 `cooler` recommend to store the most comprehensive and unfilteres list of pairs, and then applying a filter on it on the fly by piping from `pairtools select` I have missed this step, so I have not filtered for mapping quality. I will make a histogram showing the distribution of mapq scores to see the significance of this. Or just rerun that part of the analysis. 
 
 #### Create interaction matrices (coolers) 
 
-The final part of the *gwf* workflow takes `.pairs` as input and outputs a `.cool` file (*cooler*). Initially, we read directly from the newly generated deduplicated pairs without additional filtering, but here, the official recommendation is to filter out everything below $mapq = 30$ by piping the pairs through `pairtools select "(mapq1>=30) and (mapq2>=30)"` to `cooler cload pairs`. 
+**HiCExplorer** `hicBuildMatrix` both parse and filter the mapped reads. The default value was used, alignments with $mapq < 15$ are discarded.
+
+**Open2C** The final part of the *gwf* workflow takes `.pairs` as input and outputs a `.cool` file (*cooler*). Initially, we read directly from the newly generated deduplicated pairs without additional filtering, but here, the official recommendation is to filter out everything below $mapq = 30$ by piping the pairs through `pairtools select "(mapq1>=30) and (mapq2>=30)"` to `cooler cload pairs`. 
 
 We should have plenty of data to do the filtering, but I argue it is not strictly necessary. I will show a histogram of the *mapq* scores to convince you [ref]. Otherwise, I will have fixed this issue.
 
