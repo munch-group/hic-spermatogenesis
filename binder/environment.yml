@@ -4,6 +4,7 @@ channels:
   - conda-forge
   - bioconda
   - gwforg
+  - munch-group
   - kaspermunch
   - micknudsen
   - r
@@ -35,4 +36,4 @@ dependencies:
   - conda-forge::pprintpp
   - cooltools
   - genominterv
-prefix: /home/sojern/miniconda3/envs/hic
+prefix: ~/miniconda3/envs/hic
