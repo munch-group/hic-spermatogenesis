@@ -45,7 +45,7 @@ book:
       - notebooks/04_genomicintervals.ipynb
     - part: "Workflows"
       chapters:
-        - scripts/master_workflow.py
+        - workflow.py
         # - scripts/gwf_map_reads.py
         # - scripts/gwf_bowtie.py
         # - scripts/gwf_bowtie_local.py
