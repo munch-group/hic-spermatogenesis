@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-12-02">
+<meta name="dcterms.date" content="2024-12-03">
 <meta name="keywords" content="Hi-C, Chromatin Compartments, Selection">
 
 <title>Chromatin Compartments and Selection on X</title>
@@ -97,10 +97,10 @@ window.Quarto = {
 ">
 <meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Selection">
 <meta name="citation_author" content="Søren Jørgensen">
-<meta name="citation_publication_date" content="2024-12-02">
-<meta name="citation_cover_date" content="2024-12-02">
+<meta name="citation_publication_date" content="2024-12-03">
+<meta name="citation_cover_date" content="2024-12-03">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-12-02">
+<meta name="citation_online_date" content="2024-12-03">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Principal components analysis corrects for stratification in genome-wide association studies;,citation_author=Alkes L Price;,citation_author=Nick J Patterson;,citation_author=Robert M Plenge;,citation_author=Michael E Weinblatt;,citation_author=Nancy A Shadick;,citation_author=David Reich;,citation_publication_date=2006-08;,citation_cover_date=2006-08;,citation_year=2006;,citation_fulltext_html_url=https://www.nature.com/articles/ng1847;,citation_issue=8;,citation_doi=10.1038/ng1847;,citation_issn=1061-4036, 1546-1718;,citation_volume=38;,citation_journal_title=Nature Genetics;">
 <meta name="citation_reference" content="citation_title=Accurate assembly of the olive baboon ( &amp;amp;amp;lt;i&amp;gt;Papio anubis&amp;lt;/i&amp;gt; ) genome using long-read and Hi-C data;,citation_abstract=AbstractBackground Baboons are a widely used nonhuman primate model for biomedical, evolutionary, and basic genetics research. Despite this importance, the genomic resources for baboons are limited. In particular, the current baboon reference genome Panu_3.0 is a highly fragmented, reference-guided (i.e., not fully de novo) assembly, and its poor quality inhibits our ability to conduct downstream genomic analyses.Findings Here we present a de novo genome assembly of the olive baboon (Papio anubis) that uses data from several recently developed single-molecule technologies. Our assembly, Panubis1.0, has an N50 contig size of ∼1.46 Mb (as opposed to 139 kb for Panu_3.0) and has single scaffolds that span each of the 20 autosomes and the X chromosome.Conclusions We highlight multiple lines of evidence (including Bionano Genomics data, pedigree linkage information, and linkage disequilibrium data) suggesting that there are several large assembly errors in Panu_3.0, which have been corrected in Panubis1.0.;,citation_author=Sanjit Singh Batra;,citation_author=Michal Levy-Sakin;,citation_author=Jacqueline Robinson;,citation_author=Joseph Guillory;,citation_author=Steffen Durinck;,citation_author=Tauras P Vilgalys;,citation_author=Pui-Yan Kwok;,citation_author=Laura A Cox;,citation_author=Somasekar Seshagiri;,citation_author=Yun S Song;,citation_author=Jeffrey D Wall;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaa134/6025063;,citation_issue=12;,citation_doi=10.1093/gigascience/giaa134;,citation_issn=2047-217X;,citation_volume=9;,citation_journal_title=GigaScience;">
@@ -153,7 +153,7 @@ window.Quarto = {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">December 2, 2024</p>
+              <p class="date">December 3, 2024</p>
             </div>
           </div>
           
@@ -367,12 +367,13 @@ Figure&nbsp;1: A flowchart showing the pipeline from <code>.fastq</code> to <cod
 <h4 class="anchored" data-anchor-id="parse-and-sort-the-reads">Parse and sort the reads</h4>
 <p>Needs:</p>
 <ul class="task-list">
-<li><label><input type="checkbox">mapping mates separately vs.&nbsp;as paired-end reads</label></li>
-<li><label><input type="checkbox"><code>pairtools parse</code> and <code>pairtools sort</code></label></li>
-<li><label><input type="checkbox">discuss the use of default parameters: <a href="https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</a></label></li>
+<li><label><input type="checkbox" checked="">mapping mates separately vs.&nbsp;as paired-end reads</label></li>
+<li><label><input type="checkbox" checked=""><code>pairtools parse</code> and <code>pairtools sort</code></label></li>
+<li><label><input type="checkbox" checked="">discuss the use of default parameters: <a href="https://pairtools.readthedocs.io/en/stable/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</a></label></li>
 </ul>
 <p><strong>HiCExplorer</strong> No action is needed, as this step is done implicitly when building the matrix</p>
-<p><strong>Open2C</strong> We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome ‘UU’. Other events, where one or both sides map to multiple segments or the reads are long enough (&gt;150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the <code>--walks-policy</code>, where <code>mask</code> is the most conservative and masks all complex walks, whereas <code>5unique</code> reports the 5’-most unique alignment on each side. The pairs are piped directly into <code>pairtools sort</code> after parsing, as the deduplication step requires.</p>
+<p><strong>Open2C</strong> We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome ‘UU’. Other events, where one or both sides map to multiple segments or the reads are long enough (&gt;150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the <code>--walks-policy</code> when parsing the alignments into valid pairs (or valid Hi-C contacts). Here, <code>mask</code> is the most conservative and masks all complex walks, whereas <code>5unique</code> reports the 5’-most unique alignment on each side. The pairs are piped directly into <code>pairtools sort</code> after parsing, as the deduplication step requires a sorted set of pairs.</p>
+<p>I initially used <code>--walks-policy mask</code>, reasoning I had plenty of data points and could handle complex walks in a conservative way. Only later I realized the recommendations from <em>pairtools</em>, specifically informing that longer reads might have a significant proportion of reads that contain complex walks. With this in mind, I decided to re-parse the alignments into a new set of pairs, and equally apply the recommended filter (next section). As both results are saved, we can compare the two approaches.</p>
 </section>
 <section id="filter-deduplicate-pairs" class="level4">
 <h4 class="anchored" data-anchor-id="filter-deduplicate-pairs">Filter (deduplicate) pairs</h4>
@@ -382,6 +383,10 @@ Figure&nbsp;1: A flowchart showing the pipeline from <code>.fastq</code> to <cod
 </section>
 <section id="create-interaction-matrices-coolers" class="level4">
 <h4 class="anchored" data-anchor-id="create-interaction-matrices-coolers">Create interaction matrices (coolers)</h4>
+<p>Needs:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">update paragraph on new filters</label></li>
+</ul>
 <p><strong>HiCExplorer</strong> <code>hicBuildMatrix</code> both parse and filter the mapped reads. The default value was used, alignments with <span class="math inline">\(mapq &lt; 15\)</span> are discarded.</p>
 <p><strong>Open2C</strong> The final part of the <em>gwf</em> workflow takes <code>.pairs</code> as input and outputs a <code>.cool</code> file (<em>cooler</em>). Initially, we read directly from the newly generated deduplicated pairs without additional filtering, but here, the official recommendation is to filter out everything below <span class="math inline">\(mapq = 30\)</span> by piping the pairs through <code>pairtools select "(mapq1&gt;=30) and (mapq2&gt;=30)"</code> to <code>cooler cload pairs</code>.</p>
 <p>We should have plenty of data to do the filtering, but I argue it is not strictly necessary. I will show a histogram of the <em>mapq</em> scores to convince you [ref]. Otherwise, I will have fixed this issue.</p>

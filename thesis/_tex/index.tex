@@ -364,7 +364,7 @@
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2024-12-02}
+\date{2024-12-03}
 
 \begin{document}
 \frontmatter
@@ -391,7 +391,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{} \par}
 \vspace{3ex}
 
-{\bfseries\large 2024-12-02 \par}
+{\bfseries\large 2024-12-03 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -718,13 +718,13 @@ Needs:
 
 \begin{itemize}
 \tightlist
-\item[$\square$]
+\item[$\boxtimes$]
   mapping mates separately vs.~as paired-end reads
-\item[$\square$]
+\item[$\boxtimes$]
   \texttt{pairtools\ parse} and \texttt{pairtools\ sort}
-\item[$\square$]
+\item[$\boxtimes$]
   discuss the use of default parameters:
-  \href{https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html\#recommended-pairtools-parameters-for-standard-hi-c-protocols}{docs}
+  \href{https://pairtools.readthedocs.io/en/stable/protocols_pipelines.html\#recommended-pairtools-parameters-for-standard-hi-c-protocols}{docs}
 \end{itemize}
 
 \textbf{HiCExplorer} No action is needed, as this step is done
@@ -736,11 +736,21 @@ event is when each side only maps to one unique segment in the genome
 `UU'. Other events, where one or both sides map to multiple segments or
 the reads are long enough (\textgreater150bp) to contain two alignments
 (multiple ligations) have to be considered as well. Multiple ligations
-(walks) are treated according to the \texttt{-\/-walks-policy}, where
+(walks) are treated according to the \texttt{-\/-walks-policy} when
+parsing the alignments into valid pairs (or valid Hi-C contacts). Here,
 \texttt{mask} is the most conservative and masks all complex walks,
 whereas \texttt{5unique} reports the 5'-most unique alignment on each
 side. The pairs are piped directly into \texttt{pairtools\ sort} after
-parsing, as the deduplication step requires.
+parsing, as the deduplication step requires a sorted set of pairs.
+
+I initially used \texttt{-\/-walks-policy\ mask}, reasoning I had plenty
+of data points and could handle complex walks in a conservative way.
+Only later I realized the recommendations from \emph{pairtools},
+specifically informing that longer reads might have a significant
+proportion of reads that contain complex walks. With this in mind, I
+decided to re-parse the alignments into a new set of pairs, and equally
+apply the recommended filter (next section). As both results are saved,
+we can compare the two approaches.
 
 \subsubsection{Filter (deduplicate)
 pairs}\label{filter-deduplicate-pairs}
@@ -768,6 +778,14 @@ rerun that part of the analysis.
 
 \subsubsection{Create interaction matrices
 (coolers)}\label{create-interaction-matrices-coolers}
+
+Needs:
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  update paragraph on new filters
+\end{itemize}
 
 \textbf{HiCExplorer} \texttt{hicBuildMatrix} both parse and filter the
 mapped reads. The default value was used, alignments with \(mapq < 15\)

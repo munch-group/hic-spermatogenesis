@@ -426,15 +426,15 @@ and evolutionary dynamics across primate species.</p>
         <p>Needs:</p>
         <list list-type="bullet">
           <list-item>
-            <p>☐ mapping mates separately vs. as paired-end reads</p>
+            <p>☒ mapping mates separately vs. as paired-end reads</p>
           </list-item>
           <list-item>
-            <p>☐ <monospace>pairtools parse</monospace> and
+            <p>☒ <monospace>pairtools parse</monospace> and
             <monospace>pairtools sort</monospace></p>
           </list-item>
           <list-item>
-            <p>☐ discuss the use of default parameters:
-            <ext-link ext-link-type="uri" xlink:href="https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</ext-link></p>
+            <p>☒ discuss the use of default parameters:
+            <ext-link ext-link-type="uri" xlink:href="https://pairtools.readthedocs.io/en/stable/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</ext-link></p>
           </list-item>
         </list>
         <p><bold>HiCExplorer</bold> No action is needed, as this step is
@@ -447,12 +447,23 @@ and evolutionary dynamics across primate species.</p>
         enough (&gt;150bp) to contain two alignments (multiple
         ligations) have to be considered as well. Multiple ligations
         (walks) are treated according to the
-        <monospace>--walks-policy</monospace>, where
+        <monospace>--walks-policy</monospace> when parsing the
+        alignments into valid pairs (or valid Hi-C contacts). Here,
         <monospace>mask</monospace> is the most conservative and masks
         all complex walks, whereas <monospace>5unique</monospace>
         reports the 5’-most unique alignment on each side. The pairs are
         piped directly into <monospace>pairtools sort</monospace> after
-        parsing, as the deduplication step requires.</p>
+        parsing, as the deduplication step requires a sorted set of
+        pairs.</p>
+        <p>I initially used <monospace>--walks-policy mask</monospace>,
+        reasoning I had plenty of data points and could handle complex
+        walks in a conservative way. Only later I realized the
+        recommendations from <italic>pairtools</italic>, specifically
+        informing that longer reads might have a significant proportion
+        of reads that contain complex walks. With this in mind, I
+        decided to re-parse the alignments into a new set of pairs, and
+        equally apply the recommended filter (next section). As both
+        results are saved, we can compare the two approaches.</p>
       </sec>
       <sec id="filter-deduplicate-pairs">
         <title>Filter (deduplicate) pairs</title>
@@ -481,6 +492,12 @@ and evolutionary dynamics across primate species.</p>
       </sec>
       <sec id="create-interaction-matrices-coolers">
         <title>Create interaction matrices (coolers)</title>
+        <p>Needs:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>☐ update paragraph on new filters</p>
+          </list-item>
+        </list>
         <p><bold>HiCExplorer</bold>
         <monospace>hicBuildMatrix</monospace> both parse and filter the
         mapped reads. The default value was used, alignments with
