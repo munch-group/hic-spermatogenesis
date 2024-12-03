@@ -107,6 +107,7 @@ bwa mem -t {threads} -SP {ref_genome} {mate_1} {mate_2} > {out_bam}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
+# Updated version uses --walks-policy 5unique in stead mask
 def pair_sort_alignments(chromsizes, bam_merged, sorted_pairs):
     """Convert the paired-end alignments to .pairs with `pairtools parse`, then sort"""
     inputs = [bam_merged]
@@ -122,7 +123,7 @@ pairtools parse \
     --output-stats {bam_merged}_parsed.stats \
     --add-columns mapq \
     --assembly rheMac10 --no-flip \
-    --walks-policy mask \
+    --walks-policy 5unique \
     {bam_merged} | \
 pairtools sort -o {sorted_pairs} 
 """
@@ -155,6 +156,7 @@ touch {pairs_prefix}.dedup.done
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
+# Updated version uses pairtools select to filter out low quality reads
 def make_pairs_cool(chromsizes, pairs, cool_out):
     """Create coolers from pairs with `cooler cload pairs`"""
     base = os.path.basename(pairs).split(".pairs.gz")[0]
@@ -164,12 +166,13 @@ def make_pairs_cool(chromsizes, pairs, cool_out):
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
+pairtools select "(mapq1>=30) and (mapq2>=30)" {pairs} | \
 cooler cload pairs \
     -c1 2 -p1 3 -c2 4 -p2 5 \
     --assembly rheMac10 \
     --chunksize 50000 \
     {chromsizes}:10000 \
-    {pairs} \
+    - \
     {cool_out}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
@@ -211,6 +214,13 @@ tissue_dict = {tissue: sra_runtable[sra_runtable["source_name"]==tissue]["Run"].
 bam_dir = op.join(dirname,"steps/bwa/PE/bamfiles")
 pair_dir = op.join(dirname, "steps/bwa/PE/pairs")
 cool_dir = op.join(dirname, "steps/bwa/PE/cool")
+
+
+#### Updated version creates the new .pairs and .cool files under 'recPE' for recommended PE. --walks-policy 5unique, filter mapq >= 30
+rec_pair_dir = op.join(dirname, "steps/bwa/recPE/pairs")
+rec_cool_dir = op.join(dirname, "steps/bwa/recPE/cool")
+pair_dir = rec_pair_dir
+cool_dir = rec_cool_dir
 
 #############################################
 ############### Targets #####################
@@ -269,7 +279,7 @@ for id in sra_runtable["Run"]:
     if not op.exists(pair_subdir):
         os.makedirs(pair_subdir)
 
-    T3 = gwf.target_from_template(f"pair_sort_{id}",
+    T3 = gwf.target_from_template(f"parse_{id}",
                                     pair_sort_alignments(chromsizes=chromsizes, 
                                                          bam_merged=T2.outputs[0], 
                                                          sorted_pairs=sorted_pairs))
@@ -285,6 +295,9 @@ for id in sra_runtable["Run"]:
     # T5: Create a .cool file from the deduplicated pairs
     cool_subdir = op.join(cool_dir, sub_dir)
 
+    if not op.exists(cool_subdir):
+        os.makedirs(cool_subdir)
+
     T4outpairs = [x for x in T4.outputs if x.endswith(".pairs.gz")]
 
     for T4out in T4outpairs:
@@ -296,5 +309,5 @@ for id in sra_runtable["Run"]:
         cool_name = f"{id}.{T4out.split('.')[1]}"
         cool_file = os.path.join(cool_subdir, f"{cool_name}.10000.cool")
 
-        T5 = gwf.target_from_template(f"pairs_cool_{cool_name}",
+        T5 = gwf.target_from_template(f"coolify_{cool_name}",
                                         make_pairs_cool(filtered_chromsizes, pairs=T4out, cool_out=cool_file))
