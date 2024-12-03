@@ -113,7 +113,7 @@ def pair_sort_alignments(chromsizes, bam_merged, sorted_pairs):
     inputs = [bam_merged]
     outputs = [f"{bam_merged}_parsed.stats", 
                sorted_pairs]
-    options = {'cores':12, 'memory':"4g", 'walltime':"08:00:00"}
+    options = {'cores':32, 'memory':"16g", 'walltime':"08:00:00"}
     spec=f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -122,7 +122,7 @@ pairtools parse \
     --drop-sam --drop-seq \
     --output-stats {bam_merged}_parsed.stats \
     --add-columns mapq \
-    --assembly rheMac10 --no-flip \
+    --assembly rheMac10 \
     --walks-policy 5unique \
     {bam_merged} | \
 pairtools sort -o {sorted_pairs} 
