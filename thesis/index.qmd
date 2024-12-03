@@ -133,13 +133,17 @@ Needs:
 
 Needs:
 
-- [ ] mapping mates separately vs. as paired-end reads
-- [ ] `pairtools parse` and `pairtools sort`
-- [ ] discuss the use of default parameters: [docs](https://pairtools.readthedocs.io/en/latest/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols)
+- [x] mapping mates separately vs. as paired-end reads
+- [x] `pairtools parse` and `pairtools sort`
+- [x] discuss the use of default parameters: [docs](https://pairtools.readthedocs.io/en/stable/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols)
 
 **HiCExplorer** No action is needed, as this step is done implicitly when building the matrix
 
-**Open2C** We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome 'UU'. Other events, where one or both sides map to multiple segments or the reads are long enough (>150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the `--walks-policy`, where `mask` is the most conservative and masks all complex walks, whereas `5unique` reports the 5'-most unique alignment on each side. The pairs are piped directly into `pairtools sort` after parsing, as the deduplication step requires.
+**Open2C** We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome 'UU'. Other events, where one or both sides map to multiple segments or the reads are long enough (>150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the `--walks-policy` when parsing the alignments into valid pairs (or valid Hi-C contacts). Here, `mask` is the most conservative and masks all complex walks, whereas `5unique` reports the 5'-most unique alignment on each side. The pairs are piped directly into `pairtools sort` after parsing, as the deduplication step requires a sorted set of pairs.
+
+I initially used `--walks-policy mask`, reasoning I had plenty of data points and could handle complex walks in a conservative way. Only later I realized the recommendations from *pairtools*, specifically informing that longer reads might have a significant proportion of reads that contain complex walks. With this in mind, I decided to re-parse the alignments into a new set of pairs, and equally apply the recommended filter (next section). As both results are saved, we can compare the two approaches. 
+
+
 
 #### Filter (deduplicate) pairs
 
@@ -150,6 +154,10 @@ At this point we will remove all reads that are mapped to an unplaced scaffold. 
 `cooler` recommend to store the most comprehensive and unfilteres list of pairs, and then applying a filter on it on the fly by piping from `pairtools select` I have missed this step, so I have not filtered for mapping quality. I will make a histogram showing the distribution of mapq scores to see the significance of this. Or just rerun that part of the analysis. 
 
 #### Create interaction matrices (coolers) 
+
+Needs: 
+
+- [ ] update paragraph on new filters
 
 **HiCExplorer** `hicBuildMatrix` both parse and filter the mapped reads. The default value was used, alignments with $mapq < 15$ are discarded.
 
