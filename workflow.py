@@ -177,6 +177,54 @@ cooler cload pairs \
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
     
+# DRAFT: Not implemented as a target yet
+def merge_zoomify_coolers(cooler_list, merged, mcool):
+    """Merge a given list of coolers with `cooler merge`"""
+    inputs = [cooler_list]
+    outputs = [merged, mcool]
+    options = {'cores':8, 'memory':"32g", 'walltime':"03:00:00"}
+    spec = f"""
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate hic
+cooler merge -c 50000000 {merged} {cooler_list} && \
+cooler zoomify --nproc 8 \
+    --resolutions 10000,50000,100000,500000 \
+    -o {mcool} \
+    {merged}
+"""
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
+
+# DRAFT: Not implemented as a target yet
+def balance_cooler_default(cool_in, cool_out):
+    """Balance a cooler with `cooler balance`"""
+    mcool = cool_in.split("::")[0]
+    inputs = [mcool]
+    outputs = [cool_out]
+    options = {'cores':8, 'memory':"32g", 'walltime':"03:00:00"}
+    spec = f"""
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate hic
+cooler balance -p 32 {cool_in} && \
+touch {cool_out}
+"""
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
+
+# DRAFT: Not implemented as a target yet
+def balance_cooler_cis(cool_in, cool_out):
+    """Balance a cooler with `cooler balance`"""
+    mcool = cool_in.split("::")[0]
+    inputs = [mcool]
+    outputs = [cool_out]
+    options = {'cores':8, 'memory':"32g", 'walltime':"03:00:00"}
+    spec = f"""
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate hic
+cooler balance -p 32 --cis-only --name cis_weights {cool_in} && \
+touch {cool_out}
+"""
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
+
+
 
 ################################################
 # Set up the folder structure for the workflow #
@@ -231,6 +279,8 @@ T1a = gwf.target_from_template(f"bwa_index_{os.path.basename(ref_genome).split('
 T1b = gwf.target_from_template(f"sam_index_{os.path.basename(ref_genome).split('.')[0]}", 
                                sam_index(ref_genome=ref_genome))
 
+
+T5out = {} # initialize a dict to store the cool files (T5)
 
 # T1c target for each ID in the SRA runtable
 for id in sra_runtable["Run"]:
@@ -299,6 +349,8 @@ for id in sra_runtable["Run"]:
         os.makedirs(cool_subdir)
 
     T4outpairs = [x for x in T4.outputs if x.endswith(".pairs.gz")]
+    if sub_dir not in T5out:
+        T5out[sub_dir] = []
 
     for T4out in T4outpairs:
         # Filter to be removed if we want to
@@ -311,3 +363,15 @@ for id in sra_runtable["Run"]:
 
         T5 = gwf.target_from_template(f"coolify_{cool_name}",
                                         make_pairs_cool(filtered_chromsizes, pairs=T4out, cool_out=cool_file))
+        T5out[sub_dir].append(T5.outputs[0])
+        
+#pp(T5out)
+
+for subdir,cool_list in T5out.items():
+    print(f'merging {subdir} coolers:')
+    T6 = gwf.target_from_template(f"merge_{subdir}",
+                                    merge_zoomify_coolers(cooler_list=cool_list, 
+                                                          merged=op.join(cool_dir, subdir, f"{subdir}.merged.cool"), 
+                                                          mcool=op.join(cool_dir, subdir, f"{subdir}.merged.mcool")))
+
+# %%
