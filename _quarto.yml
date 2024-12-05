@@ -43,6 +43,8 @@ book:
       - notebooks/02_open2c_framework.ipynb
       - notebooks/03_compartments.ipynb
       - notebooks/04_genomicintervals.ipynb
+      - notebooks/05_rec_compartments.ipynb
+      - notebooks/06_rec_genomicintervals.ipynb
     - part: "Workflows"
       chapters:
         - workflow.py
