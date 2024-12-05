@@ -128,6 +128,16 @@ and evolutionary dynamics across primate species.</p>
     wanted to investigate how these patterns correlate with chromatin
     compartments.</p>
   </sec>
+  <sec id="our-organism-of-interest-wang-et-al.-and-the-references">
+    <title>Our Organism of Interest, Wang et al., and the
+    references</title>
+  </sec>
+  <sec id="extended-common-haplotypes-discoverved-in-humans">
+    <title>Extended Common Haplotypes Discoverved in Humans</title>
+  </sec>
+  <sec id="chromatin-conformation">
+    <title>Chromatin Conformation</title>
+  </sec>
   <sec id="high-throughput-chromosome-conformation-capture-hi-c">
     <title>High-Throughput Chromosome Conformation Capture
     (Hi-C)</title>
@@ -145,7 +155,28 @@ and evolutionary dynamics across primate species.</p>
     (<xref alt="Lieberman-Aiden et al. 2009" rid="ref-lieberman_aiden_comprehensive_2009" ref-type="bibr">Lieberman-Aiden
     et al. 2009</xref>) opened new possibilities for exploring the
     three-dimensional organization of the genome.</p>
-    <p></p>
+    <sec id="hi-c-library-preparation">
+      <title>Hi-C Library preparation</title>
+    </sec>
+    <sec id="hi-c-data-analysis">
+      <title>Hi-C Data Analysis</title>
+      <sec id="aligning-the-hi-c-reads">
+        <title>Aligning the Hi-C reads</title>
+      </sec>
+      <sec id="identifying-and-storing-valid-hi-c-pairs">
+        <title>Identifying and Storing Valid Hi-C Pairs</title>
+      </sec>
+      <sec id="interaction-matrices">
+        <title>Interaction Matrices</title>
+      </sec>
+      <sec id="calling-compartments-ice">
+        <title>Calling Compartments (ICE)</title>
+      </sec>
+      <sec id="edges">
+        <title>Edges</title>
+        <p></p>
+      </sec>
+    </sec>
   </sec>
 </sec>
 <sec id="methods">
@@ -279,20 +310,6 @@ and evolutionary dynamics across primate species.</p>
       </sec>
       <sec id="handling-the-reference">
         <title>Handling the reference</title>
-        <p>Needs:</p>
-        <list list-type="bullet">
-          <list-item>
-            <p>☒ <italic>rheMac10</italic>, <monospace>bwa</monospace>
-            indexing</p>
-          </list-item>
-          <list-item>
-            <p>☒ Wang et al. used <italic>rheMac2</italic>, the first
-            assembly of rhesus</p>
-          </list-item>
-          <list-item>
-            <p>☒ Bowtie2 indexing</p>
-          </list-item>
-        </list>
         <p>The latest reference genome for rhesus macaque
         (<italic>macaca mulata</italic>), <italic>rheMac10</italic> (or
         <italic>Mmul_10</italic>, UCSC or NCBI naming conventions,
@@ -324,33 +341,16 @@ and evolutionary dynamics across primate species.</p>
       </sec>
       <sec id="mapping-hi-c-reads">
         <title>Mapping Hi-C reads</title>
-        <p>Needs:</p>
-        <list list-type="bullet">
-          <list-item>
-            <p>☒ Genereal problems from standard PE reads to Hi-C reads
-            (rescue chimeric fragments)</p>
-          </list-item>
-          <list-item>
-            <p>☒ HiCExplorer, bwa, mapping reads seperately</p>
-          </list-item>
-          <list-item>
-            <p>☒ Bowtie2 (local and end-to-end)</p>
-          </list-item>
-          <list-item>
-            <p>☐ Open2C formats and <monospace>bwa</monospace></p>
-          </list-item>
-        </list>
-        <p><bold>General Approach</bold> The main difference between
-        Hi-C libraries and standard paired-end libraries is the high
-        fraction of chimeric reads in Hi-C. As a contact pair is
-        crosslinked and ligated before sequencing, chimeric reads occur
-        as a feature, and standard mapping techniques seeks to filter
-        out this type of reads [ref]. Thus, we need specialized tools
-        for rescuing chimeric reads. That said, we have to be cautious
-        distinguishing the intended chimerism for Hi-C and that of
-        technical artefacts.</p>
-        <p><bold>Reproduction</bold> It was not feasible to follow the
-        same approach as
+        <p>paragraph will be restructured.</p>
+        <p>The main difference between Hi-C libraries and standard
+        paired-end libraries is the high fraction of chimeric reads in
+        Hi-C. As a contact pair is crosslinked and ligated before
+        sequencing, chimeric reads occur as a feature, and standard
+        mapping techniques seeks to filter out this type of reads [ref].
+        Thus, we need specialized tools for rescuing chimeric reads.
+        That said, we have to be cautious distinguishing the intended
+        chimerism for Hi-C and that of technical artefacts.</p>
+        <p>It was not feasible to follow the same approach as
         (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
         et al. 2019</xref>) with either <italic>HiCExplorer</italic> or
         <italic>Open2C</italic>, as they use a third software,
@@ -364,14 +364,6 @@ and evolutionary dynamics across primate species.</p>
         state-of-the-art. The HiC-Pro pipeline stops at a normalized
         contact map, and is thus not sufficient for downstream
         analysis.</p>
-        <list list-type="bullet">
-          <list-item>
-            <p>Hi-C is a rapidly evolving concept and a lot has changed
-            in 5 years
-            (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
-            et al. 2019</xref>)</p>
-          </list-item>
-        </list>
         <p><bold>HiCExplorer</bold> Initially, recommendations from
         HiCExplorer were used. According to their documentation [ref] it
         is crucial to 1) align reads locally, and 2) map mates
@@ -423,20 +415,6 @@ and evolutionary dynamics across primate species.</p>
       </sec>
       <sec id="parse-and-sort-the-reads">
         <title>Parse and sort the reads</title>
-        <p>Needs:</p>
-        <list list-type="bullet">
-          <list-item>
-            <p>☒ mapping mates separately vs. as paired-end reads</p>
-          </list-item>
-          <list-item>
-            <p>☒ <monospace>pairtools parse</monospace> and
-            <monospace>pairtools sort</monospace></p>
-          </list-item>
-          <list-item>
-            <p>☒ discuss the use of default parameters:
-            <ext-link ext-link-type="uri" xlink:href="https://pairtools.readthedocs.io/en/stable/protocols_pipelines.html#recommended-pairtools-parameters-for-standard-hi-c-protocols">docs</ext-link></p>
-          </list-item>
-        </list>
         <p><bold>HiCExplorer</bold> No action is needed, as this step is
         done implicitly when building the matrix</p>
         <p><bold>Open2C</bold> We need to convert the alignments into
@@ -454,7 +432,85 @@ and evolutionary dynamics across primate species.</p>
         reports the 5’-most unique alignment on each side. The pairs are
         piped directly into <monospace>pairtools sort</monospace> after
         parsing, as the deduplication step requires a sorted set of
-        pairs.</p>
+        pairs. The <italic>.pairs</italic>-format produced by
+        <monospace>pairtools</monospace> is an extension the
+        <ext-link ext-link-type="uri" xlink:href="https://data.4dnucleome.org/file-formats/pairs/">4DN
+        Consortium</ext-link>-specified format, storing Hi-C pairs as in
+        <xref alt="Table 2" rid="tbl-pairsformat">Table 2</xref>.</p>
+        <fig id="tbl-pairsformat">
+          <caption><p>Table 2: Column specification of the .pairs format
+          as extended by <monospace>pairtools</monospace>.</p></caption>
+          <table-wrap>
+            <table>
+              <colgroup>
+                <col width="8%" />
+                <col width="12%" />
+                <col width="80%" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="right">Index</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="right">1</td>
+                  <td>read_id</td>
+                  <td>the ID of the read as defined in fastq files</td>
+                </tr>
+                <tr>
+                  <td align="right">2</td>
+                  <td>chrom1</td>
+                  <td>the chromosome of the alignment on side 1</td>
+                </tr>
+                <tr>
+                  <td align="right">3</td>
+                  <td>pos1</td>
+                  <td>the 1-based genomic position of the outer-most
+                  (5’) mapped bp on side 1</td>
+                </tr>
+                <tr>
+                  <td align="right">4</td>
+                  <td>chrom2</td>
+                  <td>the chromosome of the alignment on side 2</td>
+                </tr>
+                <tr>
+                  <td align="right">5</td>
+                  <td>pos2</td>
+                  <td>the 1-based genomic position of the outer-most
+                  (5’) mapped bp on side 2</td>
+                </tr>
+                <tr>
+                  <td align="right">6</td>
+                  <td>strand1</td>
+                  <td>the strand of the alignment on side 1</td>
+                </tr>
+                <tr>
+                  <td align="right">7</td>
+                  <td>strand2</td>
+                  <td>the strand of the alignment on side 2</td>
+                </tr>
+                <tr>
+                  <td align="right">8</td>
+                  <td>pair_type</td>
+                  <td>the type of a Hi-C pair</td>
+                </tr>
+                <tr>
+                  <td align="right">9</td>
+                  <td>mapq1</td>
+                  <td>mapq of the first mate</td>
+                </tr>
+                <tr>
+                  <td align="right">10</td>
+                  <td>mapq2</td>
+                  <td>mapq of the second mate</td>
+                </tr>
+              </tbody>
+            </table>
+          </table-wrap>
+        </fig>
         <p>I initially used <monospace>--walks-policy mask</monospace>,
         reasoning I had plenty of data points and could handle complex
         walks in a conservative way. Only later I realized the
@@ -467,15 +523,17 @@ and evolutionary dynamics across primate species.</p>
       </sec>
       <sec id="filter-deduplicate-pairs">
         <title>Filter (deduplicate) pairs</title>
-        <p><bold>HiCExplorer</bold> No action is needed, as this step is
-        done implicitly when building the matrix</p>
-        <p>At this point we will remove all reads that are mapped to an
-        unplaced scaffold. Even though the publication of
-        <italic>rhemac10</italic> assembly states they have closed 99%
-        of the gaps since <italic>rhemac8</italic> [ref],
-        <italic>rheMac10</italic> still contain more than 2,500 unplaced
-        scaffolds, which are all uninformative when calculating the
-        chromatin compartments as is the goal of this analysis.
+        <p>With <italic>HiCExplorer</italic>, no action is needed, as
+        this step is done implicitly when building the matrix.</p>
+        <p><italic>pairtools</italic> comes with a de-duplication
+        function, <monospace>dedup</monospace>, to detect PCR
+        duplication artefacts. At this point we will remove all reads
+        that are mapped to an unplaced scaffold. Even though the
+        publication of <italic>rhemac10</italic> assembly states they
+        have closed 99% of the gaps since <italic>rhemac8</italic>
+        [ref], <italic>rheMac10</italic> still contain more than 2,500
+        unplaced scaffolds, which are all uninformative when calculating
+        the chromatin compartments as is the goal of this analysis.
         Therefore, we simply only include the list of conventional
         chromosomes (1..22, X, Y) when doing the deduplication.
         Initially, the default values were used to remove duplicates,
@@ -487,17 +545,10 @@ and evolutionary dynamics across primate species.</p>
         <monospace>pairtools select</monospace> I have missed this step,
         so I have not filtered for mapping quality. I will make a
         histogram showing the distribution of mapq scores to see the
-        significance of this. Or just rerun that part of the
-        analysis.</p>
+        significance of this.</p>
       </sec>
       <sec id="create-interaction-matrices-coolers">
         <title>Create interaction matrices (coolers)</title>
-        <p>Needs:</p>
-        <list list-type="bullet">
-          <list-item>
-            <p>☐ update paragraph on new filters</p>
-          </list-item>
-        </list>
         <p><bold>HiCExplorer</bold>
         <monospace>hicBuildMatrix</monospace> both parse and filter the
         mapped reads. The default value was used, alignments with
@@ -520,8 +571,14 @@ and evolutionary dynamics across primate species.</p>
         to <monospace>cooler cload pairs</monospace>.</p>
         <p>We should have plenty of data to do the filtering, but I
         argue it is not strictly necessary. I will show a histogram of
-        the <italic>mapq</italic> scores to convince you [ref].
-        Otherwise, I will have fixed this issue.</p>
+        the <italic>mapq</italic> scores to convince you [ref].</p>
+        <p>I have re-parsed the alignments and created new coolers,
+        including only the Hi-C contacts where
+        <inline-formula><alternatives>
+        <tex-math><![CDATA[mapq \leq 30]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>p</mml:mi><mml:mi>q</mml:mi><mml:mo>≤</mml:mo><mml:mn>30</mml:mn></mml:mrow></mml:math></alternatives></inline-formula>,
+        following the current recommendations from
+        <monospace>cooler</monospace>.</p>
       </sec>
     </sec>
     <sec id="notebook-edits">
@@ -628,6 +685,7 @@ and evolutionary dynamics across primate species.</p>
       </sec>
       <sec id="plotting">
         <title>Plotting</title>
+        <p>We use matplotlib to plot.</p>
         <p>Needs:</p>
         <list list-type="bullet">
           <list-item>

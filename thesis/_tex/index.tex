@@ -41,7 +41,7 @@
 \usepackage{xcolor}
 \usepackage[left=2.54cm,right=2.54cm]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
+\setcounter{secnumdepth}{3}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -281,6 +281,48 @@
 \textcolor[rgb]{0.7, 0.7, 0.7}{\thesubsubsection}\autodot\enskip%
 }
 
+%% from arcxiv.sty:  %%%
+\RedeclareSectionCommand[
+  beforeskip=-2.0ex plus -0.5ex minus -0.2ex,
+  afterskip=1.5ex plus 0.3ex minus 0.2ex
+]{section}
+
+\RedeclareSectionCommand[
+  beforeskip=-1.8ex plus -0.5ex minus -0.2ex,
+  afterskip=0.8ex plus 0.2ex
+]{subsection}
+
+\RedeclareSectionCommand[
+  beforeskip=-1.5ex plus -0.5ex minus -0.2ex,
+  afterskip=0.5ex plus 0.2ex
+]{subsubsection}
+
+\RedeclareSectionCommand[
+  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+  afterskip=-1em
+]{paragraph}
+
+\RedeclareSectionCommand[
+  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+  afterskip=-1em
+]{subparagraph}
+
+
+\setkomafont{section}{\normalfont\Large\bfseries\raggedright}
+\setkomafont{subsection}{\normalfont\large\bfseries\raggedright}
+\setkomafont{subsubsection}{\normalfont\normalsize\bfseries\raggedright}
+\setkomafont{paragraph}{\normalfont\normalsize\bfseries}
+\setkomafont{subparagraph}{\normalfont\normalsize\bfseries}
+
+\setkomafont{caption}{\small}
+\setkomafont{captionlabel}{\bfseries\sffamily}
+
+\usepackage{floatrow}
+%\DeclareFloatFont{tiny}{\tiny}
+\floatsetup[table]{font=small}
+
+
+%%%
 
 
 % % prevent latex from "floating" the figures
@@ -364,7 +406,7 @@
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2024-12-04}
+\date{2024-12-05}
 
 \begin{document}
 \frontmatter
@@ -391,7 +433,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{} \par}
 \vspace{3ex}
 
-{\bfseries\large 2024-12-04 \par}
+{\bfseries\large 2024-12-05 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -462,6 +504,14 @@ haplotypes \citep{skov_extraordinary_2023, sorensen_genome_wide_2023}
 that could be explained by meiotic drive, we wanted to investigate how
 these patterns correlate with chromatin compartments.
 
+\section{Our Organism of Interest, Wang et al., and the
+references}\label{our-organism-of-interest-wang-et-al.-and-the-references}
+
+\section{Extended Common Haplotypes Discoverved in
+Humans}\label{extended-common-haplotypes-discoverved-in-humans}
+
+\section{Chromatin Conformation}\label{chromatin-conformation}
+
 \section{High-Throughput Chromosome Conformation Capture
 (Hi-C)}\label{high-throughput-chromosome-conformation-capture-hi-c}
 
@@ -476,6 +526,21 @@ to transcription factors, thus making an \emph{A} compartment
 introduction of the Hi-C (high-throughput 3C) method
 \citep{lieberman_aiden_comprehensive_2009} opened new possibilities for
 exploring the three-dimensional organization of the genome.
+
+\subsection{Hi-C Library preparation}\label{hi-c-library-preparation}
+
+\subsection{Hi-C Data Analysis}\label{hi-c-data-analysis}
+
+\paragraph{Aligning the Hi-C reads}\label{aligning-the-hi-c-reads}
+
+\paragraph{Identifying and Storing Valid Hi-C
+Pairs}\label{identifying-and-storing-valid-hi-c-pairs}
+
+\paragraph{Interaction Matrices}\label{interaction-matrices}
+
+\paragraph{Calling Compartments (ICE)}\label{calling-compartments-ice}
+
+\paragraph{Edges}\label{edges}
 
 \newpage{}
 
@@ -586,25 +651,13 @@ processing, and each accesion number (read pair, mate pair) from the
 Hi-C sequencing was processed in parallel, so their execution was
 independent from each other.
 
-\subsubsection{Downloading the reads}\label{downloading-the-reads}
+\paragraph{Downloading the reads}\label{downloading-the-reads}
 
 The reads were downloaded from NCBI SRA portal {[}ref{]} directly to GDK
 using \texttt{sra-downloader} {[}ref{]} through docker {[}ref{]} as
 \texttt{.fastq.gz} files.
 
-\subsubsection{Handling the reference}\label{handling-the-reference}
-
-Needs:
-
-\begin{itemize}
-\tightlist
-\item[$\boxtimes$]
-  \emph{rheMac10}, \texttt{bwa} indexing
-\item[$\boxtimes$]
-  Wang et al.~used \emph{rheMac2}, the first assembly of rhesus
-\item[$\boxtimes$]
-  Bowtie2 indexing
-\end{itemize}
+\paragraph{Handling the reference}\label{handling-the-reference}
 
 The latest reference genome for rhesus macaque (\emph{macaca mulata}),
 \emph{rheMac10} (or \emph{Mmul\_10}, UCSC or NCBI naming conventions,
@@ -629,33 +682,19 @@ using \texttt{bowtie2-build\ -\/-large-index}, which creates six index
 files for \texttt{bowtie2} to use. \texttt{-\/-large-index} creates the
 special indexing format required for large genomes such as macaque.
 
-\subsubsection{Mapping Hi-C reads}\label{mapping-hi-c-reads}
+\paragraph{Mapping Hi-C reads}\label{mapping-hi-c-reads}
 
-Needs:
+paragraph will be restructured.
 
-\begin{itemize}
-\tightlist
-\item[$\boxtimes$]
-  Genereal problems from standard PE reads to Hi-C reads (rescue
-  chimeric fragments)
-\item[$\boxtimes$]
-  HiCExplorer, bwa, mapping reads seperately
-\item[$\boxtimes$]
-  Bowtie2 (local and end-to-end)
-\item[$\square$]
-  Open2C formats and \texttt{bwa}
-\end{itemize}
+The main difference between Hi-C libraries and standard paired-end
+libraries is the high fraction of chimeric reads in Hi-C. As a contact
+pair is crosslinked and ligated before sequencing, chimeric reads occur
+as a feature, and standard mapping techniques seeks to filter out this
+type of reads {[}ref{]}. Thus, we need specialized tools for rescuing
+chimeric reads. That said, we have to be cautious distinguishing the
+intended chimerism for Hi-C and that of technical artefacts.
 
-\textbf{General Approach} The main difference between Hi-C libraries and
-standard paired-end libraries is the high fraction of chimeric reads in
-Hi-C. As a contact pair is crosslinked and ligated before sequencing,
-chimeric reads occur as a feature, and standard mapping techniques seeks
-to filter out this type of reads {[}ref{]}. Thus, we need specialized
-tools for rescuing chimeric reads. That said, we have to be cautious
-distinguishing the intended chimerism for Hi-C and that of technical
-artefacts.
-
-\textbf{Reproduction} It was not feasible to follow the same approach as
+It was not feasible to follow the same approach as
 \citep{wang_reprogramming_2019} with either \emph{HiCExplorer} or
 \emph{Open2C}, as they use a third software, \emph{HiC-Pro}. Hic-Pro
 uses bowtie2 in end-to-end mode, followed by remapping of 5'-ends of the
@@ -666,13 +705,6 @@ reads. I argue that even when trying to reproduce results, it is
 nonsensical to use methods that are not state-of-the-art. The HiC-Pro
 pipeline stops at a normalized contact map, and is thus not sufficient
 for downstream analysis.
-
-\begin{itemize}
-\tightlist
-\item
-  Hi-C is a rapidly evolving concept and a lot has changed in 5 years
-  \citep{wang_reprogramming_2019}
-\end{itemize}
 
 \textbf{HiCExplorer} Initially, recommendations from HiCExplorer were
 used. According to their documentation {[}ref{]} it is crucial to 1)
@@ -712,20 +744,7 @@ cooler. I chose the latter, where I mapped the fastq files to
 \emph{rheMac10} in paired end mode for a pair (m1, m2) with
 \texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
 
-\subsubsection{Parse and sort the reads}\label{parse-and-sort-the-reads}
-
-Needs:
-
-\begin{itemize}
-\tightlist
-\item[$\boxtimes$]
-  mapping mates separately vs.~as paired-end reads
-\item[$\boxtimes$]
-  \texttt{pairtools\ parse} and \texttt{pairtools\ sort}
-\item[$\boxtimes$]
-  discuss the use of default parameters:
-  \href{https://pairtools.readthedocs.io/en/stable/protocols_pipelines.html\#recommended-pairtools-parameters-for-standard-hi-c-protocols}{docs}
-\end{itemize}
+\paragraph{Parse and sort the reads}\label{parse-and-sort-the-reads}
 
 \textbf{HiCExplorer} No action is needed, as this step is done
 implicitly when building the matrix
@@ -741,7 +760,54 @@ parsing the alignments into valid pairs (or valid Hi-C contacts). Here,
 \texttt{mask} is the most conservative and masks all complex walks,
 whereas \texttt{5unique} reports the 5'-most unique alignment on each
 side. The pairs are piped directly into \texttt{pairtools\ sort} after
-parsing, as the deduplication step requires a sorted set of pairs.
+parsing, as the deduplication step requires a sorted set of pairs. The
+\emph{.pairs}-format produced by \texttt{pairtools} is an extension the
+\href{https://data.4dnucleome.org/file-formats/pairs/}{4DN
+Consortium}-specified format, storing Hi-C pairs as in
+Table~\ref{tbl-pairsformat}.
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0769}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1209}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.8022}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Index
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Index
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\tabularnewline
+\caption{Column specification of the .pairs format as extended by
+\texttt{pairtools}.}\label{tbl-pairsformat}\tabularnewline
+\endlastfoot
+1 & read\_id & the ID of the read as defined in fastq files \\
+2 & chrom1 & the chromosome of the alignment on side 1 \\
+3 & pos1 & the 1-based genomic position of the outer-most (5') mapped bp
+on side 1 \\
+4 & chrom2 & the chromosome of the alignment on side 2 \\
+5 & pos2 & the 1-based genomic position of the outer-most (5') mapped bp
+on side 2 \\
+6 & strand1 & the strand of the alignment on side 1 \\
+7 & strand2 & the strand of the alignment on side 2 \\
+8 & pair\_type & the type of a Hi-C pair \\
+9 & mapq1 & mapq of the first mate \\
+10 & mapq2 & mapq of the second mate \\
+\end{longtable}
 
 I initially used \texttt{-\/-walks-policy\ mask}, reasoning I had plenty
 of data points and could handle complex walks in a conservative way.
@@ -752,40 +818,31 @@ decided to re-parse the alignments into a new set of pairs, and equally
 apply the recommended filter (next section). As both results are saved,
 we can compare the two approaches.
 
-\subsubsection{Filter (deduplicate)
-pairs}\label{filter-deduplicate-pairs}
+\paragraph{Filter (deduplicate) pairs}\label{filter-deduplicate-pairs}
 
-\textbf{HiCExplorer} No action is needed, as this step is done
-implicitly when building the matrix
+With \emph{HiCExplorer}, no action is needed, as this step is done
+implicitly when building the matrix.
 
-At this point we will remove all reads that are mapped to an unplaced
-scaffold. Even though the publication of \emph{rhemac10} assembly states
-they have closed 99\% of the gaps since \emph{rhemac8} {[}ref{]},
-\emph{rheMac10} still contain more than 2,500 unplaced scaffolds, which
-are all uninformative when calculating the chromatin compartments as is
-the goal of this analysis. Therefore, we simply only include the list of
-conventional chromosomes (1..22, X, Y) when doing the deduplication.
-Initially, the default values were used to remove duplicates, where
-pairs with both sides mapped within 3 base pairs from each other are
-considered duplicates.
+\emph{pairtools} comes with a de-duplication function, \texttt{dedup},
+to detect PCR duplication artefacts. At this point we will remove all
+reads that are mapped to an unplaced scaffold. Even though the
+publication of \emph{rhemac10} assembly states they have closed 99\% of
+the gaps since \emph{rhemac8} {[}ref{]}, \emph{rheMac10} still contain
+more than 2,500 unplaced scaffolds, which are all uninformative when
+calculating the chromatin compartments as is the goal of this analysis.
+Therefore, we simply only include the list of conventional chromosomes
+(1..22, X, Y) when doing the deduplication. Initially, the default
+values were used to remove duplicates, where pairs with both sides
+mapped within 3 base pairs from each other are considered duplicates.
 
 \texttt{cooler} recommend to store the most comprehensive and unfilteres
 list of pairs, and then applying a filter on it on the fly by piping
 from \texttt{pairtools\ select} I have missed this step, so I have not
 filtered for mapping quality. I will make a histogram showing the
-distribution of mapq scores to see the significance of this. Or just
-rerun that part of the analysis.
+distribution of mapq scores to see the significance of this.
 
-\subsubsection{Create interaction matrices
+\paragraph{Create interaction matrices
 (coolers)}\label{create-interaction-matrices-coolers}
-
-Needs:
-
-\begin{itemize}
-\tightlist
-\item[$\square$]
-  update paragraph on new filters
-\end{itemize}
 
 \textbf{HiCExplorer} \texttt{hicBuildMatrix} both parse and filter the
 mapped reads. The default value was used, alignments with \(mapq < 15\)
@@ -802,7 +859,11 @@ to \texttt{cooler\ cload\ pairs}.
 
 We should have plenty of data to do the filtering, but I argue it is not
 strictly necessary. I will show a histogram of the \emph{mapq} scores to
-convince you {[}ref{]}. Otherwise, I will have fixed this issue.
+convince you {[}ref{]}.
+
+I have re-parsed the alignments and created new coolers, including only
+the Hi-C contacts where \(mapq \leq 30\), following the current
+recommendations from \texttt{cooler}.
 
 \subsection{Notebook edits}\label{notebook-edits}
 
@@ -811,7 +872,7 @@ experimental parts of the analysis were moved to Jupyter Notebooks
 (still running on GenomeDK). \texttt{cooltools} comes with a helper
 library for operations on genomic intervals called \texttt{bioframe}.
 
-\subsubsection{Pooling samples (Merging
+\paragraph{Pooling samples (Merging
 coolers)}\label{pooling-samples-merging-coolers}
 
 The samples are grouped into \emph{replicates} with a unique
@@ -826,7 +887,7 @@ function merges matrices of the same dimensions by simply adding the
 interaction frequencies of each genomic position together, resulting in
 less empty positions by chance.
 
-\subsubsection{Create multi-resolution coolers
+\paragraph{Create multi-resolution coolers
 (zoomify)}\label{create-multi-resolution-coolers-zoomify}
 
 A feature of working inside the ecosystem of \emph{Open2C} {[}ref{]} is
@@ -838,7 +899,7 @@ chose to use 10kb, 50kb, 100kb, and 500kb bins, and the resolutions are
 made by recursively binning the base resolution. We call this process
 zoomifying.
 
-\subsubsection{Matrix balancing (Iterative
+\paragraph{Matrix balancing (Iterative
 correction)}\label{matrix-balancing-iterative-correction}
 
 Finally, we balance the matrices using the cooler CLI. We use
@@ -868,7 +929,7 @@ bin. It would maybe be more suitable to calculate the weights for
 that we can compare the difference between the two methods easily.
 However, we will only use the default mode for now.
 
-\subsubsection{Eigendecomposition}\label{eigendecomposition}
+\paragraph{Eigendecomposition}\label{eigendecomposition}
 
 The eigendecomposition of a Hi-C interaction matrix is performed in
 multiple steps. As value of the eigenvector is only \emph{significant}
@@ -894,7 +955,9 @@ it sits on, and not by the chromatin compartments. To mitigate this, we
 apply a chromosome-arm-partitioned view of the chromosome (as a bedlike
 format, described in \texttt{bioframe} docs {[}ref{]}).
 
-\subsubsection{Plotting}\label{plotting}
+\paragraph{Plotting}\label{plotting}
+
+We use matplotlib to plot.
 
 Needs:
 
