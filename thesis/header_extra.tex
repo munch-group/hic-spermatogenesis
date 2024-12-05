@@ -185,6 +185,48 @@
 \textcolor[rgb]{0.7, 0.7, 0.7}{\thesubsubsection}\autodot\enskip%
 }
 
+%% from arcxiv.sty:  %%%
+\RedeclareSectionCommand[
+  beforeskip=-2.0ex plus -0.5ex minus -0.2ex,
+  afterskip=1.5ex plus 0.3ex minus 0.2ex
+]{section}
+
+\RedeclareSectionCommand[
+  beforeskip=-1.8ex plus -0.5ex minus -0.2ex,
+  afterskip=0.8ex plus 0.2ex
+]{subsection}
+
+\RedeclareSectionCommand[
+  beforeskip=-1.5ex plus -0.5ex minus -0.2ex,
+  afterskip=0.5ex plus 0.2ex
+]{subsubsection}
+
+\RedeclareSectionCommand[
+  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+  afterskip=-1em
+]{paragraph}
+
+\RedeclareSectionCommand[
+  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+  afterskip=-1em
+]{subparagraph}
+
+
+\setkomafont{section}{\normalfont\Large\bfseries\raggedright}
+\setkomafont{subsection}{\normalfont\large\bfseries\raggedright}
+\setkomafont{subsubsection}{\normalfont\normalsize\bfseries\raggedright}
+\setkomafont{paragraph}{\normalfont\normalsize\bfseries}
+\setkomafont{subparagraph}{\normalfont\normalsize\bfseries}
+
+\setkomafont{caption}{\small}
+\setkomafont{captionlabel}{\bfseries\sffamily}
+
+\usepackage{floatrow}
+%\DeclareFloatFont{tiny}{\tiny}
+\floatsetup[table]{font=small}
+
+
+%%%
 
 
 % % prevent latex from "floating" the figures

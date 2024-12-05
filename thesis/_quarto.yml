@@ -37,6 +37,7 @@ format:
       # - heightrounded
     linestretch: 1.0
     number-sections: true
+    number-depth: 3
     highlight-style: kate 
     tbl-cap-location: bottom
     include-in-header:
