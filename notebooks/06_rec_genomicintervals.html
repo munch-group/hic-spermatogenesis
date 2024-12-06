@@ -290,11 +290,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#test-with-a-subsample-of-the-data" id="toc-test-with-a-subsample-of-the-data" class="nav-link" data-scroll-target="#test-with-a-subsample-of-the-data">Test with a subsample of the data</a></li>
   <li><a href="#bootstrap-to-get-a-p-value" id="toc-bootstrap-to-get-a-p-value" class="nav-link" data-scroll-target="#bootstrap-to-get-a-p-value">Bootstrap to get a p-value</a></li>
   <li><a href="#partition-the-a-compartments-into-regions-around-the-edges" id="toc-partition-the-a-compartments-into-regions-around-the-edges" class="nav-link" data-scroll-target="#partition-the-a-compartments-into-regions-around-the-edges">Partition the A-compartments into regions <em>around</em> the edges</a></li>
-  <li><a href="#import-edges" id="toc-import-edges" class="nav-link" data-scroll-target="#import-edges">Import edges</a></li>
-  <li><a href="#do-testing-of-the-edges" id="toc-do-testing-of-the-edges" class="nav-link" data-scroll-target="#do-testing-of-the-edges">Do testing of the edges</a></li>
-  <li><a href="#check-the-length-of-the-intervals" id="toc-check-the-length-of-the-intervals" class="nav-link" data-scroll-target="#check-the-length-of-the-intervals">Check the length of the intervals</a></li>
   </ul></li>
-  <li><a href="#bioframe-genomic-intervals-support" id="toc-bioframe-genomic-intervals-support" class="nav-link" data-scroll-target="#bioframe-genomic-intervals-support">Bioframe genomic intervals support</a></li>
+  <li><a href="#import-edges" id="toc-import-edges" class="nav-link" data-scroll-target="#import-edges">Import edges</a>
+  <ul>
+  <li><a href="#do-testing-of-the-edges" id="toc-do-testing-of-the-edges" class="nav-link" data-scroll-target="#do-testing-of-the-edges">Do testing of the edges</a></li>
+  </ul></li>
+  <li><a href="#plot-some-summary-statistics" id="toc-plot-some-summary-statistics" class="nav-link" data-scroll-target="#plot-some-summary-statistics">Plot some summary statistics</a></li>
   <li><a href="#geneinfo" id="toc-geneinfo" class="nav-link" data-scroll-target="#geneinfo">Geneinfo</a>
   <ul>
   <li><a href="#get-the-geneinfo-for-all-intersections-between-edges-and-ech90" id="toc-get-the-geneinfo-for-all-intersections-between-edges-and-ech90" class="nav-link" data-scroll-target="#get-the-geneinfo-for-all-intersections-between-edges-and-ech90">Get the geneinfo for all intersections between edges and ECH90</a></li>
@@ -345,7 +346,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Resulting in <strong>45</strong> .csv files. They are saved to <code>../results/rec_compartments/</code>.</p>
 <section id="load-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="load-the-data">Load the data</h3>
-<div id="cell-3" class="cell" data-execution_count="1">
+<div id="cell-3" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -585,7 +586,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tests for round_spermatid_100kb_arms_smoothed
-Proximity: TestResult(statistic=0.3711999999999999, pvalue=0.0199)
+Proximity: TestResult(statistic=0.3711999999999999, pvalue=0.0174)
 Jaccard: 0.03771152626674943
 
 Tests for round_spermatid_100kb_10Mb
@@ -593,11 +594,11 @@ Proximity: TestResult(statistic=0.51525, pvalue=0.0001)
 Jaccard: 0.046023479610810235
 
 Tests for round_spermatid_100kb_10Mb_smoothed
-Proximity: TestResult(statistic=0.46520000000000006, pvalue=0.0044)
+Proximity: TestResult(statistic=0.46520000000000006, pvalue=0.0052)
 Jaccard: 0.042623832902054265
 
 Tests for round_spermatid_100kb_arms
-Proximity: TestResult(statistic=0.37199999999999966, pvalue=0.0143)
+Proximity: TestResult(statistic=0.37199999999999966, pvalue=0.0117)
 Jaccard: 0.046543092859550536
 </code></pre>
 </div>
@@ -649,13 +650,13 @@ Jaccard: 0.046543092859550536
 <div id="cell-13" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>jacccard_stat, p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>(0.046543092859550536, 0.102)</code></pre>
+<pre><code>(0.046543092859550536, 0.112)</code></pre>
 </div>
 </div>
 </section>
 <section id="partition-the-a-compartments-into-regions-around-the-edges" class="level3">
 <h3 class="anchored" data-anchor-id="partition-the-a-compartments-into-regions-around-the-edges">Partition the A-compartments into regions <em>around</em> the edges</h3>
-<div id="cell-15" class="cell" data-execution_count="72">
+<div id="cell-15" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_collapse, interval_union</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> dataframes[<span class="st">'round_spermatid_100kb_arms'</span>]</span>
@@ -678,7 +679,7 @@ Jaccard: 0.046543092859550536
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># The end cannot exceed the chromosome size</span></span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>test_df <span class="op">=</span> pd.concat([start_edge, end_edge]).sort_values([<span class="st">'chrom'</span>, <span class="st">'start'</span>, <span class="st">'end'</span>])</span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>interval_collapse(test_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="72">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -765,7 +766,7 @@ Jaccard: 0.046543092859550536
 </div>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="74">
+<div id="cell-16" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_collapse</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -797,9 +798,10 @@ Jaccard: 0.046543092859550536
 <span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>        interval_collapse(tmp).assign(resolution<span class="op">=</span>res).to_csv(edge_csv_name, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="import-edges" class="level3">
-<h3 class="anchored" data-anchor-id="import-edges">Import edges</h3>
-<div id="cell-18" class="cell" data-execution_count="8">
+</section>
+<section id="import-edges" class="level2">
+<h2 class="anchored" data-anchor-id="import-edges">Import edges</h2>
+<div id="cell-18" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -807,7 +809,7 @@ Jaccard: 0.046543092859550536
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>csv_dir <span class="op">=</span> <span class="st">'../results/rec_edges/'</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dictionary to store the DataFrames</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> {}</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>edge_df <span class="op">=</span> {}</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over all .csv files in the directory</span></span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> os.listdir(csv_dir):</span>
@@ -819,12 +821,12 @@ Jaccard: 0.046543092859550536
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Use the filename (without extension) as the dictionary key</span></span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        key <span class="op">=</span> filename.replace(<span class="st">'_edges_'</span>, <span class="st">''</span>)</span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        key <span class="op">=</span> os.path.splitext(key)[<span class="dv">0</span>]</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        edges[key] <span class="op">=</span> pd.read_csv(filepath)</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        edges[key][<span class="st">'length'</span>] <span class="op">=</span> edges[key][<span class="st">'end'</span>] <span class="op">-</span> edges[key][<span class="st">'start'</span>]</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        edge_df[key] <span class="op">=</span> pd.read_csv(filepath)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        edge_df[key][<span class="st">'length'</span>] <span class="op">=</span> edge_df[key][<span class="st">'end'</span>] <span class="op">-</span> edge_df[key][<span class="st">'start'</span>]</span>
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># The `edges` dictionary now contains the DataFrames</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(edges.keys())</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(edges[<span class="st">'fibroblast_100kb_10Mb_edges'</span>].columns)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(edge_df.keys())</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(edge_df[<span class="st">'fibroblast_100kb_10Mb_edges'</span>].columns)</span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#ech90 = pd.read_csv('../data/ech90_human_Mmul_10.csv')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -832,246 +834,841 @@ Jaccard: 0.046543092859550536
 Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code></pre>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="9">
+<div id="cell-19" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_intersect</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> <span class="st">'round_spermatid_100kb_arms'</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>full_df <span class="op">=</span> dataframes[sample]</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>full_intersect <span class="op">=</span> interval_intersect(full_df, ech90).assign(length<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'end'</span>] <span class="op">-</span> x[<span class="st">'start'</span>])</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>edge_df <span class="op">=</span> edges[<span class="ss">f'</span><span class="sc">{</span>sample<span class="sc">}</span><span class="ss">_edges'</span>]</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot full</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>plot_regions(ech90, full_df, full_intersect)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'All edges'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> dataframes.keys()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#samples = ['round_spermatid_100kb_arms', 'round_spermatid_100kb_10Mb', 'sperm_100kb_arms', 'sperm_100kb_10Mb']</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>comps <span class="op">=</span> {key:dataframes[key] <span class="cf">for</span> key <span class="kw">in</span> samples}</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> {key:edge_df[<span class="ss">f'</span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">_edges'</span>] <span class="cf">for</span> key <span class="kw">in</span> samples}</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>comp_intersects <span class="op">=</span> {key:interval_intersect(comp, ech90).assign(length <span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="st">'end'</span>] <span class="op">-</span> x[<span class="st">'start'</span>]) <span class="cf">for</span> key, comp <span class="kw">in</span> comps.items()}</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>edge_intersects <span class="op">=</span> {key:interval_intersect(edge, ech90).assign(length <span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="st">'end'</span>] <span class="op">-</span> x[<span class="st">'start'</span>]) <span class="cf">for</span> key, edge <span class="kw">in</span> edges.items()}</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">## For a single sample only ##</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># sample = 'round_spermatid_100kb_arms'</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># full_df = dataframes[sample]</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co"># full_intersect = interval_intersect(full_df, ech90).assign(length=lambda x: x['end'] - x['start'])</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co"># edge_intersect = interval_intersect(edge_df[f'{sample}_edges'], ech90).assign(length=lambda x: x['end'] - x['start'])</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># edge_df = edge_df[f'{sample}_edges']</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plot full</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_regions(ech90, full_df, full_intersect)</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.suptitle('All edges')</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plot edge</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_regions(ech90, edge_df, edge_intersect)</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.suptitle('Edges only')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-20" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Some stats about the data and intersections </span><span class="al">###</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample'</span>: samples,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Total regions'</span>: [comp.shape[<span class="dv">0</span>] <span class="cf">for</span> comp <span class="kw">in</span> comps.values()],</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Total regions on ECH90'</span>: [comp_intersect.shape[<span class="dv">0</span>] <span class="cf">for</span> comp_intersect <span class="kw">in</span> comp_intersects.values()],</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Total regions on edges'</span>: [edge_intersect.shape[<span class="dv">0</span>] <span class="cf">for</span> edge_intersect <span class="kw">in</span> edge_intersects.values()],</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Prop regions on ECH90'</span>: [comp_intersect.shape[<span class="dv">0</span>] <span class="op">/</span> ech90.shape[<span class="dv">0</span>] <span class="cf">for</span> comp, comp_intersect <span class="kw">in</span> <span class="bu">zip</span>(comps.values(), comp_intersects.values())],</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Total bp'</span>: [comp[<span class="st">'length'</span>].<span class="bu">sum</span>() <span class="cf">for</span> comp <span class="kw">in</span> comps.values()],</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Total bp on ECH90'</span>: [comp_intersect[<span class="st">'length'</span>].<span class="bu">sum</span>() <span class="cf">for</span> comp_intersect <span class="kw">in</span> comp_intersects.values()],</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Total bp on edges'</span>: [edge_intersect[<span class="st">'length'</span>].<span class="bu">sum</span>() <span class="cf">for</span> edge_intersect <span class="kw">in</span> edge_intersects.values()],</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Prop bp on ECH90'</span>: [comp_intersect[<span class="st">'length'</span>].<span class="bu">sum</span>() <span class="op">/</span> ech90[<span class="st">'length'</span>].<span class="bu">sum</span>() <span class="cf">for</span> comp, comp_intersect <span class="kw">in</span> <span class="bu">zip</span>(comps.values(), comp_intersects.values())],</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#df[['Source', 'Rest']] = df['Sample'].str.extract(r'^(.*?)(_\d+\w+.*)')</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>stats[[<span class="st">'source'</span>, <span class="st">'res'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>]] <span class="op">=</span> stats[<span class="st">'Sample'</span>].<span class="bu">str</span>.extract(<span class="vs">r'^(.*?)_(100kb|500kb)_(full|arms|10Mb)(?:_(smoothed))?$'</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>stats[<span class="st">'smoothed'</span>] <span class="op">=</span> stats[<span class="st">'smoothed'</span>].notna() <span class="co"># Convert to boolean</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>stats[[<span class="st">'Sample'</span>,<span class="st">'source'</span>, <span class="st">'res'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>,<span class="st">'Prop regions on ECH90'</span>, <span class="st">'Prop bp on ECH90'</span>]]</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co"># # Determine the proportion of total regions in ECH90 that lies on compartments</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Proportion of ECH90 on: (#count)")</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co"># # Proportion of ECH90 on full regions</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tFull: {full_intersect.shape[0] / ech90.shape[0]}')</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tEdge: {edge_intersect.shape[0] / ech90.shape[0]}')</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nProportion of ECH90: (#bpairs)")</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co"># # Proportion of ECH90 on full regions</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tFull: {full_intersect['length'].sum() / ech90['length'].sum()}')</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tEdge: {edge_intersect['length'].sum() / ech90['length'].sum()}')</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="co"># # Determine the proportion of total regions in ECH90 that lies on compartment edges</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="co"># # What is the total length of ech90 regions and edges</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nTotal length of:")</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tECH90:   {(ech90['end'] - ech90['start']).sum()} bp')</span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tEdge:   {(edge_df["end"] - edge_df["start"]).sum()} bp')</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tFull:   {(full_df["end"] - full_df["start"]).sum()} bp')</span></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="co"># f, ax = plot_regions(ech90, edge_df, full_intersect)</span></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="co"># for ax in list(f.axes):</span></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="co">#     if ax.get_ylabel() == 'ECH90':</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="co">#         #ax.set_ylabel('Edges', rotation=0, fontsize=10, labelpad=30)</span></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a><span class="co">#         pass</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a><span class="co">#     if ax.get_ylabel() in ("query", "A-Comp"):</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a><span class="co">#         ax.set_ylabel('Edges', rotation=0, fontsize=10, labelpad=30)</span></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a><span class="co">#     if ax.get_ylabel() == 'Intersect':</span></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a><span class="co">#         #ax.set_ylabel('end_edge \nintersect', rotation=0, fontsize=10, labelpad=30)</span></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="co">#         pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>Text(0.5, 0.98, 'All edges')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-12-output-2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="06_rec_genomicintervals_files/figure-html/cell-12-output-2.svg" class="img-fluid figure-img"></a></p>
-</figure>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Sample</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">res</th>
+<th data-quarto-table-cell-role="th">view</th>
+<th data-quarto-table-cell-role="th">smoothed</th>
+<th data-quarto-table-cell-role="th">Prop regions on ECH90</th>
+<th data-quarto-table-cell-role="th">Prop bp on ECH90</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>spermatogonia_500kb_arms</td>
+<td>spermatogonia</td>
+<td>500kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.421053</td>
+<td>0.489351</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>round_spermatid_500kb_full</td>
+<td>round_spermatid</td>
+<td>500kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.368421</td>
+<td>0.418981</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>fibroblast_500kb_full</td>
+<td>fibroblast</td>
+<td>500kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.684211</td>
+<td>0.529916</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>pachytene_spermatocyte_100kb_arms_smoothed</td>
+<td>pachytene_spermatocyte</td>
+<td>100kb</td>
+<td>arms</td>
+<td>True</td>
+<td>0.684211</td>
+<td>0.632145</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>pachytene_spermatocyte_500kb_full</td>
+<td>pachytene_spermatocyte</td>
+<td>500kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.368421</td>
+<td>0.362651</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>pachytene_spermatocyte_100kb_full</td>
+<td>pachytene_spermatocyte</td>
+<td>100kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.473684</td>
+<td>0.365265</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>round_spermatid_100kb_arms_smoothed</td>
+<td>round_spermatid</td>
+<td>100kb</td>
+<td>arms</td>
+<td>True</td>
+<td>0.631579</td>
+<td>0.412828</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>fibroblast_100kb_arms_smoothed</td>
+<td>fibroblast</td>
+<td>100kb</td>
+<td>arms</td>
+<td>True</td>
+<td>0.684211</td>
+<td>0.499297</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>fibroblast_100kb_full</td>
+<td>fibroblast</td>
+<td>100kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.842105</td>
+<td>0.550167</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>round_spermatid_100kb_full</td>
+<td>round_spermatid</td>
+<td>100kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.421053</td>
+<td>0.472204</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>spermatogonia_100kb_arms</td>
+<td>spermatogonia</td>
+<td>100kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.526316</td>
+<td>0.550008</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>spermatogonia_100kb_10Mb</td>
+<td>spermatogonia</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.631579</td>
+<td>0.567910</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>sperm_100kb_full</td>
+<td>sperm</td>
+<td>100kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.631579</td>
+<td>0.674746</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>sperm_100kb_arms_smoothed</td>
+<td>sperm</td>
+<td>100kb</td>
+<td>arms</td>
+<td>True</td>
+<td>0.578947</td>
+<td>0.572887</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>spermatogonia_500kb_10Mb</td>
+<td>spermatogonia</td>
+<td>500kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.684211</td>
+<td>0.689415</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>sperm_500kb_full</td>
+<td>sperm</td>
+<td>500kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.631579</td>
+<td>0.559567</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>spermatogonia_100kb_arms_smoothed</td>
+<td>spermatogonia</td>
+<td>100kb</td>
+<td>arms</td>
+<td>True</td>
+<td>0.526316</td>
+<td>0.549381</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>pachytene_spermatocyte_100kb_10Mb</td>
+<td>pachytene_spermatocyte</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.789474</td>
+<td>0.630109</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>round_spermatid_100kb_10Mb</td>
+<td>round_spermatid</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.684211</td>
+<td>0.519772</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>round_spermatid_100kb_10Mb_smoothed</td>
+<td>round_spermatid</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>True</td>
+<td>0.578947</td>
+<td>0.483689</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>fibroblast_100kb_10Mb</td>
+<td>fibroblast</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.684211</td>
+<td>0.494509</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>fibroblast_100kb_10Mb_smoothed</td>
+<td>fibroblast</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>True</td>
+<td>0.526316</td>
+<td>0.414530</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>fibroblast_100kb_full_smoothed</td>
+<td>fibroblast</td>
+<td>100kb</td>
+<td>full</td>
+<td>True</td>
+<td>0.736842</td>
+<td>0.591105</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>sperm_100kb_arms</td>
+<td>sperm</td>
+<td>100kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.736842</td>
+<td>0.578219</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>round_spermatid_100kb_full_smoothed</td>
+<td>round_spermatid</td>
+<td>100kb</td>
+<td>full</td>
+<td>True</td>
+<td>0.368421</td>
+<td>0.418981</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>fibroblast_500kb_10Mb</td>
+<td>fibroblast</td>
+<td>500kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.473684</td>
+<td>0.359088</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>round_spermatid_500kb_10Mb</td>
+<td>round_spermatid</td>
+<td>500kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.578947</td>
+<td>0.496303</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>sperm_500kb_arms</td>
+<td>sperm</td>
+<td>500kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.421053</td>
+<td>0.395138</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>pachytene_spermatocyte_100kb_10Mb_smoothed</td>
+<td>pachytene_spermatocyte</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>True</td>
+<td>0.631579</td>
+<td>0.665339</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>pachytene_spermatocyte_500kb_10Mb</td>
+<td>pachytene_spermatocyte</td>
+<td>500kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.631579</td>
+<td>0.538153</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>pachytene_spermatocyte_100kb_full_smoothed</td>
+<td>pachytene_spermatocyte</td>
+<td>100kb</td>
+<td>full</td>
+<td>True</td>
+<td>0.368421</td>
+<td>0.401552</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>round_spermatid_500kb_arms</td>
+<td>round_spermatid</td>
+<td>500kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.684211</td>
+<td>0.655953</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>spermatogonia_500kb_full</td>
+<td>spermatogonia</td>
+<td>500kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.421053</td>
+<td>0.392944</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>fibroblast_500kb_arms</td>
+<td>fibroblast</td>
+<td>500kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.684211</td>
+<td>0.550729</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>spermatogonia_100kb_10Mb_smoothed</td>
+<td>spermatogonia</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>True</td>
+<td>0.631579</td>
+<td>0.580640</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>spermatogonia_100kb_full_smoothed</td>
+<td>spermatogonia</td>
+<td>100kb</td>
+<td>full</td>
+<td>True</td>
+<td>0.368421</td>
+<td>0.386720</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>sperm_500kb_10Mb</td>
+<td>sperm</td>
+<td>500kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.526316</td>
+<td>0.438818</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">37</td>
+<td>pachytene_spermatocyte_500kb_arms</td>
+<td>pachytene_spermatocyte</td>
+<td>500kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.631579</td>
+<td>0.650289</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">38</td>
+<td>pachytene_spermatocyte_100kb_arms</td>
+<td>pachytene_spermatocyte</td>
+<td>100kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.789474</td>
+<td>0.584619</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">39</td>
+<td>sperm_100kb_10Mb_smoothed</td>
+<td>sperm</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>True</td>
+<td>0.578947</td>
+<td>0.549366</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>sperm_100kb_full_smoothed</td>
+<td>sperm</td>
+<td>100kb</td>
+<td>full</td>
+<td>True</td>
+<td>0.578947</td>
+<td>0.677841</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">41</td>
+<td>fibroblast_100kb_arms</td>
+<td>fibroblast</td>
+<td>100kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.736842</td>
+<td>0.510641</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42</td>
+<td>spermatogonia_100kb_full</td>
+<td>spermatogonia</td>
+<td>100kb</td>
+<td>full</td>
+<td>False</td>
+<td>0.473684</td>
+<td>0.374801</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">43</td>
+<td>round_spermatid_100kb_arms</td>
+<td>round_spermatid</td>
+<td>100kb</td>
+<td>arms</td>
+<td>False</td>
+<td>0.789474</td>
+<td>0.500366</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">44</td>
+<td>sperm_100kb_10Mb</td>
+<td>sperm</td>
+<td>100kb</td>
+<td>10Mb</td>
+<td>False</td>
+<td>0.684211</td>
+<td>0.545798</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Some stats about the data and intersections </span><span class="al">###</span></span>
+<div id="cell-21" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the proportion of total regions in ECH90 that lies on compartment edges</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Proportion of ECH90 on edges (#count)"</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of ECH90 on full regions</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="ch">\t</span><span class="sc">{</span>full_intersect<span class="sc">.</span>shape[<span class="dv">0</span>] <span class="op">/</span> ech90<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Proportion of ECH90 on edges (#bpairs)"</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of ECH90 on full regions</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="ch">\t</span><span class="sc">{</span>full_intersect[<span class="st">'length'</span>]<span class="sc">.</span><span class="bu">sum</span>() <span class="op">/</span> ech90[<span class="st">'length'</span>]<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the total length of ech90 regions</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Total length of:"</span>)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="ch">\t</span><span class="ss">ECH90:  </span><span class="sc">{</span>(ech90[<span class="st">'end'</span>] <span class="op">-</span> ech90[<span class="st">'start'</span>])<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> bp'</span>)</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="ch">\t</span><span class="ss">Edges: </span><span class="sc">{</span>(edge_df[<span class="st">"end"</span>] <span class="op">-</span> edge_df[<span class="st">"start"</span>])<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> bp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Proportion of ECH90 on edges (#count)
-    0.7894736842105263
-
-Proportion of ECH90 on edges (#bpairs)
-    0.5003662226092794
-
-Total length of:
-    ECH90:  5511675 bp
-    Edges: 27088924 bp</code></pre>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div id="cell-21" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plot_regions(ech90, edge_df, full_intersect)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> <span class="bu">list</span>(f.axes):</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax.get_ylabel() <span class="op">==</span> <span class="st">'ECH90'</span>:</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">#ax.set_ylabel('Edges', rotation=0, fontsize=10, labelpad=30)</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax.get_ylabel() <span class="kw">in</span> (<span class="st">"query"</span>, <span class="st">"A-Comp"</span>):</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(<span class="st">'Edges'</span>, rotation<span class="op">=</span><span class="dv">0</span>, fontsize<span class="op">=</span><span class="dv">10</span>, labelpad<span class="op">=</span><span class="dv">30</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax.get_ylabel() <span class="op">==</span> <span class="st">'Intersect'</span>:</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">#ax.set_ylabel('end_edge \nintersect', rotation=0, fontsize=10, labelpad=30)</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-14-output-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="06_rec_genomicintervals_files/figure-html/cell-14-output-1.svg" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
 <section id="do-testing-of-the-edges" class="level3">
 <h3 class="anchored" data-anchor-id="do-testing-of-the-edges">Do testing of the edges</h3>
-<div id="cell-23" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define what we are testing</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"""</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="st">Goal: To test whether ECH90 regions are enriched in compartment edges</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">Query: ECH90</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="st">Annotation: Start and end edges of compartments</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="st">Hypothesis: </span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">      ECH90 regions are enriched in compartment edges</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">Null hypothesis: </span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">      ECH90 regions are not enriched in compartment edges</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">Tests: </span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="st">* Proximity test: </span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="st">      tests whether the query regions are closer to </span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="st">      the annotation regions than expected by chance. </span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="st">      NB regions can not overlap, so we need to collapse the annotation regions</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="st">* Jaccard index: </span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="st">      tests the similarity between the query and annotation regions, </span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="st">      where a value of 1 indicates perfect overlap</span></span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-23" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define what we are testing</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"""</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="st">Goal: To test whether ECH90 regions are enriched in compartment edges</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="st">Query: ECH90</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="st">Annotation: Start and end edges of compartments</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="st">Hypothesis: </span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="st">      ECH90 regions are enriched in compartment edges</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="st">Null hypothesis: </span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="st">      ECH90 regions are not enriched in compartment edges</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">Tests: </span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="st">* Proximity test: </span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="st">      tests whether the query regions are closer to </span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="st">      the annotation regions than expected by chance. </span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="st">      NB regions can not overlap, so we need to collapse the annotation regions</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="st">* Jaccard index: </span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="st">      tests the similarity between the query and annotation regions, </span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="st">      where a value of 1 indicates perfect overlap</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Proximity test </span><span class="al">###</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> proximity_test, interval_collapse, interval_diff, interval_intersect</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the query and annotation</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> ech90</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>annot <span class="op">=</span> edge_df</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># display(interval_diff(query, annot), interval_diff(annot, query))</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the non-overlapping query regions</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>non_ovl_query_full <span class="op">=</span> interval_diff(query, annot)</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the proximity test</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>proximity_full <span class="op">=</span> proximity_test(non_ovl_query_full, annot, two_sided<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Proximity test results: query=ECH90, annotation=edge_df"</span>)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"non_ovl_query: the parts of ECH90 that do not overlap with edge_df"</span>)</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">statistic: </span><span class="sc">{</span>proximity_full<span class="sc">.</span>statistic<span class="sc">}</span><span class="ss">, </span><span class="ch">\n\t</span><span class="ss">p-value: </span><span class="sc">{</span>proximity_full<span class="sc">.</span>pvalue<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>query, annot <span class="op">=</span> annot, query</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the non-overlapping query regions</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>non_ovl_query_full <span class="op">=</span> interval_diff(query, annot)</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Proximity test results: query=edge_df, annotation=ECH90"</span>)</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"non_ovl_query: the parts of edge_df that do not overlap with ECH90"</span>)</span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>proximity_full <span class="op">=</span> proximity_test(non_ovl_query_full, annot, two_sided<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">statistic: </span><span class="sc">{</span>proximity_full<span class="sc">.</span>statistic<span class="sc">}</span><span class="ss">, </span><span class="ch">\n\t</span><span class="ss">p-value: </span><span class="sc">{</span>proximity_full<span class="sc">.</span>pvalue<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Proximity test results: query=ECH90, annotation=edge_df
-non_ovl_query: the parts of ECH90 that do not overlap with edge_df
-    statistic: 0.25764705882352973, 
-    p-value: 0.0315
-
-Proximity test results: query=edge_df, annotation=ECH90
-non_ovl_query: the parts of edge_df that do not overlap with ECH90
-    statistic: -0.1276631578947369, 
-    p-value: 0.0157</code></pre>
+<div id="cell-24" class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Proximity test </span><span class="al">###</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> proximity_test, interval_diff</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>proximity_file <span class="op">=</span> <span class="st">'../results/proximity_test_results.csv'</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(proximity_file):</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    proximity_res <span class="op">=</span> pd.DataFrame({})</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sample <span class="kw">in</span> samples:</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        query_comp <span class="op">=</span> ech90</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        query_edge <span class="op">=</span> ech90</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        annot_comp <span class="op">=</span> comps[sample]</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        annot_edge <span class="op">=</span> edges[sample]</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get non-overlapping query regions</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_comp <span class="op">=</span> interval_diff(query_comp, annot_comp)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_edge <span class="op">=</span> interval_diff(query_edge, annot_edge)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        proximity_comp <span class="op">=</span> proximity_test(non_ovl_query_comp, annot_comp, two_sided<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        proximity_edge <span class="op">=</span> proximity_test(non_ovl_query_edge, annot_edge, two_sided<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        proximity_res <span class="op">=</span> pd.concat([proximity_res, pd.DataFrame({</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Sample'</span>: sample,</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Query'</span>: <span class="st">'ECH90'</span>,</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp Statistic'</span>: proximity_comp.statistic,</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge Statistic'</span>: proximity_edge.statistic,</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp P-value'</span>: proximity_comp.pvalue,</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge P-value'</span>: proximity_edge.pvalue</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>        }, index<span class="op">=</span>[<span class="dv">0</span>])</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Swap query and annotation</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>        query_comp, annot_comp <span class="op">=</span> annot_comp, query_comp</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>        query_edge, annot_edge <span class="op">=</span> annot_edge, query_edge</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_comp <span class="op">=</span> interval_diff(query_comp, annot_comp)</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_edge <span class="op">=</span> interval_diff(query_edge, annot_edge)</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>        proximity_comp <span class="op">=</span> proximity_test(non_ovl_query_comp, annot_comp, two_sided<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        proximity_edge <span class="op">=</span> proximity_test(non_ovl_query_edge, annot_edge, two_sided<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>        proximity_res <span class="op">=</span> pd.concat([proximity_res, pd.DataFrame({</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Sample'</span>: sample,</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Query'</span>: <span class="st">'Edge'</span>,</span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp Statistic'</span>: proximity_comp.statistic,</span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge Statistic'</span>: proximity_edge.statistic,</span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp P-value'</span>: proximity_comp.pvalue,</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge P-value'</span>: proximity_edge.pvalue</span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>        }, index<span class="op">=</span>[<span class="dv">0</span>])</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>    proximity_res.to_csv(proximity_file, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>    proximity_res <span class="op">=</span> pd.read_csv(proximity_file)</span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a><span class="co">## For a single sample only ##</span></span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a><span class="co"># # Define the query and annotation</span></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a><span class="co"># query = ech90</span></span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a><span class="co"># annot = edge_df</span></span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a><span class="co"># # display(interval_diff(query, annot), interval_diff(annot, query))</span></span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a><span class="co"># # Calculate the non-overlapping query regions</span></span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_full = interval_diff(query, annot)</span></span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a><span class="co"># # Perform the proximity test</span></span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_full = proximity_test(non_ovl_query_full, annot, two_sided=True)</span></span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Proximity test results: query=ECH90, annotation=edge_df")</span></span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a><span class="co"># print("non_ovl_query: the parts of ECH90 that do not overlap with edge_df")</span></span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tstatistic: {proximity_full.statistic}, \n\tp-value: {proximity_full.pvalue}")</span></span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a><span class="co"># query, annot = annot, query</span></span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a><span class="co"># # Calculate the non-overlapping query regions</span></span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_full = interval_diff(query, annot)</span></span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nProximity test results: query=edge_df, annotation=ECH90")</span></span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a><span class="co"># print("non_ovl_query: the parts of edge_df that do not overlap with ECH90")</span></span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_full = proximity_test(non_ovl_query_full, annot, two_sided=True)</span></span>
+<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tstatistic: {proximity_full.statistic}, \n\tp-value: {proximity_full.pvalue}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-25" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Jaccard index </span><span class="al">###</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> jaccard_stat, bootstrap</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>jaccard_file <span class="op">=</span> <span class="st">'../results/jaccard_test_results.csv'</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(jaccard_file):</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@bootstrap</span>(chromsizes, samples<span class="op">=</span>b)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> jaccard_bootstrap(query, annot):</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> jaccard_stat(query, annot)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    jaccard_res <span class="op">=</span> pd.DataFrame({})</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sample <span class="kw">in</span> samples:</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        query_comp <span class="op">=</span> ech90</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        query_edge <span class="op">=</span> ech90</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        annot_comp <span class="op">=</span> comps[sample]</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        annot_edge <span class="op">=</span> edges[sample]</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        jaccard_comp <span class="op">=</span> jaccard_bootstrap(query_comp, annot_comp)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        jaccard_edge <span class="op">=</span> jaccard_bootstrap(query_edge, annot_edge)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        jaccard_res <span class="op">=</span> pd.concat([jaccard_res, pd.DataFrame({</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Sample'</span>: sample,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Query'</span>: <span class="st">'ECH90'</span>,</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp Index'</span>: jaccard_comp[<span class="dv">0</span>],</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge Index'</span>: jaccard_edge[<span class="dv">0</span>],</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp P-value'</span>: jaccard_comp[<span class="dv">1</span>],</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge P-value'</span>: jaccard_edge[<span class="dv">1</span>]</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>        }, index<span class="op">=</span>[<span class="dv">0</span>])</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>        query_comp, annot_comp <span class="op">=</span> annot_comp, query_comp</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>        query_edge, annot_edge <span class="op">=</span> annot_edge, query_edge</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>        jaccard_comp <span class="op">=</span> jaccard_bootstrap(query_comp, annot_comp)</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>        jaccard_edge <span class="op">=</span> jaccard_bootstrap(query_edge, annot_edge)</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>        jaccard_res <span class="op">=</span> pd.concat([jaccard_res, pd.DataFrame({</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Sample'</span>: sample,</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Query'</span>: <span class="st">'Edge'</span>,</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp Index'</span>: jaccard_comp[<span class="dv">0</span>],</span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge Index'</span>: jaccard_edge[<span class="dv">0</span>],</span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp P-value'</span>: jaccard_comp[<span class="dv">1</span>],</span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge P-value'</span>: jaccard_edge[<span class="dv">1</span>]</span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>        }, index<span class="op">=</span>[<span class="dv">0</span>])</span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Write</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>    jaccard_res.to_csv(jaccard_file, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Read</span></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>    jaccard_res <span class="op">=</span> pd.read_csv(jaccard_file)</span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="co">## For a single sample only ##</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="co"># # Calculate the Jaccard index</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="co"># query = ech90</span></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a><span class="co"># annot = edge_df</span></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="co"># jaccard_stat_full, p_value_full = jaccard_bootstrap(query,annot)</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nJaccard results: query=ECH90, annotation=edge_df")</span></span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"ECH90 is bootstrapped n={b}")</span></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tIndex: {jaccard_stat_full}, \n\tp-value: {p_value_full}")</span></span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a><span class="co"># query, annot = annot, query</span></span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a><span class="co"># jaccard_stat_full, p_value_full = jaccard_bootstrap(query,annot)</span></span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nJaccard results: query=edge_df, annotation=ECH90")</span></span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"Edge_df is bootstrapped n={b}")</span></span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tIndex: {jaccard_stat_full}, \n\tp-value: {p_value_full}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="plot-some-summary-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="plot-some-summary-statistics">Plot some summary statistics</h2>
+<div id="cell-27" class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split sample column:</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>proximity_res <span class="op">=</span> pd.read_csv(proximity_file)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>proximity_res[[<span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>]] <span class="op">=</span> proximity_res[<span class="st">'Sample'</span>].<span class="bu">str</span>.extract(<span class="vs">r'^(.*?)_(100kb|500kb)_(full|arms|10Mb)(?:_(smoothed))?$'</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>proximity_res[<span class="st">'smoothed'</span>] <span class="op">=</span> proximity_res[<span class="st">'smoothed'</span>].notna()</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>proximity_res <span class="op">=</span> proximity_res.melt(</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">'Sample'</span>, <span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>, <span class="st">'Query'</span>],</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">'Comp P-value'</span>, <span class="st">'Edge P-value'</span>], </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>     var_name<span class="op">=</span><span class="st">'type'</span>, value_name<span class="op">=</span><span class="st">'p-value'</span>,)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-28" class="cell" data-execution_count="86">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # Group the results by source and resolution</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># group = ["fibroblast", 'round_spermatid']</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plot the results from @group</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_group = proximity_res.query(f'source in @group')</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    proximity_res, kind<span class="op">=</span><span class="st">'bar'</span>, row<span class="op">=</span><span class="st">'source'</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'view'</span>, y<span class="op">=</span><span class="st">'p-value'</span>, hue<span class="op">=</span><span class="st">'type'</span>, col<span class="op">=</span><span class="st">'resolution'</span>, </span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    errorbar<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>g.despine(left<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>g.set_axis_labels(<span class="st">""</span>, <span class="st">"P-value"</span>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>g.legend.set_title(<span class="st">''</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> axis <span class="kw">in</span> g.axes.flat:</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    axis.tick_params(labelbottom<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-19-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="06_rec_genomicintervals_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Jaccard index </span><span class="al">###</span></span>
+</div>
+<div id="cell-29" class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now do the same for the Jaccard index</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> jaccard_stat, bootstrap</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>jaccard_res <span class="op">=</span> pd.read_csv(jaccard_file)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># # Calculate the Jaccard index</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># jaccard_start = jaccard_stat(query, annot_start)</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># jaccard_end = jaccard_stat(query, annot_end)</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># jaccard_concat = jaccard_stat(query, annot_concat)</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nJaccard index results")</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"Start edge: {jaccard_start}")</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"End edge: {jaccard_end}")</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"Concat edge: {jaccard_concat}")</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with bootstrap decorator</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="at">@bootstrap</span>(chromsizes, samples<span class="op">=</span>samples)</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jaccard_bootstrap(query, annot):</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jaccard_stat(query, annot)</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the Jaccard index</span></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> ech90</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>annot <span class="op">=</span> edge_df</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>jaccard_stat_full, p_value_full <span class="op">=</span> jaccard_bootstrap(query,annot)</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Jaccard results: query=ECH90, annotation=edge_df"</span>)</span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ECH90 is bootstrapped n=</span><span class="sc">{</span>samples<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">Index: </span><span class="sc">{</span>jaccard_stat_full<span class="sc">}</span><span class="ss">, </span><span class="ch">\n\t</span><span class="ss">p-value: </span><span class="sc">{</span>p_value_full<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>query, annot <span class="op">=</span> annot, query</span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>jaccard_stat_full, p_value_full <span class="op">=</span> jaccard_bootstrap(query,annot)</span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Jaccard results: query=edge_df, annotation=ECH90"</span>)</span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Edge_df is bootstrapped n=</span><span class="sc">{</span>samples<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\t</span><span class="ss">Index: </span><span class="sc">{</span>jaccard_stat_full<span class="sc">}</span><span class="ss">, </span><span class="ch">\n\t</span><span class="ss">p-value: </span><span class="sc">{</span>p_value_full<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Jaccard results: query=ECH90, annotation=edge_df
-ECH90 is bootstrapped n=10000
-    Index: 0.06291087597375193, 
-    p-value: 0.0071
-
-Jaccard results: query=edge_df, annotation=ECH90
-Edge_df is bootstrapped n=10000
-    Index: 0.06291087597375193, 
-    p-value: 0.0086</code></pre>
-</div>
-</div>
-</section>
-<section id="check-the-length-of-the-intervals" class="level3">
-<h3 class="anchored" data-anchor-id="check-the-length-of-the-intervals">Check the length of the intervals</h3>
-<div id="cell-27" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot histogram of the lengths of the A compartments from the full regions</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>full_df[<span class="st">'length'</span>] <span class="op">=</span> full_df[<span class="st">'end'</span>] <span class="op">-</span> full_df[<span class="st">'start'</span>]</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>full_df[<span class="st">'length'</span>].mean()</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>full_df[<span class="st">'length'</span>].hist(bins<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>(ech90[<span class="st">'end'</span>]<span class="op">-</span>ech90[<span class="st">'start'</span>]).hist(bins<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>jaccard_res[[<span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>]] <span class="op">=</span> jaccard_res[<span class="st">'Sample'</span>].<span class="bu">str</span>.extract(<span class="vs">r'^(.*?)_(100kb|500kb)_(full|arms|10Mb)(?:_(smoothed))?$'</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>jaccard_res[<span class="st">'smoothed'</span>] <span class="op">=</span> jaccard_res[<span class="st">'smoothed'</span>].notna()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>jaccard_res <span class="op">=</span> jaccard_res.melt(</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">'Sample'</span>, <span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>, <span class="st">'Query'</span>],</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">'Comp P-value'</span>, <span class="st">'Edge P-value'</span>], </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>     var_name<span class="op">=</span><span class="st">'type'</span>, value_name<span class="op">=</span><span class="st">'p-value'</span>,)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># # Group the results by source and resolution</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co"># group = ["fibroblast", 'round_spermatid']</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plot the results from @group</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_group = jaccard_res.query(f'source in @group')</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    jaccard_res, kind<span class="op">=</span><span class="st">'bar'</span>, row<span class="op">=</span><span class="st">'source'</span>,</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'view'</span>, y<span class="op">=</span><span class="st">'p-value'</span>, hue<span class="op">=</span><span class="st">'type'</span>, col<span class="op">=</span><span class="st">'resolution'</span>, </span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    errorbar<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>g.despine(left<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>g.set_axis_labels(<span class="st">""</span>, <span class="st">"P-value"</span>)</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>g.legend.set_title(<span class="st">''</span>)</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> axis <span class="kw">in</span> g.axes.flat:</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    axis.tick_params(labelbottom<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-18-output-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="06_rec_genomicintervals_files/figure-html/cell-18-output-1.svg" class="img-fluid figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-20-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="06_rec_genomicintervals_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-18-output-2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="06_rec_genomicintervals_files/figure-html/cell-18-output-2.svg" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="bioframe-genomic-intervals-support" class="level2">
-<h2 class="anchored" data-anchor-id="bioframe-genomic-intervals-support">Bioframe genomic intervals support</h2>
-<div id="cell-29" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bioframe </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="geneinfo" class="level2">
@@ -1079,26 +1676,26 @@ Edge_df is bootstrapped n=10000
 <p>How does the edges align with genes?</p>
 <p>This first plot is just to figure out how to plot with <code>gene_plot</code>.</p>
 <div id="cell-32" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.collections <span class="im">import</span> PatchCollection</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the proximity test results to plot the ECH90 regions and the compartment edges</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> full_intersect[<span class="st">'start'</span>][<span class="dv">2</span>]</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> full_intersect[<span class="st">'end'</span>][<span class="dv">5</span>]</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>rectangles <span class="op">=</span> [Rectangle((start, <span class="fl">0.1</span>), width<span class="op">=</span>end<span class="op">-</span>start, height<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">'tab:green'</span>, linewidth<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(full_intersect[<span class="st">'start'</span>][<span class="dv">2</span>:<span class="dv">6</span>], full_intersect[<span class="st">'end'</span>][<span class="dv">2</span>:<span class="dv">6</span>])]</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>pc <span class="op">=</span> PatchCollection(rectangles, match_original<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> gi.gene_plot(<span class="st">'chrX'</span>, start<span class="op">-</span><span class="dv">100_000</span>, end<span class="op">+</span><span class="dv">100_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>)</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>ax.add_collection(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.collections <span class="im">import</span> PatchCollection</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the proximity test results to plot the ECH90 regions and the compartment edges</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> full_intersect[<span class="st">'start'</span>][<span class="dv">2</span>]</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> full_intersect[<span class="st">'end'</span>][<span class="dv">5</span>]</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>rectangles <span class="op">=</span> [Rectangle((start, <span class="fl">0.1</span>), width<span class="op">=</span>end<span class="op">-</span>start, height<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">'tab:green'</span>, linewidth<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(full_intersect[<span class="st">'start'</span>][<span class="dv">2</span>:<span class="dv">6</span>], full_intersect[<span class="st">'end'</span>][<span class="dv">2</span>:<span class="dv">6</span>])]</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>pc <span class="op">=</span> PatchCollection(rectangles, match_original<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> gi.gene_plot(<span class="st">'chrX'</span>, start<span class="op">-</span><span class="dv">100_000</span>, end<span class="op">+</span><span class="dv">100_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>ax.add_collection(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-20-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="06_rec_genomicintervals_files/figure-html/cell-20-output-1.png" width="547" height="436" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-21-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="06_rec_genomicintervals_files/figure-html/cell-21-output-1.png" width="547" height="436" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1107,33 +1704,33 @@ Edge_df is bootstrapped n=10000
 <h4 class="anchored" data-anchor-id="get-the-geneinfo-for-all-intersections-between-edges-and-ech90">Get the geneinfo for all intersections between edges and ECH90</h4>
 <p>And write to a csv file. If the file exists, read it with pandas.</p>
 <div id="cell-34" class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use get_genes_region</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os <span class="im">import</span> makedirs <span class="im">as</span> mkdir</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>genes_dir <span class="op">=</span> <span class="st">'../results/rec_edge_genes/'</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(genes_dir):</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    mkdir(genes_dir)</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>genes_file <span class="op">=</span> op.join(genes_dir,<span class="st">'rs_edges_100kb_genes.csv'</span>)</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(genes_file):</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    genes <span class="op">=</span> pd.concat(</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>        full_intersect.<span class="bu">apply</span>(</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">lambda</span> x: gi.get_genes_region_dataframe(<span class="st">'chrX'</span>, x[<span class="st">'start'</span>], x[<span class="st">'end'</span>], assembly<span class="op">=</span><span class="st">'rheMac10'</span>), </span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>            axis <span class="op">=</span><span class="dv">1</span></span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>            ).to_list(),</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>        ignore_index<span class="op">=</span><span class="va">True</span></span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    genes.to_csv(genes_file, index<span class="op">=</span><span class="va">False</span>) </span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    genes <span class="op">=</span> pd.read_csv(genes_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use get_genes_region</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os <span class="im">import</span> makedirs <span class="im">as</span> mkdir</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>genes_dir <span class="op">=</span> <span class="st">'../results/rec_edge_genes/'</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(genes_dir):</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    mkdir(genes_dir)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>genes_file <span class="op">=</span> op.join(genes_dir,<span class="st">'rs_edges_100kb_genes.csv'</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(genes_file):</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    genes <span class="op">=</span> pd.concat(</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        full_intersect.<span class="bu">apply</span>(</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">lambda</span> x: gi.get_genes_region_dataframe(<span class="st">'chrX'</span>, x[<span class="st">'start'</span>], x[<span class="st">'end'</span>], assembly<span class="op">=</span><span class="st">'rheMac10'</span>), </span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>            axis <span class="op">=</span><span class="dv">1</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>            ).to_list(),</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>        ignore_index<span class="op">=</span><span class="va">True</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    genes.to_csv(genes_file, index<span class="op">=</span><span class="va">False</span>) </span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    genes <span class="op">=</span> pd.read_csv(genes_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-35" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>genes_list <span class="op">=</span> genes[<span class="st">'name'</span>].unique().tolist()</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>genes_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>genes_list <span class="op">=</span> genes[<span class="st">'name'</span>].unique().tolist()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>genes_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>['SH3KBP1',
  'MIR7206',
@@ -1190,134 +1787,134 @@ Edge_df is bootstrapped n=10000
 </div>
 </div>
 <div id="cell-36" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.collections <span class="im">import</span> PatchCollection</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the proximity test results to plot the ECH90 regions and the compartment edges</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> full_intersect.index:</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    start_idx <span class="op">=</span> i</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    end_idx <span class="op">=</span> i</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> full_intersect[<span class="st">'start'</span>][start_idx]</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    end <span class="op">=</span> full_intersect[<span class="st">'end'</span>][end_idx]</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    rectangles <span class="op">=</span> [Rectangle(</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>        (start, <span class="fl">0.1</span>), width<span class="op">=</span>end<span class="op">-</span>start, height<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">'tab:green'</span>, linewidth<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(full_intersect[<span class="st">'start'</span>][start_idx:end_idx<span class="op">+</span><span class="dv">1</span>], full_intersect[<span class="st">'end'</span>][start_idx:end_idx<span class="op">+</span><span class="dv">1</span>])]</span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    pc <span class="op">=</span> PatchCollection(rectangles, match_original<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> gi.gene_plot(<span class="st">'chrX'</span>, start<span class="op">-</span><span class="dv">100_000</span>, end<span class="op">+</span><span class="dv">100_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>, </span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>                    highlight<span class="op">=</span>genes_list,</span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>                    despine<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>                    figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>),</span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>                    aspect<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>                    )</span>
-<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>    ax.add_collection(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.collections <span class="im">import</span> PatchCollection</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the proximity test results to plot the ECH90 regions and the compartment edges</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> full_intersect.index:</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    start_idx <span class="op">=</span> i</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    end_idx <span class="op">=</span> i</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> full_intersect[<span class="st">'start'</span>][start_idx]</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    end <span class="op">=</span> full_intersect[<span class="st">'end'</span>][end_idx]</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    rectangles <span class="op">=</span> [Rectangle(</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>        (start, <span class="fl">0.1</span>), width<span class="op">=</span>end<span class="op">-</span>start, height<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">'tab:green'</span>, linewidth<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(full_intersect[<span class="st">'start'</span>][start_idx:end_idx<span class="op">+</span><span class="dv">1</span>], full_intersect[<span class="st">'end'</span>][start_idx:end_idx<span class="op">+</span><span class="dv">1</span>])]</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    pc <span class="op">=</span> PatchCollection(rectangles, match_original<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> gi.gene_plot(<span class="st">'chrX'</span>, start<span class="op">-</span><span class="dv">100_000</span>, end<span class="op">+</span><span class="dv">100_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>, </span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>                    highlight<span class="op">=</span>genes_list,</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>                    despine<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>                    figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>),</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>                    aspect<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>    ax.add_collection(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-1.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-1.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-2.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-2.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-3.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-3.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-4.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-4.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-5.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-5.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-6.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-6.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-7.png" width="459" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-7.png" width="459" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-8.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-8.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-9.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-9.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-10.png" width="463" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-10.png" width="463" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-11.png" width="445" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-11.png" width="445" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-12.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-12.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-13.png" width="463" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-13.png" width="463" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-14.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-14.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-23-output-15.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="06_rec_genomicintervals_files/figure-html/cell-23-output-15.png" width="442" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-24-output-15.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="06_rec_genomicintervals_files/figure-html/cell-24-output-15.png" width="442" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1328,34 +1925,34 @@ Edge_df is bootstrapped n=10000
 <section id="go-enrichment" class="level4">
 <h4 class="anchored" data-anchor-id="go-enrichment">GO enrichment?</h4>
 <div id="cell-39" class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>mmul_x_genes <span class="op">=</span> gi.get_genes_region_dataframe(<span class="st">'chrX'</span>, <span class="dv">0</span>, <span class="dv">155_000_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mmul_x_genes <span class="op">=</span> gi.get_genes_region_dataframe(<span class="st">'chrX'</span>, <span class="dv">0</span>, <span class="dv">155_000_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-40" class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mmul_x_genelist <span class="op">=</span> mmul_x_genes[<span class="st">'name'</span>].unique().tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mmul_x_genelist <span class="op">=</span> mmul_x_genes[<span class="st">'name'</span>].unique().tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-41" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>gene_list <span class="op">=</span> genes[<span class="st">'name'</span>].unique().tolist()</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>taxid <span class="op">=</span> <span class="dv">9544</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>gi.email(<span class="st">'sojernj@gmail.com'</span>)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#gi.go_annotation_table(taxid=taxid)</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#gi.show_go_evidence_codes()</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>go_terms <span class="op">=</span> gi.get_go_terms_for_genes(gene_list, taxid<span class="op">=</span>taxid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>gene_list <span class="op">=</span> genes[<span class="st">'name'</span>].unique().tolist()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>taxid <span class="op">=</span> <span class="dv">9544</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>gi.email(<span class="st">'sojernj@gmail.com'</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">#gi.go_annotation_table(taxid=taxid)</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">#gi.show_go_evidence_codes()</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>go_terms <span class="op">=</span> gi.get_go_terms_for_genes(gene_list, taxid<span class="op">=</span>taxid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-42" class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(go_terms)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#gene_list[:5]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(go_terms)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#gene_list[:5]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="53">
 <pre><code>127</code></pre>
 </div>
 </div>
 <div id="cell-43" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> gi.go_enrichment(</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use human taxid as a start</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    gene_list, </span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.05</span>,</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    terms<span class="op">=</span>go_terms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> gi.go_enrichment(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use human taxid as a start</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    gene_list, </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    terms<span class="op">=</span>go_terms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>geneinfo_cache/go-basic.obo: fmt(1.2) rel(2024-10-27) 44,017 Terms; optional_attrs(def relationship)</code></pre>
 </div>
