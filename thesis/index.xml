@@ -195,8 +195,8 @@ and evolutionary dynamics across primate species.</p>
   <italic>gwf</italic> workflow, and the commands that were visually
   inspected were run in Jupyter Notebooks.</p>
   <p><bold>B</bold> Compare with regions of selection that are found in
-  <italic>papio anubis</italic>, and maybe in <italic>human</italic>
-  too. Investigate the biological meaning of the results.</p>
+  <italic>human</italic>. Investigate the biological meaning of the
+  results.</p>
   <p>All computations were performed on GenomeDK (GDK) [ref], an HPC
   cluster located on Aarhus Uninversity, and most of the processing of
   the data was nested into a <italic>gwf</italic> workflow [ref], a
@@ -450,62 +450,67 @@ and evolutionary dynamics across primate species.</p>
               <thead>
                 <tr>
                   <th align="right">Index</th>
-                  <th>Name</th>
-                  <th>Description</th>
+                  <th align="left">Name</th>
+                  <th align="left">Description</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td align="right">1</td>
-                  <td>read_id</td>
-                  <td>the ID of the read as defined in fastq files</td>
+                  <td align="left">read_id</td>
+                  <td align="left">the ID of the read as defined in
+                  fastq files</td>
                 </tr>
                 <tr>
                   <td align="right">2</td>
-                  <td>chrom1</td>
-                  <td>the chromosome of the alignment on side 1</td>
+                  <td align="left">chrom1</td>
+                  <td align="left">the chromosome of the alignment on
+                  side 1</td>
                 </tr>
                 <tr>
                   <td align="right">3</td>
-                  <td>pos1</td>
-                  <td>the 1-based genomic position of the outer-most
-                  (5’) mapped bp on side 1</td>
+                  <td align="left">pos1</td>
+                  <td align="left">the 1-based genomic position of the
+                  outer-most (5’) mapped bp on side 1</td>
                 </tr>
                 <tr>
                   <td align="right">4</td>
-                  <td>chrom2</td>
-                  <td>the chromosome of the alignment on side 2</td>
+                  <td align="left">chrom2</td>
+                  <td align="left">the chromosome of the alignment on
+                  side 2</td>
                 </tr>
                 <tr>
                   <td align="right">5</td>
-                  <td>pos2</td>
-                  <td>the 1-based genomic position of the outer-most
-                  (5’) mapped bp on side 2</td>
+                  <td align="left">pos2</td>
+                  <td align="left">the 1-based genomic position of the
+                  outer-most (5’) mapped bp on side 2</td>
                 </tr>
                 <tr>
                   <td align="right">6</td>
-                  <td>strand1</td>
-                  <td>the strand of the alignment on side 1</td>
+                  <td align="left">strand1</td>
+                  <td align="left">the strand of the alignment on side
+                  1</td>
                 </tr>
                 <tr>
                   <td align="right">7</td>
-                  <td>strand2</td>
-                  <td>the strand of the alignment on side 2</td>
+                  <td align="left">strand2</td>
+                  <td align="left">the strand of the alignment on side
+                  2</td>
                 </tr>
                 <tr>
                   <td align="right">8</td>
-                  <td>pair_type</td>
-                  <td>the type of a Hi-C pair</td>
+                  <td align="left">pair_type</td>
+                  <td align="left">the type of a Hi-C pair</td>
                 </tr>
                 <tr>
                   <td align="right">9</td>
-                  <td>mapq1</td>
-                  <td>mapq of the first mate</td>
+                  <td align="left">mapq1</td>
+                  <td align="left">mapq of the first mate</td>
                 </tr>
                 <tr>
                   <td align="right">10</td>
-                  <td>mapq2</td>
-                  <td>mapq of the second mate</td>
+                  <td align="left">mapq2</td>
+                  <td align="left">mapq of the second mate</td>
                 </tr>
               </tbody>
             </table>
@@ -542,8 +547,8 @@ and evolutionary dynamics across primate species.</p>
         <p><monospace>cooler</monospace> recommend to store the most
         comprehensive and unfilteres list of pairs, and then applying a
         filter on it on the fly by piping from
-        <monospace>pairtools select</monospace> I have missed this step,
-        so I have not filtered for mapping quality. I will make a
+        <monospace>pairtools select</monospace>. I have missed this
+        step, so I have not filtered for mapping quality. I will make a
         histogram showing the distribution of mapq scores to see the
         significance of this.</p>
       </sec>
@@ -682,20 +687,30 @@ and evolutionary dynamics across primate species.</p>
         chromosome-arm-partitioned view of the chromosome (as a bedlike
         format, described in <monospace>bioframe</monospace> docs
         [ref]).</p>
+        <p>Additionally, to mimic the <italic>Local PCA</italic> from
+        (<xref alt="Wang et al. 2019" rid="ref-wang_reprogramming_2019" ref-type="bibr">Wang
+        et al. 2019</xref>), I also defined a view of 10 Mb bins.</p>
       </sec>
       <sec id="plotting">
         <title>Plotting</title>
-        <p>We use matplotlib to plot.</p>
-        <p>Needs:</p>
-        <list list-type="bullet">
-          <list-item>
-            <p>☐ HiCExplorer: plot with CLI, writes to pngs</p>
-          </list-item>
-          <list-item>
-            <p>☐ cooler: plot through python API (fetch matrix from
-            cooler)</p>
-          </list-item>
-        </list>
+        <p><italic>HiCExplorer</italic> plots matrices to .png from the
+        command-line.</p>
+        <p>We use matplotlib and seaborn to plot in the
+        <italic>Open2C</italic> framework. Utilizing the
+        <monospace>cooler</monospace> class, we can fetch regions of the
+        matrix without modifying the file. As my analysis is centered
+        around the X chromosome, it is efficiently handled by simply
+        fetching ‘chrX’ with
+        <monospace>cooler.Cooler.matrix().fetch('chrX')</monospace>.</p>
+        <p>Many methods of the cooler class returns data selectors,
+        which do not retrieve data before it is queried [ref]. This
+        means we can create many selectors at once without overflowing
+        memory, enabling us to plot multiple interaction matrices in the
+        same plot, e.g. the corrected and un-corrected matrices. This is
+        easily done with the <monospace>balance</monospace> parameter of
+        the matrix selector (<monospace>.matrix()</monospace>), which
+        determines if it should apply the balancing weights to the
+        coordinates and defaults to <monospace>True</monospace>.</p>
         <p></p>
       </sec>
     </sec>
@@ -703,8 +718,10 @@ and evolutionary dynamics across primate species.</p>
 </sec>
 <sec id="results">
   <title>Results</title>
-  <p>Here are the glorious results</p>
-  <p></p>
+  <sec id="exploration-with-hicexplorer">
+    <title>Exploration with HicExplorer</title>
+    <p></p>
+  </sec>
 </sec>
 <sec id="discussion">
   <title>Discussion</title>

@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-59fe4c8ee856969d570cdc1b25e54551.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6a801e7181b8b24ef9cb8ae289dd8d09.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -1430,92 +1430,93 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="st">      where a value of 1 indicates perfect overlap</span></span>
 <span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="70">
+<div id="cell-24" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Proximity test </span><span class="al">###</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> proximity_test, interval_diff</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>proximity_file <span class="op">=</span> <span class="st">'../results/proximity_test_results.csv'</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(proximity_file):</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    proximity_res <span class="op">=</span> pd.DataFrame({})</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sample <span class="kw">in</span> samples:</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        query_comp <span class="op">=</span> ech90</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        query_edge <span class="op">=</span> ech90</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        annot_comp <span class="op">=</span> comps[sample]</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        annot_edge <span class="op">=</span> edges[sample]</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get non-overlapping query regions</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_comp <span class="op">=</span> interval_diff(query_comp, annot_comp)</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_edge <span class="op">=</span> interval_diff(query_edge, annot_edge)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        proximity_comp <span class="op">=</span> proximity_test(non_ovl_query_comp, annot_comp, two_sided<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        proximity_edge <span class="op">=</span> proximity_test(non_ovl_query_edge, annot_edge, two_sided<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        proximity_res <span class="op">=</span> pd.concat([proximity_res, pd.DataFrame({</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Sample'</span>: sample,</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Query'</span>: <span class="st">'ECH90'</span>,</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp Statistic'</span>: proximity_comp.statistic,</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge Statistic'</span>: proximity_edge.statistic,</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp P-value'</span>: proximity_comp.pvalue,</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge P-value'</span>: proximity_edge.pvalue</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>        }, index<span class="op">=</span>[<span class="dv">0</span>])</span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>        ])</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Swap query and annotation</span></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>        query_comp, annot_comp <span class="op">=</span> annot_comp, query_comp</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>        query_edge, annot_edge <span class="op">=</span> annot_edge, query_edge</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_comp <span class="op">=</span> interval_diff(query_comp, annot_comp)</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_edge <span class="op">=</span> interval_diff(query_edge, annot_edge)</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>        proximity_comp <span class="op">=</span> proximity_test(non_ovl_query_comp, annot_comp, two_sided<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        proximity_edge <span class="op">=</span> proximity_test(non_ovl_query_edge, annot_edge, two_sided<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>        proximity_res <span class="op">=</span> pd.concat([proximity_res, pd.DataFrame({</span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Sample'</span>: sample,</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Query'</span>: <span class="st">'Edge'</span>,</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp Statistic'</span>: proximity_comp.statistic,</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge Statistic'</span>: proximity_edge.statistic,</span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp P-value'</span>: proximity_comp.pvalue,</span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge P-value'</span>: proximity_edge.pvalue</span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>        }, index<span class="op">=</span>[<span class="dv">0</span>])</span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>        ])</span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>    proximity_res.to_csv(proximity_file, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>    proximity_res <span class="op">=</span> pd.read_csv(proximity_file)</span>
-<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a><span class="co">## For a single sample only ##</span></span>
-<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a><span class="co"># # Define the query and annotation</span></span>
-<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a><span class="co"># query = ech90</span></span>
-<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a><span class="co"># annot = edge_df</span></span>
-<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a><span class="co"># # display(interval_diff(query, annot), interval_diff(annot, query))</span></span>
-<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a><span class="co"># # Calculate the non-overlapping query regions</span></span>
-<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_full = interval_diff(query, annot)</span></span>
-<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> proximity_test, interval_diff</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>proximity_file <span class="op">=</span> <span class="st">'../results/proximity_test_results.csv'</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(proximity_file):</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    proximity_res <span class="op">=</span> pd.DataFrame({})</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sample <span class="kw">in</span> samples:</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        query_comp <span class="op">=</span> ech90</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        query_edge <span class="op">=</span> ech90</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        annot_comp <span class="op">=</span> comps[sample]</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        annot_edge <span class="op">=</span> edges[sample]</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get non-overlapping query regions</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_comp <span class="op">=</span> interval_diff(query_comp, annot_comp)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_edge <span class="op">=</span> interval_diff(query_edge, annot_edge)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        proximity_comp <span class="op">=</span> proximity_test(non_ovl_query_comp, annot_comp, two_sided<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        proximity_edge <span class="op">=</span> proximity_test(non_ovl_query_edge, annot_edge, two_sided<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>        proximity_res <span class="op">=</span> pd.concat([proximity_res, pd.DataFrame({</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Sample'</span>: sample,</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Query'</span>: <span class="st">'ECH90'</span>,</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp Statistic'</span>: proximity_comp.statistic,</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge Statistic'</span>: proximity_edge.statistic,</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp P-value'</span>: proximity_comp.pvalue,</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge P-value'</span>: proximity_edge.pvalue</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>        }, index<span class="op">=</span>[<span class="dv">0</span>])</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Swap query and annotation</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>        query_comp, annot_comp <span class="op">=</span> annot_comp, query_comp</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>        query_edge, annot_edge <span class="op">=</span> annot_edge, query_edge</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_comp <span class="op">=</span> interval_diff(query_comp, annot_comp)</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>        non_ovl_query_edge <span class="op">=</span> interval_diff(query_edge, annot_edge)</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        proximity_comp <span class="op">=</span> proximity_test(non_ovl_query_comp, annot_comp, two_sided<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>        proximity_edge <span class="op">=</span> proximity_test(non_ovl_query_edge, annot_edge, two_sided<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>        proximity_res <span class="op">=</span> pd.concat([proximity_res, pd.DataFrame({</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Sample'</span>: sample,</span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Query'</span>: <span class="st">'Edge'</span>,</span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp Statistic'</span>: proximity_comp.statistic,</span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge Statistic'</span>: proximity_edge.statistic,</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Comp P-value'</span>: proximity_comp.pvalue,</span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Edge P-value'</span>: proximity_edge.pvalue</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>        }, index<span class="op">=</span>[<span class="dv">0</span>])</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>    proximity_res.to_csv(proximity_file, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>    proximity_res <span class="op">=</span> pd.read_csv(proximity_file)</span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a><span class="co">## For a single sample only ##</span></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a><span class="co"># # Define the query and annotation</span></span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a><span class="co"># query = ech90</span></span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a><span class="co"># annot = edge_df</span></span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a><span class="co"># # display(interval_diff(query, annot), interval_diff(annot, query))</span></span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a><span class="co"># # Calculate the non-overlapping query regions</span></span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_full = interval_diff(query, annot)</span></span>
 <span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a><span class="co"># # Perform the proximity test</span></span>
-<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_full = proximity_test(non_ovl_query_full, annot, two_sided=True)</span></span>
-<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a><span class="co"># # Perform the proximity test</span></span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_full = proximity_test(non_ovl_query_full, annot, two_sided=True)</span></span>
 <span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Proximity test results: query=ECH90, annotation=edge_df")</span></span>
-<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a><span class="co"># print("non_ovl_query: the parts of ECH90 that do not overlap with edge_df")</span></span>
-<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tstatistic: {proximity_full.statistic}, \n\tp-value: {proximity_full.pvalue}")</span></span>
-<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a><span class="co"># query, annot = annot, query</span></span>
-<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a><span class="co"># # Calculate the non-overlapping query regions</span></span>
-<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_full = interval_diff(query, annot)</span></span>
-<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Proximity test results: query=ECH90, annotation=edge_df")</span></span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a><span class="co"># print("non_ovl_query: the parts of ECH90 that do not overlap with edge_df")</span></span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tstatistic: {proximity_full.statistic}, \n\tp-value: {proximity_full.pvalue}")</span></span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a><span class="co"># query, annot = annot, query</span></span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a><span class="co"># # Calculate the non-overlapping query regions</span></span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_full = interval_diff(query, annot)</span></span>
 <span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nProximity test results: query=edge_df, annotation=ECH90")</span></span>
-<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a><span class="co"># print("non_ovl_query: the parts of edge_df that do not overlap with ECH90")</span></span>
-<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_full = proximity_test(non_ovl_query_full, annot, two_sided=True)</span></span>
-<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tstatistic: {proximity_full.statistic}, \n\tp-value: {proximity_full.pvalue}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nProximity test results: query=edge_df, annotation=ECH90")</span></span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a><span class="co"># print("non_ovl_query: the parts of edge_df that do not overlap with ECH90")</span></span>
+<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_full = proximity_test(non_ovl_query_full, annot, two_sided=True)</span></span>
+<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tstatistic: {proximity_full.statistic}, \n\tp-value: {proximity_full.pvalue}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="12">
+<div id="cell-25" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Jaccard index </span><span class="al">###</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> jaccard_stat, bootstrap</span>
@@ -1593,18 +1594,20 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </section>
 <section id="plot-some-summary-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="plot-some-summary-statistics">Plot some summary statistics</h2>
-<div id="cell-27" class="cell" data-execution_count="71">
+<div id="cell-27" class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split sample column:</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>proximity_res <span class="op">=</span> pd.read_csv(proximity_file)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>proximity_res[[<span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>]] <span class="op">=</span> proximity_res[<span class="st">'Sample'</span>].<span class="bu">str</span>.extract(<span class="vs">r'^(.*?)_(100kb|500kb)_(full|arms|10Mb)(?:_(smoothed))?$'</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>proximity_res[<span class="st">'smoothed'</span>] <span class="op">=</span> proximity_res[<span class="st">'smoothed'</span>].notna()</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>proximity_res <span class="op">=</span> proximity_res.melt(</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">'Sample'</span>, <span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>, <span class="st">'Query'</span>],</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">'Comp P-value'</span>, <span class="st">'Edge P-value'</span>], </span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>     var_name<span class="op">=</span><span class="st">'type'</span>, value_name<span class="op">=</span><span class="st">'p-value'</span>,)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>proximity_res[<span class="st">'source'</span>] <span class="op">=</span> proximity_res[<span class="st">'source'</span>].<span class="bu">map</span>({<span class="st">'fibroblast'</span>:<span class="st">'Fib'</span>, <span class="st">'spermatogonia'</span>: <span class="st">'SP'</span>, <span class="st">'pachytene_spermatocyte'</span>: <span class="st">'PAC'</span>, <span class="st">'round_spermatid'</span>: <span class="st">'RS'</span>, <span class="st">'sperm'</span>: <span class="st">'Sperm'</span>})</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>proximity_res[<span class="st">'smoothed'</span>] <span class="op">=</span> proximity_res[<span class="st">'smoothed'</span>].notna()</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>proximity_res[<span class="st">'resolution'</span>] <span class="op">=</span> proximity_res.<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'ps500kb'</span> <span class="cf">if</span> x[<span class="st">'smoothed'</span>] <span class="cf">else</span> x[<span class="st">'resolution'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>proximity_res <span class="op">=</span> proximity_res.melt(</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">'Sample'</span>, <span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'Query'</span>],</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">'Comp P-value'</span>, <span class="st">'Edge P-value'</span>], </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>     var_name<span class="op">=</span><span class="st">'type'</span>, value_name<span class="op">=</span><span class="st">'p-value'</span>,).query(<span class="st">'Query == "ECH90"'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="86">
+<div id="cell-28" class="cell" data-execution_count="54">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1613,19 +1616,30 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plot the results from @group</span></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_group = proximity_res.query(f'source in @group')</span></span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    proximity_res, kind<span class="op">=</span><span class="st">'bar'</span>, row<span class="op">=</span><span class="st">'source'</span>,</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'view'</span>, y<span class="op">=</span><span class="st">'p-value'</span>, hue<span class="op">=</span><span class="st">'type'</span>, col<span class="op">=</span><span class="st">'resolution'</span>, </span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    errorbar<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>g.despine(left<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>g.set_axis_labels(<span class="st">""</span>, <span class="st">"P-value"</span>)</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>g.legend.set_title(<span class="st">''</span>)</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> axis <span class="kw">in</span> g.axes.flat:</span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    axis.tick_params(labelbottom<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>view_order <span class="op">=</span> [<span class="st">'full'</span>, <span class="st">'arms'</span>, <span class="st">'10Mb'</span>]</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>row_order <span class="op">=</span> [<span class="st">'Fib'</span>, <span class="st">'SP'</span>, <span class="st">'PAC'</span>, <span class="st">'RS'</span>, <span class="st">'Sperm'</span>]</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    proximity_res, kind<span class="op">=</span><span class="st">'bar'</span>, row<span class="op">=</span><span class="st">'source'</span>,</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'view'</span>, y<span class="op">=</span><span class="st">'p-value'</span>, hue<span class="op">=</span><span class="st">'type'</span>, col<span class="op">=</span><span class="st">'resolution'</span>, </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>view_order, row_order<span class="op">=</span>row_order,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    errorbar<span class="op">=</span><span class="va">None</span>, margin_titles<span class="op">=</span><span class="va">True</span>, sharex<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>g.despine(left<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>g.set_axis_labels(<span class="st">""</span>, <span class="st">"P-value"</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>g.legend.set_title(<span class="st">''</span>)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> axis <span class="kw">in</span> g.axes.flat:</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    axis.tick_params(labelbottom<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rotate said labels</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> axis.get_xticklabels():</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>        item.set_rotation(<span class="dv">45</span>)</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>g.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1634,34 +1648,47 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </div>
 </div>
 </div>
-<div id="cell-29" class="cell">
+<div id="cell-29" class="cell" data-execution_count="61">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now do the same for the Jaccard index</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>jaccard_res <span class="op">=</span> pd.read_csv(jaccard_file)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>jaccard_res[[<span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>]] <span class="op">=</span> jaccard_res[<span class="st">'Sample'</span>].<span class="bu">str</span>.extract(<span class="vs">r'^(.*?)_(100kb|500kb)_(full|arms|10Mb)(?:_(smoothed))?$'</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>jaccard_res[<span class="st">'smoothed'</span>] <span class="op">=</span> jaccard_res[<span class="st">'smoothed'</span>].notna()</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>jaccard_res <span class="op">=</span> jaccard_res.melt(</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">'Sample'</span>, <span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>, <span class="st">'Query'</span>],</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">'Comp P-value'</span>, <span class="st">'Edge P-value'</span>], </span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>     var_name<span class="op">=</span><span class="st">'type'</span>, value_name<span class="op">=</span><span class="st">'p-value'</span>,)</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># # Group the results by source and resolution</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co"># group = ["fibroblast", 'round_spermatid']</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plot the results from @group</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_group = jaccard_res.query(f'source in @group')</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    jaccard_res, kind<span class="op">=</span><span class="st">'bar'</span>, row<span class="op">=</span><span class="st">'source'</span>,</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'view'</span>, y<span class="op">=</span><span class="st">'p-value'</span>, hue<span class="op">=</span><span class="st">'type'</span>, col<span class="op">=</span><span class="st">'resolution'</span>, </span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    errorbar<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>jaccard_res[<span class="st">'source'</span>] <span class="op">=</span> jaccard_res[<span class="st">'source'</span>].<span class="bu">map</span>({<span class="st">'fibroblast'</span>:<span class="st">'Fib'</span>, <span class="st">'spermatogonia'</span>: <span class="st">'SP'</span>, <span class="st">'pachytene_spermatocyte'</span>: <span class="st">'PAC'</span>, <span class="st">'round_spermatid'</span>: <span class="st">'RS'</span>, <span class="st">'sperm'</span>: <span class="st">'Sperm'</span>})</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>jaccard_res[<span class="st">'smoothed'</span>] <span class="op">=</span> jaccard_res[<span class="st">'smoothed'</span>].notna()</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>jaccard_res[<span class="st">'resolution'</span>] <span class="op">=</span> jaccard_res.<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'ps500kb'</span> <span class="cf">if</span> x[<span class="st">'smoothed'</span>] <span class="cf">else</span> x[<span class="st">'resolution'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>jaccard_res <span class="op">=</span> jaccard_res.melt(</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">'Sample'</span>, <span class="st">'source'</span>, <span class="st">'resolution'</span>, <span class="st">'view'</span>, <span class="st">'Query'</span>],</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">'Comp P-value'</span>, <span class="st">'Edge P-value'</span>], </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    var_name<span class="op">=</span><span class="st">'type'</span>, value_name<span class="op">=</span><span class="st">'p-value'</span>,).query(<span class="st">'Query == "Edge"'</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # Group the results by source and resolution</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co"># group = ["fibroblast", 'round_spermatid']</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plot the results from @group</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_group = jaccard_res.query(f'source in @group')</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>view_order <span class="op">=</span> [<span class="st">'full'</span>, <span class="st">'arms'</span>, <span class="st">'10Mb'</span>]</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>row_order <span class="op">=</span> [<span class="st">'Fib'</span>, <span class="st">'SP'</span>, <span class="st">'PAC'</span>, <span class="st">'RS'</span>, <span class="st">'Sperm'</span>]</span>
 <span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>g.despine(left<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>g.set_axis_labels(<span class="st">""</span>, <span class="st">"P-value"</span>)</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>g.legend.set_title(<span class="st">''</span>)</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> axis <span class="kw">in</span> g.axes.flat:</span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    axis.tick_params(labelbottom<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    jaccard_res, kind<span class="op">=</span><span class="st">'bar'</span>, row<span class="op">=</span><span class="st">'source'</span>,</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'view'</span>, y<span class="op">=</span><span class="st">'p-value'</span>, hue<span class="op">=</span><span class="st">'type'</span>, col<span class="op">=</span><span class="st">'resolution'</span>, </span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    margin_titles<span class="op">=</span><span class="va">True</span>, sharex<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>view_order, row_order<span class="op">=</span>row_order,</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    errorbar<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>g.despine(left<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>g.set_axis_labels(<span class="st">""</span>, <span class="st">"P-value"</span>)</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>g.legend.set_title(<span class="st">''</span>)</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> axis <span class="kw">in</span> g.axes.flat:</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>    axis.tick_params(labelbottom<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rotate said labels</span></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> axis.get_xticklabels():</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>        item.set_rotation(<span class="dv">45</span>)</span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>        item.set_va(<span class="st">'top'</span>)</span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>g.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

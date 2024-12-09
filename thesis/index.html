@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-12-06">
+<meta name="dcterms.date" content="2024-12-09">
 <meta name="keywords" content="Hi-C, Chromatin Compartments, Selection">
 
 <title>Chromatin Compartments and Selection on X</title>
@@ -54,7 +54,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e1e378e796bdd1aa61cf7dc9c87af473.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7bfb9ce031f0150bcdd0059ffcd3ab40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -97,10 +97,10 @@ window.Quarto = {
 ">
 <meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Selection">
 <meta name="citation_author" content="Søren Jørgensen">
-<meta name="citation_publication_date" content="2024-12-06">
-<meta name="citation_cover_date" content="2024-12-06">
+<meta name="citation_publication_date" content="2024-12-09">
+<meta name="citation_cover_date" content="2024-12-09">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-12-06">
+<meta name="citation_online_date" content="2024-12-09">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Principal components analysis corrects for stratification in genome-wide association studies;,citation_author=Alkes L Price;,citation_author=Nick J Patterson;,citation_author=Robert M Plenge;,citation_author=Michael E Weinblatt;,citation_author=Nancy A Shadick;,citation_author=David Reich;,citation_publication_date=2006-08;,citation_cover_date=2006-08;,citation_year=2006;,citation_fulltext_html_url=https://www.nature.com/articles/ng1847;,citation_issue=8;,citation_doi=10.1038/ng1847;,citation_issn=1061-4036, 1546-1718;,citation_volume=38;,citation_journal_title=Nature Genetics;">
 <meta name="citation_reference" content="citation_title=Accurate assembly of the olive baboon ( &amp;amp;amp;lt;i&amp;gt;Papio anubis&amp;lt;/i&amp;gt; ) genome using long-read and Hi-C data;,citation_abstract=AbstractBackground Baboons are a widely used nonhuman primate model for biomedical, evolutionary, and basic genetics research. Despite this importance, the genomic resources for baboons are limited. In particular, the current baboon reference genome Panu_3.0 is a highly fragmented, reference-guided (i.e., not fully de novo) assembly, and its poor quality inhibits our ability to conduct downstream genomic analyses.Findings Here we present a de novo genome assembly of the olive baboon (Papio anubis) that uses data from several recently developed single-molecule technologies. Our assembly, Panubis1.0, has an N50 contig size of ∼1.46 Mb (as opposed to 139 kb for Panu_3.0) and has single scaffolds that span each of the 20 autosomes and the X chromosome.Conclusions We highlight multiple lines of evidence (including Bionano Genomics data, pedigree linkage information, and linkage disequilibrium data) suggesting that there are several large assembly errors in Panu_3.0, which have been corrected in Panubis1.0.;,citation_author=Sanjit Singh Batra;,citation_author=Michal Levy-Sakin;,citation_author=Jacqueline Robinson;,citation_author=Joseph Guillory;,citation_author=Steffen Durinck;,citation_author=Tauras P Vilgalys;,citation_author=Pui-Yan Kwok;,citation_author=Laura A Cox;,citation_author=Somasekar Seshagiri;,citation_author=Yun S Song;,citation_author=Jeffrey D Wall;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaa134/6025063;,citation_issue=12;,citation_doi=10.1093/gigascience/giaa134;,citation_issn=2047-217X;,citation_volume=9;,citation_journal_title=GigaScience;">
@@ -153,7 +153,7 @@ window.Quarto = {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">December 6, 2024</p>
+              <p class="date">December 9, 2024</p>
             </div>
           </div>
           
@@ -209,7 +209,10 @@ window.Quarto = {
   <li><a href="#notebook-edits" id="toc-notebook-edits" class="nav-link" data-scroll-target="#notebook-edits">Notebook edits</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#exploration-with-hicexplorer" id="toc-exploration-with-hicexplorer" class="nav-link" data-scroll-target="#exploration-with-hicexplorer">Exploration with HicExplorer</a></li>
+  </ul></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
@@ -275,7 +278,7 @@ window.Quarto = {
 <h1>Methods</h1>
 <p>In this project, we formulate two objectives:</p>
 <p><strong>A</strong>: Reproduce the Hi-C interaction maps and eigendecomposition from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, with some modifications. We briefly use <em>HiCExplorer</em>, but change the analyses to use the <em>Open2C Ecosystem</em> <span class="citation" data-cites="open2c">(<a href="#ref-open2c" role="doc-biblioref">Open Chromosome Collective 2024</a>)</span> which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a <em>gwf</em> workflow, and the commands that were visually inspected were run in Jupyter Notebooks.</p>
-<p><strong>B</strong> Compare with regions of selection that are found in <em>papio anubis</em>, and maybe in <em>human</em> too. Investigate the biological meaning of the results.</p>
+<p><strong>B</strong> Compare with regions of selection that are found in <em>human</em>. Investigate the biological meaning of the results.</p>
 <p>All computations were performed on GenomeDK (GDK) [ref], an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was nested into a <em>gwf</em> workflow [ref], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.</p>
 <p>The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code, virtual environments and text is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages [ref]. To make this possible, the Quarto documentation has been extensively studied and discussed with <em>KMT</em> [ref, aknowledge].</p>
 <section id="initial-exploration-with-hicexplorer" class="level2">
@@ -404,60 +407,60 @@ Table&nbsp;2: Column specification of the .pairs format as extended by <code>pai
 <thead>
 <tr class="header">
 <th style="text-align: right;">Index</th>
-<th>Name</th>
-<th>Description</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td>read_id</td>
-<td>the ID of the read as defined in fastq files</td>
+<td style="text-align: left;">read_id</td>
+<td style="text-align: left;">the ID of the read as defined in fastq files</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td>chrom1</td>
-<td>the chromosome of the alignment on side 1</td>
+<td style="text-align: left;">chrom1</td>
+<td style="text-align: left;">the chromosome of the alignment on side 1</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td>pos1</td>
-<td>the 1-based genomic position of the outer-most (5’) mapped bp on side 1</td>
+<td style="text-align: left;">pos1</td>
+<td style="text-align: left;">the 1-based genomic position of the outer-most (5’) mapped bp on side 1</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td>chrom2</td>
-<td>the chromosome of the alignment on side 2</td>
+<td style="text-align: left;">chrom2</td>
+<td style="text-align: left;">the chromosome of the alignment on side 2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td>pos2</td>
-<td>the 1-based genomic position of the outer-most (5’) mapped bp on side 2</td>
+<td style="text-align: left;">pos2</td>
+<td style="text-align: left;">the 1-based genomic position of the outer-most (5’) mapped bp on side 2</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td>strand1</td>
-<td>the strand of the alignment on side 1</td>
+<td style="text-align: left;">strand1</td>
+<td style="text-align: left;">the strand of the alignment on side 1</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">7</td>
-<td>strand2</td>
-<td>the strand of the alignment on side 2</td>
+<td style="text-align: left;">strand2</td>
+<td style="text-align: left;">the strand of the alignment on side 2</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8</td>
-<td>pair_type</td>
-<td>the type of a Hi-C pair</td>
+<td style="text-align: left;">pair_type</td>
+<td style="text-align: left;">the type of a Hi-C pair</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">9</td>
-<td>mapq1</td>
-<td>mapq of the first mate</td>
+<td style="text-align: left;">mapq1</td>
+<td style="text-align: left;">mapq of the first mate</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">10</td>
-<td>mapq2</td>
-<td>mapq of the second mate</td>
+<td style="text-align: left;">mapq2</td>
+<td style="text-align: left;">mapq of the second mate</td>
 </tr>
 </tbody>
 </table>
@@ -470,7 +473,7 @@ Table&nbsp;2: Column specification of the .pairs format as extended by <code>pai
 <h5 class="anchored" data-anchor-id="filter-deduplicate-pairs">Filter (deduplicate) pairs</h5>
 <p>With <em>HiCExplorer</em>, no action is needed, as this step is done implicitly when building the matrix.</p>
 <p><em>pairtools</em> comes with a de-duplication function, <code>dedup</code>, to detect PCR duplication artefacts. At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of <em>rhemac10</em> assembly states they have closed 99% of the gaps since <em>rhemac8</em> [ref], <em>rheMac10</em> still contain more than 2,500 unplaced scaffolds, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates.</p>
-<p><code>cooler</code> recommend to store the most comprehensive and unfilteres list of pairs, and then applying a filter on it on the fly by piping from <code>pairtools select</code> I have missed this step, so I have not filtered for mapping quality. I will make a histogram showing the distribution of mapq scores to see the significance of this.</p>
+<p><code>cooler</code> recommend to store the most comprehensive and unfilteres list of pairs, and then applying a filter on it on the fly by piping from <code>pairtools select</code>. I have missed this step, so I have not filtered for mapping quality. I will make a histogram showing the distribution of mapq scores to see the significance of this.</p>
 </section>
 <section id="create-interaction-matrices-coolers" class="level5">
 <h5 class="anchored" data-anchor-id="create-interaction-matrices-coolers">Create interaction matrices (coolers)</h5>
@@ -502,15 +505,13 @@ Table&nbsp;2: Column specification of the .pairs format as extended by <code>pai
 <h5 class="anchored" data-anchor-id="eigendecomposition">Eigendecomposition</h5>
 <p>The eigendecomposition of a Hi-C interaction matrix is performed in multiple steps. As value of the eigenvector is only <em>significant</em> up to a sign, it is convention [ref] to use GC content as a phasing track to orient the vector. E1 is arbitrarily defined to be positively correlated with GC content, meaning a positive E1 value signifies an active chromatin state, which we denote a A-type compartment (or simply A-compartment). We performed eigendecomposition of two resolutions, 100 Kbp and 500 Kbp.</p>
 <p>First, we calculate the GC content of each bin of the reference genome, <em>rheMac10</em>, which is binned to the resolution of the Hi-C matrix we are handling. It is done with <code>bioframe.frac_gc</code> (<em>Open2C</em>). To calculate the E1 compartments, we use only within-chromosome contacts (<em>cis</em>), as we are not interested in the genome-wide contacts. <code>cooltools.eigs_cis</code> will decorrelate the contact-frequency by distance before performing the eigendecomposition. <code>eigs_cis</code> needs a <em>viewframe</em> (view) to calculate E1 values, the simplest view being the full chromosome. However, when there is more variance between chromosome arms than within arms, the sign of the first eigenvector will be determined largely by the chromosome arm it sits on, and not by the chromatin compartments. To mitigate this, we apply a chromosome-arm-partitioned view of the chromosome (as a bedlike format, described in <code>bioframe</code> docs [ref]).</p>
+<p>Additionally, to mimic the <em>Local PCA</em> from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I also defined a view of 10 Mb bins.</p>
 </section>
 <section id="plotting" class="level5">
 <h5 class="anchored" data-anchor-id="plotting">Plotting</h5>
-<p>We use matplotlib to plot.</p>
-<p>Needs:</p>
-<ul class="task-list">
-<li><label><input type="checkbox">HiCExplorer: plot with CLI, writes to pngs</label></li>
-<li><label><input type="checkbox">cooler: plot through python API (fetch matrix from cooler)</label></li>
-</ul>
+<p><em>HiCExplorer</em> plots matrices to .png from the command-line.</p>
+<p>We use matplotlib and seaborn to plot in the <em>Open2C</em> framework. Utilizing the <code>cooler</code> class, we can fetch regions of the matrix without modifying the file. As my analysis is centered around the X chromosome, it is efficiently handled by simply fetching ‘chrX’ with <code>cooler.Cooler.matrix().fetch('chrX')</code>.</p>
+<p>Many methods of the cooler class returns data selectors, which do not retrieve data before it is queried [ref]. This means we can create many selectors at once without overflowing memory, enabling us to plot multiple interaction matrices in the same plot, e.g.&nbsp;the corrected and un-corrected matrices. This is easily done with the <code>balance</code> parameter of the matrix selector (<code>.matrix()</code>), which determines if it should apply the balancing weights to the coordinates and defaults to <code>True</code>.</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
@@ -518,8 +519,10 @@ Table&nbsp;2: Column specification of the .pairs format as extended by <code>pai
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
-<p>Here are the glorious results</p>
+<section id="exploration-with-hicexplorer" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-with-hicexplorer">Exploration with HicExplorer</h2>
 <div style="page-break-after: always;"></div>
+</section>
 </section>
 <section id="discussion" class="level1">
 <h1>Discussion</h1>

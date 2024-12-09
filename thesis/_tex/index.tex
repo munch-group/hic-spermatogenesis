@@ -3,6 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
+  10pt,
   a4paper,
 ]{scrbook}
 
@@ -281,31 +282,36 @@
 \textcolor[rgb]{0.7, 0.7, 0.7}{\thesubsubsection}\autodot\enskip%
 }
 
-%% from arcxiv.sty:  %%%
+% %% from arcxiv.sty:  %%%
 \RedeclareSectionCommand[
-  beforeskip=-2.0ex plus -0.5ex minus -0.2ex,
-  afterskip=1.5ex plus 0.3ex minus 0.2ex
+  beforeskip=-2ex,
+  afterskip=1.5ex
+]{chapter}
+
+\RedeclareSectionCommand[
+  beforeskip=-1.8ex,
+  afterskip=0.8ex
 ]{section}
 
 \RedeclareSectionCommand[
-  beforeskip=-1.8ex plus -0.5ex minus -0.2ex,
-  afterskip=0.8ex plus 0.2ex
+  beforeskip=--1.5ex,
+  afterskip=0.5ex
 ]{subsection}
 
 \RedeclareSectionCommand[
-  beforeskip=-1.5ex plus -0.5ex minus -0.2ex,
-  afterskip=0.5ex plus 0.2ex
+  beforeskip=1.5ex,
+  afterskip=-1em
 ]{subsubsection}
 
 \RedeclareSectionCommand[
-  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+  beforeskip=1.5ex,
   afterskip=-1em
 ]{paragraph}
 
-\RedeclareSectionCommand[
-  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
-  afterskip=-1em
-]{subparagraph}
+% \RedeclareSectionCommand[
+%   beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+%   afterskip=-1em
+% ]{subparagraph}
 
 
 \setkomafont{section}{\normalfont\Large\bfseries\raggedright}
@@ -317,9 +323,11 @@
 \setkomafont{caption}{\small}
 \setkomafont{captionlabel}{\bfseries\sffamily}
 
-\usepackage{floatrow}
-%\DeclareFloatFont{tiny}{\tiny}
-\floatsetup[table]{font=small}
+%% Tables
+% \usepackage{floatrow}
+% \floatsetup[table]{font=small}
+\usepackage{booktabs}       % professional-quality tables (arxiv.sty)
+
 
 
 %%%
@@ -406,7 +414,7 @@
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2024-12-06}
+\date{2024-12-09}
 
 \begin{document}
 \frontmatter
@@ -430,21 +438,34 @@ Regions in Primates \par}
 {\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}} \par}
 \vskip 0cm plus 2fill
 
-{\bfseries\Large\textit{} \par}
+{\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2024-12-06 \par}
+{\bfseries\large 2024-12-09 \par}
 \vspace{3ex}
 
 \vspace{12ex}
 {\small Submitted in fulfillment of the requirements
-of the degree of  \par}
+of the degree of MSc. Bioinformatics \par}
 \pagebreak
 
 \begin{quote}
 \raggedright    
-3-dimensional structure of chromatin brings light onto the mystery of
-selfish genes. \par
+This is a dummy abstract, dreamt up by chatGPT. This thesis investigates
+the 3D chromatin architecture of the X chromosome in baboons, macaques,
+and humans, focusing on chromatin compartments during spermatogenesis.
+Using publicly available Hi-C data, interaction maps were created to
+identify Principal Component 1 (PC1) compartments, revealing distinct
+compartmentalization patterns among species. The analysis included
+transition zones, where chromatin shifts between compartment types, and
+their correlation with positively selected regions. By comparing these
+zones with evolutionarily significant regions, the study explores how
+chromatin structure influences evolutionary pressures. Key findings
+include conserved chromatin features that may help retain
+non-advantageous alleles, suggesting a role for selfish genetic elements
+in genome evolution. This research offers new insights into the
+relationship between chromatin architecture and evolutionary dynamics
+across primate species. \par
 \raggedleft    
     {- Søren Jørgensen \par}
 %    
@@ -457,7 +478,7 @@ selfish genes. \par
 \tableofcontents
 }
 
-\setstretch{1}
+\setstretch{1.2}
 \mainmatter
 \chapter{Introduction}\label{introduction}
 
@@ -558,8 +579,7 @@ workflow, and the commands that were visually inspected were run in
 Jupyter Notebooks.
 
 \textbf{B} Compare with regions of selection that are found in
-\emph{papio anubis}, and maybe in \emph{human} too. Investigate the
-biological meaning of the results.
+\emph{human}. Investigate the biological meaning of the results.
 
 All computations were performed on GenomeDK (GDK) {[}ref{]}, an HPC
 cluster located on Aarhus Uninversity, and most of the processing of the
@@ -598,6 +618,8 @@ each sample (Table~\ref{tbl-runtable-summary}). It adds up to
 \textasciitilde9.5 billion reads, roughly evenly spread on the 5 tissue
 types.
 
+\small
+
 \begin{longtable}[]{@{}lllll@{}}
 
 \toprule\noalign{}
@@ -625,6 +647,8 @@ in this analysis}
 
 \tabularnewline
 \end{longtable}
+
+\normalsize
 
 \section{Handling coolers (Or: preparing
 coolers)}\label{handling-coolers-or-preparing-coolers}
@@ -766,6 +790,8 @@ parsing, as the deduplication step requires a sorted set of pairs. The
 Consortium}-specified format, storing Hi-C pairs as in
 Table~\ref{tbl-pairsformat}.
 
+\small
+
 \begin{longtable}[]{@{}
   >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0769}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1209}}
@@ -809,6 +835,8 @@ on side 2 \\
 10 & mapq2 & mapq of the second mate \\
 \end{longtable}
 
+\normalsize
+
 I initially used \texttt{-\/-walks-policy\ mask}, reasoning I had plenty
 of data points and could handle complex walks in a conservative way.
 Only later I realized the recommendations from \emph{pairtools},
@@ -837,7 +865,7 @@ mapped within 3 base pairs from each other are considered duplicates.
 
 \texttt{cooler} recommend to store the most comprehensive and unfilteres
 list of pairs, and then applying a filter on it on the fly by piping
-from \texttt{pairtools\ select} I have missed this step, so I have not
+from \texttt{pairtools\ select}. I have missed this step, so I have not
 filtered for mapping quality. I will make a histogram showing the
 distribution of mapq scores to see the significance of this.
 
@@ -955,25 +983,34 @@ it sits on, and not by the chromatin compartments. To mitigate this, we
 apply a chromosome-arm-partitioned view of the chromosome (as a bedlike
 format, described in \texttt{bioframe} docs {[}ref{]}).
 
+Additionally, to mimic the \emph{Local PCA} from
+\citep{wang_reprogramming_2019}, I also defined a view of 10 Mb bins.
+
 \paragraph{Plotting}\label{plotting}
 
-We use matplotlib to plot.
+\emph{HiCExplorer} plots matrices to .png from the command-line.
 
-Needs:
+We use matplotlib and seaborn to plot in the \emph{Open2C} framework.
+Utilizing the \texttt{cooler} class, we can fetch regions of the matrix
+without modifying the file. As my analysis is centered around the X
+chromosome, it is efficiently handled by simply fetching `chrX' with
+\texttt{cooler.Cooler.matrix().fetch(\textquotesingle{}chrX\textquotesingle{})}.
 
-\begin{itemize}
-\tightlist
-\item[$\square$]
-  HiCExplorer: plot with CLI, writes to pngs
-\item[$\square$]
-  cooler: plot through python API (fetch matrix from cooler)
-\end{itemize}
+Many methods of the cooler class returns data selectors, which do not
+retrieve data before it is queried {[}ref{]}. This means we can create
+many selectors at once without overflowing memory, enabling us to plot
+multiple interaction matrices in the same plot, e.g.~the corrected and
+un-corrected matrices. This is easily done with the \texttt{balance}
+parameter of the matrix selector (\texttt{.matrix()}), which determines
+if it should apply the balancing weights to the coordinates and defaults
+to \texttt{True}.
 
 \newpage{}
 
 \chapter{Results}\label{results}
 
-Here are the glorious results
+\section{Exploration with
+HicExplorer}\label{exploration-with-hicexplorer}
 
 \newpage{}
 
