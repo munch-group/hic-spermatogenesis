@@ -185,31 +185,36 @@
 \textcolor[rgb]{0.7, 0.7, 0.7}{\thesubsubsection}\autodot\enskip%
 }
 
-%% from arcxiv.sty:  %%%
+% %% from arcxiv.sty:  %%%
 \RedeclareSectionCommand[
-  beforeskip=-2.0ex plus -0.5ex minus -0.2ex,
-  afterskip=1.5ex plus 0.3ex minus 0.2ex
+  beforeskip=-2ex,
+  afterskip=1.5ex
+]{chapter}
+
+\RedeclareSectionCommand[
+  beforeskip=-1.8ex,
+  afterskip=0.8ex
 ]{section}
 
 \RedeclareSectionCommand[
-  beforeskip=-1.8ex plus -0.5ex minus -0.2ex,
-  afterskip=0.8ex plus 0.2ex
+  beforeskip=--1.5ex,
+  afterskip=0.5ex
 ]{subsection}
 
 \RedeclareSectionCommand[
-  beforeskip=-1.5ex plus -0.5ex minus -0.2ex,
-  afterskip=0.5ex plus 0.2ex
+  beforeskip=1.5ex,
+  afterskip=-1em
 ]{subsubsection}
 
 \RedeclareSectionCommand[
-  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+  beforeskip=1.5ex,
   afterskip=-1em
 ]{paragraph}
 
-\RedeclareSectionCommand[
-  beforeskip=1.5ex plus 0.5ex minus 0.2ex,
-  afterskip=-1em
-]{subparagraph}
+% \RedeclareSectionCommand[
+%   beforeskip=1.5ex plus 0.5ex minus 0.2ex,
+%   afterskip=-1em
+% ]{subparagraph}
 
 
 \setkomafont{section}{\normalfont\Large\bfseries\raggedright}
@@ -221,9 +226,11 @@
 \setkomafont{caption}{\small}
 \setkomafont{captionlabel}{\bfseries\sffamily}
 
-\usepackage{floatrow}
-%\DeclareFloatFont{tiny}{\tiny}
-\floatsetup[table]{font=small}
+%% Tables
+% \usepackage{floatrow}
+% \floatsetup[table]{font=small}
+\usepackage{booktabs}       % professional-quality tables (arxiv.sty)
+
 
 
 %%%

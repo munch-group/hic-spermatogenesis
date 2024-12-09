@@ -35,7 +35,8 @@ format:
       # - ignorehead
       # - ignorefoot
       # - heightrounded
-    linestretch: 1.0
+    fontsize: 10pt
+    linestretch: 1.2
     number-sections: true
     number-depth: 3
     highlight-style: kate 

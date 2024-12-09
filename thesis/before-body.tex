@@ -37,13 +37,15 @@ $endfor$%
 \vspace{3ex}
 
 \vspace{12ex}
+$if(degree)$
 {\small Submitted in fulfillment of the requirements
 of the degree of $degree$ \par}
+$endif$
 \pagebreak
 
 \begin{quote}
 \raggedright    
-$plain-language-summary$ \par
+$abstract$ \par
 \raggedleft    
 $for(by-author)$
     {- $by-author.name.literal$ \par}
