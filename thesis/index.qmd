@@ -7,7 +7,6 @@ authors:
       Bioinformatics Research Center (BiRC), \\
       Dept. of Molecular Biology and Genetics, \\
       Aarhus University, Denmark
-    degree: MSc. Bioinformatics
     roles: writing
     corresponding: true
     email: 201906763@post.au.dk
@@ -18,6 +17,7 @@ authors:
   #     Dept. of Molecular Biology and Genetics, \\
   #     Aarhus University, Denmark
   #   roles: supervision
+degree: MSc. Bioinformatics
 keywords:
   - Hi-C
   - Chromatin Compartments
@@ -27,7 +27,7 @@ abstract: |
 plain-language-summary: |
   3-dimensional structure of chromatin brings light onto the mystery of selfish genes.
 key-points:
-  - Figures from a paper was reproduced, analyzing A/B compartments of rhesus macaque X chromosomes
+  - Figures from a paper was reproduced, analyzing A/B chromatin compartments of rhesus macaque X chromosomes
   - Differential compartment analysis was conducted comparing with papio anubis
   - Regions was overlayed with genes of interest (positive selection)
 date: last-modified
@@ -82,7 +82,7 @@ In this project, we formulate two objectives:
 
 **A**: Reproduce the Hi-C interaction maps and eigendecomposition from [@wang_reprogramming_2019], with some modifications. We briefly use *HiCExplorer*, but change the analyses to use the *Open2C Ecosystem* [@open2c] which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a *gwf* workflow, and the commands that were visually inspected were run in Jupyter Notebooks. 
 
-**B** Compare with regions of selection that are found in *papio anubis*, and maybe in *human* too. Investigate the biological meaning of the results. 
+**B** Compare with regions of selection that are found in *human*. Investigate the biological meaning of the results. 
 
 All computations were performed on GenomeDK (GDK) [ref], an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was nested into a *gwf* workflow [ref], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.
 
@@ -97,7 +97,10 @@ Here moves most of the text about HiCExplorer...
 
 To reproduce the results from [@wang_reprogramming_2019], I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable `SRA-runtable.tsv`. To get an overview of the data accessions used in this analysis, we will first summarize the runtable  that contains the accession numbers and some metadata for each sample (@tbl-runtable-summary). It adds up to ~1Tb of compressed `fastq` files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.
 
+\small
 {{< embed ../notebooks/03_compartments.ipynb#tbl-runtable-summary >}}
+
+\normalsize
 
 ## Handling coolers (Or: preparing coolers)
 
@@ -145,10 +148,13 @@ It was not feasible to follow the same approach as [@wang_reprogramming_2019] wi
 
 **Open2C** We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome 'UU'. Other events, where one or both sides map to multiple segments or the reads are long enough (>150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the `--walks-policy` when parsing the alignments into valid pairs (or valid Hi-C contacts). Here, `mask` is the most conservative and masks all complex walks, whereas `5unique` reports the 5'-most unique alignment on each side. The pairs are piped directly into `pairtools sort` after parsing, as the deduplication step requires a sorted set of pairs. The *.pairs*-format produced by `pairtools` is an extension the [4DN Consortium](https://data.4dnucleome.org/file-formats/pairs/)-specified format, storing Hi-C pairs as in @tbl-pairsformat.
 
+\small
+
 ::: {#tbl-pairsformat}
 
+
 | Index | Name      | Description                                                             |
-|------:|-----------|-------------------------------------------------------------------------|
+|------:|:----------|:------------------------------------------------------------------------|
 | 1     | read_id   | the ID of the read as defined in fastq files                            |
 | 2     | chrom1    | the chromosome of the alignment on side 1                               |
 | 3     | pos1      | the 1-based genomic position of the outer-most (5’) mapped bp on side 1 |
@@ -164,6 +170,8 @@ It was not feasible to follow the same approach as [@wang_reprogramming_2019] wi
 
 :::
 
+\normalsize
+
 I initially used `--walks-policy mask`, reasoning I had plenty of data points and could handle complex walks in a conservative way. Only later I realized the recommendations from *pairtools*, specifically informing that longer reads might have a significant proportion of reads that contain complex walks. With this in mind, I decided to re-parse the alignments into a new set of pairs, and equally apply the recommended filter (next section). As both results are saved, we can compare the two approaches. 
 
 
@@ -173,7 +181,7 @@ With *HiCExplorer*, no action is needed, as this step is done implicitly when bu
 
 *pairtools* comes with a de-duplication function, `dedup`, to detect PCR duplication artefacts. At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of *rhemac10* assembly states they have closed 99% of the gaps since *rhemac8* [ref], *rheMac10* still contain more than 2,500 unplaced scaffolds, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates. 
 
-`cooler` recommend to store the most comprehensive and unfilteres list of pairs, and then applying a filter on it on the fly by piping from `pairtools select` I have missed this step, so I have not filtered for mapping quality. I will make a histogram showing the distribution of mapq scores to see the significance of this. 
+`cooler` recommend to store the most comprehensive and unfilteres list of pairs, and then applying a filter on it on the fly by piping from `pairtools select`. I have missed this step, so I have not filtered for mapping quality. I will make a histogram showing the distribution of mapq scores to see the significance of this. 
 
 ##### Create interaction matrices (coolers) 
 
@@ -214,22 +222,23 @@ The eigendecomposition of a Hi-C interaction matrix is performed in multiple ste
 
 First, we calculate the GC content of each bin of the reference genome, *rheMac10*, which is binned to the resolution of the Hi-C matrix we are handling. It is done with `bioframe.frac_gc` (*Open2C*). To calculate the E1 compartments, we use only within-chromosome contacts (*cis*), as we are not interested in the genome-wide contacts. `cooltools.eigs_cis` will decorrelate the contact-frequency by distance before performing the eigendecomposition. `eigs_cis` needs a *viewframe* (view) to calculate E1 values, the simplest view being the full chromosome. However, when there is more variance between chromosome arms than within arms, the sign of the first eigenvector will be determined largely by the chromosome arm it sits on, and not by the chromatin compartments. To mitigate this, we apply a chromosome-arm-partitioned view of the chromosome (as a bedlike format, described in `bioframe` docs [ref]). 
 
+Additionally, to mimic the *Local PCA* from [@wang_reprogramming_2019], I also defined a view of 10 Mb bins. 
+
 ##### Plotting
 
-We use matplotlib to plot.
+*HiCExplorer* plots matrices to .png from the command-line. 
 
-Needs:
+We use matplotlib and seaborn to plot in the *Open2C* framework. Utilizing the `cooler` class, we can fetch regions of the matrix without modifying the file. As my analysis is centered around the X chromosome, it is efficiently handled by simply fetching 'chrX' with `cooler.Cooler.matrix().fetch('chrX')`. 
 
-- [ ] HiCExplorer: plot with CLI, writes to pngs
-- [ ] cooler: plot through python API (fetch matrix from cooler) 
-
+Many methods of the cooler class returns data selectors, which do not retrieve data before it is queried [ref]. This means we can create many selectors at once without overflowing memory, enabling us to plot multiple interaction matrices in the same plot, e.g. the corrected and un-corrected matrices. This is easily done with the `balance` parameter of the matrix selector (`.matrix()`), which determines if it should apply the balancing weights to the coordinates and defaults to `True`. 
 
 
 {{< pagebreak >}}
 
 # Results
 
-Here are the glorious results
+## Exploration with HicExplorer 
+
 
 
 
