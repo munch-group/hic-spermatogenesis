@@ -15,7 +15,7 @@ format:
     documentclass: scrbook
     pdf-engine: pdflatex
     cite-method: natbib
-    natbiboptions: numbers
+    #natbiboptions: numbers
     papersize: A4
     toc: true
     toc-depth: 2
@@ -40,7 +40,7 @@ format:
     number-sections: true
     number-depth: 3
     highlight-style: kate 
-    tbl-cap-location: bottom
+    tbl-cap-location: top
     include-in-header:
       - file: header_extra.tex
     template-partials:
