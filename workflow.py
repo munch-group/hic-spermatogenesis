@@ -107,7 +107,7 @@ bwa mem -t {threads} -SP {ref_genome} {mate_1} {mate_2} > {out_bam}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
-# Updated version uses --walks-policy 5unique in stead mask
+# Updated version uses --walks-policy 5unique in stead of mask
 def pair_sort_alignments(chromsizes, bam_merged, sorted_pairs):
     """Convert the paired-end alignments to .pairs with `pairtools parse`, then sort"""
     inputs = [bam_merged]
