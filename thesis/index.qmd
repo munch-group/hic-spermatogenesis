@@ -93,11 +93,26 @@ The whole of this project is carried out with reproducibility in mind, so an eff
 
 Here moves most of the text about HiCExplorer...
 
+For the initial exploration of methods with *HiCExplorer*, the 5 first smaples in 'fibroblast' were chosen (@tbl-hic-exploration). 
+
+\small
+
+{{< embed ../notebooks/01_hicexplorer.ipynb#tbl-hic-exploration >}}
+
+\normalsize
+
+The goal was to replicate some of the figures from @wang_reprogramming_2019 using *HiCExplorer*, especially to reconstruct interaction matrices and E1 graphs from macaque data.
+
+The matrices are constructed with `hicBuildMatrix` from separately mapped read-pairs. Along with the matrix *.h5* file, a *.log* file it outputted, documenting the qiality control for the sample. Multiple logs can be aggregated and visualized with `hicQC`. 
+
+Before correction (or balancing) of the interaction matrix, a pre-correction filter is applied, filtering out low-count bins and very high-count bins. A threshold for Mean Absolute Deviation (*MAD*) is estimated by `hicCorrect diagnostic_plot`, followed by iterative correction with `hicCorrect correct --correctionMethod ICE`. 
+
 ## Downloading Data and Project Structure
 
 To reproduce the results from [@wang_reprogramming_2019], I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable `SRA-runtable.tsv`. To get an overview of the data accessions used in this analysis, we will first summarize the runtable  that contains the accession numbers and some metadata for each sample (@tbl-runtable-summary). It adds up to ~1Tb of compressed `fastq` files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.
 
 \small
+
 {{< embed ../notebooks/03_compartments.ipynb#tbl-runtable-summary >}}
 
 \normalsize
@@ -117,7 +132,7 @@ A *gwf* workflow was created to handle the first part of the data processing, an
 
 ##### Downloading the reads
 
-The reads were downloaded from NCBI SRA portal [ref] directly to GDK using `sra-downloader` [ref] through docker [ref] as `.fastq.gz` files. 
+The reads were downloaded from NCBI SRA portal [ref] directly to GDK using `sra-downloader` [ref] as `.fastq.gz` files. 
 
 
 ##### Handling the reference
@@ -150,7 +165,7 @@ It was not feasible to follow the same approach as [@wang_reprogramming_2019] wi
 
 \small
 
-::: {#tbl-pairsformat}
+::: {#tbl-pairsformat .striped}
 
 
 | Index | Name      | Description                                                             |
@@ -166,7 +181,7 @@ It was not feasible to follow the same approach as [@wang_reprogramming_2019] wi
 | 9     | mapq1     | mapq of the first mate                                                  |
 | 10    | mapq2     | mapq of the second mate                                                 |
 
-: Column specification of the .pairs format as extended by `pairtools`.
+: Column specification of the .pairs format as extended by `pairtools` [ref].
 
 :::
 
@@ -218,11 +233,11 @@ The default mode uses genome-wide data to calculate the weights for each bin. It
 
 ##### Eigendecomposition
 
-The eigendecomposition of a Hi-C interaction matrix is performed in multiple steps. As value of the eigenvector is only *significant* up to a sign, it is convention [ref] to use GC content as a phasing track to orient the vector. E1 is arbitrarily defined to be positively correlated with GC content, meaning a positive E1 value signifies an active chromatin state, which we denote a A-type compartment (or simply A-compartment). We performed eigendecomposition of two resolutions, 100 Kbp and 500 Kbp. 
+The eigendecomposition of a Hi-C interaction matrix is performed in multiple steps. As value of the eigenvector is only *significant* up to a sign, it is convention [ref] to use GC content as a phasing track to orient the vector. E1 is arbitrarily defined to be positively correlated with GC content, meaning a positive E1 value signifies an active chromatin state, which we denote a A-type compartment (or simply A-compartment). We performed eigendecomposition of two resolutions, 100 Kbp and 500 Kbp. @wang_reprogramming_2019 briefly describes their method to calculate the eigenvectors as a sliding window approach on the observed/expected matrix in 100 kb resolution summing over 400 kb bins with 100 kb step size, a method I was not able to replicate in the *Open2C* ecosystem. I decided to mimic this by smoothing the 100 kb E1 values by summing to 500 kb bins in steps of 100 kb, yielding a comparable resolution which I denote '*pseudo*-500 kb' resolution (*ps500kb*).
 
 First, we calculate the GC content of each bin of the reference genome, *rheMac10*, which is binned to the resolution of the Hi-C matrix we are handling. It is done with `bioframe.frac_gc` (*Open2C*). To calculate the E1 compartments, we use only within-chromosome contacts (*cis*), as we are not interested in the genome-wide contacts. `cooltools.eigs_cis` will decorrelate the contact-frequency by distance before performing the eigendecomposition. `eigs_cis` needs a *viewframe* (view) to calculate E1 values, the simplest view being the full chromosome. However, when there is more variance between chromosome arms than within arms, the sign of the first eigenvector will be determined largely by the chromosome arm it sits on, and not by the chromatin compartments. To mitigate this, we apply a chromosome-arm-partitioned view of the chromosome (as a bedlike format, described in `bioframe` docs [ref]). 
 
-Additionally, to mimic the *Local PCA* from [@wang_reprogramming_2019], I also defined a view of 10 Mb bins. 
+Additionally, to mimic the *Local PCA* from [@wang_reprogramming_2019], I also defined a view of 10 Mb bins. Thoughout the project, I will compare results from each of the three views and resolutions. 
 
 ##### Plotting
 
@@ -238,6 +253,64 @@ Many methods of the cooler class returns data selectors, which do not retrieve d
 # Results
 
 ## Exploration with HicExplorer 
+
+##### Quality Control
+
+The separately mapped read-mates were parsed into a *.h5* interaction matrix by `hicBuildMatrix`, which include a *.log* file documenting the builtin quality control (hereafter, *QC*). Log files from the 5 samples were merged with `hicQC` (@fig-explorer-qc). We observe showed equal fractions of the read-orientation of read-pairs (@fig-explorer-read-orientation), which is expected for a good Hi-C library. Additionally, it determines between 40% to 50% of the total reads to be valid Hi-C contacts (@fig-explorer-unique-pairs), which is [allegedly](https://hicexplorer.readthedocs.io/en/latest/content/example_usage.html#creation-of-a-hi-c-matrix) [ref] usually only 25%-40%. ~~Overall a solid set of Hi-C samples until now~~. @fig-explorer-contact-distance shows, however, unusually high fractions of *inter*-chromosomal contacts (up to 30%) compared to *intra*-chromosomal contacts (also denoted *trans* and *cis* contacts, respectively). It is expected that *cis* contacts are orders of magnitude more frequent than *trans* contacts [@bicciato_hic_2022, p. 236; @lieberman_aiden_comprehensive_2009], and *HiCExplorer* states it should be below 10% [ref]. The high fraction may be mitigated by enforcing a stricter *mapq* threshold for a valid Hi-C pair, as we also observe higher-than expected valid contacts. However, we continue without the current matrices. 
+
+::: {#fig-explorer-qc layout-ncol=3}
+
+![Read orientation](../steps/bwa/QC_all_samples/read_orientation.png){#fig-explorer-read-orientation}
+
+![Unique pairs](../steps/bwa/QC_all_samples/unmappable_and_non_unique.png){#fig-explorer-unique-pairs}
+
+![Discarded pairs](../steps/bwa/QC_all_samples/pairs_discarded.png){#fig-explorer-discarded-pairs}
+
+![Pairs sequenced](../steps/bwa/QC_all_samples/pairs_sequenced.png){#fig-explorer-pairs-sequenced}
+
+![Contact distance](../steps/bwa/QC_all_samples/distance.png){#fig-explorer-contact-distance}
+
+Quality control of the mapped Hi-C reads using *HiCExplorer* `hicQC`. The figures should be moved to Supplementary/Appendix because they are ugly and un-alignable. But that is the fault of HiCExplorer, not me. 
+:::
+
+##### Correction
+
+The correction diagnostic tool yielded a similar *mad* threshold within the range $[-3,-2]$. Even so, I followed the *HicExplorer* recommendation to set the lower threshold to at least -2 and the upper threshold to 5 in the pre-normalization filter. I argue that with a high number of valid contacts, it is safer to err on the side of caution and maybe filter out bad data. 
+
+::: {#fig-explorer-pre-correction layout="[[-5,25,25,25,-5], [-5,25,25,-30]]"}
+
+![SRR6502335](../figures/bwa/SRR6502335_diag_plot.png){#fig-explorer-pre-correction-SRR6502335}
+
+![SRR6502336](../figures/bwa/SRR6502336_diag_plot.png){#fig-explorer-pre-correction-SRR6502336}
+
+![SRR6502337](../figures/bwa/SRR6502337_diag_plot.png){#fig-explorer-pre-correction-SRR6502337}
+
+![SRR6502338](../figures/bwa/SRR6502338_diag_plot.png){#fig-explorer-pre-correction-SRR6502338}
+
+![SRR6502339](../figures/bwa/SRR6502339_diag_plot.png){#fig-explorer-pre-correction-SRR6502339}
+
+Histograms of the number of counts per bin (bottom) and the modified z-score (top) from which the *mad* threshold is defined.
+:::
+
+> NB: when I say that a mapper performs poorly in finding Hi-C contacts, it is `hicBuildMatrix` that performs badly when reads are mapped with that mapper.
+
+To compare these mappings with others, the QC results is an easy way. Therefore, the reads were mapped with *bowtie2* in both end-to-end- and local-mode followed by `hiCBuildMatrix`, and the QC from each method was plotted next to each other (@fig-explorer-all-3-qc). Interestingly, *bowtie2* was much more computer-intensive in both modes, perhaps because of the `--very-sensitive` option. In any case, the QC reveals a major difference in the total number of reads that are determined to be valid Hi-C contacts by `hicBuildMatrix`. As expected, *end-to-end-bowtie2* performs worse at locating Hi-C contacts than the other methods [ref row1], finding a very low amount of mappable, unique pairs passing the quality threshold. In contrast, *local-bowtie2* performs similarly to *bwa* in finding mappable, unique, high-quality pairs, but calls only approximately half the number of valid Hi-C contacts (>20%), resulting in a fraction of valid Hi-C pairs that hits the expectation from *HicExplorer* docs [ref row3]. With *bwa*, the reads were discarded either due to low mapping quality or non-unique mates, whereas with *local-bowtie2*, the reads were almost exclusively filtered out due to low mapping quality. This must be a result of how the mappers assign mapping quality, and I believe *local-bowtie2* looks suspiciously selective in finding unique but low quality alignments. *end-to-end-bowtie* almost exclusively filters out read-pairs where one mate is unmapped, which is expected when the majority of reads are unmapped. 
+
+{{< embed ../notebooks/01_hicexplorer.ipynb#fig-explorer-all-3-qc >}}
+
+
+##### Correcting the matrix
+
+As discussed, the five samples were pooled with `hicSumMatrices`, and the non-standard contigs (unplaced scaffolds) were filtered out, and the different resolutions were created (`hicMergeMatrixBins`). *HiCExplorer* also  comes with a normalization function prior to correcting the matrix, which should be applied if different samples should have comparable bin counts. It has no effect when having only one matrix. Nevertheless, the pooled matrix was normalized and then corrected compared in @fig-explorer-pooled-norm-normcorr. 
+
+::: {#fig-explorer-pooled-norm-normcorr layout-ncol="2"}
+
+![Normalized matrix](../figures/bowtie2/local/filter_pooled_50kb_chrX.png){#fig-explorer-pooled-chrX-norm}
+
+![Normalized and corrected](../figures/bowtie2/local/normalized/normsm_filter_pooled_100kb_corrected_chrX-1-105Mb.png){#fig-explorer-pooled-chrX-normcorr}
+
+A comparison of interaction matrices before/after iterative correction (*HiCExplorer*).
+:::
 
 
 

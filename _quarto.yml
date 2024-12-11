@@ -61,7 +61,6 @@ book:
     - part: "Slides"
       chapters:
       # markdown slides
-      # (the same files must be listed _quarto-slides.yml to render as slides)
       - slides/index.qmd
     - part: "Thesis"
       chapters: 
