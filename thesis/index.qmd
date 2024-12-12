@@ -25,11 +25,11 @@ keywords:
 abstract: |
   This is a dummy abstract, dreamt up by chatGPT. This thesis investigates the 3D chromatin architecture of the X chromosome in baboons, macaques, and humans, focusing on chromatin compartments during spermatogenesis. Using publicly available Hi-C data, interaction maps were created to identify Principal Component 1 (PC1) compartments, revealing distinct compartmentalization patterns among species. The analysis included transition zones, where chromatin shifts between compartment types, and their correlation with positively selected regions. By comparing these zones with evolutionarily significant regions, the study explores how chromatin structure influences evolutionary pressures. Key findings include conserved chromatin features that may help retain non-advantageous alleles, suggesting a role for selfish genetic elements in genome evolution. This research offers new insights into the relationship between chromatin architecture and evolutionary dynamics across primate species.
 plain-language-summary: |
-  3-dimensional structure of chromatin brings light onto the mystery of selfish genes.
+  3D structure of chromatin brings another mystery onto the story of selfish genes, where the edges of A-compartments in macaque align well with regions of positive selection identified in human and baboons.
 key-points:
   - Figures from a paper was reproduced, analyzing A/B chromatin compartments of rhesus macaque X chromosomes
   - Differential compartment analysis was conducted comparing with papio anubis
-  - Regions was overlayed with genes of interest (positive selection)
+  - Regions was overlayed with genes of interest ECH90
 date: last-modified
 ---
 
@@ -270,14 +270,14 @@ The separately mapped read-mates were parsed into a *.h5* interaction matrix by 
 
 ![Contact distance](../steps/bwa/QC_all_samples/distance.png){#fig-explorer-contact-distance}
 
-Quality control of the mapped Hi-C reads using *HiCExplorer* `hicQC`. The figures should be moved to Supplementary/Appendix because they are ugly and un-alignable. But that is the fault of HiCExplorer, not me. 
+Quality control of the mapped Hi-C reads using *HiCExplorer* `hicQC`. The figures should be moved to Supplementary/Appendix because they are ugly and un-alignable. But that is the fault of HiCExplorer, not me. Or I should spend a couple of hours to plot them manually.
 :::
 
 ##### Correction
 
 The correction diagnostic tool yielded a similar *mad* threshold within the range $[-3,-2]$. Even so, I followed the *HicExplorer* recommendation to set the lower threshold to at least -2 and the upper threshold to 5 in the pre-normalization filter. I argue that with a high number of valid contacts, it is safer to err on the side of caution and maybe filter out bad data. 
 
-::: {#fig-explorer-pre-correction layout="[[-5,25,25,25,-5], [-5,25,25,-30]]"}
+::: {#fig-explorer-pre-correction layout="[[-5,25,25,25,-5], [-17.5,25,25,-17.5]]"}
 
 ![SRR6502335](../figures/bwa/SRR6502335_diag_plot.png){#fig-explorer-pre-correction-SRR6502335}
 
@@ -289,7 +289,7 @@ The correction diagnostic tool yielded a similar *mad* threshold within the rang
 
 ![SRR6502339](../figures/bwa/SRR6502339_diag_plot.png){#fig-explorer-pre-correction-SRR6502339}
 
-Histograms of the number of counts per bin (bottom) and the modified z-score (top) from which the *mad* threshold is defined.
+Histograms of the number of counts per bin (bottom x-axis) and the modified z-score (top x-axis) from which the *mad* threshold is defined.
 :::
 
 > NB: when I say that a mapper performs poorly in finding Hi-C contacts, it is `hicBuildMatrix` that performs badly when reads are mapped with that mapper.
@@ -298,21 +298,40 @@ To compare these mappings with others, the QC results is an easy way. Therefore,
 
 {{< embed ../notebooks/01_hicexplorer.ipynb#fig-explorer-all-3-qc >}}
 
-
-##### Correcting the matrix
-
 As discussed, the five samples were pooled with `hicSumMatrices`, and the non-standard contigs (unplaced scaffolds) were filtered out, and the different resolutions were created (`hicMergeMatrixBins`). *HiCExplorer* also  comes with a normalization function prior to correcting the matrix, which should be applied if different samples should have comparable bin counts. It has no effect when having only one matrix. Nevertheless, the pooled matrix was normalized and then corrected compared in @fig-explorer-pooled-norm-normcorr. 
 
 ::: {#fig-explorer-pooled-norm-normcorr layout-ncol="2"}
 
-![Normalized matrix](../figures/bowtie2/local/filter_pooled_50kb_chrX.png){#fig-explorer-pooled-chrX-norm}
+![Normalized matrix (full chrX)](../figures/bowtie2/local/filter_pooled_50kb_chrX.png){#fig-explorer-pooled-chrX-norm}
 
-![Normalized and corrected](../figures/bowtie2/local/normalized/normsm_filter_pooled_100kb_corrected_chrX-1-105Mb.png){#fig-explorer-pooled-chrX-normcorr}
+![Normalized and corrected (0-105Mbp)](../figures/bowtie2/local/normalized/normsm_filter_pooled_100kb_corrected_chrX-1-105Mb.png){#fig-explorer-pooled-chrX-normcorr}
 
 A comparison of interaction matrices before/after iterative correction (*HiCExplorer*).
 :::
 
+It is now obvious why we have to correct the matrix. The uncorrected (@fig-explorer-pooled-chrX-norm) has no signal apart from the diagonal. Even though some bins have been filtered out, the expected *plaid* pattern of a contact matrix is visible along the diagonal after the correction (@fig-explorer-pooled-chrX-normcorr), leaving evidence for chromatin structure, especially in the first 50 million bases of the chromosome. There is a wide region of empty values at the place of the centromere. 
 
+##### Eigenvectors
+
+The PCA performed by `hicPCA` on the pooled samples at both 50kb and 100kb resolution yielded the first 3 principal components. For PC1 on both resolutions (@fig-explorer-pc1-50kb, @fig-explorer-pc1-100kb) we observe only a single sign change which occurs at around 60 Mbp, the region of the centromere. It means the PCA has captured more variance between the chromosome arms than within them, making it uninformative about chromatin compartments. Upon visual inspection, it is clear that neither of the PC graphs capture the pattern of the interaction matrix. Unimpressed, I rationalize that the option `--extra-track` to provide a gene track or histone coverage should not affect this reult much. It should be provided as a phasing track to orient the eigenvector to positively correlate with gene density or histone marks, and could possibly muddle the compartments if not included.
+
+::: {#fig-explorer-pca layout-ncol="3"}
+
+![](../figures/bowtie2/local/normalized/pc1_50kb_corrected_chrX.png){#fig-explorer-pc1-50kb}
+
+![](../figures/bowtie2/local/normalized/pc2_50kb_corrected_chrX.png){#fig-explorer-pc2-50kb}
+
+![](../figures/bowtie2/local/normalized/pc3_50kb_corrected_chrX.png){#fig-explorer-pc2-50kb}
+
+
+![](../figures/bowtie2/local/normalized/pc1_100kb_corrected_chrX.png){#fig-explorer-pc1-100kb}
+
+![](../figures/bowtie2/local/normalized/pc2_100kb_corrected_chrX.png){#fig-explorer-pc2-100kb}
+
+![](../figures/bowtie2/local/normalized/pc3_100kb_corrected_chrX.png){#fig-explorer-pc3-100kb}
+
+Corrected interaction matrix for chromosome X along with PC1, 2, or 3, respectively. a-c: 50kb resolution, d-f: 100kb resolution. *HiCExplorer*. 
+:::
 
 
 {{< pagebreak >}}
