@@ -355,9 +355,7 @@ Parsing alignments with the recommended walks-policy aproximately halves the per
 
 Matrix balancing did not show major improvement in the plaid pattern, as it was already pretty good. It does, however, filter out bins that are deemed too low-count to be informative, for example peri-centromeric regions. The matrix was expected to be smoother after balancing (for chromosomes), as regions along a chromosome should only vary slowly in contact frequency with other regions [ref]. 
 
-{{< embed ../notebooks/05_rec_compartments.ipynb#fig-rx-chrX-raw-balanced-cgi >}}
-
-
+{{< embed ../notebooks/05_rec_compartments.ipynb#fig-rs-chrx-raw-balanced-cgi >}}
 
 
 
