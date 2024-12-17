@@ -1,6 +1,9 @@
 project:
   type: manuscript
   output-dir: ../_book/thesis
+  # Fix the preview port-forwarding so it doesn't open a new tab each time (and stops forwarding ports)
+  preview:
+    port: 4202
 
 manuscript:
   article: index.qmd
@@ -35,10 +38,10 @@ format:
       # - ignorehead
       # - ignorefoot
       # - heightrounded
-    fontsize: 10pt
+    fontsize: 11pt
     linestretch: 1.2
     number-sections: true
-    number-depth: 3
+    number-depth: 2
     highlight-style: kate 
     tbl-cap-location: top
     include-in-header:
