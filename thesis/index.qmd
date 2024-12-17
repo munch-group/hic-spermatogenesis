@@ -243,13 +243,13 @@ First, we calculate the GC content of each bin of the reference genome, *rheMac1
 
 Additionally, to mimic the *Local PCA* from [@wang_reprogramming_2019], I also defined a view of 10 Mb bins. Thoughout the project, I will compare results from each of the three views and resolutions. 
 
-##### Plotting
+#### Plotting
 
-*HiCExplorer* plots matrices to .png from the command-line. When plots were generated (with `hicPlotMatrix`), it produces a .png output that has to be loaded back into the notebook. There is limited support for modifying the plot (from command-line options), such as to add spacing for a bigWig track with E1 values, add plot titles, and define the size and resolution of the plot. I briefly tried to implement a plotting function on the .h5 matrices and bigWig tracks, but it could not fetch regions from a matrix on the fly and had to load the full matrix into memory (that is, all full-length chromosomes).   
+*HiCExplorer* plots matrices to .png from the command-line. When plots were generated (with `hicPlotMatrix`), it produces a .png output that has to be loaded back into the notebook. There is limited support for modifying the plot (from command-line options), such as to add spacing for a bigWig track with E1 values, add plot titles, and define the size and resolution of the plot. I briefly tried to implement a plotting function on the .h5 matrices and bigWig tracks, but it could not fetch regions from a matrix on the fly and had to load the full matrix into memory (that is, all full-length chromosomes). To better visualise differences in the interaction matrix, the interaction frequency $f_i$, is transformed to $\log\mathrm{1p}(f_i) = \log\left(1 + f_i\right)$. It is required to visualize the normalized interaction frequency, as there are mostly values very close to 0, but it also aids the visibility in the raw counts matrix.
 
-We use matplotlib and seaborn to plot in the *Open2C* framework. Utilizing the `cooler` class, we can fetch regions of the matrix without modifying the file. As my analysis is centered around the X chromosome, it is efficiently handled by simply fetching 'chrX' with `cooler.Cooler.matrix().fetch('chrX')`. 
+We use matplotlib and seaborn to plot in the *Open2C* framework. Utilizing the `cooler` class, we can fetch regions of the matrix without modifying the file. As my analysis is centered around the X chromosome, it is efficiently handled by simply fetching 'chrX' from the matrix with `cooler.Cooler.matrix().fetch('chrX')`. Many methods of the cooler class returns data selectors, which do not retrieve data before it is queried [ref]. This means we can create many selectors at once without overflowing memory, enabling us to plot multiple interaction matrices side-by-side, e.g. the corrected and un-corrected matrices. This is easily done with the `balance` parameter of the matrix selector (`.matrix()`), which determines if it should apply the balancing weights to the coordinates and defaults to `True`. 
 
-Many methods of the cooler class returns data selectors, which do not retrieve data before it is queried [ref]. This means we can create many selectors at once without overflowing memory, enabling us to plot multiple interaction matrices in the same plot, e.g. the corrected and un-corrected matrices. This is easily done with the `balance` parameter of the matrix selector (`.matrix()`), which determines if it should apply the balancing weights to the coordinates and defaults to `True`. 
+The matrix is retrieved an plotted with `matplotlib.pyplot.matshow`, which automatically produces a heatmap image of the matrix. Here, in stead of transforming the interaction matrix, the color scale is log-transformed with `matplotlib.colors.LogNorm`. Additionally, `cooltools` comes with more tools to aid visualization: *adative coarsegrain* and *interpolation*, which can be chained. `adaptive_coarsegrain` iteratively coarsens an array to the nearest power of two and refines it back to the original resolution, replacing low-count pixels with NaN-aware averages to ensure no zeros in the output, unless there are very large regions that exceed the `max_levels` threshold, such as the peri-centromeric region. 
 
 
 {{< pagebreak >}}
@@ -306,9 +306,9 @@ As discussed, the five samples were pooled with `hicSumMatrices`, and the non-st
 
 ::: {#fig-explorer-pooled-norm-normcorr layout-ncol="2"}
 
-![Normalized matrix (full chrX)](../figures/bowtie2/local/filter_pooled_50kb_chrX.png){#fig-explorer-pooled-chrX-norm}
+![Normalized matrix chrX](../figures/bowtie2/local/filter_pooled_50kb_chrX.png){#fig-explorer-pooled-chrX-norm}
 
-![Normalized and corrected (0-105Mbp)](../figures/bowtie2/local/normalized/normsm_filter_pooled_100kb_corrected_chrX-1-105Mb.png){#fig-explorer-pooled-chrX-normcorr}
+![Normalized and corrected chrX](../figures/bowtie2/local/normalized/normsm_filter_pooled_100kb_corrected_chrX-full.png){#fig-explorer-pooled-chrX-normcorr}
 
 A comparison of interaction matrices before/after iterative correction (*HiCExplorer*).
 :::
@@ -339,7 +339,6 @@ Corrected interaction matrix for chromosome X along with PC1, 2, or 3, respectiv
 
 ## Open2c ecosystem
 
-
 ### Quality Control
 
 #### Initial run (`--walks-policy mask`)
@@ -357,11 +356,13 @@ Matrix balancing did not show major improvement in the plaid pattern, as it was 
 
 {{< embed ../notebooks/05_rec_compartments.ipynb#fig-rs-chrx-raw-balanced-cgi >}}
 
+{{< embed ../notebooks/05_rec_compartments.ipynb#fig-rs-chrx-raw-balanced-cgi-subset >}}
+
+The coarsegrained and interpolated matrix is useful to make a good-looking interaction matrix, but is not that useful for analysis purposes. It might get easier to visually inspect the matrix, but it is not clear how well the interpolated matrix reflects the structure of the chromatin. The regions that are coarsgrained are small zero- or low-count bins which are averaged, effectively reducing the resolution of those regions until the count is sufficient. They get more frequent the longer genomic distance (the further we travel from the diagonal), and effectively enables us to get some intuition about the interactions. The coarsegrain, however, does not interpolate the `NaN`s created when filtering out whole bins in the balancing step (horisontal and vertical lines in @fig-rs-chrx-raw-balanced-cgi and @fig-rs-chrx-raw-balanced-cgi-subset; middle). This is done in a subsequent step by linearly interpolating the `NaN`s. Examining the interpolated matrix on full chrX (@fig-rs-chrx-raw-balanced-cgi; right) gives the impression that the pericentromeric (at ~60 Mbp) region harbours a *very* strong compartment, but that is clearly an artefact of the interpolation on the very large empty region of the centromere, where the diagonal is somehow extended in a square. On the thinner lines, the interpolation seem to be more smooth, and barely noticable on the diagonal. 
 
 
+### Eigenvectors 
 
-
-### Eigenvectors
 
 
 
