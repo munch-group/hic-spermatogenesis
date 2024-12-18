@@ -1,7 +1,7 @@
 project:
   type: manuscript
   output-dir: ../_book/thesis
-  # Fix the preview port-forwarding so it doesn't open a new tab each time (and stops forwarding ports)
+  # Fix the preview port-forwarding so it doesn't open a new port each time
   preview:
     port: 4202
 
@@ -10,8 +10,10 @@ manuscript:
 
 format:
   html: default
-  docx: default
-  jats: default
+    comments: 
+      hypothesis: true
+  # docx: default
+  # jats: default
 
   pdf:
     # latex-clean: false

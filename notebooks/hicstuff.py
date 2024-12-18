@@ -115,6 +115,19 @@ def extract_a_coordinates(e1, name, restriction = 'full', chrom='chrX', smooth =
         # Forward-fill NaN values up to 2 bins in gaps
         e1_filled = e1.ffill(limit=2, limit_area='inside')
 
+    # write the eigen vector to a file if it doesn't exist
+    e1_path = op.join(output_dir, f'{name}_e1_{int(res * 0.001)}kb_{restriction}.csv')
+    if smooth:
+        e1_path = e1_path.replace('.csv', '_smoothed.csv')
+    print(f"Saving eigenvector track to: {e1_path}")
+    if not op.exists(e1_path):
+        e1.to_csv(e1_path, index=False, header=['e1'])
+    elif force:
+        print(f"File {e1_path} already exists. Overwriting.")
+        e1.to_csv(e1_path, index=False, header=['e1'])
+    else:
+        print(f"Skipping: {e1_path} already exists.")
+
 
 
     # Detect changes in the sign of the eigenvector

@@ -361,8 +361,31 @@ Matrix balancing did not show major improvement in the plaid pattern, as it was 
 The coarsegrained and interpolated matrix is useful to make a good-looking interaction matrix, but is not that useful for analysis purposes. It might get easier to visually inspect the matrix, but it is not clear how well the interpolated matrix reflects the structure of the chromatin. The regions that are coarsgrained are small zero- or low-count bins which are averaged, effectively reducing the resolution of those regions until the count is sufficient. They get more frequent the longer genomic distance (the further we travel from the diagonal), and effectively enables us to get some intuition about the interactions. The coarsegrain, however, does not interpolate the `NaN`s created when filtering out whole bins in the balancing step (horisontal and vertical lines in @fig-rs-chrx-raw-balanced-cgi and @fig-rs-chrx-raw-balanced-cgi-subset; middle). This is done in a subsequent step by linearly interpolating the `NaN`s. Examining the interpolated matrix on full chrX (@fig-rs-chrx-raw-balanced-cgi; right) gives the impression that the pericentromeric (at ~60 Mbp) region harbours a *very* strong compartment, but that is clearly an artefact of the interpolation on the very large empty region of the centromere, where the diagonal is somehow extended in a square. On the thinner lines, the interpolation seem to be more smooth, and barely noticable on the diagonal. 
 
 
-### Eigenvectors 
+#### `NaN` histograms
 
+As expected, most of the low quality bins are located on the edges of the chromosome arms, especially the region around the centromere [ref litterature], as they contain many repetitive sequences. The low-quality bins are filtered out by the balancing algorithm, those bins are `NaN` in the Hi-C matrix. The median position of the `NaN` values (@fig-e1_nan_hist) ranges between $58$ and $63.5$, which is within the estimate of the centromeric region of *rhemac10*. 
+
+{{< embed ../notebooks/05_rec_compartments.ipynb#fig-e1_nan_hist >}}
+
+The fact that the medians lie within the centromeric region on all cell sources shows both that the majority of the bad bins are in the (peri)centromeric region *and* there are approximately equally many on each side. 
+
+
+### Compartments (Eigenvectors)
+
+The three viewframes (*Full*, *Arms*, *10Mb*) for the calculation of the eigenvectors captured different variability in the data (@fig-e1-matrix-500kb-full-arms-10mb-round_spermatid), and as expected, the inferred compartments (red) are more abundant and smaller with smaller viewframes. To determine how well each of the E1 tracks capture the pattern in the interaction matrix, we can overlay the matrix with the E1 sign-change and visually determine if the squares reflect the E1 sign change (@fig-e1-matrix-500kb-full-arms-10mb-round_spermatid). 
+
+::: {#fig-e1-matrix-full-arms-10mb-round-spermatid layout="[3,-0.2,3]"}
+
+{{< embed ../notebooks/05_rec_compartments.ipynb#fig-e1-matrix-500kb-full-arms-10mb-round_spermatid >}}
+
+{{< embed ../notebooks/05_rec_compartments.ipynb#fig-e1-matrix-100kb-full-arms-10mb-round_spermatid >}}
+
+Super caption, subcaptions should be moved here (from notebook). They now fit on the page, but it would be nice to make this as one plt.subplots with shared axis title etc. 
+:::
+
+I argue that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. Also, @wang_reprogramming_2019 concludes that only the pachytene spermatocyte showed local interactions in that viewframe, and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, all three viewframes were used for  further analysis. 
+
+Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices.
 
 
 
@@ -382,4 +405,3 @@ Here is the discussion
 ::: {#refs}
 :::
 \endgroup
-
