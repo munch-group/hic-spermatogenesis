@@ -10,8 +10,6 @@ manuscript:
 
 format:
   html: default
-    comments: 
-      hypothesis: true
   # docx: default
   # jats: default
 
@@ -51,6 +49,9 @@ format:
     template-partials:
       - before-body.tex      
 
+comments:
+  hypothesis: true
+  
 notebook-links: false
 
 lightbox: true
