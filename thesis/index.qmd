@@ -380,13 +380,14 @@ The three viewframes (*Full*, *Arms*, *10Mb*) for the calculation of the eigenve
 
 {{< embed ../notebooks/05_rec_compartments.ipynb#fig-e1-matrix-100kb-full-arms-10mb-round_spermatid >}}
 
-Super caption, subcaptions should be moved here (from notebook). They now fit on the page, but it would be nice to make this as one plt.subplots with shared axis title etc. 
+Super caption, subcaptions should be moved here   (from notebook). They now fit on the page, but it would be nice to make this as one plt.subplots with shared axis title etc. *Update:* The notebook is ready for making these plots (bottom section).
 :::
 
-I argue that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. Also, @wang_reprogramming_2019 concludes that only the pachytene spermatocyte showed local interactions in that viewframe, and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, all three viewframes were used for  further analysis. 
+I argue that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. Also, @wang_reprogramming_2019 concludes that only the pachytene spermatocyte showed local interactions in that viewframe (what they refer to as *refined A/B-compartments* ), and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, all three viewframes were used for further analysis. 
 
-Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices.
+Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices and their compartments
 
+{{< embed ../notebooks/07_various_plotting.ipynb#fig-rs100-recpe-pe >}}
 
 
 
