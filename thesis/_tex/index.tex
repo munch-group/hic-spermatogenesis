@@ -1656,22 +1656,89 @@ either Full-chromosome (top), Chromosome-arms (middle), or 10Mb windows
 \caption{\label{fig-e1-matrix-full-arms-10mb-round-spermatid}Super
 caption, subcaptions should be moved here (from notebook). They now fit
 on the page, but it would be nice to make this as one plt.subplots with
-shared axis title etc.}
+shared axis title etc. \emph{Update:} The notebook is ready for making
+these plots (bottom section).}
 
 \end{figure}%
 
 I argue that without more finescaled knowledge than the position of the
 centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully
 be justified. Also, \citet{wang_reprogramming_2019} concludes that only
-the pachytene spermatocyte showed local interactions in that viewframe,
-and all the other stages of spermatogenesis were consistent with the
-conventional A/B compartments. The reasonable thing to do is therefore
-to continue the analysis, focusing on the arms-restricted
-eigendecomposition. Nevertheless, all three viewframes were used for
-further analysis.
+the pachytene spermatocyte showed local interactions in that viewframe
+(what they refer to as \emph{refined A/B-compartments} ), and all the
+other stages of spermatogenesis were consistent with the conventional
+A/B compartments. The reasonable thing to do is therefore to continue
+the analysis, focusing on the arms-restricted eigendecomposition.
+Nevertheless, all three viewframes were used for further analysis.
 
 Additionally, as I created coolers with two different sets of parsing
-parameters we will compare the resulting matrices.
+parameters we will compare the resulting matrices and their compartments
+
+\begin{figure}
+
+\begin{minipage}{0.02\linewidth}
+~\end{minipage}%
+%
+\begin{minipage}{0.48\linewidth}
+
+\centering{
+
+\includegraphics[width=3.04167in,height=2.41667in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-1.png}
+
+}
+
+\subcaption{\label{fig-rs100-recpe-pe-1}recPE RS 100kb full chrX}
+
+\end{minipage}%
+%
+\begin{minipage}{0.48\linewidth}
+
+\centering{
+
+\includegraphics[width=3.04167in,height=2.41667in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-2.png}
+
+}
+
+\subcaption{\label{fig-rs100-recpe-pe-2}PE RS 100kb full chrX}
+
+\end{minipage}%
+%
+\begin{minipage}{0.02\linewidth}
+~\end{minipage}%
+\newline
+\begin{minipage}{0.02\linewidth}
+~\end{minipage}%
+%
+\begin{minipage}{0.48\linewidth}
+
+\centering{
+
+\includegraphics[width=3.04167in,height=2.1875in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-3.png}
+
+}
+
+\subcaption{\label{fig-rs100-recpe-pe-3}recPE RS 100kb chrX:100Mb-140Mb}
+
+\end{minipage}%
+%
+\begin{minipage}{0.48\linewidth}
+
+\centering{
+
+\includegraphics[width=3.04167in,height=2.1875in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-4.png}
+
+}
+
+\subcaption{\label{fig-rs100-recpe-pe-4}PE RS 100kb chrX:100Mb-140Mb}
+
+\end{minipage}%
+%
+\begin{minipage}{0.02\linewidth}
+~\end{minipage}%
+
+\caption{\label{fig-rs100-recpe-pe}Comparing two Hi-C matrices}
+
+\end{figure}%
 
 \newpage{}
 
