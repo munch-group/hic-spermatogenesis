@@ -406,7 +406,8 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={Chromatin Compartments and Selection on X},
-  pdfkeywords={Hi-C, Chromatin Compartments, Selection},
+  pdfkeywords={Hi-C, Chromatin Compartments, Evolutionary
+pressures, Selfish gene drive},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
@@ -420,8 +421,8 @@
 \makeatother
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
-\author{Søren Jørgensen}
-\date{2024-12-19}
+\author{Søren Jørgensen \and Kasper Munch}
+\date{2024-12-21}
 
 \begin{document}
 \frontmatter
@@ -439,6 +440,8 @@ Regions in Primates \par}
 
     {\Large\bfseries Søren Jørgensen \par}
     %
+    {\Large\bfseries Kasper Munch \par}
+    %
 %
 \vskip 0cm plus 2fill
 
@@ -448,7 +451,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2024-12-19 \par}
+{\bfseries\large 2024-12-21 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -458,23 +461,25 @@ of the degree of MSc. Bioinformatics \par}
 
 \begin{quote}
 \raggedright    
-This is a dummy abstract, dreamt up by chatGPT. This thesis investigates
-the 3D chromatin architecture of the X chromosome in baboons, macaques,
-and humans, focusing on chromatin compartments during spermatogenesis.
-Using publicly available Hi-C data, interaction maps were created to
-identify Principal Component 1 (PC1) compartments, revealing distinct
-compartmentalization patterns among species. The analysis included
-transition zones, where chromatin shifts between compartment types, and
-their correlation with positively selected regions. By comparing these
-zones with evolutionarily significant regions, the study explores how
-chromatin structure influences evolutionary pressures. Key findings
-include conserved chromatin features that may help retain
-non-advantageous alleles, suggesting a role for selfish genetic elements
-in genome evolution. This research offers new insights into the
-relationship between chromatin architecture and evolutionary dynamics
-across primate species. \par
+Here, the 3D chromatin architecture of the X chromosome in rhesus
+macaque (\emph{Macaca mulata}) is investigated in the context of
+evolutionary pressures and genetic drivers. We redo Hi-C analyses from a
+2019 paper latest reference genome (\emph{rheMac10} or \emph{Mmul\_10}).
+We compare two Hi-C analysis frameworks, \emph{HiCExplorer} and
+\emph{cooler/cooltools} (Open2C), on a subset, finding Open2C to be most
+flexible and intuitive. The ICE method (Iterative Correction and
+Eigendecomposition) was used to infer conventional and refined A/B
+compartments for fibroblast and four stages of spermatogenesis. We find
+that 200 kbp transition-zones between A/B-compartments in both
+fibroblasts and round spermatids align well with human selective sweeps
+where meiotic drive can explain the selection (ECH-regions), and with
+hybrid incompatility in baboons (genus \emph{Papio}). We discuss the
+biological meaning of these findings, where conserved chromatin features
+may help to retain non-advantageous alleles, hinting to the role of
+selfish genetic elements in genome evolution. \par
 \raggedleft    
     {- Søren Jørgensen \par}
+    {- Kasper Munch \par}
 %    
 \end{quote}
 }
@@ -488,6 +493,9 @@ across primate species. \par
 \setstretch{1.2}
 \mainmatter
 \chapter{Introduction}\label{introduction}
+
+\section{Reproducible Research and
+Quarto}\label{reproducible-research-and-quarto}
 
 \section{Sexual reproduction (spermatogenesis,
 meiosis)}\label{sexual-reproduction-spermatogenesis-meiosis}
@@ -559,19 +567,18 @@ exploring the three-dimensional organization of the genome.
 
 \subsection{Hi-C Data Analysis}\label{hi-c-data-analysis}
 
-\paragraph{Aligning the Hi-C reads}\label{aligning-the-hi-c-reads}
+\subsubsection{Aligning the Hi-C reads}\label{aligning-the-hi-c-reads}
 
-\paragraph{Identifying and Storing Valid Hi-C
+\subsubsection{Identifying and Storing Valid Hi-C
 Pairs}\label{identifying-and-storing-valid-hi-c-pairs}
 
-\paragraph{Interaction Matrices and Quality
+\subsubsection{Interaction Matrices and Quality
 Control}\label{interaction-matrices-and-quality-control}
 
-\paragraph{Calling Compartments (ICE)}\label{calling-compartments-ice}
+\subsubsection{Calling Compartments
+(ICE)}\label{calling-compartments-ice}
 
-\paragraph{Edges}\label{edges}
-
-\newpage{}
+\subsubsection{Edges}\label{edges}
 
 \chapter{Methods}\label{methods}
 
@@ -726,12 +733,12 @@ processing, and each accesion number (read pair, mate pair) from the
 Hi-C sequencing was processed in parallel, so their execution was
 independent from each other.
 
-\paragraph{Downloading the reads}\label{downloading-the-reads}
+\subsubsection{Downloading the reads}\label{downloading-the-reads}
 
 The reads were downloaded from NCBI SRA portal {[}ref{]} directly to GDK
 using \texttt{sra-downloader} {[}ref{]} as \texttt{.fastq.gz} files.
 
-\paragraph{Handling the reference}\label{handling-the-reference}
+\subsubsection{Handling the reference}\label{handling-the-reference}
 
 The latest reference genome for rhesus macaque (\emph{macaca mulata}),
 \emph{rheMac10} (or \emph{Mmul\_10}, UCSC or NCBI naming conventions,
@@ -756,7 +763,7 @@ using \texttt{bowtie2-build\ -\/-large-index}, which creates six index
 files for \texttt{bowtie2} to use. \texttt{-\/-large-index} creates the
 special indexing format required for large genomes such as macaque.
 
-\paragraph{Mapping Hi-C reads}\label{mapping-hi-c-reads}
+\subsubsection{Mapping Hi-C reads}\label{mapping-hi-c-reads}
 
 paragraph will be restructured.
 
@@ -818,9 +825,9 @@ cooler. I chose the latter, where I mapped the fastq files to
 \emph{rheMac10} in paired end mode for a pair (m1, m2) with
 \texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
 
-\paragraph{Parse and sort the reads}\label{parse-and-sort-the-reads}
+\subsubsection{Parse and sort the reads}\label{parse-and-sort-the-reads}
 
-\textbf{HiCExplorer} No action is needed, as this step is done
+With \emph{HiCExplorer} No action is needed, as this step is done
 implicitly when building the matrix
 
 \textbf{Open2C} We need to convert the alignments into ligation events,
@@ -895,7 +902,8 @@ decided to re-parse the alignments into a new set of pairs, and equally
 apply the recommended filter (next section). As both results are saved,
 we can compare the two approaches.
 
-\paragraph{Filter (deduplicate) pairs}\label{filter-deduplicate-pairs}
+\subsubsection{Filter (deduplicate)
+pairs}\label{filter-deduplicate-pairs}
 
 With \emph{HiCExplorer}, no action is needed, as this step is done
 implicitly when building the matrix.
@@ -922,11 +930,11 @@ A quality control report is generated by \texttt{pairtools\ dedup}, and
 the reports are merged with \texttt{MultiQC} {[}ref{]} for each cell
 type.
 
-\paragraph{Create interaction matrices
+\subsubsection{Create interaction matrices
 (coolers)}\label{create-interaction-matrices-coolers}
 
-\textbf{HiCExplorer} \texttt{hicBuildMatrix} both parse and filter the
-mapped reads. The default value was used, where alignments with
+With \emph{HiCExplorer} \texttt{hicBuildMatrix} both parse and filter
+the mapped reads. The default value was used, where alignments with
 \(mapq < 15\) are discarded.
 
 \textbf{Open2C} The final part of the \emph{gwf} workflow takes
@@ -953,7 +961,7 @@ experimental parts of the analysis were moved to Jupyter Notebooks.
 \texttt{cooltools} comes with a helper library for operations on genomic
 intervals called \texttt{bioframe}.
 
-\paragraph{Pooling samples (Merging
+\subsubsection{Pooling samples (Merging
 coolers)}\label{pooling-samples-merging-coolers}
 
 The samples are grouped into \emph{replicates} with a unique
@@ -968,7 +976,7 @@ function merges matrices of the same dimensions by simply adding the
 interaction frequencies of each genomic position together, resulting in
 less empty positions by chance.
 
-\paragraph{Create multi-resolution coolers
+\subsubsection{Create multi-resolution coolers
 (zoomify)}\label{create-multi-resolution-coolers-zoomify}
 
 A feature of working inside the ecosystem of \emph{Open2C} {[}ref{]} is
@@ -980,7 +988,7 @@ chose to use 10kb, 50kb, 100kb, and 500kb bins, and the resolutions are
 made by recursively binning the base resolution. We call this process
 zoomifying.
 
-\paragraph{Matrix balancing (Iterative
+\subsubsection{Matrix balancing (Iterative
 correction)}\label{matrix-balancing-iterative-correction}
 
 Finally, we balance the matrices using the cooler CLI. We use
@@ -1010,7 +1018,7 @@ bin. It would maybe be more suitable to calculate the weights for
 that we can compare the difference between the two methods easily.
 However, we will only use the default mode for now.
 
-\paragraph{Eigendecomposition}\label{eigendecomposition}
+\subsubsection{Eigendecomposition}\label{eigendecomposition}
 
 The eigendecomposition of a Hi-C interaction matrix is performed in
 multiple steps. As value of the eigenvector is only \emph{significant}
@@ -1048,7 +1056,7 @@ Additionally, to mimic the \emph{Local PCA} from
 Thoughout the project, I will compare results from each of the three
 views and resolutions.
 
-\subsubsection{Plotting}\label{plotting}
+\subsubsection{Plotting matrices}\label{plotting-matrices}
 
 \emph{HiCExplorer} plots matrices to .png from the command-line. When
 plots were generated (with \texttt{hicPlotMatrix}), it produces a .png
@@ -1094,7 +1102,62 @@ replacing low-count pixels with NaN-aware averages to ensure no zeros in
 the output, unless there are very large regions that exceed the
 \texttt{max\_levels} threshold, such as the peri-centromeric region.
 
-\newpage{}
+I implemented a plotting utility, \texttt{plot\_for\_quarto} in notebook
+\texttt{07\_various\_plotting.ipynb} that is compatible with the YAML
+cell-options read by Quarto's \texttt{embed} shortcode. It will take an
+arbitrary number of samples and plot a chromosome (or region) with or
+without its respective E1 value for either of the three viewframes that
+has been created. The input is a (subsetted) \emph{pandas DataFrame},
+defined from a file search matching a pattern specified to the
+\texttt{glob} Python module.
+
+\subsection{Compartments and Their Edges (Transitional
+Regions)}\label{compartments-and-their-edges-transitional-regions}
+
+From the eigenvectors, the A-compartments were extracted in
+bedgraph-format
+(\texttt{{[}\textquotesingle{}chrom\textquotesingle{},\ \textquotesingle{}start\textquotesingle{},\ \textquotesingle{}end\textquotesingle{}{]}})
+and compared with ECH90 regions lifted to \emph{rheMac10} from human
+{[}ref what reference?{]}. We perform visual inspection of the genomic
+intervals and test whether ECH90 regions are enriched near the edges of
+the compartments by defining a 200 kilobase transition-zone centered at
+each sign change of E1 (referred to as \emph{compartment edge}). We
+compare genomic intervals (or sets) both visually by plotting the
+regions, and by a proximity test and bootstrapping the Jaccard index.
+
+\subsubsection{Proximity test}\label{proximity-test}
+
+Determines whether the non-overlapping parts of the sets are more
+proximal than expected by chance. We define the \emph{annotation} set
+and the \emph{query} set, and the distance from each interval on the
+\emph{query} to the most proximal interval on the \emph{annotation} is
+used to generate an index of proximity. It uses bootstrapping
+(\(b = 100000\)) to generate the null distribution, and finally, the
+fraction of the \emph{null} as or more extreme as our observed proximity
+is reported as the p-value.
+
+\subsubsection{Jaccard test}\label{jaccard-test}
+
+Measures the significance of the observed Jaccard index (intersection
+over union) between two sets. The index is a measure of
+\emph{similarity} between two sets (between 0 and 1), which is very
+sensitive to the size difference between the sets, as even when
+comparing a set of intervals to a small subset of itself will yield a
+very small Jaccard index. When we use bootstrapping to generate a null
+distribution (shuffling the intervals of the \emph{query}), we generate
+the probability that the two sets (with their respective number and size
+of intervals), are as similar or more than what we observe. The ratio is
+reported as the p-value. However, this approach is still sensitive to
+flipping of query/annotation, as only the query is bootstrapped.
+
+\subsubsection{Multiple testing}\label{multiple-testing}
+
+Careful considerations were made to avoid multiple testing biases
+(p-hacking): Performing tests on all combinations of variables (cell
+type, resolution, viewframe, flip annot, query, test) will yield 260
+p-values, and we would have to adjust the significance threshold (with
+\(\alpha = 0.05\), we expect 13 `significant' tests by chance alone).
+However, if we choose only
 
 \chapter{Results}\label{results}
 
@@ -1669,21 +1732,39 @@ the pachytene spermatocyte showed local interactions in that viewframe
 other stages of spermatogenesis were consistent with the conventional
 A/B compartments. The reasonable thing to do is therefore to continue
 the analysis, focusing on the arms-restricted eigendecomposition.
-Nevertheless, all three viewframes were used for further analysis.
+Nevertheless, we also keep \emph{refined} compartments in the analysis.
 
 Additionally, as I created coolers with two different sets of parsing
 parameters we will compare the resulting matrices and their compartments
+(Figure~\ref{fig-rs100-recpe-pe}). As expected, we observe more empty
+bins in the Hi-C matrix, but otherwise, the interaction pattern is
+indestinguishable when going from the initial run (PE) to the
+recommended parameters (redPE). The effect on the E1 is more noticable,
+where the absolute magnitude of the E1 values is generally smaller.
+There is, however, a small region that changes sign (from A to B) on the
+10Mb-windowed (`refined') E1 track (Figure~\ref{fig-rs100-recpe-pe};c+d,
+zoomed-in region). This region is surrounded by added empty bins, which
+could mean that too many low quality pairs in PE were introducing bias
+and swapped the sign of E1. It is supported by the fact that the sign
+change \emph{only} occured in \emph{refined} E1, and that the sign after
+filtering weak pairs (\(mapq < 30\)) is consistent with the \emph{arms}
+view. It supports my previous postulate that it is better to use a
+viewframe where with explicit molecular meaning than one of an arbitrary
+window size. That said, the \texttt{mapq} threshold should really be
+determined taking both coverage and resolution into account. For our
+purposes, and with the \emph{arms} view, the mapping- and parsing
+parameters do not seem to be too sensitive.
 
 \begin{figure}
 
-\begin{minipage}{0.02\linewidth}
+\begin{minipage}{0.05\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.48\linewidth}
+\begin{minipage}{0.46\linewidth}
 
 \centering{
 
-\includegraphics[width=3.04167in,height=2.41667in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-1.png}
+\includegraphics[width=2.57292in,height=2.03125in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-1.png}
 
 }
 
@@ -1691,11 +1772,11 @@ parameters we will compare the resulting matrices and their compartments
 
 \end{minipage}%
 %
-\begin{minipage}{0.48\linewidth}
+\begin{minipage}{0.46\linewidth}
 
 \centering{
 
-\includegraphics[width=3.04167in,height=2.41667in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-2.png}
+\includegraphics[width=2.57292in,height=2.03125in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-2.png}
 
 }
 
@@ -1703,50 +1784,112 @@ parameters we will compare the resulting matrices and their compartments
 
 \end{minipage}%
 %
-\begin{minipage}{0.02\linewidth}
+\begin{minipage}{0.05\linewidth}
 ~\end{minipage}%
 \newline
-\begin{minipage}{0.02\linewidth}
+\begin{minipage}{0.05\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.48\linewidth}
+\begin{minipage}{0.46\linewidth}
 
 \centering{
 
-\includegraphics[width=3.04167in,height=2.1875in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-3.png}
+\includegraphics[width=2.57292in,height=2.09375in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-3.png}
 
 }
 
-\subcaption{\label{fig-rs100-recpe-pe-3}recPE RS 100kb chrX:100Mb-140Mb}
+\subcaption{\label{fig-rs100-recpe-pe-3}recPE RS 100kb chrX:70Mb-78Mb}
 
 \end{minipage}%
 %
-\begin{minipage}{0.48\linewidth}
+\begin{minipage}{0.46\linewidth}
 
 \centering{
 
-\includegraphics[width=3.04167in,height=2.1875in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-4.png}
+\includegraphics[width=2.57292in,height=2.09375in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-4.png}
 
 }
 
-\subcaption{\label{fig-rs100-recpe-pe-4}PE RS 100kb chrX:100Mb-140Mb}
+\subcaption{\label{fig-rs100-recpe-pe-4}PE RS 100kb chrX:70Mb-78Mb}
 
 \end{minipage}%
 %
-\begin{minipage}{0.02\linewidth}
+\begin{minipage}{0.05\linewidth}
 ~\end{minipage}%
 
-\caption{\label{fig-rs100-recpe-pe}Comparing two Hi-C matrices}
+\caption{\label{fig-rs100-recpe-pe}Round Spermatid (RS) at 100kb,
+comparing the impact of parsing parameters}
 
 \end{figure}%
 
-\newpage{}
+\subsection{Compartment Edges (transition
+zones)}\label{compartment-edges-transition-zones}
+
+We compare how the ECH90 regions fit when queried on top of the
+A-compartments and equivalently for the edges, for fibroblasts and round
+spermatids at 100kb resolution. When queried against the edges in stead,
+the the total set size is reduced to less than 50\%. Interestingly, some
+of the intersections between A-compartments and ECH90 remain, and new
+ones appear as we move to the outside edge of the compartment.
+
+\begin{figure}
+
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\includegraphics[width=4.14583in,height=1.33333in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-1.png}
+
+}
+
+\subcaption{\label{fig-comps-edges-ech-1}Visual representation of the
+genomic intervals of ECH90, A-compartments, edges, and their
+intersections. Shown fibroblast and round spermatid at 100kb resolution
+and arms view.}
+
+\end{minipage}%
+%
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\includegraphics[width=4.14583in,height=1.33333in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-2.png}
+
+}
+
+\subcaption{\label{fig-comps-edges-ech-2}}
+
+\end{minipage}%
+\newline
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\includegraphics[width=4.14583in,height=1.33333in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-3.png}
+
+}
+
+\subcaption{\label{fig-comps-edges-ech-3}}
+
+\end{minipage}%
+%
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\includegraphics[width=4.14583in,height=1.33333in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-4.png}
+
+}
+
+\subcaption{\label{fig-comps-edges-ech-4}}
+
+\end{minipage}%
+
+\end{figure}%
 
 \chapter{Discussion}\label{discussion}
 
 Here is the discussion
-
-\newpage{}
 
 \chapter*{Bibliography}\label{bibliography}
 \addcontentsline{toc}{chapter}{Bibliography}

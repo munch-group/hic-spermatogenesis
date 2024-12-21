@@ -6,8 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-12-19">
-<meta name="keywords" content="Hi-C, Chromatin Compartments, Selection">
+<meta name="dcterms.date" content="2024-12-21">
+<meta name="keywords" content="Hi-C, Chromatin Compartments, Evolutionary pressures, Selfish gene drive">
 
 <title>Chromatin Compartments and Selection on X</title>
 <style>
@@ -99,14 +99,15 @@ window.Quarto = {
 </script>
 
 <meta name="citation_title" content="Chromatin Compartments and Selection on X">
-<meta name="citation_abstract" content="This is a dummy abstract, dreamt up by chatGPT. This thesis investigates the 3D chromatin architecture of the X chromosome in baboons, macaques, and humans, focusing on chromatin compartments during spermatogenesis. Using publicly available Hi-C data, interaction maps were created to identify Principal Component 1 (PC1) compartments, revealing distinct compartmentalization patterns among species. The analysis included transition zones, where chromatin shifts between compartment types, and their correlation with positively selected regions. By comparing these zones with evolutionarily significant regions, the study explores how chromatin structure influences evolutionary pressures. Key findings include conserved chromatin features that may help retain non-advantageous alleles, suggesting a role for selfish genetic elements in genome evolution. This research offers new insights into the relationship between chromatin architecture and evolutionary dynamics across primate species.
+<meta name="citation_abstract" content="Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus *Papio*). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
 ">
-<meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Selection">
+<meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Evolutionary pressures,Selfish gene drive">
 <meta name="citation_author" content="Søren Jørgensen">
-<meta name="citation_publication_date" content="2024-12-19">
-<meta name="citation_cover_date" content="2024-12-19">
+<meta name="citation_author" content="Kasper Munch">
+<meta name="citation_publication_date" content="2024-12-21">
+<meta name="citation_cover_date" content="2024-12-21">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-12-19">
+<meta name="citation_online_date" content="2024-12-21">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Principal components analysis corrects for stratification in genome-wide association studies;,citation_author=Alkes L Price;,citation_author=Nick J Patterson;,citation_author=Robert M Plenge;,citation_author=Michael E Weinblatt;,citation_author=Nancy A Shadick;,citation_author=David Reich;,citation_publication_date=2006-08;,citation_cover_date=2006-08;,citation_year=2006;,citation_fulltext_html_url=https://www.nature.com/articles/ng1847;,citation_issue=8;,citation_doi=10.1038/ng1847;,citation_issn=1061-4036, 1546-1718;,citation_volume=38;,citation_journal_title=Nature Genetics;">
 <meta name="citation_reference" content="citation_title=Accurate assembly of the olive baboon ( &amp;amp;amp;lt;i&amp;gt;Papio anubis&amp;lt;/i&amp;gt; ) genome using long-read and Hi-C data;,citation_abstract=AbstractBackground Baboons are a widely used nonhuman primate model for biomedical, evolutionary, and basic genetics research. Despite this importance, the genomic resources for baboons are limited. In particular, the current baboon reference genome Panu_3.0 is a highly fragmented, reference-guided (i.e., not fully de novo) assembly, and its poor quality inhibits our ability to conduct downstream genomic analyses.Findings Here we present a de novo genome assembly of the olive baboon (Papio anubis) that uses data from several recently developed single-molecule technologies. Our assembly, Panubis1.0, has an N50 contig size of ∼1.46 Mb (as opposed to 139 kb for Panu_3.0) and has single scaffolds that span each of the 20 autosomes and the X chromosome.Conclusions We highlight multiple lines of evidence (including Bionano Genomics data, pedigree linkage information, and linkage disequilibrium data) suggesting that there are several large assembly errors in Panu_3.0, which have been corrected in Panubis1.0.;,citation_author=Sanjit Singh Batra;,citation_author=Michal Levy-Sakin;,citation_author=Jacqueline Robinson;,citation_author=Joseph Guillory;,citation_author=Steffen Durinck;,citation_author=Tauras P Vilgalys;,citation_author=Pui-Yan Kwok;,citation_author=Laura A Cox;,citation_author=Somasekar Seshagiri;,citation_author=Yun S Song;,citation_author=Jeffrey D Wall;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaa134/6025063;,citation_issue=12;,citation_doi=10.1093/gigascience/giaa134;,citation_issn=2047-217X;,citation_volume=9;,citation_journal_title=GigaScience;">
@@ -150,16 +151,17 @@ window.Quarto = {
         <div class="quarto-title-meta">
 
                 <div>
-            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-heading">Authors</div>
             <div class="quarto-title-meta-contents">
                         <p>Søren Jørgensen <a href="mailto:201906763@post.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+                        <p>Kasper Munch </p>
                       </div>
           </div>
                 
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">December 19, 2024</p>
+              <p class="date">December 21, 2024</p>
             </div>
           </div>
           
@@ -173,14 +175,14 @@ window.Quarto = {
     <div>
       <div class="abstract">
         <div class="block-title">Abstract</div>
-        <p>This is a dummy abstract, dreamt up by chatGPT. This thesis investigates the 3D chromatin architecture of the X chromosome in baboons, macaques, and humans, focusing on chromatin compartments during spermatogenesis. Using publicly available Hi-C data, interaction maps were created to identify Principal Component 1 (PC1) compartments, revealing distinct compartmentalization patterns among species. The analysis included transition zones, where chromatin shifts between compartment types, and their correlation with positively selected regions. By comparing these zones with evolutionarily significant regions, the study explores how chromatin structure influences evolutionary pressures. Key findings include conserved chromatin features that may help retain non-advantageous alleles, suggesting a role for selfish genetic elements in genome evolution. This research offers new insights into the relationship between chromatin architecture and evolutionary dynamics across primate species.</p>
+        <p>Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (<em>Macaca mulata</em>) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper latest reference genome (<em>rheMac10</em> or <em>Mmul_10</em>). We compare two Hi-C analysis frameworks, <em>HiCExplorer</em> and <em>cooler/cooltools</em> (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus <em>Papio</em>). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.</p>
       </div>
     </div>
 
     <div>
       <div class="keywords">
         <div class="block-title">Keywords</div>
-        <p>Hi-C, Chromatin Compartments, Selection</p>
+        <p>Hi-C, Chromatin Compartments, Evolutionary pressures, Selfish gene drive</p>
       </div>
     </div>
 
@@ -194,6 +196,7 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
+  <li><a href="#reproducible-research-and-quarto" id="toc-reproducible-research-and-quarto" class="nav-link" data-scroll-target="#reproducible-research-and-quarto">Reproducible Research and Quarto</a></li>
   <li><a href="#sexual-reproduction-spermatogenesis-meiosis" id="toc-sexual-reproduction-spermatogenesis-meiosis" class="nav-link" data-scroll-target="#sexual-reproduction-spermatogenesis-meiosis">Sexual reproduction (spermatogenesis, meiosis)</a></li>
   <li><a href="#selfish-genes-and-randomness" id="toc-selfish-genes-and-randomness" class="nav-link" data-scroll-target="#selfish-genes-and-randomness">Selfish genes (and randomness)</a></li>
   <li><a href="#our-organism-of-interest-wang-et-al.-and-the-references" id="toc-our-organism-of-interest-wang-et-al.-and-the-references" class="nav-link" data-scroll-target="#our-organism-of-interest-wang-et-al.-and-the-references">Our Organism of Interest, Wang et al., and the references</a></li>
@@ -213,6 +216,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#the-gwf-workflow-targets" id="toc-the-gwf-workflow-targets" class="nav-link" data-scroll-target="#the-gwf-workflow-targets">The <em>gwf</em> workflow targets</a></li>
   <li><a href="#notebook-edits" id="toc-notebook-edits" class="nav-link" data-scroll-target="#notebook-edits">Notebook edits</a></li>
+  <li><a href="#compartments-and-their-edges-transitional-regions" id="toc-compartments-and-their-edges-transitional-regions" class="nav-link" data-scroll-target="#compartments-and-their-edges-transitional-regions">Compartments and Their Edges (Transitional Regions)</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
@@ -228,6 +232,7 @@ window.Quarto = {
   <li><a href="#quality-control-1" id="toc-quality-control-1" class="nav-link" data-scroll-target="#quality-control-1">Quality Control</a></li>
   <li><a href="#correction-1" id="toc-correction-1" class="nav-link" data-scroll-target="#correction-1">Correction</a></li>
   <li><a href="#compartments-eigenvectors" id="toc-compartments-eigenvectors" class="nav-link" data-scroll-target="#compartments-eigenvectors">Compartments (Eigenvectors)</a></li>
+  <li><a href="#compartment-edges-transition-zones" id="toc-compartment-edges-transition-zones" class="nav-link" data-scroll-target="#compartment-edges-transition-zones">Compartment Edges (transition zones)</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
@@ -246,6 +251,9 @@ window.Quarto = {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
+<section id="reproducible-research-and-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="reproducible-research-and-quarto">Reproducible Research and Quarto</h2>
+</section>
 <section id="sexual-reproduction-spermatogenesis-meiosis" class="level2">
 <h2 class="anchored" data-anchor-id="sexual-reproduction-spermatogenesis-meiosis">Sexual reproduction (spermatogenesis, meiosis)</h2>
 <p>The production of gametes in a sexually reproducing organism is a highly complex process that involves numeruous elements. Spermatogenesis, the process of forming male gametes, involves four stages of differentiation from a germ cell through <em>spermatogonia</em>, <em>pachytene spermatocyte</em>, and <em>round spermatids</em> to <em>spermatozoa</em>, or <em>sperm</em> <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, and it is the very basis of male reproduction. The specialized cell division of meiosis neatly handles the pairing, recombination, and segregation of homologous chromosomes, thereby ensuring proper genetic distribution. Deeply understanding the steps of molecular steps of reproduction and how our genetic material is inherited is essential in biology, bringing insight to areas such as speciation, population diversity, and (male) infertility.</p>
@@ -272,21 +280,20 @@ window.Quarto = {
 </section>
 <section id="hi-c-data-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="hi-c-data-analysis">Hi-C Data Analysis</h3>
-<section id="aligning-the-hi-c-reads" class="level5">
-<h5 class="anchored" data-anchor-id="aligning-the-hi-c-reads">Aligning the Hi-C reads</h5>
+<section id="aligning-the-hi-c-reads" class="level4">
+<h4 class="anchored" data-anchor-id="aligning-the-hi-c-reads">Aligning the Hi-C reads</h4>
 </section>
-<section id="identifying-and-storing-valid-hi-c-pairs" class="level5">
-<h5 class="anchored" data-anchor-id="identifying-and-storing-valid-hi-c-pairs">Identifying and Storing Valid Hi-C Pairs</h5>
+<section id="identifying-and-storing-valid-hi-c-pairs" class="level4">
+<h4 class="anchored" data-anchor-id="identifying-and-storing-valid-hi-c-pairs">Identifying and Storing Valid Hi-C Pairs</h4>
 </section>
-<section id="interaction-matrices-and-quality-control" class="level5">
-<h5 class="anchored" data-anchor-id="interaction-matrices-and-quality-control">Interaction Matrices and Quality Control</h5>
+<section id="interaction-matrices-and-quality-control" class="level4">
+<h4 class="anchored" data-anchor-id="interaction-matrices-and-quality-control">Interaction Matrices and Quality Control</h4>
 </section>
-<section id="calling-compartments-ice" class="level5">
-<h5 class="anchored" data-anchor-id="calling-compartments-ice">Calling Compartments (ICE)</h5>
+<section id="calling-compartments-ice" class="level4">
+<h4 class="anchored" data-anchor-id="calling-compartments-ice">Calling Compartments (ICE)</h4>
 </section>
-<section id="edges" class="level5">
-<h5 class="anchored" data-anchor-id="edges">Edges</h5>
-<div style="page-break-after: always;"></div>
+<section id="edges" class="level4">
+<h4 class="anchored" data-anchor-id="edges">Edges</h4>
 </section>
 </section>
 </section>
@@ -462,27 +469,27 @@ Figure&nbsp;1: A flowchart showing the pipeline from <code>.fastq</code> to <cod
 <section id="the-gwf-workflow-targets" class="level3">
 <h3 class="anchored" data-anchor-id="the-gwf-workflow-targets">The <em>gwf</em> workflow targets</h3>
 <p>A <em>gwf</em> workflow was created to handle the first part of the data processing, and each accesion number (read pair, mate pair) from the Hi-C sequencing was processed in parallel, so their execution was independent from each other.</p>
-<section id="downloading-the-reads" class="level5">
-<h5 class="anchored" data-anchor-id="downloading-the-reads">Downloading the reads</h5>
+<section id="downloading-the-reads" class="level4">
+<h4 class="anchored" data-anchor-id="downloading-the-reads">Downloading the reads</h4>
 <p>The reads were downloaded from NCBI SRA portal [ref] directly to GDK using <code>sra-downloader</code> [ref] as <code>.fastq.gz</code> files.</p>
 </section>
-<section id="handling-the-reference" class="level5">
-<h5 class="anchored" data-anchor-id="handling-the-reference">Handling the reference</h5>
+<section id="handling-the-reference" class="level4">
+<h4 class="anchored" data-anchor-id="handling-the-reference">Handling the reference</h4>
 <p>The latest reference genome for rhesus macaque (<em>macaca mulata</em>), <em>rheMac10</em> (or <em>Mmul_10</em>, UCSC or NCBI naming conventions, respectively) was downloaded to GDK from UCSC web servers with <code>wget</code> [ref]. To use <code>bwa</code> (Burrow Wheeler’s Aligner) [ref] for mapping, rheMac10 needs to be indexed with both <code>bwa index</code> with the <code>--bwtsw</code> option and <code>samtools faidx</code>, which results in six indexing files for <code>bwa mem</code> to use.</p>
 <p>Since <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span>, the reference genome for rhesus macaque has changed several times from <em>rheMac2</em> to <em>rheMac10</em>, each time resulting in a much less fragmented reference assembly. Part of the reasoning for reproducing their results was doing so on the latest assembly of the Macaca mulata genome, which arguably will result in a more accurate mapping of the reads, and a better inference of the chromatin compartments as well.</p>
 <p>Several mappers were used in different configurations (described in below), and <code>bowtie2</code> requires its own indexing of the reference, using <code>bowtie2-build --large-index</code>, which creates six index files for <code>bowtie2</code> to use. <code>--large-index</code> creates the special indexing format required for large genomes such as macaque.</p>
 </section>
-<section id="mapping-hi-c-reads" class="level5">
-<h5 class="anchored" data-anchor-id="mapping-hi-c-reads">Mapping Hi-C reads</h5>
+<section id="mapping-hi-c-reads" class="level4">
+<h4 class="anchored" data-anchor-id="mapping-hi-c-reads">Mapping Hi-C reads</h4>
 <p>paragraph will be restructured.</p>
 <p>The main difference between Hi-C libraries and standard paired-end libraries is the high fraction of chimeric reads in Hi-C. As a contact pair is crosslinked and ligated before sequencing, chimeric reads occur as a feature, and standard mapping techniques seeks to filter out this type of reads [ref]. Thus, we need specialized tools for rescuing chimeric reads. That said, we have to be cautious distinguishing the intended chimerism for Hi-C and that of technical artefacts.</p>
 <p>It was not feasible to follow the same approach as <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span> with either <em>HiCExplorer</em> or <em>Open2C</em>, as they use a third software, <em>HiC-Pro</em>. Hic-Pro uses bowtie2 in end-to-end mode, followed by remapping of 5’-ends of the unmapped reads to rescue chimeric fragments along with another approach. I mapped the reads using <code>bowtie2 --end-to-end</code> without the rescue-remapping, and it returned a very high fraction of discarded reads. I argue that even when trying to reproduce results, it is nonsensical to use methods that are not state-of-the-art. The HiC-Pro pipeline stops at a normalized contact map, and is thus not sufficient for downstream analysis.</p>
 <p><strong>HiCExplorer</strong> Initially, recommendations from HiCExplorer were used. According to their documentation [ref] it is crucial to 1) align reads locally, and 2) map mates separately. They recommend either of <code>bwa</code> or <code>bowtie2</code>, so I tested both with their recommended settings. <code>bowtie2</code> turned out to be a lot more resource-intensive and to produce almost no mapped reads [ref sup-fig-bowtie2-stats], so I suspect some settings was not set correctly. The mapped reads was converted to a Hi-C Matrix (<code>.h5</code>) with <em>HiCExplorers</em> <code>hicBuildMatrix</code>, which is extremely memory-intensive, using ~120 GB memory for the biggest matrix. I followed <em>HiCExplorer</em> pipeline to plot and explore the matrices created from this mapping. However, the work was laborious for experimentation, as, even though written in Python, <code>HicExplorer</code> only comes with a command-line interface and provided functions all write plots to files. I did not manage to make an efficient implementation for plotting the <code>.h5</code> files produced by the pipeline, as would be required for utilizing Jupyter Notebooks for customizing plots. I relatively quickly shifted to <em>Open2C</em> for their promises of the greener grass (a Python API).</p>
 <p><strong>Open2C</strong> Suspiciously, <span class="citation" data-cites="open2c">(<a href="#ref-open2c" role="doc-biblioref">Open Chromosome Collective 2024</a>)</span> never mentions any problems with aligning the Hi-C reads, they just provide an example using <code>bwa mem</code> in paired-end mode and with the <code>-P</code> option set, which activates the Smith-Waterman [ref] algorithm to rescue missing hits, by focusing on assigning only of of the mates to a good mapping and escape mate-rescue. The documentation of <code>bwa</code> <a href="https://bio-bwa.sourceforge.net">ref</a> state that both bwa-mem and bwa-sw will rescue chimeric reads. Consequently, Open2C does not have a builtin way of pairing the reads after mapping, and I was left with two options: <strong>1)</strong> to re(-)pair the individually mapped read-mates (.bam) with <code>samtools-fixmate</code> into one of the specific input formats required for <code>cooler</code> to create an interaction matrix <em>cooler</em>, or <strong>2)</strong> re-map the reads using Open2C’s recommendations and use their established pipeline for producing a cooler. I chose the latter, where I mapped the fastq files to <em>rheMac10</em> in paired end mode for a pair (m1, m2) with <code>bwa mem -SP rheMac10 m1 m2</code>.</p>
 </section>
-<section id="parse-and-sort-the-reads" class="level5">
-<h5 class="anchored" data-anchor-id="parse-and-sort-the-reads">Parse and sort the reads</h5>
-<p><strong>HiCExplorer</strong> No action is needed, as this step is done implicitly when building the matrix</p>
+<section id="parse-and-sort-the-reads" class="level4">
+<h4 class="anchored" data-anchor-id="parse-and-sort-the-reads">Parse and sort the reads</h4>
+<p>With <em>HiCExplorer</em> No action is needed, as this step is done implicitly when building the matrix</p>
 <p><strong>Open2C</strong> We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome ‘UU’. Other events, where one or both sides map to multiple segments or the reads are long enough (&gt;150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the <code>--walks-policy</code> when parsing the alignments into valid pairs (or valid Hi-C contacts). Here, <code>mask</code> is the most conservative and masks all complex walks, whereas <code>5unique</code> reports the 5’-most unique alignment on each side. The pairs are piped directly into <code>pairtools sort</code> after parsing, as the deduplication step requires a sorted set of pairs. The <em>.pairs</em>-format produced by <code>pairtools</code> is an extension the <a href="https://data.4dnucleome.org/file-formats/pairs/">4DN Consortium</a>-specified format, storing Hi-C pairs as in <a href="#tbl-pairsformat" class="quarto-xref">Table&nbsp;3</a>.</p>
 <div id="tbl-pairsformat" class="striped quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -561,16 +568,16 @@ Table&nbsp;3: Column specification of the .pairs format as extended by <code>pai
 </div>
 <p>I initially used <code>--walks-policy mask</code>, reasoning I had plenty of data points and could handle complex walks in a conservative way. Only later I realized the recommendations from <em>pairtools</em>, specifically informing that longer reads might have a significant proportion of reads that contain complex walks. With this in mind, I decided to re-parse the alignments into a new set of pairs, and equally apply the recommended filter (next section). As both results are saved, we can compare the two approaches.</p>
 </section>
-<section id="filter-deduplicate-pairs" class="level5">
-<h5 class="anchored" data-anchor-id="filter-deduplicate-pairs">Filter (deduplicate) pairs</h5>
+<section id="filter-deduplicate-pairs" class="level4">
+<h4 class="anchored" data-anchor-id="filter-deduplicate-pairs">Filter (deduplicate) pairs</h4>
 <p>With <em>HiCExplorer</em>, no action is needed, as this step is done implicitly when building the matrix.</p>
 <p><em>pairtools</em> comes with a de-duplication function, <code>dedup</code>, to detect PCR duplication artefacts. At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of <em>rhemac10</em> assembly states they have closed 99% of the gaps since <em>rhemac8</em> [ref], <em>rheMac10</em> still contain more than 2,500 unplaced scaffolds, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates.</p>
 <p><code>cooler</code> recommend to store the most comprehensive and unfiltered list of pairs, and then applying a filter it on the fly by piping from <code>pairtools select</code>. Initially, I missed this step and I did not filter for mapping quality. After reparsing the alignments and applying the same analysis, we compare the two pipelines.</p>
 <p>A quality control report is generated by <code>pairtools dedup</code>, and the reports are merged with <code>MultiQC</code> [ref] for each cell type.</p>
 </section>
-<section id="create-interaction-matrices-coolers" class="level5">
-<h5 class="anchored" data-anchor-id="create-interaction-matrices-coolers">Create interaction matrices (coolers)</h5>
-<p><strong>HiCExplorer</strong> <code>hicBuildMatrix</code> both parse and filter the mapped reads. The default value was used, where alignments with <span class="math inline">\(mapq &lt; 15\)</span> are discarded.</p>
+<section id="create-interaction-matrices-coolers" class="level4">
+<h4 class="anchored" data-anchor-id="create-interaction-matrices-coolers">Create interaction matrices (coolers)</h4>
+<p>With <em>HiCExplorer</em> <code>hicBuildMatrix</code> both parse and filter the mapped reads. The default value was used, where alignments with <span class="math inline">\(mapq &lt; 15\)</span> are discarded.</p>
 <p><strong>Open2C</strong> The final part of the <em>gwf</em> workflow takes <code>.pairs</code> as input and outputs a <code>.cool</code> file (<em>cooler</em>). Initially, we read directly from the newly generated deduplicated pairs without additional filtering, but here, the official recommendation is to filter out everything below <span class="math inline">\(mapq = 30\)</span> by piping the pairs through <code>pairtools select "(mapq1&gt;=30) and (mapq2&gt;=30)"</code> to <code>cooler cload pairs</code>.</p>
 <p>We should have plenty of data to do the filtering, but I argue it is not strictly necessary. I will show a histogram of the <em>mapq</em> scores to convince you [ref].</p>
 <p>I have re-parsed the alignments and created new coolers, including only the Hi-C contacts where <span class="math inline">\(mapq \leq 30\)</span>, following the current recommendations from <code>cooler</code>.</p>
@@ -579,33 +586,49 @@ Table&nbsp;3: Column specification of the .pairs format as extended by <code>pai
 <section id="notebook-edits" class="level3">
 <h3 class="anchored" data-anchor-id="notebook-edits">Notebook edits</h3>
 <p>As <code>cooler</code> and <code>cooltools</code> have a Python API, the more experimental parts of the analysis were moved to Jupyter Notebooks. <code>cooltools</code> comes with a helper library for operations on genomic intervals called <code>bioframe</code>.</p>
-<section id="pooling-samples-merging-coolers" class="level5">
-<h5 class="anchored" data-anchor-id="pooling-samples-merging-coolers">Pooling samples (Merging coolers)</h5>
+<section id="pooling-samples-merging-coolers" class="level4">
+<h4 class="anchored" data-anchor-id="pooling-samples-merging-coolers">Pooling samples (Merging coolers)</h4>
 <p>The samples are grouped into <em>replicates</em> with a unique <strong>BioSample</strong> ID, but we chose to pool all the interaction matrices for each cell type. We argue that when <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> determine compartments to be highly reproducible between replicates, by merging the replicates we can get a more robust signal.</p>
 <p><code>cooler merge</code> was used to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The function merges matrices of the same dimensions by simply adding the interaction frequencies of each genomic position together, resulting in less empty positions by chance.</p>
 </section>
-<section id="create-multi-resolution-coolers-zoomify" class="level5">
-<h5 class="anchored" data-anchor-id="create-multi-resolution-coolers-zoomify">Create multi-resolution coolers (zoomify)</h5>
+<section id="create-multi-resolution-coolers-zoomify" class="level4">
+<h4 class="anchored" data-anchor-id="create-multi-resolution-coolers-zoomify">Create multi-resolution coolers (zoomify)</h4>
 <p>A feature of working inside the ecosystem of <em>Open2C</em> [ref] is that it natively provides support for storing sparse interaction matrices in multiple resolutions in the same file by adding groups to the cooler [ref]. We can then efficiently store resolutions (i.e., different bin sizes) that is multiples of the smallest bin size. We chose to use 10kb, 50kb, 100kb, and 500kb bins, and the resolutions are made by recursively binning the base resolution. We call this process zoomifying.</p>
 </section>
-<section id="matrix-balancing-iterative-correction" class="level5">
-<h5 class="anchored" data-anchor-id="matrix-balancing-iterative-correction">Matrix balancing (Iterative correction)</h5>
+<section id="matrix-balancing-iterative-correction" class="level4">
+<h4 class="anchored" data-anchor-id="matrix-balancing-iterative-correction">Matrix balancing (Iterative correction)</h4>
 <p>Finally, we balance the matrices using the cooler CLI. We use <code>cooler balance</code> with the default options which iteratively balances the matrix (Iterative Correction). It is first described as a method for bias correction of Hi-C matrices in <span class="citation" data-cites="imakaev_iterative_2012">(<a href="#ref-imakaev_iterative_2012" role="doc-biblioref">Imakaev et al. 2012</a>)</span>, where it is paired with eigenvector decomposition, coining the combined analysis <strong>ICE</strong>. Here, the eigenvector decomposition of the obtained maps is experimentally validated to provide insights into local chromatin states.</p>
 <p>[According to <code>cooler</code> documentation] We have to balance the matrices on each resolution, and thus it cannot be done prior to zoomifying. They state that the balancing weights are resolution-specific and will no longer retain its biological meaning when binned with other weights. Therefore, we apply <code>cooler balance</code> to each resolution separately. <code>cooler balance</code> will create a new column in the <code>bins</code> group of each cooler , <code>weight</code>, which can then be included or not in the downstream analysis. This means we will have access to both the balanced and the unbalanced matrix.</p>
 <p>The default mode uses genome-wide data to calculate the weights for each bin. It would maybe be more suitable to calculate the weights for <em>cis</em> contacts only, and that is possible through the <code>--cis-only</code> flag, and that can be added to another column, so that we can compare the difference between the two methods easily. However, we will only use the default mode for now.</p>
 </section>
-<section id="eigendecomposition" class="level5">
-<h5 class="anchored" data-anchor-id="eigendecomposition">Eigendecomposition</h5>
+<section id="eigendecomposition" class="level4">
+<h4 class="anchored" data-anchor-id="eigendecomposition">Eigendecomposition</h4>
 <p>The eigendecomposition of a Hi-C interaction matrix is performed in multiple steps. As value of the eigenvector is only <em>significant</em> up to a sign, it is convention [ref] to use GC content as a phasing track to orient the vector. E1 is arbitrarily defined to be positively correlated with GC content, meaning a positive E1 value signifies an active chromatin state, which we denote a A-type compartment (or simply A-compartment). We performed eigendecomposition of two resolutions, 100 Kbp and 500 Kbp. <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> briefly describes their method to calculate the eigenvectors as a sliding window approach on the observed/expected matrix in 100 kb resolution summing over 400 kb bins with 100 kb step size, a method I was not able to replicate in the <em>Open2C</em> ecosystem. I decided to mimic this by smoothing the 100 kb E1 values by summing to 500 kb bins in steps of 100 kb, yielding a comparable resolution which I denote ‘<em>pseudo</em>-500 kb’ resolution (<em>ps500kb</em>).</p>
 <p>First, we calculate the GC content of each bin of the reference genome, <em>rheMac10</em>, which is binned to the resolution of the Hi-C matrix we are handling. It is done with <code>bioframe.frac_gc</code> (<em>Open2C</em>). To calculate the E1 compartments, we use only within-chromosome contacts (<em>cis</em>), as we are not interested in the genome-wide contacts. <code>cooltools.eigs_cis</code> will decorrelate the contact-frequency by distance before performing the eigendecomposition. <code>eigs_cis</code> needs a <em>viewframe</em> (view) to calculate E1 values, the simplest view being the full chromosome. However, when there is more variance between chromosome arms than within arms, the sign of the first eigenvector will be determined largely by the chromosome arm it sits on, and not by the chromatin compartments. To mitigate this, we apply a chromosome-arm-partitioned view of the chromosome (as a bedlike format, described in <code>bioframe</code> docs [ref]).</p>
 <p>Additionally, to mimic the <em>Local PCA</em> from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I also defined a view of 10 Mb bins. Thoughout the project, I will compare results from each of the three views and resolutions.</p>
 </section>
-<section id="plotting" class="level4">
-<h4 class="anchored" data-anchor-id="plotting">Plotting</h4>
+<section id="plotting-matrices" class="level4">
+<h4 class="anchored" data-anchor-id="plotting-matrices">Plotting matrices</h4>
 <p><em>HiCExplorer</em> plots matrices to .png from the command-line. When plots were generated (with <code>hicPlotMatrix</code>), it produces a .png output that has to be loaded back into the notebook. There is limited support for modifying the plot (from command-line options), such as to add spacing for a bigWig track with E1 values, add plot titles, and define the size and resolution of the plot. I briefly tried to implement a plotting function on the .h5 matrices and bigWig tracks, but it could not fetch regions from a matrix on the fly and had to load the full matrix into memory (that is, all full-length chromosomes). To better visualise differences in the interaction matrix, the interaction frequency <span class="math inline">\(f_i\)</span>, is transformed to <span class="math inline">\(\log\mathrm{1p}(f_i) = \log\left(1 + f_i\right)\)</span>. It is required to visualize the normalized interaction frequency, as there are mostly values very close to 0, but it also aids the visibility in the raw counts matrix.</p>
 <p>We use matplotlib and seaborn to plot in the <em>Open2C</em> framework. Utilizing the <code>cooler</code> class, we can fetch regions of the matrix without modifying the file. As my analysis is centered around the X chromosome, it is efficiently handled by simply fetching ‘chrX’ from the matrix with <code>cooler.Cooler.matrix().fetch('chrX')</code>. Many methods of the cooler class returns data selectors, which do not retrieve data before it is queried [ref]. This means we can create many selectors at once without overflowing memory, enabling us to plot multiple interaction matrices side-by-side, e.g.&nbsp;the corrected and un-corrected matrices. This is easily done with the <code>balance</code> parameter of the matrix selector (<code>.matrix()</code>), which determines if it should apply the balancing weights to the coordinates and defaults to <code>True</code>.</p>
 <p>The matrix is retrieved an plotted with <code>matplotlib.pyplot.matshow</code>, which automatically produces a heatmap image of the matrix. Here, in stead of transforming the interaction matrix, the color scale is log-transformed with <code>matplotlib.colors.LogNorm</code>. Additionally, <code>cooltools</code> comes with more tools to aid visualization: <em>adative coarsegrain</em> and <em>interpolation</em>, which can be chained. <code>adaptive_coarsegrain</code> iteratively coarsens an array to the nearest power of two and refines it back to the original resolution, replacing low-count pixels with NaN-aware averages to ensure no zeros in the output, unless there are very large regions that exceed the <code>max_levels</code> threshold, such as the peri-centromeric region.</p>
-<div style="page-break-after: always;"></div>
+<p>I implemented a plotting utility, <code>plot_for_quarto</code> in notebook <code>07_various_plotting.ipynb</code> that is compatible with the YAML cell-options read by Quarto’s <code>embed</code> shortcode. It will take an arbitrary number of samples and plot a chromosome (or region) with or without its respective E1 value for either of the three viewframes that has been created. The input is a (subsetted) <em>pandas DataFrame</em>, defined from a file search matching a pattern specified to the <code>glob</code> Python module.</p>
+</section>
+</section>
+<section id="compartments-and-their-edges-transitional-regions" class="level3">
+<h3 class="anchored" data-anchor-id="compartments-and-their-edges-transitional-regions">Compartments and Their Edges (Transitional Regions)</h3>
+<p>From the eigenvectors, the A-compartments were extracted in bedgraph-format (<code>['chrom', 'start', 'end']</code>) and compared with ECH90 regions lifted to <em>rheMac10</em> from human [ref what reference?]. We perform visual inspection of the genomic intervals and test whether ECH90 regions are enriched near the edges of the compartments by defining a 200 kilobase transition-zone centered at each sign change of E1 (referred to as <em>compartment edge</em>). We compare genomic intervals (or sets) both visually by plotting the regions, and by a proximity test and bootstrapping the Jaccard index.</p>
+<section id="proximity-test" class="level4">
+<h4 class="anchored" data-anchor-id="proximity-test">Proximity test</h4>
+<p>Determines whether the non-overlapping parts of the sets are more proximal than expected by chance. We define the <em>annotation</em> set and the <em>query</em> set, and the distance from each interval on the <em>query</em> to the most proximal interval on the <em>annotation</em> is used to generate an index of proximity. It uses bootstrapping (<span class="math inline">\(b = 100000\)</span>) to generate the null distribution, and finally, the fraction of the <em>null</em> as or more extreme as our observed proximity is reported as the p-value.</p>
+</section>
+<section id="jaccard-test" class="level4">
+<h4 class="anchored" data-anchor-id="jaccard-test">Jaccard test</h4>
+<p>Measures the significance of the observed Jaccard index (intersection over union) between two sets. The index is a measure of <em>similarity</em> between two sets (between 0 and 1), which is very sensitive to the size difference between the sets, as even when comparing a set of intervals to a small subset of itself will yield a very small Jaccard index. When we use bootstrapping to generate a null distribution (shuffling the intervals of the <em>query</em>), we generate the probability that the two sets (with their respective number and size of intervals), are as similar or more than what we observe. The ratio is reported as the p-value. However, this approach is still sensitive to flipping of query/annotation, as only the query is bootstrapped.</p>
+</section>
+<section id="multiple-testing" class="level4">
+<h4 class="anchored" data-anchor-id="multiple-testing">Multiple testing</h4>
+<p>Careful considerations were made to avoid multiple testing biases (p-hacking): Performing tests on all combinations of variables (cell type, resolution, viewframe, flip annot, query, test) will yield 260 p-values, and we would have to adjust the significance threshold (with <span class="math inline">\(\alpha = 0.05\)</span>, we expect 13 ‘significant’ tests by chance alone). However, if we choose only</p>
 </section>
 </section>
 </section>
@@ -1047,22 +1070,22 @@ Figure&nbsp;10: Super caption, subcaptions should be moved here (from notebook).
 </figcaption>
 </figure>
 </div>
-<p>I argue that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. Also, <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> concludes that only the pachytene spermatocyte showed local interactions in that viewframe (what they refer to as <em>refined A/B-compartments</em> ), and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, all three viewframes were used for further analysis.</p>
-<p>Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices and their compartments</p>
+<p>I argue that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. Also, <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> concludes that only the pachytene spermatocyte showed local interactions in that viewframe (what they refer to as <em>refined A/B-compartments</em> ), and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, we also keep <em>refined</em> compartments in the analysis.</p>
+<p>Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices and their compartments (<a href="#fig-rs100-recpe-pe" class="quarto-xref">Figure&nbsp;11</a>). As expected, we observe more empty bins in the Hi-C matrix, but otherwise, the interaction pattern is indestinguishable when going from the initial run (PE) to the recommended parameters (redPE). The effect on the E1 is more noticable, where the absolute magnitude of the E1 values is generally smaller. There is, however, a small region that changes sign (from A to B) on the 10Mb-windowed (‘refined’) E1 track (<a href="#fig-rs100-recpe-pe" class="quarto-xref">Figure&nbsp;11</a>;c+d, zoomed-in region). This region is surrounded by added empty bins, which could mean that too many low quality pairs in PE were introducing bias and swapped the sign of E1. It is supported by the fact that the sign change <em>only</em> occured in <em>refined</em> E1, and that the sign after filtering weak pairs (<span class="math inline">\(mapq &lt; 30\)</span>) is consistent with the <em>arms</em> view. It supports my previous postulate that it is better to use a viewframe where with explicit molecular meaning than one of an arbitrary window size. That said, the <code>mapq</code> threshold should really be determined taking both coverage and resolution into account. For our purposes, and with the <em>arms</em> view, the mapping- and parsing parameters do not seem to be too sensitive.</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/07_various_plotting.ipynb" data-notebook-title="Various Comparisons" data-notebook-cellid="cell-fig-rs100-recpe-pe">
-<div class="cell" data-layout="[[-0.05,1,1,-0.05],[-0.05,1,1,-0.05]]" data-execution_count="183">
+<div class="cell" data-layout="[[-0.5,5,5,-0.5],[-0.5,5,5,-0.5]]">
 <div id="fig-rs100-recpe-pe" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rs100-recpe-pe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.4%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 4.6%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs100-recpe-pe" style="flex-basis: 47.6%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs100-recpe-pe" style="flex-basis: 45.5%;justify-content: flex-start;">
 <div id="fig-rs100-recpe-pe-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-rs100-recpe-pe-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-1.png" class="lightbox" data-gallery="fig-rs100-recpe-pe" title="Figure&nbsp;11&nbsp;(a): recPE RS 100kb full chrX"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-1.png" data-ref-parent="fig-rs100-recpe-pe" width="292" height="232" class="figure-img"></a>
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-1.png" class="lightbox" data-gallery="fig-rs100-recpe-pe" title="Figure&nbsp;11&nbsp;(a): recPE RS 100kb full chrX"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-1.png" data-ref-parent="fig-rs100-recpe-pe" width="247" height="195" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rs100-recpe-pe-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) recPE RS 100kb full chrX
@@ -1070,11 +1093,11 @@ Figure&nbsp;10: Super caption, subcaptions should be moved here (from notebook).
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs100-recpe-pe" style="flex-basis: 47.6%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs100-recpe-pe" style="flex-basis: 45.5%;justify-content: flex-start;">
 <div id="fig-rs100-recpe-pe-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-rs100-recpe-pe-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-2.png" class="lightbox" data-gallery="fig-rs100-recpe-pe" title="Figure&nbsp;11&nbsp;(b): PE RS 100kb full chrX"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-2.png" data-ref-parent="fig-rs100-recpe-pe" width="292" height="232" class="figure-img"></a>
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-2.png" class="lightbox" data-gallery="fig-rs100-recpe-pe" title="Figure&nbsp;11&nbsp;(b): PE RS 100kb full chrX"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-2.png" data-ref-parent="fig-rs100-recpe-pe" width="247" height="195" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rs100-recpe-pe-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) PE RS 100kb full chrX
@@ -1082,58 +1105,123 @@ Figure&nbsp;10: Super caption, subcaptions should be moved here (from notebook).
 </figure>
 </div>
 </div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.4%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 4.6%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
 </div>
 <div class="quarto-layout-row">
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.4%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 4.6%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs100-recpe-pe" style="flex-basis: 47.6%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs100-recpe-pe" style="flex-basis: 45.5%;justify-content: flex-start;">
 <div id="fig-rs100-recpe-pe-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-rs100-recpe-pe-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-3.png" class="lightbox" data-gallery="fig-rs100-recpe-pe" title="Figure&nbsp;11&nbsp;(c): recPE RS 100kb chrX:100Mb-140Mb"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-3.png" data-ref-parent="fig-rs100-recpe-pe" width="292" height="210" class="figure-img"></a>
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-3.png" class="lightbox" data-gallery="fig-rs100-recpe-pe" title="Figure&nbsp;11&nbsp;(c): recPE RS 100kb chrX:70Mb-78Mb"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-3.png" data-ref-parent="fig-rs100-recpe-pe" width="247" height="201" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rs100-recpe-pe-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(c) recPE RS 100kb chrX:100Mb-140Mb
+(c) recPE RS 100kb chrX:70Mb-78Mb
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs100-recpe-pe" style="flex-basis: 47.6%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs100-recpe-pe" style="flex-basis: 45.5%;justify-content: flex-start;">
 <div id="fig-rs100-recpe-pe-4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-rs100-recpe-pe-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-4.png" class="lightbox" data-gallery="fig-rs100-recpe-pe" title="Figure&nbsp;11&nbsp;(d): PE RS 100kb chrX:100Mb-140Mb"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-4.png" data-ref-parent="fig-rs100-recpe-pe" width="292" height="210" class="figure-img"></a>
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-4.png" class="lightbox" data-gallery="fig-rs100-recpe-pe" title="Figure&nbsp;11&nbsp;(d): PE RS 100kb chrX:70Mb-78Mb"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs100-recpe-pe-output-4.png" data-ref-parent="fig-rs100-recpe-pe" width="247" height="201" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rs100-recpe-pe-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(d) PE RS 100kb chrX:100Mb-140Mb
+(d) PE RS 100kb chrX:70Mb-78Mb
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.4%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 4.6%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rs100-recpe-pe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: Comparing two Hi-C matrices
+Figure&nbsp;11: Round Spermatid (RS) at 100kb, comparing the impact of parsing parameters
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div style="page-break-after: always;"></div>
+</section>
+<section id="compartment-edges-transition-zones" class="level3">
+<h3 class="anchored" data-anchor-id="compartment-edges-transition-zones">Compartment Edges (transition zones)</h3>
+<p>We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment.</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/06_rec_genomicintervals.ipynb" data-notebook-title="E1 vs. ECH (recommended params)" data-notebook-cellid="cell-fig-comps-edges-ech">
+<div id="fig-comps-edges-ech" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comps-edges-ech-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-comps-edges-ech-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-comps-edges-ech-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-1.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;12&nbsp;(a): Visual representation of the genomic intervals of ECH90, A-compartments, edges, and their intersections. Shown fibroblast and round spermatid at 100kb resolution and arms view."><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-1.png" data-ref-parent="fig-comps-edges-ech" width="398" height="128" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Visual representation of the genomic intervals of ECH90, A-compartments, edges, and their intersections. Shown fibroblast and round spermatid at 100kb resolution and arms view.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-comps-edges-ech-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="128" width="398">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-comps-edges-ech-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-2.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;12&nbsp;(b): "><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-2.png" id="fig-comps-edges-ech-2" data-ref-parent="fig-comps-edges-ech" width="398" height="128" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-comps-edges-ech-3" class="quarto-float quarto-figure quarto-figure-center anchored" height="128" width="398">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-comps-edges-ech-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-3.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;12&nbsp;(c): "><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-3.png" id="fig-comps-edges-ech-3" data-ref-parent="fig-comps-edges-ech" width="398" height="128" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c)
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-comps-edges-ech-4" class="quarto-float quarto-figure quarto-figure-center anchored" height="128" width="398">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-comps-edges-ech-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-4.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;12&nbsp;(d): "><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-4.png" id="fig-comps-edges-ech-4" data-ref-parent="fig-comps-edges-ech" width="398" height="128" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-comps-edges-ech-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12
+</figcaption>
+</figure>
+</div>
+</div>
 </section>
 </section>
 </section>
 <section id="discussion" class="level1">
 <h1>Discussion</h1>
 <p>Here is the discussion</p>
-<div style="page-break-after: always;"></div>
 </section>
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">Bibliography</h1>
