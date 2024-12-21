@@ -10,30 +10,33 @@ authors:
     roles: writing
     corresponding: true
     email: 201906763@post.au.dk
-  # - name: "Kasper Munch"
-  #   affiliation: |
-  #     Ass. Prof. Bioinformatics \\
-  #     Bioinformatics Research Center (BiRC), \\
-  #     Dept. of Molecular Biology and Genetics, \\
-  #     Aarhus University, Denmark
-  #   roles: supervision
+  - name: "Kasper Munch"
+    affiliation: |
+      Ass. Prof. Bioinformatics \\
+      Bioinformatics Research Center (BiRC), \\
+      Dept. of Molecular Biology and Genetics, \\
+      Aarhus University, Denmark
+    roles: supervision
 degree: MSc. Bioinformatics
 keywords:
   - Hi-C
   - Chromatin Compartments
-  - Selection
+  - Evolutionary pressures
+  - Selfish gene drive
 abstract: |
-  This is a dummy abstract, dreamt up by chatGPT. This thesis investigates the 3D chromatin architecture of the X chromosome in baboons, macaques, and humans, focusing on chromatin compartments during spermatogenesis. Using publicly available Hi-C data, interaction maps were created to identify Principal Component 1 (PC1) compartments, revealing distinct compartmentalization patterns among species. The analysis included transition zones, where chromatin shifts between compartment types, and their correlation with positively selected regions. By comparing these zones with evolutionarily significant regions, the study explores how chromatin structure influences evolutionary pressures. Key findings include conserved chromatin features that may help retain non-advantageous alleles, suggesting a role for selfish genetic elements in genome evolution. This research offers new insights into the relationship between chromatin architecture and evolutionary dynamics across primate species.
+  Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus *Papio*). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
 plain-language-summary: |
-  3D structure of chromatin brings another mystery onto the story of selfish genes, where the edges of A-compartments in macaque align well with regions of positive selection identified in human and baboons.
+  3D structure of chromatin brings another mystery onto the story of selfish genes, where the edges of A-compartments in macaque align well with regions of positive selection identified in human and hybrid incompatibility in baboons.
 key-points:
-  - Figures from a paper was reproduced, analyzing A/B chromatin compartments of rhesus macaque X chromosomes
-  - Differential compartment analysis was conducted comparing with papio anubis
-  - Regions was overlayed with genes of interest ECH90
+  - Compare two frameworks for Hi-C analysis, HiCExplorer and Open2C
+  - Redo Hi-C analysis of rhesus macaque X chromosomes on the latest reference genome *rheMac10* 
+  - Compartment edges align well with extended common haplotypes in human, suggesting a role of selfish genetic elements. 
 date: last-modified
 ---
 
 # Introduction
+
+## Reproducible Research and Quarto
 
 ## Sexual reproduction (spermatogenesis, meiosis)
 
@@ -61,19 +64,17 @@ Our DNA can be divided into different orders of structure. *3C* focus on identif
 
 ### Hi-C Data Analysis
 
-##### Aligning the Hi-C reads
+#### Aligning the Hi-C reads
 
-##### Identifying and Storing Valid Hi-C Pairs
+#### Identifying and Storing Valid Hi-C Pairs
 
-##### Interaction Matrices and Quality Control
+#### Interaction Matrices and Quality Control
 
-##### Calling Compartments (ICE) 
+#### Calling Compartments (ICE) 
 
-##### Edges
+#### Edges
 
 
-
-{{< pagebreak >}}
 
 
 # Methods
@@ -132,12 +133,12 @@ A flowchart showing the pipeline from `.fastq` to `.mcool`. The first 6 steps we
 
 A *gwf* workflow was created to handle the first part of the data processing, and each accesion number (read pair, mate pair) from the Hi-C sequencing was processed in parallel, so their execution was independent from each other. 
 
-##### Downloading the reads
+#### Downloading the reads
 
 The reads were downloaded from NCBI SRA portal [ref] directly to GDK using `sra-downloader` [ref] as `.fastq.gz` files. 
 
 
-##### Handling the reference
+#### Handling the reference
 
 The latest reference genome for rhesus macaque (*macaca mulata*), *rheMac10* (or *Mmul_10*, UCSC or NCBI naming conventions, respectively) was downloaded to GDK from UCSC web servers with `wget` [ref]. To use `bwa` (Burrow Wheeler's Aligner) [ref] for mapping, rheMac10 needs to be indexed with both `bwa index` with the `--bwtsw` option and `samtools faidx`, which results in six indexing files for `bwa mem` to use. 
 
@@ -146,7 +147,7 @@ Since [-@wang_reprogramming_2019], the reference genome for rhesus macaque has c
 Several mappers were used in different configurations (described in below), and `bowtie2` requires its own indexing of the reference, using `bowtie2-build --large-index`, which creates six index files for `bowtie2` to use. `--large-index` creates the special indexing format required for large genomes such as macaque.
 
 
-##### Mapping Hi-C reads
+#### Mapping Hi-C reads
 
 paragraph will be restructured. 
 
@@ -159,9 +160,9 @@ It was not feasible to follow the same approach as [@wang_reprogramming_2019] wi
 **Open2C**  Suspiciously, [@open2c] never mentions any problems with aligning the Hi-C reads, they just provide an example using `bwa mem` in paired-end mode and with the `-P` option set, which activates the Smith-Waterman [ref] algorithm to rescue missing hits, by focusing on assigning only of of the mates to a good mapping and escape mate-rescue.  The documentation of `bwa` [ref](https://bio-bwa.sourceforge.net) state that both bwa-mem and bwa-sw will rescue chimeric reads. Consequently, Open2C does not have a builtin way of pairing the reads after mapping, and I was left with two options: **1)** to re(-)pair the individually mapped read-mates (.bam)  with `samtools-fixmate` into one of the specific input formats required for `cooler` to create an interaction matrix *cooler*, or **2)** re-map the reads  using Open2C's recommendations and use their established pipeline for producing a cooler. I chose the latter, where I mapped the fastq files to *rheMac10* in paired end mode for a pair (m1, m2) with `bwa mem -SP rheMac10 m1 m2`.
 
 
-##### Parse and sort the reads
+#### Parse and sort the reads
 
-**HiCExplorer** No action is needed, as this step is done implicitly when building the matrix
+With *HiCExplorer* No action is needed, as this step is done implicitly when building the matrix
 
 **Open2C** We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome 'UU'. Other events, where one or both sides map to multiple segments or the reads are long enough (>150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the `--walks-policy` when parsing the alignments into valid pairs (or valid Hi-C contacts). Here, `mask` is the most conservative and masks all complex walks, whereas `5unique` reports the 5'-most unique alignment on each side. The pairs are piped directly into `pairtools sort` after parsing, as the deduplication step requires a sorted set of pairs. The *.pairs*-format produced by `pairtools` is an extension the [4DN Consortium](https://data.4dnucleome.org/file-formats/pairs/)-specified format, storing Hi-C pairs as in @tbl-pairsformat.
 
@@ -184,7 +185,6 @@ It was not feasible to follow the same approach as [@wang_reprogramming_2019] wi
 | 10    | mapq2     | mapq of the second mate                                                 |
 
 : Column specification of the .pairs format as extended by `pairtools` [ref].
-
 :::
 
 \normalsize
@@ -192,7 +192,7 @@ It was not feasible to follow the same approach as [@wang_reprogramming_2019] wi
 I initially used `--walks-policy mask`, reasoning I had plenty of data points and could handle complex walks in a conservative way. Only later I realized the recommendations from *pairtools*, specifically informing that longer reads might have a significant proportion of reads that contain complex walks. With this in mind, I decided to re-parse the alignments into a new set of pairs, and equally apply the recommended filter (next section). As both results are saved, we can compare the two approaches. 
 
 
-##### Filter (deduplicate) pairs
+#### Filter (deduplicate) pairs
 
 With *HiCExplorer*, no action is needed, as this step is done implicitly when building the matrix.
 
@@ -202,9 +202,9 @@ With *HiCExplorer*, no action is needed, as this step is done implicitly when bu
 
 A quality control report is generated by `pairtools dedup`, and the reports are merged with `MultiQC` [ref] for each cell type.
 
-##### Create interaction matrices (coolers) 
+#### Create interaction matrices (coolers) 
 
-**HiCExplorer** `hicBuildMatrix` both parse and filter the mapped reads. The default value was used, where alignments with $mapq < 15$ are discarded.
+With *HiCExplorer* `hicBuildMatrix` both parse and filter the mapped reads. The default value was used, where alignments with $mapq < 15$ are discarded.
 
 **Open2C** The final part of the *gwf* workflow takes `.pairs` as input and outputs a `.cool` file (*cooler*). Initially, we read directly from the newly generated deduplicated pairs without additional filtering, but here, the official recommendation is to filter out everything below $mapq = 30$ by piping the pairs through `pairtools select "(mapq1>=30) and (mapq2>=30)"` to `cooler cload pairs`. 
 
@@ -217,17 +217,17 @@ I have re-parsed the alignments and created new coolers, including only the Hi-C
 
 As `cooler` and `cooltools` have a Python API, the more experimental parts of the analysis were moved to Jupyter Notebooks. `cooltools` comes with a helper library for operations on genomic intervals called `bioframe`. 
 
-##### Pooling samples (Merging coolers)
+#### Pooling samples (Merging coolers)
 
 The samples are grouped into *replicates* with a unique **BioSample** ID, but we chose to pool all the interaction matrices for each cell type. We argue that when @wang_reprogramming_2019 determine compartments to be highly reproducible between replicates, by merging the replicates we can get a more robust signal. 
 
 `cooler merge` was used to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The function merges matrices of the same dimensions by simply adding the interaction frequencies of each genomic position together, resulting in less empty positions by chance.
 
-##### Create multi-resolution coolers (zoomify) 
+#### Create multi-resolution coolers (zoomify) 
 
 A feature of working inside the ecosystem of *Open2C* [ref] is that it natively provides support for storing sparse interaction matrices in multiple resolutions in the same file by adding groups to the cooler [ref]. We can then efficiently store resolutions (i.e., different bin sizes) that is multiples of the smallest bin size. We chose to use 10kb, 50kb, 100kb, and 500kb bins, and the resolutions are made by recursively binning the base resolution. We call this process zoomifying. 
 
-##### Matrix balancing (Iterative correction) 
+#### Matrix balancing (Iterative correction) 
 
 Finally, we balance the matrices using the cooler CLI. We use `cooler balance` with the default options which iteratively balances the matrix (Iterative Correction). It is first described as a method for bias correction of Hi-C matrices in [@imakaev_iterative_2012], where it is paired with eigenvector decomposition, coining the combined analysis **ICE**. Here, the eigenvector decomposition of the obtained maps is experimentally validated to provide insights into local chromatin states. 
 
@@ -235,7 +235,7 @@ Finally, we balance the matrices using the cooler CLI. We use `cooler balance` w
          
 The default mode uses genome-wide data to calculate the weights for each bin. It would maybe be more suitable to calculate the weights for *cis* contacts only, and that is possible through the `--cis-only` flag, and that can be added to another column, so that we can compare the difference between the two methods easily. However, we will only use the default mode for now. 
 
-##### Eigendecomposition
+#### Eigendecomposition
 
 The eigendecomposition of a Hi-C interaction matrix is performed in multiple steps. As value of the eigenvector is only *significant* up to a sign, it is convention [ref] to use GC content as a phasing track to orient the vector. E1 is arbitrarily defined to be positively correlated with GC content, meaning a positive E1 value signifies an active chromatin state, which we denote a A-type compartment (or simply A-compartment). We performed eigendecomposition of two resolutions, 100 Kbp and 500 Kbp. @wang_reprogramming_2019 briefly describes their method to calculate the eigenvectors as a sliding window approach on the observed/expected matrix in 100 kb resolution summing over 400 kb bins with 100 kb step size, a method I was not able to replicate in the *Open2C* ecosystem. I decided to mimic this by smoothing the 100 kb E1 values by summing to 500 kb bins in steps of 100 kb, yielding a comparable resolution which I denote '*pseudo*-500 kb' resolution (*ps500kb*).
 
@@ -243,7 +243,7 @@ First, we calculate the GC content of each bin of the reference genome, *rheMac1
 
 Additionally, to mimic the *Local PCA* from [@wang_reprogramming_2019], I also defined a view of 10 Mb bins. Thoughout the project, I will compare results from each of the three views and resolutions. 
 
-#### Plotting
+#### Plotting matrices
 
 *HiCExplorer* plots matrices to .png from the command-line. When plots were generated (with `hicPlotMatrix`), it produces a .png output that has to be loaded back into the notebook. There is limited support for modifying the plot (from command-line options), such as to add spacing for a bigWig track with E1 values, add plot titles, and define the size and resolution of the plot. I briefly tried to implement a plotting function on the .h5 matrices and bigWig tracks, but it could not fetch regions from a matrix on the fly and had to load the full matrix into memory (that is, all full-length chromosomes). To better visualise differences in the interaction matrix, the interaction frequency $f_i$, is transformed to $\log\mathrm{1p}(f_i) = \log\left(1 + f_i\right)$. It is required to visualize the normalized interaction frequency, as there are mostly values very close to 0, but it also aids the visibility in the raw counts matrix.
 
@@ -251,8 +251,27 @@ We use matplotlib and seaborn to plot in the *Open2C* framework. Utilizing the `
 
 The matrix is retrieved an plotted with `matplotlib.pyplot.matshow`, which automatically produces a heatmap image of the matrix. Here, in stead of transforming the interaction matrix, the color scale is log-transformed with `matplotlib.colors.LogNorm`. Additionally, `cooltools` comes with more tools to aid visualization: *adative coarsegrain* and *interpolation*, which can be chained. `adaptive_coarsegrain` iteratively coarsens an array to the nearest power of two and refines it back to the original resolution, replacing low-count pixels with NaN-aware averages to ensure no zeros in the output, unless there are very large regions that exceed the `max_levels` threshold, such as the peri-centromeric region. 
 
+I implemented a plotting utility, `plot_for_quarto` in notebook `07_various_plotting.ipynb` that is compatible with the YAML cell-options read by Quarto's `embed` shortcode. It will take an arbitrary number of samples and plot a chromosome (or region) with or without its respective E1 value for either of the three viewframes that has been created. The input is a (subsetted) *pandas DataFrame*, defined from a file search matching a pattern specified to the `glob` Python module.  
 
-{{< pagebreak >}}
+### Compartments and Their Edges (Transitional Regions)
+
+From the eigenvectors, the A-compartments were extracted in bedgraph-format (`['chrom', 'start', 'end']`) and compared with ECH90 regions lifted to *rheMac10* from human [ref what reference?]. We perform visual inspection of the genomic intervals and test whether ECH90 regions are enriched near the edges of the compartments by defining a 200 kilobase transition-zone centered at each sign change of E1 (referred to as *compartment edge*). We compare genomic intervals (or sets) both visually by plotting the regions, and by a proximity test and bootstrapping the Jaccard index. 
+
+#### Proximity test
+
+Determines whether the non-overlapping parts of the sets are more proximal than expected by chance. We define the *annotation* set and the *query* set, and the distance from each interval on the *query* to the most proximal interval on the *annotation* is used to generate an index of proximity. It uses bootstrapping ($b = 100000$) to generate the null distribution, and finally, the fraction of the *null* as or more extreme as our observed proximity is reported as the p-value. 
+
+#### Jaccard test
+
+Measures the significance of the observed Jaccard index (intersection over union) between two sets. The index is a measure of *similarity* between two sets (between 0 and 1), which is very sensitive to the size difference between the sets, as even when comparing a set of intervals to a small subset of itself will yield a very small Jaccard index. When we use bootstrapping to generate a null distribution (shuffling the intervals of the *query*), we generate the probability that the two sets (with their respective number and size of intervals), are as similar or more than what we observe. The ratio is reported as the p-value. However, this approach is still sensitive to flipping of query/annotation, as only the query is bootstrapped. 
+
+
+#### Multiple testing
+
+Careful considerations were made to avoid multiple testing biases (p-hacking): Performing tests on all combinations of variables (cell type, resolution, viewframe, flip annot, query, test) will yield 260 p-values, and we would have to adjust the significance threshold (with $\alpha = 0.05$, we expect 13 'significant' tests by chance alone). However, if we choose only
+
+
+
 
 # Results
 
@@ -383,21 +402,29 @@ The three viewframes (*Full*, *Arms*, *10Mb*) for the calculation of the eigenve
 Super caption, subcaptions should be moved here   (from notebook). They now fit on the page, but it would be nice to make this as one plt.subplots with shared axis title etc. *Update:* The notebook is ready for making these plots (bottom section).
 :::
 
-I argue that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. Also, @wang_reprogramming_2019 concludes that only the pachytene spermatocyte showed local interactions in that viewframe (what they refer to as *refined A/B-compartments* ), and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, all three viewframes were used for further analysis. 
+I argue that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. Also, @wang_reprogramming_2019 concludes that only the pachytene spermatocyte showed local interactions in that viewframe (what they refer to as *refined A/B-compartments* ), and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, we also keep *refined* compartments in the analysis. 
 
-Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices and their compartments
+Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices and their compartments (@fig-rs100-recpe-pe). As expected, we observe more empty bins in the Hi-C matrix, but otherwise, the interaction pattern is indestinguishable when going from the initial run (PE) to the recommended parameters (redPE). The effect on the E1 is more noticable, where the absolute magnitude of the E1 values is generally smaller. There is, however, a small region that changes sign (from A to B) on the 10Mb-windowed ('refined') E1 track (@fig-rs100-recpe-pe;c+d, zoomed-in region). This region is surrounded by added empty bins, which could mean that too many low quality pairs in PE were introducing bias and swapped the sign of E1. It is supported by the fact that the sign change *only* occured in *refined* E1, and that the sign after filtering weak pairs ($mapq < 30$) is consistent with the *arms* view. It supports my previous postulate that it is better to use a viewframe where with explicit molecular meaning than one of an arbitrary window size. That said, the `mapq` threshold should really be determined taking both coverage and resolution into account. For our purposes, and with the *arms* view, the mapping- and parsing parameters do not seem to be too sensitive.
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-rs100-recpe-pe >}}
 
 
+### Compartment Edges (transition zones)
 
-{{< pagebreak >}}
+We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment. 
+
+{{< embed ../notebooks/06_rec_genomicintervals.ipynb#fig-comps-edges-ech >}}
+
+
+
+
+
 
 # Discussion
 
 Here is the discussion
 
-{{< pagebreak >}}
+
 
 # Bibliography {.unnumbered}
 
