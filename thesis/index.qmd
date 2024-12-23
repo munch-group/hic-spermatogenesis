@@ -427,7 +427,7 @@ We compare how the ECH90 regions fit when queried on top of the A-compartments a
 
 We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@fig-proximity-jaccard-bar). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p < 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) *and* the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) to only capture the 200kb region outside of the edge. 
 
-{{< embed ../notebooks/06_rec_genomicintervals.ipynb#fig-proximity-jaccard-hist >}}
+{{< embed ../notebooks/06_rec_genomicintervals.ipynb#fig-proximity-jaccard-bar >}}
 
 
 
