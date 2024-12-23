@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-12-21">
+<meta name="dcterms.date" content="2024-12-23">
 <meta name="keywords" content="Hi-C, Chromatin Compartments, Evolutionary pressures, Selfish gene drive">
 
 <title>Chromatin Compartments and Selection on X</title>
@@ -103,11 +103,10 @@ window.Quarto = {
 ">
 <meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Evolutionary pressures,Selfish gene drive">
 <meta name="citation_author" content="Søren Jørgensen">
-<meta name="citation_author" content="Kasper Munch">
-<meta name="citation_publication_date" content="2024-12-21">
-<meta name="citation_cover_date" content="2024-12-21">
+<meta name="citation_publication_date" content="2024-12-23">
+<meta name="citation_cover_date" content="2024-12-23">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-12-21">
+<meta name="citation_online_date" content="2024-12-23">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Principal components analysis corrects for stratification in genome-wide association studies;,citation_author=Alkes L Price;,citation_author=Nick J Patterson;,citation_author=Robert M Plenge;,citation_author=Michael E Weinblatt;,citation_author=Nancy A Shadick;,citation_author=David Reich;,citation_publication_date=2006-08;,citation_cover_date=2006-08;,citation_year=2006;,citation_fulltext_html_url=https://www.nature.com/articles/ng1847;,citation_issue=8;,citation_doi=10.1038/ng1847;,citation_issn=1061-4036, 1546-1718;,citation_volume=38;,citation_journal_title=Nature Genetics;">
 <meta name="citation_reference" content="citation_title=Accurate assembly of the olive baboon ( &amp;amp;amp;lt;i&amp;gt;Papio anubis&amp;lt;/i&amp;gt; ) genome using long-read and Hi-C data;,citation_abstract=AbstractBackground Baboons are a widely used nonhuman primate model for biomedical, evolutionary, and basic genetics research. Despite this importance, the genomic resources for baboons are limited. In particular, the current baboon reference genome Panu_3.0 is a highly fragmented, reference-guided (i.e., not fully de novo) assembly, and its poor quality inhibits our ability to conduct downstream genomic analyses.Findings Here we present a de novo genome assembly of the olive baboon (Papio anubis) that uses data from several recently developed single-molecule technologies. Our assembly, Panubis1.0, has an N50 contig size of ∼1.46 Mb (as opposed to 139 kb for Panu_3.0) and has single scaffolds that span each of the 20 autosomes and the X chromosome.Conclusions We highlight multiple lines of evidence (including Bionano Genomics data, pedigree linkage information, and linkage disequilibrium data) suggesting that there are several large assembly errors in Panu_3.0, which have been corrected in Panubis1.0.;,citation_author=Sanjit Singh Batra;,citation_author=Michal Levy-Sakin;,citation_author=Jacqueline Robinson;,citation_author=Joseph Guillory;,citation_author=Steffen Durinck;,citation_author=Tauras P Vilgalys;,citation_author=Pui-Yan Kwok;,citation_author=Laura A Cox;,citation_author=Somasekar Seshagiri;,citation_author=Yun S Song;,citation_author=Jeffrey D Wall;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaa134/6025063;,citation_issue=12;,citation_doi=10.1093/gigascience/giaa134;,citation_issn=2047-217X;,citation_volume=9;,citation_journal_title=GigaScience;">
@@ -151,17 +150,16 @@ window.Quarto = {
         <div class="quarto-title-meta">
 
                 <div>
-            <div class="quarto-title-meta-heading">Authors</div>
+            <div class="quarto-title-meta-heading">Author</div>
             <div class="quarto-title-meta-contents">
                         <p>Søren Jørgensen <a href="mailto:201906763@post.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-                        <p>Kasper Munch </p>
                       </div>
           </div>
                 
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">December 21, 2024</p>
+              <p class="date">December 23, 2024</p>
             </div>
           </div>
           
@@ -237,6 +235,10 @@ window.Quarto = {
   </ul></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  <li><a href="#discussion-1" id="toc-discussion-1" class="nav-link" data-scroll-target="#discussion-1">Discussion</a></li>
+  <li><a href="#bibliography-1" id="toc-bibliography-1" class="nav-link" data-scroll-target="#bibliography-1">Bibliography</a></li>
+  <li><a href="#discussion-2" id="toc-discussion-2" class="nav-link" data-scroll-target="#discussion-2">Discussion</a></li>
+  <li><a href="#bibliography-2" id="toc-bibliography-2" class="nav-link" data-scroll-target="#bibliography-2">Bibliography</a></li>
   </ul>
 </nav>
 </div>
@@ -862,7 +864,7 @@ Figure&nbsp;5: A comparison of interaction matrices before/after iterative corre
 </section>
 <section id="eigenvectors" class="level3">
 <h3 class="anchored" data-anchor-id="eigenvectors">Eigenvectors</h3>
-<p>The PCA performed by <code>hicPCA</code> on the pooled samples at both 50kb and 100kb resolution yielded the first 3 principal components. For PC1 on both resolutions (<a href="#fig-explorer-pc1-50kb" class="quarto-xref">Figure&nbsp;6 (a)</a>, <a href="#fig-explorer-pc1-100kb" class="quarto-xref">Figure&nbsp;6 (d)</a>) we observe only a single sign change which occurs at around 60 Mbp, the region of the centromere. It means the PCA has captured more variance between the chromosome arms than within them, making it uninformative about chromatin compartments. Upon visual inspection, it is clear that neither of the PC graphs capture the pattern of the interaction matrix. Unimpressed, I rationalize that the option <code>--extra-track</code> to provide a gene track or histone coverage should not affect this reult much. It should be provided as a phasing track to orient the eigenvector to positively correlate with gene density or histone marks, and could possibly muddle the compartments if not included. At this point, I stoppped using <em>HiCExplorer</em>, as I assessed that a more flexible tool was needed.</p>
+<p>The PCA performed by <code>hicPCA</code> on the pooled samples at both 50kb and 100kb resolution yielded the first 3 principal components. For PC1 on both resolutions (<a href="#fig-explorer-pc1-50kb" class="quarto-xref">Figure&nbsp;6 (a)</a>, <a href="#fig-explorer-pc1-100kb" class="quarto-xref">Figure&nbsp;6 (d)</a>) we observe only a single sign change which occurs at around 60 Mbp, the region of the centromere. It means the PCA has captured more variance between the chromosome arms than within them, making it uninformative about chromatin compartments. Upon visual inspection, it is clear that neither of the PC graphs capture the pattern of the interaction matrix by its change of sign. It seems the PCs capture variance from a bias that varies slowly and predictably along the chromosome. The first PC that is supposed to capture the compartments very suspiciously changes sign at the region of the centromere, a classic problem that could be solved by restricting the values from which the PC is calculated along the chromosome. Unimpressed, I rationalize that the option <code>--extra-track</code> to provide a gene track or histone coverage should not affect this result much. It should be provided as a phasing track to orient the eigenvector to positively correlate with gene density or histone marks, and could possibly muddle the compartments if not included. At this point, I stoppped using <em>HiCExplorer</em>, as I assessed that a more flexible tool was needed.</p>
 <div id="fig-explorer-pca" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-explorer-pca-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -957,6 +959,7 @@ Figure&nbsp;6: Corrected interaction matrix for chromosome X along with PC1, 2, 
 <section id="initial-run---walks-policy-mask" class="level4">
 <h4 class="anchored" data-anchor-id="initial-run---walks-policy-mask">Initial run (<code>--walks-policy mask</code>)</h4>
 <p>Comparing the multiQC report for each of the cell sources show similar distributions of <em>unmapped</em> (both sides unmapped), <em>one-sided</em> (one side mapped), <em>two-sided</em> (both sides mapped), and <em>duplicated</em> (w.r.t. total mapped) reads. The percentage of <em>cis</em> pairs w.r.t. mapped pairs is around 70% for all samples. [ref supptbl-qc-all-samples-mask]. The valid pairs also show similar distributions of pair types divided into 10 categories. The <span class="math inline">\(P(s)\)</span> curve looks similar as well, peaking between 270 bp and 320 bp separation (ref suppfig-multiqc-ps-curve). The QC does not show any information about mapping quality of the reads. Note that the <span class="math inline">\(P(s)\)</span> ccurve arise from pre-filtered pairs, and should be compcared with the <span class="math inline">\(P(s)\)</span> of the cooler after filtering.</p>
+<p>[ref if there is time, include a histogram of mapq values for pairs]</p>
 </section>
 <section id="recommended---walks-policy-5unique" class="level4">
 <h4 class="anchored" data-anchor-id="recommended---walks-policy-5unique">Recommended (<code>--walks-policy 5unique</code>)</h4>
@@ -1023,7 +1026,7 @@ Figure&nbsp;9: Histogram of NaN values in the E1 eigenvector for each cell type.
 </section>
 <section id="compartments-eigenvectors" class="level3">
 <h3 class="anchored" data-anchor-id="compartments-eigenvectors">Compartments (Eigenvectors)</h3>
-<p>The three viewframes (<em>Full</em>, <em>Arms</em>, <em>10Mb</em>) for the calculation of the eigenvectors captured different variability in the data (<a href="#fig-e1-matrix-500kb-full-arms-10mb-round_spermatid" class="quarto-xref">Figure&nbsp;10 (a)</a>), and as expected, the inferred compartments (red) are more abundant and smaller with smaller viewframes. To determine how well each of the E1 tracks capture the pattern in the interaction matrix, we can overlay the matrix with the E1 sign-change and visually determine if the squares reflect the E1 sign change (<a href="#fig-e1-matrix-500kb-full-arms-10mb-round_spermatid" class="quarto-xref">Figure&nbsp;10 (a)</a>).</p>
+<p>The three viewframes (<em>Full</em>, <em>Arms</em>, <em>10Mb</em>) for the calculation of the eigenvectors captured different variability in the data (<a href="#fig-e1-matrix-500kb-full-arms-10mb-round_spermatid" class="quarto-xref">Figure&nbsp;10 (a)</a>), and as expected, the inferred compartments (colored red on the E1 tracks) are more abundant and smaller with smaller viewframes. To determine how well each of the E1 tracks capture the pattern in the interaction matrix, we can overlay the matrix with the E1 sign-change and visually determine if the squares reflect the E1 sign change (<a href="#fig-e1-matrix-500kb-full-arms-10mb-round_spermatid" class="quarto-xref">Figure&nbsp;10 (a)</a>).</p>
 <div id="fig-e1-matrix-full-arms-10mb-round-spermatid" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e1-matrix-full-arms-10mb-round-spermatid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1066,14 +1069,14 @@ Figure&nbsp;9: Histogram of NaN values in the E1 eigenvector for each cell type.
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e1-matrix-full-arms-10mb-round-spermatid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Super caption, subcaptions should be moved here (from notebook). They now fit on the page, but it would be nice to make this as one plt.subplots with shared axis title etc. <em>Update:</em> The notebook is ready for making these plots (bottom section).
+Figure&nbsp;10: Super caption, subcaptions should be moved here (from notebook). They now fit on the page, but it would be nice to make this as one plt.subplots with shared axis title etc. <em>Update:</em> The notebook is ready for making these plots (<code>07_various_plotting.ipynb</code>, with a new plotting function) should be same size as the following matrix plots.
 </figcaption>
 </figure>
 </div>
 <p>I argue that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. Also, <span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span> concludes that only the pachytene spermatocyte showed local interactions in that viewframe (what they refer to as <em>refined A/B-compartments</em> ), and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, we also keep <em>refined</em> compartments in the analysis.</p>
 <p>Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices and their compartments (<a href="#fig-rs100-recpe-pe" class="quarto-xref">Figure&nbsp;11</a>). As expected, we observe more empty bins in the Hi-C matrix, but otherwise, the interaction pattern is indestinguishable when going from the initial run (PE) to the recommended parameters (redPE). The effect on the E1 is more noticable, where the absolute magnitude of the E1 values is generally smaller. There is, however, a small region that changes sign (from A to B) on the 10Mb-windowed (‘refined’) E1 track (<a href="#fig-rs100-recpe-pe" class="quarto-xref">Figure&nbsp;11</a>;c+d, zoomed-in region). This region is surrounded by added empty bins, which could mean that too many low quality pairs in PE were introducing bias and swapped the sign of E1. It is supported by the fact that the sign change <em>only</em> occured in <em>refined</em> E1, and that the sign after filtering weak pairs (<span class="math inline">\(mapq &lt; 30\)</span>) is consistent with the <em>arms</em> view. It supports my previous postulate that it is better to use a viewframe where with explicit molecular meaning than one of an arbitrary window size. That said, the <code>mapq</code> threshold should really be determined taking both coverage and resolution into account. For our purposes, and with the <em>arms</em> view, the mapping- and parsing parameters do not seem to be too sensitive.</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/07_various_plotting.ipynb" data-notebook-title="Various Comparisons" data-notebook-cellid="cell-fig-rs100-recpe-pe">
-<div class="cell" data-layout="[[-0.5,5,5,-0.5],[-0.5,5,5,-0.5]]">
+<div class="cell" data-layout="[[-0.5,5,5,-0.5],[-0.5,5,5,-0.5]]" data-execution_count="42">
 <div id="fig-rs100-recpe-pe" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rs100-recpe-pe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1149,69 +1152,187 @@ Figure&nbsp;11: Round Spermatid (RS) at 100kb, comparing the impact of parsing p
 </div>
 </div>
 </div>
+<p>To emphasize the findings, the sets of A-compartments were compared between the two parsing runs, showing almost identical compartment calls. Additionally, the set difference was 8 bins between PE and recPE for round spermatid 100kb and 5 bins for fibroblast for <em>arms</em> viewframe (<a href="#fig-rs-fb-100-pe-recpe-intervals" class="quarto-xref">Figure&nbsp;12</a>; a+b, respectively). We observe a high number of differences around 76Mb for the refined compartments (10Mb) of round spermatid, which is consistent with the sign-flip of E1 values discussed earlier. Anything else would be surprising, as it is the same data, but visualized in a different way.</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/07_various_plotting.ipynb" data-notebook-title="Various Comparisons" data-notebook-cellid="cell-fig-rs-fb-100-pe-recpe-intervals">
+<div class="cell" data-layout="[[-0.6,2.5,2.5,-0.6],[-0.6,2.5,2.5,-0.6]]" data-execution_count="103">
+<div id="fig-rs-fb-100-pe-recpe-intervals" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rs-fb-100-pe-recpe-intervals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs-fb-100-pe-recpe-intervals" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div id="fig-rs-fb-100-pe-recpe-intervals-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rs-fb-100-pe-recpe-intervals-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-1.png" class="lightbox" data-gallery="fig-rs-fb-100-pe-recpe-intervals" title="Figure&nbsp;12&nbsp;(a): RS: arms"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-1.png" data-ref-parent="fig-rs-fb-100-pe-recpe-intervals" width="249" height="77" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rs-fb-100-pe-recpe-intervals-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) RS: arms
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs-fb-100-pe-recpe-intervals" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div id="fig-rs-fb-100-pe-recpe-intervals-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rs-fb-100-pe-recpe-intervals-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-2.png" class="lightbox" data-gallery="fig-rs-fb-100-pe-recpe-intervals" title="Figure&nbsp;12&nbsp;(b): Fib: arms"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-2.png" data-ref-parent="fig-rs-fb-100-pe-recpe-intervals" width="249" height="77" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rs-fb-100-pe-recpe-intervals-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Fib: arms
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs-fb-100-pe-recpe-intervals" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div id="fig-rs-fb-100-pe-recpe-intervals-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rs-fb-100-pe-recpe-intervals-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-3.png" class="lightbox" data-gallery="fig-rs-fb-100-pe-recpe-intervals" title="Figure&nbsp;12&nbsp;(c): RS: 10Mb"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-3.png" data-ref-parent="fig-rs-fb-100-pe-recpe-intervals" width="249" height="77" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rs-fb-100-pe-recpe-intervals-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) RS: 10Mb
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rs-fb-100-pe-recpe-intervals" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div id="fig-rs-fb-100-pe-recpe-intervals-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rs-fb-100-pe-recpe-intervals-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-4.png" class="lightbox" data-gallery="fig-rs-fb-100-pe-recpe-intervals" title="Figure&nbsp;12&nbsp;(d): Fib: 10Mb"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-4.png" data-ref-parent="fig-rs-fb-100-pe-recpe-intervals" width="249" height="77" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rs-fb-100-pe-recpe-intervals-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Fib: 10Mb
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rs-fb-100-pe-recpe-intervals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing the impact of parsing parameters on A-compartment calling at different viewframes; <em>arms</em>, <em>10Mb</em>. PE: initial parse (masking complex walks); recPE: recommended parse (reporting the 5’most unique alignment of a complex walk).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The observed difference between the sets can for our data be attributed to chance, but we cannot draw general conclusions about the parameters. I argue that the quality and size of the Hi-C library will influence sensitive to parsing parameters. In that case, the most flexible approach is still to follow the recommendations from <code>cooler</code> to report more pairs as valid contacts, and then create coolers with different <em>mapq</em> filters if issues are encountered.</p>
 </section>
 <section id="compartment-edges-transition-zones" class="level3">
 <h3 class="anchored" data-anchor-id="compartment-edges-transition-zones">Compartment Edges (transition zones)</h3>
-<p>We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment.</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/06_rec_genomicintervals.ipynb" data-notebook-title="E1 vs. ECH (recommended params)" data-notebook-cellid="cell-fig-comps-edges-ech">
+<p>We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment (<a href="#fig-comps-edges-ech" class="quarto-xref">Figure&nbsp;13</a>). This indicates that most, but not all, of the intersection between ECH90 regions and the A-compartments are within 100kb of the compartment edge, and additional overlap is gained if we define a transition zone on the outside of the edge as well. To visualize this (outside) edge enrichment, we find the set difference of the ECH-intersection to compartments and edges, respectively (<a href="#fig-edge-enrichment" class="quarto-xref">Figure&nbsp;14</a>), thus removing all the ‘inside’ edges. We observe that in almost all of the of the regions of <span class="math inline">\(ECH \cap Comp\)</span> are accompanied by an edge also intersecting ECH (<span class="math inline">\(ECH \cap Edge\)</span>), localized where the <em>Diff</em> track aligns (within 100kb) with both <span class="math inline">\(Comp \cap\)</span> and <span class="math inline">\(Edge \cap\)</span>.</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/07_various_plotting.ipynb" data-notebook-title="Various Comparisons" data-notebook-cellid="cell-fig-comps-edges-ech">
+<div class="cell" data-layout="[[-0.6,2.5,2.5,-0.6],[-0.6,2.5,2.5,-0.6]]">
 <div id="fig-comps-edges-ech" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-comps-edges-ech-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 40.3%;justify-content: flex-start;">
 <div id="fig-comps-edges-ech-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comps-edges-ech-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-1.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;12&nbsp;(a): Visual representation of the genomic intervals of ECH90, A-compartments, edges, and their intersections. Shown fibroblast and round spermatid at 100kb resolution and arms view."><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-1.png" data-ref-parent="fig-comps-edges-ech" width="398" height="128" class="figure-img"></a>
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-1.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;13&nbsp;(a): Fibroblast A-compartments"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-1.png" data-ref-parent="fig-comps-edges-ech" width="248" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Visual representation of the genomic intervals of ECH90, A-compartments, edges, and their intersections. Shown fibroblast and round spermatid at 100kb resolution and arms view.
+(a) Fibroblast A-compartments
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-comps-edges-ech-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="128" width="398">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div id="fig-comps-edges-ech-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comps-edges-ech-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-2.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;12&nbsp;(b): "><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-2.png" id="fig-comps-edges-ech-2" data-ref-parent="fig-comps-edges-ech" width="398" height="128" class="figure-img"></a>
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-2.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;13&nbsp;(b): Round Spermatid A-compartments"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-2.png" data-ref-parent="fig-comps-edges-ech" width="248" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b)
+(b) Round Spermatid A-compartments
 </figcaption>
 </figure>
 </div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<p>&nbsp;</p>
 </div>
 </div>
 <div class="quarto-layout-row">
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-comps-edges-ech-3" class="quarto-float quarto-figure quarto-figure-center anchored" height="128" width="398">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div id="fig-comps-edges-ech-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comps-edges-ech-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-3.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;12&nbsp;(c): "><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-3.png" id="fig-comps-edges-ech-3" data-ref-parent="fig-comps-edges-ech" width="398" height="128" class="figure-img"></a>
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-3.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;13&nbsp;(c): Fibroblast edges"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-3.png" data-ref-parent="fig-comps-edges-ech" width="248" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(c)
+(c) Fibroblast edges
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-comps-edges-ech-4" class="quarto-float quarto-figure quarto-figure-center anchored" height="128" width="398">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div id="fig-comps-edges-ech-4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comps-edges-ech-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-4.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;12&nbsp;(d): "><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-4.png" id="fig-comps-edges-ech-4" data-ref-parent="fig-comps-edges-ech" width="398" height="128" class="figure-img"></a>
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-4.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;13&nbsp;(d): Round Spermatid edges"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-4.png" data-ref-parent="fig-comps-edges-ech" width="248" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(d)
+(d) Round Spermatid edges
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comps-edges-ech-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Visual representation of the genomic intervals of ECH90, A-compartments (a+b), edges (c+d), and their intersections. Shown fibroblast (a+c) and round spermatid (b+d) at 100kb resolution and arms viewframe.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/07_various_plotting.ipynb" data-notebook-title="Various Comparisons" data-notebook-cellid="cell-fig-edge-enrichment">
+<div id="fig-edge-enrichment" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-edge-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-edge-enrichment" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-proximity-jaccard-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" class="lightbox" data-gallery="fig-edge-enrichment" title="Figure&nbsp;14&nbsp;(a): Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view p=0.05 is marked as a red line."><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" data-ref-parent="fig-edge-enrichment" width="283" height="197" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view <span class="math inline">\(p=0.05\)</span> is marked as a red line.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-comps-edges-ech-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-edge-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14
 </figcaption>
 </figure>
 </div>
@@ -1224,6 +1345,173 @@ Figure&nbsp;12
 <p>Here is the discussion</p>
 </section>
 <section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">Bibliography</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bicciato_hic_2022" class="csl-entry" role="listitem">
+Bicciato, Silvio, and Francesco Ferrari, eds. 2022. <em>Hi-<span>C</span> <span>Data</span> <span>Analysis</span>: <span>Methods</span> and <span>Protocols</span></em>. Vol. 2301. Methods in <span>Molecular</span> <span>Biology</span>. New York, NY: Springer US. <a href="https://doi.org/10.1007/978-1-0716-1390-0">https://doi.org/10.1007/978-1-0716-1390-0</a>.
+</div>
+<div id="ref-imakaev_iterative_2012" class="csl-entry" role="listitem">
+Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A Mirny. 2012. <span>“Iterative Correction of <span>Hi</span>-<span>C</span> Data Reveals Hallmarks of Chromosome Organization.”</span> <em>Nature Methods</em> 9 (10): 999–1003. <a href="https://doi.org/10.1038/nmeth.2148">https://doi.org/10.1038/nmeth.2148</a>.
+</div>
+<div id="ref-jaenike_sex_2001" class="csl-entry" role="listitem">
+Jaenike, John. 2001. <span>“Sex <span>Chromosome</span> <span>Meiotic</span> <span>Drive</span>.”</span> <em>Annual Review of Ecology and Systematics</em> 32 (1): 25–49. <a href="https://doi.org/10.1146/annurev.ecolsys.32.081501.113958">https://doi.org/10.1146/annurev.ecolsys.32.081501.113958</a>.
+</div>
+<div id="ref-lieberman_aiden_comprehensive_2009" class="csl-entry" role="listitem">
+Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009. <span>“Comprehensive <span>Mapping</span> of <span>Long</span>-<span>Range</span> <span>Interactions</span> <span>Reveals</span> <span>Folding</span> <span>Principles</span> of the <span>Human</span> <span>Genome</span>.”</span> <em>Science</em> 326 (5950): 289–93. <a href="https://doi.org/10.1126/science.1181369">https://doi.org/10.1126/science.1181369</a>.
+</div>
+<div id="ref-munch_group_2024" class="csl-entry" role="listitem">
+Munch, Kasper. 2024. <span>“Munch-Group.”</span> <a href="https://munch-group.org/research.html">https://munch-group.org/research.html</a>.
+</div>
+<div id="ref-open2c" class="csl-entry" role="listitem">
+Open Chromosome Collective. 2024. <span>“Open <span>Chromosome</span> <span>Collective</span> (<span>Open2C</span>).”</span> Resource. <em>Open2C</em>. <a href="https://open2c.github.io/">https://open2c.github.io/</a>.
+</div>
+<div id="ref-skov_extraordinary_2023" class="csl-entry" role="listitem">
+Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch. 2023. <span>“Extraordinary Selection on the Human <span>X</span> Chromosome Associated with Archaic Admixture.”</span> <em>Cell Genomics</em> 3 (3): 100274. <a href="https://doi.org/10.1016/j.xgen.2023.100274">https://doi.org/10.1016/j.xgen.2023.100274</a>.
+</div>
+<div id="ref-sorensen_genome_wide_2023" class="csl-entry" role="listitem">
+Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran, Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023. <span>“Genome-Wide Coancestry Reveals Details of Ancient and Recent Male-Driven Reticulation in Baboons.”</span> <em>Science</em> 380 (6648): eabn8153. <a href="https://doi.org/10.1126/science.abn8153">https://doi.org/10.1126/science.abn8153</a>.
+</div>
+<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
+</div>
+</div>
+<p>, ’$Edge\cap</p>
+<p>We apply both proximity test and Jaccard test, to see how well the results could occur by chance (<a href="#fig-proximity-jaccard-bar" class="quarto-xref">Figure&nbsp;16</a>). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have <span class="math inline">\(p &lt; 0.05\)</span> for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) <em>and</em> the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e.&nbsp;compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are <em>very</em> proximal, a larger (or shifted) to only capture the 200kb region outside of the edge.</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/06_rec_genomicintervals.ipynb" data-notebook-title="E1 vs. ECH (recommended params)" data-notebook-cellid="cell-fig-proximity-jaccard-bar">
+<div id="cell-fig-proximity-jaccard-bar" class="cell" data-execution_count="83">
+<div class="cell-output cell-output-display">
+<div id="fig-proximity-jaccard-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-39" title="Figure&nbsp;15: Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view p=0.05 is marked as a red line."><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" width="283" height="197" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view <span class="math inline">\(p=0.05\)</span> is marked as a red line.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion-1" class="level1">
+<h1>Discussion</h1>
+<p>Here is the discussion</p>
+</section>
+<section id="bibliography-1" class="level1 unnumbered">
+<h1 class="unnumbered">Bibliography</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bicciato_hic_2022" class="csl-entry" role="listitem">
+Bicciato, Silvio, and Francesco Ferrari, eds. 2022. <em>Hi-<span>C</span> <span>Data</span> <span>Analysis</span>: <span>Methods</span> and <span>Protocols</span></em>. Vol. 2301. Methods in <span>Molecular</span> <span>Biology</span>. New York, NY: Springer US. <a href="https://doi.org/10.1007/978-1-0716-1390-0">https://doi.org/10.1007/978-1-0716-1390-0</a>.
+</div>
+<div id="ref-imakaev_iterative_2012" class="csl-entry" role="listitem">
+Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A Mirny. 2012. <span>“Iterative Correction of <span>Hi</span>-<span>C</span> Data Reveals Hallmarks of Chromosome Organization.”</span> <em>Nature Methods</em> 9 (10): 999–1003. <a href="https://doi.org/10.1038/nmeth.2148">https://doi.org/10.1038/nmeth.2148</a>.
+</div>
+<div id="ref-jaenike_sex_2001" class="csl-entry" role="listitem">
+Jaenike, John. 2001. <span>“Sex <span>Chromosome</span> <span>Meiotic</span> <span>Drive</span>.”</span> <em>Annual Review of Ecology and Systematics</em> 32 (1): 25–49. <a href="https://doi.org/10.1146/annurev.ecolsys.32.081501.113958">https://doi.org/10.1146/annurev.ecolsys.32.081501.113958</a>.
+</div>
+<div id="ref-lieberman_aiden_comprehensive_2009" class="csl-entry" role="listitem">
+Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009. <span>“Comprehensive <span>Mapping</span> of <span>Long</span>-<span>Range</span> <span>Interactions</span> <span>Reveals</span> <span>Folding</span> <span>Principles</span> of the <span>Human</span> <span>Genome</span>.”</span> <em>Science</em> 326 (5950): 289–93. <a href="https://doi.org/10.1126/science.1181369">https://doi.org/10.1126/science.1181369</a>.
+</div>
+<div id="ref-munch_group_2024" class="csl-entry" role="listitem">
+Munch, Kasper. 2024. <span>“Munch-Group.”</span> <a href="https://munch-group.org/research.html">https://munch-group.org/research.html</a>.
+</div>
+<div id="ref-open2c" class="csl-entry" role="listitem">
+Open Chromosome Collective. 2024. <span>“Open <span>Chromosome</span> <span>Collective</span> (<span>Open2C</span>).”</span> Resource. <em>Open2C</em>. <a href="https://open2c.github.io/">https://open2c.github.io/</a>.
+</div>
+<div id="ref-skov_extraordinary_2023" class="csl-entry" role="listitem">
+Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch. 2023. <span>“Extraordinary Selection on the Human <span>X</span> Chromosome Associated with Archaic Admixture.”</span> <em>Cell Genomics</em> 3 (3): 100274. <a href="https://doi.org/10.1016/j.xgen.2023.100274">https://doi.org/10.1016/j.xgen.2023.100274</a>.
+</div>
+<div id="ref-sorensen_genome_wide_2023" class="csl-entry" role="listitem">
+Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran, Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023. <span>“Genome-Wide Coancestry Reveals Details of Ancient and Recent Male-Driven Reticulation in Baboons.”</span> <em>Science</em> 380 (6648): eabn8153. <a href="https://doi.org/10.1126/science.abn8153">https://doi.org/10.1126/science.abn8153</a>.
+</div>
+<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
+</div>
+</div>
+<p>, ‘Diff’], title=“ECH90 intersect”, figsize=(2.5, 1), alpha=1, lw=0.2)</p>
+<pre><code>
+::: {.cell-output .cell-output-display}
+![Round Spermatid](index_files/figure-html/..-notebooks-07_various_plotting-fig-edge-enrichment-output-1.png){#fig-edge-enrichment-1 width=248 height=98}
+:::
+
+::: {.cell-output .cell-output-display}
+![Fibroblast](index_files/figure-html/..-notebooks-07_various_plotting-fig-edge-enrichment-output-2.png){#fig-edge-enrichment-2 width=248 height=98}
+:::
+
+Visual representation of the enrichment of edges in the intersection of ECH90 and A-compartments. Shown round spermatid (a) and fibroblast (b) at 100kb resolution and arms viewframe. Note that the edge-regions are too small to be distinguished visually from the compartment on the graph, making it look like they overlap, even though the difference is reported.
+:::
+
+
+
+
+:::
+
+
+
+
+
+
+
+We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@fig-proximity-jaccard-bar). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p &lt; 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) *and* the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) to only capture the 200kb region outside of the edge. 
+
+
+
+
+
+:::{.quarto-embed-nb-cell notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/06_rec_genomicintervals.ipynb" notebook-title="E1 vs. ECH (recommended params)" notebook-cellId="cell-fig-proximity-jaccard-bar"}
+
+::: {#cell-fig-proximity-jaccard-bar .cell execution_count=83}
+``` {.python .cell-code .hidden}
+# Concatenate the two plot_groups
+
+group = pd.concat([plot_group_prox, plot_group_jacc])
+# display(group[['source', 'resolution', 'type', 'p-value', 'minuslog10p']].query(
+#     'source in ("Fib", "RS")'
+# ).reset_index(drop=True))
+
+g = sns.catplot(
+    group, kind='bar',
+    x='source', y='minuslog10p', hue='type', 
+    order=source_order,
+    errorbar=None, margin_titles=True, sharex=False,
+    height=2, aspect=1.5
+    )
+
+# Plot a horisontal line at p=0.05
+g.ax.axhline(-np.log10(0.05), color='tab:red', linestyle='--')
+
+g.despine(left=True)
+
+g.set_axis_labels("", "-log10(p)")
+g.legend.set_title('')
+sns.move_legend(g, 'upper center', bbox_to_anchor=(0.4,0.93))
+
+g.tight_layout()
+plt.show()
+
+
+</code></pre>
+<div class="cell-output cell-output-display">
+<div id="fig-proximity-jaccard-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-40" title="Figure&nbsp;16: Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view p=0.05 is marked as a red line."><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" width="283" height="197" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view <span class="math inline">\(p=0.05\)</span> is marked as a red line.
+</figcaption>
+</figure>
+</div>
+</div>
+<p>:::</p>
+<p>:::</p>
+</section>
+<section id="discussion-2" class="level1">
+<h1>Discussion</h1>
+<p>Here is the discussion</p>
+</section>
+<section id="bibliography-2" class="level1 unnumbered">
 <h1 class="unnumbered">Bibliography</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-bicciato_hic_2022" class="csl-entry" role="listitem">

@@ -40,7 +40,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[left=2.54cm,right=2.54cm]{geometry}
+\usepackage[textheight=9in,,textwidth=6.5in,,top=1in,,headheight=14pt,,headsep=25pt,,footskip=30pt]{geometry}
 \ifLuaTeX
   \usepackage{luacolor}
   \usepackage[soul]{lua-ul}
@@ -333,9 +333,9 @@
 %% Tables
 % \usepackage{floatrow}
 % \floatsetup[table]{font=small}
-\usepackage{booktabs}       % professional-quality tables (arxiv.sty)
-
-
+\usepackage{booktabs} % professional-quality tables (arxiv.sty)
+\usepackage{caption}
+\captionsetup[subfigure]{font=scriptsize,labelfont=scriptsize, position=top}
 
 %%%
 
@@ -421,8 +421,8 @@ pressures, Selfish gene drive},
 \makeatother
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
-\author{Søren Jørgensen \and Kasper Munch}
-\date{2024-12-21}
+\author{Søren Jørgensen}
+\date{2024-12-23}
 
 \begin{document}
 \frontmatter
@@ -440,18 +440,16 @@ Regions in Primates \par}
 
     {\Large\bfseries Søren Jørgensen \par}
     %
-    {\Large\bfseries Kasper Munch \par}
-    %
 %
 \vskip 0cm plus 2fill
 
-{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{ausegl_sort.pdf}} \par}
+{\resizebox{!}{50mm}{\includegraphics[width=\textwidth]{hicausegl.pdf}} \par}
 \vskip 0cm plus 2fill
 
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2024-12-21 \par}
+{\bfseries\large 2024-12-23 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -479,7 +477,6 @@ may help to retain non-advantageous alleles, hinting to the role of
 selfish genetic elements in genome evolution. \par
 \raggedleft    
     {- Søren Jørgensen \par}
-    {- Kasper Munch \par}
 %    
 \end{quote}
 }
@@ -490,7 +487,7 @@ selfish genetic elements in genome evolution. \par
 \tableofcontents
 }
 
-\setstretch{1.2}
+\setstretch{1.25}
 \mainmatter
 \chapter{Introduction}\label{introduction}
 
@@ -1455,13 +1452,19 @@ change which occurs at around 60 Mbp, the region of the centromere. It
 means the PCA has captured more variance between the chromosome arms
 than within them, making it uninformative about chromatin compartments.
 Upon visual inspection, it is clear that neither of the PC graphs
-capture the pattern of the interaction matrix. Unimpressed, I
-rationalize that the option \texttt{-\/-extra-track} to provide a gene
-track or histone coverage should not affect this reult much. It should
-be provided as a phasing track to orient the eigenvector to positively
-correlate with gene density or histone marks, and could possibly muddle
-the compartments if not included. At this point, I stoppped using
-\emph{HiCExplorer}, as I assessed that a more flexible tool was needed.
+capture the pattern of the interaction matrix by its change of sign. It
+seems the PCs capture variance from a bias that varies slowly and
+predictably along the chromosome. The first PC that is supposed to
+capture the compartments very suspiciously changes sign at the region of
+the centromere, a classic problem that could be solved by restricting
+the values from which the PC is calculated along the chromosome.
+Unimpressed, I rationalize that the option \texttt{-\/-extra-track} to
+provide a gene track or histone coverage should not affect this result
+much. It should be provided as a phasing track to orient the eigenvector
+to positively correlate with gene density or histone marks, and could
+possibly muddle the compartments if not included. At this point, I
+stoppped using \emph{HiCExplorer}, as I assessed that a more flexible
+tool was needed.
 
 \begin{figure}
 
@@ -1562,6 +1565,8 @@ separation (ref suppfig-multiqc-ps-curve). The QC does not show any
 information about mapping quality of the reads. Note that the \(P(s)\)
 ccurve arise from pre-filtered pairs, and should be compcared with the
 \(P(s)\) of the cooler after filtering.
+
+{[}ref if there is time, include a histogram of mapq values for pairs{]}
 
 \subsubsection{\texorpdfstring{Recommended
 (\texttt{-\/-walks-policy\ 5unique})}{Recommended (-\/-walks-policy 5unique)}}\label{recommended---walks-policy-5unique}
@@ -1672,11 +1677,11 @@ on each side.
 The three viewframes (\emph{Full}, \emph{Arms}, \emph{10Mb}) for the
 calculation of the eigenvectors captured different variability in the
 data (Figure~\ref{fig-e1-matrix-500kb-full-arms-10mb-round_spermatid}),
-and as expected, the inferred compartments (red) are more abundant and
-smaller with smaller viewframes. To determine how well each of the E1
-tracks capture the pattern in the interaction matrix, we can overlay the
-matrix with the E1 sign-change and visually determine if the squares
-reflect the E1 sign change
+and as expected, the inferred compartments (colored red on the E1
+tracks) are more abundant and smaller with smaller viewframes. To
+determine how well each of the E1 tracks capture the pattern in the
+interaction matrix, we can overlay the matrix with the E1 sign-change
+and visually determine if the squares reflect the E1 sign change
 (Figure~\ref{fig-e1-matrix-500kb-full-arms-10mb-round_spermatid}).
 
 \begin{figure}[H]
@@ -1720,7 +1725,8 @@ either Full-chromosome (top), Chromosome-arms (middle), or 10Mb windows
 caption, subcaptions should be moved here (from notebook). They now fit
 on the page, but it would be nice to make this as one plt.subplots with
 shared axis title etc. \emph{Update:} The notebook is ready for making
-these plots (bottom section).}
+these plots (\texttt{07\_various\_plotting.ipynb}, with a new plotting
+function) should be same size as the following matrix plots.}
 
 \end{figure}%
 
@@ -1822,6 +1828,96 @@ comparing the impact of parsing parameters}
 
 \end{figure}%
 
+To emphasize the findings, the sets of A-compartments were compared
+between the two parsing runs, showing almost identical compartment
+calls. Additionally, the set difference was 8 bins between PE and recPE
+for round spermatid 100kb and 5 bins for fibroblast for \emph{arms}
+viewframe (Figure~\ref{fig-rs-fb-100-pe-recpe-intervals}; a+b,
+respectively). We observe a high number of differences around 76Mb for
+the refined compartments (10Mb) of round spermatid, which is consistent
+with the sign-flip of E1 values discussed earlier. Anything else would
+be surprising, as it is the same data, but visualized in a different
+way.
+
+\begin{figure}
+
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+%
+\begin{minipage}{0.40\linewidth}
+
+\centering{
+
+\includegraphics[width=2.59375in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-1.png}
+
+}
+
+\subcaption{\label{fig-rs-fb-100-pe-recpe-intervals-1}RS: arms}
+
+\end{minipage}%
+%
+\begin{minipage}{0.40\linewidth}
+
+\centering{
+
+\includegraphics[width=2.59375in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-2.png}
+
+}
+
+\subcaption{\label{fig-rs-fb-100-pe-recpe-intervals-2}Fib: arms}
+
+\end{minipage}%
+%
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+\newline
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+%
+\begin{minipage}{0.40\linewidth}
+
+\centering{
+
+\includegraphics[width=2.59375in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-3.png}
+
+}
+
+\subcaption{\label{fig-rs-fb-100-pe-recpe-intervals-3}RS: 10Mb}
+
+\end{minipage}%
+%
+\begin{minipage}{0.40\linewidth}
+
+\centering{
+
+\includegraphics[width=2.59375in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-rs-fb-100-pe-recpe-intervals-output-4.png}
+
+}
+
+\subcaption{\label{fig-rs-fb-100-pe-recpe-intervals-4}Fib: 10Mb}
+
+\end{minipage}%
+%
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+
+\caption{\label{fig-rs-fb-100-pe-recpe-intervals}Round Spermatid (RS)
+and Fibroblast (Fb) at 100kb, comparing the impact of parsing parameters
+on A-compartment calling at different viewframes; \emph{arms},
+\emph{10Mb}. PE: initial parse (masking complex walks); recPE:
+recommended parse (reporting the 5'most unique alignment of a complex
+walk).}
+
+\end{figure}%
+
+The observed difference between the sets can for our data be attributed
+to chance, but we cannot draw general conclusions about the parameters.
+I argue that the quality and size of the Hi-C library will influence
+sensitive to parsing parameters. In that case, the most flexible
+approach is still to follow the recommendations from \texttt{cooler} to
+report more pairs as valid contacts, and then create coolers with
+different \emph{mapq} filters if issues are encountered.
+
 \subsection{Compartment Edges (transition
 zones)}\label{compartment-edges-transition-zones}
 
@@ -1830,58 +1926,101 @@ A-compartments and equivalently for the edges, for fibroblasts and round
 spermatids at 100kb resolution. When queried against the edges in stead,
 the the total set size is reduced to less than 50\%. Interestingly, some
 of the intersections between A-compartments and ECH90 remain, and new
-ones appear as we move to the outside edge of the compartment.
+ones appear as we move to the outside edge of the compartment
+(Figure~\ref{fig-comps-edges-ech}). This indicates that most, but not
+all, of the intersection between ECH90 regions and the A-compartments
+are within 100kb of the compartment edge, and additional overlap is
+gained if we define a transition zone on the outside of the edge as
+well. To visualize this (outside) edge enrichment, we find the set
+difference of the ECH-intersection to compartments and edges,
+respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
+`inside' edges. We observe that in almost all of the of the regions of
+\(ECH \cap Comp\) are accompanied by an edge also intersecting ECH
+(\(ECH \cap Edge\)), localized where the \emph{Diff} track aligns
+(within 100kb) with both \(Comp \cap\) and \(Edge \cap\).
 
 \begin{figure}
 
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+%
+\begin{minipage}{0.40\linewidth}
 
 \centering{
 
-\includegraphics[width=4.14583in,height=1.33333in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-1.png}
+\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-1.png}
 
 }
 
-\subcaption{\label{fig-comps-edges-ech-1}Visual representation of the
-genomic intervals of ECH90, A-compartments, edges, and their
-intersections. Shown fibroblast and round spermatid at 100kb resolution
-and arms view.}
+\subcaption{\label{fig-comps-edges-ech-1}Fibroblast A-compartments}
 
 \end{minipage}%
 %
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}{0.40\linewidth}
 
 \centering{
 
-\includegraphics[width=4.14583in,height=1.33333in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-2.png}
+\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-2.png}
 
 }
 
-\subcaption{\label{fig-comps-edges-ech-2}}
+\subcaption{\label{fig-comps-edges-ech-2}Round Spermatid A-compartments}
 
 \end{minipage}%
+%
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
 \newline
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+%
+\begin{minipage}{0.40\linewidth}
 
 \centering{
 
-\includegraphics[width=4.14583in,height=1.33333in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-3.png}
+\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-3.png}
 
 }
 
-\subcaption{\label{fig-comps-edges-ech-3}}
+\subcaption{\label{fig-comps-edges-ech-3}Fibroblast edges}
 
 \end{minipage}%
 %
+\begin{minipage}{0.40\linewidth}
+
+\centering{
+
+\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-4.png}
+
+}
+
+\subcaption{\label{fig-comps-edges-ech-4}Round Spermatid edges}
+
+\end{minipage}%
+%
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+
+\caption{\label{fig-comps-edges-ech}Visual representation of the genomic
+intervals of ECH90, A-compartments (a+b), edges (c+d), and their
+intersections. Shown fibroblast (a+c) and round spermatid (b+d) at 100kb
+resolution and arms viewframe.}
+
+\end{figure}%
+
+\begin{figure}[H]
+
 \begin{minipage}{0.50\linewidth}
 
 \centering{
 
-\includegraphics[width=4.14583in,height=1.33333in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-comps-edges-ech-output-4.png}
+\includegraphics[width=2.94792in,height=2.05208in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png}
 
 }
 
-\subcaption{\label{fig-comps-edges-ech-4}}
+\subcaption{\label{fig-proximity-jaccard-bar}Proximity and Jaccard index
+p-values for ECH90 regions on compartment edges for all cell types at
+100kb resolution at arms view \(p=0.05\) is marked as a red line.}
 
 \end{minipage}%
 
@@ -1899,6 +2038,149 @@ Here is the discussion
 
 \renewcommand{\bibsection}{}
 \bibliography{../references.bib}
+
+\endgroup
+
+, '\$Edge\textbackslash cap
+
+We apply both proximity test and Jaccard test, to see how well the
+results could occur by chance (Figure~\ref{fig-proximity-jaccard-bar}).
+For completeness, the tests are included for all cell types, but we only
+use 100kb resolution arms viewframe. We observe that both fibroblast and
+round spermatid have \(p < 0.05\) for both tests, meaning the two cell
+type have both more intersection with ECH regions than expected by
+chance (Jaccard) \emph{and} the non-overlapping intervals are more
+proximal to compartment edges than expected by chance (proximity test).
+I argue that a significant Jaccard statistic should be interpreted as a
+significant amount of overlap between the two sets, i.e.~compartment
+edges and ECH90 regions, and the proximity test (when performed on the
+edges) gives us information about the potential of expanding the
+transition window. That is, if the non-overlapping regions are
+\emph{very} proximal, a larger (or shifted) to only capture the 200kb
+region outside of the edge.
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics[width=2.94792in,height=2.05208in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png}
+
+}
+
+\caption{\label{fig-proximity-jaccard-bar}Proximity and Jaccard index
+p-values for ECH90 regions on compartment edges for all cell types at
+100kb resolution at arms view \(p=0.05\) is marked as a red line.}
+
+\end{figure}%
+
+\chapter{Discussion}\label{discussion-1}
+
+Here is the discussion
+
+\chapter*{Bibliography}\label{bibliography-1}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\begingroup
+\raggedright
+
+
+\endgroup
+
+, `Diff'{]}, title=``ECH90 intersect'', figsize=(2.5, 1), alpha=1,
+lw=0.2)
+
+\begin{verbatim}
+
+::: {.cell-output .cell-output-display}
+![Round Spermatid](index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-1.png){#fig-edge-enrichment-1 width=248 height=98}
+:::
+
+::: {.cell-output .cell-output-display}
+![Fibroblast](index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-2.png){#fig-edge-enrichment-2 width=248 height=98}
+:::
+
+Visual representation of the enrichment of edges in the intersection of ECH90 and A-compartments. Shown round spermatid (a) and fibroblast (b) at 100kb resolution and arms viewframe. Note that the edge-regions are too small to be distinguished visually from the compartment on the graph, making it look like they overlap, even though the difference is reported.
+:::
+
+
+
+
+:::
+
+
+
+
+
+
+
+We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@fig-proximity-jaccard-bar). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p < 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) *and* the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) to only capture the 200kb region outside of the edge. 
+
+
+
+
+
+:::{.quarto-embed-nb-cell notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/06_rec_genomicintervals.ipynb" notebook-title="E1 vs. ECH (recommended params)" notebook-cellId="cell-fig-proximity-jaccard-bar"}
+
+::: {.cell execution_count=83}
+``` {.python .cell-code .hidden}
+# Concatenate the two plot_groups
+
+group = pd.concat([plot_group_prox, plot_group_jacc])
+# display(group[['source', 'resolution', 'type', 'p-value', 'minuslog10p']].query(
+#     'source in ("Fib", "RS")'
+# ).reset_index(drop=True))
+
+g = sns.catplot(
+    group, kind='bar',
+    x='source', y='minuslog10p', hue='type', 
+    order=source_order,
+    errorbar=None, margin_titles=True, sharex=False,
+    height=2, aspect=1.5
+    )
+
+# Plot a horisontal line at p=0.05
+g.ax.axhline(-np.log10(0.05), color='tab:red', linestyle='--')
+
+g.despine(left=True)
+
+g.set_axis_labels("", "-log10(p)")
+g.legend.set_title('')
+sns.move_legend(g, 'upper center', bbox_to_anchor=(0.4,0.93))
+
+g.tight_layout()
+plt.show()
+
+
+\end{verbatim}
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics[width=2.94792in,height=2.05208in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png}
+
+}
+
+\caption{\label{fig-proximity-jaccard-bar}Proximity and Jaccard index
+p-values for ECH90 regions on compartment edges for all cell types at
+100kb resolution at arms view \(p=0.05\) is marked as a red line.}
+
+\end{figure}%
+
+:::
+
+:::
+
+\chapter{Discussion}\label{discussion-2}
+
+Here is the discussion
+
+\chapter*{Bibliography}\label{bibliography-2}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\begingroup
+\raggedright
+
 
 \endgroup
 
