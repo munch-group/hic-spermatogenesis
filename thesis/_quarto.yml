@@ -26,8 +26,8 @@ format:
     lof: false
     lot: false    
     geometry:
-      - left=2.54cm
-      - right=2.54cm           
+      # - left=2.54cm
+      # - right=2.54cm           
       # - inner=3cm
       # - outer=4cm
       # - top=3cm
@@ -38,8 +38,14 @@ format:
       # - ignorehead
       # - ignorefoot
       # - heightrounded
+      - textheight=9in,
+      - textwidth=6.5in,
+      - top=1in,
+      - headheight=14pt,
+      - headsep=25pt,
+      - footskip=30pt
     fontsize: 11pt
-    linestretch: 1.2
+    linestretch: 1.25
     number-sections: true
     number-depth: 2
     highlight-style: kate 
