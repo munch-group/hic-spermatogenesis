@@ -10,13 +10,13 @@ authors:
     roles: writing
     corresponding: true
     email: 201906763@post.au.dk
-  - name: "Kasper Munch"
-    affiliation: |
-      Ass. Prof. Bioinformatics \\
-      Bioinformatics Research Center (BiRC), \\
-      Dept. of Molecular Biology and Genetics, \\
-      Aarhus University, Denmark
-    roles: supervision
+#  - name: "Kasper Munch"
+#    affiliation: |
+#      Ass. Prof. Bioinformatics \\
+#      Bioinformatics Research Center (BiRC), \\
+#      Dept. of Molecular Biology and Genetics, \\
+#      Aarhus University, Denmark
+#    roles: supervision
 degree: MSc. Bioinformatics
 keywords:
   - Hi-C
@@ -336,7 +336,7 @@ It is now obvious why we have to correct the matrix. The uncorrected (@fig-explo
 
 ### Eigenvectors
 
-The PCA performed by `hicPCA` on the pooled samples at both 50kb and 100kb resolution yielded the first 3 principal components. For PC1 on both resolutions (@fig-explorer-pc1-50kb, @fig-explorer-pc1-100kb) we observe only a single sign change which occurs at around 60 Mbp, the region of the centromere. It means the PCA has captured more variance between the chromosome arms than within them, making it uninformative about chromatin compartments. Upon visual inspection, it is clear that neither of the PC graphs capture the pattern of the interaction matrix. Unimpressed, I rationalize that the option `--extra-track` to provide a gene track or histone coverage should not affect this reult much. It should be provided as a phasing track to orient the eigenvector to positively correlate with gene density or histone marks, and could possibly muddle the compartments if not included. At this point, I stoppped using *HiCExplorer*, as I assessed that a more flexible tool was needed.
+The PCA performed by `hicPCA` on the pooled samples at both 50kb and 100kb resolution yielded the first 3 principal components. For PC1 on both resolutions (@fig-explorer-pc1-50kb, @fig-explorer-pc1-100kb) we observe only a single sign change which occurs at around 60 Mbp, the region of the centromere. It means the PCA has captured more variance between the chromosome arms than within them, making it uninformative about chromatin compartments. Upon visual inspection, it is clear that neither of the PC graphs capture the pattern of the interaction matrix by its change of sign. It seems the PCs capture variance from a bias that varies slowly and predictably along the chromosome. The first PC that is supposed to capture the compartments very suspiciously changes sign at the region of the centromere, a classic problem that could be solved by restricting the values from which the PC is calculated along the chromosome. Unimpressed, I rationalize that the option `--extra-track` to provide a gene track or histone coverage should not affect this result much. It should be provided as a phasing track to orient the eigenvector to positively correlate with gene density or histone marks, and could possibly muddle the compartments if not included. At this point, I stoppped using *HiCExplorer*, as I assessed that a more flexible tool was needed.
 
 ::: {#fig-explorer-pca layout-ncol="3"}
 
@@ -364,6 +364,8 @@ Corrected interaction matrix for chromosome X along with PC1, 2, or 3, respectiv
 
 Comparing the multiQC report for each of the cell sources show similar distributions of *unmapped* (both sides unmapped), *one-sided* (one side mapped), *two-sided* (both sides mapped), and *duplicated* (w.r.t. total mapped) reads. The percentage of *cis* pairs w.r.t. mapped pairs is around 70% for all samples. [ref supptbl-qc-all-samples-mask]. The valid pairs also show similar distributions of pair types divided into 10 categories. The $P(s)$ curve looks similar as well, peaking between 270 bp and 320 bp separation (ref suppfig-multiqc-ps-curve). The QC does not show any information about mapping quality of the reads. Note that the $P(s)$ ccurve arise from pre-filtered pairs, and should be compcared with the $P(s)$ of the cooler after filtering. 
 
+[ref if there is time, include a histogram of mapq values for pairs]
+
 #### Recommended (`--walks-policy 5unique`)
 
 Parsing alignments with the recommended walks-policy aproximately halves the percentage of *unmapped* reads, and *one-* and *two-sided* reads as well *duplicated* reads are slightly increased. Overall number of unique pairs are increased with more than 20% increase. The percentage of *cis* pairs are only decreased by a percentage point at most [ref supptbl-qc-all-samples-5unique]. 
@@ -386,12 +388,12 @@ As expected, most of the low quality bins are located on the edges of the chromo
 
 {{< embed ../notebooks/05_rec_compartments.ipynb#fig-e1_nan_hist >}}
 
-The fact that the medians lie within the centromeric region on all cell sources shows both that the majority of the bad bins are in the (peri)centromeric region *and* there are approximately equally many on each side. 
+The fact that the medians lie within the centromeric region on all cell sources shows both that the majority of the bad bins are in the (peri)centromeric region *and* there are approximately equally many on each side.
 
 
 ### Compartments (Eigenvectors)
 
-The three viewframes (*Full*, *Arms*, *10Mb*) for the calculation of the eigenvectors captured different variability in the data (@fig-e1-matrix-500kb-full-arms-10mb-round_spermatid), and as expected, the inferred compartments (red) are more abundant and smaller with smaller viewframes. To determine how well each of the E1 tracks capture the pattern in the interaction matrix, we can overlay the matrix with the E1 sign-change and visually determine if the squares reflect the E1 sign change (@fig-e1-matrix-500kb-full-arms-10mb-round_spermatid). 
+The three viewframes (*Full*, *Arms*, *10Mb*) for the calculation of the eigenvectors captured different variability in the data (@fig-e1-matrix-500kb-full-arms-10mb-round_spermatid), and as expected, the inferred compartments (colored red on the E1 tracks) are more abundant and smaller with smaller viewframes. To determine how well each of the E1 tracks capture the pattern in the interaction matrix, we can overlay the matrix with the E1 sign-change and visually determine if the squares reflect the E1 sign change (@fig-e1-matrix-500kb-full-arms-10mb-round_spermatid). 
 
 ::: {#fig-e1-matrix-full-arms-10mb-round-spermatid layout="[3,-0.2,3]"}
 
@@ -399,7 +401,7 @@ The three viewframes (*Full*, *Arms*, *10Mb*) for the calculation of the eigenve
 
 {{< embed ../notebooks/05_rec_compartments.ipynb#fig-e1-matrix-100kb-full-arms-10mb-round_spermatid >}}
 
-Super caption, subcaptions should be moved here   (from notebook). They now fit on the page, but it would be nice to make this as one plt.subplots with shared axis title etc. *Update:* The notebook is ready for making these plots (bottom section).
+Super caption, subcaptions should be moved here (from notebook). They now fit on the page, but it would be nice to make this as one plt.subplots with shared axis title etc. *Update:* The notebook is ready for making these plots (`07_various_plotting.ipynb`, with a new plotting function) should be same size as the following matrix plots.
 :::
 
 I argue that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. Also, @wang_reprogramming_2019 concludes that only the pachytene spermatocyte showed local interactions in that viewframe (what they refer to as *refined A/B-compartments* ), and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, we also keep *refined* compartments in the analysis. 
@@ -408,15 +410,24 @@ Additionally, as I created coolers with two different sets of parsing parameters
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-rs100-recpe-pe >}}
 
+To emphasize the findings, the sets of A-compartments were compared between the two parsing runs, showing almost identical compartment calls. Additionally, the set difference was 8 bins between PE and recPE for round spermatid 100kb and 5 bins for fibroblast for *arms* viewframe (@fig-rs-fb-100-pe-recpe-intervals; a+b, respectively). We observe a high number of differences around 76Mb for the refined compartments (10Mb) of round spermatid, which is consistent with the sign-flip of E1 values discussed earlier. Anything else would be surprising, as it is the same data, but visualized in a different way. 
+
+{{< embed ../notebooks/07_various_plotting.ipynb#fig-rs-fb-100-pe-recpe-intervals >}}
+
+The observed difference between the sets can for our data be attributed to chance, but we cannot draw general conclusions about the parameters. I argue that the quality and size of the Hi-C library will influence sensitive to parsing parameters. In that case, the most flexible approach is still to follow the recommendations from `cooler` to report more pairs as valid contacts, and then create coolers with different *mapq* filters if issues are encountered. 
+
 
 ### Compartment Edges (transition zones)
 
-We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment. 
+We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment (@fig-comps-edges-ech). This indicates that most, but not all, of the intersection between ECH90 regions and the A-compartments are within 100kb of the compartment edge, and additional overlap is gained if we define a transition zone on the outside of the edge as well. To visualize this (outside) edge enrichment, we find the set difference of the ECH-intersection to compartments and edges, respectively (@fig-edge-enrichment), thus removing all the 'inside' edges. We observe that in almost all of the of the regions of $ECH \cap Comp$ are accompanied by an edge also intersecting ECH ($ECH \cap Edge$), localized where the *Diff* track aligns (within 100kb) with both $Comp \cap$ and $Edge \cap$.
 
-{{< embed ../notebooks/06_rec_genomicintervals.ipynb#fig-comps-edges-ech >}}
+{{< embed ../notebooks/07_various_plotting.ipynb#fig-comps-edges-ech >}}
 
+{{< embed ../notebooks/07_various_plotting.ipynb#fig-edge-enrichment >}}
 
+We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@fig-proximity-jaccard-bar). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p < 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) *and* the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) to only capture the 200kb region outside of the edge. 
 
+{{< embed ../notebooks/06_rec_genomicintervals.ipynb#fig-proximity-jaccard-hist >}}
 
 
 
