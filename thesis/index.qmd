@@ -24,7 +24,7 @@ keywords:
   - Evolutionary pressures
   - Selfish gene drive
 abstract: |
-  Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus *Papio*). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
+  Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper on the latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus *Papio*). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
 plain-language-summary: |
   3D structure of chromatin brings another mystery onto the story of selfish genes, where the edges of A-compartments in macaque align well with regions of positive selection identified in human and hybrid incompatibility in baboons.
 key-points:
@@ -414,12 +414,12 @@ To emphasize the findings, the sets of A-compartments were compared between the 
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-rs-fb-100-pe-recpe-intervals >}}
 
-The observed difference between the sets can for our data be attributed to chance, but we cannot draw general conclusions about the parameters. I argue that the quality and size of the Hi-C library will influence sensitive to parsing parameters. In that case, the most flexible approach is still to follow the recommendations from `cooler` to report more pairs as valid contacts, and then create coolers with different *mapq* filters if issues are encountered. 
+The observed difference between the sets can for our data be attributed to chance, but we cannot draw general conclusions about the parameters in general. I argue that the quality and size of the Hi-C library will influence sensitive to parsing parameters. In that case, the most flexible approach is still to follow the recommendations from `cooler` to report more pairs as valid contacts, and then create coolers with different *mapq* filters if issues are encountered. 
 
 
 ### Compartment Edges (transition zones)
 
-We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment (@fig-comps-edges-ech). This indicates that most, but not all, of the intersection between ECH90 regions and the A-compartments are within 100kb of the compartment edge, and additional overlap is gained if we define a transition zone on the outside of the edge as well. To visualize this (outside) edge enrichment, we find the set difference of the ECH-intersection to compartments and edges, respectively (@fig-edge-enrichment), thus removing all the 'inside' edges. We observe that in almost all of the of the regions of $ECH \cap Comp$ are accompanied by an edge also intersecting ECH ($ECH \cap Edge$), localized where the *Diff* track aligns (within 100kb) with both $Comp \cap$ and $Edge \cap$.
+We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment (@fig-comps-edges-ech). This indicates that most, but not all, of the intersection between ECH90 regions and the A-compartments are within 100kb of the compartment edge, and additional overlap is gained if we define a transition zone on the outside of the edge as well. To visualize this (outside) edge enrichment, we find the set difference of the ECH-intersection to compartments and edges, respectively (@fig-edge-enrichment), thus removing all the 'inside' edges. We observe that in almost all of the of the regions of $ECH \cap Comp$ are accompanied by an edge also intersecting ECH ($ECH \cap Edge$), localized where the *Diff* track aligns (within 100kb) with both $CompInt$ and $EdgeInt$.
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-comps-edges-ech >}}
 
@@ -430,6 +430,7 @@ We apply both proximity test and Jaccard test, to see how well the results could
 {{< embed ../notebooks/06_rec_genomicintervals.ipynb#fig-proximity-jaccard-bar >}}
 
 
+{{< pagebreak >}}
 
 # Discussion
 
