@@ -99,7 +99,7 @@ window.Quarto = {
 </script>
 
 <meta name="citation_title" content="Chromatin Compartments and Selection on X">
-<meta name="citation_abstract" content="Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus *Papio*). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
+<meta name="citation_abstract" content="Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper on the latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus *Papio*). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
 ">
 <meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Evolutionary pressures,Selfish gene drive">
 <meta name="citation_author" content="Søren Jørgensen">
@@ -173,7 +173,7 @@ window.Quarto = {
     <div>
       <div class="abstract">
         <div class="block-title">Abstract</div>
-        <p>Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (<em>Macaca mulata</em>) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper latest reference genome (<em>rheMac10</em> or <em>Mmul_10</em>). We compare two Hi-C analysis frameworks, <em>HiCExplorer</em> and <em>cooler/cooltools</em> (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus <em>Papio</em>). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.</p>
+        <p>Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (<em>Macaca mulata</em>) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper on the latest reference genome (<em>rheMac10</em> or <em>Mmul_10</em>). We compare two Hi-C analysis frameworks, <em>HiCExplorer</em> and <em>cooler/cooltools</em> (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus <em>Papio</em>). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.</p>
       </div>
     </div>
 
@@ -235,10 +235,6 @@ window.Quarto = {
   </ul></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
-  <li><a href="#discussion-1" id="toc-discussion-1" class="nav-link" data-scroll-target="#discussion-1">Discussion</a></li>
-  <li><a href="#bibliography-1" id="toc-bibliography-1" class="nav-link" data-scroll-target="#bibliography-1">Bibliography</a></li>
-  <li><a href="#discussion-2" id="toc-discussion-2" class="nav-link" data-scroll-target="#discussion-2">Discussion</a></li>
-  <li><a href="#bibliography-2" id="toc-bibliography-2" class="nav-link" data-scroll-target="#bibliography-2">Bibliography</a></li>
   </ul>
 </nav>
 </div>
@@ -1230,11 +1226,11 @@ Figure&nbsp;12: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing the
 </div>
 </div>
 </div>
-<p>The observed difference between the sets can for our data be attributed to chance, but we cannot draw general conclusions about the parameters. I argue that the quality and size of the Hi-C library will influence sensitive to parsing parameters. In that case, the most flexible approach is still to follow the recommendations from <code>cooler</code> to report more pairs as valid contacts, and then create coolers with different <em>mapq</em> filters if issues are encountered.</p>
+<p>The observed difference between the sets can for our data be attributed to chance, but we cannot draw general conclusions about the parameters in general. I argue that the quality and size of the Hi-C library will influence sensitive to parsing parameters. In that case, the most flexible approach is still to follow the recommendations from <code>cooler</code> to report more pairs as valid contacts, and then create coolers with different <em>mapq</em> filters if issues are encountered.</p>
 </section>
 <section id="compartment-edges-transition-zones" class="level3">
 <h3 class="anchored" data-anchor-id="compartment-edges-transition-zones">Compartment Edges (transition zones)</h3>
-<p>We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment (<a href="#fig-comps-edges-ech" class="quarto-xref">Figure&nbsp;13</a>). This indicates that most, but not all, of the intersection between ECH90 regions and the A-compartments are within 100kb of the compartment edge, and additional overlap is gained if we define a transition zone on the outside of the edge as well. To visualize this (outside) edge enrichment, we find the set difference of the ECH-intersection to compartments and edges, respectively (<a href="#fig-edge-enrichment" class="quarto-xref">Figure&nbsp;14</a>), thus removing all the ‘inside’ edges. We observe that in almost all of the of the regions of <span class="math inline">\(ECH \cap Comp\)</span> are accompanied by an edge also intersecting ECH (<span class="math inline">\(ECH \cap Edge\)</span>), localized where the <em>Diff</em> track aligns (within 100kb) with both <span class="math inline">\(Comp \cap\)</span> and <span class="math inline">\(Edge \cap\)</span>.</p>
+<p>We compare how the ECH90 regions fit when queried on top of the A-compartments and equivalently for the edges, for fibroblasts and round spermatids at 100kb resolution. When queried against the edges in stead, the the total set size is reduced to less than 50%. Interestingly, some of the intersections between A-compartments and ECH90 remain, and new ones appear as we move to the outside edge of the compartment (<a href="#fig-comps-edges-ech" class="quarto-xref">Figure&nbsp;13</a>). This indicates that most, but not all, of the intersection between ECH90 regions and the A-compartments are within 100kb of the compartment edge, and additional overlap is gained if we define a transition zone on the outside of the edge as well. To visualize this (outside) edge enrichment, we find the set difference of the ECH-intersection to compartments and edges, respectively (<a href="#fig-edge-enrichment" class="quarto-xref">Figure&nbsp;14</a>), thus removing all the ‘inside’ edges. We observe that in almost all of the of the regions of <span class="math inline">\(ECH \cap Comp\)</span> are accompanied by an edge also intersecting ECH (<span class="math inline">\(ECH \cap Edge\)</span>), localized where the <em>Diff</em> track aligns (within 100kb) with both <span class="math inline">\(CompInt\)</span> and <span class="math inline">\(EdgeInt\)</span>.</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/07_various_plotting.ipynb" data-notebook-title="Various Comparisons" data-notebook-cellid="cell-fig-comps-edges-ech">
 <div class="cell" data-layout="[[-0.6,2.5,2.5,-0.6],[-0.6,2.5,2.5,-0.6]]">
 <div id="fig-comps-edges-ech" class="quarto-layout-panel">
@@ -1318,72 +1314,45 @@ Figure&nbsp;13: Visual representation of the genomic intervals of ECH90, A-compa
 <div aria-describedby="fig-edge-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-edge-enrichment" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-proximity-jaccard-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-edge-enrichment-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" class="lightbox" data-gallery="fig-edge-enrichment" title="Figure&nbsp;14&nbsp;(a): Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view p=0.05 is marked as a red line."><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" data-ref-parent="fig-edge-enrichment" width="283" height="197" class="figure-img"></a>
+<div aria-describedby="fig-edge-enrichment-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-edge-enrichment-output-1.png" class="lightbox" data-gallery="fig-edge-enrichment" title="Figure&nbsp;14&nbsp;(a): Round Spermatid"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-edge-enrichment-output-1.png" data-ref-parent="fig-edge-enrichment" width="248" height="98" class="figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view <span class="math inline">\(p=0.05\)</span> is marked as a red line.
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-edge-enrichment-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Round Spermatid
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-edge-enrichment" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-edge-enrichment-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-edge-enrichment-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-edge-enrichment-output-2.png" class="lightbox" data-gallery="fig-edge-enrichment" title="Figure&nbsp;14&nbsp;(b): Fibroblast"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-edge-enrichment-output-2.png" data-ref-parent="fig-edge-enrichment" width="248" height="98" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-edge-enrichment-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Fibroblast
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-edge-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-edge-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Visual representation of the enrichment of edges in the intersection of ECH90 and A-compartments. Shown round spermatid (a) and fibroblast (b) at 100kb resolution and arms viewframe. Note that the edge-regions are too small to be distinguished visually from the compartment on the graph, making it look like they overlap, even though the difference is reported.
 </figcaption>
 </figure>
 </div>
 </div>
-</section>
-</section>
-</section>
-<section id="discussion" class="level1">
-<h1>Discussion</h1>
-<p>Here is the discussion</p>
-</section>
-<section id="bibliography" class="level1 unnumbered">
-<h1 class="unnumbered">Bibliography</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-bicciato_hic_2022" class="csl-entry" role="listitem">
-Bicciato, Silvio, and Francesco Ferrari, eds. 2022. <em>Hi-<span>C</span> <span>Data</span> <span>Analysis</span>: <span>Methods</span> and <span>Protocols</span></em>. Vol. 2301. Methods in <span>Molecular</span> <span>Biology</span>. New York, NY: Springer US. <a href="https://doi.org/10.1007/978-1-0716-1390-0">https://doi.org/10.1007/978-1-0716-1390-0</a>.
-</div>
-<div id="ref-imakaev_iterative_2012" class="csl-entry" role="listitem">
-Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A Mirny. 2012. <span>“Iterative Correction of <span>Hi</span>-<span>C</span> Data Reveals Hallmarks of Chromosome Organization.”</span> <em>Nature Methods</em> 9 (10): 999–1003. <a href="https://doi.org/10.1038/nmeth.2148">https://doi.org/10.1038/nmeth.2148</a>.
-</div>
-<div id="ref-jaenike_sex_2001" class="csl-entry" role="listitem">
-Jaenike, John. 2001. <span>“Sex <span>Chromosome</span> <span>Meiotic</span> <span>Drive</span>.”</span> <em>Annual Review of Ecology and Systematics</em> 32 (1): 25–49. <a href="https://doi.org/10.1146/annurev.ecolsys.32.081501.113958">https://doi.org/10.1146/annurev.ecolsys.32.081501.113958</a>.
-</div>
-<div id="ref-lieberman_aiden_comprehensive_2009" class="csl-entry" role="listitem">
-Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009. <span>“Comprehensive <span>Mapping</span> of <span>Long</span>-<span>Range</span> <span>Interactions</span> <span>Reveals</span> <span>Folding</span> <span>Principles</span> of the <span>Human</span> <span>Genome</span>.”</span> <em>Science</em> 326 (5950): 289–93. <a href="https://doi.org/10.1126/science.1181369">https://doi.org/10.1126/science.1181369</a>.
-</div>
-<div id="ref-munch_group_2024" class="csl-entry" role="listitem">
-Munch, Kasper. 2024. <span>“Munch-Group.”</span> <a href="https://munch-group.org/research.html">https://munch-group.org/research.html</a>.
-</div>
-<div id="ref-open2c" class="csl-entry" role="listitem">
-Open Chromosome Collective. 2024. <span>“Open <span>Chromosome</span> <span>Collective</span> (<span>Open2C</span>).”</span> Resource. <em>Open2C</em>. <a href="https://open2c.github.io/">https://open2c.github.io/</a>.
-</div>
-<div id="ref-skov_extraordinary_2023" class="csl-entry" role="listitem">
-Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch. 2023. <span>“Extraordinary Selection on the Human <span>X</span> Chromosome Associated with Archaic Admixture.”</span> <em>Cell Genomics</em> 3 (3): 100274. <a href="https://doi.org/10.1016/j.xgen.2023.100274">https://doi.org/10.1016/j.xgen.2023.100274</a>.
-</div>
-<div id="ref-sorensen_genome_wide_2023" class="csl-entry" role="listitem">
-Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran, Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023. <span>“Genome-Wide Coancestry Reveals Details of Ancient and Recent Male-Driven Reticulation in Baboons.”</span> <em>Science</em> 380 (6648): eabn8153. <a href="https://doi.org/10.1126/science.abn8153">https://doi.org/10.1126/science.abn8153</a>.
-</div>
-<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
-Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
-</div>
-</div>
-<p>, ’$Edge\cap</p>
-<p>We apply both proximity test and Jaccard test, to see how well the results could occur by chance (<a href="#fig-proximity-jaccard-bar" class="quarto-xref">Figure&nbsp;16</a>). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have <span class="math inline">\(p &lt; 0.05\)</span> for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) <em>and</em> the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e.&nbsp;compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are <em>very</em> proximal, a larger (or shifted) to only capture the 200kb region outside of the edge.</p>
+<p>We apply both proximity test and Jaccard test, to see how well the results could occur by chance (<a href="#fig-proximity-jaccard-bar" class="quarto-xref">Figure&nbsp;15</a>). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have <span class="math inline">\(p &lt; 0.05\)</span> for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) <em>and</em> the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e.&nbsp;compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are <em>very</em> proximal, a larger (or shifted) to only capture the 200kb region outside of the edge.</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/06_rec_genomicintervals.ipynb" data-notebook-title="E1 vs. ECH (recommended params)" data-notebook-cellid="cell-fig-proximity-jaccard-bar">
-<div id="cell-fig-proximity-jaccard-bar" class="cell" data-execution_count="83">
+<div id="cell-fig-proximity-jaccard-bar" class="cell" data-execution_count="59">
 <div class="cell-output cell-output-display">
 <div id="fig-proximity-jaccard-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-39" title="Figure&nbsp;15: Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view p=0.05 is marked as a red line."><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" width="283" height="197" class="figure-img"></a>
+<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-40" title="Figure&nbsp;15: Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view p=0.05 is marked as a red line."><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" width="298" height="197" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;15: Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view <span class="math inline">\(p=0.05\)</span> is marked as a red line.
@@ -1393,125 +1362,15 @@ Figure&nbsp;15: Proximity and Jaccard index p-values for ECH90 regions on compar
 </div>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 </section>
-<section id="discussion-1" class="level1">
+</section>
+</section>
+<section id="discussion" class="level1">
 <h1>Discussion</h1>
 <p>Here is the discussion</p>
 </section>
-<section id="bibliography-1" class="level1 unnumbered">
-<h1 class="unnumbered">Bibliography</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-bicciato_hic_2022" class="csl-entry" role="listitem">
-Bicciato, Silvio, and Francesco Ferrari, eds. 2022. <em>Hi-<span>C</span> <span>Data</span> <span>Analysis</span>: <span>Methods</span> and <span>Protocols</span></em>. Vol. 2301. Methods in <span>Molecular</span> <span>Biology</span>. New York, NY: Springer US. <a href="https://doi.org/10.1007/978-1-0716-1390-0">https://doi.org/10.1007/978-1-0716-1390-0</a>.
-</div>
-<div id="ref-imakaev_iterative_2012" class="csl-entry" role="listitem">
-Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A Mirny. 2012. <span>“Iterative Correction of <span>Hi</span>-<span>C</span> Data Reveals Hallmarks of Chromosome Organization.”</span> <em>Nature Methods</em> 9 (10): 999–1003. <a href="https://doi.org/10.1038/nmeth.2148">https://doi.org/10.1038/nmeth.2148</a>.
-</div>
-<div id="ref-jaenike_sex_2001" class="csl-entry" role="listitem">
-Jaenike, John. 2001. <span>“Sex <span>Chromosome</span> <span>Meiotic</span> <span>Drive</span>.”</span> <em>Annual Review of Ecology and Systematics</em> 32 (1): 25–49. <a href="https://doi.org/10.1146/annurev.ecolsys.32.081501.113958">https://doi.org/10.1146/annurev.ecolsys.32.081501.113958</a>.
-</div>
-<div id="ref-lieberman_aiden_comprehensive_2009" class="csl-entry" role="listitem">
-Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009. <span>“Comprehensive <span>Mapping</span> of <span>Long</span>-<span>Range</span> <span>Interactions</span> <span>Reveals</span> <span>Folding</span> <span>Principles</span> of the <span>Human</span> <span>Genome</span>.”</span> <em>Science</em> 326 (5950): 289–93. <a href="https://doi.org/10.1126/science.1181369">https://doi.org/10.1126/science.1181369</a>.
-</div>
-<div id="ref-munch_group_2024" class="csl-entry" role="listitem">
-Munch, Kasper. 2024. <span>“Munch-Group.”</span> <a href="https://munch-group.org/research.html">https://munch-group.org/research.html</a>.
-</div>
-<div id="ref-open2c" class="csl-entry" role="listitem">
-Open Chromosome Collective. 2024. <span>“Open <span>Chromosome</span> <span>Collective</span> (<span>Open2C</span>).”</span> Resource. <em>Open2C</em>. <a href="https://open2c.github.io/">https://open2c.github.io/</a>.
-</div>
-<div id="ref-skov_extraordinary_2023" class="csl-entry" role="listitem">
-Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch. 2023. <span>“Extraordinary Selection on the Human <span>X</span> Chromosome Associated with Archaic Admixture.”</span> <em>Cell Genomics</em> 3 (3): 100274. <a href="https://doi.org/10.1016/j.xgen.2023.100274">https://doi.org/10.1016/j.xgen.2023.100274</a>.
-</div>
-<div id="ref-sorensen_genome_wide_2023" class="csl-entry" role="listitem">
-Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran, Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023. <span>“Genome-Wide Coancestry Reveals Details of Ancient and Recent Male-Driven Reticulation in Baboons.”</span> <em>Science</em> 380 (6648): eabn8153. <a href="https://doi.org/10.1126/science.abn8153">https://doi.org/10.1126/science.abn8153</a>.
-</div>
-<div id="ref-wang_reprogramming_2019" class="csl-entry" role="listitem">
-Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic</span> <span>Chromatin</span> <span>Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
-</div>
-</div>
-<p>, ‘Diff’], title=“ECH90 intersect”, figsize=(2.5, 1), alpha=1, lw=0.2)</p>
-<pre><code>
-::: {.cell-output .cell-output-display}
-![Round Spermatid](index_files/figure-html/..-notebooks-07_various_plotting-fig-edge-enrichment-output-1.png){#fig-edge-enrichment-1 width=248 height=98}
-:::
-
-::: {.cell-output .cell-output-display}
-![Fibroblast](index_files/figure-html/..-notebooks-07_various_plotting-fig-edge-enrichment-output-2.png){#fig-edge-enrichment-2 width=248 height=98}
-:::
-
-Visual representation of the enrichment of edges in the intersection of ECH90 and A-compartments. Shown round spermatid (a) and fibroblast (b) at 100kb resolution and arms viewframe. Note that the edge-regions are too small to be distinguished visually from the compartment on the graph, making it look like they overlap, even though the difference is reported.
-:::
-
-
-
-
-:::
-
-
-
-
-
-
-
-We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@fig-proximity-jaccard-bar). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p &lt; 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) *and* the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) to only capture the 200kb region outside of the edge. 
-
-
-
-
-
-:::{.quarto-embed-nb-cell notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/06_rec_genomicintervals.ipynb" notebook-title="E1 vs. ECH (recommended params)" notebook-cellId="cell-fig-proximity-jaccard-bar"}
-
-::: {#cell-fig-proximity-jaccard-bar .cell execution_count=83}
-``` {.python .cell-code .hidden}
-# Concatenate the two plot_groups
-
-group = pd.concat([plot_group_prox, plot_group_jacc])
-# display(group[['source', 'resolution', 'type', 'p-value', 'minuslog10p']].query(
-#     'source in ("Fib", "RS")'
-# ).reset_index(drop=True))
-
-g = sns.catplot(
-    group, kind='bar',
-    x='source', y='minuslog10p', hue='type', 
-    order=source_order,
-    errorbar=None, margin_titles=True, sharex=False,
-    height=2, aspect=1.5
-    )
-
-# Plot a horisontal line at p=0.05
-g.ax.axhline(-np.log10(0.05), color='tab:red', linestyle='--')
-
-g.despine(left=True)
-
-g.set_axis_labels("", "-log10(p)")
-g.legend.set_title('')
-sns.move_legend(g, 'upper center', bbox_to_anchor=(0.4,0.93))
-
-g.tight_layout()
-plt.show()
-
-
-</code></pre>
-<div class="cell-output cell-output-display">
-<div id="fig-proximity-jaccard-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-40" title="Figure&nbsp;16: Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view p=0.05 is marked as a red line."><img src="index_files/figure-html/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png" width="283" height="197" class="figure-img"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-proximity-jaccard-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;16: Proximity and Jaccard index p-values for ECH90 regions on compartment edges for all cell types at 100kb resolution at arms view <span class="math inline">\(p=0.05\)</span> is marked as a red line.
-</figcaption>
-</figure>
-</div>
-</div>
-<p>:::</p>
-<p>:::</p>
-</section>
-<section id="discussion-2" class="level1">
-<h1>Discussion</h1>
-<p>Here is the discussion</p>
-</section>
-<section id="bibliography-2" class="level1 unnumbered">
+<section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">Bibliography</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-bicciato_hic_2022" class="csl-entry" role="listitem">

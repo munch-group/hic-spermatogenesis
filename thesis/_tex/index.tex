@@ -469,19 +469,20 @@ of the degree of MSc. Bioinformatics \par}
 Here, the 3D chromatin architecture of the X chromosome in rhesus
 macaque (\emph{Macaca mulata}) is investigated in the context of
 evolutionary pressures and genetic drivers. We redo Hi-C analyses from a
-2019 paper latest reference genome (\emph{rheMac10} or \emph{Mmul\_10}).
-We compare two Hi-C analysis frameworks, \emph{HiCExplorer} and
-\emph{cooler/cooltools} (Open2C), on a subset, finding Open2C to be most
-flexible and intuitive. The ICE method (Iterative Correction and
-Eigendecomposition) was used to infer conventional and refined A/B
-compartments for fibroblast and four stages of spermatogenesis. We find
-that 200 kbp transition-zones between A/B-compartments in both
-fibroblasts and round spermatids align well with human selective sweeps
-where meiotic drive can explain the selection (ECH-regions), and with
-hybrid incompatility in baboons (genus \emph{Papio}). We discuss the
-biological meaning of these findings, where conserved chromatin features
-may help to retain non-advantageous alleles, hinting to the role of
-selfish genetic elements in genome evolution. \par
+2019 paper on the latest reference genome (\emph{rheMac10} or
+\emph{Mmul\_10}). We compare two Hi-C analysis frameworks,
+\emph{HiCExplorer} and \emph{cooler/cooltools} (Open2C), on a subset,
+finding Open2C to be most flexible and intuitive. The ICE method
+(Iterative Correction and Eigendecomposition) was used to infer
+conventional and refined A/B compartments for fibroblast and four stages
+of spermatogenesis. We find that 200 kbp transition-zones between
+A/B-compartments in both fibroblasts and round spermatids align well
+with human selective sweeps where meiotic drive can explain the
+selection (ECH-regions), and with hybrid incompatility in baboons (genus
+\emph{Papio}). We discuss the biological meaning of these findings,
+where conserved chromatin features may help to retain non-advantageous
+alleles, hinting to the role of selfish genetic elements in genome
+evolution. \par
 \raggedleft    
     {- Søren Jørgensen \par}
 %    
@@ -1918,12 +1919,12 @@ walk).}
 \end{figure}%
 
 The observed difference between the sets can for our data be attributed
-to chance, but we cannot draw general conclusions about the parameters.
-I argue that the quality and size of the Hi-C library will influence
-sensitive to parsing parameters. In that case, the most flexible
-approach is still to follow the recommendations from \texttt{cooler} to
-report more pairs as valid contacts, and then create coolers with
-different \emph{mapq} filters if issues are encountered.
+to chance, but we cannot draw general conclusions about the parameters
+in general. I argue that the quality and size of the Hi-C library will
+influence sensitive to parsing parameters. In that case, the most
+flexible approach is still to follow the recommendations from
+\texttt{cooler} to report more pairs as valid contacts, and then create
+coolers with different \emph{mapq} filters if issues are encountered.
 
 \subsection{Compartment Edges (transition
 zones)}\label{compartment-edges-transition-zones}
@@ -1944,7 +1945,7 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 `inside' edges. We observe that in almost all of the of the regions of
 \(ECH \cap Comp\) are accompanied by an edge also intersecting ECH
 (\(ECH \cap Edge\)), localized where the \emph{Diff} track aligns
-(within 100kb) with both \(Comp \cap\) and \(Edge \cap\).
+(within 100kb) with both \(CompInt\) and \(EdgeInt\).
 
 \begin{figure}
 
@@ -2015,40 +2016,40 @@ resolution and arms viewframe.}
 
 \end{figure}%
 
-\begin{figure}[H]
+\begin{figure}
 
 \begin{minipage}{0.50\linewidth}
 
 \centering{
 
-\includegraphics[width=2.94792in,height=2.05208in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png}
+\includegraphics[width=2.58333in,height=1.02083in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-1.png}
 
 }
 
-\subcaption{\label{fig-proximity-jaccard-bar}Proximity and Jaccard index
-p-values for ECH90 regions on compartment edges for all cell types at
-100kb resolution at arms view \(p=0.05\) is marked as a red line.}
+\subcaption{\label{fig-edge-enrichment-1}Round Spermatid}
+
+\end{minipage}%
+%
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\includegraphics[width=2.58333in,height=1.02083in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-2.png}
+
+}
+
+\subcaption{\label{fig-edge-enrichment-2}Fibroblast}
 
 \end{minipage}%
 
+\caption{\label{fig-edge-enrichment}Visual representation of the
+enrichment of edges in the intersection of ECH90 and A-compartments.
+Shown round spermatid (a) and fibroblast (b) at 100kb resolution and
+arms viewframe. Note that the edge-regions are too small to be
+distinguished visually from the compartment on the graph, making it look
+like they overlap, even though the difference is reported.}
+
 \end{figure}%
-
-\chapter{Discussion}\label{discussion}
-
-Here is the discussion
-
-\chapter*{Bibliography}\label{bibliography}
-\addcontentsline{toc}{chapter}{Bibliography}
-
-\begingroup
-\raggedright
-
-\renewcommand{\bibsection}{}
-\bibliography{../references.bib}
-
-\endgroup
-
-, '\$Edge\textbackslash cap
 
 We apply both proximity test and Jaccard test, to see how well the
 results could occur by chance (Figure~\ref{fig-proximity-jaccard-bar}).
@@ -2070,7 +2071,7 @@ region outside of the edge.
 
 \centering{
 
-\includegraphics[width=2.94792in,height=2.05208in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png}
+\includegraphics[width=3.10417in,height=2.05208in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png}
 
 }
 
@@ -2080,114 +2081,20 @@ p-values for ECH90 regions on compartment edges for all cell types at
 
 \end{figure}%
 
-\chapter{Discussion}\label{discussion-1}
+\newpage{}
+
+\chapter{Discussion}\label{discussion}
 
 Here is the discussion
 
-\chapter*{Bibliography}\label{bibliography-1}
+\chapter*{Bibliography}\label{bibliography}
 \addcontentsline{toc}{chapter}{Bibliography}
 
 \begingroup
 \raggedright
 
-
-\endgroup
-
-, `Diff'{]}, title=``ECH90 intersect'', figsize=(2.5, 1), alpha=1,
-lw=0.2)
-
-\begin{verbatim}
-
-::: {.cell-output .cell-output-display}
-![Round Spermatid](index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-1.png){#fig-edge-enrichment-1 width=248 height=98}
-:::
-
-::: {.cell-output .cell-output-display}
-![Fibroblast](index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-2.png){#fig-edge-enrichment-2 width=248 height=98}
-:::
-
-Visual representation of the enrichment of edges in the intersection of ECH90 and A-compartments. Shown round spermatid (a) and fibroblast (b) at 100kb resolution and arms viewframe. Note that the edge-regions are too small to be distinguished visually from the compartment on the graph, making it look like they overlap, even though the difference is reported.
-:::
-
-
-
-
-:::
-
-
-
-
-
-
-
-We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@fig-proximity-jaccard-bar). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p < 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) *and* the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) to only capture the 200kb region outside of the edge. 
-
-
-
-
-
-:::{.quarto-embed-nb-cell notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/06_rec_genomicintervals.ipynb" notebook-title="E1 vs. ECH (recommended params)" notebook-cellId="cell-fig-proximity-jaccard-bar"}
-
-::: {.cell execution_count=83}
-``` {.python .cell-code .hidden}
-# Concatenate the two plot_groups
-
-group = pd.concat([plot_group_prox, plot_group_jacc])
-# display(group[['source', 'resolution', 'type', 'p-value', 'minuslog10p']].query(
-#     'source in ("Fib", "RS")'
-# ).reset_index(drop=True))
-
-g = sns.catplot(
-    group, kind='bar',
-    x='source', y='minuslog10p', hue='type', 
-    order=source_order,
-    errorbar=None, margin_titles=True, sharex=False,
-    height=2, aspect=1.5
-    )
-
-# Plot a horisontal line at p=0.05
-g.ax.axhline(-np.log10(0.05), color='tab:red', linestyle='--')
-
-g.despine(left=True)
-
-g.set_axis_labels("", "-log10(p)")
-g.legend.set_title('')
-sns.move_legend(g, 'upper center', bbox_to_anchor=(0.4,0.93))
-
-g.tight_layout()
-plt.show()
-
-
-\end{verbatim}
-
-\begin{figure}[H]
-
-\centering{
-
-\includegraphics[width=2.94792in,height=2.05208in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png}
-
-}
-
-\caption{\label{fig-proximity-jaccard-bar}Proximity and Jaccard index
-p-values for ECH90 regions on compartment edges for all cell types at
-100kb resolution at arms view \(p=0.05\) is marked as a red line.}
-
-\end{figure}%
-
-:::
-
-:::
-
-\chapter{Discussion}\label{discussion-2}
-
-Here is the discussion
-
-\chapter*{Bibliography}\label{bibliography-2}
-\addcontentsline{toc}{chapter}{Bibliography}
-
-\begingroup
-\raggedright
-
+\renewcommand{\bibsection}{}
+\bibliography{../references.bib}
 
 \endgroup
 
