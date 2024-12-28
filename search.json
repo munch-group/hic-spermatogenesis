@@ -975,33 +975,33 @@
     ]
   },
   {
-    "objectID": "thesis/index.html#extended-common-haplotypes-discoverved-in-humans",
-    "href": "thesis/index.html#extended-common-haplotypes-discoverved-in-humans",
+    "objectID": "thesis/index.html#extended-common-haplotypes-discovered-in-humans",
+    "href": "thesis/index.html#extended-common-haplotypes-discovered-in-humans",
     "title": "Chromatin Compartments and Selection on X",
-    "section": "Extended Common Haplotypes Discoverved in Humans",
-    "text": "Extended Common Haplotypes Discoverved in Humans",
+    "section": "Extended Common Haplotypes Discovered in Humans",
+    "text": "Extended Common Haplotypes Discovered in Humans",
     "crumbs": [
       "Thesis",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Chromatin Compartments and Selection on X</span>"
     ]
   },
   {
-    "objectID": "thesis/index.html#chromatin-conformation",
-    "href": "thesis/index.html#chromatin-conformation",
+    "objectID": "thesis/index.html#c-chromatin-conformation-capture",
+    "href": "thesis/index.html#c-chromatin-conformation-capture",
     "title": "Chromatin Compartments and Selection on X",
-    "section": "Chromatin Conformation",
-    "text": "Chromatin Conformation",
+    "section": "3C: Chromatin Conformation Capture",
+    "text": "3C: Chromatin Conformation Capture",
     "crumbs": [
       "Thesis",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Chromatin Compartments and Selection on X</span>"
     ]
   },
   {
-    "objectID": "thesis/index.html#high-throughput-chromosome-conformation-capture-hi-c",
-    "href": "thesis/index.html#high-throughput-chromosome-conformation-capture-hi-c",
+    "objectID": "thesis/index.html#hi-c-high-throughput-3c",
+    "href": "thesis/index.html#hi-c-high-throughput-3c",
     "title": "Chromatin Compartments and Selection on X",
-    "section": "High-Throughput Chromosome Conformation Capture (Hi-C)",
-    "text": "High-Throughput Chromosome Conformation Capture (Hi-C)\nOur DNA can be divided into different orders of structure. 3C focus on identifying the highest orders of organization inside the nucleus, that is, when the 30 nm thick coil of chromatin fibers folds into loops, Topologically Associating Domains (TADs), and chromatin compartments. Here, we narrow our focus on the largest of the structures, compartments, that is known to determine availability to transcription factors, thus making an A compartment active—and the B compartment inactive. The introduction of the Hi-C (high-throughput 3C) method (Lieberman-Aiden et al. 2009) opened new possibilities for exploring the three-dimensional organization of the genome.\n\nHi-C Library preparation\n\n\nHi-C Data Analysis\n\nAligning the Hi-C reads\n\n\nIdentifying and Storing Valid Hi-C Pairs\n\n\nInteraction Matrices and Quality Control\n\n\nCalling Compartments (ICE)\n\n\nEdges",
+    "section": "Hi-C: High-Throughput 3C",
+    "text": "Hi-C: High-Throughput 3C\nOur DNA can be divided into different orders of structure. 3C focus on identifying the highest orders of organization inside the nucleus, that is, when the 30 nm thick coil of chromatin fibers folds into loops, Topologically Associating Domains (TADs), and chromatin compartments. Here, we narrow our focus on the largest of the structures, compartments, that is known to determine availability to transcription factors, thus making an A compartment active—and the B compartment inactive. The introduction of the Hi-C (high-throughput 3C) method (Lieberman-Aiden et al. 2009) opened new possibilities for exploring the three-dimensional organization of the genome.\n\nHi-C Library preparation\nA specialized protocol for preparing the DNA library is necessary [Lieberman-Aiden et al. (2009); Fig. 1a]. Briefly, formaldehyde is used to crosslink spatially adjecent chromatin. Restriction enzymes are used to digest the crosslinked chromatin, leaving sticky ends that are filled and biotinylated with a polymerase. Then chimeric molecules are ligated in highly dilute conditions, where the restriction site is lost and a ligation site (also referred to as ligation junction) is created. Lastly, the ligation junction are isolated with streptavidin beads and sequenced as a paired-end library.\nTo be able to create stage-resolved Hi-C library of spermatogenetis, additional steps have to be performed. First, the samples have to be treated immediately after harvesting to ensure viable cells. Secondly, the samples have to be purified to accurately represent each stage og spermatogenesis. Specifically, the data for this project (Wang et al. (2019); acc. GSE109344) preluded the library preparation protocol by sedimentation-based cell sorting to separate live spermatogenic cells into different stages of differentiation, namely spermatogonia, pachytene spermatocyte, round spermatid, and spermatozoa. Then, the cells were fixed in their respective state before crosslinking. They use their own derived method for library preparation, termed small-scale in-situ Hi-C, allegedly producing a high-quality Hi-C libary from as little as 500 cells (capturing the variance of millions of cells).\n\n\nHi-C Data Analysis\nThe analysis of the read-pairs of a Hi-C library is divided into several smaller tasks: We must align the reads to the reference in a way such that the intentional chimeric read-pairs are rescued, and unintentional read-pairs are discarded. That is, they represent ligation junction of adjecent chromatin segments, or they represent technical artefacts or unintentional fusions of unrelated DNA.\n\nAligning the Hi-C reads\nAny software for local alignment can be used for aligning reads from a Hi-C library. However, one should make sure to disable paired-end mode if possible, otherwise each read in a pair (each mate) should be aligned separately (Lajoie, Dekker, and Kaplan 2015). This removes the assumption that the distance between mates fits a known distribution because the genomic sequences originate from a continuous DNA-fragment. For example, the bwa-mem [ref] implementation of this (the -P option) activates the Smith-Waterman algorithm to rescue missing hits, but disables the search of hits that fit a ‘proper’ pair. After alignment, each read is assigned to the nearest restriction fragment.\n\n\nIdentifying and Storing Valid Hi-C Pairs\nOne should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. We should be able to put a detected ligation event into one of five categories: dangling-end, self-circle, weird, intrachromosomal, and interchromosomal (Table 13.1) (Bicciato and Ferrari (2022); Ch. 1).\n\n\n\nTable 13.1: Five categories of ligation events.\n\n\n\n\n\n\n\n\n\nEvent name\nExplanation\n\n\n\n\nDangling-end\nNon-digested collinear fragments. Fraction can be high.\n\n\nSelf-circle\nCollinear fragment(s) have circularized. Very low fraction could indicate unsuccesful ligation.\n\n\nWeird\nMates have the same orientation on the reference. Is not possible with single copy fragment. Either sequencing errors or diploid fragments1.\n\n\nIntrachromosomal\nPairs from the same chromosome\n\n\nInterchromosomal\nPairs from distinct chromosomes\n\n\n\n\n\n\n\n\nInteraction Matrices and Quality Control\n\n\nCalling Compartments (ICE)\n\n\nEdges",
     "crumbs": [
       "Thesis",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Chromatin Compartments and Selection on X</span>"
@@ -1067,7 +1067,18 @@
     "href": "thesis/index.html#testing-against-hybrid-incompatibility-in-baboons",
     "title": "Chromatin Compartments and Selection on X",
     "section": "Testing against hybrid incompatibility in baboons",
-    "text": "Testing against hybrid incompatibility in baboons\nInitially, the compartment edges of round spermatid at 100kb resolution (RS100) were plotted against the lifted coordinates from a P. anubis-hamadryas hybrid population, where either all the sampled individuals have Papio anubis ancestry or 95% of the sampled individuals have Papio hamadryas ancestry. Their respective intersections were plotted undeneath. We expect less intersection for hamadryas than for anubis as the total set size is much smaller. The compartment edges and Papio anubis-derived regions(Figure 15.15; b) seem to be highly enriched in the first 25 Mbp, and thus it has a high degree of intersection with the compartment edges. Interestingly, the ECH90 set is nearly empty in that region, making the finding outside the scope of this analysis, although it could be useful for determining the mechanism for selecting the P.anubis ancestral allele in the hybrid baboon population. The P.hamadryas-derived regions seem intersect the compartment edges more centered on the chromosome (Figure 15.15; a). The proximity test ruled out that the non-intersecting parts of the respective regions were this proximal by chance. However, the Jaccard test revealed that the intersection between the RS100 and both Hi-P.hama and Hi-P.anu can be explained by chance alone.\n\n\n\n\n\n\n\n\n\n\n\n\n(a) P. hamadryas\n\n\n\n\n\n\n\n\n\n\n\n(b) P. anubis\n\n\n\n\n\n\n\nFigure 15.15: Comparing the A-compartments of round spermatid (RS) with regions in baboons from hybrid population where a) 95% of sampled individuals have Papio hamadryas ancestry or b) 100% of the samples have Papio anubis ancestry. The regions are extracted and lifted from panu4.0 reference to rhemac10, then collapsed to non-overlapping intervals with genominterv.",
+    "text": "Testing against hybrid incompatibility in baboons\nInitially, the compartment edges of round spermatid at 100kb resolution (RS100) were plotted against the lifted coordinates from a P. anubis-hamadryas hybrid population, where either all the sampled individuals have Papio anubis ancestry or 95% of the sampled individuals have Papio hamadryas ancestry. Their respective intersections were plotted undeneath. We expect less intersection for hamadryas than for anubis as the total set size is much smaller. The compartment edges and Papio anubis-derived regions(Figure 15.15; b) seem to be highly enriched in the first 25 Mbp, and thus it has a high degree of intersection with the compartment edges. Interestingly, the ECH90 set is nearly empty in that region, making the finding outside the scope of this analysis, although it could be useful for determining the mechanism for selecting the P.anubis ancestral allele in the hybrid baboon population. The P.hamadryas-derived regions seem intersect the compartment edges more centered on the chromosome (Figure 15.15; a). The proximity test ruled out that the non-intersecting parts of the respective regions were this proximal by chance. However, the Jaccard test revealed that the intersection between the RS100 and both Hi-P.hama and Hi-P.anu can be explained by chance alone .\n\n\n\n\n\n\n\n\n\n\n\n\n(a) P. hamadryas\n\n\n\n\n\n\n\n\n\n\n\n(b) P. anubis\n\n\n\n\n\n\n\nFigure 15.15: Comparing the A-compartments of round spermatid (RS) with regions in baboons from hybrid population where a) 95% of sampled individuals have Papio hamadryas ancestry or b) 100% of the samples have Papio anubis ancestry. The regions are extracted and lifted from panu4.0 reference to rhemac10, then collapsed to non-overlapping intervals with genominterv.",
+    "crumbs": [
+      "Thesis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Chromatin Compartments and Selection on X</span>"
+    ]
+  },
+  {
+    "objectID": "thesis/index.html#footnotes",
+    "href": "thesis/index.html#footnotes",
+    "title": "Chromatin Compartments and Selection on X",
+    "section": "",
+    "text": "Bicciato and Ferrari (2022) mentions that Drosophila has been studied where this type of ligations are used to infer structure of sister-chromatid post-replication.↩︎",
     "crumbs": [
       "Thesis",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Chromatin Compartments and Selection on X</span>"

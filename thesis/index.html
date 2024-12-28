@@ -198,9 +198,9 @@ window.Quarto = {
   <li><a href="#sexual-reproduction-spermatogenesis-meiosis" id="toc-sexual-reproduction-spermatogenesis-meiosis" class="nav-link" data-scroll-target="#sexual-reproduction-spermatogenesis-meiosis">Sexual reproduction (spermatogenesis, meiosis)</a></li>
   <li><a href="#selfish-genes-and-randomness" id="toc-selfish-genes-and-randomness" class="nav-link" data-scroll-target="#selfish-genes-and-randomness">Selfish genes (and randomness)</a></li>
   <li><a href="#our-organism-of-interest-wang-et-al.-and-the-references" id="toc-our-organism-of-interest-wang-et-al.-and-the-references" class="nav-link" data-scroll-target="#our-organism-of-interest-wang-et-al.-and-the-references">Our Organism of Interest, Wang et al., and the references</a></li>
-  <li><a href="#extended-common-haplotypes-discoverved-in-humans" id="toc-extended-common-haplotypes-discoverved-in-humans" class="nav-link" data-scroll-target="#extended-common-haplotypes-discoverved-in-humans">Extended Common Haplotypes Discoverved in Humans</a></li>
-  <li><a href="#chromatin-conformation" id="toc-chromatin-conformation" class="nav-link" data-scroll-target="#chromatin-conformation">Chromatin Conformation</a></li>
-  <li><a href="#high-throughput-chromosome-conformation-capture-hi-c" id="toc-high-throughput-chromosome-conformation-capture-hi-c" class="nav-link" data-scroll-target="#high-throughput-chromosome-conformation-capture-hi-c">High-Throughput Chromosome Conformation Capture (Hi-C)</a>
+  <li><a href="#extended-common-haplotypes-discovered-in-humans" id="toc-extended-common-haplotypes-discovered-in-humans" class="nav-link" data-scroll-target="#extended-common-haplotypes-discovered-in-humans">Extended Common Haplotypes Discovered in Humans</a></li>
+  <li><a href="#c-chromatin-conformation-capture" id="toc-c-chromatin-conformation-capture" class="nav-link" data-scroll-target="#c-chromatin-conformation-capture">3C: Chromatin Conformation Capture</a></li>
+  <li><a href="#hi-c-high-throughput-3c" id="toc-hi-c-high-throughput-3c" class="nav-link" data-scroll-target="#hi-c-high-throughput-3c">Hi-C: High-Throughput 3C</a>
   <ul class="collapse">
   <li><a href="#hi-c-library-preparation" id="toc-hi-c-library-preparation" class="nav-link" data-scroll-target="#hi-c-library-preparation">Hi-C Library preparation</a></li>
   <li><a href="#hi-c-data-analysis" id="toc-hi-c-data-analysis" class="nav-link" data-scroll-target="#hi-c-data-analysis">Hi-C Data Analysis</a></li>
@@ -265,25 +265,73 @@ window.Quarto = {
 <section id="our-organism-of-interest-wang-et-al.-and-the-references" class="level2">
 <h2 class="anchored" data-anchor-id="our-organism-of-interest-wang-et-al.-and-the-references">Our Organism of Interest, Wang et al., and the references</h2>
 </section>
-<section id="extended-common-haplotypes-discoverved-in-humans" class="level2">
-<h2 class="anchored" data-anchor-id="extended-common-haplotypes-discoverved-in-humans">Extended Common Haplotypes Discoverved in Humans</h2>
+<section id="extended-common-haplotypes-discovered-in-humans" class="level2">
+<h2 class="anchored" data-anchor-id="extended-common-haplotypes-discovered-in-humans">Extended Common Haplotypes Discovered in Humans</h2>
 </section>
-<section id="chromatin-conformation" class="level2">
-<h2 class="anchored" data-anchor-id="chromatin-conformation">Chromatin Conformation</h2>
+<section id="c-chromatin-conformation-capture" class="level2">
+<h2 class="anchored" data-anchor-id="c-chromatin-conformation-capture">3C: Chromatin Conformation Capture</h2>
 </section>
-<section id="high-throughput-chromosome-conformation-capture-hi-c" class="level2">
-<h2 class="anchored" data-anchor-id="high-throughput-chromosome-conformation-capture-hi-c">High-Throughput Chromosome Conformation Capture (Hi-C)</h2>
+<section id="hi-c-high-throughput-3c" class="level2">
+<h2 class="anchored" data-anchor-id="hi-c-high-throughput-3c">Hi-C: High-Throughput 3C</h2>
 <p>Our DNA can be divided into different orders of structure. <em>3C</em> focus on identifying the highest orders of organization inside the nucleus, that is, when the 30 nm thick coil of chromatin fibers folds into loops, Topologically Associating Domains (TADs), and chromatin compartments. Here, we narrow our focus on the largest of the structures, <em>compartments</em>, that is known to determine availability to transcription factors, thus making an <em>A</em> compartment <em>active</em>—and the <em>B</em> compartment <em>inactive</em>. The introduction of the Hi-C (high-throughput 3C) method <span class="citation" data-cites="lieberman_aiden_comprehensive_2009">(<a href="#ref-lieberman_aiden_comprehensive_2009" role="doc-biblioref">Lieberman-Aiden et al. 2009</a>)</span> opened new possibilities for exploring the three-dimensional organization of the genome.</p>
 <section id="hi-c-library-preparation" class="level3">
 <h3 class="anchored" data-anchor-id="hi-c-library-preparation">Hi-C Library preparation</h3>
+<p>A specialized protocol for preparing the DNA library is necessary [<span class="citation" data-cites="lieberman_aiden_comprehensive_2009">Lieberman-Aiden et al. (<a href="#ref-lieberman_aiden_comprehensive_2009" role="doc-biblioref">2009</a>)</span>; Fig. 1a]. Briefly, formaldehyde is used to crosslink spatially adjecent chromatin. Restriction enzymes are used to digest the crosslinked chromatin, leaving sticky ends that are filled and biotinylated with a polymerase. Then chimeric molecules are ligated in highly dilute conditions, where the restriction site is lost and a ligation site (also referred to as <em>ligation junction</em>) is created. Lastly, the ligation junction are isolated with streptavidin beads and sequenced as a paired-end library.</p>
+<p>To be able to create stage-resolved Hi-C library of spermatogenetis, additional steps have to be performed. First, the samples have to be treated immediately after harvesting to ensure viable cells. Secondly, the samples have to be purified to accurately represent each stage og spermatogenesis. Specifically, the data for this project (<span class="citation" data-cites="wang_reprogramming_2019">Wang et al. (<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">2019</a>)</span>; acc. GSE109344) preluded the library preparation protocol by sedimentation-based cell sorting to separate live spermatogenic cells into different stages of differentiation, namely spermatogonia, pachytene spermatocyte, round spermatid, and spermatozoa. Then, the cells were fixed in their respective state before crosslinking. They use their own derived method for library preparation, termed small-scale <em>in-situ</em> Hi-C, allegedly producing a high-quality Hi-C libary from as little as 500 cells (capturing the variance of millions of cells).</p>
 </section>
 <section id="hi-c-data-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="hi-c-data-analysis">Hi-C Data Analysis</h3>
+<p>The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks: We must align the reads to the reference in a way such that the <em>intentional</em> chimeric read-pairs are rescued, and <em>unintentional</em> read-pairs are discarded. That is, they represent ligation junction of adjecent chromatin segments, or they represent technical artefacts or unintentional fusions of unrelated DNA.</p>
 <section id="aligning-the-hi-c-reads" class="level4">
 <h4 class="anchored" data-anchor-id="aligning-the-hi-c-reads">Aligning the Hi-C reads</h4>
+<p>Any software for local alignment can be used for aligning reads from a Hi-C library. However, one should make sure to disable paired-end mode if possible, otherwise each read in a pair (each mate) should be aligned separately <span class="citation" data-cites="lajoie_hitchhikers_2015">(<a href="#ref-lajoie_hitchhikers_2015" role="doc-biblioref">Lajoie, Dekker, and Kaplan 2015</a>)</span>. This removes the assumption that the distance between mates fits a known distribution because the genomic sequences originate from a continuous DNA-fragment. For example, the <em>bwa-mem</em> [ref] implementation of this (the <code>-P</code> option) activates the Smith-Waterman algorithm to rescue missing hits, but disables the search of hits that fit a ‘proper’ pair. After alignment, each read is assigned to the nearest restriction fragment.</p>
 </section>
 <section id="identifying-and-storing-valid-hi-c-pairs" class="level4">
 <h4 class="anchored" data-anchor-id="identifying-and-storing-valid-hi-c-pairs">Identifying and Storing Valid Hi-C Pairs</h4>
+<p>One should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. We should be able to put a detected ligation event into one of five categories: dangling-end, self-circle, weird, intrachromosomal, and interchromosomal (<a href="#tbl-ligation-events" class="quarto-xref">Table&nbsp;1</a>) (<span class="citation" data-cites="bicciato_hic_2022">Bicciato and Ferrari (<a href="#ref-bicciato_hic_2022" role="doc-biblioref">2022</a>)</span>; Ch. 1).</p>
+<div id="tbl-ligation-events" class="striped quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ligation-events-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Five categories of ligation events.
+</figcaption>
+<div aria-describedby="tbl-ligation-events-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-striped caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Event name</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Dangling-end</td>
+<td style="text-align: left;">Non-digested collinear fragments. Fraction can be high.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Self-circle</td>
+<td style="text-align: left;">Collinear fragment(s) have circularized. Very low fraction could indicate unsuccesful ligation.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Weird</td>
+<td style="text-align: left;">Mates have the same orientation on the reference. Is not possible with single copy fragment. Either sequencing errors or diploid fragments<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Intrachromosomal</td>
+<td style="text-align: left;">Pairs from the same chromosome</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Interchromosomal</td>
+<td style="text-align: left;">Pairs from distinct chromosomes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 </section>
 <section id="interaction-matrices-and-quality-control" class="level4">
 <h4 class="anchored" data-anchor-id="interaction-matrices-and-quality-control">Interaction Matrices and Quality Control</h4>
@@ -307,13 +355,13 @@ window.Quarto = {
 <section id="initial-exploration-with-hicexplorer" class="level2">
 <h2 class="anchored" data-anchor-id="initial-exploration-with-hicexplorer">Initial Exploration with HiCExplorer</h2>
 <p>Here moves most of the text about HiCExplorer…</p>
-<p>For the initial exploration of methods with <em>HiCExplorer</em>, the 5 first samples in ‘fibroblast’ were chosen (<a href="#tbl-hic-exploration" class="quarto-xref">Table&nbsp;1</a>).</p>
+<p>For the initial exploration of methods with <em>HiCExplorer</em>, the 5 first samples in ‘fibroblast’ were chosen (<a href="#tbl-hic-exploration" class="quarto-xref">Table&nbsp;2</a>).</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer using macaque data" data-notebook-cellid="cell-tbl-hic-exploration">
 <div class="cell">
 <div id="tbl-hic-exploration" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-hic-exploration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: The samples chosen for initial data exploration with HiCExplorer. From NCBI SRA Portal.
+Table&nbsp;2: The samples chosen for initial data exploration with HiCExplorer. From NCBI SRA Portal.
 </figcaption>
 <div aria-describedby="tbl-hic-exploration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -383,13 +431,13 @@ Table&nbsp;1: The samples chosen for initial data exploration with HiCExplorer. 
 </section>
 <section id="downloading-data-and-project-structure" class="level2">
 <h2 class="anchored" data-anchor-id="downloading-data-and-project-structure">Downloading Data and Project Structure</h2>
-<p>To reproduce the results from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable <code>SRA-runtable.tsv</code>. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (<a href="#tbl-runtable-summary" class="quarto-xref">Table&nbsp;2</a>). It adds up to ~1Tb of compressed <code>fastq</code> files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.</p>
+<p>To reproduce the results from <span class="citation" data-cites="wang_reprogramming_2019">(<a href="#ref-wang_reprogramming_2019" role="doc-biblioref">Wang et al. 2019</a>)</span>, I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The data set also contains RNAseq data, and the same tissues for both macaque and mouse. The meta data for the data set was extracted into a runtable <code>SRA-runtable.tsv</code>. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (<a href="#tbl-runtable-summary" class="quarto-xref">Table&nbsp;3</a>). It adds up to ~1Tb of compressed <code>fastq</code> files, holding ~9.5 billion reads, roughly evenly spread on the 5 tissue types.</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-tbl-runtable-summary">
 <div class="cell" data-execution_count="47">
 <div id="tbl-runtable-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="47">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-runtable-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Summary of the data accessions used in this analysis
+Table&nbsp;3: Summary of the data accessions used in this analysis
 </figcaption>
 <div aria-describedby="tbl-runtable-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -489,11 +537,11 @@ Figure&nbsp;1: A flowchart showing the pipeline from <code>.fastq</code> to <cod
 <section id="parse-and-sort-the-reads" class="level4">
 <h4 class="anchored" data-anchor-id="parse-and-sort-the-reads">Parse and sort the reads</h4>
 <p>With <em>HiCExplorer</em> No action is needed, as this step is done implicitly when building the matrix</p>
-<p><strong>Open2C</strong> We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome ‘UU’. Other events, where one or both sides map to multiple segments or the reads are long enough (&gt;150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the <code>--walks-policy</code> when parsing the alignments into valid pairs (or valid Hi-C contacts). Here, <code>mask</code> is the most conservative and masks all complex walks, whereas <code>5unique</code> reports the 5’-most unique alignment on each side. The pairs are piped directly into <code>pairtools sort</code> after parsing, as the deduplication step requires a sorted set of pairs. The <em>.pairs</em>-format produced by <code>pairtools</code> is an extension the <a href="https://data.4dnucleome.org/file-formats/pairs/">4DN Consortium</a>-specified format, storing Hi-C pairs as in <a href="#tbl-pairsformat" class="quarto-xref">Table&nbsp;3</a>.</p>
+<p><strong>Open2C</strong> We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome ‘UU’. Other events, where one or both sides map to multiple segments or the reads are long enough (&gt;150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (walks) are treated according to the <code>--walks-policy</code> when parsing the alignments into valid pairs (or valid Hi-C contacts). Here, <code>mask</code> is the most conservative and masks all complex walks, whereas <code>5unique</code> reports the 5’-most unique alignment on each side. The pairs are piped directly into <code>pairtools sort</code> after parsing, as the deduplication step requires a sorted set of pairs. The <em>.pairs</em>-format produced by <code>pairtools</code> is an extension the <a href="https://data.4dnucleome.org/file-formats/pairs/">4DN Consortium</a>-specified format, storing Hi-C pairs as in <a href="#tbl-pairsformat" class="quarto-xref">Table&nbsp;4</a>.</p>
 <div id="tbl-pairsformat" class="striped quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-pairsformat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: Column specification of the .pairs format as extended by <code>pairtools</code> [ref].
+Table&nbsp;4: Column specification of the .pairs format as extended by <code>pairtools</code> [ref].
 </figcaption>
 <div aria-describedby="tbl-pairsformat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table-striped caption-top table">
@@ -1367,7 +1415,7 @@ Figure&nbsp;15: Proximity and Jaccard index p-values for ECH90 regions on compar
 </section>
 <section id="testing-against-hybrid-incompatibility-in-baboons" class="level2">
 <h2 class="anchored" data-anchor-id="testing-against-hybrid-incompatibility-in-baboons">Testing against hybrid incompatibility in baboons</h2>
-<p>Initially, the compartment edges of round spermatid at 100kb resolution (RS100) were plotted against the lifted coordinates from a <em>P.</em> anubis-hamadryas hybrid population, where either all the sampled individuals have <em>Papio anubis</em> ancestry or 95% of the sampled individuals have <em>Papio hamadryas</em> ancestry. Their respective intersections were plotted undeneath. We expect less intersection for <em>hamadryas</em> than for <em>anubis</em> as the total set size is much smaller. The compartment edges and <em>Papio anubis</em>-derived regions(<a href="#fig-baboon-rs100-intersect" class="quarto-xref">Figure&nbsp;16</a>; b) seem to be highly enriched in the first 25 Mbp, and thus it has a high degree of intersection with the compartment edges. Interestingly, the ECH90 set is nearly empty in that region, making the finding outside the scope of this analysis, although it could be useful for determining the mechanism for selecting the <em>P.anubis</em> ancestral allele in the hybrid baboon population. The <em>P.hamadryas</em>-derived regions seem intersect the compartment edges more centered on the chromosome (<a href="#fig-baboon-rs100-intersect" class="quarto-xref">Figure&nbsp;16</a>; a). The proximity test ruled out that the non-intersecting parts of the respective regions were this proximal by chance. However, the Jaccard test revealed that the intersection between the RS100 and both Hi-<em>P.hama</em> and Hi-<em>P.anu</em> can be explained by chance alone.</p>
+<p>Initially, the compartment edges of round spermatid at 100kb resolution (RS100) were plotted against the lifted coordinates from a <em>P.</em> anubis-hamadryas hybrid population, where either all the sampled individuals have <em>Papio anubis</em> ancestry or 95% of the sampled individuals have <em>Papio hamadryas</em> ancestry. Their respective intersections were plotted undeneath. We expect less intersection for <em>hamadryas</em> than for <em>anubis</em> as the total set size is much smaller. The compartment edges and <em>Papio anubis</em>-derived regions(<a href="#fig-baboon-rs100-intersect" class="quarto-xref">Figure&nbsp;16</a>; b) seem to be highly enriched in the first 25 Mbp, and thus it has a high degree of intersection with the compartment edges. Interestingly, the ECH90 set is nearly empty in that region, making the finding outside the scope of this analysis, although it could be useful for determining the mechanism for selecting the <em>P.anubis</em> ancestral allele in the hybrid baboon population. The <em>P.hamadryas</em>-derived regions seem intersect the compartment edges more centered on the chromosome (<a href="#fig-baboon-rs100-intersect" class="quarto-xref">Figure&nbsp;16</a>; a). The proximity test ruled out that the non-intersecting parts of the respective regions were this proximal by chance. However, the Jaccard test revealed that the intersection between the RS100 and both Hi-<em>P.hama</em> and Hi-<em>P.anu</em> can be explained by chance alone .</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/07_various_plotting.ipynb" data-notebook-title="Various Comparisons" data-notebook-cellid="cell-fig-baboon-rs100-intersect">
 <div id="fig-baboon-rs100-intersect" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1424,6 +1472,9 @@ Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia Naumova, Anton
 <div id="ref-jaenike_sex_2001" class="csl-entry" role="listitem">
 Jaenike, John. 2001. <span>“Sex <span>Chromosome</span> <span>Meiotic</span> <span>Drive</span>.”</span> <em>Annual Review of Ecology and Systematics</em> 32 (1): 25–49. <a href="https://doi.org/10.1146/annurev.ecolsys.32.081501.113958">https://doi.org/10.1146/annurev.ecolsys.32.081501.113958</a>.
 </div>
+<div id="ref-lajoie_hitchhikers_2015" class="csl-entry" role="listitem">
+Lajoie, Bryan R., Job Dekker, and Noam Kaplan. 2015. <span>“The <span>Hitchhiker</span>’s <span>Guide</span> to <span>Hi</span>-<span>C</span> <span>Analysis</span>: <span>Practical</span> Guidelines.”</span> <em>Methods (San Diego, Calif.)</em> 72 (January): 65–75. <a href="https://doi.org/10.1016/j.ymeth.2014.10.031">https://doi.org/10.1016/j.ymeth.2014.10.031</a>.
+</div>
 <div id="ref-lieberman_aiden_comprehensive_2009" class="csl-entry" role="listitem">
 Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009. <span>“Comprehensive <span>Mapping</span> of <span>Long</span>-<span>Range</span> <span>Interactions</span> <span>Reveals</span> <span>Folding</span> <span>Principles</span> of the <span>Human</span> <span>Genome</span>.”</span> <em>Science</em> 326 (5950): 289–93. <a href="https://doi.org/10.1126/science.1181369">https://doi.org/10.1126/science.1181369</a>.
 </div>
@@ -1445,7 +1496,13 @@ Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin,
 </div>
 </section>
 
-</main>
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><span class="citation" data-cites="bicciato_hic_2022">Bicciato and Ferrari (<a href="#ref-bicciato_hic_2022" role="doc-biblioref">2022</a>)</span> mentions that <em>Drosophila</em> has been studied where this type of ligations are used to infer structure of sister-chromatid post-replication.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

@@ -101,6 +101,39 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Palatino font:
 \usepackage[T1]{fontenc}
@@ -405,8 +438,6 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 
-\usepackage[]{natbib}
-\bibliographystyle{plainnat}
 \usepackage{bookmark}
 
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -510,14 +541,13 @@ complex process that involves numeruous elements. Spermatogenesis, the
 process of forming male gametes, involves four stages of differentiation
 from a germ cell through \emph{spermatogonia}, \emph{pachytene
 spermatocyte}, and \emph{round spermatids} to \emph{spermatozoa}, or
-\emph{sperm} \citep{wang_reprogramming_2019}, and it is the very basis
-of male reproduction. The specialized cell division of meiosis neatly
-handles the pairing, recombination, and segregation of homologous
-chromosomes, thereby ensuring proper genetic distribution. Deeply
-understanding the steps of molecular steps of reproduction and how our
-genetic material is inherited is essential in biology, bringing insight
-to areas such as speciation, population diversity, and (male)
-infertility.
+\emph{sperm} (Wang et al. 2019), and it is the very basis of male
+reproduction. The specialized cell division of meiosis neatly handles
+the pairing, recombination, and segregation of homologous chromosomes,
+thereby ensuring proper genetic distribution. Deeply understanding the
+steps of molecular steps of reproduction and how our genetic material is
+inherited is essential in biology, bringing insight to areas such as
+speciation, population diversity, and (male) infertility.
 
 \section{Selfish genes (and
 randomness)}\label{selfish-genes-and-randomness}
@@ -537,24 +567,24 @@ chromosome create a disadvantage for gametes that \emph{do not} contain
 those genes, making sure the Y chromosome is not as viable as the X,
 resulting in a sex imbalance and possibly numerous other downstream
 effects. That is exactly what is coined \emph{sex chromosome meiotic
-drive} \citep{jaenike_sex_2001}, a result of selfish genetic elements.
+drive} (Jaenike 2001), a result of selfish genetic elements.
 
-Motivated by previous results in the Munch Research group
-\citep{munch_group_2024} on hybrid incompatibility and extended common
-haplotypes \citep{skov_extraordinary_2023, sorensen_genome_wide_2023}
-that could be explained by meiotic drive, we wanted to investigate how
-these patterns correlate with chromatin compartments.
+Motivated by previous results in the Munch Research group (Munch 2024)
+on hybrid incompatibility and extended common haplotypes (Skov et al.
+2023; Sørensen et al. 2023) that could be explained by meiotic drive, we
+wanted to investigate how these patterns correlate with chromatin
+compartments.
 
 \section{Our Organism of Interest, Wang et al., and the
 references}\label{our-organism-of-interest-wang-et-al.-and-the-references}
 
-\section{Extended Common Haplotypes Discoverved in
-Humans}\label{extended-common-haplotypes-discoverved-in-humans}
+\section{Extended Common Haplotypes Discovered in
+Humans}\label{extended-common-haplotypes-discovered-in-humans}
 
-\section{Chromatin Conformation}\label{chromatin-conformation}
+\section{3C: Chromatin Conformation
+Capture}\label{c-chromatin-conformation-capture}
 
-\section{High-Throughput Chromosome Conformation Capture
-(Hi-C)}\label{high-throughput-chromosome-conformation-capture-hi-c}
+\section{Hi-C: High-Throughput 3C}\label{hi-c-high-throughput-3c}
 
 Our DNA can be divided into different orders of structure. \emph{3C}
 focus on identifying the highest orders of organization inside the
@@ -564,18 +594,107 @@ compartments. Here, we narrow our focus on the largest of the
 structures, \emph{compartments}, that is known to determine availability
 to transcription factors, thus making an \emph{A} compartment
 \emph{active}---and the \emph{B} compartment \emph{inactive}. The
-introduction of the Hi-C (high-throughput 3C) method
-\citep{lieberman_aiden_comprehensive_2009} opened new possibilities for
-exploring the three-dimensional organization of the genome.
+introduction of the Hi-C (high-throughput 3C) method (Lieberman-Aiden et
+al. 2009) opened new possibilities for exploring the three-dimensional
+organization of the genome.
 
 \subsection{Hi-C Library preparation}\label{hi-c-library-preparation}
 
+A specialized protocol for preparing the DNA library is necessary
+{[}Lieberman-Aiden et al. (2009); Fig. 1a{]}. Briefly, formaldehyde is
+used to crosslink spatially adjecent chromatin. Restriction enzymes are
+used to digest the crosslinked chromatin, leaving sticky ends that are
+filled and biotinylated with a polymerase. Then chimeric molecules are
+ligated in highly dilute conditions, where the restriction site is lost
+and a ligation site (also referred to as \emph{ligation junction}) is
+created. Lastly, the ligation junction are isolated with streptavidin
+beads and sequenced as a paired-end library.
+
+To be able to create stage-resolved Hi-C library of spermatogenetis,
+additional steps have to be performed. First, the samples have to be
+treated immediately after harvesting to ensure viable cells. Secondly,
+the samples have to be purified to accurately represent each stage og
+spermatogenesis. Specifically, the data for this project (Wang et al.
+(2019); acc. GSE109344) preluded the library preparation protocol by
+sedimentation-based cell sorting to separate live spermatogenic cells
+into different stages of differentiation, namely spermatogonia,
+pachytene spermatocyte, round spermatid, and spermatozoa. Then, the
+cells were fixed in their respective state before crosslinking. They use
+their own derived method for library preparation, termed small-scale
+\emph{in-situ} Hi-C, allegedly producing a high-quality Hi-C libary from
+as little as 500 cells (capturing the variance of millions of cells).
+
 \subsection{Hi-C Data Analysis}\label{hi-c-data-analysis}
+
+The analysis of the read-pairs of a Hi-C library is divided into several
+smaller tasks: We must align the reads to the reference in a way such
+that the \emph{intentional} chimeric read-pairs are rescued, and
+\emph{unintentional} read-pairs are discarded. That is, they represent
+ligation junction of adjecent chromatin segments, or they represent
+technical artefacts or unintentional fusions of unrelated DNA.
 
 \subsubsection{Aligning the Hi-C reads}\label{aligning-the-hi-c-reads}
 
+Any software for local alignment can be used for aligning reads from a
+Hi-C library. However, one should make sure to disable paired-end mode
+if possible, otherwise each read in a pair (each mate) should be aligned
+separately (Lajoie, Dekker, and Kaplan 2015). This removes the
+assumption that the distance between mates fits a known distribution
+because the genomic sequences originate from a continuous DNA-fragment.
+For example, the \emph{bwa-mem} {[}ref{]} implementation of this (the
+\texttt{-P} option) activates the Smith-Waterman algorithm to rescue
+missing hits, but disables the search of hits that fit a `proper' pair.
+After alignment, each read is assigned to the nearest restriction
+fragment.
+
 \subsubsection{Identifying and Storing Valid Hi-C
 Pairs}\label{identifying-and-storing-valid-hi-c-pairs}
+
+One should be cautious when filtering invalid from valid pairs, as they
+are not easily distinguished. We should be able to put a detected
+ligation event into one of five categories: dangling-end, self-circle,
+weird, intrachromosomal, and interchromosomal
+(Table~\ref{tbl-ligation-events}) (Bicciato and Ferrari (2022); Ch. 1).
+
+\small
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7500}}@{}}
+\caption{Five categories of ligation
+events.}\label{tbl-ligation-events}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Event name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Explanation
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Event name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Explanation
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Dangling-end & Non-digested collinear fragments. Fraction can be
+high. \\
+Self-circle & Collinear fragment(s) have circularized. Very low fraction
+could indicate unsuccesful ligation. \\
+Weird & Mates have the same orientation on the reference. Is not
+possible with single copy fragment. Either sequencing errors or diploid
+fragments\footnote{Bicciato and Ferrari (2022) mentions that
+  \emph{Drosophila} has been studied where this type of ligations are
+  used to infer structure of sister-chromatid post-replication.}. \\
+Intrachromosomal & Pairs from the same chromosome \\
+Interchromosomal & Pairs from distinct chromosomes \\
+\end{longtable}
+
+\normalsize
 
 \subsubsection{Interaction Matrices and Quality
 Control}\label{interaction-matrices-and-quality-control}
@@ -590,13 +709,13 @@ Control}\label{interaction-matrices-and-quality-control}
 In this project, we formulate two objectives:
 
 \textbf{A}: Reproduce the Hi-C interaction maps and eigendecomposition
-from \citep{wang_reprogramming_2019}, with some modifications. We
-briefly use \emph{HiCExplorer}, but change the analyses to use the
-\emph{Open2C Ecosystem} \citep{open2c} which have a Pyton API as well as
-command-line functions, which can be paired very well with Jupyter
-Notebooks. The majority of the data analysis was run with a \emph{gwf}
-workflow, and the commands that were visually inspected were run in
-Jupyter Notebooks.
+from (Wang et al. 2019), with some modifications. We briefly use
+\emph{HiCExplorer}, but change the analyses to use the \emph{Open2C
+Ecosystem} (Open Chromosome Collective 2024) which have a Pyton API as
+well as command-line functions, which can be paired very well with
+Jupyter Notebooks. The majority of the data analysis was run with a
+\emph{gwf} workflow, and the commands that were visually inspected were
+run in Jupyter Notebooks.
 
 \textbf{B} Compare with regions of selection that are found in
 \emph{human}. Investigate the biological meaning of the results.
@@ -651,9 +770,9 @@ exploration with HiCExplorer. From NCBI SRA Portal.}
 
 \normalsize
 
-The goal was to replicate some of the figures from
-\citet{wang_reprogramming_2019} using \emph{HiCExplorer}, especially to
-reconstruct interaction matrices and E1 graphs from macaque data.
+The goal was to replicate some of the figures from Wang et al. (2019)
+using \emph{HiCExplorer}, especially to reconstruct interaction matrices
+and E1 graphs from macaque data.
 
 The matrices are constructed with \texttt{hicBuildMatrix} from
 separately mapped read-pairs. Along with the matrix \emph{.h5} file, a
@@ -674,15 +793,15 @@ yielding the first 3 PCs.
 \section{Downloading Data and Project
 Structure}\label{downloading-data-and-project-structure}
 
-To reproduce the results from \citep{wang_reprogramming_2019}, I chose
-to use their raw data directly from the SRA portal {[}ref{]}. I filtered
-the data to contain all their paired-end Hi-C reads, and included only
-macaque samples. The data set also contains RNAseq data, and the same
-tissues for both macaque and mouse. The meta data for the data set was
-extracted into a runtable \texttt{SRA-runtable.tsv}. To get an overview
-of the data accessions used in this analysis, we will first summarize
-the runtable that contains the accession numbers and some metadata for
-each sample (Table~\ref{tbl-runtable-summary}). It adds up to
+To reproduce the results from (Wang et al. 2019), I chose to use their
+raw data directly from the SRA portal {[}ref{]}. I filtered the data to
+contain all their paired-end Hi-C reads, and included only macaque
+samples. The data set also contains RNAseq data, and the same tissues
+for both macaque and mouse. The meta data for the data set was extracted
+into a runtable \texttt{SRA-runtable.tsv}. To get an overview of the
+data accessions used in this analysis, we will first summarize the
+runtable that contains the accession numbers and some metadata for each
+sample (Table~\ref{tbl-runtable-summary}). It adds up to
 \textasciitilde1Tb of compressed \texttt{fastq} files, holding
 \textasciitilde9.5 billion reads, roughly evenly spread on the 5 tissue
 types.
@@ -754,13 +873,13 @@ respectively) was downloaded to GDK from UCSC web servers with
 \texttt{samtools\ faidx}, which results in six indexing files for
 \texttt{bwa\ mem} to use.
 
-Since \citeyearpar{wang_reprogramming_2019}, the reference genome for
-rhesus macaque has changed several times from \emph{rheMac2} to
-\emph{rheMac10}, each time resulting in a much less fragmented reference
-assembly. Part of the reasoning for reproducing their results was doing
-so on the latest assembly of the Macaca mulata genome, which arguably
-will result in a more accurate mapping of the reads, and a better
-inference of the chromatin compartments as well.
+Since (2019), the reference genome for rhesus macaque has changed
+several times from \emph{rheMac2} to \emph{rheMac10}, each time
+resulting in a much less fragmented reference assembly. Part of the
+reasoning for reproducing their results was doing so on the latest
+assembly of the Macaca mulata genome, which arguably will result in a
+more accurate mapping of the reads, and a better inference of the
+chromatin compartments as well.
 
 Several mappers were used in different configurations (described in
 below), and \texttt{bowtie2} requires its own indexing of the reference,
@@ -780,17 +899,16 @@ type of reads {[}ref{]}. Thus, we need specialized tools for rescuing
 chimeric reads. That said, we have to be cautious distinguishing the
 intended chimerism for Hi-C and that of technical artefacts.
 
-It was not feasible to follow the same approach as
-\citep{wang_reprogramming_2019} with either \emph{HiCExplorer} or
-\emph{Open2C}, as they use a third software, \emph{HiC-Pro}. Hic-Pro
-uses bowtie2 in end-to-end mode, followed by remapping of 5'-ends of the
-unmapped reads to rescue chimeric fragments along with another approach.
-I mapped the reads using \texttt{bowtie2\ -\/-end-to-end} without the
-rescue-remapping, and it returned a very high fraction of discarded
-reads. I argue that even when trying to reproduce results, it is
-nonsensical to use methods that are not state-of-the-art. The HiC-Pro
-pipeline stops at a normalized contact map, and is thus not sufficient
-for downstream analysis.
+It was not feasible to follow the same approach as (Wang et al. 2019)
+with either \emph{HiCExplorer} or \emph{Open2C}, as they use a third
+software, \emph{HiC-Pro}. Hic-Pro uses bowtie2 in end-to-end mode,
+followed by remapping of 5'-ends of the unmapped reads to rescue
+chimeric fragments along with another approach. I mapped the reads using
+\texttt{bowtie2\ -\/-end-to-end} without the rescue-remapping, and it
+returned a very high fraction of discarded reads. I argue that even when
+trying to reproduce results, it is nonsensical to use methods that are
+not state-of-the-art. The HiC-Pro pipeline stops at a normalized contact
+map, and is thus not sufficient for downstream analysis.
 
 \textbf{HiCExplorer} Initially, recommendations from HiCExplorer were
 used. According to their documentation {[}ref{]} it is crucial to 1)
@@ -812,22 +930,22 @@ the pipeline, as would be required for utilizing Jupyter Notebooks for
 customizing plots. I relatively quickly shifted to \emph{Open2C} for
 their promises of the greener grass (a Python API).
 
-\textbf{Open2C} Suspiciously, \citep{open2c} never mentions any problems
-with aligning the Hi-C reads, they just provide an example using
-\texttt{bwa\ mem} in paired-end mode and with the \texttt{-P} option
-set, which activates the Smith-Waterman {[}ref{]} algorithm to rescue
-missing hits, by focusing on assigning only of of the mates to a good
-mapping and escape mate-rescue. The documentation of \texttt{bwa}
-\href{https://bio-bwa.sourceforge.net}{ref} state that both bwa-mem and
-bwa-sw will rescue chimeric reads. Consequently, Open2C does not have a
-builtin way of pairing the reads after mapping, and I was left with two
-options: \textbf{1)} to re(-)pair the individually mapped read-mates
-(.bam) with \texttt{samtools-fixmate} into one of the specific input
-formats required for \texttt{cooler} to create an interaction matrix
-\emph{cooler}, or \textbf{2)} re-map the reads using Open2C's
-recommendations and use their established pipeline for producing a
-cooler. I chose the latter, where I mapped the fastq files to
-\emph{rheMac10} in paired end mode for a pair (m1, m2) with
+\textbf{Open2C} Suspiciously, (Open Chromosome Collective 2024) never
+mentions any problems with aligning the Hi-C reads, they just provide an
+example using \texttt{bwa\ mem} in paired-end mode and with the
+\texttt{-P} option set, which activates the Smith-Waterman {[}ref{]}
+algorithm to rescue missing hits, by focusing on assigning only of of
+the mates to a good mapping and escape mate-rescue. The documentation of
+\texttt{bwa} \href{https://bio-bwa.sourceforge.net}{ref} state that both
+bwa-mem and bwa-sw will rescue chimeric reads. Consequently, Open2C does
+not have a builtin way of pairing the reads after mapping, and I was
+left with two options: \textbf{1)} to re(-)pair the individually mapped
+read-mates (.bam) with \texttt{samtools-fixmate} into one of the
+specific input formats required for \texttt{cooler} to create an
+interaction matrix \emph{cooler}, or \textbf{2)} re-map the reads using
+Open2C's recommendations and use their established pipeline for
+producing a cooler. I chose the latter, where I mapped the fastq files
+to \emph{rheMac10} in paired end mode for a pair (m1, m2) with
 \texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
 
 \subsubsection{Parse and sort the reads}\label{parse-and-sort-the-reads}
@@ -971,9 +1089,9 @@ coolers)}\label{pooling-samples-merging-coolers}
 
 The samples are grouped into \emph{replicates} with a unique
 \textbf{BioSample} ID, but we chose to pool all the interaction matrices
-for each cell type. We argue that when \citet{wang_reprogramming_2019}
-determine compartments to be highly reproducible between replicates, by
-merging the replicates we can get a more robust signal.
+for each cell type. We argue that when Wang et al. (2019) determine
+compartments to be highly reproducible between replicates, by merging
+the replicates we can get a more robust signal.
 
 \texttt{cooler\ merge} was used to merge all samples in each sub-folder
 (cell type) to just one interaction matrix for each cell type. The
@@ -999,11 +1117,11 @@ correction)}\label{matrix-balancing-iterative-correction}
 Finally, we balance the matrices using the cooler CLI. We use
 \texttt{cooler\ balance} with the default options which iteratively
 balances the matrix (Iterative Correction). It is first described as a
-method for bias correction of Hi-C matrices in
-\citep{imakaev_iterative_2012}, where it is paired with eigenvector
-decomposition, coining the combined analysis \textbf{ICE}. Here, the
-eigenvector decomposition of the obtained maps is experimentally
-validated to provide insights into local chromatin states.
+method for bias correction of Hi-C matrices in (Imakaev et al. 2012),
+where it is paired with eigenvector decomposition, coining the combined
+analysis \textbf{ICE}. Here, the eigenvector decomposition of the
+obtained maps is experimentally validated to provide insights into local
+chromatin states.
 
 {[}According to \texttt{cooler} documentation{]} We have to balance the
 matrices on each resolution, and thus it cannot be done prior to
@@ -1032,8 +1150,8 @@ track to orient the vector. E1 is arbitrarily defined to be positively
 correlated with GC content, meaning a positive E1 value signifies an
 active chromatin state, which we denote a A-type compartment (or simply
 A-compartment). We performed eigendecomposition of two resolutions, 100
-Kbp and 500 Kbp. \citet{wang_reprogramming_2019} briefly describes their
-method to calculate the eigenvectors as a sliding window approach on the
+Kbp and 500 Kbp. Wang et al. (2019) briefly describes their method to
+calculate the eigenvectors as a sliding window approach on the
 observed/expected matrix in 100 kb resolution summing over 400 kb bins
 with 100 kb step size, a method I was not able to replicate in the
 \emph{Open2C} ecosystem. I decided to mimic this by smoothing the 100 kb
@@ -1056,10 +1174,9 @@ it sits on, and not by the chromatin compartments. To mitigate this, we
 apply a chromosome-arm-partitioned view of the chromosome (as a bedlike
 format, described in \texttt{bioframe} docs {[}ref{]}).
 
-Additionally, to mimic the \emph{Local PCA} from
-\citep{wang_reprogramming_2019}, I also defined a view of 10 Mb bins.
-Thoughout the project, I will compare results from each of the three
-views and resolutions.
+Additionally, to mimic the \emph{Local PCA} from (Wang et al. 2019), I
+also defined a view of 10 Mb bins. Thoughout the project, I will compare
+results from each of the three views and resolutions.
 
 \subsubsection{Plotting matrices}\label{plotting-matrices}
 
@@ -1188,12 +1305,12 @@ however, unusually high fractions of \emph{inter}-chromosomal contacts
 (up to 30\%) compared to \emph{intra}-chromosomal contacts (also denoted
 \emph{trans} and \emph{cis} contacts, respectively). It is expected that
 \emph{cis} contacts are orders of magnitude more frequent than
-\emph{trans} contacts
-\citetext{\citealp[p.~236]{bicciato_hic_2022}; \citealp{lieberman_aiden_comprehensive_2009}},
-and \emph{HiCExplorer} states it should be below 10\% {[}ref{]}. The
-high fraction may be mitigated by enforcing a stricter \emph{mapq}
-threshold for a valid Hi-C pair, as we also observe higher-than expected
-valid contacts. However, we continue without the current matrices.
+\emph{trans} contacts (Bicciato and Ferrari 2022, 2301:236;
+Lieberman-Aiden et al. 2009), and \emph{HiCExplorer} states it should be
+below 10\% {[}ref{]}. The high fraction may be mitigated by enforcing a
+stricter \emph{mapq} threshold for a valid Hi-C pair, as we also observe
+higher-than expected valid contacts. However, we continue without the
+current matrices.
 
 \begin{figure}
 
@@ -1740,12 +1857,12 @@ function) should be same size as the following matrix plots.}
 
 I argue that without more finescaled knowledge than the position of the
 centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully
-be justified. Also, \citet{wang_reprogramming_2019} concludes that only
-the pachytene spermatocyte showed local interactions in that viewframe
-(what they refer to as \emph{refined A/B-compartments} ), and all the
-other stages of spermatogenesis were consistent with the conventional
-A/B compartments. The reasonable thing to do is therefore to continue
-the analysis, focusing on the arms-restricted eigendecomposition.
+be justified. Also, Wang et al. (2019) concludes that only the pachytene
+spermatocyte showed local interactions in that viewframe (what they
+refer to as \emph{refined A/B-compartments} ), and all the other stages
+of spermatogenesis were consistent with the conventional A/B
+compartments. The reasonable thing to do is therefore to continue the
+analysis, focusing on the arms-restricted eigendecomposition.
 Nevertheless, we also keep \emph{refined} compartments in the analysis.
 
 Additionally, as I created coolers with two different sets of parsing
@@ -2104,7 +2221,7 @@ compartment edges more centered on the chromosome
 out that the non-intersecting parts of the respective regions were this
 proximal by chance. However, the Jaccard test revealed that the
 intersection between the RS100 and both Hi-\emph{P.hama} and
-Hi-\emph{P.anu} can be explained by chance alone.
+Hi-\emph{P.anu} can be explained by chance alone .
 
 \begin{figure}
 
@@ -2153,14 +2270,73 @@ Here is the discussion
 \begingroup
 \raggedright
 
-\renewcommand{\bibsection}{}
-\bibliography{../references.bib}
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-bicciato_hic_2022}
+Bicciato, Silvio, and Francesco Ferrari, eds. 2022. \emph{Hi-{C} {Data}
+{Analysis}: {Methods} and {Protocols}}. Vol. 2301. Methods in
+{Molecular} {Biology}. New York, NY: Springer US.
+\url{https://doi.org/10.1007/978-1-0716-1390-0}.
+
+\bibitem[\citeproctext]{ref-imakaev_iterative_2012}
+Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia
+Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A
+Mirny. 2012. {``Iterative Correction of {Hi}-{C} Data Reveals Hallmarks
+of Chromosome Organization.''} \emph{Nature Methods} 9 (10): 999--1003.
+\url{https://doi.org/10.1038/nmeth.2148}.
+
+\bibitem[\citeproctext]{ref-jaenike_sex_2001}
+Jaenike, John. 2001. {``Sex {Chromosome} {Meiotic} {Drive}.''}
+\emph{Annual Review of Ecology and Systematics} 32 (1): 25--49.
+\url{https://doi.org/10.1146/annurev.ecolsys.32.081501.113958}.
+
+\bibitem[\citeproctext]{ref-lajoie_hitchhikers_2015}
+Lajoie, Bryan R., Job Dekker, and Noam Kaplan. 2015. {``The
+{Hitchhiker}'s {Guide} to {Hi}-{C} {Analysis}: {Practical}
+Guidelines.''} \emph{Methods (San Diego, Calif.)} 72 (January): 65--75.
+\url{https://doi.org/10.1016/j.ymeth.2014.10.031}.
+
+\bibitem[\citeproctext]{ref-lieberman_aiden_comprehensive_2009}
+Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim
+Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009.
+{``Comprehensive {Mapping} of {Long}-{Range} {Interactions} {Reveals}
+{Folding} {Principles} of the {Human} {Genome}.''} \emph{Science} 326
+(5950): 289--93. \url{https://doi.org/10.1126/science.1181369}.
+
+\bibitem[\citeproctext]{ref-munch_group_2024}
+Munch, Kasper. 2024. {``Munch-Group.''}
+\url{https://munch-group.org/research.html}.
+
+\bibitem[\citeproctext]{ref-open2c}
+Open Chromosome Collective. 2024. {``Open {Chromosome} {Collective}
+({Open2C}).''} Resource. \emph{Open2C}. \url{https://open2c.github.io/}.
+
+\bibitem[\citeproctext]{ref-skov_extraordinary_2023}
+Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves
+Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch.
+2023. {``Extraordinary Selection on the Human {X} Chromosome Associated
+with Archaic Admixture.''} \emph{Cell Genomics} 3 (3): 100274.
+\url{https://doi.org/10.1016/j.xgen.2023.100274}.
+
+\bibitem[\citeproctext]{ref-sorensen_genome_wide_2023}
+Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran,
+Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023.
+{``Genome-Wide Coancestry Reveals Details of Ancient and Recent
+Male-Driven Reticulation in Baboons.''} \emph{Science} 380 (6648):
+eabn8153. \url{https://doi.org/10.1126/science.abn8153}.
+
+\bibitem[\citeproctext]{ref-wang_reprogramming_2019}
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan,
+Dongdong Qin, et al. 2019. {``Reprogramming of {Meiotic} {Chromatin}
+{Architecture} During {Spermatogenesis}.''} \emph{Molecular Cell} 73
+(3): 547--561.e6. \url{https://doi.org/10.1016/j.molcel.2018.11.019}.
+
+\end{CSLReferences}
 
 \endgroup
 
 
 \backmatter
-
 
 
 \end{document}
