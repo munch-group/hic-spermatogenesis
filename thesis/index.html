@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-12-27">
+<meta name="dcterms.date" content="2024-12-28">
 <meta name="keywords" content="Hi-C, Chromatin Compartments, Evolutionary pressures, Selfish gene drive">
 
 <title>Chromatin Compartments and Selection on X</title>
@@ -103,10 +103,10 @@ window.Quarto = {
 ">
 <meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Evolutionary pressures,Selfish gene drive">
 <meta name="citation_author" content="Søren Jørgensen">
-<meta name="citation_publication_date" content="2024-12-27">
-<meta name="citation_cover_date" content="2024-12-27">
+<meta name="citation_publication_date" content="2024-12-28">
+<meta name="citation_cover_date" content="2024-12-28">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-12-27">
+<meta name="citation_online_date" content="2024-12-28">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Principal components analysis corrects for stratification in genome-wide association studies;,citation_author=Alkes L Price;,citation_author=Nick J Patterson;,citation_author=Robert M Plenge;,citation_author=Michael E Weinblatt;,citation_author=Nancy A Shadick;,citation_author=David Reich;,citation_publication_date=2006-08;,citation_cover_date=2006-08;,citation_year=2006;,citation_fulltext_html_url=https://www.nature.com/articles/ng1847;,citation_issue=8;,citation_doi=10.1038/ng1847;,citation_issn=1061-4036, 1546-1718;,citation_volume=38;,citation_journal_title=Nature Genetics;">
 <meta name="citation_reference" content="citation_title=Accurate assembly of the olive baboon ( &amp;amp;amp;lt;i&amp;gt;Papio anubis&amp;lt;/i&amp;gt; ) genome using long-read and Hi-C data;,citation_abstract=AbstractBackground Baboons are a widely used nonhuman primate model for biomedical, evolutionary, and basic genetics research. Despite this importance, the genomic resources for baboons are limited. In particular, the current baboon reference genome Panu_3.0 is a highly fragmented, reference-guided (i.e., not fully de novo) assembly, and its poor quality inhibits our ability to conduct downstream genomic analyses.Findings Here we present a de novo genome assembly of the olive baboon (Papio anubis) that uses data from several recently developed single-molecule technologies. Our assembly, Panubis1.0, has an N50 contig size of ∼1.46 Mb (as opposed to 139 kb for Panu_3.0) and has single scaffolds that span each of the 20 autosomes and the X chromosome.Conclusions We highlight multiple lines of evidence (including Bionano Genomics data, pedigree linkage information, and linkage disequilibrium data) suggesting that there are several large assembly errors in Panu_3.0, which have been corrected in Panubis1.0.;,citation_author=Sanjit Singh Batra;,citation_author=Michal Levy-Sakin;,citation_author=Jacqueline Robinson;,citation_author=Joseph Guillory;,citation_author=Steffen Durinck;,citation_author=Tauras P Vilgalys;,citation_author=Pui-Yan Kwok;,citation_author=Laura A Cox;,citation_author=Somasekar Seshagiri;,citation_author=Yun S Song;,citation_author=Jeffrey D Wall;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaa134/6025063;,citation_issue=12;,citation_doi=10.1093/gigascience/giaa134;,citation_issn=2047-217X;,citation_volume=9;,citation_journal_title=GigaScience;">
@@ -159,7 +159,7 @@ window.Quarto = {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">December 27, 2024</p>
+              <p class="date">December 28, 2024</p>
             </div>
           </div>
           
@@ -232,6 +232,7 @@ window.Quarto = {
   <li><a href="#compartments-eigenvectors" id="toc-compartments-eigenvectors" class="nav-link" data-scroll-target="#compartments-eigenvectors">Compartments (Eigenvectors)</a></li>
   <li><a href="#compartment-edges-transition-zones" id="toc-compartment-edges-transition-zones" class="nav-link" data-scroll-target="#compartment-edges-transition-zones">Compartment Edges (transition zones)</a></li>
   </ul></li>
+  <li><a href="#testing-against-hybrid-incompatibility-in-baboons" id="toc-testing-against-hybrid-incompatibility-in-baboons" class="nav-link" data-scroll-target="#testing-against-hybrid-incompatibility-in-baboons">Testing against hybrid incompatibility in baboons</a></li>
   </ul></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
@@ -1345,7 +1346,7 @@ Figure&nbsp;14: Visual representation of the enrichment of edges in the intersec
 </figure>
 </div>
 </div>
-<p>We apply both proximity test and Jaccard test, to see how well the results could occur by chance (<a href="#fig-proximity-jaccard-bar" class="quarto-xref">Figure&nbsp;15</a>). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have <span class="math inline">\(p &lt; 0.05\)</span> for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) <em>and</em> the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e.&nbsp;compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding the transition window. That is, if the non-overlapping regions are <em>very</em> proximal, a larger (or shifted) to only capture the 200kb region outside of the edge.</p>
+<p>We apply both proximity test and Jaccard test, to see how well the results could occur by chance (<a href="#fig-proximity-jaccard-bar" class="quarto-xref">Figure&nbsp;15</a>). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have <span class="math inline">\(p &lt; 0.05\)</span> for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) <em>and</em> the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e.&nbsp;compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding or moving the transition window. That is, if the non-overlapping regions are <em>very</em> proximal, a larger (or shifted) window to only capture the 200kb region outside of the edge might be favourable.</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/06_rec_genomicintervals.ipynb" data-notebook-title="E1 vs. ECH (recommended params)" data-notebook-cellid="cell-fig-proximity-jaccard-bar">
 <div id="cell-fig-proximity-jaccard-bar" class="cell" data-execution_count="59">
 <div class="cell-output cell-output-display">
@@ -1362,8 +1363,49 @@ Figure&nbsp;15: Proximity and Jaccard index p-values for ECH90 regions on compar
 </div>
 </div>
 </div>
-<div style="page-break-after: always;"></div>
 </section>
+</section>
+<section id="testing-against-hybrid-incompatibility-in-baboons" class="level2">
+<h2 class="anchored" data-anchor-id="testing-against-hybrid-incompatibility-in-baboons">Testing against hybrid incompatibility in baboons</h2>
+<p>Initially, the compartment edges of round spermatid at 100kb resolution (RS100) were plotted against the lifted coordinates from a <em>P.</em> anubis-hamadryas hybrid population, where either all the sampled individuals have <em>Papio anubis</em> ancestry or 95% of the sampled individuals have <em>Papio hamadryas</em> ancestry. Their respective intersections were plotted undeneath. We expect less intersection for <em>hamadryas</em> than for <em>anubis</em> as the total set size is much smaller. The compartment edges and <em>Papio anubis</em>-derived regions(<a href="#fig-baboon-rs100-intersect" class="quarto-xref">Figure&nbsp;16</a>; b) seem to be highly enriched in the first 25 Mbp, and thus it has a high degree of intersection with the compartment edges. Interestingly, the ECH90 set is nearly empty in that region, making the finding outside the scope of this analysis, although it could be useful for determining the mechanism for selecting the <em>P.anubis</em> ancestral allele in the hybrid baboon population. The <em>P.hamadryas</em>-derived regions seem intersect the compartment edges more centered on the chromosome (<a href="#fig-baboon-rs100-intersect" class="quarto-xref">Figure&nbsp;16</a>; a). The proximity test ruled out that the non-intersecting parts of the respective regions were this proximal by chance. However, the Jaccard test revealed that the intersection between the RS100 and both Hi-<em>P.hama</em> and Hi-<em>P.anu</em> can be explained by chance alone.</p>
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/07_various_plotting.ipynb" data-notebook-title="Various Comparisons" data-notebook-cellid="cell-fig-baboon-rs100-intersect">
+<div id="fig-baboon-rs100-intersect" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-baboon-rs100-intersect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-baboon-rs100-intersect-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-baboon-rs100-intersect-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-1.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;16&nbsp;(a): P. hamadryas"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-1.png" data-ref-parent="fig-baboon-rs100-intersect" width="248" height="77" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-baboon-rs100-intersect-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) <em>P. hamadryas</em>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-baboon-rs100-intersect-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-baboon-rs100-intersect-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-2.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;16&nbsp;(b): P. anubis"><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-2.png" data-ref-parent="fig-baboon-rs100-intersect" width="248" height="77" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-baboon-rs100-intersect-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) <em>P. anubis</em>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-baboon-rs100-intersect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: Comparing the A-compartments of round spermatid (RS) with regions in baboons from hybrid population where a) 95% of sampled individuals have <em>Papio hamadryas</em> ancestry or b) 100% of the samples have <em>Papio anubis</em> ancestry. The regions are extracted and lifted from panu4.0 reference to rhemac10, then collapsed to non-overlapping intervals with <code>genominterv</code>.
+</figcaption>
+</figure>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="discussion" class="level1">
