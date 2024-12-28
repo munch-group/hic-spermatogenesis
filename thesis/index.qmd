@@ -52,21 +52,51 @@ Motivated by previous results in the Munch Research group [@munch_group_2024] on
 
 ## Our Organism of Interest, Wang et al., and the references
 
-## Extended Common Haplotypes Discoverved in Humans
+## Extended Common Haplotypes Discovered in Humans
 
-## Chromatin Conformation
+## 3C: Chromatin Conformation Capture
 
-## High-Throughput Chromosome Conformation Capture (Hi-C)
+## Hi-C: High-Throughput 3C
 
 Our DNA can be divided into different orders of structure. *3C* focus on identifying the highest orders of organization inside the nucleus, that is, when the 30 nm thick coil of chromatin fibers folds into loops, Topologically Associating Domains (TADs), and chromatin compartments. Here, we narrow our focus on the largest of the structures, *compartments*, that is known to determine availability to transcription factors, thus making an *A* compartment *active*---and the *B* compartment *inactive*. The introduction of the Hi-C (high-throughput 3C) method [@lieberman_aiden_comprehensive_2009] opened new possibilities for exploring the three-dimensional organization of the genome. 
 
 ### Hi-C Library preparation
 
+A specialized protocol for preparing the DNA library is necessary [@lieberman_aiden_comprehensive_2009; Fig. 1a]. Briefly, formaldehyde is used to crosslink spatially adjecent chromatin. Restriction enzymes are used to digest the crosslinked chromatin, leaving sticky ends that are filled and biotinylated with a polymerase. Then chimeric molecules are ligated in highly dilute conditions, where the restriction site is lost and a ligation site (also referred to as *ligation junction*) is created. Lastly, the ligation junction are isolated with streptavidin beads and sequenced as a paired-end library. 
+
+To be able to create stage-resolved Hi-C library of spermatogenetis, additional steps have to be performed. First, the samples have to be treated immediately after harvesting to ensure viable cells. Secondly, the samples have to be purified to accurately represent each stage og spermatogenesis. Specifically, the data for this project (@wang_reprogramming_2019; acc. GSE109344) preluded the library preparation protocol by sedimentation-based cell sorting to separate live spermatogenic cells into different stages of differentiation, namely spermatogonia, pachytene spermatocyte, round spermatid, and spermatozoa. Then, the cells were fixed in their respective state before crosslinking. They use their own derived method for library preparation, termed small-scale *in-situ* Hi-C, allegedly producing a high-quality Hi-C libary from as little as 500 cells (capturing the variance of millions of cells). 
+
 ### Hi-C Data Analysis
+
+The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks: We must align the reads to the reference in a way such that the *intentional* chimeric read-pairs are rescued, and *unintentional* read-pairs are discarded. That is, they represent ligation junction of adjecent chromatin segments, or they represent technical artefacts or unintentional fusions of unrelated DNA. 
 
 #### Aligning the Hi-C reads
 
+Any software for local alignment can be used for aligning reads from a Hi-C library. However, one should make sure to disable paired-end mode if possible, otherwise each read in a pair (each mate) should be aligned separately [@lajoie_hitchhikers_2015]. This removes the assumption that the distance between mates fits a known distribution because the genomic sequences originate from a continuous DNA-fragment. For example, the *bwa-mem* [ref] implementation of this (the `-P` option) activates the Smith-Waterman algorithm to rescue missing hits, but disables the search of hits that fit a 'proper' pair. After alignment, each read is assigned to the nearest restriction fragment. 
+
+
 #### Identifying and Storing Valid Hi-C Pairs
+
+One should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. We should be able to put a detected ligation event into one of five categories: dangling-end, self-circle, weird, intrachromosomal, and interchromosomal (@tbl-ligation-events) (@bicciato_hic_2022; Ch. 1).
+
+\small
+
+::: {#tbl-ligation-events .striped}
+
+| Event name        | Explanation                                             | 
+|:------------------|:--------------------------------------------------------|
+| Dangling-end      | Non-digested collinear fragments. Fraction can be high. | 
+| Self-circle       | Collinear fragment(s) have circularized. Very low fraction could indicate unsuccesful ligation.
+| Weird             | Mates have the same orientation on the reference. Is not possible with single copy fragment. Either sequencing errors or diploid fragments[^1]. |
+| Intrachromosomal  | Pairs from the same chromosome | 
+| Interchromosomal  | Pairs from distinct chromosomes |
+
+[^1]: @bicciato_hic_2022 mentions that *Drosophila* has been studied where this type of ligations are used to infer structure of sister-chromatid post-replication.
+
+Five categories of ligation events. 
+:::
+
+\normalsize
 
 #### Interaction Matrices and Quality Control
 
