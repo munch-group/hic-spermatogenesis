@@ -460,7 +460,7 @@ pressures, Selfish gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2024-12-28}
+\date{2024-12-29}
 
 \begin{document}
 \frontmatter
@@ -487,7 +487,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2024-12-28 \par}
+{\bfseries\large 2024-12-29 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -636,33 +636,66 @@ technical artefacts or unintentional fusions of unrelated DNA.
 \subsubsection{Aligning the Hi-C reads}\label{aligning-the-hi-c-reads}
 
 Any software for local alignment can be used for aligning reads from a
-Hi-C library. However, one should make sure to disable paired-end mode
-if possible, otherwise each read in a pair (each mate) should be aligned
-separately (Lajoie, Dekker, and Kaplan 2015). This removes the
+Hi-C library. However, one should make sure to disable paired-end rescue
+mode if possible, otherwise each read in a pair (each mate) should be
+aligned separately (Lajoie, Dekker, and Kaplan 2015). This removes the
 assumption that the distance between mates fits a known distribution
 because the genomic sequences originate from a continuous DNA-fragment.
 For example, the \emph{bwa-mem} {[}ref{]} implementation of this (the
 \texttt{-P} option) activates the Smith-Waterman algorithm to rescue
 missing hits, but disables the search of hits that fit a `proper' pair.
-After alignment, each read is assigned to the nearest restriction
-fragment.
+After alignment, each read is typically assigned to the nearest
+restriction fragment to enable categorization of pairs into different
+categories.
+
+Interestingly, this last step is not included by default in
+\emph{pairtools}, as {[}ref{]} observe very similar statistical
+properties on pairs that are either close or distant from the nearest
+restriction site. Thus, restriction fragment filters are not needed, and
+in stead, a simple filter is applied against short-distance pairs that
+is automatically calibrated.
 
 \subsubsection{Identifying and Storing Valid Hi-C
 Pairs}\label{identifying-and-storing-valid-hi-c-pairs}
 
 One should be cautious when filtering invalid from valid pairs, as they
 are not easily distinguished. We should be able to put a detected
-ligation event into one of five categories: dangling-end, self-circle,
-weird, intrachromosomal, and interchromosomal
-(Table~\ref{tbl-ligation-events}) (Bicciato and Ferrari (2022); Ch. 1).
+ligation event into one of five categories: \emph{dangling-end},
+\emph{self-circle}, \emph{weird}, \emph{intrachromosomal} (cis), and
+\emph{interchromosomal} (trans) (see Table~\ref{tbl-ligation-events})
+{[}Bicciato and Ferrari (2022); Ch. 1{]}. Either \emph{dangling-end} or
+\emph{self-circle} events are reported if a read-pair maps to the same
+restriction fragment, and deemed uninformative (Lajoie, Dekker, and
+Kaplan 2015). Usually, \emph{weird} events are demeed uninformative as
+well, as it is challenging to distinguish a sequencing error from the
+result of a diploid fragment\footnote{Bicciato and Ferrari (2022)
+  mentions that this type of ligations had been used to infer
+  interaction between sister-chromatids post-replication in
+  \emph{Drosophila}.}.
+
+PCR duplicates should be discarded as well, having either identical
+genomic sequence, or sharing exact 5' alignment positions of the pair
+(Lajoie, Dekker, and Kaplan 2015; Bicciato and Ferrari 2022, Ch. 1). The
+probability that such pairs are valid (i.e.~there are multiple of the
+same pairs) is very low.
+
+The \emph{trans}/\emph{cis}-ratio can be a good indicator of the noise
+level in the library, and additionally, the level of random ligation
+events can be quantified by counting the number of \emph{trans} events
+occurring to mitochondrial genome. They should not occur naturally, as
+the mitochondrial genome is separated from the DNA in the nucleus. This
+method has some pitfalls that should be controlled for; some parts of
+the mitochondrial genome can be integrated into the host genome, and
+mitochondrial count may differ between states.
 
 \small
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7500}}@{}}
-\caption{Five categories of ligation
-events.}\label{tbl-ligation-events}\tabularnewline
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1304}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8696}}@{}}
+\caption{Five categories of ligation events and a short explanation.
+\emph{Hi-C Data Analysis: Methods and Protocols Ch.
+1}.}\label{tbl-ligation-events}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Event name
@@ -687,17 +720,55 @@ Self-circle & Collinear fragment(s) have circularized. Very low fraction
 could indicate unsuccesful ligation. \\
 Weird & Mates have the same orientation on the reference. Is not
 possible with single copy fragment. Either sequencing errors or diploid
-fragments\footnote{Bicciato and Ferrari (2022) mentions that
-  \emph{Drosophila} has been studied where this type of ligations are
-  used to infer structure of sister-chromatid post-replication.}. \\
-Intrachromosomal & Pairs from the same chromosome \\
-Interchromosomal & Pairs from distinct chromosomes \\
+fragments\footnote{Bicciato and Ferrari (2022) mentions that this type
+  of ligations had been used to infer interaction between
+  sister-chromatids post-replication in \emph{Drosophila}.}. \\
+Cis & Pairs from the same chromosome (intrachromosomal) \\
+Trans & Pairs from distinct chromosomes (interchromosomal) \\
 \end{longtable}
 
 \normalsize
 
-\subsubsection{Interaction Matrices and Quality
-Control}\label{interaction-matrices-and-quality-control}
+\subsubsection{Quality Control and Interaction
+Matrices}\label{quality-control-and-interaction-matrices}
+
+To determine the quality of the Hi-C library, most tools generate
+quality control log files at some point during the filtering steps,
+which can then be aggregated and analyzed (with e.g.~MultiQC {[}ref{]}).
+The ratios between the different ligation events can be informative
+about the quality of the Hi-C library. Here, both the distribution of
+discarded reads across categories, as well as the ratios between
+\emph{cis}/\emph{trans} interactions for a certain organism provide
+information about the library. For example, the biases of different
+aligners might be captured by comparing the reason why reads are
+discarded between two different aligners, as well as if there is a
+preference of \emph{cis} or \emph{trans} in an alinger itself. This
+allows us to evaluate the mapping parameters as well as the filters
+applied downstream.
+
+Typically, a filter against low mapping quality is applied on the data
+before constructing the interaction matrix (Hi-C matrix), and a
+conventional threshold is \(mapq < 30\) (Bicciato and Ferrari 2022).
+However, a considerable amount of reads do not pass that threshold, and
+thus one risks to discard potential valid information and should make
+sure to have enough data. Consequently, \emph{HicExplorer} defaults a
+lower threshold (\(mapq < 15\)), and \emph{pairtools} enforces no
+filter, but recommends setting this manually (starting at
+\(mapq < 30\)).
+
+Ultra-deep sequencing is required if one is to store the interaction
+matrix at the restriction fragment resolution, and usually, such high
+resolution is not required. Therefore, it is practice to bin the genome
+into fixed bin sizes, which also enables a more efficient handling of
+the data if the full resolution is not needed (e.g.~when plotting large
+regions such as a whole chromosome). The conventional format to store a
+Hi-C matrix, consisting of large multidimensional arrays, is HDF5. Each
+HDF5 file can store all resolutions and metadata about the sample,
+resolutions typically ranging from 40kb to 1Mb. Additionally,
+\emph{cooler} {[}ref{]} enforces conventions about the naming of the
+groups among other things in their .h5-wrapping file format
+\emph{.cool}, and they provide a Python class \texttt{Cooler} as well
+for efficiently fetching and manipulating the files in Python.
 
 \subsubsection{Calling Compartments
 (ICE)}\label{calling-compartments-ice}

@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-12-28">
+<meta name="dcterms.date" content="2024-12-29">
 <meta name="keywords" content="Hi-C, Chromatin Compartments, Evolutionary pressures, Selfish gene drive">
 
 <title>Chromatin Compartments and Selection on X</title>
@@ -103,10 +103,10 @@ window.Quarto = {
 ">
 <meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Evolutionary pressures,Selfish gene drive">
 <meta name="citation_author" content="Søren Jørgensen">
-<meta name="citation_publication_date" content="2024-12-28">
-<meta name="citation_cover_date" content="2024-12-28">
+<meta name="citation_publication_date" content="2024-12-29">
+<meta name="citation_cover_date" content="2024-12-29">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-12-28">
+<meta name="citation_online_date" content="2024-12-29">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Principal components analysis corrects for stratification in genome-wide association studies;,citation_author=Alkes L Price;,citation_author=Nick J Patterson;,citation_author=Robert M Plenge;,citation_author=Michael E Weinblatt;,citation_author=Nancy A Shadick;,citation_author=David Reich;,citation_publication_date=2006-08;,citation_cover_date=2006-08;,citation_year=2006;,citation_fulltext_html_url=https://www.nature.com/articles/ng1847;,citation_issue=8;,citation_doi=10.1038/ng1847;,citation_issn=1061-4036, 1546-1718;,citation_volume=38;,citation_journal_title=Nature Genetics;">
 <meta name="citation_reference" content="citation_title=Accurate assembly of the olive baboon ( &amp;amp;amp;lt;i&amp;gt;Papio anubis&amp;lt;/i&amp;gt; ) genome using long-read and Hi-C data;,citation_abstract=AbstractBackground Baboons are a widely used nonhuman primate model for biomedical, evolutionary, and basic genetics research. Despite this importance, the genomic resources for baboons are limited. In particular, the current baboon reference genome Panu_3.0 is a highly fragmented, reference-guided (i.e., not fully de novo) assembly, and its poor quality inhibits our ability to conduct downstream genomic analyses.Findings Here we present a de novo genome assembly of the olive baboon (Papio anubis) that uses data from several recently developed single-molecule technologies. Our assembly, Panubis1.0, has an N50 contig size of ∼1.46 Mb (as opposed to 139 kb for Panu_3.0) and has single scaffolds that span each of the 20 autosomes and the X chromosome.Conclusions We highlight multiple lines of evidence (including Bionano Genomics data, pedigree linkage information, and linkage disequilibrium data) suggesting that there are several large assembly errors in Panu_3.0, which have been corrected in Panubis1.0.;,citation_author=Sanjit Singh Batra;,citation_author=Michal Levy-Sakin;,citation_author=Jacqueline Robinson;,citation_author=Joseph Guillory;,citation_author=Steffen Durinck;,citation_author=Tauras P Vilgalys;,citation_author=Pui-Yan Kwok;,citation_author=Laura A Cox;,citation_author=Somasekar Seshagiri;,citation_author=Yun S Song;,citation_author=Jeffrey D Wall;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaa134/6025063;,citation_issue=12;,citation_doi=10.1093/gigascience/giaa134;,citation_issn=2047-217X;,citation_volume=9;,citation_journal_title=GigaScience;">
@@ -159,7 +159,7 @@ window.Quarto = {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">December 28, 2024</p>
+              <p class="date">December 29, 2024</p>
             </div>
           </div>
           
@@ -284,21 +284,24 @@ window.Quarto = {
 <p>The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks: We must align the reads to the reference in a way such that the <em>intentional</em> chimeric read-pairs are rescued, and <em>unintentional</em> read-pairs are discarded. That is, they represent ligation junction of adjecent chromatin segments, or they represent technical artefacts or unintentional fusions of unrelated DNA.</p>
 <section id="aligning-the-hi-c-reads" class="level4">
 <h4 class="anchored" data-anchor-id="aligning-the-hi-c-reads">Aligning the Hi-C reads</h4>
-<p>Any software for local alignment can be used for aligning reads from a Hi-C library. However, one should make sure to disable paired-end mode if possible, otherwise each read in a pair (each mate) should be aligned separately <span class="citation" data-cites="lajoie_hitchhikers_2015">(<a href="#ref-lajoie_hitchhikers_2015" role="doc-biblioref">Lajoie, Dekker, and Kaplan 2015</a>)</span>. This removes the assumption that the distance between mates fits a known distribution because the genomic sequences originate from a continuous DNA-fragment. For example, the <em>bwa-mem</em> [ref] implementation of this (the <code>-P</code> option) activates the Smith-Waterman algorithm to rescue missing hits, but disables the search of hits that fit a ‘proper’ pair. After alignment, each read is assigned to the nearest restriction fragment.</p>
+<p>Any software for local alignment can be used for aligning reads from a Hi-C library. However, one should make sure to disable paired-end rescue mode if possible, otherwise each read in a pair (each mate) should be aligned separately <span class="citation" data-cites="lajoie_hitchhikers_2015">(<a href="#ref-lajoie_hitchhikers_2015" role="doc-biblioref">Lajoie, Dekker, and Kaplan 2015</a>)</span>. This removes the assumption that the distance between mates fits a known distribution because the genomic sequences originate from a continuous DNA-fragment. For example, the <em>bwa-mem</em> [ref] implementation of this (the <code>-P</code> option) activates the Smith-Waterman algorithm to rescue missing hits, but disables the search of hits that fit a ‘proper’ pair. After alignment, each read is typically assigned to the nearest restriction fragment to enable categorization of pairs into different categories.</p>
+<p>Interestingly, this last step is not included by default in <em>pairtools</em>, as [ref] observe very similar statistical properties on pairs that are either close or distant from the nearest restriction site. Thus, restriction fragment filters are not needed, and in stead, a simple filter is applied against short-distance pairs that is automatically calibrated.</p>
 </section>
 <section id="identifying-and-storing-valid-hi-c-pairs" class="level4">
 <h4 class="anchored" data-anchor-id="identifying-and-storing-valid-hi-c-pairs">Identifying and Storing Valid Hi-C Pairs</h4>
-<p>One should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. We should be able to put a detected ligation event into one of five categories: dangling-end, self-circle, weird, intrachromosomal, and interchromosomal (<a href="#tbl-ligation-events" class="quarto-xref">Table&nbsp;1</a>) (<span class="citation" data-cites="bicciato_hic_2022">Bicciato and Ferrari (<a href="#ref-bicciato_hic_2022" role="doc-biblioref">2022</a>)</span>; Ch. 1).</p>
+<p>One should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. We should be able to put a detected ligation event into one of five categories: <em>dangling-end</em>, <em>self-circle</em>, <em>weird</em>, <em>intrachromosomal</em> (cis), and <em>interchromosomal</em> (trans) (see <a href="#tbl-ligation-events" class="quarto-xref">Table&nbsp;1</a>) [<span class="citation" data-cites="bicciato_hic_2022">Bicciato and Ferrari (<a href="#ref-bicciato_hic_2022" role="doc-biblioref">2022</a>)</span>; Ch. 1]. Either <em>dangling-end</em> or <em>self-circle</em> events are reported if a read-pair maps to the same restriction fragment, and deemed uninformative <span class="citation" data-cites="lajoie_hitchhikers_2015">(<a href="#ref-lajoie_hitchhikers_2015" role="doc-biblioref">Lajoie, Dekker, and Kaplan 2015</a>)</span>. Usually, <em>weird</em> events are demeed uninformative as well, as it is challenging to distinguish a sequencing error from the result of a diploid fragment<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>PCR duplicates should be discarded as well, having either identical genomic sequence, or sharing exact 5’ alignment positions of the pair <span class="citation" data-cites="lajoie_hitchhikers_2015 bicciato_hic_2022">(<a href="#ref-lajoie_hitchhikers_2015" role="doc-biblioref">Lajoie, Dekker, and Kaplan 2015</a>; <a href="#ref-bicciato_hic_2022" role="doc-biblioref">Bicciato and Ferrari 2022</a>, Ch. 1)</span>. The probability that such pairs are valid (i.e.&nbsp;there are multiple of the same pairs) is very low.</p>
+<p>The <em>trans</em>/<em>cis</em>-ratio can be a good indicator of the noise level in the library, and additionally, the level of random ligation events can be quantified by counting the number of <em>trans</em> events occurring to mitochondrial genome. They should not occur naturally, as the mitochondrial genome is separated from the DNA in the nucleus. This method has some pitfalls that should be controlled for; some parts of the mitochondrial genome can be integrated into the host genome, and mitochondrial count may differ between states.</p>
 <div id="tbl-ligation-events" class="striped quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ligation-events-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Five categories of ligation events.
+Table&nbsp;1: Five categories of ligation events and a short explanation. <em>Hi-C Data Analysis: Methods and Protocols Ch. 1</em>.
 </figcaption>
 <div aria-describedby="tbl-ligation-events-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table-striped caption-top table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 75%">
+<col style="width: 13%">
+<col style="width: 86%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -317,15 +320,15 @@ Table&nbsp;1: Five categories of ligation events.
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Weird</td>
-<td style="text-align: left;">Mates have the same orientation on the reference. Is not possible with single copy fragment. Either sequencing errors or diploid fragments<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</td>
+<td style="text-align: left;">Mates have the same orientation on the reference. Is not possible with single copy fragment. Either sequencing errors or diploid fragments<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Intrachromosomal</td>
-<td style="text-align: left;">Pairs from the same chromosome</td>
+<td style="text-align: left;">Cis</td>
+<td style="text-align: left;">Pairs from the same chromosome (intrachromosomal)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Interchromosomal</td>
-<td style="text-align: left;">Pairs from distinct chromosomes</td>
+<td style="text-align: left;">Trans</td>
+<td style="text-align: left;">Pairs from distinct chromosomes (interchromosomal)</td>
 </tr>
 </tbody>
 </table>
@@ -333,8 +336,11 @@ Table&nbsp;1: Five categories of ligation events.
 </figure>
 </div>
 </section>
-<section id="interaction-matrices-and-quality-control" class="level4">
-<h4 class="anchored" data-anchor-id="interaction-matrices-and-quality-control">Interaction Matrices and Quality Control</h4>
+<section id="quality-control-and-interaction-matrices" class="level4">
+<h4 class="anchored" data-anchor-id="quality-control-and-interaction-matrices">Quality Control and Interaction Matrices</h4>
+<p>To determine the quality of the Hi-C library, most tools generate quality control log files at some point during the filtering steps, which can then be aggregated and analyzed (with e.g.&nbsp;MultiQC [ref]). The ratios between the different ligation events can be informative about the quality of the Hi-C library. Here, both the distribution of discarded reads across categories, as well as the ratios between <em>cis</em>/<em>trans</em> interactions for a certain organism provide information about the library. For example, the biases of different aligners might be captured by comparing the reason why reads are discarded between two different aligners, as well as if there is a preference of <em>cis</em> or <em>trans</em> in an alinger itself. This allows us to evaluate the mapping parameters as well as the filters applied downstream.</p>
+<p>Typically, a filter against low mapping quality is applied on the data before constructing the interaction matrix (Hi-C matrix), and a conventional threshold is <span class="math inline">\(mapq &lt; 30\)</span> <span class="citation" data-cites="bicciato_hic_2022">(<a href="#ref-bicciato_hic_2022" role="doc-biblioref">Bicciato and Ferrari 2022</a>)</span>. However, a considerable amount of reads do not pass that threshold, and thus one risks to discard potential valid information and should make sure to have enough data. Consequently, <em>HicExplorer</em> defaults a lower threshold (<span class="math inline">\(mapq &lt; 15\)</span>), and <em>pairtools</em> enforces no filter, but recommends setting this manually (starting at <span class="math inline">\(mapq &lt; 30\)</span>).</p>
+<p>Ultra-deep sequencing is required if one is to store the interaction matrix at the restriction fragment resolution, and usually, such high resolution is not required. Therefore, it is practice to bin the genome into fixed bin sizes, which also enables a more efficient handling of the data if the full resolution is not needed (e.g.&nbsp;when plotting large regions such as a whole chromosome). The conventional format to store a Hi-C matrix, consisting of large multidimensional arrays, is HDF5. Each HDF5 file can store all resolutions and metadata about the sample, resolutions typically ranging from 40kb to 1Mb. Additionally, <em>cooler</em> [ref] enforces conventions about the naming of the groups among other things in their .h5-wrapping file format <em>.cool</em>, and they provide a Python class <code>Cooler</code> as well for efficiently fetching and manipulating the files in Python.</p>
 </section>
 <section id="calling-compartments-ice" class="level4">
 <h4 class="anchored" data-anchor-id="calling-compartments-ice">Calling Compartments (ICE)</h4>
@@ -1500,7 +1506,8 @@ Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin,
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p><span class="citation" data-cites="bicciato_hic_2022">Bicciato and Ferrari (<a href="#ref-bicciato_hic_2022" role="doc-biblioref">2022</a>)</span> mentions that <em>Drosophila</em> has been studied where this type of ligations are used to infer structure of sister-chromatid post-replication.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p><span class="citation" data-cites="bicciato_hic_2022">Bicciato and Ferrari (<a href="#ref-bicciato_hic_2022" role="doc-biblioref">2022</a>)</span> mentions that this type of ligations had been used to infer interaction between sister-chromatids post-replication in <em>Drosophila</em>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><span class="citation" data-cites="bicciato_hic_2022">Bicciato and Ferrari (<a href="#ref-bicciato_hic_2022" role="doc-biblioref">2022</a>)</span> mentions that this type of ligations had been used to infer interaction between sister-chromatids post-replication in <em>Drosophila</em>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main>
 <!-- /main column -->
