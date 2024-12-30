@@ -314,7 +314,7 @@ window.Quarto = {
   <ul>
   <li><a href="#inlinebackend.rc" id="toc-inlinebackend.rc" class="nav-link" data-scroll-target="#inlinebackend.rc"><code>InlineBackend.rc</code></a></li>
   </ul></li>
-  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data">Load the data</a></li>
+  <li><a href="#import-compartments" id="toc-import-compartments" class="nav-link" data-scroll-target="#import-compartments">Import compartments</a></li>
   <li><a href="#time-to-unleash-genominterv-on-the-.csv-files" id="toc-time-to-unleash-genominterv-on-the-.csv-files" class="nav-link" data-scroll-target="#time-to-unleash-genominterv-on-the-.csv-files">Time to unleash <code>genominterv</code> on the .csv files</a>
   <ul>
   <li><a href="#define-a-plotting-function" id="toc-define-a-plotting-function" class="nav-link" data-scroll-target="#define-a-plotting-function">Define a plotting function</a></li>
@@ -326,6 +326,7 @@ window.Quarto = {
   <ul>
   <li><a href="#do-testing-of-the-edges" id="toc-do-testing-of-the-edges" class="nav-link" data-scroll-target="#do-testing-of-the-edges">Do testing of the edges</a>
   <ul class="collapse">
+  <li><a href="#parallelize-the-proximity-ttest-set-samples-100_000" id="toc-parallelize-the-proximity-ttest-set-samples-100_000" class="nav-link" data-scroll-target="#parallelize-the-proximity-ttest-set-samples-100_000">Parallelize the proximity ttest, set samples = 100_000</a></li>
   <li><a href="#parallelize-the-jaccard-test" id="toc-parallelize-the-jaccard-test" class="nav-link" data-scroll-target="#parallelize-the-jaccard-test">Parallelize the Jaccard test</a></li>
   </ul></li>
   </ul></li>
@@ -384,7 +385,7 @@ window.Quarto = {
 <section id="inlinebackend.rc" class="level3">
 <h3 class="anchored" data-anchor-id="inlinebackend.rc"><code>InlineBackend.rc</code></h3>
 <p>For consistent plots that fit with pdf manus.</p>
-<div id="cell-4" class="cell" data-execution_count="3">
+<div id="cell-4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define my params:</span></span>
@@ -408,13 +409,13 @@ window.Quarto = {
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_formats <span class="op">=</span> [<span class="st">'retina'</span>]</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.rc <span class="op">=</span> notebook_rcparams</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="4">
+<div id="cell-5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({key:plt.rcParams[key] <span class="cf">for</span> key <span class="kw">in</span> notebook_rcparams.keys()})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'font.size': 10.0, 'axes.titlesize': 'large', 'axes.labelsize': 'medium', 'xtick.labelsize': 'medium', 'ytick.labelsize': 'medium', 'figure.titlesize': 'large', 'figure.figsize': [6.4, 4.8], 'figure.labelsize': 'large', 'legend.fontsize': 'medium'}</code></pre>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="5">
+<div id="cell-6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Apparently IPython needs this twice to understand?? </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -439,7 +440,7 @@ window.Quarto = {
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_formats <span class="op">=</span> [<span class="st">'retina'</span>]</span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.rc <span class="op">=</span> notebook_rcparams</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="6">
+<div id="cell-7" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({key:plt.rcParams[key] <span class="cf">for</span> key <span class="kw">in</span> notebook_rcparams.keys()})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'font.size': 7.0, 'axes.titlesize': 8.0, 'axes.labelsize': 7.0, 'xtick.labelsize': 6.0, 'ytick.labelsize': 6.0, 'figure.titlesize': 9.0, 'figure.figsize': [6.0, 2.0], 'figure.labelsize': 7.0, 'legend.fontsize': 6.0}</code></pre>
@@ -447,9 +448,9 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="load-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="load-the-data">Load the data</h2>
-<div id="cell-9" class="cell" data-execution_count="7">
+<section id="import-compartments" class="level2">
+<h2 class="anchored" data-anchor-id="import-compartments">Import compartments</h2>
+<div id="cell-9" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -493,7 +494,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="time-to-unleash-genominterv-on-the-.csv-files">Time to unleash <code>genominterv</code> on the .csv files</h2>
 <section id="define-a-plotting-function" class="level3">
 <h3 class="anchored" data-anchor-id="define-a-plotting-function">Define a plotting function</h3>
-<div id="cell-12" class="cell" data-execution_count="2">
+<div id="cell-12" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kaspers plotting function</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -561,7 +562,7 @@ window.Quarto = {
 <span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>        axes[i].set_title(chrom, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="34">
+<div id="cell-13" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># My plotting function</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -631,7 +632,7 @@ window.Quarto = {
 <span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
 <span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="4">
+<div id="cell-14" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define my params:</span></span>
@@ -654,10 +655,10 @@ window.Quarto = {
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_formats <span class="op">=</span> [<span class="st">'retina'</span>]</span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.rc <span class="op">=</span> notebook_rcparams</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="5">
+<div id="cell-15" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({key:plt.rcParams[key] <span class="cf">for</span> key <span class="kw">in</span> notebook_rcparams.keys()})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'font.size': 10.0, 'axes.titlesize': 'large', 'axes.labelsize': 'medium', 'xtick.labelsize': 'medium', 'ytick.labelsize': 'medium', 'figure.titlesize': 'large', 'figure.figsize': [6.4, 4.8], 'figure.labelsize': 'large'}</code></pre>
+<pre><code>{'font.size': 7.0, 'axes.titlesize': 8.0, 'axes.labelsize': 7.0, 'xtick.labelsize': 6.0, 'ytick.labelsize': 6.0, 'figure.titlesize': 9.0, 'figure.figsize': [6.0, 2.0], 'figure.labelsize': 7.0}</code></pre>
 </div>
 </div>
 <div id="cell-16" class="cell" data-execution_count="6">
@@ -956,7 +957,7 @@ Jaccard: 0.046543092859550536
 </section>
 <section id="import-edges" class="level2">
 <h2 class="anchored" data-anchor-id="import-edges">Import edges</h2>
-<div id="cell-28" class="cell" data-execution_count="17">
+<div id="cell-28" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -989,7 +990,7 @@ Jaccard: 0.046543092859550536
 Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code></pre>
 </div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="18">
+<div id="cell-29" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_intersect</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> dataframes.keys()</span>
@@ -1021,7 +1022,7 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_regions(ech90, edge_df, edge_intersect)</span></span>
 <span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.suptitle('Edges only')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="19">
+<div id="cell-30" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Some stats about the data and intersections </span><span class="al">###</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> pd.DataFrame({</span>
@@ -1040,46 +1041,9 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co">#df[['Source', 'Rest']] = df['Sample'].str.extract(r'^(.*?)(_\d+\w+.*)')</span></span>
 <span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>stats[[<span class="st">'source'</span>, <span class="st">'res'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>]] <span class="op">=</span> stats[<span class="st">'Sample'</span>].<span class="bu">str</span>.extract(<span class="vs">r'^(.*?)_(100kb|500kb)_(full|arms|10Mb)(?:_(smoothed))?$'</span>)</span>
 <span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>stats[<span class="st">'smoothed'</span>] <span class="op">=</span> stats[<span class="st">'smoothed'</span>].notna() <span class="co"># Convert to boolean</span></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>stats[[<span class="st">'Sample'</span>,<span class="st">'source'</span>, <span class="st">'res'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>,<span class="st">'Prop regions on ECH90'</span>, <span class="st">'Prop bp on ECH90'</span>]]</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="co"># # Determine the proportion of total regions in ECH90 that lies on compartments</span></span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Proportion of ECH90 on: (#count)")</span></span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a><span class="co"># # Proportion of ECH90 on full regions</span></span>
-<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tFull: {full_intersect.shape[0] / ech90.shape[0]}')</span></span>
-<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tEdge: {edge_intersect.shape[0] / ech90.shape[0]}')</span></span>
-<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nProportion of ECH90: (#bpairs)")</span></span>
-<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a><span class="co"># # Proportion of ECH90 on full regions</span></span>
-<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tFull: {full_intersect['length'].sum() / ech90['length'].sum()}')</span></span>
-<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tEdge: {edge_intersect['length'].sum() / ech90['length'].sum()}')</span></span>
-<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a><span class="co"># # Determine the proportion of total regions in ECH90 that lies on compartment edges</span></span>
-<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a><span class="co"># # What is the total length of ech90 regions and edges</span></span>
-<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nTotal length of:")</span></span>
-<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tECH90:   {(ech90['end'] - ech90['start']).sum()} bp')</span></span>
-<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tEdge:   {(edge_df["end"] - edge_df["start"]).sum()} bp')</span></span>
-<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f'\tFull:   {(full_df["end"] - full_df["start"]).sum()} bp')</span></span>
-<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
-<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="co"># f, ax = plot_regions(ech90, edge_df, full_intersect)</span></span>
-<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a><span class="co"># for ax in list(f.axes):</span></span>
-<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a><span class="co">#     if ax.get_ylabel() == 'ECH90':</span></span>
-<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a><span class="co">#         #ax.set_ylabel('Edges', rotation=0, fontsize=10, labelpad=30)</span></span>
-<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a><span class="co">#         pass</span></span>
-<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a><span class="co">#     if ax.get_ylabel() in ("query", "A-Comp"):</span></span>
-<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a><span class="co">#         ax.set_ylabel('Edges', rotation=0, fontsize=10, labelpad=30)</span></span>
-<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a><span class="co">#     if ax.get_ylabel() == 'Intersect':</span></span>
-<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a><span class="co">#         #ax.set_ylabel('end_edge \nintersect', rotation=0, fontsize=10, labelpad=30)</span></span>
-<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a><span class="co">#         pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>stats[[<span class="st">'source'</span>, <span class="st">'res'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>,<span class="st">'Prop regions on ECH90'</span>, <span class="st">'Prop bp on ECH90'</span>]]</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -1087,7 +1051,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Sample</th>
 <th data-quarto-table-cell-role="th">source</th>
 <th data-quarto-table-cell-role="th">res</th>
 <th data-quarto-table-cell-role="th">view</th>
@@ -1099,7 +1062,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>spermatogonia_500kb_arms</td>
 <td>spermatogonia</td>
 <td>500kb</td>
 <td>arms</td>
@@ -1109,7 +1071,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>round_spermatid_500kb_full</td>
 <td>round_spermatid</td>
 <td>500kb</td>
 <td>full</td>
@@ -1119,7 +1080,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>fibroblast_500kb_full</td>
 <td>fibroblast</td>
 <td>500kb</td>
 <td>full</td>
@@ -1129,7 +1089,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>pachytene_spermatocyte_100kb_arms_smoothed</td>
 <td>pachytene_spermatocyte</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1139,7 +1098,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>pachytene_spermatocyte_500kb_full</td>
 <td>pachytene_spermatocyte</td>
 <td>500kb</td>
 <td>full</td>
@@ -1149,7 +1107,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
-<td>pachytene_spermatocyte_100kb_full</td>
 <td>pachytene_spermatocyte</td>
 <td>100kb</td>
 <td>full</td>
@@ -1159,7 +1116,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
-<td>round_spermatid_100kb_arms_smoothed</td>
 <td>round_spermatid</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1169,7 +1125,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
-<td>fibroblast_100kb_arms_smoothed</td>
 <td>fibroblast</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1179,7 +1134,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
-<td>fibroblast_100kb_full</td>
 <td>fibroblast</td>
 <td>100kb</td>
 <td>full</td>
@@ -1189,7 +1143,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
-<td>round_spermatid_100kb_full</td>
 <td>round_spermatid</td>
 <td>100kb</td>
 <td>full</td>
@@ -1199,7 +1152,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
-<td>spermatogonia_100kb_arms</td>
 <td>spermatogonia</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1209,7 +1161,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">11</td>
-<td>spermatogonia_100kb_10Mb</td>
 <td>spermatogonia</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1219,7 +1170,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">12</td>
-<td>sperm_100kb_full</td>
 <td>sperm</td>
 <td>100kb</td>
 <td>full</td>
@@ -1229,7 +1179,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">13</td>
-<td>sperm_100kb_arms_smoothed</td>
 <td>sperm</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1239,7 +1188,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">14</td>
-<td>spermatogonia_500kb_10Mb</td>
 <td>spermatogonia</td>
 <td>500kb</td>
 <td>10Mb</td>
@@ -1249,7 +1197,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">15</td>
-<td>sperm_500kb_full</td>
 <td>sperm</td>
 <td>500kb</td>
 <td>full</td>
@@ -1259,7 +1206,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">16</td>
-<td>spermatogonia_100kb_arms_smoothed</td>
 <td>spermatogonia</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1269,7 +1215,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">17</td>
-<td>pachytene_spermatocyte_100kb_10Mb</td>
 <td>pachytene_spermatocyte</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1279,7 +1224,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">18</td>
-<td>round_spermatid_100kb_10Mb</td>
 <td>round_spermatid</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1289,7 +1233,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">19</td>
-<td>round_spermatid_100kb_10Mb_smoothed</td>
 <td>round_spermatid</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1299,7 +1242,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">20</td>
-<td>fibroblast_100kb_10Mb</td>
 <td>fibroblast</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1309,7 +1251,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">21</td>
-<td>fibroblast_100kb_10Mb_smoothed</td>
 <td>fibroblast</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1319,7 +1260,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">22</td>
-<td>fibroblast_100kb_full_smoothed</td>
 <td>fibroblast</td>
 <td>100kb</td>
 <td>full</td>
@@ -1329,7 +1269,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">23</td>
-<td>sperm_100kb_arms</td>
 <td>sperm</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1339,7 +1278,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">24</td>
-<td>round_spermatid_100kb_full_smoothed</td>
 <td>round_spermatid</td>
 <td>100kb</td>
 <td>full</td>
@@ -1349,7 +1287,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">25</td>
-<td>fibroblast_500kb_10Mb</td>
 <td>fibroblast</td>
 <td>500kb</td>
 <td>10Mb</td>
@@ -1359,7 +1296,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">26</td>
-<td>round_spermatid_500kb_10Mb</td>
 <td>round_spermatid</td>
 <td>500kb</td>
 <td>10Mb</td>
@@ -1369,7 +1305,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">27</td>
-<td>sperm_500kb_arms</td>
 <td>sperm</td>
 <td>500kb</td>
 <td>arms</td>
@@ -1379,7 +1314,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">28</td>
-<td>pachytene_spermatocyte_100kb_10Mb_smoothed</td>
 <td>pachytene_spermatocyte</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1389,7 +1323,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">29</td>
-<td>pachytene_spermatocyte_500kb_10Mb</td>
 <td>pachytene_spermatocyte</td>
 <td>500kb</td>
 <td>10Mb</td>
@@ -1399,7 +1332,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">30</td>
-<td>pachytene_spermatocyte_100kb_full_smoothed</td>
 <td>pachytene_spermatocyte</td>
 <td>100kb</td>
 <td>full</td>
@@ -1409,7 +1341,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">31</td>
-<td>round_spermatid_500kb_arms</td>
 <td>round_spermatid</td>
 <td>500kb</td>
 <td>arms</td>
@@ -1419,7 +1350,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">32</td>
-<td>spermatogonia_500kb_full</td>
 <td>spermatogonia</td>
 <td>500kb</td>
 <td>full</td>
@@ -1429,7 +1359,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">33</td>
-<td>fibroblast_500kb_arms</td>
 <td>fibroblast</td>
 <td>500kb</td>
 <td>arms</td>
@@ -1439,7 +1368,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">34</td>
-<td>spermatogonia_100kb_10Mb_smoothed</td>
 <td>spermatogonia</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1449,7 +1377,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">35</td>
-<td>spermatogonia_100kb_full_smoothed</td>
 <td>spermatogonia</td>
 <td>100kb</td>
 <td>full</td>
@@ -1459,7 +1386,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">36</td>
-<td>sperm_500kb_10Mb</td>
 <td>sperm</td>
 <td>500kb</td>
 <td>10Mb</td>
@@ -1469,7 +1395,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">37</td>
-<td>pachytene_spermatocyte_500kb_arms</td>
 <td>pachytene_spermatocyte</td>
 <td>500kb</td>
 <td>arms</td>
@@ -1479,7 +1404,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">38</td>
-<td>pachytene_spermatocyte_100kb_arms</td>
 <td>pachytene_spermatocyte</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1489,7 +1413,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">39</td>
-<td>sperm_100kb_10Mb_smoothed</td>
 <td>sperm</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1499,7 +1422,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">40</td>
-<td>sperm_100kb_full_smoothed</td>
 <td>sperm</td>
 <td>100kb</td>
 <td>full</td>
@@ -1509,7 +1431,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">41</td>
-<td>fibroblast_100kb_arms</td>
 <td>fibroblast</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1519,7 +1440,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">42</td>
-<td>spermatogonia_100kb_full</td>
 <td>spermatogonia</td>
 <td>100kb</td>
 <td>full</td>
@@ -1529,7 +1449,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">43</td>
-<td>round_spermatid_100kb_arms</td>
 <td>round_spermatid</td>
 <td>100kb</td>
 <td>arms</td>
@@ -1539,7 +1458,6 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">44</td>
-<td>sperm_100kb_10Mb</td>
 <td>sperm</td>
 <td>100kb</td>
 <td>10Mb</td>
@@ -1560,7 +1478,7 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </div>
 <section id="do-testing-of-the-edges" class="level3">
 <h3 class="anchored" data-anchor-id="do-testing-of-the-edges">Do testing of the edges</h3>
-<div id="cell-33" class="cell" data-execution_count="28">
+<div id="cell-33" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define what we are testing</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1671,8 +1589,9 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb30-83"><a href="#cb30-83" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_full = proximity_test(non_ovl_query_full, annot, two_sided=True)</span></span>
 <span id="cb30-84"><a href="#cb30-84" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tstatistic: {proximity_full.statistic}, \n\tp-value: {proximity_full.pvalue}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Parallelize the proximity ttest, set samples = 100_000</p>
-<div id="cell-36" class="cell" data-execution_count="30">
+<section id="parallelize-the-proximity-ttest-set-samples-100_000" class="level4">
+<h4 class="anchored" data-anchor-id="parallelize-the-proximity-ttest-set-samples-100_000">Parallelize the proximity ttest, set samples = 100_000</h4>
+<div id="cell-36" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> joblib <span class="im">import</span> Parallel, delayed</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
@@ -1814,9 +1733,10 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb32-81"><a href="#cb32-81" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"Edge_df is bootstrapped n={b}")</span></span>
 <span id="cb32-82"><a href="#cb32-82" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"\tIndex: {jaccard_stat_full}, \n\tp-value: {p_value_full}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="parallelize-the-jaccard-test" class="level4">
 <h4 class="anchored" data-anchor-id="parallelize-the-jaccard-test">Parallelize the Jaccard test</h4>
-<div id="cell-40" class="cell" data-execution_count="32">
+<div id="cell-39" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> joblib <span class="im">import</span> Parallel, delayed</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
@@ -1892,7 +1812,7 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 </section>
 <section id="plot-some-summary-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="plot-some-summary-statistics">Plot some summary statistics</h2>
-<div id="cell-42" class="cell" data-execution_count="33">
+<div id="cell-41" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split sample column:</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>proximity_res <span class="op">=</span> pd.read_csv(proximity_file)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1905,7 +1825,7 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">'Comp P-value'</span>, <span class="st">'Edge P-value'</span>], </span>
 <span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>     var_name<span class="op">=</span><span class="st">'type'</span>, value_name<span class="op">=</span><span class="st">'p-value'</span>,).query(<span class="st">'Query == "ECH90"'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-43" class="cell" data-execution_count="34">
+<div id="cell-42" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -1951,12 +1871,12 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-30-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="06_rec_genomicintervals_files/figure-html/cell-30-output-1.png" width="573" height="497" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-29-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="06_rec_genomicintervals_files/figure-html/cell-29-output-1.png" width="573" height="497" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="35">
+<div id="cell-43" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now do the same for the Jaccard index</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>jaccard_res <span class="op">=</span> pd.read_csv(jaccard_file)</span>
@@ -1971,7 +1891,7 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    var_name<span class="op">=</span><span class="st">'type'</span>, value_name<span class="op">=</span><span class="st">'p-value'</span>,).query(<span class="st">'Query == "ECH90"'</span>)</span>
 <span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-45" class="cell" data-execution_count="36">
+<div id="cell-44" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>source_order <span class="op">=</span> [<span class="st">'Fib'</span>, <span class="st">'SP'</span>, <span class="st">'PAC'</span>, <span class="st">'RS'</span>, <span class="st">'Sperm'</span>]</span>
@@ -2013,7 +1933,7 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-32-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="06_rec_genomicintervals_files/figure-html/cell-32-output-1.png" width="565" height="497" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-31-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="06_rec_genomicintervals_files/figure-html/cell-31-output-1.png" width="565" height="497" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2078,7 +1998,7 @@ Figure&nbsp;7.1: Proximity and Jaccard index p-values for ECH90 regions on compa
 <section id="plot-all-cominations-of-the-parameters" class="level2">
 <h2 class="anchored" data-anchor-id="plot-all-cominations-of-the-parameters">Plot all cominations of the parameters</h2>
 <p>Avoid this to avoid p-hacking.</p>
-<div id="cell-49" class="cell">
+<div id="cell-48" class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # Define the order of the x-axis if we plot all combinations</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># view_order = ['full', 'arms', '10Mb']</span></span>
@@ -2106,7 +2026,7 @@ Figure&nbsp;7.1: Proximity and Jaccard index p-values for ECH90 regions on compa
 <span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
 <span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a><span class="co"># g.tight_layout()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-50" class="cell">
+<div id="cell-49" class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # # Group the results by source and resolution</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># # group = ["fibroblast", 'round_spermatid']</span></span>
@@ -2139,7 +2059,7 @@ Figure&nbsp;7.1: Proximity and Jaccard index p-values for ECH90 regions on compa
 </section>
 <section id="genominterv" class="level2">
 <h2 class="anchored" data-anchor-id="genominterv">genominterv</h2>
-<div id="cell-52" class="cell" data-execution_count="43">
+<div id="cell-51" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine how many bases edges are reduced compared to the full compartment</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>fb_comp_tot_length <span class="op">=</span> fb_ann_comp[<span class="st">'length'</span>].<span class="bu">sum</span>()</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>fb_edge_tot_length <span class="op">=</span> fb_ann_edge[<span class="st">'length'</span>].<span class="bu">sum</span>()</span>
@@ -2154,7 +2074,7 @@ Figure&nbsp;7.1: Proximity and Jaccard index p-values for ECH90 regions on compa
 </section>
 <section id="baboon-test" class="level2">
 <h2 class="anchored" data-anchor-id="baboon-test">Baboon test</h2>
-<p>Here, the data for hybrid incompatibility in baboons (<em>Papio hamadryas</em> and <em>Papio anubis</em>) is introduced and compared with the edge regions of the compartments. The intervals are extracted from <em>baboondiversity</em> project, in the notebook <code>baboon_ancestry_segments.ipynb</code>.</p>
+<p>Here, the data for hybrid incompatibility in baboons (having <em>Papio hamadryas</em> or <em>Papio anubis</em> ancestry) is introduced and compared with the edge regions of the compartments. The intervals are extracted from <em>baboondiversity</em> project, in the notebook <code>baboon_ancestry_segments.ipynb</code>.</p>
 <p>The data originates from a baboon population in a hybridization zone between olive and hamadryas baboons, and the extracted intervals are genomic regions where (almost) all individiuals have the same ancestral allele, 100% from olive or 95% hamadryas. It has nothing to do with Hi-C data, but maybe the intervals align as well?</p>
 <p>The intervals were lifted to <em>rheMac10</em> via <em>hg38</em>: <em>panu_3.0</em> -&gt; <em>hg38</em> -&gt; <em>rheMac10</em>: two intervals were deleted with no match in the last step:</p>
 <pre class="raw"><code>#Deleted in new
@@ -2163,7 +2083,7 @@ chrX    58600000    58700000    high_olive
 chrX    59400000    60800000    high_olive</code></pre>
 <p>Additionally, 4 intervals were lifted to the Y chromosome, so they were deleted as well</p>
 <p>Here goes:</p>
-<div id="cell-54" class="cell" data-execution_count="8">
+<div id="cell-53" class="cell" data-execution_count="58">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load baboons</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -2171,7 +2091,7 @@ chrX    59400000    60800000    high_olive</code></pre>
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>baboon_df <span class="op">=</span> pd.read_csv(<span class="st">'../results/high_baboon_rhemac10.bed'</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, index_col<span class="op">=</span><span class="va">False</span>, header<span class="op">=</span><span class="va">None</span>, names<span class="op">=</span>[<span class="st">'chrom'</span>, <span class="st">'start'</span>, <span class="st">'end'</span>, <span class="st">'group'</span>, <span class="st">'score'</span>])</span>
 <span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original"</span>)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original:"</span>)</span>
 <span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(baboon_df.groupby(<span class="st">'group'</span>).size())</span>
 <span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>high_hama <span class="op">=</span> (interval_collapse(baboon_df.query(<span class="st">'group == "high_hama"'</span>)).</span>
@@ -2183,25 +2103,25 @@ chrX    59400000    60800000    high_olive</code></pre>
 <span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>              query(<span class="st">'chrom == "chrX"'</span>)</span>
 <span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>              )</span>
 <span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Collapsed"</span>)</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Collapsed:"</span>)</span>
 <span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.concat([high_hama, high_olive]).groupby(<span class="st">'group'</span>).size())</span>
 <span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>baboon_dict <span class="op">=</span> {<span class="st">"P.hama"</span>: high_hama, <span class="st">"P.anubis"</span>: high_olive}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Original
+<pre><code>Original:
 group
 high_hama      68
 high_olive    516
 dtype: int64
 
-Collapsed
+Collapsed:
 group
 high_hama      31
 high_olive    233
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-55" class="cell" data-execution_count="24">
+<div id="cell-54" class="cell" data-execution_count="86">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we should test</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> proximity_test, interval_diff, jaccard_stat, bootstrap</span>
@@ -2210,61 +2130,82 @@ dtype: int64</code></pre>
 <span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> dataframes[<span class="st">'round_spermatid_100kb_arms'</span>]</span>
 <span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>annot_hama <span class="op">=</span> baboon_dict[<span class="st">'P.hama'</span>]</span>
 <span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>annot_olive <span class="op">=</span> baboon_dict[<span class="st">'P.anubis'</span>]</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">10_000</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">1_000</span></span>
 <span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Proximity test</span></span>
 <span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>non_ovl_query_hama <span class="op">=</span> interval_diff(query, annot_hama)</span>
 <span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>non_ovl_query_olive <span class="op">=</span> interval_diff(query, annot_olive)</span>
 <span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>proximity_hama <span class="op">=</span> proximity_test(non_ovl_query_hama, annot_hama, two_sided<span class="op">=</span><span class="va">True</span>, samples<span class="op">=</span>b)</span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>proximity_olive <span class="op">=</span> proximity_test(non_ovl_query_olive, annot_olive, two_sided<span class="op">=</span><span class="va">True</span>, samples<span class="op">=</span>b)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>proximity_hama <span class="op">=</span> proximity_test(non_ovl_query_hama, annot_hama, two_sided<span class="op">=</span><span class="va">True</span>, samples<span class="op">=</span><span class="dv">10_000</span>)</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>proximity_olive <span class="op">=</span> proximity_test(non_ovl_query_olive, annot_olive, two_sided<span class="op">=</span><span class="va">True</span>, samples<span class="op">=</span><span class="dv">10_000</span>)</span>
 <span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Jaccard index</span></span>
 <span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="at">@bootstrap</span>(chromsizes, samples<span class="op">=</span>b)</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="at">@bootstrap</span>(chromsizes, samples<span class="op">=</span>b, smaller<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jaccard_bootstrap(query, annot):</span>
 <span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jaccard_stat(query, annot)</span>
 <span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a>jaccard_hama <span class="op">=</span> jaccard_bootstrap(query, annot_hama)</span>
 <span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a>jaccard_olive <span class="op">=</span> jaccard_bootstrap(query, annot_olive)</span>
 <span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a><span class="co"># # Swap annot and query </span></span>
-<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_hama = interval_diff(annot_hama, query)</span></span>
-<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_olive = interval_diff(annot_olive, query)</span></span>
+<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"""</span></span>
+<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a><span class="ss">Proximity test results:</span></span>
+<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a><span class="ss">    Hama: </span><span class="sc">{</span>proximity_hama<span class="sc">}</span></span>
+<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a><span class="ss">    Olive: </span><span class="sc">{</span>proximity_olive<span class="sc">}</span></span>
 <span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_hama_flip = proximity_test(non_ovl_query_hama, query, two_sided=True, samples=b)</span></span>
-<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_olive_flip = proximity_test(non_ovl_query_olive, query, two_sided=True, samples=b)</span></span>
-<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a><span class="co"># jaccard_hama_flip = jaccard_bootstrap(annot_hama, query)</span></span>
-<span id="cb46-36"><a href="#cb46-36" aria-hidden="true" tabindex="-1"></a><span class="co"># jaccard_olive_flip = jaccard_bootstrap(annot_olive, query)</span></span>
-<span id="cb46-37"><a href="#cb46-37" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a><span class="ss">Jaccard index results:</span></span>
+<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a><span class="ss">    Hama: </span><span class="sc">{</span>jaccard_hama<span class="sc">}</span></span>
+<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a><span class="ss">    Olive: </span><span class="sc">{</span>jaccard_olive<span class="sc">}</span></span>
+<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span>
+<span id="cb46-36"><a href="#cb46-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-37"><a href="#cb46-37" aria-hidden="true" tabindex="-1"></a><span class="co"># # Swap annot and query </span></span>
+<span id="cb46-38"><a href="#cb46-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-39"><a href="#cb46-39" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_hama = interval_diff(annot_hama, query)</span></span>
+<span id="cb46-40"><a href="#cb46-40" aria-hidden="true" tabindex="-1"></a><span class="co"># non_ovl_query_olive = interval_diff(annot_olive, query)</span></span>
+<span id="cb46-41"><a href="#cb46-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-42"><a href="#cb46-42" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_hama_flip = proximity_test(non_ovl_query_hama, query, two_sided=True, samples=b)</span></span>
+<span id="cb46-43"><a href="#cb46-43" aria-hidden="true" tabindex="-1"></a><span class="co"># proximity_olive_flip = proximity_test(non_ovl_query_olive, query, two_sided=True, samples=b)</span></span>
+<span id="cb46-44"><a href="#cb46-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-45"><a href="#cb46-45" aria-hidden="true" tabindex="-1"></a><span class="co"># jaccard_hama_flip = jaccard_bootstrap(annot_hama, query)</span></span>
+<span id="cb46-46"><a href="#cb46-46" aria-hidden="true" tabindex="-1"></a><span class="co"># jaccard_olive_flip = jaccard_bootstrap(annot_olive, query)</span></span>
+<span id="cb46-47"><a href="#cb46-47" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Proximity test results:
+    Hama: TestResult(statistic=-0.16217721518987338, pvalue=0.0069)
+    Olive: TestResult(statistic=0.11650549450549451, pvalue=0.0274)
+
+Jaccard index results:
+    Hama: (0.03127115651579908, 0.272)
+    Olive: (0.05123862461992268, 0.825)
+</code></pre>
 </div>
-<div id="cell-56" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a long dataframe</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pd.DataFrame({</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     'Group': ['P.hama', 'P.anubis'],</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     #'Proximity Statistic': [proximity_hama.statistic, proximity_olive.statistic],</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     'Proximity P-value': [proximity_hama.pvalue, proximity_olive.pvalue],</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     #'Jaccard Index': [jaccard_hama[0], jaccard_olive[0]],</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     'Jaccard P-value': [jaccard_hama[1], jaccard_olive[1]]</span></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co"># }).melt(id_vars='Group', var_name='Test', value_name='Value')</span></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({</span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Group'</span>: [<span class="st">'P.hama'</span>, <span class="st">'P.anubis'</span>],</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#'Proximity Statistic': [proximity_hama.statistic, proximity_olive.statistic],</span></span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Proximity P-value'</span>: [proximity_hama.pvalue, proximity_olive.pvalue],</span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#'Jaccard Index': [jaccard_hama[0], jaccard_olive[0]],</span></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Jaccard P-value'</span>: [jaccard_hama[<span class="dv">1</span>], jaccard_olive[<span class="dv">1</span>]],</span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #'Proximity Statistic (flip)': [proximity_hama_flip.statistic, proximity_olive_flip.statistic],</span></span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 'Proximity P-value (flip)': [proximity_hama_flip.pvalue, proximity_olive_flip.pvalue],</span></span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #'Jaccard Index (flip)': [jaccard_hama_flip[0], jaccard_olive_flip[0]],</span></span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 'Jaccard P-value (flip)': [jaccard_hama_flip[1], jaccard_olive_flip[1]],</span></span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>}).melt(id_vars<span class="op">=</span><span class="st">'Group'</span>, var_name<span class="op">=</span><span class="st">'Test'</span>, value_name<span class="op">=</span><span class="st">'Value'</span>)</span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+</div>
+<div id="cell-55" class="cell" data-execution_count="87">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a long dataframe</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pd.DataFrame({</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     'Group': ['P.hama', 'P.anubis'],</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     #'Proximity Statistic': [proximity_hama.statistic, proximity_olive.statistic],</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     'Proximity P-value': [proximity_hama.pvalue, proximity_olive.pvalue],</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     #'Jaccard Index': [jaccard_hama[0], jaccard_olive[0]],</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     'Jaccard P-value': [jaccard_hama[1], jaccard_olive[1]]</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="co"># }).melt(id_vars='Group', var_name='Test', value_name='Value')</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Group'</span>: [<span class="st">'P.hama'</span>, <span class="st">'P.anubis'</span>],</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#'Proximity Statistic': [proximity_hama.statistic, proximity_olive.statistic],</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Proximity P-value'</span>: [proximity_hama.pvalue, proximity_olive.pvalue],</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#'Jaccard Index': [jaccard_hama[0], jaccard_olive[0]],</span></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Jaccard P-value'</span>: [jaccard_hama[<span class="dv">1</span>], jaccard_olive[<span class="dv">1</span>]],</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #'Proximity Statistic (flip)': [proximity_hama_flip.statistic, proximity_olive_flip.statistic],</span></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 'Proximity P-value (flip)': [proximity_hama_flip.pvalue, proximity_olive_flip.pvalue],</span></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #'Jaccard Index (flip)': [jaccard_hama_flip[0], jaccard_olive_flip[0]],</span></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 'Jaccard P-value (flip)': [jaccard_hama_flip[1], jaccard_olive_flip[1]],</span></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>}).melt(id_vars<span class="op">=</span><span class="st">'Group'</span>, var_name<span class="op">=</span><span class="st">'Test'</span>, value_name<span class="op">=</span><span class="st">'Value'</span>)</span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="87">
 <div>
 
 
@@ -2282,25 +2223,25 @@ dtype: int64</code></pre>
 <td data-quarto-table-cell-role="th">0</td>
 <td>P.hama</td>
 <td>Proximity P-value</td>
-<td>0.0058</td>
+<td>0.0069</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>P.anubis</td>
 <td>Proximity P-value</td>
-<td>0.0257</td>
+<td>0.0274</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>P.hama</td>
 <td>Jaccard P-value</td>
-<td>0.3062</td>
+<td>0.2720</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>P.anubis</td>
 <td>Jaccard P-value</td>
-<td>0.8321</td>
+<td>0.8250</td>
 </tr>
 </tbody>
 </table>
@@ -2313,27 +2254,27 @@ dtype: int64</code></pre>
 <h2 class="anchored" data-anchor-id="geneinfo">Geneinfo</h2>
 <p>How does the edges align with genes?</p>
 <p>This first plot is just to figure out how to plot with <code>gene_plot</code>.</p>
-<div id="cell-60" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.collections <span class="im">import</span> PatchCollection</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the proximity test results to plot the ECH90 regions and the compartment edges</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> full_intersect[<span class="st">'start'</span>][<span class="dv">2</span>]</span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> full_intersect[<span class="st">'end'</span>][<span class="dv">5</span>]</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>rectangles <span class="op">=</span> [Rectangle((start, <span class="fl">0.1</span>), width<span class="op">=</span>end<span class="op">-</span>start, height<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">'tab:green'</span>, linewidth<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(full_intersect[<span class="st">'start'</span>][<span class="dv">2</span>:<span class="dv">6</span>], full_intersect[<span class="st">'end'</span>][<span class="dv">2</span>:<span class="dv">6</span>])]</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>pc <span class="op">=</span> PatchCollection(rectangles, match_original<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> gi.gene_plot(<span class="st">'chrX'</span>, start<span class="op">-</span><span class="dv">100_000</span>, end<span class="op">+</span><span class="dv">100_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>)</span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>ax.add_collection(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-59" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.collections <span class="im">import</span> PatchCollection</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the proximity test results to plot the ECH90 regions and the compartment edges</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> full_intersect[<span class="st">'start'</span>][<span class="dv">2</span>]</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> full_intersect[<span class="st">'end'</span>][<span class="dv">5</span>]</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>rectangles <span class="op">=</span> [Rectangle((start, <span class="fl">0.1</span>), width<span class="op">=</span>end<span class="op">-</span>start, height<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">'tab:green'</span>, linewidth<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(full_intersect[<span class="st">'start'</span>][<span class="dv">2</span>:<span class="dv">6</span>], full_intersect[<span class="st">'end'</span>][<span class="dv">2</span>:<span class="dv">6</span>])]</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>pc <span class="op">=</span> PatchCollection(rectangles, match_original<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> gi.gene_plot(<span class="st">'chrX'</span>, start<span class="op">-</span><span class="dv">100_000</span>, end<span class="op">+</span><span class="dv">100_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>)</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>ax.add_collection(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-41-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="06_rec_genomicintervals_files/figure-html/cell-41-output-1.png" width="547" height="436" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-40-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="06_rec_genomicintervals_files/figure-html/cell-40-output-1.png" width="547" height="436" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2341,34 +2282,34 @@ dtype: int64</code></pre>
 <section id="get-the-geneinfo-for-all-intersections-between-edges-and-ech90" class="level4">
 <h4 class="anchored" data-anchor-id="get-the-geneinfo-for-all-intersections-between-edges-and-ech90">Get the geneinfo for all intersections between edges and ECH90</h4>
 <p>And write to a csv file. If the file exists, read it with pandas.</p>
-<div id="cell-62" class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use get_genes_region</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os <span class="im">import</span> makedirs <span class="im">as</span> mkdir</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>genes_dir <span class="op">=</span> <span class="st">'../results/rec_edge_genes/'</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(genes_dir):</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    mkdir(genes_dir)</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>genes_file <span class="op">=</span> op.join(genes_dir,<span class="st">'rs_edges_100kb_genes.csv'</span>)</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(genes_file):</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>    genes <span class="op">=</span> pd.concat(</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>        full_intersect.<span class="bu">apply</span>(</span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">lambda</span> x: gi.get_genes_region_dataframe(<span class="st">'chrX'</span>, x[<span class="st">'start'</span>], x[<span class="st">'end'</span>], assembly<span class="op">=</span><span class="st">'rheMac10'</span>), </span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>            axis <span class="op">=</span><span class="dv">1</span></span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>            ).to_list(),</span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>        ignore_index<span class="op">=</span><span class="va">True</span></span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>    genes.to_csv(genes_file, index<span class="op">=</span><span class="va">False</span>) </span>
-<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>    genes <span class="op">=</span> pd.read_csv(genes_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-61" class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use get_genes_region</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os <span class="im">import</span> makedirs <span class="im">as</span> mkdir</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>genes_dir <span class="op">=</span> <span class="st">'../results/rec_edge_genes/'</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(genes_dir):</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    mkdir(genes_dir)</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>genes_file <span class="op">=</span> op.join(genes_dir,<span class="st">'rs_edges_100kb_genes.csv'</span>)</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> op.exists(genes_file):</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>    genes <span class="op">=</span> pd.concat(</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>        full_intersect.<span class="bu">apply</span>(</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">lambda</span> x: gi.get_genes_region_dataframe(<span class="st">'chrX'</span>, x[<span class="st">'start'</span>], x[<span class="st">'end'</span>], assembly<span class="op">=</span><span class="st">'rheMac10'</span>), </span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>            axis <span class="op">=</span><span class="dv">1</span></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>            ).to_list(),</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>        ignore_index<span class="op">=</span><span class="va">True</span></span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>    genes.to_csv(genes_file, index<span class="op">=</span><span class="va">False</span>) </span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>    genes <span class="op">=</span> pd.read_csv(genes_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-63" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>genes_list <span class="op">=</span> genes[<span class="st">'name'</span>].unique().tolist()</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>genes_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-62" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>genes_list <span class="op">=</span> genes[<span class="st">'name'</span>].unique().tolist()</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>genes_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>['SH3KBP1',
  'MIR7206',
@@ -2424,135 +2365,135 @@ dtype: int64</code></pre>
  'LOC703257']</code></pre>
 </div>
 </div>
-<div id="cell-64" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.collections <span class="im">import</span> PatchCollection</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the proximity test results to plot the ECH90 regions and the compartment edges</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> full_intersect.index:</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    start_idx <span class="op">=</span> i</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    end_idx <span class="op">=</span> i</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> full_intersect[<span class="st">'start'</span>][start_idx]</span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>    end <span class="op">=</span> full_intersect[<span class="st">'end'</span>][end_idx]</span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>    rectangles <span class="op">=</span> [Rectangle(</span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>        (start, <span class="fl">0.1</span>), width<span class="op">=</span>end<span class="op">-</span>start, height<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">'tab:green'</span>, linewidth<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(full_intersect[<span class="st">'start'</span>][start_idx:end_idx<span class="op">+</span><span class="dv">1</span>], full_intersect[<span class="st">'end'</span>][start_idx:end_idx<span class="op">+</span><span class="dv">1</span>])]</span>
-<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>    pc <span class="op">=</span> PatchCollection(rectangles, match_original<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> gi.gene_plot(<span class="st">'chrX'</span>, start<span class="op">-</span><span class="dv">100_000</span>, end<span class="op">+</span><span class="dv">100_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>, </span>
-<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>                    highlight<span class="op">=</span>genes_list,</span>
-<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>                    despine<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>                    figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>),</span>
-<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>                    aspect<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>                    )</span>
-<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>    ax.add_collection(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-63" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geneinfo <span class="im">as</span> gi</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.collections <span class="im">import</span> PatchCollection</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the proximity test results to plot the ECH90 regions and the compartment edges</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> full_intersect.index:</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    start_idx <span class="op">=</span> i</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    end_idx <span class="op">=</span> i</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> full_intersect[<span class="st">'start'</span>][start_idx]</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    end <span class="op">=</span> full_intersect[<span class="st">'end'</span>][end_idx]</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>    rectangles <span class="op">=</span> [Rectangle(</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>        (start, <span class="fl">0.1</span>), width<span class="op">=</span>end<span class="op">-</span>start, height<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">'tab:green'</span>, linewidth<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(full_intersect[<span class="st">'start'</span>][start_idx:end_idx<span class="op">+</span><span class="dv">1</span>], full_intersect[<span class="st">'end'</span>][start_idx:end_idx<span class="op">+</span><span class="dv">1</span>])]</span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>    pc <span class="op">=</span> PatchCollection(rectangles, match_original<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> gi.gene_plot(<span class="st">'chrX'</span>, start<span class="op">-</span><span class="dv">100_000</span>, end<span class="op">+</span><span class="dv">100_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>, </span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>                    highlight<span class="op">=</span>genes_list,</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>                    despine<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>                    figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>),</span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>                    aspect<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>    ax.add_collection(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-1.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-1.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-2.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-2.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-3.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-3.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-4.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-4.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-5.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-5.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-6.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-6.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-7.png" width="459" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-7.png" width="459" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-8.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-8.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-9.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-9.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-10.png" width="463" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-10.png" width="463" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-11.png" width="445" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-11.png" width="445" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-12.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-12.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-13.png" width="463" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-13.png" width="463" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-14.png" width="439" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-14.png" width="439" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="06_rec_genomicintervals_files/figure-html/cell-44-output-15.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="06_rec_genomicintervals_files/figure-html/cell-44-output-15.png" width="442" height="452" class="figure-img"></a></p>
+<p><a href="06_rec_genomicintervals_files/figure-html/cell-43-output-15.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="06_rec_genomicintervals_files/figure-html/cell-43-output-15.png" width="442" height="452" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2562,35 +2503,35 @@ dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="what-can-i-do-with-the-list-of-genes-on-the-edges">What can I do with the list of genes on the edges?</h3>
 <section id="go-enrichment" class="level4">
 <h4 class="anchored" data-anchor-id="go-enrichment">GO enrichment?</h4>
-<div id="cell-67" class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>mmul_x_genes <span class="op">=</span> gi.get_genes_region_dataframe(<span class="st">'chrX'</span>, <span class="dv">0</span>, <span class="dv">155_000_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-66" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>mmul_x_genes <span class="op">=</span> gi.get_genes_region_dataframe(<span class="st">'chrX'</span>, <span class="dv">0</span>, <span class="dv">155_000_000</span>, assembly<span class="op">=</span><span class="st">'rheMac10'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-68" class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>mmul_x_genelist <span class="op">=</span> mmul_x_genes[<span class="st">'name'</span>].unique().tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-67" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mmul_x_genelist <span class="op">=</span> mmul_x_genes[<span class="st">'name'</span>].unique().tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-69" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>gene_list <span class="op">=</span> genes[<span class="st">'name'</span>].unique().tolist()</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>taxid <span class="op">=</span> <span class="dv">9544</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>gi.email(<span class="st">'sojernj@gmail.com'</span>)</span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co">#gi.go_annotation_table(taxid=taxid)</span></span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co">#gi.show_go_evidence_codes()</span></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>go_terms <span class="op">=</span> gi.get_go_terms_for_genes(gene_list, taxid<span class="op">=</span>taxid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-68" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>gene_list <span class="op">=</span> genes[<span class="st">'name'</span>].unique().tolist()</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>taxid <span class="op">=</span> <span class="dv">9544</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>gi.email(<span class="st">'sojernj@gmail.com'</span>)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co">#gi.go_annotation_table(taxid=taxid)</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co">#gi.show_go_evidence_codes()</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>go_terms <span class="op">=</span> gi.get_go_terms_for_genes(gene_list, taxid<span class="op">=</span>taxid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-70" class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(go_terms)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co">#gene_list[:5]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-69" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(go_terms)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="co">#gene_list[:5]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="53">
 <pre><code>127</code></pre>
 </div>
 </div>
-<div id="cell-71" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> gi.go_enrichment(</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use human taxid as a start</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    gene_list, </span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.05</span>,</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    terms<span class="op">=</span>go_terms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-70" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> gi.go_enrichment(</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use human taxid as a start</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    gene_list, </span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    terms<span class="op">=</span>go_terms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>geneinfo_cache/go-basic.obo: fmt(1.2) rel(2024-10-27) 44,017 Terms; optional_attrs(def relationship)</code></pre>
 </div>

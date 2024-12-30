@@ -460,7 +460,7 @@ pressures, Selfish gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2024-12-29}
+\date{2024-12-30}
 
 \begin{document}
 \frontmatter
@@ -487,7 +487,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2024-12-29 \par}
+{\bfseries\large 2024-12-30 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -522,7 +522,7 @@ evolution. \par
 
 \renewcommand*\contentsname{Table of contents}
 {
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 \tableofcontents
 }
 
@@ -659,19 +659,18 @@ is automatically calibrated.
 Pairs}\label{identifying-and-storing-valid-hi-c-pairs}
 
 One should be cautious when filtering invalid from valid pairs, as they
-are not easily distinguished. We should be able to put a detected
-ligation event into one of five categories: \emph{dangling-end},
-\emph{self-circle}, \emph{weird}, \emph{intrachromosomal} (cis), and
-\emph{interchromosomal} (trans) (see Table~\ref{tbl-ligation-events})
-{[}Bicciato and Ferrari (2022); Ch. 1{]}. Either \emph{dangling-end} or
-\emph{self-circle} events are reported if a read-pair maps to the same
-restriction fragment, and deemed uninformative (Lajoie, Dekker, and
-Kaplan 2015). Usually, \emph{weird} events are demeed uninformative as
-well, as it is challenging to distinguish a sequencing error from the
-result of a diploid fragment\footnote{Bicciato and Ferrari (2022)
-  mentions that this type of ligations had been used to infer
-  interaction between sister-chromatids post-replication in
-  \emph{Drosophila}.}.
+are not easily distinguished. A ligation event will be categorized into
+one of five categories: \emph{dangling-end}, \emph{self-circle},
+\emph{weird}, \emph{intrachromosomal} (cis), and \emph{interchromosomal}
+(trans) \textbf{?@tbl-tbl-ligation-events}. Either \emph{dangling-end}
+or \emph{self-circle} events are reported if a read-pair maps to the
+same restriction fragment depending on the orientation, and deemed
+uninformative (Lajoie, Dekker, and Kaplan 2015). Usually, \emph{weird}
+events are demeed uninformative as well, as it is challenging to
+distinguish a sequencing error from the result of a diploid
+fragment\footnote{Bicciato and Ferrari (2022) mentions that this type of
+  ligations had been used to infer interaction between sister-chromatids
+  post-replication in \emph{Drosophila}.}.
 
 PCR duplicates should be discarded as well, having either identical
 genomic sequence, or sharing exact 5' alignment positions of the pair
@@ -691,8 +690,8 @@ mitochondrial count may differ between states.
 \small
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1304}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8696}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1391}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8609}}@{}}
 \caption{Five categories of ligation events and a short explanation.
 \emph{Hi-C Data Analysis: Methods and Protocols Ch.
 1}.}\label{tbl-ligation-events}\tabularnewline
@@ -742,38 +741,150 @@ discarded reads across categories, as well as the ratios between
 information about the library. For example, the biases of different
 aligners might be captured by comparing the reason why reads are
 discarded between two different aligners, as well as if there is a
-preference of \emph{cis} or \emph{trans} in an alinger itself. This
-allows us to evaluate the mapping parameters as well as the filters
-applied downstream.
+preference of \emph{cis} or \emph{trans} in an aligner itself. This
+allows for evaluating the mapping parameters as well as the filters
+applied downstream. Additionally, \(P(s)\), the contact probability as a
+function of genomic separation can be inspected as it should decay with
+increasing distance.
 
 Typically, a filter against low mapping quality is applied on the data
 before constructing the interaction matrix (Hi-C matrix), and a
 conventional threshold is \(mapq < 30\) (Bicciato and Ferrari 2022).
 However, a considerable amount of reads do not pass that threshold, and
-thus one risks to discard potential valid information and should make
-sure to have enough data. Consequently, \emph{HicExplorer} defaults a
-lower threshold (\(mapq < 15\)), and \emph{pairtools} enforces no
-filter, but recommends setting this manually (starting at
+thus we risk discarding potential valid information and should make sure
+to have enough data. Consequently, \emph{HicExplorer} defaults a lower
+threshold (\(mapq < 15\)), and \emph{pairtools} enforces no filter by
+default, but recommends setting this manually (starting at
 \(mapq < 30\)).
 
-Ultra-deep sequencing is required if one is to store the interaction
-matrix at the restriction fragment resolution, and usually, such high
-resolution is not required. Therefore, it is practice to bin the genome
-into fixed bin sizes, which also enables a more efficient handling of
-the data if the full resolution is not needed (e.g.~when plotting large
-regions such as a whole chromosome). The conventional format to store a
-Hi-C matrix, consisting of large multidimensional arrays, is HDF5. Each
-HDF5 file can store all resolutions and metadata about the sample,
-resolutions typically ranging from 40kb to 1Mb. Additionally,
-\emph{cooler} {[}ref{]} enforces conventions about the naming of the
-groups among other things in their .h5-wrapping file format
-\emph{.cool}, and they provide a Python class \texttt{Cooler} as well
-for efficiently fetching and manipulating the files in Python.
+A Hi-C interaction matrix simply maps the frequency of interactions
+between genomic positions in a sample. The maximum resolution of a Hi-C
+matrix is defined by the restriction enzyme, where the size of the
+restriction site (probabilistically) determines average space between
+each cut. With a 4 bp restriction site, the fragments will average
+\(4^4 = 256 bp\) and similarly \(4^6 = 4096 bp\) for a 6 bp restriction
+site. This leads to \textasciitilde12,000,000 and \textasciitilde800,000
+fragments, respectively. Very deep sequencing is required to achieve
+enough coverage to analyze the interaction matrix at the restriction
+fragment resolution, but, usually, such high resolution is not required.
+Therefore, it is practice to bin the genome into fixed bin sizes, which
+also enables a more efficient handling of the data if the full
+resolution is not needed (e.g.~when plotting large regions such as a
+whole chromosome). The conventional format to store a Hi-C matrix,
+consisting of large multidimensional arrays, is HDF5. Each HDF5 file can
+store all resolutions and metadata about the sample, resolutions
+typically ranging from 10kb to 1Mb. Typically, the stored resolutions
+should be multiples of the chosen base-resolution, as the lower
+resolutions are constructed by recursive binning of the base resolution.
+\emph{cooler} {[}ref{]} neatly offers efficient storage with sparse,
+upper-triangle symmetric matrices and naming-conventions of the groups
+in their \emph{.h5}-based file format, \emph{.cool}, and they provide a
+Python class \texttt{Cooler} as well for efficiently fetching and
+manipulating the matrices in Python.
 
-\subsubsection{Calling Compartments
-(ICE)}\label{calling-compartments-ice}
+\subsubsection{Inferring from the matrix (Calling
+Compartments)}\label{inferring-from-the-matrix-calling-compartments}
 
-\subsubsection{Edges}\label{edges}
+The raw frequency matrices are generally not very informative, as the
+contact frequencies vary greatly between bins and contain biases in
+addition to the \(P(s)\) decay, which results in a diagonal-heavy matrix
+with high amount of noise the further we travel from the diagonal.
+Therefore, to analyze the three-dimensional structure of the chromatin,
+a method for correcting (or balancing) the raw Hi-C matrix has to be
+applied. It is unadvisable to correct low-count bins as it will greatly
+increase the noise, or to correct very noisy bins, or very high-count
+bins. Therefore, some bin-level filters are applied before balancing
+(Lajoie, Dekker, and Kaplan 2015);
+
+\begin{itemize}
+\tightlist
+\item
+  Low-count bins are detected by comparing bin sums to the distribution
+  of bin sums with a percentile cutoff,
+\item
+  Noisy bins are detected by comparing bin variance to the variance
+  distribution of all bins (and percentile cutoff), and
+\item
+  Outlier point-interactions are removed (a top-percentile of bin-bin
+  interactions)
+\end{itemize}
+
+A widely used balancing method is Iterative Correction and
+Eigendecomposition (ICE) (Imakaev et al. 2012), which utilizes a
+data-driven approach for correcting multiplicative biases. Briefly, is
+based on an assumption of equal visibility of all loci, and uses the
+pairwise and genome-wide structure to generate a set of biases along
+with a map of relative interaction frequencies by iteratively dividing
+each row, then each column, by its mean until convergence. This results
+in a uniform coverage profile (corrected coverage), yielding a smoother
+interaction matrix with slower transitions, thus greatly reduces
+visibility-induced biases. It does not distinguish between the sources
+of biases, and thus calculates a collective bias for each position.
+Imakaev et al. (2012) show that \emph{known} biases are factorizable by
+comparing their results to predictions of restriction fragment biases,
+GC content, and mappability from a computationally intensive
+probabilistic approach. By showing that the product of those known
+biases explain \(>99.99%
+\) of the variability in their bias estimation, they argue both known
+and unknown biases will be captured with their iterative correction
+method (also denoted \emph{matrix balancing}).
+
+Even with a binned, filtered, and balanced matrix, we are still left
+with the challenge of translating the matrix into biologically relevant
+inferations. Importantly, we have to remember that the matrix arise from
+a collection of cells and that the interaction frequency cannot be
+translated to a fraction of cells. Additionally, the effect from
+averaging interaction patterns can cause both individual patterns to be
+burried and the average pattern to show a pattern that does not exist in
+any of the single cells. Therefore, when pooling matrices one must make
+sure that the samples are as similar as possible (e.g.~the same
+differentiation stage and so on). We can also not distinguish
+interactions that either co-occur in the same cell or ones that are
+mutually exclusive. Lastly, the way interaction patterns are defined
+poses a challenge; we define the chromatin compartments to be the output
+of a method, the `E' in `ICE', eigendecomposition, not as a specific
+pattern that we can explicitly search for. Although experimentally
+verified to tightly correlate with chromatin states, the inferred
+compartments vary with different methods of calculating the eigenvector,
+as dicussed in Section~\ref{sec-methods-eigendecomposition} and
+Section~\ref{sec-results-eigenvectors}. To further complicate the
+challenge, interaction patterns on different scales co-exist and are
+difficult to disentangle without simplifying assumptions such as
+small-scale interactions are not visible (or they are negligible) at a
+certain resolution, or restricting the viewframe to eliminate
+large-scale variance between chromosome arms. It is by definition a
+speculative exercise to interpret the biological relevance of an
+observed pattern, but the consensus is to call compartments on
+interacting regions that arise from the eigendecomposition of a Hi-C
+matrix without further modifications (Lajoie, Dekker, and Kaplan 2015).
+
+As the eigenvector is only unique up to a sign, a phasing track is used
+to orient the eigenvector, aiming for a positive correlation with GC
+content (in mammals), making A-compartments represent the active
+euchromatin, and B-compartments the closed heterochromatin.
+
+\subsubsection{Compartment Edges and Genomic
+Intervals}\label{compartment-edges-and-genomic-intervals}
+
+As arbitrary as a compartment may be defined, we chose to define another
+genomic interval for analysis. It is well (Bicciato and Ferrari 2022,
+Ch. 3) known that CTCF and other structural proteins preferentially
+binds to Topologically Associating Domains (TADs; they were initially
+defined as sub-Mb chromatin structures (Lajoie, Dekker, and Kaplan
+2015), but now the definition seems to vary based on the method of
+extraction {[}ref cooltools{]}). Derived from this, we define a
+transition zone between A/B compartments to look for enrichment of
+specific regions of interest.
+
+We can test if two sets of genomic intervals correlate (say, compartment
+edges and ECH regions) by either proximity of the non-intersecting parts
+of the sets, or by intersection over union (Jaccard index). When the
+underlying distribution of a statistic (or index) is unknown, a
+widespread method in bioinformatics for estimating a p-value is by
+bootstrapping. Here, one of the sets are bootstrapped (the intervals are
+placed at random positions) a number of times, \(b\), and the fraction
+of statistics more extreme than the one we observe is reported as the
+p-value.
 
 \chapter{Methods}\label{methods}
 
@@ -1212,7 +1323,7 @@ bin. It would maybe be more suitable to calculate the weights for
 that we can compare the difference between the two methods easily.
 However, we will only use the default mode for now.
 
-\subsubsection{Eigendecomposition}\label{eigendecomposition}
+\subsubsection{Eigendecomposition}\label{sec-methods-eigendecomposition}
 
 The eigendecomposition of a Hi-C interaction matrix is performed in
 multiple steps. As value of the eigenvector is only \emph{significant}
@@ -1867,8 +1978,7 @@ sources shows both that the majority of the bad bins are in the
 (peri)centromeric region \emph{and} there are approximately equally many
 on each side.
 
-\subsection{Compartments
-(Eigenvectors)}\label{compartments-eigenvectors}
+\subsection{Compartments (Eigenvectors)}\label{sec-results-eigenvectors}
 
 The three viewframes (\emph{Full}, \emph{Arms}, \emph{10Mb}) for the
 calculation of the eigenvectors captured different variability in the
@@ -2296,7 +2406,10 @@ Hi-\emph{P.anu} can be explained by chance alone .
 
 \begin{figure}
 
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+%
+\begin{minipage}{0.40\linewidth}
 
 \centering{
 
@@ -2304,11 +2417,12 @@ Hi-\emph{P.anu} can be explained by chance alone .
 
 }
 
-\subcaption{\label{fig-baboon-rs100-intersect-1}\emph{P. hamadryas}}
+\subcaption{\label{fig-baboon-rs100-intersect-1}\emph{P. hamadryas}
+(arms view)}
 
 \end{minipage}%
 %
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}{0.40\linewidth}
 
 \centering{
 
@@ -2316,9 +2430,45 @@ Hi-\emph{P.anu} can be explained by chance alone .
 
 }
 
-\subcaption{\label{fig-baboon-rs100-intersect-2}\emph{P. anubis}}
+\subcaption{\label{fig-baboon-rs100-intersect-2}\emph{P. anubis} (arms
+view)}
 
 \end{minipage}%
+%
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+\newline
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
+%
+\begin{minipage}{0.40\linewidth}
+
+\centering{
+
+\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-3.png}
+
+}
+
+\subcaption{\label{fig-baboon-rs100-intersect-3}\emph{P. hamadryas}
+(10Mb view)}
+
+\end{minipage}%
+%
+\begin{minipage}{0.40\linewidth}
+
+\centering{
+
+\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-4.png}
+
+}
+
+\subcaption{\label{fig-baboon-rs100-intersect-4}\emph{P. anubis} (10Mb
+view)}
+
+\end{minipage}%
+%
+\begin{minipage}{0.10\linewidth}
+~\end{minipage}%
 
 \caption{\label{fig-baboon-rs100-intersect}Comparing the A-compartments
 of round spermatid (RS) with regions in baboons from hybrid population
