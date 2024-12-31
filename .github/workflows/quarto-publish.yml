@@ -39,6 +39,7 @@ jobs:
           # uncomment below and fill to pin a version
           # version: SPECIFIC-QUARTO-VERSION-HERE
         
+      # Chromium is needed for Diagrams through Mermaid
       - name: Install Chromium
         run: quarto install chromium
 
