@@ -24,7 +24,11 @@ keywords:
   - Evolutionary pressures
   - Selfish gene drive
 abstract: |
-  Here, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper on the latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with human selective sweeps where meiotic drive can explain the selection (ECH-regions), and with hybrid incompatility in baboons (genus *Papio*). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
+  The hemizygosity of male mammals makes the X chromosome uniquely exposed to selective pressures, as the lack of a second copy provides no buffer against deleterious mutations. This, combined with a high density of essential genes related to reproduction and brain function, suggests the existence of biological mechanisms that protect the integrity of the X chromosome. One such mechanism is meiotic sex chromosome inactivation (MSCI) in males, while another could involve chromatin architecture. 
+  
+  In this study, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper on the latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. 
+  
+  We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with strong selective sweeps in humans (ECH-regions), and with strong negative selection in baboons (*Papio* spp.). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
 plain-language-summary: |
   3D structure of chromatin brings another mystery onto the story of selfish genes, where the edges of A-compartments in macaque align well with regions of positive selection identified in human and hybrid incompatibility in baboons.
 key-points:
@@ -35,8 +39,6 @@ date: last-modified
 ---
 
 # Introduction
-
-## Reproducible Research and Quarto
 
 ## Sexual reproduction (spermatogenesis, meiosis)
 
@@ -68,7 +70,10 @@ To be able to create stage-resolved Hi-C library of spermatogenetis, additional 
 
 ### Hi-C Data Analysis
 
-The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks: We must align the reads to the reference in a way such that the *intentional* chimeric read-pairs are rescued, and *unintentional* read-pairs are discarded. That is, they represent ligation junction of adjecent chromatin segments, or they represent technical artefacts or unintentional fusions of unrelated DNA. 
+The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks, see @fig-hic-analysis-flow. 
+
+We must align the reads to the reference in a way such that the *intentional* chimeric read-pairs are rescued, and *unintentional* read-pairs are discarded. That is, they represent ligation junction of adjecent chromatin segments, or they represent technical artefacts or unintentional fusions of unrelated DNA.
+
 
 #### Aligning the Hi-C reads
 
@@ -79,7 +84,7 @@ Interestingly, this last step is not included by default in *pairtools*, as [ref
 
 #### Identifying and Storing Valid Hi-C Pairs
 
-One should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. A ligation event will be categorized into one of five categories: *dangling-end*, *self-circle*, *weird*, *intrachromosomal* (cis), and *interchromosomal* (trans) [@bicciato_hic_2022, Ch. 1; see @tbl-tbl-ligation-events]. Either *dangling-end* or *self-circle* events are reported if a read-pair maps to the same restriction fragment depending on the orientation, and deemed uninformative [@lajoie_hitchhikers_2015]. Usually, *weird* events are demeed uninformative as well, as it is challenging to distinguish a sequencing error from the result of a diploid fragment[^1]. 
+One should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. A ligation event will be categorized into one of five categories: *dangling-end*, *self-circle*, *weird*, *intrachromosomal* (cis), and *interchromosomal* (trans) [@bicciato_hic_2022, Ch. 1; see @tbl-ligation-events]. Either *dangling-end* or *self-circle* events are reported if a read-pair maps to the same restriction fragment depending on the orientation, and deemed uninformative [@lajoie_hitchhikers_2015]. Usually, *weird* events are demeed uninformative as well, as it is challenging to distinguish a sequencing error from the result of a diploid fragment. 
 
 PCR duplicates should be discarded as well, having either identical genomic sequence, or sharing exact 5' alignment positions of the pair [@lajoie_hitchhikers_2015; @bicciato_hic_2022, Ch. 1]. The probability that such pairs are valid (i.e. there are multiple of the same pairs) is very low. 
 
@@ -127,7 +132,6 @@ The raw frequency matrices are generally not very informative, as the contact fr
 A widely used balancing method is Iterative Correction and Eigendecomposition (ICE) [@imakaev_iterative_2012], which utilizes a data-driven approach for correcting multiplicative biases. Briefly, is based on an assumption of equal visibility of all loci, and uses the pairwise and genome-wide structure to generate a set of biases along with a map of relative interaction frequencies by iteratively dividing each row, then each column, by its mean until convergence. This results in a uniform coverage profile (corrected coverage), yielding a smoother interaction matrix with slower transitions, thus greatly reduces visibility-induced biases. It does not distinguish between the sources of biases, and thus calculates a collective bias for each position. @imakaev_iterative_2012 show that *known* biases are factorizable by comparing their results to predictions of restriction fragment biases, GC content, and mappability from a computationally intensive probabilistic approach. By showing that the product of those known biases explain $>99.99%$ of the variability in their bias estimation, they argue both known and unknown biases will be captured with their iterative correction method (also denoted *matrix balancing*).
 
 Even with a binned, filtered, and balanced matrix, we are still left with the challenge of translating the matrix into biologically relevant inferations. Importantly, we have to remember that the matrix arise from a collection of cells and that the interaction frequency cannot be translated to a fraction of cells. Additionally, the effect from averaging interaction patterns can cause both individual patterns to be burried and the average pattern to show a pattern that does not exist in any of the single cells. Therefore, when pooling matrices one must make sure that the samples are as similar as possible (e.g. the same differentiation stage and so on). We can also not distinguish interactions that either co-occur in the same cell or ones that are mutually exclusive. Lastly, the way interaction patterns are defined poses a challenge; we define the chromatin compartments to be the output of a method, the 'E' in 'ICE', eigendecomposition, not as a specific pattern that we can explicitly search for. Although experimentally verified to tightly correlate with chromatin states, the inferred compartments vary with different methods of calculating the eigenvector, as dicussed in @sec-methods-eigendecomposition and @sec-results-eigenvectors. To further complicate the challenge, interaction patterns on different scales co-exist and are difficult to disentangle without simplifying assumptions such as small-scale interactions are not visible (or they are negligible) at a certain resolution, or restricting the viewframe to eliminate large-scale variance between chromosome arms. It is by definition a speculative exercise to interpret the biological relevance of an observed pattern, but the consensus is to call compartments on interacting regions that arise from the eigendecomposition of a Hi-C matrix without further modifications [@lajoie_hitchhikers_2015]. 
-
 As the eigenvector is only unique up to a sign, a phasing track is used to orient the eigenvector, aiming for a positive correlation with GC content (in mammals), making A-compartments represent the active euchromatin, and B-compartments the closed heterochromatin. 
 
 #### Compartment Edges and Genomic Intervals 
@@ -136,20 +140,69 @@ As arbitrary as a compartment may be defined, we chose to define another genomic
 
 We can test if two sets of genomic intervals correlate (say, compartment edges and ECH regions) by either proximity of the non-intersecting parts of the sets, or by intersection over union (Jaccard index). When the underlying distribution of a statistic (or index) is unknown, a widespread method in bioinformatics for estimating a p-value is by bootstrapping. Here, one of the sets are bootstrapped (the intervals are placed at random positions) a number of times, $b$, and the fraction of statistics more extreme than the one we observe is reported as the p-value. 
 
-
-
-
-# Methods
+## Our research question
 
 In this project, we formulate two objectives: 
 
 **A**: Reproduce the Hi-C interaction maps and eigendecomposition from [@wang_reprogramming_2019], with some modifications. We briefly use *HiCExplorer*, but change the analyses to use the *Open2C Ecosystem* [@open2c] which have a Pyton API as well as command-line functions, which can be paired very well with Jupyter Notebooks. The majority of the data analysis was run with a *gwf* workflow, and the commands that were visually inspected were run in Jupyter Notebooks. 
 
-**B** Compare with regions of selection that are found in *human*. Investigate the biological meaning of the results. 
+**B** Compare with regions of extended common haplotypes (strong selective sweeps) that are found in *human*, and with regions of negative selection of minor parent ancestry in baboons. Investigate the biological meaning of the results. 
+
+## Reproducibility Infrastructure
+
+> First, describe the importance of reproducibility and the scientific method. 
+> Include a bit of scientific skeptiscism of there is time.
+
+Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal of the thesis is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git [ref], GitHub [ref], quarto [ref], Conda [ref], gwf [ref], and Jupyter [ref]. See @tbl-reproducibility for a brief introduction.
+
+::: {#tbl-reproducibility .striped}
+| Tool     |Description |
+|:---------|:--------------------------------------------------------------------------| 
+| Jupyter  | Interactive coding environment for analysis and development (notebooks are natively rendered with Quarto)  |
+| Quarto   | A Quarto Manuscript project nested inside a Quarto Book for rendering html (website) and PDF (manuscript) from Markdown via Pandoc. Supports direct embedding of output from Jupyter Notebook cells (plots, tables). | 
+| Conda    | For managing software requirements and dependency versions reproducibly. | 
+| git      | Version control and `gh-pages` branch for automated render of Quarto project  |
+| GitHub   | Action was triggered `on push` to render the project and host on [munch-group.org](https://munch-group.org/hic-spermatogenesis/) | 
+| *gwf*      | Workflow manager to automate the analysis on a HPC cluster, wrapped in Python code. `workflow.py` currently does everything from `.fastq` to `.cool`, but notebooks can be set to run sequentially as part of the workflow as well. | 
+
+Overview of the tools used for reproducibility of this thesis. 
+:::
+
+### GWF: workflow management for High-Performance Computing (HPC) 
+
+To enable consistently reproducing the analyses, a workflow manager is used. Several exist, but the most well-known must be *snakemake* [ref]. However, we use the pragmatic (their own words), lightweight workflow manager *gwf*, which is optimized for the GenomeDK insfrastructure, and has the benefit of in-house support. 
+
+Briefly, *gwf* works on a python script, conventionally `workflow.py`, that wraps all the jobs (*targets* in gwf lingo) you will submit to the HPC cluster. Each target is submitted from a template, written as a Python function, which includes `inputs` and `outputs` that *gwf* should look for when building the depency graph, `options` list of resources that is forwarded to the queueing system (*Slurm* in our case), and `specs`, specifying the submission code in Bash as a formatted Python string (meaning we can pass Python variables to the submission code), providing an extremely flexible framework for running large and intensive analyses in a high-performance computing environment.
+
+### Project Initialization
+
+#### *gwf* 
+
+The initialization of the project directory is the basis of reproducibility and transparency, together with `workflow.py` inhabiting the main directory. Specifically, it includes a subdirectory for (intermediate) files that are produced by the pipeline, `steps/`. Everything in this directory is reproducible simply by re-running the *gwf*-workflow. It is thus not tracked by `git`, as the large files (raw reads, aligned read-pairs, etc.) it contains are already indirectly tracked (`workflow.py` is tracked). It can be safely deleted if your system administrator tells you to free up disk space, although you would have to run the workflow again to continue the analysis. Several directories are created for files that are not produced by the pipeline, that is, files that the workflow uses, configuration files, figures edited by hand, etc. Ideally, as few files as possible should be outside of `steps/`, to be as close as possible to an automated analysis. 
+
+#### Jupyter Notebooks
+
+A `notebooks/` subdirectory contains Jupyter notebooks that are named chronologically, meaning they operate on data located in either `steps/` or generated from a previous notebook. This way, the workflow can also be set up to run the notebooks (in order) to produce the figures, tables, and their captions used in this manuscript. 
+
+#### Quarto
+
+To manage the directory as a Quarto Book project, a quarto configuration file, `_quarto.yml`, was placed at the base, defining how the Book should be rendered. Additionally, configuration files were placed in `slides/` and `thesis/`, to render them as Quarto Slides and Quarto Manuscript, respectively. This nested structure lets us render different subprojects with different configurations than the main project, for example to generate the manuscript, a single Quarto Markdown file, in both *.html* and *.pdf*, and only including embedded outputs from specified cells from notebooks in the parent directory. 
+
+Although the Quarto framework is extensive, it is still under development and has several drawbacks worth mentioning. First, one can only embed the output of code cells from notebooks, meaning the only way to embed text with a python variable (e.g. you want the manuscript to reflect the actual value of a variable, sample sizes `n = [1000, 10000, 100000]`, and their respective outputs) is by converting a formatted python string into Markdown and send it to the output. Second, embedded figures will be copied as-is in the notebook, and thus cannot be post-processed with size or layout. This makes it impractical to e.g. use the same figures in slides and in the manuscript. Third, rendering large projects that is tracked by git, some output files (that have to be tracked to publish the website) can exeed GitHub size limits. Especially if rendering in the *jats* format, producing a MECA Bundle that should be the most flexible way to exchange manuscripts [ref]. However, as not applicable to this thesis, the option was simply disabled. 
+
+
+### git and GitHub
+
+To track the project with git and GitHub, the abovementioned structure was initialized as a GitHub repository, including a workflow for GitHub Actions to publish and deploy the website on the `gh-pages` branch when pushing commits to `main`. Briefly, it sets up a virtual machine with Quarto and its dependencies, renders the project as specified in the `_quarto.yml` configuration file(s), and publishes the project on the group website [munch-group.org](https://munch-group.org/hic-spermatogenesis). 
+
+
+ 
+
+
+# Methods
 
 All computations were performed on GenomeDK (GDK) [ref], an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was nested into a *gwf* workflow [ref], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.
 
-The whole of this project is carried out with reproducibility in mind, so an effort (and quite a significant amount of time) has been put into documenting code and organizing the project for readbility and transparency through a Quarto project [ref]. Therefore, all code, virtual environments and text  is made available as a Quarto book, rendered directly from the GitHub repository with GitHub Pages [ref]. To make this possible, the Quarto documentation has been extensively studied and discussed with *KMT* [ref, aknowledge]. 
 
 
 ## Initial Exploration with HiCExplorer
