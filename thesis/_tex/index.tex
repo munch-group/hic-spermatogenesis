@@ -460,7 +460,7 @@ pressures, Selfish gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2024-12-30}
+\date{2025-01-01}
 
 \begin{document}
 \frontmatter
@@ -487,7 +487,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2024-12-30 \par}
+{\bfseries\large 2025-01-01 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -497,8 +497,16 @@ of the degree of MSc. Bioinformatics \par}
 
 \begin{quote}
 \raggedright    
-Here, the 3D chromatin architecture of the X chromosome in rhesus
-macaque (\emph{Macaca mulata}) is investigated in the context of
+The hemizygosity of male mammals makes the X chromosome uniquely exposed
+to selective pressures, as the lack of a second copy provides no buffer
+against deleterious mutations. This, combined with a high density of
+essential genes related to reproduction and brain function, suggests the
+existence of biological mechanisms that protect the integrity of the X
+chromosome. One such mechanism is meiotic sex chromosome inactivation
+(MSCI) in males, while another could involve chromatin architecture.
+
+In this study, the 3D chromatin architecture of the X chromosome in
+rhesus macaque (\emph{Macaca mulata}) is investigated in the context of
 evolutionary pressures and genetic drivers. We redo Hi-C analyses from a
 2019 paper on the latest reference genome (\emph{rheMac10} or
 \emph{Mmul\_10}). We compare two Hi-C analysis frameworks,
@@ -506,14 +514,15 @@ evolutionary pressures and genetic drivers. We redo Hi-C analyses from a
 finding Open2C to be most flexible and intuitive. The ICE method
 (Iterative Correction and Eigendecomposition) was used to infer
 conventional and refined A/B compartments for fibroblast and four stages
-of spermatogenesis. We find that 200 kbp transition-zones between
-A/B-compartments in both fibroblasts and round spermatids align well
-with human selective sweeps where meiotic drive can explain the
-selection (ECH-regions), and with hybrid incompatility in baboons (genus
-\emph{Papio}). We discuss the biological meaning of these findings,
-where conserved chromatin features may help to retain non-advantageous
-alleles, hinting to the role of selfish genetic elements in genome
-evolution. \par
+of spermatogenesis.
+
+We find that 200 kbp transition-zones between A/B-compartments in both
+fibroblasts and round spermatids align well with strong selective sweeps
+in humans (ECH-regions), and with strong negative selection in baboons
+(\emph{Papio} spp.). We discuss the biological meaning of these
+findings, where conserved chromatin features may help to retain
+non-advantageous alleles, hinting to the role of selfish genetic
+elements in genome evolution. \par
 \raggedleft    
     {- Søren Jørgensen \par}
 %    
@@ -529,9 +538,6 @@ evolution. \par
 \setstretch{1.25}
 \mainmatter
 \chapter{Introduction}\label{introduction}
-
-\section{Reproducible Research and
-Quarto}\label{reproducible-research-and-quarto}
 
 \section{Sexual reproduction (spermatogenesis,
 meiosis)}\label{sexual-reproduction-spermatogenesis-meiosis}
@@ -627,8 +633,10 @@ as little as 500 cells (capturing the variance of millions of cells).
 \subsection{Hi-C Data Analysis}\label{hi-c-data-analysis}
 
 The analysis of the read-pairs of a Hi-C library is divided into several
-smaller tasks: We must align the reads to the reference in a way such
-that the \emph{intentional} chimeric read-pairs are rescued, and
+smaller tasks, see \textbf{?@fig-hic-analysis-flow}.
+
+We must align the reads to the reference in a way such that the
+\emph{intentional} chimeric read-pairs are rescued, and
 \emph{unintentional} read-pairs are discarded. That is, they represent
 ligation junction of adjecent chromatin segments, or they represent
 technical artefacts or unintentional fusions of unrelated DNA.
@@ -662,15 +670,12 @@ One should be cautious when filtering invalid from valid pairs, as they
 are not easily distinguished. A ligation event will be categorized into
 one of five categories: \emph{dangling-end}, \emph{self-circle},
 \emph{weird}, \emph{intrachromosomal} (cis), and \emph{interchromosomal}
-(trans) \textbf{?@tbl-tbl-ligation-events}. Either \emph{dangling-end}
-or \emph{self-circle} events are reported if a read-pair maps to the
-same restriction fragment depending on the orientation, and deemed
+(trans) , see~\ref{tbl-ligation-events}. Either \emph{dangling-end} or
+\emph{self-circle} events are reported if a read-pair maps to the same
+restriction fragment depending on the orientation, and deemed
 uninformative (Lajoie, Dekker, and Kaplan 2015). Usually, \emph{weird}
 events are demeed uninformative as well, as it is challenging to
-distinguish a sequencing error from the result of a diploid
-fragment\footnote{Bicciato and Ferrari (2022) mentions that this type of
-  ligations had been used to infer interaction between sister-chromatids
-  post-replication in \emph{Drosophila}.}.
+distinguish a sequencing error from the result of a diploid fragment.
 
 PCR duplicates should be discarded as well, having either identical
 genomic sequence, or sharing exact 5' alignment positions of the pair
@@ -857,7 +862,6 @@ speculative exercise to interpret the biological relevance of an
 observed pattern, but the consensus is to call compartments on
 interacting regions that arise from the eigendecomposition of a Hi-C
 matrix without further modifications (Lajoie, Dekker, and Kaplan 2015).
-
 As the eigenvector is only unique up to a sign, a phasing track is used
 to orient the eigenvector, aiming for a positive correlation with GC
 content (in mammals), making A-compartments represent the active
@@ -886,7 +890,7 @@ placed at random positions) a number of times, \(b\), and the fraction
 of statistics more extreme than the one we observe is reported as the
 p-value.
 
-\chapter{Methods}\label{methods}
+\section{Our research question}\label{our-research-question}
 
 In this project, we formulate two objectives:
 
@@ -899,8 +903,159 @@ Jupyter Notebooks. The majority of the data analysis was run with a
 \emph{gwf} workflow, and the commands that were visually inspected were
 run in Jupyter Notebooks.
 
-\textbf{B} Compare with regions of selection that are found in
-\emph{human}. Investigate the biological meaning of the results.
+\textbf{B} Compare with regions of extended common haplotypes (strong
+selective sweeps) that are found in \emph{human}, and with regions of
+negative selection of minor parent ancestry in baboons. Investigate the
+biological meaning of the results.
+
+\section{Reproducibility
+Infrastructure}\label{reproducibility-infrastructure}
+
+\begin{quote}
+First, describe the importance of reproducibility and the scientific
+method. Include a bit of scientific skeptiscism of there is time.
+\end{quote}
+
+Thus, apart from the biological questions we seek to investigate and
+answer in this thesis, a major goal of the thesis is to create fully
+(and easily) reproducible results through a self-contained and
+version-controlled pipeline using git {[}ref{]}, GitHub {[}ref{]},
+quarto {[}ref{]}, Conda {[}ref{]}, gwf {[}ref{]}, and Jupyter {[}ref{]}.
+See Table~\ref{tbl-reproducibility} for a brief introduction.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1176}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8824}}@{}}
+\caption{Overview of the tools used for reproducibility of this
+thesis.}\label{tbl-reproducibility}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tool
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tool
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Jupyter & Interactive coding environment for analysis and development
+(notebooks are natively rendered with Quarto) \\
+Quarto & A Quarto Manuscript project nested inside a Quarto Book for
+rendering html (website) and PDF (manuscript) from Markdown via Pandoc.
+Supports direct embedding of output from Jupyter Notebook cells (plots,
+tables). \\
+Conda & For managing software requirements and dependency versions
+reproducibly. \\
+git & Version control and \texttt{gh-pages} branch for automated render
+of Quarto project \\
+GitHub & Action was triggered \texttt{on\ push} to render the project
+and host on
+\href{https://munch-group.org/hic-spermatogenesis/}{munch-group.org} \\
+\emph{gwf} & Workflow manager to automate the analysis on a HPC cluster,
+wrapped in Python code. \texttt{workflow.py} currently does everything
+from \texttt{.fastq} to \texttt{.cool}, but notebooks can be set to run
+sequentially as part of the workflow as well. \\
+\end{longtable}
+
+\subsection{GWF: workflow management for High-Performance Computing
+(HPC)}\label{gwf-workflow-management-for-high-performance-computing-hpc}
+
+To enable consistently reproducing the analyses, a workflow manager is
+used. Several exist, but the most well-known must be \emph{snakemake}
+{[}ref{]}. However, we use the pragmatic (their own words), lightweight
+workflow manager \emph{gwf}, which is optimized for the GenomeDK
+insfrastructure, and has the benefit of in-house support.
+
+Briefly, \emph{gwf} works on a python script, conventionally
+\texttt{workflow.py}, that wraps all the jobs (\emph{targets} in gwf
+lingo) you will submit to the HPC cluster. Each target is submitted from
+a template, written as a Python function, which includes \texttt{inputs}
+and \texttt{outputs} that \emph{gwf} should look for when building the
+depency graph, \texttt{options} list of resources that is forwarded to
+the queueing system (\emph{Slurm} in our case), and \texttt{specs},
+specifying the submission code in Bash as a formatted Python string
+(meaning we can pass Python variables to the submission code), providing
+an extremely flexible framework for running large and intensive analyses
+in a high-performance computing environment.
+
+\subsection{Project Initialization}\label{project-initialization}
+
+\subsubsection{\texorpdfstring{\emph{gwf}}{gwf}}\label{gwf}
+
+The initialization of the project directory is the basis of
+reproducibility and transparency, together with \texttt{workflow.py}
+inhabiting the main directory. Specifically, it includes a subdirectory
+for (intermediate) files that are produced by the pipeline,
+\texttt{steps/}. Everything in this directory is reproducible simply by
+re-running the \emph{gwf}-workflow. It is thus not tracked by
+\texttt{git}, as the large files (raw reads, aligned read-pairs, etc.)
+it contains are already indirectly tracked (\texttt{workflow.py} is
+tracked). It can be safely deleted if your system administrator tells
+you to free up disk space, although you would have to run the workflow
+again to continue the analysis. Several directories are created for
+files that are not produced by the pipeline, that is, files that the
+workflow uses, configuration files, figures edited by hand, etc.
+Ideally, as few files as possible should be outside of \texttt{steps/},
+to be as close as possible to an automated analysis.
+
+\subsubsection{Jupyter Notebooks}\label{jupyter-notebooks}
+
+A \texttt{notebooks/} subdirectory contains Jupyter notebooks that are
+named chronologically, meaning they operate on data located in either
+\texttt{steps/} or generated from a previous notebook. This way, the
+workflow can also be set up to run the notebooks (in order) to produce
+the figures, tables, and their captions used in this manuscript.
+
+\subsubsection{Quarto}\label{quarto}
+
+To manage the directory as a Quarto Book project, a quarto configuration
+file, \texttt{\_quarto.yml}, was placed at the base, defining how the
+Book should be rendered. Additionally, configuration files were placed
+in \texttt{slides/} and \texttt{thesis/}, to render them as Quarto
+Slides and Quarto Manuscript, respectively. This nested structure lets
+us render different subprojects with different configurations than the
+main project, for example to generate the manuscript, a single Quarto
+Markdown file, in both \emph{.html} and \emph{.pdf}, and only including
+embedded outputs from specified cells from notebooks in the parent
+directory.
+
+Although the Quarto framework is extensive, it is still under
+development and has several drawbacks worth mentioning. First, one can
+only embed the output of code cells from notebooks, meaning the only way
+to embed text with a python variable (e.g.~you want the manuscript to
+reflect the actual value of a variable, sample sizes
+\texttt{n\ =\ {[}1000,\ 10000,\ 100000{]}}, and their respective
+outputs) is by converting a formatted python string into Markdown and
+send it to the output. Second, embedded figures will be copied as-is in
+the notebook, and thus cannot be post-processed with size or layout.
+This makes it impractical to e.g.~use the same figures in slides and in
+the manuscript. Third, rendering large projects that is tracked by git,
+some output files (that have to be tracked to publish the website) can
+exeed GitHub size limits. Especially if rendering in the \emph{jats}
+format, producing a MECA Bundle that should be the most flexible way to
+exchange manuscripts {[}ref{]}. However, as not applicable to this
+thesis, the option was simply disabled.
+
+\subsection{git and GitHub}\label{git-and-github}
+
+To track the project with git and GitHub, the abovementioned structure
+was initialized as a GitHub repository, including a workflow for GitHub
+Actions to publish and deploy the website on the \texttt{gh-pages}
+branch when pushing commits to \texttt{main}. Briefly, it sets up a
+virtual machine with Quarto and its dependencies, renders the project as
+specified in the \texttt{\_quarto.yml} configuration file(s), and
+publishes the project on the group website
+\href{https://munch-group.org/hic-spermatogenesis}{munch-group.org}.
+
+\chapter{Methods}\label{methods}
 
 All computations were performed on GenomeDK (GDK) {[}ref{]}, an HPC
 cluster located on Aarhus Uninversity, and most of the processing of the
@@ -908,15 +1063,6 @@ data was nested into a \emph{gwf} workflow {[}ref{]}, a workflow manager
 developed at GDK. I would like to thank GDK and Aarhus University for
 providing computational resources and support that contributed to these
 research results.
-
-The whole of this project is carried out with reproducibility in mind,
-so an effort (and quite a significant amount of time) has been put into
-documenting code and organizing the project for readbility and
-transparency through a Quarto project {[}ref{]}. Therefore, all code,
-virtual environments and text is made available as a Quarto book,
-rendered directly from the GitHub repository with GitHub Pages
-{[}ref{]}. To make this possible, the Quarto documentation has been
-extensively studied and discussed with \emph{KMT} {[}ref, aknowledge{]}.
 
 \section{Initial Exploration with
 HiCExplorer}\label{initial-exploration-with-hicexplorer}
