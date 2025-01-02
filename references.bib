@@ -1,3 +1,23 @@
+@article{abdennur2020coolerscalablestorage,
+  title = {Cooler: Scalable Storage for {{Hi-C}} Data and Other Genomically Labeled Arrays},
+  shorttitle = {Cooler},
+  author = {Abdennur, Nezar and Mirny, Leonid A},
+  editor = {Wren, Jonathan},
+  year = {2020},
+  month = jan,
+  journal = {Bioinformatics},
+  volume = {36},
+  number = {1},
+  pages = {311--316},
+  issn = {1367-4803, 1367-4811},
+  doi = {10.1093/bioinformatics/btz540},
+  urldate = {2025-01-02},
+  abstract = {Abstract                            Motivation               Most existing coverage-based (epi)genomic datasets are one-dimensional, but newer technologies probing interactions (physical, genetic, etc.) produce quantitative maps with two-dimensional genomic coordinate systems. Storage and computational costs mount sharply with data resolution when such maps are stored in dense form. Hence, there is a pressing need to develop data storage strategies that handle the full range of useful resolutions in multidimensional genomic datasets by taking advantage of their sparse nature, while supporting efficient compression and providing fast random access to facilitate development of scalable algorithms for data analysis.                                         Results               We developed a file format called cooler, based on a sparse data model, that can support genomically labeled matrices at any resolution. It has the flexibility to accommodate various descriptions of the data axes (genomic coordinates, tracks and bin annotations), resolutions, data density patterns and metadata. Cooler is based on HDF5 and is supported by a Python library and command line suite to create, read, inspect and manipulate cooler data collections. The format has been adopted as a standard by the NIH 4D Nucleome Consortium.                                         Availability and implementation               Cooler is cross-platform, BSD-licensed and can be installed from the Python package index or the bioconda repository. The source code is maintained on Github at https://github.com/mirnylab/cooler.                                         Supplementary information               Supplementary data are available at Bioinformatics online.},
+  copyright = {https://academic.oup.com/journals/pages/open\_access/funder\_policies/chorus/standard\_publication\_model},
+  langid = {english},
+  file = {/Users/sorenjorgensen/Zotero/storage/3HT96DDS/Abdennur and Mirny - 2020 - Cooler scalable storage for Hi-C data and other genomically labeled arrays.pdf}
+}
+
 @article{batra2020accurateassemblyolive,
   title = {Accurate Assembly of the Olive Baboon ( {{{\emph{Papio}}}}{\emph{ Anubis}} ) Genome Using Long-Read and {{Hi-C}} Data},
   author = {Batra, Sanjit Singh and {Levy-Sakin}, Michal and Robinson, Jacqueline and Guillory, Joseph and Durinck, Steffen and Vilgalys, Tauras P and Kwok, Pui-Yan and Cox, Laura A and Seshagiri, Somasekar and Song, Yun S and Wall, Jeffrey D},
@@ -269,6 +289,25 @@
   file = {/Users/sorenjorgensen/Zotero/storage/NHJ2D3TF/Open2C et al. - 2022 - Cooltools enabling high-resolution Hi-C analysis in Python.pdf}
 }
 
+@article{open2c2024pairtoolssequencingdata,
+  title = {Pairtools: {{From}} Sequencing Data to Chromosome Contacts},
+  shorttitle = {Pairtools},
+  author = {{Open2C} and Abdennur, Nezar and Fudenberg, Geoffrey and Flyamer, Ilya M. and Galitsyna, Aleksandra A. and Goloborodko, Anton and Imakaev, Maxim and Venev, Sergey V.},
+  editor = {Ay, Ferhat},
+  year = {2024},
+  month = may,
+  journal = {PLOS Computational Biology},
+  volume = {20},
+  number = {5},
+  pages = {e1012164},
+  issn = {1553-7358},
+  doi = {10.1371/journal.pcbi.1012164},
+  urldate = {2025-01-02},
+  abstract = {The field of 3D genome organization produces large amounts of sequencing data from Hi-C and a rapidly-expanding set of other chromosome conformation protocols (3C+). Massive and heterogeneous 3C+ data require high-performance and flexible processing of sequenced reads into contact pairs. To meet these challenges, we present               pairtools               --a flexible suite of tools for contact extraction from sequencing data.               Pairtools               provides modular command-line interface (CLI) tools that can be flexibly chained into data processing pipelines. The core operations provided by               pairtools               are parsing of.sam alignments into Hi-C pairs, sorting and removal of PCR duplicates. In addition,               pairtools               provides auxiliary tools for building feature-rich 3C+ pipelines, including contact pair manipulation, filtration, and quality control. Benchmarking               pairtools               against popular 3C+ data pipelines shows advantages of               pairtools               for high-performance and flexible 3C+ analysis. Finally,               pairtools               provides protocol-specific tools for restriction-based protocols, haplotype-resolved contacts, and single-cell Hi-C. The combination of CLI tools and tight integration with Python data analysis libraries makes               pairtools               a versatile foundation for a broad range of 3C+ pipelines.},
+  langid = {english},
+  file = {/Users/sorenjorgensen/Zotero/storage/JNC3TMDR/Open2C et al. - 2024 - Pairtools From sequencing data to chromosome contacts.pdf}
+}
+
 @misc{openchromosomecollective,
   type = {Resource},
   title = {Open {{Chromosome Collective}} ({{Open2C}})},
@@ -295,6 +334,24 @@
   copyright = {http://www.springer.com/tdm},
   langid = {english},
   file = {/Users/sorenjorgensen/Zotero/storage/IIY9XUI9/Price et al. - 2006 - Principal components analysis corrects for stratification in genome-wide association studies.pdf}
+}
+
+@article{ramirez2018highresolutiontadsreveal,
+  title = {High-Resolution {{TADs}} Reveal {{DNA}} Sequences Underlying Genome Organization in Flies},
+  shorttitle = {{{HICEXPLORER}}},
+  author = {Ram{\'i}rez, Fidel and Bhardwaj, Vivek and Arrigoni, Laura and Lam, Kin Chung and Gr{\"u}ning, Bj{\"o}rn A. and Villaveces, Jos{\'e} and Habermann, Bianca and Akhtar, Asifa and Manke, Thomas},
+  year = {2018},
+  month = jan,
+  journal = {Nature Communications},
+  volume = {9},
+  number = {1},
+  pages = {189},
+  issn = {2041-1723},
+  doi = {10.1038/s41467-017-02525-w},
+  urldate = {2025-01-02},
+  abstract = {Abstract                            Despite an abundance of new studies about topologically associating domains (TADs), the role of genetic information in TAD formation is still not fully understood. Here we use our software, HiCExplorer (               hicexplorer.readthedocs.io               ) to annotate {$>$}2800 high-resolution (570\,bp) TAD boundaries~in               Drosophila~melanogaster               . We identify eight DNA motifs enriched at boundaries, including a motif bound by the M1BP protein, and two new boundary motifs. In contrast to mammals, the CTCF motif is only enriched on a small fraction of boundaries flanking inactive chromatin while most active boundaries contain the motifs bound by the M1BP or Beaf-32 proteins. We demonstrate that boundaries can be accurately predicted using only the motif sequences at open chromatin sites. We propose that DNA sequence guides the genome architecture by allocation of boundary proteins in the genome. Finally, we present an interactive online database to access and explore the spatial organization of fly, mouse and human genomes, available at               http://chorogenome.ie-freiburg.mpg.de               .},
+  langid = {english},
+  file = {/Users/sorenjorgensen/Zotero/storage/G2MP4FPF/Ramírez et al. - 2018 - High-resolution TADs reveal DNA sequences underlying genome organization in flies.pdf}
 }
 
 @article{sanders2022loopstopologicallyassociating,
@@ -375,7 +432,9 @@
   issn = {0036-8075, 1095-9203},
   doi = {10.1126/science.abn8153},
   urldate = {2024-11-15},
-  abstract = {Baboons (genus               Papio               ) are a morphologically and behaviorally diverse clade of catarrhine monkeys that have experienced hybridization between phenotypically and genetically distinct phylogenetic species. We used high-coverage whole-genome sequences from 225 wild baboons representing 19 geographic localities to investigate population genomics and interspecies gene flow. Our analyses provide an expanded picture of evolutionary reticulation among species and reveal patterns of population structure within and among species, including differential admixture among conspecific populations. We describe the first example of a baboon population with a genetic composition that is derived from three distinct lineages. The results reveal processes, both ancient and recent, that produced the observed mismatch between phylogenetic relationships based on matrilineal, patrilineal, and biparental inheritance. We also identified several candidate genes that may contribute to species-specific phenotypes.}
+  abstract = {Baboons (genus               Papio               ) are a morphologically and behaviorally diverse clade of catarrhine monkeys that have experienced hybridization between phenotypically and genetically distinct phylogenetic species. We used high-coverage whole-genome sequences from 225 wild baboons representing 19 geographic localities to investigate population genomics and interspecies gene flow. Our analyses provide an expanded picture of evolutionary reticulation among species and reveal patterns of population structure within and among species, including differential admixture among conspecific populations. We describe the first example of a baboon population with a genetic composition that is derived from three distinct lineages. The results reveal processes, both ancient and recent, that produced the observed mismatch between phylogenetic relationships based on matrilineal, patrilineal, and biparental inheritance. We also identified several candidate genes that may contribute to species-specific phenotypes.                        ,                             INTRODUCTION                                As a widespread but comparatively young clade of six parapatric species, the baboons (                 Papio                 sp.) exemplify a frequently observed pattern of mammalian diversity. In particular, they provide analogs for the population structure of the multibranched prehuman lineage that occupied a similar geographic range before the hegemony of ``modern'' humans,                 Homo sapiens                 . Despite phenotypic and genetic differences, interspecies hybridization has been described between baboons at several locations, and population relationships based on mitochondrial DNA (mtDNA) do not correspond with relationships based on phenotype. These previous studies captured the broad outlines of baboon population genetic structure and evolutionary history but necessarily used data that were limited in genomic and geographical coverage and therefore could not adequately document inter- and intrapopulation variation. In this study, we analyzed whole-genome sequences of 225 baboons representing all six species and 19 geographic sites, with 18 local populations represented by multiple individuals.                                                        RATIONALE               Recent studies have identified several mammalian species groups in which genetically distinct lineages have hybridized to generate complex reticulate phylogenies. Baboons provide a valuable context for studying processes generating such population and phylogenetic complexity because extant parapatric species form hybrid zones in several regions of Africa, allowing for direct observation of ongoing introgression. Furthermore, prior studies of nuclear and mtDNA and phenotypic diversity have demonstrated gene flow among differentiated lineages but were unable to develop the detailed picture of process and history that is now possible using whole-genome sequences and modern computational methods. To address these questions, we designed a study that would provide a more fine-grained picture of recent and ancient genetic reticulation by comparing phenotypes and autosomal, X and Y chromosomal, and mtDNA sequences, along with polymorphic insertions of repetitive elements across multiple baboon populations.                                         RESULTS                                Using deep whole-genome sequence data from 225 baboons representing multiple populations, we identified several previously unknown geographic sites of gene flow between genetically distinct populations. We report that yellow baboons (                 P. cynocephalus                 ) from western Tanzania are the first nonhuman primate found to have received genetic input from three distinct lineages. We compared the ancestry shared among individuals, estimated separately from the X chromosome and autosomes, to distinguish shared ancestry due to ancestral population relationships from coancestry as a result of recent male-biased immigration and gene flow. This reveals directionality and sex bias of recent gene flow in several locations. Analyses of population differences within species quantified different degrees of interspecies introgression among populations with an essentially identical phenotype.                                                        CONCLUSION               The population genetic structure and history of introgression among baboon lineages are even more complex than predicted from observed phenotypic diversity and prior studies of limited genetic data. Single populations can carry genetic contributions from more than two ancestral sources. Populations that appear homogeneous on the basis of observable phenotype can display different levels of interspecies introgression. The evolutionary dynamics and current structure of baboon population diversity indicate that other mammals displaying differentiated and geographically separate species may also have more-complex histories than anticipated. This may also be true for the morphologically defined hominin taxa from the past 4 million years.                                                   Ancient and recent admixture among baboons: Complex population substructure and reticulation revealed by whole-genome sequencing.                   Pie charts represent recent ancestry of East African populations, with species contributions colored as in the inset map. Patterns of mixed ancestry differ substantially, even among conspecific populations. This suggests a complex history of recurrent interpopulational gene flow, driven predominantly by male migration. Comparably complex admixture probably also occurred among early hominins.},
+  langid = {english},
+  file = {/Users/sorenjorgensen/Zotero/storage/ECNQ9XSM/Sørensen et al. - 2023 - Genome-wide coancestry reveals details of ancient and recent male-driven reticulation in baboons.pdf;/Users/sorenjorgensen/Zotero/storage/UQYGT3NB/Sørensen et al. - 2023 - Genome-wide coancestry reveals details of ancient and recent male-driven reticulation in baboons.pdf}
 }
 
 @article{wang2019reprogrammingmeioticchromatin,
