@@ -21,7 +21,7 @@ degree: MSc. Bioinformatics
 keywords:
   - Hi-C
   - Chromatin Compartments
-  - Evolutionary pressures
+  - Selection on X
   - Selfish gene drive
 abstract: |
   The hemizygosity of male mammals makes the X chromosome uniquely exposed to selective pressures, as the lack of a second copy provides no buffer against deleterious mutations. This, combined with a high density of essential genes related to reproduction and brain function, suggests the existence of biological mechanisms that protect the integrity of the X chromosome. One such mechanism is meiotic sex chromosome inactivation (MSCI) in males, while another could involve chromatin architecture. 
@@ -30,7 +30,7 @@ abstract: |
   
   We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with strong selective sweeps in humans (ECH-regions), and with strong negative selection in baboons (*Papio* spp.). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
 plain-language-summary: |
-  3D structure of chromatin brings another mystery onto the story of selfish genes, where the edges of A-compartments in macaque align well with regions of positive selection identified in human and hybrid incompatibility in baboons.
+  3D structure of chromatin brings another mystery onto the story of selfish genes, where the edges of A-compartments in macaque align well with regions of positive selection identified in human and moderately with negative selection in baboons.
 key-points:
   - Compare two frameworks for Hi-C analysis, HiCExplorer and Open2C
   - Redo Hi-C analysis of rhesus macaque X chromosomes on the latest reference genome *rheMac10* 
@@ -44,9 +44,19 @@ date: last-modified
 
 The production of gametes in a sexually reproducing organism is a highly complex process that involves numeruous elements. Spermatogenesis, the process of forming male gametes, involves four stages of differentiation from a germ cell through *spermatogonia*, *pachytene spermatocyte*, and *round spermatids* to *spermatozoa*, or *sperm* [@wang2019reprogrammingmeioticchromatin], and it is the very basis of male reproduction. The specialized cell division of meiosis neatly handles the pairing, recombination, and segregation of homologous chromosomes, thereby ensuring proper genetic distribution. Deeply understanding the steps of molecular steps of reproduction and how our genetic material is inherited is essential in biology, bringing insight to areas such as speciation, population diversity, and (male) infertility.
 
-Sex chromosomes behave differently than autosomes for a long list of reasons. One reason is hemizygosity, where there is only one copy of a chromosome. The Y chromosome exist only in males, and (generally) never more than one copy is in the same individual. The copmlexity increases when we tend to the X chromosome, which exist both alone (in males) and as two copies (in females). This skewed ratio means that X chromosomes exist $2/3$ of the time in females and only 1/3 of the time in males, and it is more exposed in males as there is no other copy to take over loss of function. It is also the underlying reasoning for Haldane's rule [ref], postulating that the heterogametic sex (XY, ZW) is the first to dissapear or have severely lowered fitness (e.g. sterility) when crossing different species. Even today, a hundred years later, there is only hypotheses as to why this is observed, including *Y-incompatibility* (Y has to be compatible to X or autosomes),  *dosage compensation* (hybridisation deregulates crucial dosage compensation in heterogametes), *dominance* (recessive genes causes sterility), *faster-male* (male reproductive genes diverge faster than female), *faster-X* (X-linked loci diverge faster than autosomal ones), and *meiotic drive* (discrepancy between drivers and surpressors on sex chromosomes leads to sterility) [ref]. While is appears to be the same fenomenon across multiple *taxa* (even *kingdoms*), it has received different explanations, and consensus for different species are not the same. Often times even, several of the listed explanations are described to be acting in collaboration [ref]. 
+Sex chromosomes behave differently than autosomes for a long list of reasons. One reason is hemizygosity, where there is only one copy of a chromosome. The Y chromosome exist only in males, and (generally) never more than one copy is in the same individual. The copmlexity increases when we tend to the X chromosome, which exist both alone (in males) and as two copies (in females). This skewed ratio means that X chromosomes exist $2/3$ of the time in females and only 1/3 of the time in males, and it is more exposed in males as there is no other copy to take over loss of function. It is also the underlying reasoning for Haldane's rule [ref], postulating that the heterogametic sex (XY, ZW) is the first to dissapear or have severely lowered fitness (e.g. sterility) when crossing different species. Even today, a hundred years later, there is only hypotheses as to why this is observed, including *Y-incompatibility* (Y has to be compatible to X or autosomes),  *dosage compensation* (hybridisation deregulates crucial dosage compensation in heterogametes), *dominance* (recessive genes causes sterility), *faster-male* (male reproductive genes diverge faster than female), *faster-X* (X-linked loci diverge faster than autosomal ones), and *meiotic drive* (discrepancy between drivers and surpressors on sex chromosomes leads to sterility) [ref]. While is appears to be the same phenomenon across multiple *taxa* (even *kingdoms*), it has received different explanations, and consensus for different species are not the same. Often times even, several of the listed explanations are described to be acting in collaboration [ref]. 
 
-The complexity of selection on the X chromosome therefore still an area of active investigation, and several studies infers selective strong selective sweeps on the X chromosomes across primates [ref]
+- [ ] include something about conserved synteny on chrX here
+
+The complexity of selection on the X chromosome therefore still an area of active investigation, and several studies infers selective strong selection on the X chromosomes across primates [ref]
+
+## Known selection on X
+
+- [ ] Selective sweeps (or is it?) in humans (ECH90; @skov2023extraordinaryselectionhuman)
+  - [ ] Explain why it makes sense to compare these data sets
+- [ ] Negative selection in baboons w.r.t. minor parent ancestry
+  - [ ] Explain why it makes sense to compare these datasets
+  - [ ] The low-diveristy in *p.hamadryas* are very wide - maybe chromatin
 
 ## Gene drivers
 
@@ -54,21 +64,24 @@ The complexity of selection on the X chromosome therefore still an area of activ
 
 Gene drive occur when a particular collection of genes is propagated through a population by increasing the probability of transmitting the genes to the offspring from random (Mendelian) inheritance, resulting in a biased gene transmission against its alternative. Two categories of gene drivers exist [@bravonunez2018geneticvillainskiller]; *class one drivers* affect chromosome segregation in meiosis, and *killer meiotic drivers* will sabotage meiotic product that have not inherited the driving allele [ref]. This happens regardless of the fitness effects of the developed organism, and is there often a factor  offsetting classical selection. Even though the implications of such systems are potentially detrimental, they are notoriously difficult to detect. A circumstance contributing to the difficulty is that most genetic experiments are done in homozygotes. @bravonunez2018geneticvillainskiller states that the general choice of experimental system may have biased our understanding of sexual reproduction. A key point is; meiotic drivers can only be observed in heterozygotes, where a genetic driver has a competitor. 
 
-Interestingly, gene drive is much more well-documented on sex chromosomes than for autosomes. Possibly because the sex chromosome meiotic drive inherently causes a skewed sex ratio, flagging the system for further analysis. Another point to consider is, in the case of sex chromosome drive, a fully driving gene will lead to the extinction of the species [ref], as only one (fertile) offspring will be produced. 
+Interestingly, gene drive is much more well-documented on sex chromosomes than for autosomes. Possibly because the sex chromosome meiotic drive inherently causes a skewed sex ratio, more notably raising a flag for further analysis. Another point to consider is, in the case of sex chromosome drive, a fully driving gene will lead to the extinction of the species [ref], as only one (fertile) offspring will be produced. 
 
 
 ## Selfish genes (and randomness) 
 
-The conventional story of meiosis in gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes, where each chromosome has an equal chance of being passed on to a gamete. That seems like a fair game, but what if some genes are cheating the system by making others less viable. A meiotic driver is a selfish gene element that modulates meiosis and preferentially transmits its own allele through meiosis, regardless of the downstream fitness effects it may have (good or bad) on the organism it is part of. This phenomenon challenges the traditional understanding of selection, extending its scope beyond the fitness effects on an organism to include selective pressures at the molecular level. 
-For example, if some genes on the X chromosome create a disadvantage for gametes that *do not* contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is exactly what is coined *sex chromosome meiotic drive* [@jaenike2001sexchromosomemeiotic], a result of selfish genetic elements. 
+*The conventional story of meiosis in gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes, where each chromosome has an equal chance of being passed on to a gamete. That seems like a fair game, but what if some genes are cheating the system by making others less viable. A meiotic driver is a selfish gene element that modulates meiosis and preferentially transmits its own allele through meiosis, regardless of the downstream fitness effects it may have (good or bad) on the organism it is part of. This phenomenon challenges the traditional understanding of selection, extending its scope beyond the fitness effects on an organism to include selective pressures at the molecular level. For example, if some genes on the X chromosome create a disadvantage for gametes that *do not* contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is exactly what is coined *sex chromosome meiotic drive* [@jaenike2001sexchromosomemeiotic], a result of selfish genetic elements. Motivated by previous results in the Munch Research group [@munch2024munchgroup] on hybrid incompatibility and extended common haplotypes [@skov2023extraordinaryselectionhuman; @sorensen2023genomewidecoancestryreveals] that could be explained by meiotic drive, we wanted to investigate how these patterns correlate with chromatin compartments.*
 
-Motivated by previous results in the Munch Research group [@munch2024munchgroup] on hybrid incompatibility and extended common haplotypes [@skov2023extraordinaryselectionhuman; @sorensen2023genomewidecoancestryreveals] that could be explained by meiotic drive, we wanted to investigate how these patterns correlate with chromatin compartments. 
 
-## Our Organism of Interest, Wang et al., and the references
+## Chromatin Architecture
 
-## Extended Common Haplotypes Discovered in Humans
+- [ ] Chromatin organization is highly conserved between species
+- [ ] Explain why take offset in @wang2019reprogrammingmeioticchromatin
+- [ ] Exlpain the rationale of reproducing results with the latest reference
+- [ ] 
 
 ## 3C: Chromatin Conformation Capture
+
+- [ ] This might not be needed or will be merged with Hi-C section
 
 ## Hi-C: High-Throughput 3C
 
