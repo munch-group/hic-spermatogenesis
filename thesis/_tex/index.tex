@@ -460,7 +460,7 @@ pressures, Selfish gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2025-01-01}
+\date{2025-01-02}
 
 \begin{document}
 \frontmatter
@@ -487,7 +487,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2025-01-01 \par}
+{\bfseries\large 2025-01-02 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -539,8 +539,8 @@ elements in genome evolution. \par
 \mainmatter
 \chapter{Introduction}\label{introduction}
 
-\section{Sexual reproduction (spermatogenesis,
-meiosis)}\label{sexual-reproduction-spermatogenesis-meiosis}
+\section{Sexual reproduction and Sex
+Chromosomes}\label{sexual-reproduction-and-sex-chromosomes}
 
 The production of gametes in a sexually reproducing organism is a highly
 complex process that involves numeruous elements. Spermatogenesis, the
@@ -554,6 +554,63 @@ thereby ensuring proper genetic distribution. Deeply understanding the
 steps of molecular steps of reproduction and how our genetic material is
 inherited is essential in biology, bringing insight to areas such as
 speciation, population diversity, and (male) infertility.
+
+Sex chromosomes behave differently than autosomes for a long list of
+reasons. One reason is hemizygosity, where there is only one copy of a
+chromosome. The Y chromosome exist only in males, and (generally) never
+more than one copy is in the same individual. The copmlexity increases
+when we tend to the X chromosome, which exist both alone (in males) and
+as two copies (in females). This skewed ratio means that X chromosomes
+exist \(2/3\) of the time in females and only 1/3 of the time in males,
+and it is more exposed in males as there is no other copy to take over
+loss of function. It is also the underlying reasoning for Haldane's rule
+{[}ref{]}, postulating that the heterogametic sex (XY, ZW) is the first
+to dissapear or have severely lowered fitness (e.g.~sterility) when
+crossing different species. Even today, a hundred years later, there is
+only hypotheses as to why this is observed, including
+\emph{Y-incompatibility} (Y has to be compatible to X or autosomes),
+\emph{dosage compensation} (hybridisation deregulates crucial dosage
+compensation in heterogametes), \emph{dominance} (recessive genes causes
+sterility), \emph{faster-male} (male reproductive genes diverge faster
+than female), \emph{faster-X} (X-linked loci diverge faster than
+autosomal ones), and \emph{meiotic drive} (discrepancy between drivers
+and surpressors on sex chromosomes leads to sterility) {[}ref{]}. While
+is appears to be the same fenomenon across multiple \emph{taxa} (even
+\emph{kingdoms}), it has received different explanations, and consensus
+for different species are not the same. Often times even, several of the
+listed explanations are described to be acting in collaboration
+{[}ref{]}.
+
+The complexity of selection on the X chromosome therefore still an area
+of active investigation, and several studies infers selective strong
+selective sweeps on the X chromosomes across primates {[}ref{]}
+
+\section{Gene drivers}\label{gene-drivers}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  Talk about what makes a genetic driver, what criteria
+\end{itemize}
+
+Gene drive occur when a particular collection of genes is propagated
+through a population by increasing the probability of transmitting the
+genes to the offspring from random (Mendelian) inheritance, resulting in
+a biased gene transmission against its alternative. Two categories of
+gene drivers exist {[}ref{]}; \emph{class one drivers} affect chromosome
+segregation in meiosis, and \emph{killer meiotic drivers} will sabotage
+meiotic product that have not inherited the driving allele {[}ref{]}.
+This happens regardless of the fitness effects of the developed
+organism, and is there often a factor offsetting classical selection.
+Even though the implications of such systems are potentially
+detrimental, they are notoriously difficult to detect.
+
+Interestingly, gene drive is much more well-documented on sex
+chromosomes than for autosomes. Possibly because the sex chromosome
+meiotic drive inherently causes a skewed sex ratio, flagging the system
+for further analysis. Another point to consider is, in the case of sex
+chromosome drive, a fully driving gene will lead to the extinction of
+the species {[}ref{]}, as only one (fertile) offspring will be produced.
 
 \section{Selfish genes (and
 randomness)}\label{selfish-genes-and-randomness}
@@ -608,38 +665,42 @@ organization of the genome.
 
 A specialized protocol for preparing the DNA library is necessary
 {[}Lieberman-Aiden et al. (2009); Fig. 1a{]}. Briefly, formaldehyde is
-used to crosslink spatially adjecent chromatin. Restriction enzymes are
-used to digest the crosslinked chromatin, leaving sticky ends that are
-filled and biotinylated with a polymerase. Then chimeric molecules are
-ligated in highly dilute conditions, where the restriction site is lost
-and a ligation site (also referred to as \emph{ligation junction}) is
-created. Lastly, the ligation junction are isolated with streptavidin
-beads and sequenced as a paired-end library.
+used to crosslink spatially adjecent chromatin. Restriction enzyme
+\emph{HindIII} is used to digest the crosslinked chromatin, leaving
+sticky ends, \texttt{5-AGCT-3}, that are filled and biotinylated with a
+polymerase (using either biotinylated A, G, C, or T). The strands are
+ligated in highly dilute conditions, which is favoring the ligation of
+the two crosslinked strands, forming chimeric, biotinylated strands.
+Upon ligation, the restriction site is lost as a biotinylated
+\texttt{5-CTAG-3} site (also referred to as the \emph{ligation
+junction}) is formed. Lastly, the ligation junctions are isolated with
+streptavidin beads and sequenced as a paired-end library.
 
 To be able to create stage-resolved Hi-C library of spermatogenetis,
-additional steps have to be performed. First, the samples have to be
-treated immediately after harvesting to ensure viable cells. Secondly,
-the samples have to be purified to accurately represent each stage og
-spermatogenesis. Specifically, the data for this project (Wang et al.
-(2019); acc. GSE109344) preluded the library preparation protocol by
-sedimentation-based cell sorting to separate live spermatogenic cells
-into different stages of differentiation, namely spermatogonia,
-pachytene spermatocyte, round spermatid, and spermatozoa. Then, the
-cells were fixed in their respective state before crosslinking. They use
-their own derived method for library preparation, termed small-scale
-\emph{in-situ} Hi-C, allegedly producing a high-quality Hi-C libary from
-as little as 500 cells (capturing the variance of millions of cells).
+several steps have to be performed on the samples before crosslinking.
+First, the samples have to be treated immediately after harvesting to
+ensure viable cells. Secondly, the samples have to be purified to
+accurately represent each stage og spermatogenesis. Specifically, the
+data for this project (Wang et al. (2019); acc. GSE109344) preluded the
+library preparation protocol by sedimentation-based cell sorting to
+separate live spermatogenic cells into different stages of
+differentiation, namely spermatogonia, pachytene spermatocyte, round
+spermatid, and spermatozoa. Then, the cells were fixed in their
+respective state before crosslinking. They use their own derived method
+for library preparation, termed small-scale \emph{in-situ} Hi-C,
+allegedly producing a high-quality Hi-C libary from as little as 500
+cells (capturing the variance of millions of cells).
 
 \subsection{Hi-C Data Analysis}\label{hi-c-data-analysis}
 
 The analysis of the read-pairs of a Hi-C library is divided into several
-smaller tasks, see \textbf{?@fig-hic-analysis-flow}.
+smaller tasks, see {[}ref fig-hic-analysis-flow{]}.
 
-We must align the reads to the reference in a way such that the
-\emph{intentional} chimeric read-pairs are rescued, and
-\emph{unintentional} read-pairs are discarded. That is, they represent
-ligation junction of adjecent chromatin segments, or they represent
-technical artefacts or unintentional fusions of unrelated DNA.
+We must align the reads to the reference in such a way that the
+\emph{intentional} chimeric read-pairs (as per above-mentioned protocol)
+are rescued, and \emph{unintentional} read-pairs are discarded. That is,
+they represent ligation junction of adjecent chromatin segments, or they
+represent technical artefacts or unintentional fusions of unrelated DNA.
 
 \subsubsection{Aligning the Hi-C reads}\label{aligning-the-hi-c-reads}
 
@@ -668,9 +729,10 @@ Pairs}\label{identifying-and-storing-valid-hi-c-pairs}
 
 One should be cautious when filtering invalid from valid pairs, as they
 are not easily distinguished. A ligation event will be categorized into
-one of five categories: \emph{dangling-end}, \emph{self-circle},
-\emph{weird}, \emph{intrachromosomal} (cis), and \emph{interchromosomal}
-(trans) , see~\ref{tbl-ligation-events}. Either \emph{dangling-end} or
+one of five categories (see Table~\ref{tbl-ligation-events}):
+\emph{dangling-end}, \emph{self-circle}, \emph{weird},
+\emph{intrachromosomal} (cis), and \emph{interchromosomal} (trans)
+(Bicciato and Ferrari 2022, Ch. 1). Either \emph{dangling-end} or
 \emph{self-circle} events are reported if a read-pair maps to the same
 restriction fragment depending on the orientation, and deemed
 uninformative (Lajoie, Dekker, and Kaplan 2015). Usually, \emph{weird}
@@ -911,10 +973,9 @@ biological meaning of the results.
 \section{Reproducibility
 Infrastructure}\label{reproducibility-infrastructure}
 
-\begin{quote}
-First, describe the importance of reproducibility and the scientific
-method. Include a bit of scientific skeptiscism of there is time.
-\end{quote}
+\textbf{First, describe the importance of reproducibility and the
+scientific method. Include a bit of scientific skeptiscism of there is
+time.}
 
 Thus, apart from the biological questions we seek to investigate and
 answer in this thesis, a major goal of the thesis is to create fully
@@ -922,6 +983,8 @@ answer in this thesis, a major goal of the thesis is to create fully
 version-controlled pipeline using git {[}ref{]}, GitHub {[}ref{]},
 quarto {[}ref{]}, Conda {[}ref{]}, gwf {[}ref{]}, and Jupyter {[}ref{]}.
 See Table~\ref{tbl-reproducibility} for a brief introduction.
+
+\small
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1176}}
@@ -964,6 +1027,8 @@ wrapped in Python code. \texttt{workflow.py} currently does everything
 from \texttt{.fastq} to \texttt{.cool}, but notebooks can be set to run
 sequentially as part of the workflow as well. \\
 \end{longtable}
+
+\normalsize
 
 \subsection{GWF: workflow management for High-Performance Computing
 (HPC)}\label{gwf-workflow-management-for-high-performance-computing-hpc}
@@ -1025,9 +1090,7 @@ us render different subprojects with different configurations than the
 main project, for example to generate the manuscript, a single Quarto
 Markdown file, in both \emph{.html} and \emph{.pdf}, and only including
 embedded outputs from specified cells from notebooks in the parent
-directory.
-
-Although the Quarto framework is extensive, it is still under
+directory. Although the Quarto framework is extensive, it is still under
 development and has several drawbacks worth mentioning. First, one can
 only embed the output of code cells from notebooks, meaning the only way
 to embed text with a python variable (e.g.~you want the manuscript to
