@@ -40,9 +40,21 @@ date: last-modified
 
 # Introduction
 
-## Sexual reproduction (spermatogenesis, meiosis)
+## Sexual reproduction and Sex Chromosomes
 
 The production of gametes in a sexually reproducing organism is a highly complex process that involves numeruous elements. Spermatogenesis, the process of forming male gametes, involves four stages of differentiation from a germ cell through *spermatogonia*, *pachytene spermatocyte*, and *round spermatids* to *spermatozoa*, or *sperm* [@wang_reprogramming_2019], and it is the very basis of male reproduction. The specialized cell division of meiosis neatly handles the pairing, recombination, and segregation of homologous chromosomes, thereby ensuring proper genetic distribution. Deeply understanding the steps of molecular steps of reproduction and how our genetic material is inherited is essential in biology, bringing insight to areas such as speciation, population diversity, and (male) infertility.
+
+Sex chromosomes behave differently than autosomes for a long list of reasons. One reason is hemizygosity, where there is only one copy of a chromosome. The Y chromosome exist only in males, and (generally) never more than one copy is in the same individual. The copmlexity increases when we tend to the X chromosome, which exist both alone (in males) and as two copies (in females). This skewed ratio means that X chromosomes exist $2/3$ of the time in females and only 1/3 of the time in males, and it is more exposed in males as there is no other copy to take over loss of function. It is also the underlying reasoning for Haldane's rule [ref], postulating that the heterogametic sex (XY, ZW) is the first to dissapear or have severely lowered fitness (e.g. sterility) when crossing different species. Even today, a hundred years later, there is only hypotheses as to why this is observed, including *Y-incompatibility* (Y has to be compatible to X or autosomes),  *dosage compensation* (hybridisation deregulates crucial dosage compensation in heterogametes), *dominance* (recessive genes causes sterility), *faster-male* (male reproductive genes diverge faster than female), *faster-X* (X-linked loci diverge faster than autosomal ones), and *meiotic drive* (discrepancy between drivers and surpressors on sex chromosomes leads to sterility) [ref]. While is appears to be the same fenomenon across multiple *taxa* (even *kingdoms*), it has received different explanations, and consensus for different species are not the same. Often times even, several of the listed explanations are described to be acting in collaboration [ref]. 
+
+The complexity of selection on the X chromosome therefore still an area of active investigation, and several studies infers selective strong selective sweeps on the X chromosomes across primates [ref]
+
+## Gene drivers
+
+- [ ] Talk about what makes a genetic driver, what criteria
+
+Gene drive occur when a particular collection of genes is propagated through a population by increasing the probability of transmitting the genes to the offspring from random (Mendelian) inheritance, resulting in a biased gene transmission against its alternative. Two categories of gene drivers exist [ref]; *class one drivers* affect chromosome segregation in meiosis, and *killer meiotic drivers* will sabotage meiotic product that have not inherited the driving allele [ref]. This happens regardless of the fitness effects of the developed organism, and is there often a factor  offsetting classical selection. Even though the implications of such systems are potentially detrimental, they are notoriously difficult to detect.
+
+Interestingly, gene drive is much more well-documented on sex chromosomes than for autosomes. Possibly because the sex chromosome meiotic drive inherently causes a skewed sex ratio, flagging the system for further analysis. Another point to consider is, in the case of sex chromosome drive, a fully driving gene will lead to the extinction of the species [ref], as only one (fertile) offspring will be produced. 
 
 
 ## Selfish genes (and randomness) 
@@ -64,15 +76,15 @@ Our DNA can be divided into different orders of structure. *3C* focus on identif
 
 ### Hi-C Library preparation
 
-A specialized protocol for preparing the DNA library is necessary [@lieberman_aiden_comprehensive_2009; Fig. 1a]. Briefly, formaldehyde is used to crosslink spatially adjecent chromatin. Restriction enzymes are used to digest the crosslinked chromatin, leaving sticky ends that are filled and biotinylated with a polymerase. Then chimeric molecules are ligated in highly dilute conditions, where the restriction site is lost and a ligation site (also referred to as *ligation junction*) is created. Lastly, the ligation junction are isolated with streptavidin beads and sequenced as a paired-end library. 
+A specialized protocol for preparing the DNA library is necessary [@lieberman_aiden_comprehensive_2009; Fig. 1a]. Briefly, formaldehyde is used to crosslink spatially adjecent chromatin. Restriction enzyme *HindIII* is used to digest the crosslinked chromatin, leaving sticky ends, `5-AGCT-3`, that are filled and biotinylated with a polymerase (using either biotinylated A, G, C, or T). The strands are ligated in highly dilute conditions, which is favoring the ligation of the two crosslinked strands, forming chimeric, biotinylated strands. Upon ligation, the restriction site is lost as a biotinylated `5-CTAG-3` site (also referred to as the *ligation junction*) is formed. Lastly, the ligation junctions are isolated with streptavidin beads and sequenced as a paired-end library. 
 
-To be able to create stage-resolved Hi-C library of spermatogenetis, additional steps have to be performed. First, the samples have to be treated immediately after harvesting to ensure viable cells. Secondly, the samples have to be purified to accurately represent each stage og spermatogenesis. Specifically, the data for this project (@wang_reprogramming_2019; acc. GSE109344) preluded the library preparation protocol by sedimentation-based cell sorting to separate live spermatogenic cells into different stages of differentiation, namely spermatogonia, pachytene spermatocyte, round spermatid, and spermatozoa. Then, the cells were fixed in their respective state before crosslinking. They use their own derived method for library preparation, termed small-scale *in-situ* Hi-C, allegedly producing a high-quality Hi-C libary from as little as 500 cells (capturing the variance of millions of cells). 
+To be able to create stage-resolved Hi-C library of spermatogenetis, several steps have to be performed on the samples before crosslinking. First, the samples have to be treated immediately after harvesting to ensure viable cells. Secondly, the samples have to be purified to accurately represent each stage og spermatogenesis. Specifically, the data for this project (@wang_reprogramming_2019; acc. GSE109344) preluded the library preparation protocol by sedimentation-based cell sorting to separate live spermatogenic cells into different stages of differentiation, namely spermatogonia, pachytene spermatocyte, round spermatid, and spermatozoa. Then, the cells were fixed in their respective state before crosslinking. They use their own derived method for library preparation, termed small-scale *in-situ* Hi-C, allegedly producing a high-quality Hi-C libary from as little as 500 cells (capturing the variance of millions of cells). 
 
 ### Hi-C Data Analysis
 
-The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks, see @fig-hic-analysis-flow. 
+The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks, see [ref fig-hic-analysis-flow]. 
 
-We must align the reads to the reference in a way such that the *intentional* chimeric read-pairs are rescued, and *unintentional* read-pairs are discarded. That is, they represent ligation junction of adjecent chromatin segments, or they represent technical artefacts or unintentional fusions of unrelated DNA.
+We must align the reads to the reference in such a way that the *intentional* chimeric read-pairs (as per above-mentioned protocol) are rescued, and *unintentional* read-pairs are discarded. That is, they represent ligation junction of adjecent chromatin segments, or they represent technical artefacts or unintentional fusions of unrelated DNA.
 
 
 #### Aligning the Hi-C reads
@@ -84,7 +96,7 @@ Interestingly, this last step is not included by default in *pairtools*, as [ref
 
 #### Identifying and Storing Valid Hi-C Pairs
 
-One should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. A ligation event will be categorized into one of five categories: *dangling-end*, *self-circle*, *weird*, *intrachromosomal* (cis), and *interchromosomal* (trans) [@bicciato_hic_2022, Ch. 1; see @tbl-ligation-events]. Either *dangling-end* or *self-circle* events are reported if a read-pair maps to the same restriction fragment depending on the orientation, and deemed uninformative [@lajoie_hitchhikers_2015]. Usually, *weird* events are demeed uninformative as well, as it is challenging to distinguish a sequencing error from the result of a diploid fragment. 
+One should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. A ligation event will be categorized into one of five categories (see @tbl-ligation-events): *dangling-end*, *self-circle*, *weird*, *intrachromosomal* (cis), and *interchromosomal* (trans) [@bicciato_hic_2022, Ch. 1]. Either *dangling-end* or *self-circle* events are reported if a read-pair maps to the same restriction fragment depending on the orientation, and deemed uninformative [@lajoie_hitchhikers_2015]. Usually, *weird* events are demeed uninformative as well, as it is challenging to distinguish a sequencing error from the result of a diploid fragment. 
 
 PCR duplicates should be discarded as well, having either identical genomic sequence, or sharing exact 5' alignment positions of the pair [@lajoie_hitchhikers_2015; @bicciato_hic_2022, Ch. 1]. The probability that such pairs are valid (i.e. there are multiple of the same pairs) is very low. 
 
@@ -108,8 +120,6 @@ Five categories of ligation events and a short explanation. *Hi-C Data Analysis:
 :::
 
 \normalsize
-
-
 
 
 #### Quality Control and Interaction Matrices
@@ -150,11 +160,11 @@ In this project, we formulate two objectives:
 
 ## Reproducibility Infrastructure
 
-> First, describe the importance of reproducibility and the scientific method. 
-> Include a bit of scientific skeptiscism of there is time.
+**First, describe the importance of reproducibility and the scientific method. Include a bit of scientific skeptiscism of there is time.**
 
 Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal of the thesis is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git [ref], GitHub [ref], quarto [ref], Conda [ref], gwf [ref], and Jupyter [ref]. See @tbl-reproducibility for a brief introduction.
 
+\small
 ::: {#tbl-reproducibility .striped}
 | Tool     |Description |
 |:---------|:--------------------------------------------------------------------------| 
@@ -167,6 +177,8 @@ Thus, apart from the biological questions we seek to investigate and answer in t
 
 Overview of the tools used for reproducibility of this thesis. 
 :::
+
+\normalsize
 
 ### GWF: workflow management for High-Performance Computing (HPC) 
 
@@ -187,7 +199,6 @@ A `notebooks/` subdirectory contains Jupyter notebooks that are named chronologi
 #### Quarto
 
 To manage the directory as a Quarto Book project, a quarto configuration file, `_quarto.yml`, was placed at the base, defining how the Book should be rendered. Additionally, configuration files were placed in `slides/` and `thesis/`, to render them as Quarto Slides and Quarto Manuscript, respectively. This nested structure lets us render different subprojects with different configurations than the main project, for example to generate the manuscript, a single Quarto Markdown file, in both *.html* and *.pdf*, and only including embedded outputs from specified cells from notebooks in the parent directory. 
-
 Although the Quarto framework is extensive, it is still under development and has several drawbacks worth mentioning. First, one can only embed the output of code cells from notebooks, meaning the only way to embed text with a python variable (e.g. you want the manuscript to reflect the actual value of a variable, sample sizes `n = [1000, 10000, 100000]`, and their respective outputs) is by converting a formatted python string into Markdown and send it to the output. Second, embedded figures will be copied as-is in the notebook, and thus cannot be post-processed with size or layout. This makes it impractical to e.g. use the same figures in slides and in the manuscript. Third, rendering large projects that is tracked by git, some output files (that have to be tracked to publish the website) can exeed GitHub size limits. Especially if rendering in the *jats* format, producing a MECA Bundle that should be the most flexible way to exchange manuscripts [ref]. However, as not applicable to this thesis, the option was simply disabled. 
 
 
