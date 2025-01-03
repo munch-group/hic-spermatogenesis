@@ -460,7 +460,7 @@ gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2025-01-02}
+\date{2025-01-03}
 
 \begin{document}
 \frontmatter
@@ -487,7 +487,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2025-01-02 \par}
+{\bfseries\large 2025-01-03 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -653,7 +653,7 @@ will be produced.
 \section{Selfish genes (and
 randomness)}\label{selfish-genes-and-randomness}
 
-\emph{The conventional story of meiosis in gametogenesis is one of
+\textbf{The conventional story of meiosis in gametogenesis is one of
 random segregation of the sex chromosomes. They split into haploid
 gametes, where each chromosome has an equal chance of being passed on to
 a gamete. That seems like a fair game, but what if some genes are
@@ -664,7 +664,7 @@ effects it may have (good or bad) on the organism it is part of. This
 phenomenon challenges the traditional understanding of selection,
 extending its scope beyond the fitness effects on an organism to include
 selective pressures at the molecular level. For example, if some genes
-on the X chromosome create a disadvantage for gametes that }do not*
+on the X chromosome create a disadvantage for gametes that \emph{do not}
 contain those genes, making sure the Y chromosome is not as viable as
 the X, resulting in a sex imbalance and possibly numerous other
 downstream effects. That is exactly what is coined \emph{sex chromosome
@@ -673,7 +673,7 @@ Motivated by previous results in the Munch Research group (Munch 2024)
 on hybrid incompatibility and extended common haplotypes (Skov et al.
 2023; Sørensen et al. 2023) that could be explained by meiotic drive, we
 wanted to investigate how these patterns correlate with chromatin
-compartments.*
+compartments.}
 
 \section{Chromatin Architecture}\label{chromatin-architecture}
 
@@ -1003,24 +1003,6 @@ placed at random positions) a number of times, \(b\), and the fraction
 of statistics more extreme than the one we observe is reported as the
 p-value.
 
-\section{Our research question}\label{our-research-question}
-
-In this project, we formulate two objectives:
-
-\textbf{A}: Reproduce the Hi-C interaction maps and eigendecomposition
-from (Wang et al. 2019), with some modifications. We briefly use
-\emph{HiCExplorer}, but change the analyses to use the \emph{Open2C
-Ecosystem} ({``Open {Chromosome Collective} ({Open2C})''} n.d.) which
-have a Pyton API as well as command-line functions, which can be paired
-very well with Jupyter Notebooks. The majority of the data analysis was
-run with a \emph{gwf} workflow, and the commands that were visually
-inspected were run in Jupyter Notebooks.
-
-\textbf{B} Compare with regions of extended common haplotypes (strong
-selective sweeps) that are found in \emph{human}, and with regions of
-negative selection of minor parent ancestry in baboons. Investigate the
-biological meaning of the results.
-
 \section{Reproducibility
 Infrastructure}\label{reproducibility-infrastructure}
 
@@ -1132,31 +1114,44 @@ the figures, tables, and their captions used in this manuscript.
 
 \subsubsection{Quarto}\label{quarto}
 
-To manage the directory as a Quarto Book project, a quarto configuration
-file, \texttt{\_quarto.yml}, was placed at the base, defining how the
-Book should be rendered. Additionally, configuration files were placed
-in \texttt{slides/} and \texttt{thesis/}, to render them as Quarto
-Slides and Quarto Manuscript, respectively. This nested structure lets
-us render different subprojects with different configurations than the
-main project, for example to generate the manuscript, a single Quarto
-Markdown file, in both \emph{.html} and \emph{.pdf}, and only including
-embedded outputs from specified cells from notebooks in the parent
-directory. Although the Quarto framework is extensive, it is still under
-development and has several drawbacks worth mentioning. First, one can
-only embed the output of code cells from notebooks, meaning the only way
-to embed text with a python variable (e.g.~you want the manuscript to
-reflect the actual value of a variable, sample sizes
+Quarto is an open-source scientific and technical publishing system that
+uses (pandoc) markdown to create and share production quality output,
+integrating Jupyter Notebooks with Markdown and LaTeX and enabling
+embedding content across \emph{.ipynb} and \emph{.qmd}. In \emph{.qmd},
+code chunks in several programming languages can be executed and
+rendered, including Python, R, mermaid (JavaScript-based diagramming). A
+Quarto project is configured with a YAML configuration file
+(\texttt{\_quarto.yml}) that defines how output is rendered. In this
+project, we use a nested structure, nesting a \emph{Slides} project and
+a \emph{Manuscript} project inside a \emph{Book} project. To manage the
+directory as a Quarto Book project, a quarto configuration file was
+placed at the base, defining how the Book should be rendered.
+Additionally, configuration files were placed in \texttt{slides/} and
+\texttt{thesis/}, to render them as Quarto Slides and Quarto Manuscript,
+respectively. This nested structure lets us render different subprojects
+with different configurations than the main project, for example to
+generate the manuscript, a single Quarto Markdown file, in both
+\emph{.html} and \emph{.pdf}, and only including embedded outputs from
+specified cells from notebooks in the parent directory. Although the
+Quarto framework is extensive, it is still under development and has
+several drawbacks worth mentioning. First, one can only embed the output
+of code cells from notebooks, meaning the only way to embed text with a
+python variable (e.g.~you want the manuscript to reflect the actual
+value of a variable, sample sizes
 \texttt{n\ =\ {[}1000,\ 10000,\ 100000{]}}, and their respective
 outputs) is by converting a formatted python string into Markdown and
 send it to the output. Second, embedded figures will be copied as-is in
 the notebook, and thus cannot be post-processed with size or layout.
 This makes it impractical to e.g.~use the same figures in slides and in
-the manuscript. Third, rendering large projects that is tracked by git,
-some output files (that have to be tracked to publish the website) can
-exeed GitHub size limits. Especially if rendering in the \emph{jats}
+the manuscript. Third, when rendering large projects that is tracked by
+git, some output files (that have to be tracked to publish the website)
+can exeed GitHub size limits. Especially if rendering in the \emph{jats}
 format, producing a MECA Bundle that should be the most flexible way to
 exchange manuscripts {[}ref{]}. However, as not applicable to this
-thesis, the option was simply disabled.
+thesis, the option was simply disabled. Fourth, some functionality
+relies on external dependencies that cannot be installed on a (linux)
+remote host (GenomeDK), such as relying on a browser for converting
+\texttt{mermaid} diagrams into png for the pdf-manuscript.
 
 \subsection{git and GitHub}\label{git-and-github}
 
@@ -1169,19 +1164,80 @@ specified in the \texttt{\_quarto.yml} configuration file(s), and
 publishes the project on the group website
 \href{https://munch-group.org/hic-spermatogenesis}{munch-group.org}.
 
+\section{Our research question}\label{our-research-question}
+
+In this project, we formulate two main objectives:
+
+\subsubsection{A}\label{a}
+
+Redo the Hi-C analyses from (Wang et al. 2019) using the latest macaque
+reference genome, \emph{rheMac10}, with some modifications. We decided
+to use \emph{HiCExplorer}, a Python-based software for command line use,
+and supplement the analyses with the \emph{Open2C Ecosystem} ({``Open
+{Chromosome Collective} ({Open2C})''} n.d.) that have a Pyton API as
+well as command-line functions, which can be paired very well with
+Jupyter Notebooks. The majority of the data analysis was run with a
+\emph{gwf} workflow, and the commands that were visually inspected were
+run in Jupyter Notebooks.
+
+\subsubsection{B}\label{b}
+
+Compare with regions of extended common haplotypes (strong selective
+sweeps) that are found in \emph{human}, and with regions of negative
+selection of minor parent ancestry in baboons. Investigate the
+biological meaning of the results. We use in-house software to compare
+genomic intervals.
+
 \chapter{Methods}\label{methods}
 
 All computations were performed on GenomeDK (GDK) {[}ref{]}, an HPC
 cluster located on Aarhus Uninversity, and most of the processing of the
-data was nested into a \emph{gwf} workflow {[}ref{]}, a workflow manager
-developed at GDK. I would like to thank GDK and Aarhus University for
-providing computational resources and support that contributed to these
-research results.
+data was made into a custom \emph{gwf} workflow {[}ref{]}, a workflow
+manager developed at GDK. I would like to thank GDK and Aarhus
+University for providing computational resources and support that
+contributed to these research results.
+
+We decided to It was not feasible to follow the same approach as (Wang
+et al. 2019) with either \emph{HiCExplorer} or \emph{Open2C}, as they
+use a third software, \emph{HiC-Pro}. Hic-Pro uses bowtie2 in end-to-end
+mode, followed by remapping of 5'-ends of the unmapped reads to rescue
+chimeric fragments along with another approach. I mapped the reads using
+\texttt{bowtie2\ -\/-end-to-end} without the rescue-remapping, and it
+returned a very high fraction of discarded reads. I argue that even when
+trying to reproduce results, it is nonsensical to use methods that are
+not state-of-the-art. The HiC-Pro pipeline stops at a normalized contact
+map, and is thus not sufficient for downstream analysis. In hindsight,
+it would have been more sensical to use \emph{HiC-Pro} to get normalized
+contact maps, then continue analyzing with
+\emph{cooler}/\emph{cooltools}, then compare the results evenly with the
+results achieved from using Open2C from start to finish.
 
 \section{Initial Exploration with
 HiCExplorer}\label{initial-exploration-with-hicexplorer}
 
-Here moves most of the text about HiCExplorer\ldots{}
+Initially, recommendations from HiCExplorer were used. According to
+their documentation {[}ref{]} it is crucial to 1) align reads locally,
+and 2) map mates separately. They recommend either of \texttt{bwa} or
+\texttt{bowtie2}, so I tested both with their recommended settings.
+\texttt{bowtie2} turned out to be a lot more resource-intensive and to
+produce almost no mapped reads {[}ref sup-fig-bowtie2-stats{]}, so I
+suspect some settings was not set correctly. The mapped reads was
+converted to a Hi-C Matrix (\texttt{.h5}) with \emph{HiCExplorers}
+\texttt{hicBuildMatrix}, which is extremely memory-intensive, using
+\textasciitilde120 GB memory for the biggest matrix. I followed
+\emph{HiCExplorer} pipeline to plot and explore the matrices created
+from this mapping. However, the work was laborious for experimentation,
+as, even though written in Python, \texttt{HicExplorer} only comes with
+a command-line interface and provided functions all write plots to
+files. I did not manage to make an efficient implementation for plotting
+the \texttt{.h5} files produced by the pipeline, as would be required
+for utilizing Jupyter Notebooks for customizing plots.
+
+mapping, parsing, filtering, build matrix
+
+\texttt{hicBuildMatrix} both parse and filter the mapped reads. The
+default value was used, where alignments with \(mapq < 15\) are
+discarded.
 
 For the initial exploration of methods with \emph{HiCExplorer}, the 5
 first samples in `fibroblast' were chosen
@@ -1331,8 +1387,6 @@ special indexing format required for large genomes such as macaque.
 
 \subsubsection{Mapping Hi-C reads}\label{mapping-hi-c-reads}
 
-paragraph will be restructured.
-
 The main difference between Hi-C libraries and standard paired-end
 libraries is the high fraction of chimeric reads in Hi-C. As a contact
 pair is crosslinked and ligated before sequencing, chimeric reads occur
@@ -1340,37 +1394,6 @@ as a feature, and standard mapping techniques seeks to filter out this
 type of reads {[}ref{]}. Thus, we need specialized tools for rescuing
 chimeric reads. That said, we have to be cautious distinguishing the
 intended chimerism for Hi-C and that of technical artefacts.
-
-It was not feasible to follow the same approach as (Wang et al. 2019)
-with either \emph{HiCExplorer} or \emph{Open2C}, as they use a third
-software, \emph{HiC-Pro}. Hic-Pro uses bowtie2 in end-to-end mode,
-followed by remapping of 5'-ends of the unmapped reads to rescue
-chimeric fragments along with another approach. I mapped the reads using
-\texttt{bowtie2\ -\/-end-to-end} without the rescue-remapping, and it
-returned a very high fraction of discarded reads. I argue that even when
-trying to reproduce results, it is nonsensical to use methods that are
-not state-of-the-art. The HiC-Pro pipeline stops at a normalized contact
-map, and is thus not sufficient for downstream analysis.
-
-\textbf{HiCExplorer} Initially, recommendations from HiCExplorer were
-used. According to their documentation {[}ref{]} it is crucial to 1)
-align reads locally, and 2) map mates separately. They recommend either
-of \texttt{bwa} or \texttt{bowtie2}, so I tested both with their
-recommended settings. \texttt{bowtie2} turned out to be a lot more
-resource-intensive and to produce almost no mapped reads {[}ref
-sup-fig-bowtie2-stats{]}, so I suspect some settings was not set
-correctly. The mapped reads was converted to a Hi-C Matrix
-(\texttt{.h5}) with \emph{HiCExplorers} \texttt{hicBuildMatrix}, which
-is extremely memory-intensive, using \textasciitilde120 GB memory for
-the biggest matrix. I followed \emph{HiCExplorer} pipeline to plot and
-explore the matrices created from this mapping. However, the work was
-laborious for experimentation, as, even though written in Python,
-\texttt{HicExplorer} only comes with a command-line interface and
-provided functions all write plots to files. I did not manage to make an
-efficient implementation for plotting the \texttt{.h5} files produced by
-the pipeline, as would be required for utilizing Jupyter Notebooks for
-customizing plots. I relatively quickly shifted to \emph{Open2C} for
-their promises of the greener grass (a Python API).
 
 \textbf{Open2C} Suspiciously, ({``Open {Chromosome Collective}
 ({Open2C})''} n.d.) never mentions any problems with aligning the Hi-C
@@ -1393,17 +1416,14 @@ cooler. I chose the latter, where I mapped the fastq files to
 
 \subsubsection{Parse and sort the reads}\label{parse-and-sort-the-reads}
 
-With \emph{HiCExplorer} No action is needed, as this step is done
-implicitly when building the matrix
-
-\textbf{Open2C} We need to convert the alignments into ligation events,
-and distinguish between several types of ligation events. The simplest
-event is when each side only maps to one unique segment in the genome
-`UU'. Other events, where one or both sides map to multiple segments or
-the reads are long enough (\textgreater150bp) to contain two alignments
-(multiple ligations) have to be considered as well. Multiple ligations
-(walks) are treated according to the \texttt{-\/-walks-policy} when
-parsing the alignments into valid pairs (or valid Hi-C contacts). Here,
+We need to convert the alignments into ligation events, and distinguish
+between several types of ligation events. The simplest event is when
+each side only maps to one unique segment in the genome `UU'. Other
+events, where one or both sides map to multiple segments or the reads
+are long enough (\textgreater150bp) to contain two alignments (multiple
+ligations) have to be considered as well. Multiple ligations (walks) are
+treated according to the \texttt{-\/-walks-policy} when parsing the
+alignments into valid pairs (or valid Hi-C contacts). Here,
 \texttt{mask} is the most conservative and masks all complex walks,
 whereas \texttt{5unique} reports the 5'-most unique alignment on each
 side. The pairs are piped directly into \texttt{pairtools\ sort} after
@@ -1471,20 +1491,17 @@ we can compare the two approaches.
 \subsubsection{Filter (deduplicate)
 pairs}\label{filter-deduplicate-pairs}
 
-With \emph{HiCExplorer}, no action is needed, as this step is done
-implicitly when building the matrix.
-
-\emph{pairtools} comes with a de-duplication function, \texttt{dedup},
-to detect PCR duplication artefacts. At this point we will remove all
-reads that are mapped to an unplaced scaffold. Even though the
-publication of \emph{rhemac10} assembly states they have closed 99\% of
-the gaps since \emph{rhemac8} {[}ref{]}, \emph{rheMac10} still contain
-more than 2,500 unplaced scaffolds, which are all uninformative when
-calculating the chromatin compartments as is the goal of this analysis.
-Therefore, we simply only include the list of conventional chromosomes
-(1..22, X, Y) when doing the deduplication. Initially, the default
-values were used to remove duplicates, where pairs with both sides
-mapped within 3 base pairs from each other are considered duplicates.
+Pairtools comes with a de-duplication function, \texttt{dedup}, to
+detect PCR duplication artefacts. At this point we will remove all reads
+that are mapped to an unplaced scaffold. Even though the publication of
+\emph{rhemac10} assembly states they have closed 99\% of the gaps since
+\emph{rhemac8} {[}ref{]}, \emph{rheMac10} still contain more than 2,500
+unplaced scaffolds, which are all uninformative when calculating the
+chromatin compartments as is the goal of this analysis. Therefore, we
+simply only include the list of conventional chromosomes (1..22, X, Y)
+when doing the deduplication. Initially, the default values were used to
+remove duplicates, where pairs with both sides mapped within 3 base
+pairs from each other are considered duplicates.
 
 \texttt{cooler} recommend to store the most comprehensive and unfiltered
 list of pairs, and then applying a filter it on the fly by piping from
@@ -1499,22 +1516,17 @@ type.
 \subsubsection{Create interaction matrices
 (coolers)}\label{create-interaction-matrices-coolers}
 
-With \emph{HiCExplorer} \texttt{hicBuildMatrix} both parse and filter
-the mapped reads. The default value was used, where alignments with
-\(mapq < 15\) are discarded.
-
-\textbf{Open2C} The final part of the \emph{gwf} workflow takes
-\texttt{.pairs} as input and outputs a \texttt{.cool} file
-(\emph{cooler}). Initially, we read directly from the newly generated
-deduplicated pairs without additional filtering, but here, the official
-recommendation is to filter out everything below \(mapq = 30\) by piping
-the pairs through
+The final part of the \emph{gwf} workflow takes \texttt{.pairs} as input
+and outputs a \texttt{.cool} file (\emph{cooler}). Initially, we read
+directly from the newly generated deduplicated pairs without additional
+filtering, but here, the official recommendation is to filter out
+everything below \(mapq = 30\) by piping the pairs through
 \texttt{pairtools\ select\ "(mapq1\textgreater{}=30)\ and\ (mapq2\textgreater{}=30)"}
 to \texttt{cooler\ cload\ pairs}.
 
-We should have plenty of data to do the filtering, but I argue it is not
-strictly necessary. I will show a histogram of the \emph{mapq} scores to
-convince you {[}ref{]}.
+We should have plenty of data to do the filtering, but I decided it is
+not strictly necessary. I will show a histogram of the \emph{mapq}
+scores to convince you {[}ref{]}.
 
 I have re-parsed the alignments and created new coolers, including only
 the Hi-C contacts where \(mapq \leq 30\), following the current
