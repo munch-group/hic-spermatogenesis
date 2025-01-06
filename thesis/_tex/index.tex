@@ -460,7 +460,7 @@ gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2025-01-03}
+\date{2025-01-06}
 
 \begin{document}
 \frontmatter
@@ -487,7 +487,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2025-01-03 \par}
+{\bfseries\large 2025-01-06 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -668,7 +668,7 @@ on the X chromosome create a disadvantage for gametes that \emph{do not}
 contain those genes, making sure the Y chromosome is not as viable as
 the X, resulting in a sex imbalance and possibly numerous other
 downstream effects. That is exactly what is coined \emph{sex chromosome
-meiotic drive} (Jaenike 2001), a result of selfish genetic elements.
+meiotic drive}(Jaenike 2001), a result of selfish genetic elements.
 Motivated by previous results in the Munch Research group (Munch 2024)
 on hybrid incompatibility and extended common haplotypes (Skov et al.
 2023; Sørensen et al. 2023) that could be explained by meiotic drive, we
@@ -715,8 +715,8 @@ organization of the genome.
 \subsection{Hi-C Library preparation}\label{hi-c-library-preparation}
 
 A specialized protocol for preparing the DNA library is necessary
-{[}Lieberman-Aiden et al. (2009); Fig. 1a{]}. Briefly, formaldehyde is
-used to crosslink spatially adjecent chromatin. Restriction enzyme
+(Lieberman-Aiden et al. 2009, fig. 1a). Briefly, formaldehyde is used to
+crosslink spatially adjecent chromatin. Restriction enzyme
 \emph{HindIII} is used to digest the crosslinked chromatin, leaving
 sticky ends, \texttt{5-AGCT-3}, that are filled and biotinylated with a
 polymerase (using either biotinylated A, G, C, or T). The strands are
@@ -732,7 +732,7 @@ several steps have to be performed on the samples before crosslinking.
 First, the samples have to be treated immediately after harvesting to
 ensure viable cells. Secondly, the samples have to be purified to
 accurately represent each stage og spermatogenesis. Specifically, the
-data for this project (Wang et al. (2019); acc. GSE109344) preluded the
+data for this project (Wang et al. 2019, acc. GSE109344) preluded the
 library preparation protocol by sedimentation-based cell sorting to
 separate live spermatogenic cells into different stages of
 differentiation, namely spermatogonia, pachytene spermatocyte, round
@@ -747,18 +747,40 @@ cells (capturing the variance of millions of cells).
 The analysis of the read-pairs of a Hi-C library is divided into several
 smaller tasks, see {[}ref fig-hic-analysis-flow{]}.
 
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{illustrations/fig-hic-data-analysis.png}}
+
+}
+
+\caption{\label{fig-hic-analysis-flow}A simplified pipeline for Hi-C
+data analysis: from raw reads to a Hi-C interaction matrix. See
+Table~\ref{tbl-ligation-events} for details on ligation events.}
+
+\end{figure}%
+
 We must align the reads to the reference in such a way that the
 \emph{intentional} chimeric read-pairs (as per above-mentioned protocol)
 are rescued, and \emph{unintentional} read-pairs are discarded. That is,
-they represent ligation junction of adjecent chromatin segments, or they
-represent technical artefacts or unintentional fusions of unrelated DNA.
+we must make sure they represent ligation junction of adjecent chromatin
+segments, and not technical artefacts or unintentional (random) fusions
+of unrelated DNA.
 
 \subsubsection{Aligning the Hi-C reads}\label{aligning-the-hi-c-reads}
 
-Any software for local alignment can be used for aligning reads from a
-Hi-C library. However, one should make sure to disable paired-end rescue
-mode if possible, otherwise each read in a pair (each mate) should be
-aligned separately (Lajoie, Dekker, and Kaplan 2015). This removes the
+The main difference between Hi-C libraries and standard paired-end
+libraries is the high fraction of chimeric reads in Hi-C. As a contact
+pair is crosslinked and ligated before sequencing, chimeric reads occur
+as a feature, and standard mapping techniques seeks to filter out this
+type of reads {[}ref{]}. Thus, we need specialized tools for rescuing
+chimeric reads. That said, we have to be cautious distinguishing the
+intended chimerism for Hi-C and that of technical artefacts. Any
+software for local alignment can be used for aligning reads from a Hi-C
+library. However, one should make sure to disable paired-end rescue mode
+if possible, otherwise each read in a pair (each mate) should be aligned
+separately (Lajoie, Dekker, and Kaplan 2015). This removes the
 assumption that the distance between mates fits a known distribution
 because the genomic sequences originate from a continuous DNA-fragment.
 For example, the \emph{bwa-mem} {[}ref{]} implementation of this (the
@@ -808,8 +830,8 @@ mitochondrial count may differ between states.
 \small
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1391}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8609}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2083}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7917}}@{}}
 \caption{Five categories of ligation events and a short explanation.
 \emph{Hi-C Data Analysis: Methods and Protocols Ch.
 1}.}\label{tbl-ligation-events}\tabularnewline
@@ -847,7 +869,7 @@ Trans & Pairs from distinct chromosomes (interchromosomal) \\
 \normalsize
 
 \subsubsection{Quality Control and Interaction
-Matrices}\label{quality-control-and-interaction-matrices}
+Matrices}\label{sec-matrix-qc}
 
 To determine the quality of the Hi-C library, most tools generate
 quality control log files at some point during the filtering steps,
@@ -1020,8 +1042,8 @@ See Table~\ref{tbl-reproducibility} for a brief introduction.
 \small
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1176}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8824}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1944}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8056}}@{}}
 \caption{Overview of the tools used for reproducibility of this
 thesis.}\label{tbl-reproducibility}\tabularnewline
 \toprule\noalign{}
@@ -1197,99 +1219,41 @@ manager developed at GDK. I would like to thank GDK and Aarhus
 University for providing computational resources and support that
 contributed to these research results.
 
-We decided to It was not feasible to follow the same approach as (Wang
-et al. 2019) with either \emph{HiCExplorer} or \emph{Open2C}, as they
-use a third software, \emph{HiC-Pro}. Hic-Pro uses bowtie2 in end-to-end
-mode, followed by remapping of 5'-ends of the unmapped reads to rescue
-chimeric fragments along with another approach. I mapped the reads using
-\texttt{bowtie2\ -\/-end-to-end} without the rescue-remapping, and it
-returned a very high fraction of discarded reads. I argue that even when
-trying to reproduce results, it is nonsensical to use methods that are
-not state-of-the-art. The HiC-Pro pipeline stops at a normalized contact
+With the analysis tools determined in the above section, we decided it
+was not feasible to follow the exact approach as Wang et al. (2019) with
+any of \emph{HiCExplorer} and \emph{Open2C}, as they use a third
+software, \emph{HiC-Pro}. For mapping the raw reads, Hic-Pro internally
+uses bowtie2 in end-to-end mode, followed by trimming the 3'-end of the
+unmapped reads, then remapping the 5'-ends to rescue chimeric fragments.
+I mapped the reads using \texttt{bowtie2\ -\/-end-to-end} without the
+rescue-remapping, and it returned a very high fraction of discarded
+reads, and it would be silly to spend time on implementing the remapping
+approach manually. When redoing analyses, it is not sensical to use
+methods that are not state-of-the-art, and judged by the time since last
+release (HiC-Pro v3.1.0 in 2021), both HiCExplorer and Open2C are more
+recent. Additionally, the HiC-Pro pipeline stops at a normalized contact
 map, and is thus not sufficient for downstream analysis. In hindsight,
 it would have been more sensical to use \emph{HiC-Pro} to get normalized
 contact maps, then continue analyzing with
 \emph{cooler}/\emph{cooltools}, then compare the results evenly with the
 results achieved from using Open2C from start to finish.
+Figure~\ref{fig-hic-tools-comparison} gives an overview of the 3
+pipelines metioned in this report.
 
-\section{Initial Exploration with
-HiCExplorer}\label{initial-exploration-with-hicexplorer}
+\begin{figure}
 
-Initially, recommendations from HiCExplorer were used. According to
-their documentation {[}ref{]} it is crucial to 1) align reads locally,
-and 2) map mates separately. They recommend either of \texttt{bwa} or
-\texttt{bowtie2}, so I tested both with their recommended settings.
-\texttt{bowtie2} turned out to be a lot more resource-intensive and to
-produce almost no mapped reads {[}ref sup-fig-bowtie2-stats{]}, so I
-suspect some settings was not set correctly. The mapped reads was
-converted to a Hi-C Matrix (\texttt{.h5}) with \emph{HiCExplorers}
-\texttt{hicBuildMatrix}, which is extremely memory-intensive, using
-\textasciitilde120 GB memory for the biggest matrix. I followed
-\emph{HiCExplorer} pipeline to plot and explore the matrices created
-from this mapping. However, the work was laborious for experimentation,
-as, even though written in Python, \texttt{HicExplorer} only comes with
-a command-line interface and provided functions all write plots to
-files. I did not manage to make an efficient implementation for plotting
-the \texttt{.h5} files produced by the pipeline, as would be required
-for utilizing Jupyter Notebooks for customizing plots.
+\centering{
 
-mapping, parsing, filtering, build matrix
+\includegraphics[width=0.5\linewidth,height=3\textheight]{illustrations/placeholder2000x360.png}
 
-\texttt{hicBuildMatrix} both parse and filter the mapped reads. The
-default value was used, where alignments with \(mapq < 15\) are
-discarded.
+}
 
-For the initial exploration of methods with \emph{HiCExplorer}, the 5
-first samples in `fibroblast' were chosen
-(Table~\ref{tbl-hic-exploration}).
+\caption{\label{fig-hic-tools-comparison}A 3-column flow of HiC-Pro,
+HiCExplorer, and Open2C}
 
-\small
+\end{figure}%
 
-\begin{longtable}[]{@{}lllll@{}}
-
-\caption{\label{tbl-hic-exploration}The samples chosen for initial data
-exploration with HiCExplorer. From NCBI SRA Portal.}
-
-\tabularnewline
-
-\toprule\noalign{}
-& Run & Bases & Bytes & source\_name \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-0 & SRR6502335 & 73201141800 & 31966430779 & fibroblast \\
-1 & SRR6502336 & 65119970100 & 24433383054 & fibroblast \\
-2 & SRR6502337 & 52769196300 & 23015357755 & fibroblast \\
-3 & SRR6502338 & 52378949100 & 22999581685 & fibroblast \\
-4 & SRR6502339 & 28885941600 & 10960123150 & fibroblast \\
-
-\end{longtable}
-
-\normalsize
-
-The goal was to replicate some of the figures from Wang et al. (2019)
-using \emph{HiCExplorer}, especially to reconstruct interaction matrices
-and E1 graphs from macaque data.
-
-The matrices are constructed with \texttt{hicBuildMatrix} from
-separately mapped read-pairs. Along with the matrix \emph{.h5} file, a
-\emph{.log} file it outputted, documenting the quality control for the
-sample. Multiple logs can be aggregated and visualized with
-\texttt{hicQC}.
-
-Before correction (or balancing) of the interaction matrix, a
-pre-correction filter is applied, filtering out low-count bins and very
-high-count bins. A threshold for Mean Absolute Deviation (\emph{MAD}) is
-estimated by \texttt{hicCorrect\ diagnostic\_plot}, followed by
-iterative correction with
-\texttt{hicCorrect\ correct\ -\/-correctionMethod\ ICE}.
-
-The PCA was performed with \texttt{hicPCA} on the correcte matrices,
-yielding the first 3 PCs.
-
-\section{Downloading Data and Project
-Structure}\label{downloading-data-and-project-structure}
+\section{Fetching raw data}\label{fetching-raw-data}
 
 To reproduce the results from (Wang et al. 2019), I chose to use their
 raw data directly from the SRA portal {[}ref{]}. I filtered the data to
@@ -1330,8 +1294,119 @@ in this analysis}
 
 \normalsize
 
-\section{Handling coolers (Or: preparing
-coolers)}\label{handling-coolers-or-preparing-coolers}
+\subsection{Fetching and indexing the
+reference}\label{fetching-and-indexing-the-reference}
+
+Wang et al. (2019) use the 2006-version of the macaque reference,
+\emph{rheMac2}. Supporting my previous sentiment about not using
+outdated resources I find it reasonable to use the latest reference,
+\emph{rheMac10}. Warren et al. (2020) have improved contiguity from
+\emph{rhemac8} by 120 fold, going from N50 contig size of 107 Kbp to 46
+Mbp. Part of the reasoning for reproducing their results was doing so on
+the latest assembly of the \emph{Macaca mulata} genome, which arguably
+will result in a more accurate mapping of the reads, and a better
+inference of the chromatin compartments as well.
+
+Therefore, the latest reference genome for rhesus macaque/\emph{Macaca
+mulata}, \emph{rheMac10}/\emph{Mmul\_10} (UCSC or NCBI naming
+conventions, respectively) was downloaded to GDK from UCSC web servers
+with \texttt{wget}. To use \texttt{bwa} for mapping, rheMac10 needs to
+be indexed with both \texttt{bwa\ index} with the \texttt{-\/-bwtsw}
+option and \texttt{samtools\ faidx}, which results in six indexing files
+for \texttt{bwa\ mem} to use.
+
+Several mappers were used in different configurations (described in
+below), and \texttt{bowtie2} requires its own indexing of the reference,
+using \texttt{bowtie2-build\ -\/-large-index}, which creates six index
+files for \texttt{bowtie2} to use. \texttt{-\/-large-index} creates the
+special indexing format required for large genomes such as macaque.
+
+\section{HiCExplorer trials}\label{hicexplorer-trials}
+
+To get aligned reads in a format compatible with HiCExplorer, the read
+mates have to be mapped individually to the reference genome. This
+supports the old convention to avoid the common heuristics of local
+aligners used for regular paired-end sequencing libraries (Lajoie,
+Dekker, and Kaplan (2015)). HiCExplorer provide examples for both
+\emph{bwa} and \emph{bowtie2}, so I used both with recommended settings.
+\emph{bowtie2} was more resource-intensive, and only succesfully aligned
+a small fraction of the reads {[}ref sup-fig-bowtie2-stats{]}, but
+likely some parameters could be tuned for better alignment. In both
+cases, the aligner outputs a .bam-file for each mate
+(\texttt{sample\_R1.bam} and \texttt{sample\_R2.bam}), and HiCExplorer
+performs the parsing, deduplication, and filtering of the reads and
+builds the raw interaction matrix in a single command,
+
+\texttt{hicBuildMatrix\ -s\ sample\_R1.bam\ sample\_R2.bam\ -o\ matrix.h5\ {[}...{]}},
+
+For parsing, the command needs a \texttt{restrictionCutFile}, locating
+the restriction sites from the restriction enzyme used on the reference
+genome, which is generated with \texttt{hicFindRestSites} that operates
+on the reference genome and restriction sequence. The default filter,
+\texttt{-\/-minMappingQuality\ 15}, was applied as described in
+Section~\ref{sec-matrix-qc}.
+
+\includegraphics[width=0.7\linewidth,height=1\textheight]{illustrations/placeholder2000x360.png}
+
+Overview of the target templates used for hicexplorer. As most
+operations are handled by \texttt{hicBuildMatrix}, it is rather simple.
+
+\small
+
+\begin{longtable}[]{@{}lllll@{}}
+
+\caption{\label{tbl-hic-exploration}The samples chosen for initial data
+exploration with HiCExplorer. From NCBI SRA Portal.}
+
+\tabularnewline
+
+\toprule\noalign{}
+& Run & Bases & Bytes & source\_name \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & SRR6502335 & 73201141800 & 31966430779 & fibroblast \\
+1 & SRR6502336 & 65119970100 & 24433383054 & fibroblast \\
+2 & SRR6502337 & 52769196300 & 23015357755 & fibroblast \\
+3 & SRR6502338 & 52378949100 & 22999581685 & fibroblast \\
+4 & SRR6502339 & 28885941600 & 10960123150 & fibroblast \\
+
+\end{longtable}
+
+\normalsize
+
+For the initial exploration of methods with \emph{HiCExplorer}, we chose
+five fibroblast samples (see Table~\ref{tbl-hic-exploration}). The goal
+was to replicate some of the figures from Wang et al. (2019) using
+\emph{HiCExplorer}, especially to reconstruct interaction matrices and
+E1 graphs from macaque data. We constructed matrices with
+\texttt{hicBuildMatrix} as described from the separately mapped
+read-pairs. Along with the matrix \emph{.h5} file, a \emph{.log} file
+was created as well, documenting the quality control for the sample.
+Multiple logs were aggregated and visualized with \texttt{hicQC}.
+
+Before correction (or balancing) of the interaction matrix, a
+pre-correction filter is applied, filtering out low-count bins and very
+high-count bins. A threshold for Mean Absolute Deviation (\emph{MAD}) is
+estimated by \texttt{hicCorrect\ diagnostic\_plot}, followed by
+iterative correction with
+\texttt{hicCorrect\ correct\ -\/-correctionMethod\ ICE}. The PCA was
+performed with \texttt{hicPCA} on the corrected matrices, yielding the
+first 3 PCs.
+
+\texttt{hicPlotMatrix} plots matrices directly to .png (no display).
+When keeping the analysis in a Jupyter Notebook (using the builtin
+shell-escape commands to execute \texttt{bash} code), the plot files
+must be embedded back into the notebook. There is limited support for
+modifying the plot (from command-line options), such as to add spacing
+for a bigWig track with E1 values, add plot titles, and define the size
+and resolution of the plot. I briefly tried to implement a plotting
+function on the .h5 matrices and bigWig tracks, but it could not fetch
+regions from a matrix on the fly and had to load the full matrix into
+memory (that is, all full-length chromosomes).
+
+\section{Open2C pipeline}\label{open2c-pipeline}
 
 \begin{figure}
 
@@ -1341,14 +1416,11 @@ coolers)}\label{handling-coolers-or-preparing-coolers}
 
 }
 
-\caption{\label{fig-flowchart-handling-coolers}A flowchart showing the
-pipeline from \texttt{.fastq} to \texttt{.mcool}. The first 6 steps were
-done with a Probably BioRender or Inkscape.}
+\caption{\label{fig-flowchart-handling-coolers}Showing the \emph{gwf}
+target templates used with the \emph{Open2C} pipeline. As it is highly
+modular, it is also a bit elaborate.}
 
 \end{figure}%
-
-\subsection{\texorpdfstring{The \emph{gwf} workflow
-targets}{The gwf workflow targets}}\label{the-gwf-workflow-targets}
 
 A \emph{gwf} workflow was created to handle the first part of the data
 processing, and each accesion number (read pair, mate pair) from the
@@ -1357,43 +1429,16 @@ independent from each other.
 
 \subsubsection{Downloading the reads}\label{downloading-the-reads}
 
-The reads were downloaded from NCBI SRA portal {[}ref{]} directly to GDK
-using \texttt{sra-downloader} {[}ref{]} as \texttt{.fastq.gz} files.
-
-\subsubsection{Handling the reference}\label{handling-the-reference}
-
-The latest reference genome for rhesus macaque (\emph{macaca mulata}),
-\emph{rheMac10} (or \emph{Mmul\_10}, UCSC or NCBI naming conventions,
-respectively) was downloaded to GDK from UCSC web servers with
-\texttt{wget} {[}ref{]}. To use \texttt{bwa} (Burrow Wheeler's Aligner)
-{[}ref{]} for mapping, rheMac10 needs to be indexed with both
-\texttt{bwa\ index} with the \texttt{-\/-bwtsw} option and
-\texttt{samtools\ faidx}, which results in six indexing files for
-\texttt{bwa\ mem} to use.
-
-Since (2019), the reference genome for rhesus macaque has changed
-several times from \emph{rheMac2} to \emph{rheMac10}, each time
-resulting in a much less fragmented reference assembly. Part of the
-reasoning for reproducing their results was doing so on the latest
-assembly of the Macaca mulata genome, which arguably will result in a
-more accurate mapping of the reads, and a better inference of the
-chromatin compartments as well.
-
-Several mappers were used in different configurations (described in
-below), and \texttt{bowtie2} requires its own indexing of the reference,
-using \texttt{bowtie2-build\ -\/-large-index}, which creates six index
-files for \texttt{bowtie2} to use. \texttt{-\/-large-index} creates the
-special indexing format required for large genomes such as macaque.
+The reads were downloaded from NCBI SRA with SRA-toolkit (DevTeam 2024)
+directly to GDK using a docker image of \texttt{sra-downloader} {[}ref
+\emph{wwydmanski/sra-downloader}{]} as gunzipped \texttt{.fastq} files.
+Although possible to provide a list of accessions to the toolkit, I
+submitted each accession as a separate target, as \texttt{SRA\ Toolkit}
+acts sequentially, and only starts the next download after all
+compression tasks were done. It was therefore a low-hanging fruit to
+parallelize the download for efficiency.
 
 \subsubsection{Mapping Hi-C reads}\label{mapping-hi-c-reads}
-
-The main difference between Hi-C libraries and standard paired-end
-libraries is the high fraction of chimeric reads in Hi-C. As a contact
-pair is crosslinked and ligated before sequencing, chimeric reads occur
-as a feature, and standard mapping techniques seeks to filter out this
-type of reads {[}ref{]}. Thus, we need specialized tools for rescuing
-chimeric reads. That said, we have to be cautious distinguishing the
-intended chimerism for Hi-C and that of technical artefacts.
 
 \textbf{Open2C} Suspiciously, ({``Open {Chromosome Collective}
 ({Open2C})''} n.d.) never mentions any problems with aligning the Hi-C
@@ -1411,7 +1456,7 @@ formats required for \texttt{cooler} to create an interaction matrix
 \emph{cooler}, or \textbf{2)} re-map the reads using Open2C's
 recommendations and use their established pipeline for producing a
 cooler. I chose the latter, where I mapped the fastq files to
-\emph{rheMac10} in paired end mode for a pair (m1, m2) with
+\emph{rheMac10} in paired end mode for a pair (\(m1\), \(m2\)) with
 \texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
 
 \subsubsection{Parse and sort the reads}\label{parse-and-sort-the-reads}
@@ -1436,9 +1481,9 @@ Table~\ref{tbl-pairsformat}.
 \small
 
 \begin{longtable}[]{@{}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0769}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1209}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.8022}}@{}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1644}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1644}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6712}}@{}}
 \caption{Column specification of the .pairs format as extended by
 \texttt{pairtools} {[}ref{]}.}\label{tbl-pairsformat}\tabularnewline
 \toprule\noalign{}
@@ -1634,22 +1679,6 @@ also defined a view of 10 Mb bins. Thoughout the project, I will compare
 results from each of the three views and resolutions.
 
 \subsubsection{Plotting matrices}\label{plotting-matrices}
-
-\emph{HiCExplorer} plots matrices to .png from the command-line. When
-plots were generated (with \texttt{hicPlotMatrix}), it produces a .png
-output that has to be loaded back into the notebook. There is limited
-support for modifying the plot (from command-line options), such as to
-add spacing for a bigWig track with E1 values, add plot titles, and
-define the size and resolution of the plot. I briefly tried to implement
-a plotting function on the .h5 matrices and bigWig tracks, but it could
-not fetch regions from a matrix on the fly and had to load the full
-matrix into memory (that is, all full-length chromosomes). To better
-visualise differences in the interaction matrix, the interaction
-frequency \(f_i\), is transformed to
-\(\log\mathrm{1p}(f_i) = \log\left(1 + f_i\right)\). It is required to
-visualize the normalized interaction frequency, as there are mostly
-values very close to 0, but it also aids the visibility in the raw
-counts matrix.
 
 We use matplotlib and seaborn to plot in the \emph{Open2C} framework.
 Utilizing the \texttt{cooler} class, we can fetch regions of the matrix
@@ -2042,9 +2071,10 @@ Unimpressed, I rationalize that the option \texttt{-\/-extra-track} to
 provide a gene track or histone coverage should not affect this result
 much. It should be provided as a phasing track to orient the eigenvector
 to positively correlate with gene density or histone marks, and could
-possibly muddle the compartments if not included. At this point, I
-stoppped using \emph{HiCExplorer}, as I assessed that a more flexible
-tool was needed.
+possibly muddle the compartments if not included. I followed
+\emph{HiCExplorer} pipeline to plot and explore the matrices. At this
+point, I stoppped using \emph{HiCExplorer}, as I assessed that a more
+flexible tool was needed.
 
 \begin{figure}
 
@@ -2073,16 +2103,7 @@ tool was needed.
 \end{minipage}%
 %
 \begin{minipage}{0.33\linewidth}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{../figures/bowtie2/local/normalized/pc3_50kb_corrected_chrX.png}}
-
-}
-
-\subcaption{\label{fig-explorer-pc2-50kb}}
-
-\end{minipage}%
+\pandocbounded{\includegraphics[keepaspectratio]{../figures/bowtie2/local/normalized/pc3_50kb_corrected_chrX.png}}\end{minipage}%
 \newline
 \begin{minipage}{0.33\linewidth}
 
@@ -2778,6 +2799,11 @@ Bravo Núñez, María Angélica, Nicole L. Nuckolls, and Sarah E. Zanders.
 in Genetics} 34 (6): 424--33.
 \url{https://doi.org/10.1016/j.tig.2018.02.003}.
 
+\bibitem[\citeproctext]{ref-devteam2024sratoolkit}
+DevTeam, SRA Toolkit. 2024. {``{SRA Toolkit}.''} Wiki. \emph{GitHub}.
+https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit.
+\url{https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software}.
+
 \bibitem[\citeproctext]{ref-imakaev2012iterativecorrectionhic}
 Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia
 Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A
@@ -2830,6 +2856,13 @@ Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan,
 Dongdong Qin, et al. 2019. {``Reprogramming of {Meiotic Chromatin
 Architecture} During {Spermatogenesis}.''} \emph{Molecular Cell} 73 (3):
 547--561.e6. \url{https://doi.org/10.1016/j.molcel.2018.11.019}.
+
+\bibitem[\citeproctext]{ref-warren2020sequencediversityanalyses}
+Warren, Wesley C., R. Alan Harris, Marina Haukness, Ian T. Fiddes,
+Shwetha C. Murali, Jason Fernandes, Philip C. Dishuck, et al. 2020.
+{``Sequence Diversity Analyses of an Improved Rhesus Macaque Genome
+Enhance Its Biomedical Utility.''} \emph{Science} 370 (6523): eabc6617.
+\url{https://doi.org/10.1126/science.abc6617}.
 
 \end{CSLReferences}
 
