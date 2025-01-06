@@ -10,8 +10,8 @@ toc-depth: 4
 
 ## Notes on methods
 
--   [@wang_reprogramming_2019] uses a sliding window approach [@dixon_chromatin_2015] to calculate the obs/exp matrices for the PCA. I will try that next, and work within the `cooler`/`cooltools` framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.
--   `HiCExplorer` use a genome-wide contact-distance-based normalization method (`dist_norm`) to generate *obs/exp* matrices for PCA (similar to [@lieberman_aiden_comprehensive_2009]) that may introduce biases. I don't know why, but it looks more like [@wang_reprogramming_2019] when subtracting the running average \[triangular windows, *Kasper* did this\] from the computed PCs.
+-   [@wang2019reprogrammingmeioticchromatin] uses a sliding window approach [@dixon2015chromatinarchitecturereorganization] to calculate the obs/exp matrices for the PCA. I will try that next, and work within the `cooler`/`cooltools` framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.
+-   `HiCExplorer` use a genome-wide contact-distance-based normalization method (`dist_norm`) to generate *obs/exp* matrices for PCA (similar to [@aiden2009comprehensivemappinglongrange]) that may introduce biases. I don't know why, but it looks more like [@wang2019reprogrammingmeioticchromatin] when subtracting the running average \[triangular windows, *Kasper* did this\] from the computed PCs.
 
 ## Notes on Quarto
 
@@ -21,7 +21,7 @@ I feel like i have the Markdown/Quarto thing under control, which is pretty nice
 
 It feels very old school and unnecessary that I can't just output the `HiCExplorer` commands \[plots\] to the Jupyter display. I *have* to save the plots to *.png*s, which is flooding my `figures` directory. I should probably clean it up.
 
-I have created plots to mimic the [@wang_reprogramming_2019] for the `chr12` as well as `chrX`. They don't compare very well with Wang2019, and the both PC1 and PC2 plot looks like they're highly biased (only intersects 0 one time). PC3 looks more reasonable, but I don't know if it is reasonable at all to use the 3rd PC in stead of the 1st. I guess it means that the compartmentalization is not the most variable feature, and there are some biases that we have to get rid of. That, or the X chromosome is divided only into two compartments in fibroblasts (unlikely).
+I have created plots to mimic the [@wang2019reprogrammingmeioticchromatin] for the `chr12` as well as `chrX`. They don't compare very well with Wang2019, and the both PC1 and PC2 plot looks like they're highly biased (only intersects 0 one time). PC3 looks more reasonable, but I don't know if it is reasonable at all to use the 3rd PC in stead of the 1st. I guess it means that the compartmentalization is not the most variable feature, and there are some biases that we have to get rid of. That, or the X chromosome is divided only into two compartments in fibroblasts (unlikely).
 
 {{< embed ../notebooks/01_hicexplorer.ipynb#chrx-50kb-pca >}}
 
@@ -53,7 +53,7 @@ I made these plots of both uncorrected and corrected (ICE) matrices (made with `
 
 {{< embed ../notebooks/02_open2c_framework.ipynb#rep1-ncol3-cooltools-corrected >}}
 
-Neither of them really resembles the ones from [@wang_reprogramming_2019], but we have some confidence in our method still. Next step is to do the default compartmentalization analysis from `cooler` as well.
+Neither of them really resembles the ones from [@wang2019reprogrammingmeioticchromatin], but we have some confidence in our method still. Next step is to do the default compartmentalization analysis from `cooler` as well.
 
 #### Update 10-10-2024
 
@@ -105,7 +105,7 @@ Here, comparing to the Wang paper:
 {{< embed ../notebooks/02_open2c_framework.ipynb#chrX-e1-plot >}}
 
 
-I'm very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome *rheMac10*, where more than 99% of the segmentation is removed, compared to *rheMac2*. It is evident in the [@wang_reprogramming_2019] PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped.
+I'm very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome *rheMac10*, where more than 99% of the segmentation is removed, compared to *rheMac2*. It is evident in the [@wang2019reprogrammingmeioticchromatin] PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped.
 
 #### Compartments 500kb resolution looks smoother
 
@@ -129,7 +129,7 @@ To ease the eye, here are the 100kb E1 and 500kb E1 plots next to each other:
 
 ### Compartments on all cell types (By merging all samples from each type)
 
-Now it is time for the analysis of the other cell types as well. Here, we trust [@wang_reprogramming_2019] when they state that their compartments were highly reproducible between replicates. 
+Now it is time for the analysis of the other cell types as well. Here, we trust [@wang2019reprogrammingmeioticchromatin] when they state that their compartments were highly reproducible between replicates. 
 
 Thus, we merge all samples from each cell type, leaving us with 5 *coolers* at 10 kb bins. We then `zoomify` the coolers to include the resolutions 50, 100, and 500kb binned data as well.
 
@@ -139,13 +139,13 @@ We continue with the analysis with the 500kb binned data, as it runs faster, use
 
 Initially, the results were not as expected, as the E1 did not reflect the plaid pattern from the matrix from all cell types. In stead, it showed two compartments.
 
-As stated in [@wang_reprogramming_2019, @lieberman_aiden_comprehensive_2009] and `cooltools` documentation, the E1 occasionally *does not* reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere). 
+As stated in [@wang2019reprogrammingmeioticchromatin, @aiden2009comprehensivemappinglongrange] and `cooltools` documentation, the E1 occasionally *does not* reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere). 
 
 I determined the region of the centromere from the [NCBI browser](https://www.ncbi.nlm.nih.gov/gdv/browser/genome/?id=GCF_003339765.1), in a region from 58-61Mb that have no gene annotations. That region corresponds well with `NaN` values in the calculated eigenvector (values removed because of low-count bins), as seen below:
 
 {{< embed ../notebooks/03_compartments.ipynb#e1_nan_hist >}}
 
-Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from [@wang_reprogramming_2019]. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know...
+Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from [@wang2019reprogrammingmeioticchromatin]. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know...
 
 {{< embed ../notebooks/03_compartments.ipynb#e1-fullmerged-all-500kb >}}
 

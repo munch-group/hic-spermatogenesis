@@ -89,10 +89,10 @@ When the pairs are sequenced, we map (align) them back onto the reference genome
 Now, it has been shown that the first eigenvector (the vector of PC1) can well predict these compartments, and we label them 'A' for active and 'B' for inactive compartments. We use (binned) GC content to *phase* or calibrate the sign. It is convention to eyeball how well we capture the plaid pattern as this point. 
 :::
 
-## Reconstructing figures from [@wang_reprogramming_2019]
+## Reconstructing figures from [@wang2019reprogrammingmeioticchromatin]
 
 ::: {.incremental}
-- [@wang_reprogramming_2019] identified compartments in *rhesus macaque* in five different stages of spermatogenesis: 
+- [@wang2019reprogrammingmeioticchromatin] identified compartments in *rhesus macaque* in five different stages of spermatogenesis: 
     - fibroblast, spermatogonia, pachytene spermatocyte, round spermatids, and sperm
 - The edges of some compartments look suspiciously close to some of the regions of weirdly selected genes of *papio anubis* (olive baboons)
 :::
@@ -114,9 +114,9 @@ Now, it has been shown that the first eigenvector (the vector of PC1) can well p
 :::
 
 
-## Reconstructing figures from [@wang_reprogramming_2019] 
+## Reconstructing figures from [@wang2019reprogrammingmeioticchromatin] 
 
-- [@wang_reprogramming_2019] identified compartments in *rhesus macaque* in five different stages of spermatogenesis: 
+- [@wang2019reprogrammingmeioticchromatin] identified compartments in *rhesus macaque* in five different stages of spermatogenesis: 
     - fibroblast, spermatogonia, pachytene spermatocyte, round spermatids, and sperm
 - The edges of some compartments look suspiciously close to some of the regions of weirdly selected genes of *papio anubis* (olive baboons)
 
