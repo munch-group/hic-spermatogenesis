@@ -1,14 +1,14 @@
 name: hic
 channels:
-  - munch-group
-  - defaults
   - conda-forge
   - bioconda
-  - gwforg
+  - munch-group
   - kaspermunch
+  - gwforg
   - micknudsen
   - r
   - genomedk
+  - defaults
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
   - _openmp_mutex=4.5=2_gnu
