@@ -41,13 +41,6 @@
 \makeatother
 \usepackage{xcolor}
 \usepackage[textheight=9in,,textwidth=6.5in,,top=1in,,headheight=14pt,,headsep=25pt,,footskip=30pt]{geometry}
-\ifLuaTeX
-  \usepackage{luacolor}
-  \usepackage[soul]{lua-ul}
-\else
-  \usepackage{soul}
-  
-\fi
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{2}
 % Make \paragraph and \subparagraph free-standing
@@ -460,7 +453,7 @@ gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen}
-\date{2025-01-06}
+\date{2025-01-07}
 
 \begin{document}
 \frontmatter
@@ -487,7 +480,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2025-01-06 \par}
+{\bfseries\large 2025-01-07 \par}
 \vspace{3ex}
 
 \vspace{12ex}
@@ -742,6 +735,13 @@ for library preparation, termed small-scale \emph{in-situ} Hi-C,
 allegedly producing a high-quality Hi-C libary from as little as 500
 cells (capturing the variance of millions of cells).
 
+Initially, Hi-C library preparation was designed to generate molecules
+with only a single ligation site in each, but with advancements in
+sequencing technology (`short-reads' can now span several hundreds of
+base pairs) and the shift to more frequently cutting restriction enzymes
+for higher resolution results in multiple ligation events per sequenced
+molecule (Open2C et al. 2024), which is adressed in the section below.
+
 \subsection{Hi-C Data Analysis}\label{hi-c-data-analysis}
 
 The analysis of the read-pairs of a Hi-C library is divided into several
@@ -811,21 +811,16 @@ restriction fragment depending on the orientation, and deemed
 uninformative (Lajoie, Dekker, and Kaplan 2015). Usually, \emph{weird}
 events are demeed uninformative as well, as it is challenging to
 distinguish a sequencing error from the result of a diploid fragment.
-
 PCR duplicates should be discarded as well, having either identical
 genomic sequence, or sharing exact 5' alignment positions of the pair
 (Lajoie, Dekker, and Kaplan 2015; Bicciato and Ferrari 2022, Ch. 1). The
 probability that such pairs are valid (i.e.~there are multiple of the
-same pairs) is very low.
-
-The \emph{trans}/\emph{cis}-ratio can be a good indicator of the noise
-level in the library, and additionally, the level of random ligation
-events can be quantified by counting the number of \emph{trans} events
-occurring to mitochondrial genome. They should not occur naturally, as
-the mitochondrial genome is separated from the DNA in the nucleus. This
-method has some pitfalls that should be controlled for; some parts of
-the mitochondrial genome can be integrated into the host genome, and
-mitochondrial count may differ between states.
+same pairs) is very low. We also have to distinguish between molecules
+with only a single ligation event (one-way contact) or multiple ligation
+events (multi-way contacts). For that, a descision should be made on
+whether to 1) discard molecules with multiple ligations, 2) report one
+of the ligations (e.g.~the 5'-most in both directions), or 3) report all
+events on a molecule.
 
 \small
 
@@ -860,7 +855,7 @@ could indicate unsuccesful ligation. \\
 Weird & Mates have the same orientation on the reference. Is not
 possible with single copy fragment. Either sequencing errors or diploid
 fragments\footnote{Bicciato and Ferrari (2022) mentions that this type
-  of ligations had been used to infer interaction between
+  of ligations had been used to model interaction between
   sister-chromatids post-replication in \emph{Drosophila}.}. \\
 Cis & Pairs from the same chromosome (intrachromosomal) \\
 Trans & Pairs from distinct chromosomes (interchromosomal) \\
@@ -885,7 +880,15 @@ preference of \emph{cis} or \emph{trans} in an aligner itself. This
 allows for evaluating the mapping parameters as well as the filters
 applied downstream. Additionally, \(P(s)\), the contact probability as a
 function of genomic separation can be inspected as it should decay with
-increasing distance.
+increasing distance. The \emph{trans}/\emph{cis}-ratio can sometimes be
+a good indicator of the noise level in the library, and additionally,
+the level of random ligation events can be quantified by counting the
+number of \emph{trans} events occurring to mitochondrial genome. They
+should not occur naturally, as the mitochondrial genome is separated
+from the DNA in the nucleus. This method has some pitfalls that should
+be controlled for; some parts of the mitochondrial genome can be
+integrated into the host genome, and mitochondrial count may differ
+between cell-stages.
 
 Typically, a filter against low mapping quality is applied on the data
 before constructing the interaction matrix (Hi-C matrix), and a
@@ -1344,12 +1347,23 @@ the restriction sites from the restriction enzyme used on the reference
 genome, which is generated with \texttt{hicFindRestSites} that operates
 on the reference genome and restriction sequence. The default filter,
 \texttt{-\/-minMappingQuality\ 15}, was applied as described in
-Section~\ref{sec-matrix-qc}.
+Section~\ref{sec-matrix-qc}. Notably, HiCExplorer has no options on
+handling multiple ligations, and thus the method is unknown. I assume
+that they have the intitial design of Hi-C libraries in mind.
+
+\begin{figure}
+
+\centering{
 
 \includegraphics[width=0.7\linewidth,height=1\textheight]{illustrations/placeholder2000x360.png}
 
-Overview of the target templates used for hicexplorer. As most
-operations are handled by \texttt{hicBuildMatrix}, it is rather simple.
+}
+
+\caption{\label{fig-hicexplorer-workflow}Overview of the target
+templates used for hicexplorer. As most operations are handled by
+\texttt{hicBuildMatrix}, it is rather simple.}
+
+\end{figure}%
 
 \small
 
@@ -1440,23 +1454,22 @@ parallelize the download for efficiency.
 
 \subsubsection{Mapping Hi-C reads}\label{mapping-hi-c-reads}
 
-\textbf{Open2C} Suspiciously, ({``Open {Chromosome Collective}
-({Open2C})''} n.d.) never mentions any problems with aligning the Hi-C
-reads, they just provide an example using \texttt{bwa\ mem} in
-paired-end mode and with the \texttt{-P} option set, which activates the
-Smith-Waterman {[}ref{]} algorithm to rescue missing hits, by focusing
-on assigning only of of the mates to a good mapping and escape
-mate-rescue. The documentation of \texttt{bwa}
-\href{https://bio-bwa.sourceforge.net}{ref} state that both bwa-mem and
-bwa-sw will rescue chimeric reads. Consequently, Open2C does not have a
-builtin way of pairing the reads after mapping, and I was left with two
-options: \textbf{1)} to re(-)pair the individually mapped read-mates
-(.bam) with \texttt{samtools-fixmate} into one of the specific input
-formats required for \texttt{cooler} to create an interaction matrix
-\emph{cooler}, or \textbf{2)} re-map the reads using Open2C's
-recommendations and use their established pipeline for producing a
-cooler. I chose the latter, where I mapped the fastq files to
-\emph{rheMac10} in paired end mode for a pair (\(m1\), \(m2\)) with
+Suspiciously, ({``Open {Chromosome Collective} ({Open2C})''} n.d.) never
+mentions any problems with aligning the Hi-C reads, they just provide an
+example using \texttt{bwa\ mem} in paired-end mode and with the
+\texttt{-P} option set, which activates the Smith-Waterman {[}ref{]}
+algorithm to rescue missing hits, by focusing on assigning only one of
+the mates to a good mapping and escape mate-rescue. The documentation of
+\texttt{bwa} \href{https://bio-bwa.sourceforge.net}{ref} state that both
+bwa-mem and bwa-sw will rescue chimeric reads. Consequently, Open2C does
+not have a builtin way of pairing the reads after mapping, and I was
+left with two options: \textbf{1)} to re(-)pair the individually mapped
+read-mates (.bam) with \texttt{samtools-fixmate} into one of the
+specific input formats required for \texttt{cooler} to create an
+interaction matrix \emph{cooler}, or \textbf{2)} re-map the reads using
+Open2C's recommendations and use their established pipeline for
+producing a cooler. I chose the latter, where I mapped the fastq files
+to \emph{rheMac10} in paired end mode for a pair (\(m1\), \(m2\)) with
 \texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
 
 \subsubsection{Parse and sort the reads}\label{parse-and-sort-the-reads}
@@ -1466,12 +1479,15 @@ between several types of ligation events. The simplest event is when
 each side only maps to one unique segment in the genome `UU'. Other
 events, where one or both sides map to multiple segments or the reads
 are long enough (\textgreater150bp) to contain two alignments (multiple
-ligations) have to be considered as well. Multiple ligations (walks) are
-treated according to the \texttt{-\/-walks-policy} when parsing the
-alignments into valid pairs (or valid Hi-C contacts). Here,
-\texttt{mask} is the most conservative and masks all complex walks,
-whereas \texttt{5unique} reports the 5'-most unique alignment on each
-side. The pairs are piped directly into \texttt{pairtools\ sort} after
+ligations) have to be considered as well. Multiple ligations (reads that
+have multiple ligation sites, thus having several valid alignments to
+the reference) are called \emph{walks} by Open2C, and are treated
+according to the \texttt{-\/-walks-policy} when parsing the alignments
+into valid pairs (or valid Hi-C contacts). Here, \texttt{mask} is the
+most conservative and masks all complex walks, whereas \texttt{5unique}
+and \texttt{3unique} reports the 5'-most or 3'-most unique alignment on
+each side, respectively, and \texttt{all} reports all the alignments.
+The pairs are piped directly into \texttt{pairtools\ sort} after
 parsing, as the deduplication step requires a sorted set of pairs. The
 \emph{.pairs}-format produced by \texttt{pairtools} is an extension the
 \href{https://data.4dnucleome.org/file-formats/pairs/}{4DN
@@ -1524,17 +1540,18 @@ on side 2 \\
 
 \normalsize
 
-I initially used \texttt{-\/-walks-policy\ mask}, reasoning I had plenty
-of data points and could handle complex walks in a conservative way.
-Only later I realized the recommendations from \emph{pairtools},
-specifically informing that longer reads might have a significant
-proportion of reads that contain complex walks. With this in mind, I
-decided to re-parse the alignments into a new set of pairs, and equally
-apply the recommended filter (next section). As both results are saved,
-we can compare the two approaches.
+I initially used \texttt{-\/-walks-policy\ mask} without fully
+understanding the implications, but knowing it was the most conservative
+of the options. Only later I realized the recommendations from
+\emph{pairtools}, specifically informing that longer reads (\(>150bp\))
+might have a significant proportion of reads that contain complex walks.
+With this in mind and as the average read-length of our data is 300 bp,
+I decided to re-parse the alignments into a new set of pairs, and
+equally apply the recommended filter (next section). As both results are
+saved, we can compare the two approaches.
 
-\subsubsection{Filter (deduplicate)
-pairs}\label{filter-deduplicate-pairs}
+\subsubsection{Filter and deduplicate
+pairs}\label{filter-and-deduplicate-pairs}
 
 Pairtools comes with a de-duplication function, \texttt{dedup}, to
 detect PCR duplication artefacts. At this point we will remove all reads
@@ -1546,17 +1563,15 @@ chromatin compartments as is the goal of this analysis. Therefore, we
 simply only include the list of conventional chromosomes (1..22, X, Y)
 when doing the deduplication. Initially, the default values were used to
 remove duplicates, where pairs with both sides mapped within 3 base
-pairs from each other are considered duplicates.
-
-\texttt{cooler} recommend to store the most comprehensive and unfiltered
-list of pairs, and then applying a filter it on the fly by piping from
+pairs from each other are considered duplicates. \texttt{cooler}
+recommend to store the most comprehensive and unfiltered list of pairs,
+and then applying a filter it on the fly by piping from
 \texttt{pairtools\ select}. Initially, I missed this step and I did not
 filter for mapping quality. After reparsing the alignments and applying
-the same analysis, we compare the two pipelines.
-
-A quality control report is generated by \texttt{pairtools\ dedup}, and
-the reports are merged with \texttt{MultiQC} {[}ref{]} for each cell
-type.
+the same analysis, we compare the two pipelines. A quality control
+report is generated by \texttt{pairtools\ dedup} as well, and the
+reports are merged and visualized with \texttt{MultiQC} {[}ref{]} for
+each cell type.
 
 \subsubsection{Create interaction matrices
 (coolers)}\label{create-interaction-matrices-coolers}
@@ -1564,82 +1579,66 @@ type.
 The final part of the \emph{gwf} workflow takes \texttt{.pairs} as input
 and outputs a \texttt{.cool} file (\emph{cooler}). Initially, we read
 directly from the newly generated deduplicated pairs without additional
-filtering, but here, the official recommendation is to filter out
-everything below \(mapq = 30\) by piping the pairs through
+filtering, but the official recommendation is to filter out everything
+below \(mapq = 30\) by piping the pairs through
 \texttt{pairtools\ select\ "(mapq1\textgreater{}=30)\ and\ (mapq2\textgreater{}=30)"}
-to \texttt{cooler\ cload\ pairs}.
-
-We should have plenty of data to do the filtering, but I decided it is
-not strictly necessary. I will show a histogram of the \emph{mapq}
-scores to convince you {[}ref{]}.
-
-I have re-parsed the alignments and created new coolers, including only
-the Hi-C contacts where \(mapq \leq 30\), following the current
-recommendations from \texttt{cooler}.
-
-\subsection{Notebook edits}\label{notebook-edits}
-
-As \texttt{cooler} and \texttt{cooltools} have a Python API, the more
-experimental parts of the analysis were moved to Jupyter Notebooks.
-\texttt{cooltools} comes with a helper library for operations on genomic
-intervals called \texttt{bioframe}.
+to \texttt{cooler\ cload\ pairs}. I then re-parsed the alignments and
+created new coolers, including only the Hi-C contacts where
+\(mapq \leq 30\), following the current recommendations from
+\emph{cooler}.
 
 \subsubsection{Pooling samples (Merging
 coolers)}\label{pooling-samples-merging-coolers}
 
 The samples are grouped into \emph{replicates} with a unique
 \textbf{BioSample} ID, but we chose to pool all the interaction matrices
-for each cell type. We argue that when Wang et al. (2019) determine
+for each cell type. We reason that when Wang et al. (2019) determine
 compartments to be highly reproducible between replicates, by merging
 the replicates we can get a more robust signal.
 
-\texttt{cooler\ merge} was used to merge all samples in each sub-folder
-(cell type) to just one interaction matrix for each cell type. The
+\texttt{cooler\ merge} was used to merge all samples in each cell-type
+directory to just one interaction matrix for each cell type. The
 function merges matrices of the same dimensions by simply adding the
 interaction frequencies of each genomic position together, resulting in
-less empty positions by chance.
+less empty or low-count bins.
 
 \subsubsection{Create multi-resolution coolers
 (zoomify)}\label{create-multi-resolution-coolers-zoomify}
 
 A feature of working inside the ecosystem of \emph{Open2C} {[}ref{]} is
 that it natively provides support for storing sparse interaction
-matrices in multiple resolutions in the same file by adding groups to
-the cooler {[}ref{]}. We can then efficiently store resolutions (i.e.,
-different bin sizes) that is multiples of the smallest bin size. We
-chose to use 10kb, 50kb, 100kb, and 500kb bins, and the resolutions are
-made by recursively binning the base resolution. We call this process
-zoomifying.
+matrices in multiple resolutions in the same file by adding HDF5-groups
+to the (multires-)cooler. We can then efficiently store resolutions
+(i.e., different bin sizes) that is multiples of the smallest bin size.
+We chose to use 10kb, 50kb, 100kb, and 500kb bins, and the resolutions
+are made by recursively binning the base resolution. They call this
+process zoomifying, and \texttt{cooler\ zoomify} does the job (it
+recursively calls \texttt{cooler\ coarsen} to merge bins).
 
 \subsubsection{Matrix balancing (Iterative
 correction)}\label{matrix-balancing-iterative-correction}
 
-Finally, we balance the matrices using the cooler CLI. We use
-\texttt{cooler\ balance} with the default options which iteratively
-balances the matrix (Iterative Correction). It is first described as a
-method for bias correction of Hi-C matrices in (Imakaev et al. 2012),
-where it is paired with eigenvector decomposition, coining the combined
-analysis \textbf{ICE}. Here, the eigenvector decomposition of the
-obtained maps is experimentally validated to provide insights into local
-chromatin states.
+Finally, we balance (or correct) the matrices using the cooler CLI. We
+use \texttt{cooler\ balance} with the default options which iteratively
+balances the matrix (Iterative Correction).
 
-{[}According to \texttt{cooler} documentation{]} We have to balance the
-matrices on each resolution, and thus it cannot be done prior to
-zoomifying. They state that the balancing weights are
-resolution-specific and will no longer retain its biological meaning
-when binned with other weights. Therefore, we apply
+We balance the matrices on each resolution, and thus it cannot be done
+prior to zoomifying. They (Abdennur and Mirny (2020)) state that the
+balancing weights are resolution-specific and will no longer retain its
+biological meaning when binned with other weights. Therefore, we apply
 \texttt{cooler\ balance} to each resolution separately.
 \texttt{cooler\ balance} will create a new column in the \texttt{bins}
-group of each cooler , \texttt{weight}, which can then be included or
-not in the downstream analysis. This means we will have access to both
-the balanced and the unbalanced matrix.
+group of each cooler, \texttt{weight}, which can then be included or not
+in the downstream analysis. This means we will have access to both the
+balanced and the unbalanced matrix.
 
 The default mode uses genome-wide data to calculate the weights for each
 bin. It would maybe be more suitable to calculate the weights for
 \emph{cis} contacts only, and that is possible through the
 \texttt{-\/-cis-only} flag, and that can be added to another column, so
 that we can compare the difference between the two methods easily.
-However, we will only use the default mode for now.
+However, when adding the option, the process seemed to stall and had to
+be terminated manually, and it was not investigated further.
 
 \subsubsection{Eigendecomposition}\label{sec-methods-eigendecomposition}
 
@@ -1737,38 +1736,41 @@ Determines whether the non-overlapping parts of the sets are more
 proximal than expected by chance. We define the \emph{annotation} set
 and the \emph{query} set, and the distance from each interval on the
 \emph{query} to the most proximal interval on the \emph{annotation} is
-used to generate an index of proximity. It uses bootstrapping
-(\(b = 100000\)) to generate the null distribution, and finally, the
-fraction of the \emph{null} as or more extreme as our observed proximity
-is reported as the p-value.
+used to generate an index of proximity by the mean distance to nearest
+interval in the \emph{annotation}. Then, bootstrapping (\(b = 100000\))
+is performed by randomly \emph{re}placing the query intervals to
+generate the null distribution, and finally, the fraction of the
+\emph{null} as or more extreme as our observed proximity is reported as
+the p-value.
 
 \subsubsection{Jaccard test}\label{jaccard-test}
 
 Measures the significance of the observed Jaccard index (intersection
 over union) between two sets. The index is a measure of
-\emph{similarity} between two sets (between 0 and 1), which is very
-sensitive to the size difference between the sets, as even when
-comparing a set of intervals to a small subset of itself will yield a
-very small Jaccard index. When we use bootstrapping to generate a null
-distribution (shuffling the intervals of the \emph{query}), we generate
-the probability that the two sets (with their respective number and size
-of intervals), are as similar or more than what we observe. The ratio is
-reported as the p-value. However, this approach is still sensitive to
-flipping of query/annotation, as only the query is bootstrapped.
+\emph{similarity} (\(intersection/union\)) between two sets (between 0
+and 1), which is very sensitive to the size difference between the sets,
+as even when comparing a set of intervals to a small subset of itself
+will yield a very small Jaccard index. When we use bootstrapping to
+generate a null distribution (shuffling the intervals of the
+\emph{query}), we find the probability that the two sets (with their
+respective number and size of intervals), are as similar or more than
+what we observe. The ratio is reported as the p-value. However, this
+approach is still sensitive to flipping of query/annotation (if the
+reginos are not the same size), as only the query is bootstrapped.
 
 \subsubsection{Multiple testing}\label{multiple-testing}
 
 Careful considerations were made to avoid multiple testing biases
 (p-hacking): Performing tests on all combinations of variables (cell
-type, resolution, viewframe, flip annot, query, test) will yield 260
-p-values, and we would have to adjust the significance threshold (with
-\(\alpha = 0.05\), we expect 13 `significant' tests by chance alone).
-However, if we choose only
+type, resolution, viewframe, flip annot, query) will yield 180 p-values
+for each test, and we would have to adjust the significance threshold
+(with \(\alpha = 0.05\), we expect 9 `significant' tests by chance
+alone). However, if we test only a few combinations we will greatly
+reduce that.
 
 \chapter{Results}\label{results}
 
-\section{Exploration with
-HicExplorer}\label{exploration-with-hicexplorer}
+\section{HicExplorer Trials}\label{hicexplorer-trials-1}
 
 \subsection{Quality Control}\label{quality-control}
 
@@ -1781,20 +1783,18 @@ read-orientation of read-pairs
 (Figure~\ref{fig-explorer-read-orientation}), which is expected for a
 good Hi-C library. Additionally, it determines between 40\% to 50\% of
 the total reads to be valid Hi-C contacts
-(Figure~\ref{fig-explorer-unique-pairs}), which is
-\href{https://hicexplorer.readthedocs.io/en/latest/content/example_usage.html\#creation-of-a-hi-c-matrix}{allegedly}
-{[}ref{]} usually only 25\%-40\%. \st{Overall a solid set of Hi-C
-samples until now}. Figure~\ref{fig-explorer-contact-distance} shows,
-however, unusually high fractions of \emph{inter}-chromosomal contacts
-(up to 30\%) compared to \emph{intra}-chromosomal contacts (also denoted
-\emph{trans} and \emph{cis} contacts, respectively). It is expected that
-\emph{cis} contacts are orders of magnitude more frequent than
-\emph{trans} contacts (Bicciato and Ferrari 2022, 2301:236;
-Lieberman-Aiden et al. 2009), and \emph{HiCExplorer} states it should be
-below 10\% {[}ref{]}. The high fraction may be mitigated by enforcing a
-stricter \emph{mapq} threshold for a valid Hi-C pair, as we also observe
-higher-than expected valid contacts. However, we continue without the
-current matrices.
+(Figure~\ref{fig-explorer-unique-pairs}), which is usually only
+25\%-40\% (as described in HiCExplorer docs).
+Figure~\ref{fig-explorer-contact-distance} shows, however, unusually
+high fractions of \emph{inter}-chromosomal contacts (up to 30\%)
+compared to \emph{intra}-chromosomal contacts (also denoted \emph{trans}
+and \emph{cis} contacts, respectively). It is expected that \emph{cis}
+contacts are orders of magnitude more frequent than \emph{trans}
+contacts (Bicciato and Ferrari 2022, 2301:236; Lieberman-Aiden et al.
+2009), and HiCExplorer states it should be below 10\% (docs). The high
+fraction may be mitigated by enforcing a stricter \emph{mapq} threshold
+for a valid Hi-C pair, as we also observe higher-than expected valid
+contacts. However, we continue without the current matrices.
 
 \begin{figure}
 
@@ -1861,8 +1861,7 @@ current matrices.
 \caption{\label{fig-explorer-qc}Quality control of the mapped Hi-C reads
 using \emph{HiCExplorer} \texttt{hicQC}. The figures should be moved to
 Supplementary/Appendix because they are ugly and un-alignable. But that
-is the fault of HiCExplorer, not me. \st{Or I should spend a couple of
-hours to plot them manually}.}
+is the fault of HiCExplorer, not me.}
 
 \end{figure}%
 
@@ -1955,12 +1954,6 @@ from which the \emph{mad} threshold is defined.}
 
 \end{figure}%
 
-\begin{quote}
-NB: when I say that a mapper performs poorly in finding Hi-C contacts,
-it is \texttt{hicBuildMatrix} that performs badly when reads are mapped
-with that mapper.
-\end{quote}
-
 To compare these mappings with others, the QC results is an easy way.
 Therefore, the reads were mapped with \emph{bowtie2} in both end-to-end-
 and local-mode followed by \texttt{hiCBuildMatrix}, and the QC from each
@@ -1969,23 +1962,23 @@ method was plotted next to each other
 much more computer-intensive in both modes, perhaps because of the
 \texttt{-\/-very-sensitive} option. In any case, the QC reveals a major
 difference in the total number of reads that are determined to be valid
-Hi-C contacts by \texttt{hicBuildMatrix}. As expected,
-\emph{end-to-end-bowtie2} performs worse at locating Hi-C contacts than
-the other methods {[}ref row1{]}, finding a very low amount of mappable,
-unique pairs passing the quality threshold. In contrast,
-\emph{local-bowtie2} performs similarly to \emph{bwa} in finding
-mappable, unique, high-quality pairs, but calls only approximately half
-the number of valid Hi-C contacts (\textgreater20\%), resulting in a
-fraction of valid Hi-C pairs that hits the expectation from
-\emph{HicExplorer} docs {[}ref row3{]}. With \emph{bwa}, the reads were
-discarded either due to low mapping quality or non-unique mates, whereas
-with \emph{local-bowtie2}, the reads were almost exclusively filtered
-out due to low mapping quality. This must be a result of how the mappers
-assign mapping quality, and I believe \emph{local-bowtie2} looks
-suspiciously selective in finding unique but low quality alignments.
-\emph{end-to-end-bowtie} almost exclusively filters out read-pairs where
-one mate is unmapped, which is expected when the majority of reads are
-unmapped.
+Hi-C contacts by \texttt{hicBuildMatrix}. As expected, mapping with
+\emph{end-to-end-bowtie2} makes locating Hi-C contacts more difficult
+than the other methods (Figure~\ref{fig-explorer-all-3-qc}, top row),
+finding a very low amount of mappable, unique pairs passing the quality
+threshold. In contrast, mapping with \emph{local-bowtie2} performs
+similarly to \emph{bwa} in finding mappable, unique, high-quality pairs,
+but calls only approximately half the number of valid Hi-C contacts
+(\textgreater20\%), resulting in a fraction of valid Hi-C pairs that
+hits the expectation from \emph{HicExplorer} docs {[}ref row3{]}. With
+\emph{bwa}, the reads were discarded either due to low mapping quality
+or non-unique mates, whereas with \emph{local-bowtie2}, the reads were
+almost exclusively filtered out due to low mapping quality. This must be
+a result of how the mappers assign mapping quality, and I believe
+\emph{local-bowtie2} looks suspiciously selective in finding unique but
+low quality alignments. \emph{end-to-end-bowtie} almost exclusively
+filters out read-pairs where one mate is unmapped, which is expected
+when the majority of reads are unmapped.
 
 \begin{figure}[H]
 
@@ -2151,42 +2144,113 @@ resolution, d-f: 100kb resolution. \emph{HiCExplorer}.}
 
 \subsection{Quality Control}\label{quality-control-1}
 
-\subsubsection{\texorpdfstring{Initial run
-(\texttt{-\/-walks-policy\ mask})}{Initial run (-\/-walks-policy mask)}}\label{initial-run---walks-policy-mask}
+As described, the pairtools module in MultiQC (Ewels et al. 2016) was
+used to visualize results from \texttt{pairtools\ stats} for the two
+parsing runs, see Figure~\ref{fig-pairtools-qc}.
+
+\subsubsection{\texorpdfstring{\texttt{-\/-walks-policy\ mask}}{-\/-walks-policy mask}}\label{walks-policy-mask}
 
 Comparing the multiQC report for each of the cell sources show similar
 distributions of \emph{unmapped} (both sides unmapped), \emph{one-sided}
 (one side mapped), \emph{two-sided} (both sides mapped), and
 \emph{duplicated} (w.r.t. total mapped) reads. The percentage of
-\emph{cis} pairs w.r.t. mapped pairs is around 70\% for all samples.
-{[}ref supptbl-qc-all-samples-mask{]}. The valid pairs also show similar
-distributions of pair types divided into 10 categories. The \(P(s)\)
-curve looks similar as well, peaking between 270 bp and 320 bp
-separation (ref suppfig-multiqc-ps-curve). The QC does not show any
-information about mapping quality of the reads. Note that the \(P(s)\)
-ccurve arise from pre-filtered pairs, and should be compcared with the
-\(P(s)\) of the cooler after filtering.
+\emph{cis} pairs w.r.t. mapped pairs is around 70\% for all samples
+(Figure~\ref{fig-pairtools-multiqc-mask-violin}). The valid pairs also
+show similar distributions of pair types divided into 10 categories. The
+\(P(s)\) curve looks similar for all samples as well, peaking around 250
+bp separation (Figure~\ref{fig-pairtools-multiqc-mask-ps}). The QC does
+not show any information about mapping quality of the reads. Note that
+the \(P(s)\) curve arise from pre-filtered pairs, meaning it provides
+information about the Hi-C library. As expected
 
-{[}ref if there is time, include a histogram of mapq values for pairs{]}
-
-\subsubsection{\texorpdfstring{Recommended
-(\texttt{-\/-walks-policy\ 5unique})}{Recommended (-\/-walks-policy 5unique)}}\label{recommended---walks-policy-5unique}
+\subsubsection{\texorpdfstring{\texttt{-\/-walks-policy\ 5unique}}{-\/-walks-policy 5unique}}\label{walks-policy-5unique}
 
 Parsing alignments with the recommended walks-policy aproximately halves
 the percentage of \emph{unmapped} reads, and \emph{one-} and
 \emph{two-sided} reads as well \emph{duplicated} reads are slightly
 increased. Overall number of unique pairs are increased with more than
 20\% increase. The percentage of \emph{cis} pairs are only decreased by
-a percentage point at most {[}ref supptbl-qc-all-samples-5unique{]}.
+a percentage point at most
+(Figure~\ref{fig-pairtools-multiqc-5unique-violin}). Changing the walks
+policy does not alter the \(P(s)\) curve, meaning the parameter does not
+bias the parsing w.r.t. genomic separation.
+
+\begin{figure}
+
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{../figures/fig-pairtools-parse-multiqc-mask-violin.png}}
+
+}
+
+\subcaption{\label{fig-pairtools-multiqc-mask-violin}\texttt{-\/-walks-policy\ mask}}
+
+\end{minipage}%
+%
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{../figures/fig-pairtools-parse-multiqc-5unique-violin.png}}
+
+}
+
+\subcaption{\label{fig-pairtools-multiqc-5unique-violin}\texttt{-\/-walks-policy\ 5unique}}
+
+\end{minipage}%
+\newline
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{../figures/fig-pairtools-parse-multiqc-mask-ps.png}}
+
+}
+
+\subcaption{\label{fig-pairtools-multiqc-mask-ps}\texttt{-\/-walks-policy\ mask}}
+
+\end{minipage}%
+%
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{../figures/fig-pairtools-parse-multiqc-5unique-ps.png}}
+
+}
+
+\subcaption{\label{fig-pairtools-multiqc-5unique-ps}\texttt{-\/-walks-policy\ 5unique}}
+
+\end{minipage}%
+
+\caption{\label{fig-pairtools-qc}Results of \texttt{pairtools\ stats}
+run on all samples from the two walks-policies. Left (a+c):
+\texttt{mask}; right (b+d): \texttt{5unique}. \emph{Generated by
+MultiQC} (Ewels et al. 2016). \emph{Note: X-axes are not shared in the
+`Genereal Statistics' plot.}}
+
+\end{figure}%
 
 \subsection{Correction}\label{correction-1}
 
 Matrix balancing did not show major improvement in the plaid pattern, as
-it was already pretty good. It does, however, filter out bins that are
-deemed too low-count to be informative, for example peri-centromeric
-regions. The matrix was expected to be smoother after balancing (for
-chromosomes), as regions along a chromosome should only vary slowly in
-contact frequency with other regions {[}ref{]}.
+it already showed the expected pattern. It does, however, filter out
+bins that are deemed too low-count to be informative, for example
+peri-centromeric regions. The matrix was expected to be smoother after
+balancing (for chromosome-wide maps), as regions along a chromosome
+should only vary slowly in contact frequency with other regions as they
+are on a continouos molecule. Therefore, sharp contrasts represent a
+sudden drop in bin count (Figure~\ref{fig-rs-chrx-raw-balanced-cgi},
+raw) and should not be interpreted as devoid of interaction, but an
+indication that the data is not sufficient to interpret. It is then
+better to simply remove the bins in stead of correcting, which will also
+amplify noise. Even with a high-quality Hi-C library we expect that all
+bins do not have the same coverage throughout(Lajoie, Dekker, and Kaplan
+2015), as restriction enzymes do not bind equally to all regions of the
+genome, and therefore, some bins will be underrepresented as an artefact
+of binding/cutting efficieny of the restriction enzyme used.
 
 \begin{figure}[H]
 
@@ -2218,16 +2282,25 @@ is not necessary for the analysis.}
 
 \end{figure}%
 
-The coarsegrained and interpolated matrix is useful to make a
-good-looking interaction matrix, but is not that useful for analysis
-purposes. It might get easier to visually inspect the matrix, but it is
-not clear how well the interpolated matrix reflects the structure of the
-chromatin. The regions that are coarsgrained are small zero- or
-low-count bins which are averaged, effectively reducing the resolution
-of those regions until the count is sufficient. They get more frequent
-the longer genomic distance (the further we travel from the diagonal),
-and effectively enables us to get some intuition about the interactions.
-The coarsegrain, however, does not interpolate the \texttt{NaN}s created
+We can try to mitigate the white lines of empty bins that now appear in
+the matrices. The coarsegrained and interpolated matrix is useful to
+make a good-looking interaction matrix, but is not that useful for
+analysis purposes. It might get easier to visually inspect the matrix,
+but it is not clear how well the interpolated matrix reflects the
+structure of the chromatin, and it is not transparent which regions are
+interpolated and which that are not. I find it purposeful for
+interpolation on high-resolution (zoomed-in) views
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}) with small empty
+regions, but misleading for chromosome-wide maps, where typically the
+centromere and extremities of the chromosome have filtered-out bins.
+Interpolation is further discussed below.
+
+The regions that are coarsgrained are small zero- or low-count bins
+which are averaged, effectively reducing the resolution of those regions
+until the count is sufficient. They get more frequent the longer genomic
+distance (the further we travel from the diagonal), and effectively
+enables us to get some intuition about the interactions. The
+coarsegrain, however, does not interpolate the \texttt{NaN}s created
 when filtering out whole bins in the balancing step (horisontal and
 vertical lines in Figure~\ref{fig-rs-chrx-raw-balanced-cgi} and
 Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}; middle). This is done
@@ -2245,12 +2318,12 @@ diagonal.
 histograms}{NaN histograms}}\label{nan-histograms}
 
 As expected, most of the low quality bins are located on the edges of
-the chromosome arms, especially the region around the centromere {[}ref
-litterature{]}, as they contain many repetitive sequences. The
-low-quality bins are filtered out by the balancing algorithm, those bins
-are \texttt{NaN} in the Hi-C matrix. The median position of the
-\texttt{NaN} values (Figure~\ref{fig-e1_nan_hist}) ranges between \(58\)
-and \(63.5\), which is within the estimate of the centromeric region of
+the chromosome arms, especially the region around the centromere (Warren
+et al. 2020), as they contain many repetitive sequences. The low-quality
+bins are filtered out by the balancing algorithm, those bins are
+\texttt{NaN} in the Hi-C matrix. The median position of the \texttt{NaN}
+values (Figure~\ref{fig-e1_nan_hist}) ranges between \(58\) and
+\(63.5\), which is within the estimate of the centromeric region of
 \emph{rhemac10}.
 
 \begin{figure}[H]
@@ -2276,65 +2349,50 @@ on each side.
 
 The three viewframes (\emph{Full}, \emph{Arms}, \emph{10Mb}) for the
 calculation of the eigenvectors captured different variability in the
-data (Figure~\ref{fig-e1-matrix-500kb-full-arms-10mb-round_spermatid}),
-and as expected, the inferred compartments (colored red on the E1
-tracks) are more abundant and smaller with smaller viewframes. To
-determine how well each of the E1 tracks capture the pattern in the
-interaction matrix, we can overlay the matrix with the E1 sign-change
-and visually determine if the squares reflect the E1 sign change
-(Figure~\ref{fig-e1-matrix-500kb-full-arms-10mb-round_spermatid}).
+data (Figure~\ref{fig-e1-matrix-full-arms-10mb-round_spermatid}), and as
+expected, the inferred compartments (colored red on the E1 tracks) are
+more abundant and smaller with smaller viewframes. To determine how well
+each of the E1 tracks capture the pattern in the interaction matrix, we
+can overlay the matrix with the E1 sign-change and visually determine if
+the squares reflect the E1 sign change
+(Figure~\ref{fig-e1-matrix-full-arms-10mb-round_spermatid}).
 
 \begin{figure}[H]
 
-\begin{minipage}{0.48\linewidth}
+\centering{
 
 \centering{
 
-\includegraphics[width=3.29167in,height=3.08333in]{index_files/figure-latex/..-notebooks-05_rec_compartments-fig-e1-matrix-500kb-full-arms-10mb-round_spermatid-output-1.png}
+\includegraphics[width=3.09375in,height=2.88542in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-e1-matrix-full-arms-10mb-round_spermatid-output-1.png}
 
 }
 
-\subcaption{\label{fig-e1-matrix-500kb-full-arms-10mb-round_spermatid}E1
-eigenvector values for merged round spermatid samples at 500kb
-resolution, as well as the interaction matrix. E1 was restricted to
-either Full-chromosome (top), Chromosome-arms (middle), or 10Mb windows
-(bottom).}
-
-\end{minipage}%
-%
-\begin{minipage}{0.03\linewidth}
-~\end{minipage}%
-%
-\begin{minipage}{0.48\linewidth}
+\subcaption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid-1}E1
+eigenvector values for merged round spermatid samples at a) 100kb or b)
+500kb resolution, as well as the interaction matrix. E1 was restricted
+to either Full-chromosome (top), Chromosome-arms (middle), or 10Mb
+windows (bottom)}
 
 \centering{
 
-\includegraphics[width=3.29167in,height=3.08333in]{index_files/figure-latex/..-notebooks-05_rec_compartments-fig-e1-matrix-100kb-full-arms-10mb-round_spermatid-output-1.png}
+\includegraphics[width=3.09375in,height=2.88542in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-e1-matrix-full-arms-10mb-round_spermatid-output-2.png}
 
 }
 
-\subcaption{\label{fig-e1-matrix-100kb-full-arms-10mb-round_spermatid}E1
-eigenvector values for merged round spermatid samples at 500kb
-resolution, as well as the interaction matrix. E1 was restricted to
-either Full-chromosome (top), Chromosome-arms (middle), or 10Mb windows
-(bottom).}
+\subcaption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid-2}}
 
-\end{minipage}%
+}
 
-\caption{\label{fig-e1-matrix-full-arms-10mb-round-spermatid}Super
-caption, subcaptions should be moved here (from notebook). They now fit
-on the page, but it would be nice to make this as one plt.subplots with
-shared axis title etc. \emph{Update:} The notebook is ready for making
-these plots (\texttt{07\_various\_plotting.ipynb}, with a new plotting
-function) should be same size as the following matrix plots.}
+\caption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid}}
 
 \end{figure}%
 
-I argue that without more finescaled knowledge than the position of the
+I decide that without more finescaled knowledge than the position of the
 centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully
-be justified. Also, Wang et al. (2019) concludes that only the pachytene
-spermatocyte showed local interactions in that viewframe (what they
-refer to as \emph{refined A/B-compartments} ), and all the other stages
+be justified. That is, we could arbitrarily calculate any windowed E1
+track. Also, Wang et al. (2019) concludes only for pachytene
+spermatocyte to show local interactions in the 10Mb viewframe (what they
+refer to as \emph{refined A/B-compartments}), and all the other stages
 of spermatogenesis were consistent with the conventional A/B
 compartments. The reasonable thing to do is therefore to continue the
 analysis, focusing on the arms-restricted eigendecomposition.
@@ -2343,23 +2401,24 @@ Nevertheless, we also keep \emph{refined} compartments in the analysis.
 Additionally, as I created coolers with two different sets of parsing
 parameters we will compare the resulting matrices and their compartments
 (Figure~\ref{fig-rs100-recpe-pe}). As expected, we observe more empty
-bins in the Hi-C matrix, but otherwise, the interaction pattern is
-indestinguishable when going from the initial run (PE) to the
-recommended parameters (redPE). The effect on the E1 is more noticable,
-where the absolute magnitude of the E1 values is generally smaller.
-There is, however, a small region that changes sign (from A to B) on the
-10Mb-windowed (`refined') E1 track (Figure~\ref{fig-rs100-recpe-pe};c+d,
-zoomed-in region). This region is surrounded by added empty bins, which
-could mean that too many low quality pairs in PE were introducing bias
-and swapped the sign of E1. It is supported by the fact that the sign
-change \emph{only} occured in \emph{refined} E1, and that the sign after
-filtering weak pairs (\(mapq < 30\)) is consistent with the \emph{arms}
-view. It supports my previous postulate that it is better to use a
-viewframe where with explicit molecular meaning than one of an arbitrary
-window size. That said, the \texttt{mapq} threshold should really be
-determined taking both coverage and resolution into account. For our
-purposes, and with the \emph{arms} view, the mapping- and parsing
-parameters do not seem to be too sensitive.
+bins in the Hi-C matrix when comparing the initial run (\texttt{mask})
+to the recommended parameters (\texttt{5unique}), but otherwise, the
+interaction pattern is indestinguishable. The effect on the E1 is more
+noticable, where the absolute magnitude of the E1 values is generally
+smaller. There is, however, a small region that changes sign (from A to
+B) on the 10Mb-windowed (`refined') E1 track
+(Figure~\ref{fig-rs100-recpe-pe};c+d). This region is surrounded by
+added empty bins, which could mean that too many low quality pairs in
+\texttt{mask} were introducing bias and swapped the sign of E1. It is
+supported by the fact that the sign change \emph{only} occured in
+\emph{refined} E1, and that the sign after filtering weak pairs
+(\(mapq < 30\)) is consistent with the \emph{arms} view. It supports my
+previous postulate that it is better to use a viewframe with explicit
+molecular meaning than one of an arbitrary window size. That said, the
+\texttt{mapq} threshold should really be determined taking both coverage
+and resolution into account. For our purposes, and with the \emph{arms}
+view, the mapping- and parsing parameters do not seem to be too
+sensitive.
 
 \begin{figure}
 
@@ -2374,7 +2433,8 @@ parameters do not seem to be too sensitive.
 
 }
 
-\subcaption{\label{fig-rs100-recpe-pe-1}recPE RS 100kb full chrX}
+\subcaption{\label{fig-rs100-recpe-pe-1}\texttt{5unique}:
+chrX:start-end}
 
 \end{minipage}%
 %
@@ -2386,7 +2446,7 @@ parameters do not seem to be too sensitive.
 
 }
 
-\subcaption{\label{fig-rs100-recpe-pe-2}PE RS 100kb full chrX}
+\subcaption{\label{fig-rs100-recpe-pe-2}\texttt{mask}: chrX:start-end}
 
 \end{minipage}%
 %
@@ -2404,7 +2464,8 @@ parameters do not seem to be too sensitive.
 
 }
 
-\subcaption{\label{fig-rs100-recpe-pe-3}recPE RS 100kb chrX:70Mb-78Mb}
+\subcaption{\label{fig-rs100-recpe-pe-3}\texttt{5unique}:
+chrX:70Mb-78Mb}
 
 \end{minipage}%
 %
@@ -2416,7 +2477,7 @@ parameters do not seem to be too sensitive.
 
 }
 
-\subcaption{\label{fig-rs100-recpe-pe-4}PE RS 100kb chrX:70Mb-78Mb}
+\subcaption{\label{fig-rs100-recpe-pe-4}\texttt{mask}: chrX:70Mb-78Mb}
 
 \end{minipage}%
 %
@@ -2673,8 +2734,51 @@ p-values for ECH90 regions on compartment edges for all cell types at
 
 \end{figure}%
 
-\section{Testing against hybrid incompatibility in
-baboons}\label{testing-against-hybrid-incompatibility-in-baboons}
+\section{Testing against regions of selection in
+baboons}\label{testing-against-regions-of-selection-in-baboons}
+
+The data for this analysis was provided by Kasper Munch in bed-like
+format, mapped to \emph{panu\_3.0} (PapAnu4) assembly. The intervals
+define genomic regions in a hybrid/migrating population of baboon where
+strong negative selection acts against minor parent ancestry (Sørensen
+et al. 2023). The segments had to be lifted to rheMac10 to be able to
+correlate the two sets of intervals. The original UCSC liftOver
+(Hinrichs 2006) is very strict and does not try to conserve segments in
+favor of accuracy e.g.~inversions or small indels, which results in
+highly scattered regions when lifted. To favor preservation of segments,
+we use \emph{segment\_liftover} (Gao, Huang, and Baudis 2018), resulting
+in much more similar regions to the original
+(Figure~\ref{fig-compare-liftover}). As no chain file from
+\emph{panu\_3.0} to \emph{Mmul\_10} was available, we had to use
+\emph{panu\_2.0} as intermediate.
+
+\begin{figure}[H]
+
+\centering{
+
+\centering{
+
+\includegraphics[width=5.19792in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-compare-liftover-output-1.png}
+
+}
+
+\subcaption{\label{fig-compare-liftover-1}high-olive}
+
+\centering{
+
+\includegraphics[width=5.19792in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-compare-liftover-output-2.png}
+
+}
+
+\subcaption{\label{fig-compare-liftover-2}high-hama}
+
+}
+
+\caption{\label{fig-compare-liftover}Comparison of a) high-olive and b)
+high-hama intervals between Panu\_3.0, segment\_liftover, or UCSC
+liftOver coordinates.}
+
+\end{figure}%
 
 Initially, the compartment edges of round spermatid at 100kb resolution
 (RS100) were plotted against the lifted coordinates from a \emph{P.}
@@ -2711,8 +2815,8 @@ Hi-\emph{P.anu} can be explained by chance alone .
 
 }
 
-\subcaption{\label{fig-baboon-rs100-intersect-1}\emph{P. hamadryas}
-(arms view)}
+\subcaption{\label{fig-baboon-rs100-intersect-1}\emph{P. hamadryas} +
+arms E1}
 
 \end{minipage}%
 %
@@ -2724,8 +2828,8 @@ Hi-\emph{P.anu} can be explained by chance alone .
 
 }
 
-\subcaption{\label{fig-baboon-rs100-intersect-2}\emph{P. anubis} (arms
-view)}
+\subcaption{\label{fig-baboon-rs100-intersect-2}\emph{P. anubis} + arms
+E1}
 
 \end{minipage}%
 %
@@ -2743,8 +2847,8 @@ view)}
 
 }
 
-\subcaption{\label{fig-baboon-rs100-intersect-3}\emph{P. hamadryas}
-(10Mb view)}
+\subcaption{\label{fig-baboon-rs100-intersect-3}\emph{P. hamadryas} +
+10Mb E1}
 
 \end{minipage}%
 %
@@ -2756,8 +2860,8 @@ view)}
 
 }
 
-\subcaption{\label{fig-baboon-rs100-intersect-4}\emph{P. anubis} (10Mb
-view)}
+\subcaption{\label{fig-baboon-rs100-intersect-4}\emph{P. anubis} + 10Mb
+E1}
 
 \end{minipage}%
 %
@@ -2787,6 +2891,12 @@ Here is the discussion
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-abdennur2020coolerscalablestorage}
+Abdennur, Nezar, and Leonid A Mirny. 2020. {``Cooler: Scalable Storage
+for {Hi-C} Data and Other Genomically Labeled Arrays.''} Edited by
+Jonathan Wren. \emph{Bioinformatics} 36 (1): 311--16.
+\url{https://doi.org/10.1093/bioinformatics/btz540}.
+
 \bibitem[\citeproctext]{ref-bicciato2022hicdataanalysis}
 Bicciato, Silvio, and Francesco Ferrari, eds. 2022. \emph{Hi-{C Data
 Analysis}: {Methods} and {Protocols}}. Vol. 2301. Methods in {Molecular
@@ -2803,6 +2913,23 @@ in Genetics} 34 (6): 424--33.
 DevTeam, SRA Toolkit. 2024. {``{SRA Toolkit}.''} Wiki. \emph{GitHub}.
 https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit.
 \url{https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software}.
+
+\bibitem[\citeproctext]{ref-ewels2016multiqcsummarizeanalysis}
+Ewels, Philip, Måns Magnusson, Sverker Lundin, and Max Käller. 2016.
+{``{MultiQC}: Summarize Analysis Results for Multiple Tools and Samples
+in a Single Report.''} \emph{Bioinformatics} 32 (19): 3047--48.
+\url{https://doi.org/10.1093/bioinformatics/btw354}.
+
+\bibitem[\citeproctext]{ref-gao2018segment_liftoverpythontool}
+Gao, Bo, Qingyao Huang, and Michael Baudis. 2018. {``Segment\_liftover :
+A {Python} Tool to Convert Segments Between Genome Assemblies.''}
+\emph{F1000Research} 7 (June): 319.
+\url{https://doi.org/10.12688/f1000research.14148.2}.
+
+\bibitem[\citeproctext]{ref-hinrichs2006ucscgenomebrowser}
+Hinrichs, A. S. 2006. {``The {UCSC Genome Browser Database}: Update
+2006.''} \emph{Nucleic Acids Research} 34 (90001): D590--98.
+\url{https://doi.org/10.1093/nar/gkj144}.
 
 \bibitem[\citeproctext]{ref-imakaev2012iterativecorrectionhic}
 Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia
@@ -2836,6 +2963,13 @@ https://munch-group.org/research.html.
 \bibitem[\citeproctext]{ref-openchromosomecollective}
 {``Open {Chromosome Collective} ({Open2C}).''} n.d. Resource.
 \emph{Open2C}. https://open2c.github.io/. Accessed November 13, 2024.
+
+\bibitem[\citeproctext]{ref-open2c2024pairtoolssequencingdata}
+Open2C, Nezar Abdennur, Geoffrey Fudenberg, Ilya M. Flyamer, Aleksandra
+A. Galitsyna, Anton Goloborodko, Maxim Imakaev, and Sergey V. Venev.
+2024. {``Pairtools: {From} Sequencing Data to Chromosome Contacts.''}
+Edited by Ferhat Ay. \emph{PLOS Computational Biology} 20 (5): e1012164.
+\url{https://doi.org/10.1371/journal.pcbi.1012164}.
 
 \bibitem[\citeproctext]{ref-skov2023extraordinaryselectionhuman}
 Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves
