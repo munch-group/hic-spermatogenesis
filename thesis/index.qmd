@@ -503,7 +503,7 @@ The fact that the medians lie within the centromeric region on all cell sources 
 
 ### Compartments (Eigenvectors) {#sec-results-eigenvectors}
 
-The three viewframes (*Full*, *Arms*, *10Mb*) for the calculation of the eigenvectors captured different variability in the data (@fig-e1-matrix-500kb-full-arms-10mb-round_spermatid), and as expected, the inferred compartments (colored red on the E1 tracks) are more abundant and smaller with smaller viewframes. To determine how well each of the E1 tracks capture the pattern in the interaction matrix, we can overlay the matrix with the E1 sign-change and visually determine if the squares reflect the E1 sign change (@fig-e1-matrix-500kb-full-arms-10mb-round_spermatid).
+The three viewframes (*Full*, *Arms*, *10Mb*) for the calculation of the eigenvectors captured different variability in the data (@fig-e1-matrix-full-arms-10mb-round_spermatid), and as expected, the inferred compartments (colored red on the E1 tracks) are more abundant and smaller with smaller viewframes. To determine how well each of the E1 tracks capture the pattern in the interaction matrix, we can overlay the matrix with the E1 sign-change and visually determine if the squares reflect the E1 sign change (@fig-e1-matrix-full-arms-10mb-round_spermatid).
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-e1-matrix-full-arms-10mb-round_spermatid >}}
 
