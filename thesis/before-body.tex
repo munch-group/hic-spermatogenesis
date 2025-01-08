@@ -9,20 +9,31 @@ $if(title)$
 
 {%\mytitlefont 
 \Huge\bfseries $title$ \par}
+$endif$
 $if(subtitle)$
 \vspace{3ex}
 {\Large\bfseries $subtitle$ \par}
 $endif$
-\vspace{6ex}
+\vspace{5ex}
 
 $for(by-author)$
-    {\Large\bfseries $by-author.name.literal$ \par}
+    $if(by-author.metadata.supervision)$
+    {\bfseries Supervisor: \\ \vspace{0.5ex}}
+    $else$
+    {\bfseries Author: \\ \vspace{0.5ex}}
+    $endif$
+    {\Large\bfseries $by-author.name.literal$ \\ \vspace{0.7ex}}
+    $if(by-author.metadata.studentid)$
+        {\large\bfseries Student ID: $by-author.metadata.studentid$ \\ \vspace{0.7ex} }
+    $endif$
     $for(by-author.affiliations)$%
-        $if(it.department)$%
-        {\bfseries\large $it.department$ \par}
-        \vspace{3ex}
+        $if(it.group)$%
+        {\bfseries\large $it.group$ \\ \vspace{0.7ex}}
         $endif$%
-        {\bfseries\large $it.name$ \par}
+        $if(it.department)$%
+        {\bfseries\large $it.department$ \\ \vspace{0.7ex}}
+        $endif$%
+        {\bfseries\large $it.name$ \\ \vspace{2ex}}
     $endfor$%
 $endfor$%
 \vskip 0cm plus 2fill
@@ -36,20 +47,29 @@ $endfor$%
 {\bfseries\large $date$ \par}
 \vspace{3ex}
 
-\vspace{12ex}
+\vspace{10ex}
 $if(degree)$
 {\small Submitted in fulfillment of the requirements
 of the degree of $degree$ \par}
 $endif$
 \pagebreak
 
-\begin{quote}
-\raggedright    
-$abstract$ \par
-\raggedleft    
-$for(by-author)$
-    {- $by-author.name.literal$ \par}
-$endfor$%    
-\end{quote}
+$if(abstract)$
+%\begin{quote}
+\vspace*{\fill} % Push content to the middle of the page
+    \hspace*{\fill}\rule{0.6\textwidth}{0.4pt}\hspace*{\fill} 
+    \par\vspace{2em} % Add some vertical space
+    {\Large\bfseries Abstract \par} % Abstract title in bold and large
+    \vspace{1em} % Add some vertical space
+    \raggedright % Ensure the text is left-aligned
+    $abstract$ \par
+    \vspace{2em} % Add space below the text
+    \hspace*{\fill}\rule{0.6\textwidth}{0.4pt}\hspace*{\fill}
+\vspace*{\fill} % Fill the remaining space below
+%\raggedleft    
+% $for(by-author)$
+%     {---$by-author.name.literal$ \par}
+% $endfor$%    
+% \end{quote}
 }
 $endif$

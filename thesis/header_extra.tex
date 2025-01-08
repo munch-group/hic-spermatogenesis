@@ -14,55 +14,55 @@
 
 \usepackage{upquote}
 
-% front page
-\usepackage[colorlinks]{hyperref} % for text color on title
-\usepackage{titling} % makes \thetitle etc available...
-\usepackage{lipsum}
-\usepackage{tikz}
-\tikzstyle{bag} = [align=center] % allows new lines in text below
-\AtBeginDocument{\thispagestyle{empty}
-\definecolor{titlecolor}{HTML}{1C2404}
-\begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
-\draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
-% \draw (current page.center) node[bag] {  
-        \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
-    % \mytitlefont 
-    \color{titlecolor} \Large \textbf{Thesis} \\ 
-    \\ 
-    % \mytitlefont 
-    \color{titlecolor} \Huge \textbf{\thetitle} \\ 
-    \\ 
-    % \mytitlefont
-    \color{titlecolor} \huge \theauthor \\
-    \\
-    % \mytitlefont 
-    \color{titlecolor} \Large \thedate 
-    };
-\end{tikzpicture}
-\clearpage}
+% % front page
+% \usepackage[colorlinks]{hyperref} % for text color on title
+% \usepackage{titling} % makes \thetitle etc available...
+% \usepackage{lipsum}
+% \usepackage{tikz}
+% \tikzstyle{bag} = [align=center] % allows new lines in text below
+% \AtBeginDocument{\thispagestyle{empty}
+% \definecolor{titlecolor}{HTML}{1C2404}
+% \begin{tikzpicture}[remember picture,overlay]
+% \draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+% \draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
+% % \draw (current page.center) node[bag] {  
+%         \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+%     % \mytitlefont 
+%     \color{titlecolor} \Large \textbf{Master's Thesis in Bioinformatics} \\ 
+%     \\ 
+%     % \mytitlefont 
+%     \color{titlecolor} \Huge \textbf{\thetitle} \\ 
+%     \\ 
+%     % \mytitlefont
+%     \color{titlecolor} \huge \theauthor \\
+%     \\
+%     % \mytitlefont 
+%     \color{titlecolor} \Large \thedate 
+%     };
+% \end{tikzpicture}
+% \clearpage}
 
-% back side
-\AtEndDocument{\clearpage\thispagestyle{empty}
-\begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
-% \draw (current page.center) node[bag] {  
-    \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
-        % \mytitlefont 
-        \color{titlecolor} \large Bioinformatics Research Centre \\ 
-        % \mytitlefont 
-        \color{titlecolor} \large Department of Molecular Biology and Genetics \\ 
-        % \mytitlefont 
-        \color{titlecolor} \large Aarhus University \\
-        % \mytitlefont 
-        \color{titlecolor} \large Universitetsbyen 81 \\
-        % \mytitlefont 
-        \color{titlecolor} \large 8000 Aarhus C \\
-        % \mytitlefont 
-        \color{titlecolor} \large Denmark
-        };
+% % back side
+% \AtEndDocument{\clearpage\thispagestyle{empty}
+% \begin{tikzpicture}[remember picture,overlay]
+% \draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+% % \draw (current page.center) node[bag] {  
+%     \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+%         % \mytitlefont 
+%         \color{titlecolor} \large Bioinformatics Research Centre \\ 
+%         % \mytitlefont 
+%         \color{titlecolor} \large Department of Molecular Biology and Genetics \\ 
+%         % \mytitlefont 
+%         \color{titlecolor} \large Aarhus University \\
+%         % \mytitlefont 
+%         \color{titlecolor} \large Universitetsbyen 81 \\
+%         % \mytitlefont 
+%         \color{titlecolor} \large 8000 Aarhus C \\
+%         % \mytitlefont 
+%         \color{titlecolor} \large Denmark
+%         };
 
-\end{tikzpicture}}
+% \end{tikzpicture}}
 
 
 % % picture (AU logo in title page)
