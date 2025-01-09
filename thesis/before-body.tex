@@ -22,18 +22,19 @@ $for(by-author)$
     $else$
     {\bfseries Author: \\ \vspace{0.5ex}}
     $endif$
-    {\Large\bfseries $by-author.name.literal$ \\ \vspace{0.7ex}}
+    {\bfseries\Large $by-author.name.literal$ \\ \vspace{0.7ex}}
     $if(by-author.metadata.studentid)$
-        {\large\bfseries Student ID: $by-author.metadata.studentid$ \\ \vspace{0.7ex} }
+        {\large Student ID: $by-author.metadata.studentid$ \\ \vspace{1.2ex} }
     $endif$
     $for(by-author.affiliations)$%
+        \par \vspace{0.7ex}
         $if(it.group)$%
-        {\bfseries\large $it.group$ \\ \vspace{0.7ex}}
+        {\large $it.group$ \\ \vspace{0.7ex}}
         $endif$%
         $if(it.department)$%
-        {\bfseries\large $it.department$ \\ \vspace{0.7ex}}
+        {\large $it.department$ \\ \vspace{0.7ex}}
         $endif$%
-        {\bfseries\large $it.name$ \\ \vspace{2ex}}
+        {\large $it.name$ \\ \vspace{2ex}}
     $endfor$%
 $endfor$%
 \vskip 0cm plus 2fill
@@ -44,7 +45,7 @@ $endfor$%
 {\bfseries\Large\textit{$degree$} \par}
 \vspace{3ex}
 
-{\bfseries\large $date$ \par}
+{\large $date$ \par}
 \vspace{3ex}
 
 \vspace{10ex}
@@ -54,22 +55,24 @@ of the degree of $degree$ \par}
 $endif$
 \pagebreak
 
+
 $if(abstract)$
-%\begin{quote}
-\vspace*{\fill} % Push content to the middle of the page
-    \hspace*{\fill}\rule{0.6\textwidth}{0.4pt}\hspace*{\fill} 
-    \par\vspace{2em} % Add some vertical space
-    {\Large\bfseries Abstract \par} % Abstract title in bold and large
-    \vspace{1em} % Add some vertical space
-    \raggedright % Ensure the text is left-aligned
-    $abstract$ \par
-    \vspace{2em} % Add space below the text
-    \hspace*{\fill}\rule{0.6\textwidth}{0.4pt}\hspace*{\fill}
-\vspace*{\fill} % Fill the remaining space below
-%\raggedleft    
-% $for(by-author)$
-%     {---$by-author.name.literal$ \par}
-% $endfor$%    
-% \end{quote}
-}
+\vspace*{\fill} % Push content to the vertical middle of the page
+\noindent
+\begin{minipage}{.8\textwidth}
+    \centering
+    \hspace*{\fill}\rule{0.5\textwidth}{0.4pt}\hspace*{\fill} % Centered horizontal line
+    \par \vspace{2em} % Add some vertical space
+    {\Large\bfseries\scshape Abstract} % Abstract title
+    \par % End the paragraph
+    \vspace{1em} % Add some vertical space below the title
+    \justifying % Ensure the abstract text is justified (requires the `ragged2e` package)
+    $abstract$ % Insert the abstract text here
+    \par % End the paragraph
+    \vspace{2em} % Add vertical space
+    \hspace*{\fill}\rule{0.5\textwidth}{0.4pt}\hspace*{\fill} % Centered horizontal line
+\end{minipage}
+\vspace*{\fill} % Push the remaining content to the bottom of the page
 $endif$
+
+}

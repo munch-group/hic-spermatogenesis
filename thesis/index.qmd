@@ -2,21 +2,19 @@
 title: "Chromatin Compartments and Selection on X"
 subtitle: "How Edges of Active Chromatin Align with Selection Regions in Primates"
 authors:
-  - name: "Søren Jørgensen"
-    affiliation: |
-      Bioinformatics Research Center (BiRC), \\
-      Dept. of Molecular Biology and Genetics, \\
-      Aarhus University, Denmark
+  - name: Søren Jørgensen
     roles: writing
     corresponding: true
     email: 201906763@post.au.dk
-#  - name: "Kasper Munch"
-#    affiliation: |
-#      Ass. Prof. Bioinformatics \\
-#      Bioinformatics Research Center (BiRC), \\
-#      Dept. of Molecular Biology and Genetics, \\
-#      Aarhus University, Denmark
-#    roles: supervision
+    studentid: 201906763
+  - name: Kasper Munch
+    degree: Associate Professor
+    affiliation:
+    - name: Aarhus University, Denmark
+      department: Molecular Biology and Genetics
+      group: Bioinformatics Research Center (BiRC)
+    roles: supervision
+    supervision: true
 degree: MSc. Bioinformatics
 keywords:
   - Hi-C
@@ -28,7 +26,7 @@ abstract: |
   
   In this study, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper on the latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. 
   
-  We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with strong selective sweeps in humans (ECH-regions), and with strong negative selection in baboons (*Papio* spp.). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
+  We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with strong selective sweeps in humans (ECH-regions), but not with strong negative selection in baboons (*Papio* spp.). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
 plain-language-summary: |
   3D structure of chromatin brings another mystery onto the story of selfish genes, where the edges of A-compartments in macaque align well with regions of positive selection identified in human and moderately with negative selection in baboons.
 key-points:
@@ -57,6 +55,10 @@ The complexity of selection on the X chromosome therefore still an area of activ
 -   [ ] Negative selection in baboons w.r.t. minor parent ancestry
     -   [ ] Explain why it makes sense to compare these datasets
     -   [ ] The low-diveristy in *p.hamadryas* are very wide - maybe chromatin
+- Erik: Negative selection for Admixture
+- Draw a parallel to Human/Neanderthal
+
+
 
 ## Gene drivers
 
@@ -72,6 +74,8 @@ Interestingly, gene drive is much more well-documented on sex chromosomes than f
 
 ## Chromatin Architecture
 
+*Understanding how chromosomes fold can provide insight into the complex relationships between chromatin structure, gene activity, and the functional state of the cell. Yet beyond the scale of nucleosomes, little is known about chromatin organization* --- @lieberman-aiden2009comprehensivemappinglongrange
+
 -   [ ] Chromatin organization is highly conserved between species
 -   [ ] Explain why take offset in @wang2019reprogrammingmeioticchromatin
 -   [ ] Exlpain the rationale of reproducing results with the latest reference
@@ -80,6 +84,8 @@ Interestingly, gene drive is much more well-documented on sex chromosomes than f
 ## 3C: Chromatin Conformation Capture
 
 -   [ ] This might not be needed or will be merged with Hi-C section
+
+The first method to capture long-range interactions between pairs of loci was 3C, where  spatially constrained ligation is performed followed by locus-specific PCR [@lieberman-aiden2009comprehensivemappinglongrange]. Then, inverse PCR was added to the pipeline (4C) and multiplexed ligation-mediated amplification (5C). Common for those methods is that they can not make a genome-wide analysis which is unbiased, as we have to chose pairs of target loci. 
 
 ## Hi-C: High-Throughput 3C
 
@@ -225,7 +231,7 @@ All computations were performed on GenomeDK (GDK) \[ref\], an HPC cluster locate
 With the analysis tools determined in the above section, we decided it was not feasible to follow the exact approach as @wang2019reprogrammingmeioticchromatin with any of *HiCExplorer* and *Open2C*, as they use a third software, *HiC-Pro*. For mapping the raw reads, Hic-Pro internally uses bowtie2 in end-to-end mode, followed by trimming the 3'-end of the unmapped reads, then remapping the 5'-ends to rescue chimeric fragments. I mapped the reads using `bowtie2 --end-to-end` without the rescue-remapping, and it returned a very high fraction of discarded reads, and it would be silly to spend time on implementing the remapping approach manually. When redoing analyses, it is not sensical to use methods that are not state-of-the-art, and judged by the time since last release (HiC-Pro v3.1.0 in 2021), both HiCExplorer and Open2C are more recent. Additionally, the HiC-Pro pipeline stops at a normalized contact map, and is thus not sufficient for downstream analysis. In hindsight, it would have been more sensical to use *HiC-Pro* to get normalized contact maps, then continue analyzing with *cooler*/*cooltools*, then compare the results evenly with the results achieved from using Open2C from start to finish. @fig-hic-tools-comparison gives an overview of the 3 pipelines metioned in this report.
 
 ::: {#fig-hic-tools-comparison}
-![](illustrations/placeholder2000x360.png){width="50%" height="300%"}
+![](illustrations/placeholder2000x360.png){width="80%" height="50%"}
 
 A 3-column flow of HiC-Pro, HiCExplorer, and Open2C
 :::
@@ -384,21 +390,11 @@ Careful considerations were made to avoid multiple testing biases (p-hacking): P
 
 ### Quality Control
 
-The separately mapped read-mates were parsed into a *.h5* interaction matrix by `hicBuildMatrix`, which include a *.log* file documenting the builtin quality control (hereafter, *QC*). Log files from the 5 samples were merged with `hicQC` (@fig-explorer-qc). We observe showed equal fractions of the read-orientation of read-pairs (@fig-explorer-read-orientation), which is expected for a good Hi-C library. Additionally, it determines between 40% to 50% of the total reads to be valid Hi-C contacts (@fig-explorer-unique-pairs), which is usually only 25%-40% (as described in HiCExplorer docs). @fig-explorer-contact-distance shows, however, unusually high fractions of *inter*-chromosomal contacts (up to 30%) compared to *intra*-chromosomal contacts (also denoted *trans* and *cis* contacts, respectively). It is expected that *cis* contacts are orders of magnitude more frequent than *trans* contacts [@bicciato2022hicdataanalysis, p. 236; @lieberman-aiden2009comprehensivemappinglongrange], and HiCExplorer states it should be below 10% (docs). The high fraction may be mitigated by enforcing a stricter *mapq* threshold for a valid Hi-C pair, as we also observe higher-than expected valid contacts. However, we continue without the current matrices.
+The separately mapped read-mates were parsed into a *.h5* interaction matrix by `hicBuildMatrix`, which include a *.log* file documenting the builtin quality control (hereafter, *QC*). Log files from the 5 samples were merged with `hicQC` (@fig-explorer-all-3-qc). We observe showed equal fractions of the read-orientation of read-pairs (@fig-explorer-all-3-qc, left, row 5), which is expected for a good Hi-C library. Additionally, it determines between 40% to 50% of the total reads to be valid Hi-C contacts (@fig-explorer-all-3-qc, left, row 1), which is usually only 25%-40% (as described in HiCExplorer docs). @fig-explorer-all-3-qc (left, row 4) shows, however, unusually high fractions of *inter*-chromosomal contacts (up to 30%) compared to *intra*-chromosomal contacts (also denoted *trans* and *cis* contacts, respectively). It is expected that *cis* contacts are orders of magnitude more frequent than *trans* contacts [@bicciato2022hicdataanalysis, p. 236; @lieberman-aiden2009comprehensivemappinglongrange], and HiCExplorer states it is usually below 10% for a high-quality library. The high fraction may be mitigated by enforcing a stricter *mapq* threshold for a valid Hi-C pair, as we also observe higher-than expected valid contacts. However, we continue with the current matrices. To compare how well these mappings perform , the QC results is an easy way. Therefore, the reads were mapped with *bowtie2* in both end-to-end- and local-mode followed by `hiCBuildMatrix`, and the QC from each method was plotted next to each other (@fig-explorer-all-3-qc). Interestingly, *bowtie2* was much more computer-intensive in both modes, perhaps because of the `--very-sensitive` option. In any case, the QC reveals a major difference in the total number of reads that are determined to be valid Hi-C contacts by `hicBuildMatrix`. As expected, mapping with *end-to-end-bowtie2* makes locating Hi-C contacts more difficult than the other methods (@fig-explorer-all-3-qc, row 1), finding a very low amount of mappable, unique pairs passing the quality threshold. In contrast, mapping with *local-bowtie2* performs similarly to *bwa* in finding mappable, unique, high-quality pairs, but calls only approximately half the number of valid Hi-C contacts (\>20%), resulting in a fraction of valid Hi-C pairs that hits the expectation from *HicExplorer* docs (row3). With *bwa*, the reads were discarded either due to low mapping quality or non-unique mates, whereas with *local-bowtie2*, the reads were almost exclusively filtered out due to low mapping quality. This must be a result of how the mappers assign mapping quality, and I believe *local-bowtie2* looks suspiciously selective in finding unique but low quality alignments. *end-to-end-bowtie* almost exclusively filters out read-pairs where one mate is unmapped, which is expected when the majority of reads are unmapped.
 
-::: {#fig-explorer-qc layout-ncol="3"}
-![Read orientation](../steps/bwa/QC_all_samples/read_orientation.png){#fig-explorer-read-orientation}
 
-![Unique pairs](../steps/bwa/QC_all_samples/unmappable_and_non_unique.png){#fig-explorer-unique-pairs}
+{{< embed ../notebooks/01_hicexplorer.ipynb#fig-explorer-all-3-qc >}}
 
-![Discarded pairs](../steps/bwa/QC_all_samples/pairs_discarded.png){#fig-explorer-discarded-pairs}
-
-![Pairs sequenced](../steps/bwa/QC_all_samples/pairs_sequenced.png){#fig-explorer-pairs-sequenced}
-
-![Contact distance](../steps/bwa/QC_all_samples/distance.png){#fig-explorer-contact-distance}
-
-Quality control of the mapped Hi-C reads using *HiCExplorer* `hicQC`. The figures should be moved to Supplementary/Appendix because they are ugly and un-alignable. But that is the fault of HiCExplorer, not me.
-:::
 
 ### Correction
 
@@ -420,7 +416,6 @@ Histograms of the number of counts per bin (bottom x-axis) and the modified z-sc
 
 To compare these mappings with others, the QC results is an easy way. Therefore, the reads were mapped with *bowtie2* in both end-to-end- and local-mode followed by `hiCBuildMatrix`, and the QC from each method was plotted next to each other (@fig-explorer-all-3-qc). Interestingly, *bowtie2* was much more computer-intensive in both modes, perhaps because of the `--very-sensitive` option. In any case, the QC reveals a major difference in the total number of reads that are determined to be valid Hi-C contacts by `hicBuildMatrix`. As expected, mapping with *end-to-end-bowtie2* makes locating Hi-C contacts more difficult than the other methods (@fig-explorer-all-3-qc, top row), finding a very low amount of mappable, unique pairs passing the quality threshold. In contrast, mapping with *local-bowtie2* performs similarly to *bwa* in finding mappable, unique, high-quality pairs, but calls only approximately half the number of valid Hi-C contacts (\>20%), resulting in a fraction of valid Hi-C pairs that hits the expectation from *HicExplorer* docs \[ref row3\]. With *bwa*, the reads were discarded either due to low mapping quality or non-unique mates, whereas with *local-bowtie2*, the reads were almost exclusively filtered out due to low mapping quality. This must be a result of how the mappers assign mapping quality, and I believe *local-bowtie2* looks suspiciously selective in finding unique but low quality alignments. *end-to-end-bowtie* almost exclusively filters out read-pairs where one mate is unmapped, which is expected when the majority of reads are unmapped.
 
-{{< embed ../notebooks/01_hicexplorer.ipynb#fig-explorer-all-3-qc >}}
 
 As discussed, the five samples were pooled with `hicSumMatrices`, and the non-standard contigs (unplaced scaffolds) were filtered out, and the different resolutions were created (`hicMergeMatrixBins`). *HiCExplorer* also comes with a normalization function prior to correcting the matrix, which should be applied if different samples should have comparable bin counts. It has no effect when having only one matrix. Nevertheless, the pooled matrix was normalized and then corrected compared in @fig-explorer-pooled-norm-normcorr.
 
@@ -443,7 +438,7 @@ The PCA performed by `hicPCA` on the pooled samples at both 50kb and 100kb resol
 
 ![](../figures/bowtie2/local/normalized/pc2_50kb_corrected_chrX.png){#fig-explorer-pc2-50kb}
 
-![](../figures/bowtie2/local/normalized/pc3_50kb_corrected_chrX.png)
+![](../figures/bowtie2/local/normalized/pc3_50kb_corrected_chrX.png){#fig-explorer-pc3-50kb}
 
 ![](../figures/bowtie2/local/normalized/pc1_100kb_corrected_chrX.png){#fig-explorer-pc1-100kb}
 
@@ -527,17 +522,18 @@ We compare how the ECH90 regions fit when queried on top of the A-compartments a
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-edge-enrichment >}}
 
-We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@fig-proximity-jaccard-bar). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p < 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) *and* the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding or moving the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) window to only capture the 200kb region outside of the edge might be favourable.
+We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@fig-proximity-jaccard-bar-new). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p < 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) *and* the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding or moving the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) window to only capture the 200kb region outside of the edge might be favourable.
 
-{{< embed ../notebooks/06_rec_genomicintervals.ipynb#fig-proximity-jaccard-bar >}}
+{{< embed ../notebooks/06_rec_genomicintervals.ipynb#fig-proximity-jaccard-bar-new >}}
+
 
 ## Testing against regions of selection in baboons
 
-The data for this analysis was provided by Kasper Munch in bed-like format, mapped to *panu_3.0* (PapAnu4) assembly. The intervals define genomic regions in a hybrid/migrating population of baboon where strong negative selection acts against minor parent ancestry [@sorensen2023genomewidecoancestryreveals]. The segments had to be lifted to rheMac10 to be able to correlate the two sets of intervals. The original UCSC liftOver [@hinrichs2006ucscgenomebrowser] is very strict and does not try to conserve segments in favor of accuracy e.g. inversions or small indels, which results in highly scattered regions when lifted. To favor preservation of segments, we use *segment_liftover* [@gao2018segment_liftoverpythontool], resulting in much more similar regions to the original (@fig-compare-liftover). As no chain file from *panu_3.0* to *Mmul_10* was available, we had to use *panu_2.0* as intermediate. 
+The data for this analysis was provided by Kasper Munch in bed-like format, mapped to *panu_3.0* (PapAnu4) assembly. The intervals define genomic regions in a hybrid/migrating population of baboon where strong negative selection acts against minor parent ancestry [@sorensen2023genomewidecoancestryreveals]. The segments had to be lifted to rheMac10 to be able to correlate the two sets of intervals. The original UCSC liftOver [@hinrichs2006ucscgenomebrowser] is very strict and does not try to conserve segments in favor of accuracy e.g. inversions or small indels, which results in highly fragmented regions when lifted to another assembly, if the segments are not continouos on the new assembly. For our analysis, it is not the exact genomic position or order of sub-genic regions that are important, but rather, the start and end coordinates of each segment are quantified. To favor preservation of segments, we use *segment_liftover* [@gao2018segment_liftoverpythontool], resulting in much more similar segments to the original (@fig-compare-liftover). As no chain file from *panu_3.0* to *Mmul_10* was available, we had to use *panu_2.0* as intermediate. 
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-compare-liftover >}}
 
-Initially, the compartment edges of round spermatid at 100kb resolution (RS100) were plotted against the lifted coordinates from a *P.* anubis-hamadryas hybrid population, where either all the sampled individuals have *Papio anubis* ancestry or 95% of the sampled individuals have *Papio hamadryas* ancestry. Their respective intersections were plotted undeneath. We expect less intersection for *hamadryas* than for *anubis* as the total set size is much smaller. The compartment edges and *Papio anubis*-derived regions(@fig-baboon-rs100-intersect; b) seem to be highly enriched in the first 25 Mbp, and thus it has a high degree of intersection with the compartment edges. Interestingly, the ECH90 set is nearly empty in that region, making the finding outside the scope of this analysis, although it could be useful for determining the mechanism for selecting the *P.anubis* ancestral allele in the hybrid baboon population. The *P.hamadryas*-derived regions seem intersect the compartment edges more centered on the chromosome (@fig-baboon-rs100-intersect; a). The proximity test ruled out that the non-intersecting parts of the respective regions were this proximal by chance. However, the Jaccard test revealed that the intersection between the RS100 and both Hi-*P.hama* and Hi-*P.anu* can be explained by chance alone .
+Initially, the compartment edges of round spermatid at 100kb resolution (RS100) were plotted against the lifted coordinates from a *P.* anubis-hamadryas hybrid population, where either all the sampled individuals have *Papio anubis* ancestry or 95% of the sampled individuals have *Papio hamadryas* ancestry. Their respective intersections were plotted undeneath. We expect less intersection for *hamadryas* than for *anubis* as the total set size is much smaller. The compartment edges and *Papio anubis*-derived regions(@fig-baboon-rs100-intersect; b) seem to be highly enriched in the first 25 Mbp, and thus it has a high degree of intersection with the compartment edges. Interestingly, the ECH90 set is nearly empty in that region, which could be useful for determining the mechanism for selecting against the *P.hamadryas* ancestral allele in the hybrid baboon population. The *P.hamadryas*-derived regions seem intersect the compartment edges more centered on the chromosome (@fig-baboon-rs100-intersect; a). The proximity test initially ruled out that the non-intersecting parts of the respective regions were this proximal by chance. However, after updating the method to exclude whole segments that partially overlaps (in stead of keeping the non-overlapping parts), there was no statistical significance. Additionally, the Jaccard test revealed that the intersection between the RS100 and both Hi-*P.hama* and Hi-*P.anu* can be explained by chance alone with no p-values below $0.05$.
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-baboon-rs100-intersect >}}
 
@@ -545,7 +541,19 @@ Initially, the compartment edges of round spermatid at 100kb resolution (RS100) 
 
 # Discussion
 
-Here is the discussion
+- [ ] Clearly an overlap between edges and ECH90 regions, but what does it mean? 
+- [ ] Maybe test the intersect against ECH genes as the background
+- [ ] For the arms viewframe, I probably should have left out the centromeric region in stead of just splitting
+
+# Conclusion and future work
+
+- [ ] TADs? 
+- [ ] Explore ways to quantify proximity/correlation
+  * e.g. insulation-weighted compartments
+  * find litterature that correlate genomic intervals
+- [ ] Filter important edges
+  * filter against low insulation score
+  * filter against edges that have adjecent missing values 
 
 # Bibliography {.unnumbered}
 
