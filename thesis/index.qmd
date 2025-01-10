@@ -38,58 +38,52 @@ date: last-modified
 
 # Introduction
 
-## Sexual reproduction and Sex Chromosomes
+## Sexual Reproduction and Sex Chromosomes
 
 The production of gametes in a sexually reproducing organism is a highly complex process that involves numeruous elements. Spermatogenesis, the process of forming male gametes, involves four stages of differentiation from a germ cell through *spermatogonia*, *pachytene spermatocyte*, and *round spermatids* to *spermatozoa*, or *sperm* [@wang2019reprogrammingmeioticchromatin], and it is the very basis of male reproduction. The specialized cell division of meiosis neatly handles the pairing, recombination, and segregation of homologous chromosomes, thereby ensuring proper genetic distribution. Deeply understanding the steps of molecular steps of reproduction and how our genetic material is inherited is essential in biology, bringing insight to areas such as speciation, population diversity, and (male) infertility.
 
-Sex chromosomes behave differently than autosomes for a long list of reasons. One reason is hemizygosity, where there is only one copy of a chromosome. The Y chromosome exist only in males, and (generally) never more than one copy is in the same individual. The copmlexity increases when we tend to the X chromosome, which exist both alone (in males) and as two copies (in females). This skewed ratio means that X chromosomes exist $2/3$ of the time in females and only 1/3 of the time in males, and it is more exposed in males as there is no other copy to take over loss of function. It is also the underlying reasoning for Haldane's rule \[ref\], postulating that the heterogametic sex (XY, ZW) is the first to dissapear or have severely lowered fitness (e.g. sterility) when crossing different species. Even today, a hundred years later, there is only hypotheses as to why this is observed, including *Y-incompatibility* (Y has to be compatible to X or autosomes), *dosage compensation* (hybridisation deregulates crucial dosage compensation in heterogametes), *dominance* (recessive genes causes sterility), *faster-male* (male reproductive genes diverge faster than female), *faster-X* (X-linked loci diverge faster than autosomal ones), and *meiotic drive* (discrepancy between drivers and surpressors on sex chromosomes leads to sterility) \[ref\]. While is appears to be the same phenomenon across multiple *taxa* (even *kingdoms*), it has received different explanations, and consensus for different species are not the same. Often times even, several of the listed explanations are described to be acting in collaboration \[ref\].
+Sex chromosomes behave differently than autosomes for several reasons. One reason is hemizygosity, where there is only one copy of a chromosome. The Y chromosome exist only in males, and (generally) never more than one copy is in the same individual. The copmlexity increases when we tend to the X chromosome, which exist both alone (in males) and as two copies (in females). This skewed ratio means that X chromosomes exist $2/3$ of the time in females and only 1/3 of the time in males, and it is more exposed in males as there is no other copy to take over loss of function. It is also the underlying reasoning for Haldane's rule [@haldane1922sexratiounisexual], postulating that the heterogametic sex (XY, ZW) is the first to dissapear or have severely lowered fitness (e.g. sterility) when crossing different species. Even today, a hundred years later, there is only hypotheses as to why this is observed, including *Y-incompatibility* (Y has to be compatible to X or autosomes), *dosage compensation* (hybridisation deregulates crucial dosage compensation in heterogametes), *dominance* (recessive genes causes sterility), *faster-male* (male reproductive genes diverge faster than female), *faster-X* (X-linked loci diverge faster than autosomal ones), and *meiotic drive* (discrepancy between drivers and surpressors on sex chromosomes leads to sterility) [@cowell2023100yearshaldanes]. Additionally, while it appears to be the same phenomenon across multiple *taxa* (even *kingdoms*), it has received different explanations, and consensus for different species are not the same. Often times even, several of the listed explanations are described to be acting in collaboration [@lindholm2016ecologyevolutionarydynamics]. The complexity of selection on the X chromosome therefore still an area of active investigation, and several studies infers selective strong selection on the X chromosomes across primates, as discussed in the following.
 
--   [ ] include something about conserved synteny on chrX here
+## Gene Drive and Selfishness
 
-The complexity of selection on the X chromosome therefore still an area of active investigation, and several studies infers selective strong selection on the X chromosomes across primates \[ref\]
+Gene drive occur when a particular collection of genes is propagated through a population by increasing the probability of transmitting the genes to the offspring from random (Mendelian) inheritance, resulting in a biased gene transmission against its alternative (referred to as *transmission advantage*). Two categories of gene drivers exist [@bravonunez2018geneticvillainskiller]; *class one drivers* affect chromosome segregation in meiosis, and *killer meiotic drivers* will sabotage meiotic product that have not inherited the driving allele [@bravonunez2018geneticvillainskiller]. This happens regardless of the fitness effects of the developed organism, and is there often a factor offsetting classical selection. Even though the implications of such systems are potentially detrimental, they are notoriously difficult to detect. A circumstance contributing to the difficulty is that most genetic experiments are done in homozygotes. @bravonunez2018geneticvillainskiller states that the general choice of experimental system may have biased our understanding of sexual reproduction. A key point is; meiotic drivers can only be observed in heterozygotes, where a genetic driver has a competitor.
 
-## Known selection on X
+If an autosomal driver reaches fixation, it no longer has a target to act against, and consequently the driving phenotype will not be observed [@bravonunez2018geneticvillainskiller]. Over time, as there is neither selfish nor selective pressure to maintain the drive mechanism of a fixed driver, the mechanism will decay as it accumulates inactivating mutations. As a result, genetic drivers are said to be transient [@bravonunez2018geneticvillainskiller] on an evolutionary timescale, unless it is linked to another positively selected allele [@jaenike2001sexchromosomemeiotic]. Interestingly, gene drive is much more well-documented on sex chromosomes than for autosomes. Possibly because the sex chromosome meiotic drive inherently causes a skewed sex ratio, more notably raising a flag for further analysis. The consequences of sex chromosome drive and skewed sex ratio can be widespread. A fully driving gene on X can to lead to the extinction of the population that fixes the allele [@jaenike2001sexchromosomemeiotic], as only one (fertile) offspring sex will be produced. Therefore, sex chromosome drivers usually exist in equilibrium with a supressor. When a population becomes female-biased, autosomal suppressors will be favored with a process termed *Fisherian sex ratio selection* [@lindholm2016ecologyevolutionarydynamics.]
 
--   [ ] Selective sweeps (or is it?) in humans (ECH90; @skov2023extraordinaryselectionhuman)
+Selfish genetic elements can influence synteny on sex chromosomes. A driving element on X may target a region on Y, mitigating the risk of 'suicide' and increasing its frequency at the same time. However it also induces a skewed sex-ratio, causing evolvement of supressors against the driving allele (@kitano2023sexlinkedmalemeiotic) and thus starting an evolutionary arms race between a driving force and its supressor.
+
+## Selection on X
+
+As described, the sex chromosomes are under intense selective pressures. As a result, they have greatly reduced recombination rates [@dutheil2015strongselectivesweeps] (especially between X and Y), they are less diverse than expected under a neutral evolution [@skov2023extraordinaryselectionhuman].
+
+Synteny, the conservation of the order of genes along a chromosome, can be used to infer many things about a genome, an example being ancestral relationships between species. In the assembly of a new reference genome for baboon, *Panubis1.0* [@batra2020accurateassemblyolive], the high level of synteny between their assembly and established chromosome-scale assembly of rhesus macaque was used to support the correctness of their assembly. Additionally, the observed breaks observed in synteny on the Y chromosome correspond to the generally high rate of rearrangements occuring on Y chromosomes of mammals [@batra2020accurateassemblyolive; @skov2017analysis62hybrid]. @dutheil2015strongselectivesweeps uses the high level of synteny on the X chromosomes of the human-chimp ancestor to infer a close relationship (at least on X) as well as strong selective pressures acting against chromosomal rearrangements since divergence. 
+
+- [ ] @kitano2023sexlinkedmalemeiotic
+- [x] synteny on chrX
+- [ ] Selective sweeps (or is it?) in humans (ECH90; @skov2023extraordinaryselectionhuman)
     -   [ ] Explain why it makes sense to compare these data sets
 -   [ ] Negative selection in baboons w.r.t. minor parent ancestry
     -   [ ] Explain why it makes sense to compare these datasets
-    -   [ ] The low-diveristy in *p.hamadryas* are very wide - maybe chromatin
-- Erik: Negative selection for Admixture
-- Draw a parallel to Human/Neanderthal
-
-
-
-## Gene drivers
-
--   [ ] Talk about what makes a genetic driver, what criteria
-
-Gene drive occur when a particular collection of genes is propagated through a population by increasing the probability of transmitting the genes to the offspring from random (Mendelian) inheritance, resulting in a biased gene transmission against its alternative. Two categories of gene drivers exist [@bravonunez2018geneticvillainskiller]; *class one drivers* affect chromosome segregation in meiosis, and *killer meiotic drivers* will sabotage meiotic product that have not inherited the driving allele \[ref\]. This happens regardless of the fitness effects of the developed organism, and is there often a factor offsetting classical selection. Even though the implications of such systems are potentially detrimental, they are notoriously difficult to detect. A circumstance contributing to the difficulty is that most genetic experiments are done in homozygotes. @bravonunez2018geneticvillainskiller states that the general choice of experimental system may have biased our understanding of sexual reproduction. A key point is; meiotic drivers can only be observed in heterozygotes, where a genetic driver has a competitor.
-
-Interestingly, gene drive is much more well-documented on sex chromosomes than for autosomes. Possibly because the sex chromosome meiotic drive inherently causes a skewed sex ratio, more notably raising a flag for further analysis. Another point to consider is, in the case of sex chromosome drive, a fully driving gene will lead to the extinction of the species \[ref\], as only one (fertile) offspring will be produced.
-
-## Selfish genes (and randomness)
-
-**The conventional story of meiosis in gametogenesis is one of random segregation of the sex chromosomes. They split into haploid gametes, where each chromosome has an equal chance of being passed on to a gamete. That seems like a fair game, but what if some genes are cheating the system by making others less viable. A meiotic driver is a selfish gene element that modulates meiosis and preferentially transmits its own allele through meiosis, regardless of the downstream fitness effects it may have (good or bad) on the organism it is part of. This phenomenon challenges the traditional understanding of selection, extending its scope beyond the fitness effects on an organism to include selective pressures at the molecular level. For example, if some genes on the X chromosome create a disadvantage for gametes that *do not* contain those genes, making sure the Y chromosome is not as viable as the X, resulting in a sex imbalance and possibly numerous other downstream effects. That is exactly what is coined *sex chromosome meiotic drive*[@jaenike2001sexchromosomemeiotic], a result of selfish genetic elements. Motivated by previous results in the Munch Research group [@munch2024munchgroup] on hybrid incompatibility and extended common haplotypes [@skov2023extraordinaryselectionhuman; @sorensen2023genomewidecoancestryreveals] that could be explained by meiotic drive, we wanted to investigate how these patterns correlate with chromatin compartments.**
+    -   [ ] The low-diveristy in *p.hamadryas* are very wide - chromatin has same window size?? 
+- [ ] Erik: Negative selection against Admixture
+- [ ] Draw a parallel to Human/Neanderthal
 
 ## Chromatin Architecture
 
-*Understanding how chromosomes fold can provide insight into the complex relationships between chromatin structure, gene activity, and the functional state of the cell. Yet beyond the scale of nucleosomes, little is known about chromatin organization* --- @lieberman-aiden2009comprehensivemappinglongrange
+> Understanding how chromosomes fold can provide insight into the complex relationships between chromatin structure, gene activity, and the functional state of the cell. Yet beyond the scale of nucleosomes, little is known about chromatin organization 
+>   --- @lieberman-aiden2009comprehensivemappinglongrange
 
 -   [ ] Chromatin organization is highly conserved between species
 -   [ ] Explain why take offset in @wang2019reprogrammingmeioticchromatin
 -   [ ] Exlpain the rationale of reproducing results with the latest reference
--   \[ \]
 
 ## 3C: Chromatin Conformation Capture
 
--   [ ] This might not be needed or will be merged with Hi-C section
-
-The first method to capture long-range interactions between pairs of loci was 3C, where  spatially constrained ligation is performed followed by locus-specific PCR [@lieberman-aiden2009comprehensivemappinglongrange]. Then, inverse PCR was added to the pipeline (4C) and multiplexed ligation-mediated amplification (5C). Common for those methods is that they can not make a genome-wide analysis which is unbiased, as we have to chose pairs of target loci. 
+The first method to capture long-range interactions between pairs of loci was 3C, where  spatially constrained ligation is performed followed by locus-specific PCR [@lieberman-aiden2009comprehensivemappinglongrange]. Then, inverse PCR was added to the pipeline (4C) and multiplexed ligation-mediated amplification (5C). Common for those methods is that they can not make a genome-wide analysis which is unbiased, as we have to chose pairs of target loci. Our DNA can be divided into different orders of structure. *3C* focus on identifying the highest orders of organization inside the nucleus, that is, when the 30 nm thick coil of chromatin fibers folds into loops, Topologically Associating Domains (TADs), and chromatin compartments. 
 
 ## Hi-C: High-Throughput 3C
 
-Our DNA can be divided into different orders of structure. *3C* focus on identifying the highest orders of organization inside the nucleus, that is, when the 30 nm thick coil of chromatin fibers folds into loops, Topologically Associating Domains (TADs), and chromatin compartments. Here, we narrow our focus on the largest of the structures, *compartments*, that is known to determine availability to transcription factors, thus making an *A* compartment *active*---and the *B* compartment *inactive*. The introduction of the Hi-C (high-throughput 3C) method [@lieberman-aiden2009comprehensivemappinglongrange] opened new possibilities for exploring the three-dimensional organization of the genome.
+The introduction of the Hi-C (high-throughput 3C) method [@lieberman-aiden2009comprehensivemappinglongrange] opened new possibilities for exploring the three-dimensional organization of the genome, as deep-sequencing technologies combined with high-performance computing allow for genome-wide analysis that is unbiased. @lieberman-aiden2009comprehensivemappinglongrange show that when combining spatially constrained ligation with deep parallel sequencing and subsequent analysis, we can infer distinct chromosomal territories as intrachromosomal contacts were significantly less abundant than interchromosomal contacts. The method also confirmed the spatial separation of two chromatin conformations in its active (open) state or inactive (closed) state, as they were significantly correlated with distances measured by fluorescence *in-situ* hybridisation (FISH). The two comformations were termed *A*- and *B*-compartments, respectively, and A defined to positively correlate with gene density. Finally, they showed that loci are physically more proximal when they belong to the same compartment implying that Hi-C reads serves well as a proxy for distance. Later, several smaller-order domains were inferred with the same method, such as topologically associating domains (TADs) and chromatin loops. Here, we narrow our focus on the largest of the structures, *compartments*, that is known to determine availability to transcription factors, thus making an *A* compartment *active*---and the *B* compartment *inactive*. 
 
 ### Hi-C Library preparation
 
@@ -248,11 +242,7 @@ To reproduce the results from [@wang2019reprogrammingmeioticchromatin], I chose 
 
 ### Fetching and indexing the reference
 
-@wang2019reprogrammingmeioticchromatin use the 2006-version of the macaque reference, *rheMac2*. Supporting my previous sentiment about not using outdated resources I find it reasonable to use the latest reference, *rheMac10*. @warren2020sequencediversityanalyses have improved contiguity from *rhemac8* by 120 fold, going from N50 contig size of 107 Kbp to 46 Mbp. Part of the reasoning for reproducing their results was doing so on the latest assembly of the *Macaca mulata* genome, which arguably will result in a more accurate mapping of the reads, and a better inference of the chromatin compartments as well.
-
-Therefore, the latest reference genome for rhesus macaque/*Macaca mulata*, *rheMac10*/*Mmul_10* (UCSC or NCBI naming conventions, respectively) was downloaded to GDK from UCSC web servers with `wget`. To use `bwa` for mapping, rheMac10 needs to be indexed with both `bwa index` with the `--bwtsw` option and `samtools faidx`, which results in six indexing files for `bwa mem` to use.
-
-Several mappers were used in different configurations (described in below), and `bowtie2` requires its own indexing of the reference, using `bowtie2-build --large-index`, which creates six index files for `bowtie2` to use. `--large-index` creates the special indexing format required for large genomes such as macaque.
+@wang2019reprogrammingmeioticchromatin use the 2006-version of the macaque reference, *rheMac2*. Supporting my previous sentiment about not using outdated resources I find it reasonable to use the latest reference, *rheMac10*. @warren2020sequencediversityanalyses have improved contiguity from *rhemac8* by 120 fold, going from N50 contig size of 107 Kbp to 46 Mbp. Part of the reasoning for reproducing their results was doing so on the latest assembly of the *Macaca mulata* genome, which arguably will result in a more accurate mapping of the reads, and a better inference of the chromatin compartments as well. Therefore, the latest reference genome for rhesus macaque/*Macaca mulata*, *rheMac10*/*Mmul_10* (UCSC or NCBI naming conventions, respectively) was downloaded to GDK from UCSC web servers with `wget`. To use `bwa` for mapping, rheMac10 needs to be indexed with both `bwa index` with the `--bwtsw` option and `samtools faidx`, which results in six indexing files for `bwa mem` to use. Two mappers (bwa-mem and bowtie2) were used in different configurations (described below), and `bowtie2` requires its own indexing of the reference, using `bowtie2-build --large-index`, which creates six index files for `bowtie2` to use. `--large-index` creates the special indexing format required for large genomes such as macaque. As we use the position of the centromere to partition chrX into its two arms, and no comment about it was made by @warren2020sequencediversityanalyses, the centromeric region was inferred (visually) from the UCSC browser view of *rheMac10*, where a large continuous region (chrX:57,500,000-60,200,000) had no annotation and showed many repeating regions. The region is roughly the same region as inferred by @wang2019reprogrammingmeioticchromatin by the same method.
 
 ## HiCExplorer trials
 
@@ -382,7 +372,7 @@ Measures the significance of the observed Jaccard index (intersection over union
 
 #### Multiple testing
 
-Careful considerations were made to avoid multiple testing biases (p-hacking): Performing tests on all combinations of variables (cell type, resolution, viewframe, flip annot, query) will yield 180 p-values for each test, and we would have to adjust the significance threshold (with $\alpha = 0.05$, we expect 9 'significant' tests by chance alone). However, if we test only a few combinations we will greatly reduce that. 
+Careful considerations were made to avoid multiple testing biases (p-hacking): Performing tests on all combinations of variables (cell type, resolution, viewframe, flip annot, query) will yield 180 p-values for each test, and we would have to adjust the significance threshold (with $\alpha = 0.05$, we expect 9 tests passing the threshold by chance). However, if we test only a few combinations we will greatly reduce that. 
 
 # Results
 
@@ -416,8 +406,7 @@ Histograms of the number of counts per bin (bottom x-axis) and the modified z-sc
 
 To compare these mappings with others, the QC results is an easy way. Therefore, the reads were mapped with *bowtie2* in both end-to-end- and local-mode followed by `hiCBuildMatrix`, and the QC from each method was plotted next to each other (@fig-explorer-all-3-qc). Interestingly, *bowtie2* was much more computer-intensive in both modes, perhaps because of the `--very-sensitive` option. In any case, the QC reveals a major difference in the total number of reads that are determined to be valid Hi-C contacts by `hicBuildMatrix`. As expected, mapping with *end-to-end-bowtie2* makes locating Hi-C contacts more difficult than the other methods (@fig-explorer-all-3-qc, top row), finding a very low amount of mappable, unique pairs passing the quality threshold. In contrast, mapping with *local-bowtie2* performs similarly to *bwa* in finding mappable, unique, high-quality pairs, but calls only approximately half the number of valid Hi-C contacts (\>20%), resulting in a fraction of valid Hi-C pairs that hits the expectation from *HicExplorer* docs \[ref row3\]. With *bwa*, the reads were discarded either due to low mapping quality or non-unique mates, whereas with *local-bowtie2*, the reads were almost exclusively filtered out due to low mapping quality. This must be a result of how the mappers assign mapping quality, and I believe *local-bowtie2* looks suspiciously selective in finding unique but low quality alignments. *end-to-end-bowtie* almost exclusively filters out read-pairs where one mate is unmapped, which is expected when the majority of reads are unmapped.
 
-
-As discussed, the five samples were pooled with `hicSumMatrices`, and the non-standard contigs (unplaced scaffolds) were filtered out, and the different resolutions were created (`hicMergeMatrixBins`). *HiCExplorer* also comes with a normalization function prior to correcting the matrix, which should be applied if different samples should have comparable bin counts. It has no effect when having only one matrix. Nevertheless, the pooled matrix was normalized and then corrected compared in @fig-explorer-pooled-norm-normcorr.
+As discussed, the five samples were pooled with `hicSumMatrices`, and the non-standard contigs (unplaced scaffolds) were filtered out, and the different resolutions were created (`hicMergeMatrixBins`). *HiCExplorer* also comes with a normalization function prior to correcting the matrix, which should be applied if different samples should have comparable bin counts. It has no effect when having only one matrix. Nevertheless, the pooled matrix was normalized and then corrected compared in @fig-explorer-pooled-norm-normcorr. It is now obvious why we have to correct the matrix. The uncorrected (@fig-explorer-pooled-chrX-norm) has no signal apart from the diagonal. Even though some bins have been filtered out, the expected *plaid* pattern of a contact matrix is visible along the diagonal after the correction (@fig-explorer-pooled-chrX-normcorr), leaving evidence for chromatin structure, especially in the first 50 million bases of the chromosome. There is a wide region of empty values at the place of the centromere.
 
 ::: {#fig-explorer-pooled-norm-normcorr layout-ncol="2"}
 ![Normalized matrix chrX](../figures/bowtie2/local/filter_pooled_50kb_chrX.png){#fig-explorer-pooled-chrX-norm}
@@ -426,8 +415,6 @@ As discussed, the five samples were pooled with `hicSumMatrices`, and the non-st
 
 A comparison of interaction matrices before/after iterative correction (*HiCExplorer*).
 :::
-
-It is now obvious why we have to correct the matrix. The uncorrected (@fig-explorer-pooled-chrX-norm) has no signal apart from the diagonal. Even though some bins have been filtered out, the expected *plaid* pattern of a contact matrix is visible along the diagonal after the correction (@fig-explorer-pooled-chrX-normcorr), leaving evidence for chromatin structure, especially in the first 50 million bases of the chromosome. There is a wide region of empty values at the place of the centromere.
 
 ### Eigenvectors
 
@@ -478,27 +465,24 @@ Results of `pairtools stats` run on all samples from the two walks-policies. Lef
 
 ### Correction
 
-Matrix balancing did not show major improvement in the plaid pattern, as it already showed the expected pattern. It does, however, filter out bins that are deemed too low-count to be informative, for example peri-centromeric regions. The matrix was expected to be smoother after balancing (for chromosome-wide maps), as regions along a chromosome should only vary slowly in contact frequency with other regions as they are on a continouos molecule. Therefore, sharp contrasts represent a sudden drop in bin count (@fig-rs-chrx-raw-balanced-cgi, raw) and should not be interpreted as devoid of interaction, but an indication that the data is not sufficient to interpret. It is then better to simply remove the bins in stead of correcting, which will also amplify noise. Even with a high-quality Hi-C library we expect that all bins do not have the same coverage throughout[@lajoie2015hitchhikersguidehic], as restriction enzymes do not bind equally to all regions of the genome, and therefore, some bins will be underrepresented as an artefact of binding/cutting efficieny of the restriction enzyme used.
+Matrix balancing did not show major improvement in the plaid pattern, as it already showed the expected pattern. It does, however, filter out bins that are deemed too low-count to be informative, for example peri-centromeric regions. The matrix was expected to be smoother after balancing (for chromosome-wide maps), as regions along a chromosome should only vary slowly in contact frequency with other regions as they are on a continouos molecule. Therefore, sharp contrasts represent a sudden drop in bin count (@fig-rs-chrx-raw-balanced-cgi, raw) and should not be interpreted as devoid of interaction, but an indication that the data is not sufficient to interpret. It is then better to simply remove the bins in stead of correcting, which will also amplify noise. Even with a high-quality Hi-C library we expect that all bins do not have the same coverage throughout[@lajoie2015hitchhikersguidehic], as restriction enzymes do not bind equally to all regions of the genome, and therefore, some bins will be underrepresented as an artefact of binding/cutting efficieny of the restriction enzyme used. We can try to mitigate the white lines of empty bins that now appear in the matrices. The coarsegrained and interpolated matrix is useful to make a good-looking interaction matrix, but is not that useful for analysis purposes. It might get easier to visually inspect the matrix, but it is not clear how well the interpolated matrix reflects the structure of the chromatin, and it is not transparent which regions are interpolated and which that are not. I find it purposeful for interpolation on high-resolution (zoomed-in) views (@fig-rs-chrx-raw-balanced-cgi-subset) with small empty regions, but misleading for chromosome-wide maps, where typically the centromere and extremities of the chromosome have filtered-out bins. Interpolation is further discussed below.
+
+The regions that are coarsgrained are small zero- or low-count bins which are averaged, effectively reducing the resolution of those regions until the count is sufficient. They get more frequent the longer genomic distance (the further we travel from the diagonal), and effectively enables us to get some intuition about the interactions. The coarsegrain, however, does not interpolate the `NaN`s created when filtering out whole bins in the balancing step (horisontal and vertical lines in @fig-rs-chrx-raw-balanced-cgi and @fig-rs-chrx-raw-balanced-cgi-subset; middle). This is done in a subsequent step by linearly interpolating the `NaN`s. Examining the interpolated matrix on full chrX (@fig-rs-chrx-raw-balanced-cgi; right) gives the impression that the pericentromeric (at \~60 Mbp) region harbours a *very* strong compartment, but that is clearly an artefact of the interpolation on the very large empty region of the centromere, where the diagonal is somehow extended in a square. On the thinner lines, the interpolation seem to be more smooth, and barely noticable on the diagonal.
 
 {{< embed ../notebooks/05_rec_compartments.ipynb#fig-rs-chrx-raw-balanced-cgi >}}
 
 {{< embed ../notebooks/05_rec_compartments.ipynb#fig-rs-chrx-raw-balanced-cgi-subset >}}
 
-We can try to mitigate the white lines of empty bins that now appear in the matrices. The coarsegrained and interpolated matrix is useful to make a good-looking interaction matrix, but is not that useful for analysis purposes. It might get easier to visually inspect the matrix, but it is not clear how well the interpolated matrix reflects the structure of the chromatin, and it is not transparent which regions are interpolated and which that are not. I find it purposeful for interpolation on high-resolution (zoomed-in) views (@fig-rs-chrx-raw-balanced-cgi-subset) with small empty regions, but misleading for chromosome-wide maps, where typically the centromere and extremities of the chromosome have filtered-out bins. Interpolation is further discussed below.
-
-The regions that are coarsgrained are small zero- or low-count bins which are averaged, effectively reducing the resolution of those regions until the count is sufficient. They get more frequent the longer genomic distance (the further we travel from the diagonal), and effectively enables us to get some intuition about the interactions. The coarsegrain, however, does not interpolate the `NaN`s created when filtering out whole bins in the balancing step (horisontal and vertical lines in @fig-rs-chrx-raw-balanced-cgi and @fig-rs-chrx-raw-balanced-cgi-subset; middle). This is done in a subsequent step by linearly interpolating the `NaN`s. Examining the interpolated matrix on full chrX (@fig-rs-chrx-raw-balanced-cgi; right) gives the impression that the pericentromeric (at \~60 Mbp) region harbours a *very* strong compartment, but that is clearly an artefact of the interpolation on the very large empty region of the centromere, where the diagonal is somehow extended in a square. On the thinner lines, the interpolation seem to be more smooth, and barely noticable on the diagonal.
-
 #### `NaN` histograms
 
-As expected, most of the low quality bins are located on the edges of the chromosome arms, especially the region around the centromere [@warren2020sequencediversityanalyses], as they contain many repetitive sequences. The low-quality bins are filtered out by the balancing algorithm, those bins are `NaN` in the Hi-C matrix. The median position of the `NaN` values (@fig-e1_nan_hist) ranges between $58$ and $63.5$, which is within the estimate of the centromeric region of *rhemac10*.
+As expected, most of the low quality bins are located on the edges of the chromosome arms, especially the region around the centromere [@warren2020sequencediversityanalyses], as they contain many repetitive sequences. The low-quality bins are filtered out by the balancing algorithm, those bins are `NaN` in the Hi-C matrix. The median position of the `NaN` values (@fig-e1_nan_hist) ranges between $58$ and $63.5$, which is within the estimate of the centromeric region of *rhemac10* (the UCSC browser has a continuously unannotated region at chrX:57,500,000-60,200,000). The fact that the medians lie within the centromeric region on all cell sources shows both that the majority of the bad bins are in the (peri)centromeric region *and* there are approximately equally many on each side.
+
 
 {{< embed ../notebooks/05_rec_compartments.ipynb#fig-e1_nan_hist >}}
 
-The fact that the medians lie within the centromeric region on all cell sources shows both that the majority of the bad bins are in the (peri)centromeric region *and* there are approximately equally many on each side.
-
 ### Compartments (Eigenvectors) {#sec-results-eigenvectors}
 
-The three viewframes (*Full*, *Arms*, *10Mb*) for the calculation of the eigenvectors captured different variability in the data (@fig-e1-matrix-full-arms-10mb-round_spermatid), and as expected, the inferred compartments (colored red on the E1 tracks) are more abundant and smaller with smaller viewframes. To determine how well each of the E1 tracks capture the pattern in the interaction matrix, we can overlay the matrix with the E1 sign-change and visually determine if the squares reflect the E1 sign change (@fig-e1-matrix-full-arms-10mb-round_spermatid).
+The three viewframes (*Full*, *Arms*, *10Mb*) used for the calculation of the eigenvectors captured different variability in the data (@fig-e1-matrix-full-arms-10mb-round_spermatid), and as expected, the inferred compartments (colored red on the E1 tracks) are more abundant and smaller with smaller viewframes. To determine how well each of the E1 tracks capture the pattern in the interaction matrix, we can overlay the matrix with the E1 sign-change and visually determine if the squares reflect the E1 sign change (@fig-e1-matrix-full-arms-10mb-round_spermatid).
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-e1-matrix-full-arms-10mb-round_spermatid >}}
 
@@ -522,10 +506,9 @@ We compare how the ECH90 regions fit when queried on top of the A-compartments a
 
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-edge-enrichment >}}
 
-We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@fig-proximity-jaccard-bar-new). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p < 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) *and* the non-overlapping intervals are more proximal to compartment edges than expected by chance (proximity test). I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding or moving the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) window to only capture the 200kb region outside of the edge might be favourable.
+We apply both proximity test and Jaccard test, to see how well the results could occur by chance (@tbl-100kb-proximity-jaccard). For completeness, the tests are included for all cell types, but we only use 100kb resolution arms viewframe. We observe that both fibroblast and round spermatid have $p < 0.05$ for both tests, meaning the two cell type have both more intersection with ECH regions than expected by chance (Jaccard) and *none* of the samples passed the proximity test, meaning the non-overlapping segments were not proximal than expected by chance. I argue that a significant Jaccard statistic should be interpreted as a significant amount of overlap between the two sets, i.e. compartment edges and ECH90 regions, and the proximity test (when performed on the edges) gives us information about the potential of expanding or moving the transition window. That is, if the non-overlapping regions are *very* proximal, a larger (or shifted) window to only capture the 200kb region outside of the edge might be favourable.
 
-{{< embed ../notebooks/06_rec_genomicintervals.ipynb#fig-proximity-jaccard-bar-new >}}
-
+{{< embed ../notebooks/06_rec_genomicintervals.ipynb#tbl-100kb-proximity-jaccard >}}
 
 ## Testing against regions of selection in baboons
 
@@ -564,3 +547,30 @@ Initially, the compartment edges of round spermatid at 100kb resolution (RS100) 
 :::
 
 \endgroup
+
+# A Appendix {.unnumbered}
+
+## Aknowledgements
+
+I would like to extend my sincere gratitude to my supervisor, Kasper Munch, for his guidance and support throughout this project. His sparring and scientific literacy have been invaluable in refining my ideas and shaping the direction of this work. I am especially thankful for Kasper’s enthusiasm, which has been a source of motivation during this process. His expertise and insights were instrumental in setting up the Quarto templates and providing support for the discussion. His constructive feedback on the manuscript has greatly improved its quality. I feel fortunate to have had the opportunity to learn from and work with such a knowledgeable and dedicated mentor.  
+
+I would also like to thank my brother, Jakob, for his help with proofreading of the manuscript.  
+
+I would also like to express my heartfelt gratitude to Clara for her unwavering support, patience, and encouragement throughout this process. Her understanding and care have been a constant source of strength.  
+
+A special thank you to my son, Birk, for bringing joy and perspective into my life, forcing me to take some hours off.  
+
+
+### Use of Generative Artificial Intelligence
+
+As per Aarhus University guidelines [@auityourguidegai], I hereby disclose my use of Generative Artificial Intelligence (GAI) tools during the preparation of this thesis. All usage was conducted critically and responsibly, ensuring that the final work remained my own and adhered to academic integrity standards. These tools supplemented my expertise and accelerated routine tasks, but all creative, analytical, and scientific contributions are my own. 
+
+#### Copilot  
+I used Copilot for code completion and debugging, as well as modifying existing code to reflect updated variables and experimental needs.
+
+#### ChatGPT  
+ChatGPT provided syntax support for Bash, YAML, JSON, Mermaid diagrams, and Pandoc Templates, to accelerate my learning of new programming languages. It hallucinates a lot about Quarto.
+
+#### NotebookLM  
+NotebookLM supported the re-identification of references for a small amount of statements where placeholders (`[ref]`) were initially used before setting up BibTex references. Also to look up contradicting statements from other sources. NotebookLM only 'knows' the sources you provide it. 
+
