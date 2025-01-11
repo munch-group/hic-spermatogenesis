@@ -67,6 +67,46 @@
 \fi
 \makeatother
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{255,255,255}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{\textbf{\colorbox[rgb]{0.97,0.90,0.90}{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.79,0.38,0.79}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.00,0.34,0.68}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.69,0.50,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.39,0.29,0.61}{\textbf{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.57,0.30,0.62}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.54,0.53,0.53}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.00,0.58,1.00}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.67,0.33,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.12,0.11,0.11}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.00,0.34,0.68}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.69,0.50,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.38,0.47,0.50}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{\underline{#1}}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.58,1.00}{\textbf{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.69,0.50,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.39,0.29,0.61}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{1.00,0.33,0.00}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.69,0.50,0.00}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.12,0.11,0.11}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.12,0.11,0.11}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.12,0.11,0.11}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.43,0.16}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.00,0.43,0.16}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.34,0.68}{\colorbox[rgb]{0.88,0.91,0.97}{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.24,0.68,0.91}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{1.00,0.33,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.34,0.68}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{#1}}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
@@ -366,7 +406,7 @@
 \setkomafont{captionlabel}{\bfseries\sffamily}
 
 %% Tables
-% \usepackage{floatrow}
+% \usepackage[style=plaintop, capposition=top]{floatrow}
 % \floatsetup[table]{font=small}
 \usepackage{booktabs} % professional-quality tables (arxiv.sty)
 \usepackage{caption}
@@ -534,13 +574,18 @@ finding Open2C to be most flexible and intuitive. The ICE method
 conventional and refined A/B compartments for fibroblast and four stages
 of spermatogenesis.
 
-We find that 200 kbp transition-zones between A/B-compartments in both
-fibroblasts and round spermatids align well with strong selective sweeps
-in humans (ECH-regions), but not with strong negative selection in
-baboons (\emph{Papio} spp.). We discuss the biological meaning of these
-findings, where conserved chromatin features may help to retain
-non-advantageous alleles, hinting to the role of selfish genetic
-elements in genome evolution. % Insert the abstract text here
+We find 200 kbp transition-zones between A/B-compartments on the X
+chromosomes in both fibroblasts and round spermatids that align well
+with strong selective sweeps in humans (ECH-regions), but not with
+strong negative selection in baboons (\emph{Papio} spp.). We find that
+most edges either overlap or are in significant proximity of each other
+when comparing selected regions human and baboons with A/B-compartments
+inferred Hi-C matrices at 100kb resolution and restricting
+eigendecomposition along the X chromosome to 10Mb windows. We discuss
+the biological meaning of these findings, where conserved chromatin
+features may help to retain non-advantageous alleles, hinting to the
+role of selfish genetic elements in genome
+evolution. % Insert the abstract text here
     \par % End the paragraph
     \vspace{2em} % Add vertical space
     \hspace*{\fill}\rule{0.5\textwidth}{0.4pt}\hspace*{\fill} % Centered horizontal line
@@ -718,20 +763,6 @@ phylogenies have been formed, and by studying the intricate effects of
 population structure, migration and selection, we might infer events in
 our archaic history.
 
-\begin{itemize}
-\tightlist
-\item[$\boxtimes$]
-  synteny on chrX
-\item[$\boxtimes$]
-  Selective sweeps (or is it?) in humans (ECH90; Skov et al. (2023))
-\item[$\boxtimes$]
-  Negative selection in baboons w.r.t. minor parent ancestry
-\item[$\boxtimes$]
-  Erik: Negative selection against Admixture
-\item[$\boxtimes$]
-  Draw a parallel to Human/Neanderthal
-\end{itemize}
-
 \section{Chromatin Architecture}\label{chromatin-architecture}
 
 This is were the ends are tied and this project comes together. The
@@ -762,21 +793,6 @@ chromatin compartmentalization through spermatogenesis makes Wang et al.
 (2019) and their Hi-C data obvious starting pointa for investing the
 relationship between these (yet another) megabase-spanning conserved
 regions and those of strong selection identified above.
-
-\begin{itemize}
-\tightlist
-\item[$\boxtimes$]
-  Chromatin organization is highly conserved between species
-\item[$\boxtimes$]
-  Explain why take offset in Wang et al. (2019)
-\item[$\square$]
-  Exlpain the rationale of reproducing results with the latest reference
-\item[$\boxtimes$]
-  Explain why it makes sense to compare these datasets
-\item[$\boxtimes$]
-  The low-diveristy in \emph{P.hamadryas} and ECH are very wide -
-  chromatin has same window size??
-\end{itemize}
 
 \section{3C: Chromatin Conformation
 Capture}\label{c-chromatin-conformation-capture}
@@ -859,7 +875,7 @@ molecule (Open2C et al. 2024), which is adressed in the section below.
 \subsection{Hi-C Data Analysis}\label{hi-c-data-analysis}
 
 The analysis of the read-pairs of a Hi-C library is divided into several
-smaller tasks, see {[}ref fig-hic-analysis-flow{]}.
+smaller tasks, see Figure~\ref{fig-hic-analysis-flow}.
 
 \begin{figure}
 
@@ -1128,7 +1144,7 @@ Ch. 3) known that CTCF and other structural proteins preferentially
 binds to Topologically Associating Domains (TADs; they were initially
 defined as sub-Mb chromatin structures (Lajoie, Dekker, and Kaplan
 2015), but now the definition seems to vary based on the method of
-extraction {[}ref cooltools{]}). Derived from this, we define a
+extraction (Open2C et al. 2022)). Derived from this, we define a
 transition zone between A/B compartments to look for enrichment of
 specific regions of interest.
 
@@ -1145,18 +1161,34 @@ p-value.
 \section{Reproducibility
 Infrastructure}\label{reproducibility-infrastructure}
 
-\textbf{First, describe the importance of reproducibility and the
-scientific method. Include a bit of scientific skeptiscism of there is
-time.}
-
-Thus, apart from the biological questions we seek to investigate and
-answer in this thesis, a major goal of the thesis is to create fully
-(and easily) reproducible results through a self-contained and
-version-controlled pipeline using git {[}ref{]}, GitHub {[}ref{]},
-quarto {[}ref{]}, Conda {[}ref{]}, gwf {[}ref{]}, and Jupyter {[}ref{]}.
-See Table~\ref{tbl-reproducibility} for a brief introduction.
+Reproducibility is a cornerstone of the scientific method, ensuring that
+findings can be independently verified and built upon by others. Without
+it, the credibility of research findings is undermined, hindering
+scientific progress by becoming anecdotal. The necessity of
+reproducibility also aligns with scientific skepticism---the practice of
+critically evaluating evidence and methods to guard against biases or
+errors. As research grows increasingly computational, robust
+reproducibility infrastructure is essential to maintain these principles
+(Baker 2016), facilitating transparency, validation, and collaboration
+across diverse scientific disciplines. Thus, apart from the biological
+questions we seek to investigate and answer in this thesis, a major goal
+is to create fully (and easily) reproducible results through a
+self-contained and version-controlled pipeline using git (Torvalds and
+Hamano 2005), GitHub (GitHub, Inc. n.d.), quarto (Allaire et al. 2024),
+Anaconda (Anaconda Software Distribution 2016), gwf (GenomeDK 2023), and
+Jupyter (Kluyver et al. 2016). The result is a fully reproducible
+analysis, including figures and tables in only 3 lines of code and a HPC
+cluster (see Table~\ref{tbl-reproducibility} for a brief overview):
 
 \small
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{  git clone https://github.com/munch{-}group/hic{-}spermatogenesis.git}
+\NormalTok{  conda env create {-}f binder/environment.yml}
+\NormalTok{  gwf run}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1944}}
@@ -1329,12 +1361,12 @@ genomic intervals.
 
 \chapter{Methods}\label{methods}
 
-All computations were performed on GenomeDK (GDK) {[}ref{]}, an HPC
-cluster located on Aarhus Uninversity, and most of the processing of the
-data was made into a custom \emph{gwf} workflow {[}ref{]}, a workflow
-manager developed at GDK. I would like to thank GDK and Aarhus
-University for providing computational resources and support that
-contributed to these research results.
+All computations were performed on GenomeDK (GDK), an HPC cluster
+located on Aarhus Uninversity, and most of the processing of the data
+was made into a custom \emph{gwf} workflow {[}ref{]}, a workflow manager
+developed at GDK. I would like to thank GDK and Aarhus University for
+providing computational resources and support that contributed to these
+research results.
 
 With the analysis tools determined in the above section, we decided it
 was not feasible to follow the exact approach as Wang et al. (2019) with
@@ -3005,9 +3037,6 @@ using segment\_liftover.}
 \chapter*{Bibliography}\label{bibliography}
 \addcontentsline{toc}{chapter}{Bibliography}
 
-\begingroup
-\raggedright
-
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
 \bibitem[\citeproctext]{ref-abdennur2020coolerscalablestorage}
@@ -3015,6 +3044,20 @@ Abdennur, Nezar, and Leonid A Mirny. 2020. {``Cooler: Scalable Storage
 for {Hi-C} Data and Other Genomically Labeled Arrays.''} Edited by
 Jonathan Wren. \emph{Bioinformatics} 36 (1): 311--16.
 \url{https://doi.org/10.1093/bioinformatics/btz540}.
+
+\bibitem[\citeproctext]{ref-Allaire_Quarto_2024}
+Allaire, J. J., Charles Teague, Carlos Scheidegger, Yihui Xie, and
+Christophe Dervieux. 2024. {``{Quarto}.''}
+\url{https://doi.org/10.5281/zenodo.5960048}.
+
+\bibitem[\citeproctext]{ref-anaconda}
+Anaconda Software Distribution. 2016. {``Anaconda Software
+Distribution.''} Computer software. \url{https://anaconda.com}.
+
+\bibitem[\citeproctext]{ref-baker20161500scientistslift}
+Baker, Monya. 2016. {``1,500 Scientists Lift the Lid on
+Reproducibility.''} \emph{Nature} 533 (7604): 452--54.
+\url{https://doi.org/10.1038/533452a}.
 
 \bibitem[\citeproctext]{ref-batra2020accurateassemblyolive}
 Batra, Sanjit Singh, Michal Levy-Sakin, Jacqueline Robinson, Joseph
@@ -3072,6 +3115,13 @@ A {Python} Tool to Convert Segments Between Genome Assemblies.''}
 \emph{F1000Research} 7 (June): 319.
 \url{https://doi.org/10.12688/f1000research.14148.2}.
 
+\bibitem[\citeproctext]{ref-gwf}
+GenomeDK. 2023. {``Gwf Workflow Manager.''}
+\url{https://github.com/gwforg/gwf.git}.
+
+\bibitem[\citeproctext]{ref-github}
+GitHub, Inc. n.d. {``GitHub.''} \url{https://github.com}.
+
 \bibitem[\citeproctext]{ref-haldane1922sexratiounisexual}
 Haldane, J. B. S. 1922. {``Sex Ratio and Unisexual Sterility in Hybrid
 Animals.''} \emph{Journal of Genetics} 12 (2): 101--9.
@@ -3097,6 +3147,15 @@ https://medarbejdere.au.dk/en/gai. Accessed January 9, 2025.
 Jaenike, John. 2001. {``Sex {Chromosome Meiotic Drive}.''} \emph{Annual
 Review of Ecology and Systematics} 32 (1): 25--49.
 \url{https://doi.org/10.1146/annurev.ecolsys.32.081501.113958}.
+
+\bibitem[\citeproctext]{ref-soton403913jupyter}
+Kluyver, Thomas, Benjamin Ragan-Kelley, Fernando Pérez, Brian Granger,
+Matthias Bussonnier, Jonathan Frederic, Kyle Kelley, et al. 2016.
+{``Jupyter Notebooks ? A Publishing Format for Reproducible
+Computational Workflows.''} In \emph{Positioning and Power in Academic
+Publishing: Players, Agents and Agendas}, edited by Fernando Loizides
+and Birgit Scmidt, 87--90. IOS Press.
+\url{https://eprints.soton.ac.uk/403913/}.
 
 \bibitem[\citeproctext]{ref-lajoie2015hitchhikersguidehic}
 Lajoie, Bryan R., Job Dekker, and Noam Kaplan. 2015. {``The
@@ -3131,6 +3190,13 @@ Evolution}.''} \emph{Molecular Biology and Evolution} 33 (12): 3065--74.
 \bibitem[\citeproctext]{ref-openchromosomecollective}
 {``Open {Chromosome Collective} ({Open2C}).''} n.d. Resource.
 \emph{Open2C}. https://open2c.github.io/. Accessed November 13, 2024.
+
+\bibitem[\citeproctext]{ref-open2c2022cooltoolsenablinghighresolution}
+Open2C, Nezar Abdennur, Sameer Abraham, Geoffrey Fudenberg, Ilya M.
+Flyamer, Aleksandra A. Galitsyna, Anton Goloborodko, Maxim Imakaev,
+Betul A. Oksuz, and Sergey V. Venev. 2022. {``Cooltools: Enabling
+High-Resolution {Hi-C} Analysis in {Python}.''} Bioinformatics.
+\url{https://doi.org/10.1101/2022.10.31.514564}.
 
 \bibitem[\citeproctext]{ref-open2c2024pairtoolssequencingdata}
 Open2C, Nezar Abdennur, Geoffrey Fudenberg, Ilya M. Flyamer, Aleksandra
@@ -3167,6 +3233,10 @@ Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023.
 Male-Driven Reticulation in Baboons.''} \emph{Science} 380 (6648):
 eabn8153. \url{https://doi.org/10.1126/science.abn8153}.
 
+\bibitem[\citeproctext]{ref-git}
+Torvalds, Linus, and Junio C Hamano. 2005. \emph{Git: A Distributed
+Version Control System}. \url{https://git-scm.com}.
+
 \bibitem[\citeproctext]{ref-wang2019reprogrammingmeioticchromatin}
 Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan,
 Dongdong Qin, et al. 2019. {``Reprogramming of {Meiotic Chromatin
@@ -3190,8 +3260,6 @@ Communications} 12 (1): 5827.
 
 \end{CSLReferences}
 
-\endgroup
-
 \chapter*{A Appendix}\label{a-appendix}
 \addcontentsline{toc}{chapter}{A Appendix}
 
@@ -3207,16 +3275,6 @@ the Quarto templates and providing support for the discussion. His
 constructive feedback on the manuscript has greatly improved its
 quality. I feel fortunate to have had the opportunity to learn from and
 work with such a knowledgeable and dedicated mentor.
-
-I would also like to thank my brother, Jakob, for his help with
-proofreading of the manuscript.
-
-I would also like to express my heartfelt gratitude to Clara for her
-unwavering support, patience, and encouragement throughout this process.
-Her understanding and care have been a constant source of strength.
-
-A special thank you to my son, Birk, for bringing joy and perspective
-into my life, forcing me to take some hours off.
 
 \subsection{Use of Generative Artificial
 Intelligence}\label{use-of-generative-artificial-intelligence}

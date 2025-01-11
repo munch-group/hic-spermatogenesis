@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -103,7 +137,7 @@ window.Quarto = {
 
 In this study, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper on the latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis.
 
-We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with strong selective sweeps in humans (ECH-regions), but not with strong negative selection in baboons (*Papio* spp.). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
+We find 200 kbp transition-zones between A/B-compartments on the X chromosomes in both fibroblasts and round spermatids that align well with strong selective sweeps in humans (ECH-regions), but not with strong negative selection in baboons (*Papio* spp.). We find that most edges either overlap or are in significant proximity of each other when comparing selected regions human and baboons with A/B-compartments inferred Hi-C matrices at 100kb resolution and restricting eigendecomposition along the X chromosome to 10Mb windows. We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
 ">
 <meta name="citation_keywords" content="Hi-C,Chromatin Compartments,Selection on X,Selfish gene drive">
 <meta name="citation_author" content="Søren Jørgensen">
@@ -154,6 +188,15 @@ We find that 200 kbp transition-zones between A/B-compartments in both fibroblas
 <meta name="citation_reference" content="citation_title=Analysis of 62 hybrid assembled human Y chromosomes exposes rapid structural changes and high rates of gene conversion;,citation_author=Laurits Skov;,citation_author=The Danish Pan Genome Consortium;,citation_author=Mikkel Heide Schierup;,citation_editor=Kateryna D. Makova;,citation_publication_date=2017-08;,citation_cover_date=2017-08;,citation_year=2017;,citation_issue=8;,citation_doi=10.1371/journal.pgen.1006834;,citation_issn=1553-7404;,citation_volume=13;,citation_language=en-US;,citation_journal_title=PLOS Genetics;">
 <meta name="citation_reference" content="citation_title=Strong Selective Sweeps on the X Chromosome in the Human-Chimpanzee Ancestor Explain Its Low Divergence;,citation_author=Julien Y. Dutheil;,citation_author=Kasper Munch;,citation_author=Kiwoong Nam;,citation_author=Thomas Mailund;,citation_author=Mikkel H. Schierup;,citation_editor=Nick H. Barton;,citation_publication_date=2015-08;,citation_cover_date=2015-08;,citation_year=2015;,citation_issue=8;,citation_doi=10.1371/journal.pgen.1005451;,citation_issn=1553-7404;,citation_volume=11;,citation_language=en-US;,citation_journal_title=PLOS Genetics;">
 <meta name="citation_reference" content="citation_title=Selective Sweeps across Twenty Millions Years of Primate Evolution;,citation_author=Kasper Munch;,citation_author=Kiwoong Nam;,citation_author=Mikkel Heide Schierup;,citation_author=Thomas Mailund;,citation_publication_date=2016-12;,citation_cover_date=2016-12;,citation_year=2016;,citation_issue=12;,citation_doi=10.1093/molbev/msw199;,citation_issn=0737-4038, 1537-1719;,citation_volume=33;,citation_language=en-US;,citation_journal_title=Molecular Biology and Evolution;">
+<meta name="citation_reference" content="citation_title=An in-depth investigation on the behavior of measures to quantify reproducibility;,citation_author=Maria Maistro;,citation_author=Timo Breuer;,citation_author=Philipp Schaer;,citation_author=Nicola Ferro;,citation_publication_date=2023-05;,citation_cover_date=2023-05;,citation_year=2023;,citation_issue=3;,citation_doi=10.1016/j.ipm.2023.103332;,citation_issn=03064573;,citation_volume=60;,citation_language=en-US;,citation_journal_title=Information Processing &amp;amp;amp; Management;">
+<meta name="citation_reference" content="citation_title=1,500 scientists lift the lid on reproducibility;,citation_author=Monya Baker;,citation_publication_date=2016-05;,citation_cover_date=2016-05;,citation_year=2016;,citation_issue=7604;,citation_doi=10.1038/533452a;,citation_issn=0028-0836, 1476-4687;,citation_volume=533;,citation_language=en-US;,citation_journal_title=Nature;">
+<meta name="citation_reference" content="citation_title=Git: A distributed version control system;,citation_author=Linus Torvalds;,citation_author=Junio C Hamano;,citation_publication_date=2005;,citation_cover_date=2005;,citation_year=2005;,citation_fulltext_html_url=https://git-scm.com;">
+<meta name="citation_reference" content="citation_title=GitHub;,citation_author=GitHub, Inc.;,citation_publisher=https://github.com;">
+<meta name="citation_reference" content="citation_title=Hic-spermatogenesis;,citation_author=Søren Jørgensen;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_publisher=https://github.com/munch-group/hic-spermatogenesis.git;">
+<meta name="citation_reference" content="citation_title=Quarto;,citation_author=J. J. Allaire;,citation_author=Charles Teague;,citation_author=Carlos Scheidegger;,citation_author=Yihui Xie;,citation_author=Christophe Dervieux;,citation_publication_date=2024-02;,citation_cover_date=2024-02;,citation_year=2024;,citation_fulltext_html_url=https://github.com/quarto-dev/quarto-cli;,citation_doi=10.5281/zenodo.5960048;">
+<meta name="citation_reference" content="citation_title=Anaconda software distribution;,citation_author=Anaconda Software Distribution;,citation_publication_date=2016-11;,citation_cover_date=2016-11;,citation_year=2016;,citation_fulltext_html_url=https://anaconda.com;,citation_publisher=Computer software;">
+<meta name="citation_reference" content="citation_title=Gwf workflow manager;,citation_author=undefined GenomeDK;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_publisher=https://github.com/gwforg/gwf.git;">
+<meta name="citation_reference" content="citation_title=Jupyter notebooks ? A publishing format for reproducible computational workflows;,citation_abstract=It is increasingly necessary for researchers in all fields to write computer code, and in order to reproduce research results, it is important that this code is published. We present Jupyter notebooks, a document format for publishing code, results and explanations in a form that is both readable and executable. We discuss various tools and use cases for notebook documents.;,citation_author=Thomas Kluyver;,citation_author=Benjamin Ragan-Kelley;,citation_author=Fernando Pérez;,citation_author=Brian Granger;,citation_author=Matthias Bussonnier;,citation_author=Jonathan Frederic;,citation_author=Kyle Kelley;,citation_author=Jessica Hamrick;,citation_author=Jason Grout;,citation_author=Sylvain Corlay;,citation_author=Paul Ivanov;,citation_author=Damián Avila;,citation_author=Safia Abdalla;,citation_author=Carol Willing;,citation_author=Jupyter team;,citation_editor=Fernando Loizides;,citation_editor=Birgit Scmidt;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_fulltext_html_url=https://eprints.soton.ac.uk/403913/;,citation_conference_title=Positioning and power in academic publishing: Players, agents and agendas;,citation_conference=IOS Press;">
 </head>
 
 <body>
@@ -207,7 +250,7 @@ We find that 200 kbp transition-zones between A/B-compartments in both fibroblas
         <div class="block-title">Abstract</div>
         <p>The hemizygosity of male mammals makes the X chromosome uniquely exposed to selective pressures, as the lack of a second copy provides no buffer against deleterious mutations. This, combined with a high density of essential genes related to reproduction and brain function, suggests the existence of biological mechanisms that protect the integrity of the X chromosome. One such mechanism is meiotic sex chromosome inactivation (MSCI) in males, while another could involve chromatin architecture.</p>
         <p>In this study, the 3D chromatin architecture of the X chromosome in rhesus macaque (<em>Macaca mulata</em>) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper on the latest reference genome (<em>rheMac10</em> or <em>Mmul_10</em>). We compare two Hi-C analysis frameworks, <em>HiCExplorer</em> and <em>cooler/cooltools</em> (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis.</p>
-        <p>We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with strong selective sweeps in humans (ECH-regions), but not with strong negative selection in baboons (<em>Papio</em> spp.). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.</p>
+        <p>We find 200 kbp transition-zones between A/B-compartments on the X chromosomes in both fibroblasts and round spermatids that align well with strong selective sweeps in humans (ECH-regions), but not with strong negative selection in baboons (<em>Papio</em> spp.). We find that most edges either overlap or are in significant proximity of each other when comparing selected regions human and baboons with A/B-compartments inferred Hi-C matrices at 100kb resolution and restricting eigendecomposition along the X chromosome to 10Mb windows. We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.</p>
       </div>
     </div>
 
@@ -321,26 +364,12 @@ We find that 200 kbp transition-zones between A/B-compartments in both fibroblas
 <h4 class="anchored" data-anchor-id="selecting-parent-ancestry-in-baboons">Selecting parent ancestry in baboons</h4>
 <p>Mapping the interspecies gene flow between baboon genomes in their evolutionary history have revealed male-driven admixture patterns 6 baboon species<span class="citation" data-cites="sorensen2023genomewidecoancestryreveals">(<a href="#ref-sorensen2023genomewidecoancestryreveals" role="doc-biblioref">Sørensen et al. 2023</a>)</span>. They infer a male-driven admixture from mismatching phylogenies of the mitochondrial DNA and the nuclear DNA, indicating a role of nuclear swamping. They compare the ratio of chromosome 8/X admixture between the populations, supporting the same pattern. Recently, in an unpublished analysis by <span class="citation" data-cites="munch2024munchgroup">Munch (<a href="#ref-munch2024munchgroup" role="doc-biblioref">2024</a>)</span>, large megabase-regions were identified in olive baboon (<em>Papio anubis</em>), where either all individuals had <em>olive</em> ancestry, or 95% of the individuals had <em>hamadryas</em> ancestry, significantly diverging from the background.</p>
 <p>Studying live and closely related primate species is our best way of glimpsing into how the <em>hominin</em> (human, Neanderthal, Denisovan) phylogenies have been formed, and by studying the intricate effects of population structure, migration and selection, we might infer events in our archaic history.</p>
-<ul class="task-list">
-<li><label><input type="checkbox" checked="">synteny on chrX</label></li>
-<li><label><input type="checkbox" checked="">Selective sweeps (or is it?) in humans (ECH90; <span class="citation" data-cites="skov2023extraordinaryselectionhuman">Skov et al. (<a href="#ref-skov2023extraordinaryselectionhuman" role="doc-biblioref">2023</a>)</span>)</label></li>
-<li><label><input type="checkbox" checked="">Negative selection in baboons w.r.t. minor parent ancestry</label></li>
-<li><label><input type="checkbox" checked="">Erik: Negative selection against Admixture</label></li>
-<li><label><input type="checkbox" checked="">Draw a parallel to Human/Neanderthal</label></li>
-</ul>
 </section>
 </section>
 <section id="chromatin-architecture" class="level2">
 <h2 class="anchored" data-anchor-id="chromatin-architecture">Chromatin Architecture</h2>
 <p>This is were the ends are tied and this project comes together. The regions of strong selection that have been located across primate species (human and baboon) are all on the X chromosome and on the same genomic scale (spanning up a million base pairs). As discussed, the chromosomal arrangement and rearrangement play a crucial role for synteny and chromosomal architecture in general, and it has a massive impact on evolution.</p>
 <p>Generally, the structure and compartmentalization of chromatin is highly conserved, and the structural patterns are evident in animals throughout. <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">Wang et al. (<a href="#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">2019</a>)</span> found that through the stages of spermatogeneis, chromatin compartmentalization undergo massive reprogramming, going from megabase-spanning compartments through smaller, <em>refined</em> compartments and back to the megabase compartments. The reprogramming is conserved between rhesus macaque and mouse, indicating a very important feature of the organization. Chromatin has long since been implicated in gene regulation and the functional state of the cell <span class="citation" data-cites="lieberman-aiden2009comprehensivemappinglongrange">(<a href="#ref-lieberman-aiden2009comprehensivemappinglongrange" role="doc-biblioref">Lieberman-Aiden et al. 2009</a>)</span>, as the three-dimensional structure of the chromosome can bring distant regions in close proximity, and disrupting the organization can lead to development abnormalities <span class="citation" data-cites="dixon2015chromatinarchitecturereorganization">(<a href="#ref-dixon2015chromatinarchitecturereorganization" role="doc-biblioref">Dixon et al. 2015</a>)</span>. Even at smaller scales, at the level of topologically associating domains (TADs) or chromatin loops <span class="citation" data-cites="ramirez2018highresolutiontadsreveal zuo2021stageresolvedhicanalyses">(<a href="#ref-ramirez2018highresolutiontadsreveal" role="doc-biblioref">Ramírez et al. 2018</a>; <a href="#ref-zuo2021stageresolvedhicanalyses" role="doc-biblioref">Zuo et al. 2021</a>)</span>, the structure helps segregate regulatory elements and ensure proper function. Modelling chromatin compartmentalization through spermatogenesis makes <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">Wang et al. (<a href="#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">2019</a>)</span> and their Hi-C data obvious starting pointa for investing the relationship between these (yet another) megabase-spanning conserved regions and those of strong selection identified above.</p>
-<ul class="task-list">
-<li><label><input type="checkbox" checked="">Chromatin organization is highly conserved between species</label></li>
-<li><label><input type="checkbox" checked="">Explain why take offset in <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">Wang et al. (<a href="#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">2019</a>)</span></label></li>
-<li><label><input type="checkbox">Exlpain the rationale of reproducing results with the latest reference</label></li>
-<li><label><input type="checkbox" checked="">Explain why it makes sense to compare these datasets</label></li>
-<li><label><input type="checkbox" checked="">The low-diveristy in <em>P.hamadryas</em> and ECH are very wide - chromatin has same window size??</label></li>
-</ul>
 </section>
 <section id="c-chromatin-conformation-capture" class="level2">
 <h2 class="anchored" data-anchor-id="c-chromatin-conformation-capture">3C: Chromatin Conformation Capture</h2>
@@ -357,7 +386,7 @@ We find that 200 kbp transition-zones between A/B-compartments in both fibroblas
 </section>
 <section id="hi-c-data-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="hi-c-data-analysis">Hi-C Data Analysis</h3>
-<p>The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks, see [ref fig-hic-analysis-flow].</p>
+<p>The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks, see <a href="#fig-hic-analysis-flow" class="quarto-xref">Figure&nbsp;1</a>.</p>
 <div id="fig-hic-analysis-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hic-analysis-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -440,15 +469,17 @@ Table&nbsp;1: Five categories of ligation events and a short explanation. <em>Hi
 </section>
 <section id="compartment-edges-and-genomic-intervals" class="level4">
 <h4 class="anchored" data-anchor-id="compartment-edges-and-genomic-intervals">Compartment Edges and Genomic Intervals</h4>
-<p>As arbitrary as a compartment may be defined, we chose to define another genomic interval for analysis. It is well <span class="citation" data-cites="bicciato2022hicdataanalysis">(<a href="#ref-bicciato2022hicdataanalysis" role="doc-biblioref">Bicciato and Ferrari 2022</a>, Ch. 3)</span> known that CTCF and other structural proteins preferentially binds to Topologically Associating Domains (TADs; they were initially defined as sub-Mb chromatin structures <span class="citation" data-cites="lajoie2015hitchhikersguidehic">(<a href="#ref-lajoie2015hitchhikersguidehic" role="doc-biblioref">Lajoie, Dekker, and Kaplan 2015</a>)</span>, but now the definition seems to vary based on the method of extraction [ref cooltools]). Derived from this, we define a transition zone between A/B compartments to look for enrichment of specific regions of interest.</p>
+<p>As arbitrary as a compartment may be defined, we chose to define another genomic interval for analysis. It is well <span class="citation" data-cites="bicciato2022hicdataanalysis">(<a href="#ref-bicciato2022hicdataanalysis" role="doc-biblioref">Bicciato and Ferrari 2022</a>, Ch. 3)</span> known that CTCF and other structural proteins preferentially binds to Topologically Associating Domains (TADs; they were initially defined as sub-Mb chromatin structures <span class="citation" data-cites="lajoie2015hitchhikersguidehic">(<a href="#ref-lajoie2015hitchhikersguidehic" role="doc-biblioref">Lajoie, Dekker, and Kaplan 2015</a>)</span>, but now the definition seems to vary based on the method of extraction <span class="citation" data-cites="open2c2022cooltoolsenablinghighresolution">(<a href="#ref-open2c2022cooltoolsenablinghighresolution" role="doc-biblioref">Open2C et al. 2022</a>)</span>). Derived from this, we define a transition zone between A/B compartments to look for enrichment of specific regions of interest.</p>
 <p>We can test if two sets of genomic intervals correlate (say, compartment edges and ECH regions) by either proximity of the non-intersecting parts of the sets, or by intersection over union (Jaccard index). When the underlying distribution of a statistic (or index) is unknown, a widespread method in bioinformatics for estimating a p-value is by bootstrapping. Here, one of the sets are bootstrapped (the intervals are placed at random positions) a number of times, <span class="math inline">\(b\)</span>, and the fraction of statistics more extreme than the one we observe is reported as the p-value.</p>
 </section>
 </section>
 </section>
 <section id="reproducibility-infrastructure" class="level2">
 <h2 class="anchored" data-anchor-id="reproducibility-infrastructure">Reproducibility Infrastructure</h2>
-<p><strong>First, describe the importance of reproducibility and the scientific method. Include a bit of scientific skeptiscism of there is time.</strong></p>
-<p>Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal of the thesis is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git [ref], GitHub [ref], quarto [ref], Conda [ref], gwf [ref], and Jupyter [ref]. See <a href="#tbl-reproducibility" class="quarto-xref">Table&nbsp;2</a> for a brief introduction.</p>
+<p>Reproducibility is a cornerstone of the scientific method, ensuring that findings can be independently verified and built upon by others. Without it, the credibility of research findings is undermined, hindering scientific progress by becoming anecdotal. The necessity of reproducibility also aligns with scientific skepticism—the practice of critically evaluating evidence and methods to guard against biases or errors. As research grows increasingly computational, robust reproducibility infrastructure is essential to maintain these principles <span class="citation" data-cites="baker20161500scientistslift">(<a href="#ref-baker20161500scientistslift" role="doc-biblioref">Baker 2016</a>)</span>, facilitating transparency, validation, and collaboration across diverse scientific disciplines. Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git <span class="citation" data-cites="git">(<a href="#ref-git" role="doc-biblioref">Torvalds and Hamano 2005</a>)</span>, GitHub <span class="citation" data-cites="github">(<a href="#ref-github" role="doc-biblioref">GitHub, Inc. n.d.</a>)</span>, quarto <span class="citation" data-cites="Allaire_Quarto_2024">(<a href="#ref-Allaire_Quarto_2024" role="doc-biblioref">Allaire et al. 2024</a>)</span>, Anaconda <span class="citation" data-cites="anaconda">(<a href="#ref-anaconda" role="doc-biblioref">Anaconda Software Distribution 2016</a>)</span>, gwf <span class="citation" data-cites="gwf">(<a href="#ref-gwf" role="doc-biblioref">GenomeDK 2023</a>)</span>, and Jupyter <span class="citation" data-cites="soton403913jupyter">(<a href="#ref-soton403913jupyter" role="doc-biblioref">Kluyver et al. 2016</a>)</span>. The result is a fully reproducible analysis, including figures and tables in only 3 lines of code and a HPC cluster (see <a href="#tbl-reproducibility" class="quarto-xref">Table&nbsp;2</a> for a brief overview):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource console number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>  git clone https://github.com/munch-group/hic-spermatogenesis.git</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  conda env create -f binder/environment.yml</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  gwf run</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-reproducibility" class="striped quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-reproducibility-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -532,7 +563,7 @@ Table&nbsp;2: Overview of the tools used for reproducibility of this thesis.
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
-<p>All computations were performed on GenomeDK (GDK) [ref], an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was made into a custom <em>gwf</em> workflow [ref], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.</p>
+<p>All computations were performed on GenomeDK (GDK), an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was made into a custom <em>gwf</em> workflow [ref], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.</p>
 <p>With the analysis tools determined in the above section, we decided it was not feasible to follow the exact approach as <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">Wang et al. (<a href="#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">2019</a>)</span> with any of <em>HiCExplorer</em> and <em>Open2C</em>, as they use a third software, <em>HiC-Pro</em>. For mapping the raw reads, Hic-Pro internally uses bowtie2 in end-to-end mode, followed by trimming the 3’-end of the unmapped reads, then remapping the 5’-ends to rescue chimeric fragments. I mapped the reads using <code>bowtie2 --end-to-end</code> without the rescue-remapping, and it returned a very high fraction of discarded reads, and it would be silly to spend time on implementing the remapping approach manually. When redoing analyses, it is not sensical to use methods that are not state-of-the-art, and judged by the time since last release (HiC-Pro v3.1.0 in 2021), both HiCExplorer and Open2C are more recent. Additionally, the HiC-Pro pipeline stops at a normalized contact map, and is thus not sufficient for downstream analysis. In hindsight, it would have been more sensical to use <em>HiC-Pro</em> to get normalized contact maps, then continue analyzing with <em>cooler</em>/<em>cooltools</em>, then compare the results evenly with the results achieved from using Open2C from start to finish. <a href="#fig-hic-tools-comparison" class="quarto-xref">Figure&nbsp;2</a> gives an overview of the 3 pipelines metioned in this report.</p>
 <div id="fig-hic-tools-comparison" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1254,7 +1285,7 @@ Figure&nbsp;12: Histogram of NaN values in the E1 eigenvector for each cell type
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-e1-matrix-full-arms-10mb-round_spermatid" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-e1-matrix-full-arms-10mb-round_spermatid-2" class="quarto-float quarto-figure quarto-figure-center anchored" width="297" height="277">
+<div id="fig-e1-matrix-full-arms-10mb-round_spermatid-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="277" width="297">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-e1-matrix-full-arms-10mb-round_spermatid-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="index_files/figure-html/..-notebooks-07_various_plotting-fig-e1-matrix-full-arms-10mb-round_spermatid-output-2.png" class="lightbox" data-gallery="fig-e1-matrix-full-arms-10mb-round_spermatid" title="Figure&nbsp;13&nbsp;(b): "><img src="index_files/figure-html/..-notebooks-07_various_plotting-fig-e1-matrix-full-arms-10mb-round_spermatid-output-2.png" id="fig-e1-matrix-full-arms-10mb-round_spermatid-2" data-ref-parent="fig-e1-matrix-full-arms-10mb-round_spermatid" width="297" height="277" class="figure-img"></a>
@@ -1703,6 +1734,15 @@ Figure&nbsp;19: Comparing the A-compartment edges of round spermatid (RS) with r
 <div id="ref-abdennur2020coolerscalablestorage" class="csl-entry" role="listitem">
 Abdennur, Nezar, and Leonid A Mirny. 2020. <span>“Cooler: Scalable Storage for <span>Hi-C</span> Data and Other Genomically Labeled Arrays.”</span> Edited by Jonathan Wren. <em>Bioinformatics</em> 36 (1): 311–16. <a href="https://doi.org/10.1093/bioinformatics/btz540">https://doi.org/10.1093/bioinformatics/btz540</a>.
 </div>
+<div id="ref-Allaire_Quarto_2024" class="csl-entry" role="listitem">
+Allaire, J. J., Charles Teague, Carlos Scheidegger, Yihui Xie, and Christophe Dervieux. 2024. <span>“<span>Quarto</span>.”</span> <a href="https://doi.org/10.5281/zenodo.5960048">https://doi.org/10.5281/zenodo.5960048</a>.
+</div>
+<div id="ref-anaconda" class="csl-entry" role="listitem">
+Anaconda Software Distribution. 2016. <span>“Anaconda Software Distribution.”</span> Computer software. <a href="https://anaconda.com">https://anaconda.com</a>.
+</div>
+<div id="ref-baker20161500scientistslift" class="csl-entry" role="listitem">
+Baker, Monya. 2016. <span>“1,500 Scientists Lift the Lid on Reproducibility.”</span> <em>Nature</em> 533 (7604): 452–54. <a href="https://doi.org/10.1038/533452a">https://doi.org/10.1038/533452a</a>.
+</div>
 <div id="ref-batra2020accurateassemblyolive" class="csl-entry" role="listitem">
 Batra, Sanjit Singh, Michal Levy-Sakin, Jacqueline Robinson, Joseph Guillory, Steffen Durinck, Tauras P Vilgalys, Pui-Yan Kwok, et al. 2020. <span>“Accurate Assembly of the Olive Baboon ( <span><em>Papio</em></span><span> <em>Anubis</em></span> ) Genome Using Long-Read and <span>Hi-C</span> Data.”</span> <em>GigaScience</em> 9 (12): giaa134. <a href="https://doi.org/10.1093/gigascience/giaa134">https://doi.org/10.1093/gigascience/giaa134</a>.
 </div>
@@ -1730,6 +1770,12 @@ Ewels, Philip, Måns Magnusson, Sverker Lundin, and Max Käller. 2016. <span>“
 <div id="ref-gao2018segment_liftoverpythontool" class="csl-entry" role="listitem">
 Gao, Bo, Qingyao Huang, and Michael Baudis. 2018. <span>“Segment_liftover : A <span>Python</span> Tool to Convert Segments Between Genome Assemblies.”</span> <em>F1000Research</em> 7 (June): 319. <a href="https://doi.org/10.12688/f1000research.14148.2">https://doi.org/10.12688/f1000research.14148.2</a>.
 </div>
+<div id="ref-gwf" class="csl-entry" role="listitem">
+GenomeDK. 2023. <span>“Gwf Workflow Manager.”</span> <a href="https://github.com/gwforg/gwf.git" class="uri">https://github.com/gwforg/gwf.git</a>.
+</div>
+<div id="ref-github" class="csl-entry" role="listitem">
+GitHub, Inc. n.d. <span>“GitHub.”</span> <a href="https://github.com" class="uri">https://github.com</a>.
+</div>
 <div id="ref-haldane1922sexratiounisexual" class="csl-entry" role="listitem">
 Haldane, J. B. S. 1922. <span>“Sex Ratio and Unisexual Sterility in Hybrid Animals.”</span> <em>Journal of Genetics</em> 12 (2): 101–9. <a href="https://doi.org/10.1007/BF02983075">https://doi.org/10.1007/BF02983075</a>.
 </div>
@@ -1744,6 +1790,9 @@ IT, AU. n.d. <span>“Your Guide to <span>GAI</span> Responsibly.”</span> http
 </div>
 <div id="ref-jaenike2001sexchromosomemeiotic" class="csl-entry" role="listitem">
 Jaenike, John. 2001. <span>“Sex <span>Chromosome Meiotic Drive</span>.”</span> <em>Annual Review of Ecology and Systematics</em> 32 (1): 25–49. <a href="https://doi.org/10.1146/annurev.ecolsys.32.081501.113958">https://doi.org/10.1146/annurev.ecolsys.32.081501.113958</a>.
+</div>
+<div id="ref-soton403913jupyter" class="csl-entry" role="listitem">
+Kluyver, Thomas, Benjamin Ragan-Kelley, Fernando Pérez, Brian Granger, Matthias Bussonnier, Jonathan Frederic, Kyle Kelley, et al. 2016. <span>“Jupyter Notebooks ? A Publishing Format for Reproducible Computational Workflows.”</span> In <em>Positioning and Power in Academic Publishing: Players, Agents and Agendas</em>, edited by Fernando Loizides and Birgit Scmidt, 87–90. IOS Press. <a href="https://eprints.soton.ac.uk/403913/">https://eprints.soton.ac.uk/403913/</a>.
 </div>
 <div id="ref-lajoie2015hitchhikersguidehic" class="csl-entry" role="listitem">
 Lajoie, Bryan R., Job Dekker, and Noam Kaplan. 2015. <span>“The <span>Hitchhiker</span>’s <span>Guide</span> to <span>Hi-C Analysis</span>: <span>Practical</span> Guidelines.”</span> <em>Methods (San Diego, Calif.)</em> 72 (January): 65–75. <a href="https://doi.org/10.1016/j.ymeth.2014.10.031">https://doi.org/10.1016/j.ymeth.2014.10.031</a>.
@@ -1763,6 +1812,9 @@ Munch, Kasper, Kiwoong Nam, Mikkel Heide Schierup, and Thomas Mailund. 2016. <sp
 <div id="ref-openchromosomecollective" class="csl-entry" role="listitem">
 <span>“Open <span>Chromosome Collective</span> (<span>Open2C</span>).”</span> n.d. Resource. <em>Open2C</em>. https://open2c.github.io/. Accessed November 13, 2024.
 </div>
+<div id="ref-open2c2022cooltoolsenablinghighresolution" class="csl-entry" role="listitem">
+Open2C, Nezar Abdennur, Sameer Abraham, Geoffrey Fudenberg, Ilya M. Flyamer, Aleksandra A. Galitsyna, Anton Goloborodko, Maxim Imakaev, Betul A. Oksuz, and Sergey V. Venev. 2022. <span>“Cooltools: Enabling High-Resolution <span>Hi-C</span> Analysis in <span>Python</span>.”</span> Bioinformatics. <a href="https://doi.org/10.1101/2022.10.31.514564">https://doi.org/10.1101/2022.10.31.514564</a>.
+</div>
 <div id="ref-open2c2024pairtoolssequencingdata" class="csl-entry" role="listitem">
 Open2C, Nezar Abdennur, Geoffrey Fudenberg, Ilya M. Flyamer, Aleksandra A. Galitsyna, Anton Goloborodko, Maxim Imakaev, and Sergey V. Venev. 2024. <span>“Pairtools: <span>From</span> Sequencing Data to Chromosome Contacts.”</span> Edited by Ferhat Ay. <em>PLOS Computational Biology</em> 20 (5): e1012164. <a href="https://doi.org/10.1371/journal.pcbi.1012164">https://doi.org/10.1371/journal.pcbi.1012164</a>.
 </div>
@@ -1777,6 +1829,9 @@ Skov, Laurits, The Danish Pan Genome Consortium, and Mikkel Heide Schierup. 2017
 </div>
 <div id="ref-sorensen2023genomewidecoancestryreveals" class="csl-entry" role="listitem">
 Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran, Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023. <span>“Genome-Wide Coancestry Reveals Details of Ancient and Recent Male-Driven Reticulation in Baboons.”</span> <em>Science</em> 380 (6648): eabn8153. <a href="https://doi.org/10.1126/science.abn8153">https://doi.org/10.1126/science.abn8153</a>.
+</div>
+<div id="ref-git" class="csl-entry" role="listitem">
+Torvalds, Linus, and Junio C Hamano. 2005. <em>Git: A Distributed Version Control System</em>. <a href="https://git-scm.com">https://git-scm.com</a>.
 </div>
 <div id="ref-wang2019reprogrammingmeioticchromatin" class="csl-entry" role="listitem">
 Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic Chromatin Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
@@ -1794,9 +1849,6 @@ Zuo, Wu, Guangming Chen, Zhimei Gao, Shuai Li, Yanyan Chen, Chenhui Huang, Juan 
 <section id="aknowledgements" class="level2">
 <h2 class="anchored" data-anchor-id="aknowledgements">Aknowledgements</h2>
 <p>I would like to extend my sincere gratitude to my supervisor, Kasper Munch, for his guidance and support throughout this project. His sparring and scientific literacy have been invaluable in refining my ideas and shaping the direction of this work. I am especially thankful for Kasper’s enthusiasm, which has been a source of motivation during this process. His expertise and insights were instrumental in setting up the Quarto templates and providing support for the discussion. His constructive feedback on the manuscript has greatly improved its quality. I feel fortunate to have had the opportunity to learn from and work with such a knowledgeable and dedicated mentor.</p>
-<p>I would also like to thank my brother, Jakob, for his help with proofreading of the manuscript.</p>
-<p>I would also like to express my heartfelt gratitude to Clara for her unwavering support, patience, and encouragement throughout this process. Her understanding and care have been a constant source of strength.</p>
-<p>A special thank you to my son, Birk, for bringing joy and perspective into my life, forcing me to take some hours off.</p>
 <section id="use-of-generative-artificial-intelligence" class="level3">
 <h3 class="anchored" data-anchor-id="use-of-generative-artificial-intelligence">Use of Generative Artificial Intelligence</h3>
 <p>As per Aarhus University guidelines <span class="citation" data-cites="auityourguidegai">(<a href="#ref-auityourguidegai" role="doc-biblioref">IT n.d.</a>)</span>, I hereby disclose my use of Generative Artificial Intelligence (GAI) tools during the preparation of this thesis. All usage was conducted critically and responsibly, ensuring that the final work remained my own and adhered to academic integrity standards. These tools supplemented my expertise and accelerated routine tasks, but all creative, analytical, and scientific contributions are my own.</p>
