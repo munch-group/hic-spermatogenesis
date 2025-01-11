@@ -132,6 +132,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
+% For the abstract
+\usepackage{ragged2e}
 
 % Add new fonts 
 \usepackage{newpxtext}
@@ -144,55 +146,55 @@
 
 \usepackage{upquote}
 
-% front page
-\usepackage[colorlinks]{hyperref} % for text color on title
-\usepackage{titling} % makes \thetitle etc available...
-\usepackage{lipsum}
-\usepackage{tikz}
-\tikzstyle{bag} = [align=center] % allows new lines in text below
-\AtBeginDocument{\thispagestyle{empty}
-\definecolor{titlecolor}{HTML}{1C2404}
-\begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
-\draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
-% \draw (current page.center) node[bag] {  
-        \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
-    % \mytitlefont 
-    \color{titlecolor} \Large \textbf{Thesis} \\ 
-    \\ 
-    % \mytitlefont 
-    \color{titlecolor} \Huge \textbf{\thetitle} \\ 
-    \\ 
-    % \mytitlefont
-    \color{titlecolor} \huge \theauthor \\
-    \\
-    % \mytitlefont 
-    \color{titlecolor} \Large \thedate 
-    };
-\end{tikzpicture}
-\clearpage}
+% % front page
+% \usepackage[colorlinks]{hyperref} % for text color on title
+% \usepackage{titling} % makes \thetitle etc available...
+% \usepackage{lipsum}
+% \usepackage{tikz}
+% \tikzstyle{bag} = [align=center] % allows new lines in text below
+% \AtBeginDocument{\thispagestyle{empty}
+% \definecolor{titlecolor}{HTML}{1C2404}
+% \begin{tikzpicture}[remember picture,overlay]
+% \draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+% \draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{100mm}{\includegraphics{ausegl_sort.pdf}}};
+% % \draw (current page.center) node[bag] {  
+%         \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+%     % \mytitlefont 
+%     \color{titlecolor} \Large \textbf{Master's Thesis in Bioinformatics} \\ 
+%     \\ 
+%     % \mytitlefont 
+%     \color{titlecolor} \Huge \textbf{\thetitle} \\ 
+%     \\ 
+%     % \mytitlefont
+%     \color{titlecolor} \huge \theauthor \\
+%     \\
+%     % \mytitlefont 
+%     \color{titlecolor} \Large \thedate 
+%     };
+% \end{tikzpicture}
+% \clearpage}
 
-% back side
-\AtEndDocument{\clearpage\thispagestyle{empty}
-\begin{tikzpicture}[remember picture,overlay]
-\draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
-% \draw (current page.center) node[bag] {  
-    \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
-        % \mytitlefont 
-        \color{titlecolor} \large Bioinformatics Research Centre \\ 
-        % \mytitlefont 
-        \color{titlecolor} \large Department of Molecular Biology and Genetics \\ 
-        % \mytitlefont 
-        \color{titlecolor} \large Aarhus University \\
-        % \mytitlefont 
-        \color{titlecolor} \large Universitetsbyen 81 \\
-        % \mytitlefont 
-        \color{titlecolor} \large 8000 Aarhus C \\
-        % \mytitlefont 
-        \color{titlecolor} \large Denmark
-        };
+% % back side
+% \AtEndDocument{\clearpage\thispagestyle{empty}
+% \begin{tikzpicture}[remember picture,overlay]
+% \draw (current page.center) node[inner sep=0, opacity=0.5] {\resizebox{!}{350mm}{\includegraphics{highres_banner.pdf}}};
+% % \draw (current page.center) node[bag] {  
+%     \draw (17, 1.7) node[bag, align=right, anchor=north east] {  
+%         % \mytitlefont 
+%         \color{titlecolor} \large Bioinformatics Research Centre \\ 
+%         % \mytitlefont 
+%         \color{titlecolor} \large Department of Molecular Biology and Genetics \\ 
+%         % \mytitlefont 
+%         \color{titlecolor} \large Aarhus University \\
+%         % \mytitlefont 
+%         \color{titlecolor} \large Universitetsbyen 81 \\
+%         % \mytitlefont 
+%         \color{titlecolor} \large 8000 Aarhus C \\
+%         % \mytitlefont 
+%         \color{titlecolor} \large Denmark
+%         };
 
-\end{tikzpicture}}
+% \end{tikzpicture}}
 
 
 % % picture (AU logo in title page)
@@ -452,8 +454,8 @@ gene drive},
 \makeatother
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
-\author{Søren Jørgensen}
-\date{2025-01-07}
+\author{Søren Jørgensen \and Kasper Munch}
+\date{2025-01-11}
 
 \begin{document}
 \frontmatter
@@ -467,9 +469,23 @@ Primates}
 \vspace{3ex}
 {\Large\bfseries How Edges of Active Chromatin Align with Selection
 Regions in Primates \par}
-\vspace{6ex}
+\vspace{5ex}
 
-    {\Large\bfseries Søren Jørgensen \par}
+        {\bfseries Author: \\ \vspace{0.5ex}}
+        {\bfseries\Large Søren Jørgensen \\ \vspace{0.7ex}}
+            {\large Student ID: 201906763 \\ \vspace{1.2ex} }
+        %
+        {\bfseries Supervisor: \\ \vspace{0.5ex}}
+        {\bfseries\Large Kasper Munch \\ \vspace{0.7ex}}
+        %
+        \par \vspace{0.7ex}
+        %
+        {\large Bioinformatics Research Center (BiRC) \\ \vspace{0.7ex}}
+        %
+        %
+        {\large Molecular Biology and Genetics \\ \vspace{0.7ex}}
+        %
+        {\large Aarhus University, Denmark \\ \vspace{2ex}}
     %
 %
 \vskip 0cm plus 2fill
@@ -480,22 +496,31 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\bfseries\large 2025-01-07 \par}
+{\large 2025-01-11 \par}
 \vspace{3ex}
 
-\vspace{12ex}
+\vspace{10ex}
 {\small Submitted in fulfillment of the requirements
 of the degree of MSc. Bioinformatics \par}
 \pagebreak
 
-\begin{quote}
-\raggedright    
-The hemizygosity of male mammals makes the X chromosome uniquely exposed
-to selective pressures, as the lack of a second copy provides no buffer
-against deleterious mutations. This, combined with a high density of
-essential genes related to reproduction and brain function, suggests the
-existence of biological mechanisms that protect the integrity of the X
-chromosome. One such mechanism is meiotic sex chromosome inactivation
+
+\vspace*{\fill} % Push content to the vertical middle of the page
+\noindent
+\begin{minipage}{.8\textwidth}
+    \centering
+    \hspace*{\fill}\rule{0.5\textwidth}{0.4pt}\hspace*{\fill} % Centered horizontal line
+    \par \vspace{2em} % Add some vertical space
+    {\Large\bfseries\scshape Abstract} % Abstract title
+    \par % End the paragraph
+    \vspace{1em} % Add some vertical space below the title
+    \justifying % Ensure the abstract text is justified (requires the `ragged2e` package)
+    The hemizygosity of male mammals makes the X chromosome uniquely
+exposed to selective pressures, as the lack of a second copy provides no
+buffer against deleterious mutations. This, combined with a high density
+of essential genes related to reproduction and brain function, suggests
+the existence of biological mechanisms that protect the integrity of the
+X chromosome. One such mechanism is meiotic sex chromosome inactivation
 (MSCI) in males, while another could involve chromatin architecture.
 
 In this study, the 3D chromatin architecture of the X chromosome in
@@ -511,17 +536,18 @@ of spermatogenesis.
 
 We find that 200 kbp transition-zones between A/B-compartments in both
 fibroblasts and round spermatids align well with strong selective sweeps
-in humans (ECH-regions), and with strong negative selection in baboons
-(\emph{Papio} spp.). We discuss the biological meaning of these
+in humans (ECH-regions), but not with strong negative selection in
+baboons (\emph{Papio} spp.). We discuss the biological meaning of these
 findings, where conserved chromatin features may help to retain
 non-advantageous alleles, hinting to the role of selfish genetic
-elements in genome evolution. \par
-\raggedleft    
-    {- Søren Jørgensen \par}
-%    
-\end{quote}
-}
+elements in genome evolution. % Insert the abstract text here
+    \par % End the paragraph
+    \vspace{2em} % Add vertical space
+    \hspace*{\fill}\rule{0.5\textwidth}{0.4pt}\hspace*{\fill} % Centered horizontal line
+\end{minipage}
+\vspace*{\fill} % Push the remaining content to the bottom of the page
 
+}
 \renewcommand*\contentsname{Table of contents}
 {
 \setcounter{tocdepth}{2}
@@ -532,7 +558,7 @@ elements in genome evolution. \par
 \mainmatter
 \chapter{Introduction}\label{introduction}
 
-\section{Sexual reproduction and Sex
+\section{Sexual Reproduction and Sex
 Chromosomes}\label{sexual-reproduction-and-sex-chromosomes}
 
 The production of gametes in a sexually reproducing organism is a highly
@@ -548,8 +574,8 @@ steps of molecular steps of reproduction and how our genetic material is
 inherited is essential in biology, bringing insight to areas such as
 speciation, population diversity, and (male) infertility.
 
-Sex chromosomes behave differently than autosomes for a long list of
-reasons. One reason is hemizygosity, where there is only one copy of a
+Sex chromosomes behave differently than autosomes for several reasons.
+One reason is hemizygosity, where there is only one copy of a
 chromosome. The Y chromosome exist only in males, and (generally) never
 more than one copy is in the same individual. The copmlexity increases
 when we tend to the X chromosome, which exist both alone (in males) and
@@ -557,153 +583,241 @@ as two copies (in females). This skewed ratio means that X chromosomes
 exist \(2/3\) of the time in females and only 1/3 of the time in males,
 and it is more exposed in males as there is no other copy to take over
 loss of function. It is also the underlying reasoning for Haldane's rule
-{[}ref{]}, postulating that the heterogametic sex (XY, ZW) is the first
-to dissapear or have severely lowered fitness (e.g.~sterility) when
-crossing different species. Even today, a hundred years later, there is
-only hypotheses as to why this is observed, including
+(Haldane 1922), postulating that the heterogametic sex (XY, ZW) is the
+first to dissapear or have severely lowered fitness (e.g.~sterility)
+when crossing different species. Even today, a hundred years later,
+there is only hypotheses as to why this is observed, including
 \emph{Y-incompatibility} (Y has to be compatible to X or autosomes),
 \emph{dosage compensation} (hybridisation deregulates crucial dosage
 compensation in heterogametes), \emph{dominance} (recessive genes causes
 sterility), \emph{faster-male} (male reproductive genes diverge faster
 than female), \emph{faster-X} (X-linked loci diverge faster than
 autosomal ones), and \emph{meiotic drive} (discrepancy between drivers
-and surpressors on sex chromosomes leads to sterility) {[}ref{]}. While
-is appears to be the same phenomenon across multiple \emph{taxa} (even
-\emph{kingdoms}), it has received different explanations, and consensus
-for different species are not the same. Often times even, several of the
-listed explanations are described to be acting in collaboration
-{[}ref{]}.
+and surpressors on sex chromosomes leads to sterility) (Cowell 2023).
+Additionally, while it appears to be the same phenomenon across multiple
+\emph{taxa} (even \emph{kingdoms}), it has received different
+explanations, and consensus for different species are not the same.
+Often times even, several of the listed explanations are described to be
+acting in collaboration (Lindholm et al. 2016). The complexity of
+selection on the X chromosome therefore still an area of active
+investigation, and several studies infers selective strong selection on
+the X chromosomes across primates, as discussed in the following.
 
-\begin{itemize}
-\tightlist
-\item[$\square$]
-  include something about conserved synteny on chrX here
-\end{itemize}
-
-The complexity of selection on the X chromosome therefore still an area
-of active investigation, and several studies infers selective strong
-selection on the X chromosomes across primates {[}ref{]}
-
-\section{Known selection on X}\label{known-selection-on-x}
-
-\begin{itemize}
-\tightlist
-\item[$\square$]
-  Selective sweeps (or is it?) in humans (ECH90; Skov et al. (2023))
-
-  \begin{itemize}
-  \tightlist
-  \item[$\square$]
-    Explain why it makes sense to compare these data sets
-  \end{itemize}
-\item[$\square$]
-  Negative selection in baboons w.r.t. minor parent ancestry
-
-  \begin{itemize}
-  \tightlist
-  \item[$\square$]
-    Explain why it makes sense to compare these datasets
-  \item[$\square$]
-    The low-diveristy in \emph{p.hamadryas} are very wide - maybe
-    chromatin
-  \end{itemize}
-\end{itemize}
-
-\section{Gene drivers}\label{gene-drivers}
-
-\begin{itemize}
-\tightlist
-\item[$\square$]
-  Talk about what makes a genetic driver, what criteria
-\end{itemize}
+\section{Gene Drive and Selfishness}\label{gene-drive-and-selfishness}
 
 Gene drive occur when a particular collection of genes is propagated
 through a population by increasing the probability of transmitting the
 genes to the offspring from random (Mendelian) inheritance, resulting in
-a biased gene transmission against its alternative. Two categories of
-gene drivers exist (Bravo Núñez, Nuckolls, and Zanders 2018);
-\emph{class one drivers} affect chromosome segregation in meiosis, and
-\emph{killer meiotic drivers} will sabotage meiotic product that have
-not inherited the driving allele {[}ref{]}. This happens regardless of
-the fitness effects of the developed organism, and is there often a
-factor offsetting classical selection. Even though the implications of
-such systems are potentially detrimental, they are notoriously difficult
-to detect. A circumstance contributing to the difficulty is that most
-genetic experiments are done in homozygotes. Bravo Núñez, Nuckolls, and
-Zanders (2018) states that the general choice of experimental system may
-have biased our understanding of sexual reproduction. A key point is;
-meiotic drivers can only be observed in heterozygotes, where a genetic
-driver has a competitor.
+a biased gene transmission against its alternative (referred to as
+\emph{transmission advantage}). Two categories of gene drivers exist
+(Bravo Núñez, Nuckolls, and Zanders 2018); \emph{class one drivers}
+affect chromosome segregation in meiosis, and \emph{killer meiotic
+drivers} will sabotage meiotic product that have not inherited the
+driving allele (Bravo Núñez, Nuckolls, and Zanders 2018). This happens
+regardless of the fitness effects of the developed organism, and is
+there often a factor offsetting classical selection. Even though the
+implications of such systems are potentially detrimental, they are
+notoriously difficult to detect. A circumstance contributing to the
+difficulty is that most genetic experiments are done in homozygotes.
+Bravo Núñez, Nuckolls, and Zanders (2018) states that the general choice
+of experimental system may have biased our understanding of sexual
+reproduction. A key point is; meiotic drivers can only be observed in
+heterozygotes, where a genetic driver has a competitor.
 
-Interestingly, gene drive is much more well-documented on sex
-chromosomes than for autosomes. Possibly because the sex chromosome
-meiotic drive inherently causes a skewed sex ratio, more notably raising
-a flag for further analysis. Another point to consider is, in the case
-of sex chromosome drive, a fully driving gene will lead to the
-extinction of the species {[}ref{]}, as only one (fertile) offspring
-will be produced.
+If an autosomal driver reaches fixation, it no longer has a target to
+act against, and consequently the driving phenotype will not be observed
+(Bravo Núñez, Nuckolls, and Zanders 2018). Over time, as there is
+neither selfish nor selective pressure to maintain the drive mechanism
+of a fixed driver, the mechanism will decay as it accumulates
+inactivating mutations. As a result, genetic drivers are said to be
+transient (Bravo Núñez, Nuckolls, and Zanders 2018) on an evolutionary
+timescale, unless it is linked to another positively selected allele
+(Jaenike 2001). Interestingly, gene drive is much more well-documented
+on sex chromosomes than for autosomes. Possibly because the sex
+chromosome meiotic drive inherently causes a skewed sex ratio, more
+notably raising a flag for further analysis. The consequences of sex
+chromosome drive and skewed sex ratio can be widespread. A fully driving
+gene on X can to lead to the extinction of the population that fixes the
+allele (Jaenike 2001), as only one (fertile) offspring sex will be
+produced. Therefore, sex chromosome drivers usually exist in equilibrium
+with a supressor. When a population becomes female-biased, autosomal
+suppressors will be favored with a process termed \emph{Fisher's sex
+ratio selection} (Lindholm et al. 2016.)
 
-\section{Selfish genes (and
-randomness)}\label{selfish-genes-and-randomness}
+\section{Selection on X}\label{selection-on-x}
 
-\textbf{The conventional story of meiosis in gametogenesis is one of
-random segregation of the sex chromosomes. They split into haploid
-gametes, where each chromosome has an equal chance of being passed on to
-a gamete. That seems like a fair game, but what if some genes are
-cheating the system by making others less viable. A meiotic driver is a
-selfish gene element that modulates meiosis and preferentially transmits
-its own allele through meiosis, regardless of the downstream fitness
-effects it may have (good or bad) on the organism it is part of. This
-phenomenon challenges the traditional understanding of selection,
-extending its scope beyond the fitness effects on an organism to include
-selective pressures at the molecular level. For example, if some genes
-on the X chromosome create a disadvantage for gametes that \emph{do not}
-contain those genes, making sure the Y chromosome is not as viable as
-the X, resulting in a sex imbalance and possibly numerous other
-downstream effects. That is exactly what is coined \emph{sex chromosome
-meiotic drive}(Jaenike 2001), a result of selfish genetic elements.
-Motivated by previous results in the Munch Research group (Munch 2024)
-on hybrid incompatibility and extended common haplotypes (Skov et al.
-2023; Sørensen et al. 2023) that could be explained by meiotic drive, we
-wanted to investigate how these patterns correlate with chromatin
-compartments.}
+As described, the sex chromosomes are under intense selective pressures.
+As a result, they have greatly reduced recombination rates comparing to
+the autosomal background (Dutheil et al. 2015) (especially between X and
+Y) and are less diverse than expected under neutral evolution (Skov et
+al. 2023). A driving element on X may target a region on Y, mitigating
+the risk of self-destruction and increasing its frequency at the same
+time. However as it induces a skewed sex-ratio by limiting the number of
+functioning Y-bearing spermatozoa, the selection on Y to counter this
+effect is strong, engaging an evolutionary arms race between driving
+allele and its supressor, potentially explaining stable Y chromosome
+polymorphisms (Jaenike 2001). However, the Y chromosome only exist in
+the male population and a supressor on Y has only limited effect on the
+X chromosome on a population-scale compared to its autosomal cousins,
+which consequently often harbours supressors of X-drive, as they are
+passed down to more offspring than the Y chromosome. The fight between a
+driver and a supressor in their coevolution is linked to the chromosomal
+architecture, as they have been shown to be protected by low-recombining
+regions or chromosomal inversions, and to be mediating the evolution of
+karyotype (Lindholm et al. 2016). Thus, the structural features of a
+chromosome not only shield genetic drivers but influence the patterns of
+synteny, which, in turn, is shaped by both selection and genomic
+constraints.
 
-\section{Chromatin Architecture}\label{chromatin-architecture}
+Synteny, the conservation of the order of genes along a chromosome, can
+be used to infer many things about a genome, an example being ancestral
+relationships between species. In the assembly of a new reference genome
+for baboon, \emph{Panubis1.0} (Batra et al. 2020), the high level of
+synteny between their assembly and established chromosome-scale assembly
+of rhesus macaque was used to support the correctness of their assembly.
+Additionally, the observed breaks observed in synteny on the Y
+chromosome correspond to the generally high rate of rearrangements
+occuring on Y chromosomes of mammals (Batra et al. 2020; Skov, The
+Danish Pan Genome Consortium, and Schierup 2017). Dutheil et al. (2015)
+uses the high level of synteny on the X chromosomes of the human-chimp
+ancestor to infer a close relationship (at least on X) as well as strong
+selective sweeps acting against chromosomal rearrangements since
+divergence 6-7 million years ago (Munch et al. 2016).
+
+\subsubsection{Extended Common Haplotypes (ECH) in
+humans}\label{extended-common-haplotypes-ech-in-humans}
+
+More low-diversity regions on X in humans have been inferred to be arise
+from selective sweeps between 55,000 (archaic introgression after
+out-of-Africa event) to 45,000 (Ust'-Ishim man) years ago (Skov et al.
+2023). They define the time-span by comparing haplotypes of unadmixed
+African genomes with admixed non-African genomes. Here, they locate
+megabase-spanning regions on the X chromosome where a large proportion
+of the non-African population have reduced archaic introgression,
+hypothesizing that selective sweeps have created these extended common
+haplotypes (ECH).
+
+\subsubsection{Selecting parent ancestry in
+baboons}\label{selecting-parent-ancestry-in-baboons}
+
+Mapping the interspecies gene flow between baboon genomes in their
+evolutionary history have revealed male-driven admixture patterns 6
+baboon species(Sørensen et al. 2023). They infer a male-driven admixture
+from mismatching phylogenies of the mitochondrial DNA and the nuclear
+DNA, indicating a role of nuclear swamping. They compare the ratio of
+chromosome 8/X admixture between the populations, supporting the same
+pattern. Recently, in an unpublished analysis by Munch (2024), large
+megabase-regions were identified in olive baboon (\emph{Papio anubis}),
+where either all individuals had \emph{olive} ancestry, or 95\% of the
+individuals had \emph{hamadryas} ancestry, significantly diverging from
+the background.
+
+Studying live and closely related primate species is our best way of
+glimpsing into how the \emph{hominin} (human, Neanderthal, Denisovan)
+phylogenies have been formed, and by studying the intricate effects of
+population structure, migration and selection, we might infer events in
+our archaic history.
 
 \begin{itemize}
 \tightlist
-\item[$\square$]
+\item[$\boxtimes$]
+  synteny on chrX
+\item[$\boxtimes$]
+  Selective sweeps (or is it?) in humans (ECH90; Skov et al. (2023))
+\item[$\boxtimes$]
+  Negative selection in baboons w.r.t. minor parent ancestry
+\item[$\boxtimes$]
+  Erik: Negative selection against Admixture
+\item[$\boxtimes$]
+  Draw a parallel to Human/Neanderthal
+\end{itemize}
+
+\section{Chromatin Architecture}\label{chromatin-architecture}
+
+This is were the ends are tied and this project comes together. The
+regions of strong selection that have been located across primate
+species (human and baboon) are all on the X chromosome and on the same
+genomic scale (spanning up a million base pairs). As discussed, the
+chromosomal arrangement and rearrangement play a crucial role for
+synteny and chromosomal architecture in general, and it has a massive
+impact on evolution.
+
+Generally, the structure and compartmentalization of chromatin is highly
+conserved, and the structural patterns are evident in animals
+throughout. Wang et al. (2019) found that through the stages of
+spermatogeneis, chromatin compartmentalization undergo massive
+reprogramming, going from megabase-spanning compartments through
+smaller, \emph{refined} compartments and back to the megabase
+compartments. The reprogramming is conserved between rhesus macaque and
+mouse, indicating a very important feature of the organization.
+Chromatin has long since been implicated in gene regulation and the
+functional state of the cell (Lieberman-Aiden et al. 2009), as the
+three-dimensional structure of the chromosome can bring distant regions
+in close proximity, and disrupting the organization can lead to
+development abnormalities (Dixon et al. 2015). Even at smaller scales,
+at the level of topologically associating domains (TADs) or chromatin
+loops (Ramírez et al. 2018; Zuo et al. 2021), the structure helps
+segregate regulatory elements and ensure proper function. Modelling
+chromatin compartmentalization through spermatogenesis makes Wang et al.
+(2019) and their Hi-C data obvious starting pointa for investing the
+relationship between these (yet another) megabase-spanning conserved
+regions and those of strong selection identified above.
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
   Chromatin organization is highly conserved between species
-\item[$\square$]
+\item[$\boxtimes$]
   Explain why take offset in Wang et al. (2019)
 \item[$\square$]
   Exlpain the rationale of reproducing results with the latest reference
-\item
-  {[} {]}
+\item[$\boxtimes$]
+  Explain why it makes sense to compare these datasets
+\item[$\boxtimes$]
+  The low-diveristy in \emph{P.hamadryas} and ECH are very wide -
+  chromatin has same window size??
 \end{itemize}
 
 \section{3C: Chromatin Conformation
 Capture}\label{c-chromatin-conformation-capture}
 
-\begin{itemize}
-\tightlist
-\item[$\square$]
-  This might not be needed or will be merged with Hi-C section
-\end{itemize}
+The first method to capture long-range interactions between pairs of
+loci was 3C, where spatially constrained ligation is performed followed
+by locus-specific PCR (Lieberman-Aiden et al. 2009). Then, inverse PCR
+was added to the pipeline (4C) and multiplexed ligation-mediated
+amplification (5C). Common for those methods is that they can not make a
+genome-wide analysis which is unbiased, as we have to chose pairs of
+target loci. Our DNA can be divided into different orders of structure.
+\emph{3C} focus on identifying the highest orders of organization inside
+the nucleus, that is, when the 30 nm thick coil of chromatin fibers
+folds into loops, Topologically Associating Domains (TADs), and
+chromatin compartments.
 
 \section{Hi-C: High-Throughput 3C}\label{hi-c-high-throughput-3c}
 
-Our DNA can be divided into different orders of structure. \emph{3C}
-focus on identifying the highest orders of organization inside the
-nucleus, that is, when the 30 nm thick coil of chromatin fibers folds
-into loops, Topologically Associating Domains (TADs), and chromatin
-compartments. Here, we narrow our focus on the largest of the
-structures, \emph{compartments}, that is known to determine availability
-to transcription factors, thus making an \emph{A} compartment
-\emph{active}---and the \emph{B} compartment \emph{inactive}. The
-introduction of the Hi-C (high-throughput 3C) method (Lieberman-Aiden et
-al. 2009) opened new possibilities for exploring the three-dimensional
-organization of the genome.
+The introduction of the Hi-C (high-throughput 3C) method
+(Lieberman-Aiden et al. 2009) opened new possibilities for exploring the
+three-dimensional organization of the genome, as deep-sequencing
+technologies combined with high-performance computing allow for
+genome-wide analysis that is unbiased. Lieberman-Aiden et al. (2009)
+show that when combining spatially constrained ligation with deep
+parallel sequencing and subsequent analysis, we can infer distinct
+chromosomal territories as intrachromosomal contacts were significantly
+less abundant than interchromosomal contacts. The method also confirmed
+the spatial separation of two chromatin conformations in its active
+(open) state or inactive (closed) state, as they were significantly
+correlated with distances measured by fluorescence \emph{in-situ}
+hybridisation (FISH). The two comformations were termed \emph{A}- and
+\emph{B}-compartments, respectively, and A defined to positively
+correlate with gene density. Finally, they showed that loci are
+physically more proximal when they belong to the same compartment
+implying that Hi-C reads serves well as a proxy for distance. Later,
+several smaller-order domains were inferred with the same method, such
+as topologically associating domains (TADs) and chromatin loops. Here,
+we narrow our focus on the largest of the structures,
+\emph{compartments}, that is known to determine availability to
+transcription factors, thus making an \emph{A} compartment
+\emph{active}---and the \emph{B} compartment \emph{inactive}.
 
 \subsection{Hi-C Library preparation}\label{hi-c-library-preparation}
 
@@ -1247,7 +1361,7 @@ pipelines metioned in this report.
 
 \centering{
 
-\includegraphics[width=0.5\linewidth,height=3\textheight]{illustrations/placeholder2000x360.png}
+\includegraphics[width=0.8\linewidth,height=0.5\textheight]{illustrations/placeholder2000x360.png}
 
 }
 
@@ -1308,21 +1422,26 @@ outdated resources I find it reasonable to use the latest reference,
 Mbp. Part of the reasoning for reproducing their results was doing so on
 the latest assembly of the \emph{Macaca mulata} genome, which arguably
 will result in a more accurate mapping of the reads, and a better
-inference of the chromatin compartments as well.
-
-Therefore, the latest reference genome for rhesus macaque/\emph{Macaca
-mulata}, \emph{rheMac10}/\emph{Mmul\_10} (UCSC or NCBI naming
-conventions, respectively) was downloaded to GDK from UCSC web servers
-with \texttt{wget}. To use \texttt{bwa} for mapping, rheMac10 needs to
-be indexed with both \texttt{bwa\ index} with the \texttt{-\/-bwtsw}
-option and \texttt{samtools\ faidx}, which results in six indexing files
-for \texttt{bwa\ mem} to use.
-
-Several mappers were used in different configurations (described in
-below), and \texttt{bowtie2} requires its own indexing of the reference,
-using \texttt{bowtie2-build\ -\/-large-index}, which creates six index
-files for \texttt{bowtie2} to use. \texttt{-\/-large-index} creates the
-special indexing format required for large genomes such as macaque.
+inference of the chromatin compartments as well. Therefore, the latest
+reference genome for rhesus macaque/\emph{Macaca mulata},
+\emph{rheMac10}/\emph{Mmul\_10} (UCSC or NCBI naming conventions,
+respectively) was downloaded to GDK from UCSC web servers with
+\texttt{wget}. To use \texttt{bwa} for mapping, rheMac10 needs to be
+indexed with both \texttt{bwa\ index} with the \texttt{-\/-bwtsw} option
+and \texttt{samtools\ faidx}, which results in six indexing files for
+\texttt{bwa\ mem} to use. Two mappers (bwa-mem and bowtie2) were used in
+different configurations (described below), and \texttt{bowtie2}
+requires its own indexing of the reference, using
+\texttt{bowtie2-build\ -\/-large-index}, which creates six index files
+for \texttt{bowtie2} to use. \texttt{-\/-large-index} creates the
+special indexing format required for large genomes such as macaque. As
+we use the position of the centromere to partition chrX into its two
+arms, and no comment about it was made by Warren et al. (2020), the
+centromeric region was inferred (visually) from the UCSC browser view of
+\emph{rheMac10}, where a large continuous region
+(chrX:57,500,000-60,200,000) had no annotation and showed many repeating
+regions. The region is roughly the same region as inferred by Wang et
+al. (2019) by the same method.
 
 \section{HiCExplorer trials}\label{hicexplorer-trials}
 
@@ -1764,8 +1883,8 @@ Careful considerations were made to avoid multiple testing biases
 (p-hacking): Performing tests on all combinations of variables (cell
 type, resolution, viewframe, flip annot, query) will yield 180 p-values
 for each test, and we would have to adjust the significance threshold
-(with \(\alpha = 0.05\), we expect 9 `significant' tests by chance
-alone). However, if we test only a few combinations we will greatly
+(with \(\alpha = 0.05\), we expect 9 tests passing the threshold by
+chance). However, if we test only a few combinations we will greatly
 reduce that.
 
 \chapter{Results}\label{results}
@@ -1778,90 +1897,64 @@ The separately mapped read-mates were parsed into a \emph{.h5}
 interaction matrix by \texttt{hicBuildMatrix}, which include a
 \emph{.log} file documenting the builtin quality control (hereafter,
 \emph{QC}). Log files from the 5 samples were merged with \texttt{hicQC}
-(Figure~\ref{fig-explorer-qc}). We observe showed equal fractions of the
-read-orientation of read-pairs
-(Figure~\ref{fig-explorer-read-orientation}), which is expected for a
-good Hi-C library. Additionally, it determines between 40\% to 50\% of
+(Figure~\ref{fig-explorer-all-3-qc}). We observe showed equal fractions
+of the read-orientation of read-pairs
+(Figure~\ref{fig-explorer-all-3-qc}, left, row 5), which is expected for
+a good Hi-C library. Additionally, it determines between 40\% to 50\% of
 the total reads to be valid Hi-C contacts
-(Figure~\ref{fig-explorer-unique-pairs}), which is usually only
+(Figure~\ref{fig-explorer-all-3-qc}, left, row 1), which is usually only
 25\%-40\% (as described in HiCExplorer docs).
-Figure~\ref{fig-explorer-contact-distance} shows, however, unusually
-high fractions of \emph{inter}-chromosomal contacts (up to 30\%)
-compared to \emph{intra}-chromosomal contacts (also denoted \emph{trans}
-and \emph{cis} contacts, respectively). It is expected that \emph{cis}
-contacts are orders of magnitude more frequent than \emph{trans}
-contacts (Bicciato and Ferrari 2022, 2301:236; Lieberman-Aiden et al.
-2009), and HiCExplorer states it should be below 10\% (docs). The high
-fraction may be mitigated by enforcing a stricter \emph{mapq} threshold
-for a valid Hi-C pair, as we also observe higher-than expected valid
-contacts. However, we continue without the current matrices.
+Figure~\ref{fig-explorer-all-3-qc} (left, row 4) shows, however,
+unusually high fractions of \emph{inter}-chromosomal contacts (up to
+30\%) compared to \emph{intra}-chromosomal contacts (also denoted
+\emph{trans} and \emph{cis} contacts, respectively). It is expected that
+\emph{cis} contacts are orders of magnitude more frequent than
+\emph{trans} contacts (Bicciato and Ferrari 2022, 2301:236;
+Lieberman-Aiden et al. 2009), and HiCExplorer states it is usually below
+10\% for a high-quality library. The high fraction may be mitigated by
+enforcing a stricter \emph{mapq} threshold for a valid Hi-C pair, as we
+also observe higher-than expected valid contacts. However, we continue
+with the current matrices. To compare how well these mappings perform ,
+the QC results is an easy way. Therefore, the reads were mapped with
+\emph{bowtie2} in both end-to-end- and local-mode followed by
+\texttt{hiCBuildMatrix}, and the QC from each method was plotted next to
+each other (Figure~\ref{fig-explorer-all-3-qc}). Interestingly,
+\emph{bowtie2} was much more computer-intensive in both modes, perhaps
+because of the \texttt{-\/-very-sensitive} option. In any case, the QC
+reveals a major difference in the total number of reads that are
+determined to be valid Hi-C contacts by \texttt{hicBuildMatrix}. As
+expected, mapping with \emph{end-to-end-bowtie2} makes locating Hi-C
+contacts more difficult than the other methods
+(Figure~\ref{fig-explorer-all-3-qc}, row 1), finding a very low amount
+of mappable, unique pairs passing the quality threshold. In contrast,
+mapping with \emph{local-bowtie2} performs similarly to \emph{bwa} in
+finding mappable, unique, high-quality pairs, but calls only
+approximately half the number of valid Hi-C contacts (\textgreater20\%),
+resulting in a fraction of valid Hi-C pairs that hits the expectation
+from \emph{HicExplorer} docs (row3). With \emph{bwa}, the reads were
+discarded either due to low mapping quality or non-unique mates, whereas
+with \emph{local-bowtie2}, the reads were almost exclusively filtered
+out due to low mapping quality. This must be a result of how the mappers
+assign mapping quality, and I believe \emph{local-bowtie2} looks
+suspiciously selective in finding unique but low quality alignments.
+\emph{end-to-end-bowtie} almost exclusively filters out read-pairs where
+one mate is unmapped, which is expected when the majority of reads are
+unmapped.
 
-\begin{figure}
-
-\begin{minipage}{0.33\linewidth}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{../steps/bwa/QC_all_samples/read_orientation.png}}
-
-}
-
-\subcaption{\label{fig-explorer-read-orientation}Read orientation}
-
-\end{minipage}%
-%
-\begin{minipage}{0.33\linewidth}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{../steps/bwa/QC_all_samples/unmappable_and_non_unique.png}}
-
-}
-
-\subcaption{\label{fig-explorer-unique-pairs}Unique pairs}
-
-\end{minipage}%
-%
-\begin{minipage}{0.33\linewidth}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{../steps/bwa/QC_all_samples/pairs_discarded.png}}
-
-}
-
-\subcaption{\label{fig-explorer-discarded-pairs}Discarded pairs}
-
-\end{minipage}%
-\newline
-\begin{minipage}{0.33\linewidth}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{../steps/bwa/QC_all_samples/pairs_sequenced.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-latex/..-notebooks-01_hicexplorer-fig-explorer-all-3-qc-output-1.png}}
 
 }
 
-\subcaption{\label{fig-explorer-pairs-sequenced}Pairs sequenced}
-
-\end{minipage}%
-%
-\begin{minipage}{0.33\linewidth}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{../steps/bwa/QC_all_samples/distance.png}}
-
-}
-
-\subcaption{\label{fig-explorer-contact-distance}Contact distance}
-
-\end{minipage}%
-
-\caption{\label{fig-explorer-qc}Quality control of the mapped Hi-C reads
-using \emph{HiCExplorer} \texttt{hicQC}. The figures should be moved to
-Supplementary/Appendix because they are ugly and un-alignable. But that
-is the fault of HiCExplorer, not me.}
+\caption{\label{fig-explorer-all-3-qc}Comparison of HiCExplorer QC plots
+for all samples using different alignment tools. The rows represent
+different QC plots (pairs sequenced, pairs discarded,
+unmappable/non-unique, distance, and read orientation), and the columns
+represent the 3 alignments used (BWA, Bowtie2 end-to-end, Bowtie2
+local). Generated by \texttt{hicQC}.}
 
 \end{figure}%
 
@@ -1980,19 +2073,6 @@ low quality alignments. \emph{end-to-end-bowtie} almost exclusively
 filters out read-pairs where one mate is unmapped, which is expected
 when the majority of reads are unmapped.
 
-\begin{figure}[H]
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-latex/..-notebooks-01_hicexplorer-fig-explorer-all-3-qc-output-1.png}}
-
-}
-
-\caption{\label{fig-explorer-all-3-qc}Comparison of HiCExplorer QC plots
-for all samples using different alignment tools.}
-
-\end{figure}%
-
 As discussed, the five samples were pooled with \texttt{hicSumMatrices},
 and the non-standard contigs (unplaced scaffolds) were filtered out, and
 the different resolutions were created (\texttt{hicMergeMatrixBins}).
@@ -2000,7 +2080,15 @@ the different resolutions were created (\texttt{hicMergeMatrixBins}).
 correcting the matrix, which should be applied if different samples
 should have comparable bin counts. It has no effect when having only one
 matrix. Nevertheless, the pooled matrix was normalized and then
-corrected compared in Figure~\ref{fig-explorer-pooled-norm-normcorr}.
+corrected compared in Figure~\ref{fig-explorer-pooled-norm-normcorr}. It
+is now obvious why we have to correct the matrix. The uncorrected
+(Figure~\ref{fig-explorer-pooled-chrX-norm}) has no signal apart from
+the diagonal. Even though some bins have been filtered out, the expected
+\emph{plaid} pattern of a contact matrix is visible along the diagonal
+after the correction (Figure~\ref{fig-explorer-pooled-chrX-normcorr}),
+leaving evidence for chromatin structure, especially in the first 50
+million bases of the chromosome. There is a wide region of empty values
+at the place of the centromere.
 
 \begin{figure}
 
@@ -2034,15 +2122,6 @@ interaction matrices before/after iterative correction
 (\emph{HiCExplorer}).}
 
 \end{figure}%
-
-It is now obvious why we have to correct the matrix. The uncorrected
-(Figure~\ref{fig-explorer-pooled-chrX-norm}) has no signal apart from
-the diagonal. Even though some bins have been filtered out, the expected
-\emph{plaid} pattern of a contact matrix is visible along the diagonal
-after the correction (Figure~\ref{fig-explorer-pooled-chrX-normcorr}),
-leaving evidence for chromatin structure, especially in the first 50
-million bases of the chromosome. There is a wide region of empty values
-at the place of the centromere.
 
 \subsection{Eigenvectors}\label{eigenvectors}
 
@@ -2096,7 +2175,16 @@ flexible tool was needed.
 \end{minipage}%
 %
 \begin{minipage}{0.33\linewidth}
-\pandocbounded{\includegraphics[keepaspectratio]{../figures/bowtie2/local/normalized/pc3_50kb_corrected_chrX.png}}\end{minipage}%
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{../figures/bowtie2/local/normalized/pc3_50kb_corrected_chrX.png}}
+
+}
+
+\subcaption{\label{fig-explorer-pc3-50kb}}
+
+\end{minipage}%
 \newline
 \begin{minipage}{0.33\linewidth}
 
@@ -2250,7 +2338,38 @@ amplify noise. Even with a high-quality Hi-C library we expect that all
 bins do not have the same coverage throughout(Lajoie, Dekker, and Kaplan
 2015), as restriction enzymes do not bind equally to all regions of the
 genome, and therefore, some bins will be underrepresented as an artefact
-of binding/cutting efficieny of the restriction enzyme used.
+of binding/cutting efficieny of the restriction enzyme used. We can try
+to mitigate the white lines of empty bins that now appear in the
+matrices. The coarsegrained and interpolated matrix is useful to make a
+good-looking interaction matrix, but is not that useful for analysis
+purposes. It might get easier to visually inspect the matrix, but it is
+not clear how well the interpolated matrix reflects the structure of the
+chromatin, and it is not transparent which regions are interpolated and
+which that are not. I find it purposeful for interpolation on
+high-resolution (zoomed-in) views
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}) with small empty
+regions, but misleading for chromosome-wide maps, where typically the
+centromere and extremities of the chromosome have filtered-out bins.
+Interpolation is further discussed below.
+
+The regions that are coarsgrained are small zero- or low-count bins
+which are averaged, effectively reducing the resolution of those regions
+until the count is sufficient. They get more frequent the longer genomic
+distance (the further we travel from the diagonal), and effectively
+enables us to get some intuition about the interactions. The
+coarsegrain, however, does not interpolate the \texttt{NaN}s created
+when filtering out whole bins in the balancing step (horisontal and
+vertical lines in Figure~\ref{fig-rs-chrx-raw-balanced-cgi} and
+Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}; middle). This is done
+in a subsequent step by linearly interpolating the \texttt{NaN}s.
+Examining the interpolated matrix on full chrX
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi}; right) gives the impression
+that the pericentromeric (at \textasciitilde60 Mbp) region harbours a
+\emph{very} strong compartment, but that is clearly an artefact of the
+interpolation on the very large empty region of the centromere, where
+the diagonal is somehow extended in a square. On the thinner lines, the
+interpolation seem to be more smooth, and barely noticable on the
+diagonal.
 
 \begin{figure}[H]
 
@@ -2282,38 +2401,6 @@ is not necessary for the analysis.}
 
 \end{figure}%
 
-We can try to mitigate the white lines of empty bins that now appear in
-the matrices. The coarsegrained and interpolated matrix is useful to
-make a good-looking interaction matrix, but is not that useful for
-analysis purposes. It might get easier to visually inspect the matrix,
-but it is not clear how well the interpolated matrix reflects the
-structure of the chromatin, and it is not transparent which regions are
-interpolated and which that are not. I find it purposeful for
-interpolation on high-resolution (zoomed-in) views
-(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}) with small empty
-regions, but misleading for chromosome-wide maps, where typically the
-centromere and extremities of the chromosome have filtered-out bins.
-Interpolation is further discussed below.
-
-The regions that are coarsgrained are small zero- or low-count bins
-which are averaged, effectively reducing the resolution of those regions
-until the count is sufficient. They get more frequent the longer genomic
-distance (the further we travel from the diagonal), and effectively
-enables us to get some intuition about the interactions. The
-coarsegrain, however, does not interpolate the \texttt{NaN}s created
-when filtering out whole bins in the balancing step (horisontal and
-vertical lines in Figure~\ref{fig-rs-chrx-raw-balanced-cgi} and
-Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}; middle). This is done
-in a subsequent step by linearly interpolating the \texttt{NaN}s.
-Examining the interpolated matrix on full chrX
-(Figure~\ref{fig-rs-chrx-raw-balanced-cgi}; right) gives the impression
-that the pericentromeric (at \textasciitilde60 Mbp) region harbours a
-\emph{very} strong compartment, but that is clearly an artefact of the
-interpolation on the very large empty region of the centromere, where
-the diagonal is somehow extended in a square. On the thinner lines, the
-interpolation seem to be more smooth, and barely noticable on the
-diagonal.
-
 \subsubsection{\texorpdfstring{\texttt{NaN}
 histograms}{NaN histograms}}\label{nan-histograms}
 
@@ -2324,7 +2411,11 @@ bins are filtered out by the balancing algorithm, those bins are
 \texttt{NaN} in the Hi-C matrix. The median position of the \texttt{NaN}
 values (Figure~\ref{fig-e1_nan_hist}) ranges between \(58\) and
 \(63.5\), which is within the estimate of the centromeric region of
-\emph{rhemac10}.
+\emph{rhemac10} (the UCSC browser has a continuously unannotated region
+at chrX:57,500,000-60,200,000). The fact that the medians lie within the
+centromeric region on all cell sources shows both that the majority of
+the bad bins are in the (peri)centromeric region \emph{and} there are
+approximately equally many on each side.
 
 \begin{figure}[H]
 
@@ -2340,26 +2431,21 @@ dashed line.}
 
 \end{figure}%
 
-The fact that the medians lie within the centromeric region on all cell
-sources shows both that the majority of the bad bins are in the
-(peri)centromeric region \emph{and} there are approximately equally many
-on each side.
-
 \subsection{Compartments (Eigenvectors)}\label{sec-results-eigenvectors}
 
-The three viewframes (\emph{Full}, \emph{Arms}, \emph{10Mb}) for the
-calculation of the eigenvectors captured different variability in the
-data (Figure~\ref{fig-e1-matrix-full-arms-10mb-round_spermatid}), and as
-expected, the inferred compartments (colored red on the E1 tracks) are
-more abundant and smaller with smaller viewframes. To determine how well
-each of the E1 tracks capture the pattern in the interaction matrix, we
-can overlay the matrix with the E1 sign-change and visually determine if
-the squares reflect the E1 sign change
+The three viewframes (\emph{Full}, \emph{Arms}, \emph{10Mb}) used for
+the calculation of the eigenvectors captured different variability in
+the data (Figure~\ref{fig-e1-matrix-full-arms-10mb-round_spermatid}),
+and as expected, the inferred compartments (colored red on the E1
+tracks) are more abundant and smaller with smaller viewframes. To
+determine how well each of the E1 tracks capture the pattern in the
+interaction matrix, we can overlay the matrix with the E1 sign-change
+and visually determine if the squares reflect the E1 sign change
 (Figure~\ref{fig-e1-matrix-full-arms-10mb-round_spermatid}).
 
-\begin{figure}[H]
+\begin{figure}
 
-\centering{
+\begin{minipage}{0.50\linewidth}
 
 \centering{
 
@@ -2373,6 +2459,10 @@ eigenvector values for merged round spermatid samples at a) 100kb or b)
 to either Full-chromosome (top), Chromosome-arms (middle), or 10Mb
 windows (bottom)}
 
+\end{minipage}%
+%
+\begin{minipage}{0.50\linewidth}
+
 \centering{
 
 \includegraphics[width=3.09375in,height=2.88542in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-e1-matrix-full-arms-10mb-round_spermatid-output-2.png}
@@ -2381,9 +2471,7 @@ windows (bottom)}
 
 \subcaption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid-2}}
 
-}
-
-\caption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid}}
+\end{minipage}%
 
 \end{figure}%
 
@@ -2705,34 +2793,20 @@ like they overlap, even though the difference is reported.}
 \end{figure}%
 
 We apply both proximity test and Jaccard test, to see how well the
-results could occur by chance (Figure~\ref{fig-proximity-jaccard-bar}).
-For completeness, the tests are included for all cell types, but we only
-use 100kb resolution arms viewframe. We observe that both fibroblast and
-round spermatid have \(p < 0.05\) for both tests, meaning the two cell
-type have both more intersection with ECH regions than expected by
-chance (Jaccard) \emph{and} the non-overlapping intervals are more
-proximal to compartment edges than expected by chance (proximity test).
-I argue that a significant Jaccard statistic should be interpreted as a
-significant amount of overlap between the two sets, i.e.~compartment
-edges and ECH90 regions, and the proximity test (when performed on the
-edges) gives us information about the potential of expanding or moving
-the transition window. That is, if the non-overlapping regions are
-\emph{very} proximal, a larger (or shifted) window to only capture the
-200kb region outside of the edge might be favourable.
-
-\begin{figure}[H]
-
-\centering{
-
-\includegraphics[width=3.10417in,height=2.05208in]{index_files/figure-latex/..-notebooks-06_rec_genomicintervals-fig-proximity-jaccard-bar-output-1.png}
-
-}
-
-\caption{\label{fig-proximity-jaccard-bar}Proximity and Jaccard index
-p-values for ECH90 regions on compartment edges for all cell types at
-100kb resolution at arms view \(p=0.05\) is marked as a red line.}
-
-\end{figure}%
+results could occur by chance. For completeness, the tests are included
+for all cell types, but we only use 100kb resolution arms viewframe. We
+observe that both fibroblast and round spermatid have \(p < 0.05\) for
+both tests, meaning the two cell type have both more intersection with
+ECH regions than expected by chance (Jaccard) and \emph{none} of the
+samples passed the proximity test, meaning the non-overlapping segments
+were not proximal than expected by chance. I argue that a significant
+Jaccard statistic should be interpreted as a significant amount of
+overlap between the two sets, i.e.~compartment edges and ECH90 regions,
+and the proximity test (when performed on the edges) gives us
+information about the potential of expanding or moving the transition
+window. That is, if the non-overlapping regions are \emph{very}
+proximal, a larger (or shifted) window to only capture the 200kb region
+outside of the edge might be favourable.
 
 \section{Testing against regions of selection in
 baboons}\label{testing-against-regions-of-selection-in-baboons}
@@ -2745,9 +2819,13 @@ et al. 2023). The segments had to be lifted to rheMac10 to be able to
 correlate the two sets of intervals. The original UCSC liftOver
 (Hinrichs 2006) is very strict and does not try to conserve segments in
 favor of accuracy e.g.~inversions or small indels, which results in
-highly scattered regions when lifted. To favor preservation of segments,
-we use \emph{segment\_liftover} (Gao, Huang, and Baudis 2018), resulting
-in much more similar regions to the original
+highly fragmented regions when lifted to another assembly, if the
+segments are not continouos on the new assembly. For our analysis, it is
+not the exact genomic position or order of sub-genic regions that are
+important, but rather, the start and end coordinates of each segment are
+quantified. To favor preservation of segments, we use
+\emph{segment\_liftover} (Gao, Huang, and Baudis 2018), resulting in
+much more similar segments to the original
 (Figure~\ref{fig-compare-liftover}). As no chain file from
 \emph{panu\_3.0} to \emph{Mmul\_10} was available, we had to use
 \emph{panu\_2.0} as intermediate.
@@ -2776,7 +2854,8 @@ in much more similar regions to the original
 
 \caption{\label{fig-compare-liftover}Comparison of a) high-olive and b)
 high-hama intervals between Panu\_3.0, segment\_liftover, or UCSC
-liftOver coordinates.}
+liftOver coordinates when lifting from
+PapAnu4--\textgreater PapAnu3--\textgreater rheMac10.}
 
 \end{figure}%
 
@@ -2791,16 +2870,18 @@ smaller. The compartment edges and \emph{Papio anubis}-derived
 regions(Figure~\ref{fig-baboon-rs100-intersect}; b) seem to be highly
 enriched in the first 25 Mbp, and thus it has a high degree of
 intersection with the compartment edges. Interestingly, the ECH90 set is
-nearly empty in that region, making the finding outside the scope of
-this analysis, although it could be useful for determining the mechanism
-for selecting the \emph{P.anubis} ancestral allele in the hybrid baboon
-population. The \emph{P.hamadryas}-derived regions seem intersect the
-compartment edges more centered on the chromosome
-(Figure~\ref{fig-baboon-rs100-intersect}; a). The proximity test ruled
-out that the non-intersecting parts of the respective regions were this
-proximal by chance. However, the Jaccard test revealed that the
-intersection between the RS100 and both Hi-\emph{P.hama} and
-Hi-\emph{P.anu} can be explained by chance alone .
+nearly empty in that region, which could be useful for determining the
+mechanism for selecting against the \emph{P.hamadryas} ancestral allele
+in the hybrid baboon population. The \emph{P.hamadryas}-derived regions
+seem intersect the compartment edges more centered on the chromosome
+(Figure~\ref{fig-baboon-rs100-intersect}; a). The proximity test
+initially ruled out that the non-intersecting parts of the respective
+regions were this proximal by chance. However, after updating the method
+to exclude whole segments that partially overlaps (in stead of keeping
+the non-overlapping parts), there was no statistical significance.
+Additionally, the Jaccard test revealed that the intersection between
+the RS100 and both Hi-\emph{P.hama} and Hi-\emph{P.anu} can be explained
+by chance alone with no p-values below \(0.05\).
 
 \begin{figure}
 
@@ -2868,12 +2949,12 @@ E1}
 \begin{minipage}{0.10\linewidth}
 ~\end{minipage}%
 
-\caption{\label{fig-baboon-rs100-intersect}Comparing the A-compartments
-of round spermatid (RS) with regions in baboons from hybrid population
-where a) 95\% of sampled individuals have \emph{Papio hamadryas}
-ancestry or b) 100\% of the samples have \emph{Papio anubis} ancestry.
-The regions are extracted and lifted from panu4.0 reference to rhemac10,
-then collapsed to non-overlapping intervals with \texttt{genominterv}.}
+\caption{\label{fig-baboon-rs100-intersect}Comparing the A-compartment
+edges of round spermatid (RS) with regions in baboons from hybrid
+population where a) 95\% of sampled individuals have \emph{Papio
+hamadryas} ancestry or b) 100\% of the samples have \emph{Papio anubis}
+ancestry. The regions are extracted and lifted from PapAnu4 to rhemac10
+using segment\_liftover.}
 
 \end{figure}%
 
@@ -2881,7 +2962,45 @@ then collapsed to non-overlapping intervals with \texttt{genominterv}.}
 
 \chapter{Discussion}\label{discussion}
 
-Here is the discussion
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  Clearly an overlap between edges and ECH90 regions, but what does it
+  mean?
+\item[$\square$]
+  Maybe test the intersect against ECH genes as the background
+\item[$\square$]
+  For the arms viewframe, I probably should have left out the
+  centromeric region in stead of just splitting
+\end{itemize}
+
+\chapter{Conclusion and future work}\label{conclusion-and-future-work}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  TADs?
+\item[$\square$]
+  Explore ways to quantify proximity/correlation
+
+  \begin{itemize}
+  \tightlist
+  \item
+    e.g.~insulation-weighted compartments
+  \item
+    find litterature that correlate genomic intervals
+  \end{itemize}
+\item[$\square$]
+  Filter important edges
+
+  \begin{itemize}
+  \tightlist
+  \item
+    filter against low insulation score
+  \item
+    filter against edges that have adjecent missing values
+  \end{itemize}
+\end{itemize}
 
 \chapter*{Bibliography}\label{bibliography}
 \addcontentsline{toc}{chapter}{Bibliography}
@@ -2897,6 +3016,14 @@ for {Hi-C} Data and Other Genomically Labeled Arrays.''} Edited by
 Jonathan Wren. \emph{Bioinformatics} 36 (1): 311--16.
 \url{https://doi.org/10.1093/bioinformatics/btz540}.
 
+\bibitem[\citeproctext]{ref-batra2020accurateassemblyolive}
+Batra, Sanjit Singh, Michal Levy-Sakin, Jacqueline Robinson, Joseph
+Guillory, Steffen Durinck, Tauras P Vilgalys, Pui-Yan Kwok, et al. 2020.
+{``Accurate Assembly of the Olive Baboon ( {\emph{Papio}}{
+\emph{Anubis}} ) Genome Using Long-Read and {Hi-C} Data.''}
+\emph{GigaScience} 9 (12): giaa134.
+\url{https://doi.org/10.1093/gigascience/giaa134}.
+
 \bibitem[\citeproctext]{ref-bicciato2022hicdataanalysis}
 Bicciato, Silvio, and Francesco Ferrari, eds. 2022. \emph{Hi-{C Data
 Analysis}: {Methods} and {Protocols}}. Vol. 2301. Methods in {Molecular
@@ -2909,10 +3036,29 @@ Bravo Núñez, María Angélica, Nicole L. Nuckolls, and Sarah E. Zanders.
 in Genetics} 34 (6): 424--33.
 \url{https://doi.org/10.1016/j.tig.2018.02.003}.
 
+\bibitem[\citeproctext]{ref-cowell2023100yearshaldanes}
+Cowell, Finn. 2023. {``100 Years of {Haldane}'s Rule.''} \emph{Journal
+of Evolutionary Biology} 36 (2): 337--46.
+\url{https://doi.org/10.1111/jeb.14112}.
+
 \bibitem[\citeproctext]{ref-devteam2024sratoolkit}
 DevTeam, SRA Toolkit. 2024. {``{SRA Toolkit}.''} Wiki. \emph{GitHub}.
 https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit.
 \url{https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software}.
+
+\bibitem[\citeproctext]{ref-dixon2015chromatinarchitecturereorganization}
+Dixon, Jesse R., Inkyung Jung, Siddarth Selvaraj, Yin Shen, Jessica E.
+Antosiewicz-Bourget, Ah Young Lee, Zhen Ye, et al. 2015. {``Chromatin
+Architecture Reorganization During Stem Cell Differentiation.''}
+\emph{Nature} 518 (7539): 331--36.
+\url{https://doi.org/10.1038/nature14222}.
+
+\bibitem[\citeproctext]{ref-dutheil2015strongselectivesweeps}
+Dutheil, Julien Y., Kasper Munch, Kiwoong Nam, Thomas Mailund, and
+Mikkel H. Schierup. 2015. {``Strong {Selective Sweeps} on the {X
+Chromosome} in the {Human-Chimpanzee Ancestor Explain Its Low
+Divergence}.''} Edited by Nick H. Barton. \emph{PLOS Genetics} 11 (8):
+e1005451. \url{https://doi.org/10.1371/journal.pgen.1005451}.
 
 \bibitem[\citeproctext]{ref-ewels2016multiqcsummarizeanalysis}
 Ewels, Philip, Måns Magnusson, Sverker Lundin, and Max Käller. 2016.
@@ -2926,6 +3072,11 @@ A {Python} Tool to Convert Segments Between Genome Assemblies.''}
 \emph{F1000Research} 7 (June): 319.
 \url{https://doi.org/10.12688/f1000research.14148.2}.
 
+\bibitem[\citeproctext]{ref-haldane1922sexratiounisexual}
+Haldane, J. B. S. 1922. {``Sex Ratio and Unisexual Sterility in Hybrid
+Animals.''} \emph{Journal of Genetics} 12 (2): 101--9.
+\url{https://doi.org/10.1007/BF02983075}.
+
 \bibitem[\citeproctext]{ref-hinrichs2006ucscgenomebrowser}
 Hinrichs, A. S. 2006. {``The {UCSC Genome Browser Database}: Update
 2006.''} \emph{Nucleic Acids Research} 34 (90001): D590--98.
@@ -2937,6 +3088,10 @@ Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A
 Mirny. 2012. {``Iterative Correction of {Hi-C} Data Reveals Hallmarks of
 Chromosome Organization.''} \emph{Nature Methods} 9 (10): 999--1003.
 \url{https://doi.org/10.1038/nmeth.2148}.
+
+\bibitem[\citeproctext]{ref-auityourguidegai}
+IT, AU. n.d. {``Your Guide to {GAI} Responsibly.''}
+https://medarbejdere.au.dk/en/gai. Accessed January 9, 2025.
 
 \bibitem[\citeproctext]{ref-jaenike2001sexchromosomemeiotic}
 Jaenike, John. 2001. {``Sex {Chromosome Meiotic Drive}.''} \emph{Annual
@@ -2956,9 +3111,22 @@ Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009.
 Principles} of the {Human Genome}.''} \emph{Science} 326 (5950):
 289--93. \url{https://doi.org/10.1126/science.1181369}.
 
+\bibitem[\citeproctext]{ref-lindholm2016ecologyevolutionarydynamics}
+Lindholm, Anna K., Kelly A. Dyer, Renée C. Firman, Lila Fishman,
+Wolfgang Forstmeier, Luke Holman, Hanna Johannesson, et al. 2016. {``The
+{Ecology} and {Evolutionary Dynamics} of {Meiotic Drive}.''}
+\emph{Trends in Ecology \& Evolution} 31 (4): 315--26.
+\url{https://doi.org/10.1016/j.tree.2016.02.001}.
+
 \bibitem[\citeproctext]{ref-munch2024munchgroup}
 Munch, Kasper. 2024. {``Munch-Group.''}
 https://munch-group.org/research.html.
+
+\bibitem[\citeproctext]{ref-munch2016selectivesweepstwenty}
+Munch, Kasper, Kiwoong Nam, Mikkel Heide Schierup, and Thomas Mailund.
+2016. {``Selective {Sweeps} Across {Twenty Millions Years} of {Primate
+Evolution}.''} \emph{Molecular Biology and Evolution} 33 (12): 3065--74.
+\url{https://doi.org/10.1093/molbev/msw199}.
 
 \bibitem[\citeproctext]{ref-openchromosomecollective}
 {``Open {Chromosome Collective} ({Open2C}).''} n.d. Resource.
@@ -2971,12 +3139,26 @@ A. Galitsyna, Anton Goloborodko, Maxim Imakaev, and Sergey V. Venev.
 Edited by Ferhat Ay. \emph{PLOS Computational Biology} 20 (5): e1012164.
 \url{https://doi.org/10.1371/journal.pcbi.1012164}.
 
+\bibitem[\citeproctext]{ref-ramirez2018highresolutiontadsreveal}
+Ramírez, Fidel, Vivek Bhardwaj, Laura Arrigoni, Kin Chung Lam, Björn A.
+Grüning, José Villaveces, Bianca Habermann, Asifa Akhtar, and Thomas
+Manke. 2018. {``High-Resolution {TADs} Reveal {DNA} Sequences Underlying
+Genome Organization in Flies.''} \emph{Nature Communications} 9 (1):
+189. \url{https://doi.org/10.1038/s41467-017-02525-w}.
+
 \bibitem[\citeproctext]{ref-skov2023extraordinaryselectionhuman}
 Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves
 Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch.
 2023. {``Extraordinary Selection on the Human {X} Chromosome Associated
 with Archaic Admixture.''} \emph{Cell Genomics} 3 (3): 100274.
 \url{https://doi.org/10.1016/j.xgen.2023.100274}.
+
+\bibitem[\citeproctext]{ref-skov2017analysis62hybrid}
+Skov, Laurits, The Danish Pan Genome Consortium, and Mikkel Heide
+Schierup. 2017. {``Analysis of 62 Hybrid Assembled Human {Y} Chromosomes
+Exposes Rapid Structural Changes and High Rates of Gene Conversion.''}
+Edited by Kateryna D. Makova. \emph{PLOS Genetics} 13 (8): e1006834.
+\url{https://doi.org/10.1371/journal.pgen.1006834}.
 
 \bibitem[\citeproctext]{ref-sorensen2023genomewidecoancestryreveals}
 Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran,
@@ -2998,9 +3180,73 @@ Shwetha C. Murali, Jason Fernandes, Philip C. Dishuck, et al. 2020.
 Enhance Its Biomedical Utility.''} \emph{Science} 370 (6523): eabc6617.
 \url{https://doi.org/10.1126/science.abc6617}.
 
+\bibitem[\citeproctext]{ref-zuo2021stageresolvedhicanalyses}
+Zuo, Wu, Guangming Chen, Zhimei Gao, Shuai Li, Yanyan Chen, Chenhui
+Huang, Juan Chen, Zhengjun Chen, Ming Lei, and Qian Bian. 2021.
+{``Stage-Resolved {Hi-C} Analyses Reveal Meiotic Chromosome
+Organizational Features Influencing Homolog Alignment.''} \emph{Nature
+Communications} 12 (1): 5827.
+\url{https://doi.org/10.1038/s41467-021-26033-0}.
+
 \end{CSLReferences}
 
 \endgroup
+
+\chapter*{A Appendix}\label{a-appendix}
+\addcontentsline{toc}{chapter}{A Appendix}
+
+\section{Aknowledgements}\label{aknowledgements}
+
+I would like to extend my sincere gratitude to my supervisor, Kasper
+Munch, for his guidance and support throughout this project. His
+sparring and scientific literacy have been invaluable in refining my
+ideas and shaping the direction of this work. I am especially thankful
+for Kasper's enthusiasm, which has been a source of motivation during
+this process. His expertise and insights were instrumental in setting up
+the Quarto templates and providing support for the discussion. His
+constructive feedback on the manuscript has greatly improved its
+quality. I feel fortunate to have had the opportunity to learn from and
+work with such a knowledgeable and dedicated mentor.
+
+I would also like to thank my brother, Jakob, for his help with
+proofreading of the manuscript.
+
+I would also like to express my heartfelt gratitude to Clara for her
+unwavering support, patience, and encouragement throughout this process.
+Her understanding and care have been a constant source of strength.
+
+A special thank you to my son, Birk, for bringing joy and perspective
+into my life, forcing me to take some hours off.
+
+\subsection{Use of Generative Artificial
+Intelligence}\label{use-of-generative-artificial-intelligence}
+
+As per Aarhus University guidelines (IT n.d.), I hereby disclose my use
+of Generative Artificial Intelligence (GAI) tools during the preparation
+of this thesis. All usage was conducted critically and responsibly,
+ensuring that the final work remained my own and adhered to academic
+integrity standards. These tools supplemented my expertise and
+accelerated routine tasks, but all creative, analytical, and scientific
+contributions are my own.
+
+\subsubsection{Copilot}\label{copilot}
+
+I used Copilot for code completion and debugging, as well as modifying
+existing code to reflect updated variables and experimental needs.
+
+\subsubsection{ChatGPT}\label{chatgpt}
+
+ChatGPT provided syntax support for Bash, YAML, JSON, Mermaid diagrams,
+and Pandoc Templates, to accelerate my learning of new programming
+languages. It hallucinates a lot about Quarto.
+
+\subsubsection{NotebookLM}\label{notebooklm}
+
+NotebookLM supported the re-identification of references for a small
+amount of statements where placeholders (\texttt{{[}ref{]}}) were
+initially used before setting up BibTex references. Also to look up
+contradicting statements from other sources. NotebookLM only `knows' the
+sources you provide it.
 
 
 \backmatter
