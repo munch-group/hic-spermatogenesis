@@ -92,7 +92,7 @@ Initially, Hi-C library preparation was designed to generate molecules with only
 
 ### Hi-C Data Analysis
 
-The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks, see \[ref fig-hic-analysis-flow\].
+The analysis of the read-pairs of a Hi-C library is divided into several smaller tasks, see [@fig-hic-analysis-flow].
 
 ::: {#fig-hic-analysis-flow}
 ![](illustrations/fig-hic-data-analysis.png)
@@ -152,21 +152,22 @@ Even with a binned, filtered, and balanced matrix, we are still left with the ch
 
 #### Compartment Edges and Genomic Intervals
 
-As arbitrary as a compartment may be defined, we chose to define another genomic interval for analysis. It is well [@bicciato2022hicdataanalysis, Ch. 3] known that CTCF and other structural proteins preferentially binds to Topologically Associating Domains (TADs; they were initially defined as sub-Mb chromatin structures [@lajoie2015hitchhikersguidehic], but now the definition seems to vary based on the method of extraction \[ref cooltools\]). Derived from this, we define a transition zone between A/B compartments to look for enrichment of specific regions of interest.
+As arbitrary as a compartment may be defined, we chose to define another genomic interval for analysis. It is well [@bicciato2022hicdataanalysis, Ch. 3] known that CTCF and other structural proteins preferentially binds to Topologically Associating Domains (TADs; they were initially defined as sub-Mb chromatin structures [@lajoie2015hitchhikersguidehic], but now the definition seems to vary based on the method of extraction [@open2c2022cooltoolsenablinghighresolution]). Derived from this, we define a transition zone between A/B compartments to look for enrichment of specific regions of interest.
 
 We can test if two sets of genomic intervals correlate (say, compartment edges and ECH regions) by either proximity of the non-intersecting parts of the sets, or by intersection over union (Jaccard index). When the underlying distribution of a statistic (or index) is unknown, a widespread method in bioinformatics for estimating a p-value is by bootstrapping. Here, one of the sets are bootstrapped (the intervals are placed at random positions) a number of times, $b$, and the fraction of statistics more extreme than the one we observe is reported as the p-value.
 
 ## Reproducibility Infrastructure
 
-Reproducibility is a cornerstone of the scientific method, ensuring that findings can be independently verified and built upon by others. Without it, the credibility of research findings is undermined, hindering scientific progress by becoming anecdotal. The necessity of reproducibility also aligns with scientific skepticism---the practice of critically evaluating evidence and methods to guard against biases or errors. As research grows increasingly computational, robust reproducibility infrastructure is essential to maintain these principles [@ref], facilitating transparency, validation, and collaboration across diverse scientific disciplines. Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git [@git], GitHub [@github], quarto [@Allaire_Quarto_2024], Anaconda [@anaconda], gwf [@gwf], and Jupyter [@soton403913jupyter]. The result is a fully reproducible analysis, including figures and tables in only 3 lines of code and a HPC cluster (see @tbl-reproducibility for a brief overview): 
+Reproducibility is a cornerstone of the scientific method, ensuring that findings can be independently verified and built upon by others. Without it, the credibility of research findings is undermined, hindering scientific progress by becoming anecdotal. The necessity of reproducibility also aligns with scientific skepticism---the practice of critically evaluating evidence and methods to guard against biases or errors. As research grows increasingly computational, robust reproducibility infrastructure is essential to maintain these principles [@baker20161500scientistslift], facilitating transparency, validation, and collaboration across diverse scientific disciplines. Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git [@git], GitHub [@github], quarto [@Allaire_Quarto_2024], Anaconda [@anaconda], gwf [@gwf], and Jupyter [@soton403913jupyter]. The result is a fully reproducible analysis, including figures and tables in only 3 lines of code and a HPC cluster (see @tbl-reproducibility for a brief overview): 
 
-```{{bash}}
-git clone https://github.com/munch-group/hic-spermatogenesis.git
-conda env create -f binder/environment.yml
-gwf run
-```
 
 \small
+
+```{.console code-line-numbers="true"}
+  git clone https://github.com/munch-group/hic-spermatogenesis.git
+  conda env create -f binder/environment.yml
+  gwf run
+```
 
 ::: {#tbl-reproducibility .striped}
 | Tool | Description |
@@ -221,7 +222,7 @@ Compare with regions of extended common haplotypes (strong selective sweeps) tha
 
 # Methods
 
-All computations were performed on GenomeDK (GDK) \[ref\], an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was made into a custom *gwf* workflow \[ref\], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.
+All computations were performed on GenomeDK (GDK), an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was made into a custom *gwf* workflow \[ref\], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.
 
 With the analysis tools determined in the above section, we decided it was not feasible to follow the exact approach as @wang2019reprogrammingmeioticchromatin with any of *HiCExplorer* and *Open2C*, as they use a third software, *HiC-Pro*. For mapping the raw reads, Hic-Pro internally uses bowtie2 in end-to-end mode, followed by trimming the 3'-end of the unmapped reads, then remapping the 5'-ends to rescue chimeric fragments. I mapped the reads using `bowtie2 --end-to-end` without the rescue-remapping, and it returned a very high fraction of discarded reads, and it would be silly to spend time on implementing the remapping approach manually. When redoing analyses, it is not sensical to use methods that are not state-of-the-art, and judged by the time since last release (HiC-Pro v3.1.0 in 2021), both HiCExplorer and Open2C are more recent. Additionally, the HiC-Pro pipeline stops at a normalized contact map, and is thus not sufficient for downstream analysis. In hindsight, it would have been more sensical to use *HiC-Pro* to get normalized contact maps, then continue analyzing with *cooler*/*cooltools*, then compare the results evenly with the results achieved from using Open2C from start to finish. @fig-hic-tools-comparison gives an overview of the 3 pipelines metioned in this report.
 
@@ -541,13 +542,9 @@ Initially, the compartment edges of round spermatid at 100kb resolution (RS100) 
 
 # Bibliography {.unnumbered}
 
-\begingroup
-\raggedright
-
 ::: {#refs}
 :::
 
-\endgroup
 
 # A Appendix {.unnumbered}
 

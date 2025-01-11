@@ -48,7 +48,9 @@ format:
     linestretch: 1.25
     number-sections: true
     number-depth: 2
-    highlight-style: kate 
+    highlight-style: kate
+    code:
+      code-block-bg: "#dedede"
     tbl-cap-location: top
     include-in-header:
       - file: header_extra.tex
@@ -57,6 +59,7 @@ format:
 
 comments:
   hypothesis: true
+
   
 notebook-links: false
 
