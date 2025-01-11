@@ -45,6 +45,7 @@ book:
       - notebooks/04_genomicintervals.ipynb
       - notebooks/05_rec_compartments.ipynb
       - notebooks/06_rec_genomicintervals.ipynb
+      - notebooks/07_various_plotting.ipynb
     - part: "Workflows"
       chapters:
         - workflow.py
