@@ -26,7 +26,7 @@ abstract: |
   
   In this study, the 3D chromatin architecture of the X chromosome in rhesus macaque (*Macaca mulata*) is investigated in the context of evolutionary pressures and genetic drivers. We redo Hi-C analyses from a 2019 paper on the latest reference genome (*rheMac10* or *Mmul_10*). We compare two Hi-C analysis frameworks, *HiCExplorer* and *cooler/cooltools* (Open2C), on a subset, finding Open2C to be most flexible and intuitive. The ICE method (Iterative Correction and Eigendecomposition) was used to infer conventional and refined A/B compartments for fibroblast and four stages of spermatogenesis. 
   
-  We find that 200 kbp transition-zones between A/B-compartments in both fibroblasts and round spermatids align well with strong selective sweeps in humans (ECH-regions), but not with strong negative selection in baboons (*Papio* spp.). We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
+  We find 200 kbp transition-zones between A/B-compartments on the X chromosomes in both fibroblasts and round spermatids that align well with strong selective sweeps in humans (ECH-regions), but not with strong negative selection in baboons (*Papio* spp.). We find that most edges either overlap or are in significant proximity of each other when comparing selected regions human and baboons with A/B-compartments inferred Hi-C matrices at 100kb resolution and restricting eigendecomposition along the X chromosome to 10Mb windows. We discuss the biological meaning of these findings, where conserved chromatin features may help to retain non-advantageous alleles, hinting to the role of selfish genetic elements in genome evolution.
 plain-language-summary: |
   3D structure of chromatin brings another mystery onto the story of selfish genes, where the edges of A-compartments in macaque align well with regions of positive selection identified in human and moderately with negative selection in baboons.
 key-points:
@@ -66,11 +66,6 @@ Mapping the interspecies gene flow between baboon genomes in their evolutionary 
 
 Studying live and closely related primate species is our best way of glimpsing into how the *hominin* (human, Neanderthal, Denisovan) phylogenies have been formed, and by studying the intricate effects of population structure, migration and selection, we might infer events in our archaic history.
 
-- [x] synteny on chrX
-- [x] Selective sweeps (or is it?) in humans (ECH90; @skov2023extraordinaryselectionhuman)
-- [x] Negative selection in baboons w.r.t. minor parent ancestry
-- [x] Erik: Negative selection against Admixture
-- [x] Draw a parallel to Human/Neanderthal
 
 ## Chromatin Architecture
 
@@ -78,12 +73,6 @@ This is were the ends are tied and this project comes together. The regions of s
 
 Generally, the structure and compartmentalization of chromatin is highly conserved, and the structural patterns are evident in animals throughout. @wang2019reprogrammingmeioticchromatin found that through the stages of spermatogeneis, chromatin compartmentalization undergo massive reprogramming, going from megabase-spanning compartments through smaller, *refined* compartments and back to the megabase compartments. The reprogramming is conserved between rhesus macaque and mouse, indicating a very important feature of the organization. Chromatin has long since been implicated in gene regulation and the functional state of the cell [@lieberman-aiden2009comprehensivemappinglongrange], as the three-dimensional structure of the chromosome can bring distant regions in close proximity, and disrupting the organization can lead to development abnormalities [@dixon2015chromatinarchitecturereorganization]. Even at smaller scales, at the level of topologically associating domains (TADs) or chromatin loops [@ramirez2018highresolutiontadsreveal; @zuo2021stageresolvedhicanalyses], the structure helps segregate regulatory elements and ensure proper function. Modelling chromatin compartmentalization through spermatogenesis makes @wang2019reprogrammingmeioticchromatin and their Hi-C data obvious starting pointa for investing the relationship between these (yet another) megabase-spanning conserved regions and those of strong selection identified above. 
 
-
-- [x] Chromatin organization is highly conserved between species
-- [x] Explain why take offset in @wang2019reprogrammingmeioticchromatin
-- [ ] Exlpain the rationale of reproducing results with the latest reference
-- [x] Explain why it makes sense to compare these datasets
-- [x] The low-diveristy in *P.hamadryas* and ECH are very wide - chromatin has same window size?? 
 
 ## 3C: Chromatin Conformation Capture
 
@@ -169,9 +158,13 @@ We can test if two sets of genomic intervals correlate (say, compartment edges a
 
 ## Reproducibility Infrastructure
 
-**First, describe the importance of reproducibility and the scientific method. Include a bit of scientific skeptiscism of there is time.**
+Reproducibility is a cornerstone of the scientific method, ensuring that findings can be independently verified and built upon by others. Without it, the credibility of research findings is undermined, hindering scientific progress by becoming anecdotal. The necessity of reproducibility also aligns with scientific skepticism---the practice of critically evaluating evidence and methods to guard against biases or errors. As research grows increasingly computational, robust reproducibility infrastructure is essential to maintain these principles [@ref], facilitating transparency, validation, and collaboration across diverse scientific disciplines. Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git [@git], GitHub [@github], quarto [@Allaire_Quarto_2024], Anaconda [@anaconda], gwf [@gwf], and Jupyter [@soton403913jupyter]. The result is a fully reproducible analysis, including figures and tables in only 3 lines of code and a HPC cluster (see @tbl-reproducibility for a brief overview): 
 
-Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal of the thesis is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git \[ref\], GitHub \[ref\], quarto \[ref\], Conda \[ref\], gwf \[ref\], and Jupyter \[ref\]. See @tbl-reproducibility for a brief introduction.
+```{{bash}}
+git clone https://github.com/munch-group/hic-spermatogenesis.git
+conda env create -f binder/environment.yml
+gwf run
+```
 
 \small
 
@@ -561,13 +554,6 @@ Initially, the compartment edges of round spermatid at 100kb resolution (RS100) 
 ## Aknowledgements
 
 I would like to extend my sincere gratitude to my supervisor, Kasper Munch, for his guidance and support throughout this project. His sparring and scientific literacy have been invaluable in refining my ideas and shaping the direction of this work. I am especially thankful for Kasper’s enthusiasm, which has been a source of motivation during this process. His expertise and insights were instrumental in setting up the Quarto templates and providing support for the discussion. His constructive feedback on the manuscript has greatly improved its quality. I feel fortunate to have had the opportunity to learn from and work with such a knowledgeable and dedicated mentor.  
-
-I would also like to thank my brother, Jakob, for his help with proofreading of the manuscript.  
-
-I would also like to express my heartfelt gratitude to Clara for her unwavering support, patience, and encouragement throughout this process. Her understanding and care have been a constant source of strength.  
-
-A special thank you to my son, Birk, for bringing joy and perspective into my life, forcing me to take some hours off.  
-
 
 ### Use of Generative Artificial Intelligence
 
