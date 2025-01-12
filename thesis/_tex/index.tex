@@ -406,13 +406,20 @@
 \setkomafont{captionlabel}{\bfseries\sffamily}
 
 %% Tables
-\usepackage[style=plaintop]{floatrow}
-\floatsetup[table]{capposition=top}
-\floatsetup[figure]{capposition=bottom}
-\floatsetup[table]{font=small}
-\usepackage{booktabs} % professional-quality tables (arxiv.sty)
-\usepackage{caption}
-\captionsetup[subfigure]{font=scriptsize,labelfont=scriptsize, position=top}
+% \usepackage[style=plaintop]{floatrow}
+% \floatsetup[table]{capposition=top}
+% \floatsetup[figure]{capposition=bottom}
+% \floatsetup[table]{font=small}
+% \usepackage{booktabs} % professional-quality tables (arxiv.sty)
+
+\usepackage[font={footnotesize},labelfont={bf}]{caption}
+\AddToHook{env/longtable/before}{\footnotesize}
+\AddToHook{env/longtable/after}{\normalsize}
+\AddToHook{env/table/before}{\footnotesize}
+\AddToHook{env/table/after}{\normalsize}
+% \usepackage{caption}
+\captionsetup[sub]{font=footnotesize,labelfont=footnotesize, position=top}
+% \captionsetup[subtable]{font=scriptsize,labelfont=scriptsize, position=top}
 
 %%%
 
@@ -971,8 +978,6 @@ whether to 1) discard molecules with multiple ligations, 2) report one
 of the ligations (e.g.~the 5'-most in both directions), or 3) report all
 events on a molecule.
 
-\small
-
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2083}}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7917}}@{}}
@@ -1009,8 +1014,6 @@ fragments\footnote{Bicciato and Ferrari (2022) mentions that this type
 Cis & Pairs from the same chromosome (intrachromosomal) \\
 Trans & Pairs from distinct chromosomes (interchromosomal) \\
 \end{longtable}
-
-\normalsize
 
 \subsubsection{Quality Control and Interaction
 Matrices}\label{sec-matrix-qc}
@@ -1206,11 +1209,13 @@ Table~\ref{tbl-reproducibility} for a brief overview):
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\NormalTok{  git clone https://github.com/munch{-}group/hic{-}spermatogenesis.git}
-\NormalTok{  conda env create {-}f binder/environment.yml}
-\NormalTok{  gwf run}
+\NormalTok{    git clone https://github.com/munch{-}group/hic{-}spermatogenesis.git}
+\NormalTok{    conda env create {-}f binder/environment.yml}
+\NormalTok{    gwf run}
 \end{Highlighting}
 \end{Shaded}
+
+\normalsize
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1944}}
@@ -1253,8 +1258,6 @@ wrapped in Python code. \texttt{workflow.py} currently does everything
 from \texttt{.fastq} to \texttt{.cool}, but notebooks can be set to run
 sequentially as part of the workflow as well. \\
 \end{longtable}
-
-\normalsize
 
 \subsection{GWF: workflow management for High-Performance Computing
 (HPC)}\label{gwf-workflow-management-for-high-performance-computing-hpc}
@@ -3064,8 +3067,6 @@ pachytene spermatocyte, and sperm are significantly proximal. Here,
 sperm, which is not proximal in the arms viewframe, has the lowest
 p-value (\(p=0.001\)).
 
-\scriptsize
-
 \begin{table}
 
 \caption{\label{tbl-svedig-tabel-significant}Significant p-values across
@@ -3112,8 +3113,6 @@ proximity & olive & nan & nan & nan & 0.016\\
 }
 
 \end{table}%
-
-\normalsize
 
 \newpage{}
 
@@ -3220,6 +3219,9 @@ about design choices and explore the limitations of the tools we have
 available to communicate what we want to communicate.
 
 \section{On Methods}\label{on-methods}
+
+HiCExplorer is a comprehensive software that consist of an extensive
+list of ready-made
 
 \section{On Results}\label{on-results}
 

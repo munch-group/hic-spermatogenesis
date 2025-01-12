@@ -502,9 +502,9 @@ Table&nbsp;1: Five categories of ligation events and a short explanation. <em>Hi
 <section id="reproducibility-infrastructure" class="level2">
 <h2 class="anchored" data-anchor-id="reproducibility-infrastructure">Reproducibility Infrastructure</h2>
 <p>Reproducibility is a cornerstone of the scientific method, ensuring that findings can be independently verified and built upon by others. Without it, the credibility of research findings is undermined, hindering scientific progress by becoming anecdotal. The necessity of reproducibility also aligns with scientific skepticism—the practice of critically evaluating evidence and methods to guard against biases or errors. As research grows increasingly computational, robust reproducibility infrastructure is essential to maintain these principles <span class="citation" data-cites="baker20161500scientistslift">(<a href="#ref-baker20161500scientistslift" role="doc-biblioref">Baker 2016</a>)</span>, facilitating transparency, validation, and collaboration across diverse scientific disciplines. Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git <span class="citation" data-cites="git">(<a href="#ref-git" role="doc-biblioref">Torvalds and Hamano 2005</a>)</span>, GitHub <span class="citation" data-cites="github">(<a href="#ref-github" role="doc-biblioref">GitHub, Inc. n.d.</a>)</span>, quarto <span class="citation" data-cites="Allaire_Quarto_2024">(<a href="#ref-Allaire_Quarto_2024" role="doc-biblioref">Allaire et al. 2024</a>)</span>, Anaconda <span class="citation" data-cites="anaconda">(<a href="#ref-anaconda" role="doc-biblioref">Anaconda Software Distribution 2016</a>)</span>, gwf <span class="citation" data-cites="gwf">(<a href="#ref-gwf" role="doc-biblioref">GenomeDK 2023</a>)</span>, and Jupyter <span class="citation" data-cites="soton403913jupyter">(<a href="#ref-soton403913jupyter" role="doc-biblioref">Kluyver et al. 2016</a>)</span>. The result is a fully reproducible analysis, including figures and tables in only 3 lines of code<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (see <a href="#tbl-reproducibility" class="quarto-xref">Table&nbsp;2</a> for a brief overview):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource console number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>  git clone https://github.com/munch-group/hic-spermatogenesis.git</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  conda env create -f binder/environment.yml</span>
-<span id="cb1-3"><a href="#cb1-3"></a>  gwf run</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource console number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>    git clone https://github.com/munch-group/hic-spermatogenesis.git</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    conda env create -f binder/environment.yml</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    gwf run</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-reproducibility" class="striped quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-reproducibility-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1974,6 +1974,7 @@ Table&nbsp;6: Significant p-values across tissue types. pc_scale is the viewfram
 </section>
 <section id="on-methods" class="level2">
 <h2 class="anchored" data-anchor-id="on-methods">On Methods</h2>
+<p>HiCExplorer is a comprehensive software that consist of an extensive list of ready-made</p>
 </section>
 <section id="on-results" class="level2">
 <h2 class="anchored" data-anchor-id="on-results">On Results</h2>
