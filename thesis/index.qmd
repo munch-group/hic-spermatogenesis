@@ -157,11 +157,7 @@ We can test if two sets of genomic intervals correlate (say, compartment edges a
 
 ## Reproducibility Infrastructure
 
-Reproducibility is a cornerstone of the scientific method, ensuring that findings can be independently verified and built upon by others. Without it, the credibility of research findings is undermined, hindering scientific progress by becoming anecdotal. The necessity of reproducibility also aligns with scientific skepticism---the practice of critically evaluating evidence and methods to guard against biases or errors. As research grows increasingly computational, robust reproducibility infrastructure is essential to maintain these principles [@baker20161500scientistslift], facilitating transparency, validation, and collaboration across diverse scientific disciplines. Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git [@git], GitHub [@github], quarto [@Allaire_Quarto_2024], Anaconda [@anaconda], gwf [@gwf], and Jupyter [@soton403913jupyter]. The result is a fully reproducible analysis, including figures and tables in only 3 lines of code[^compute] (see @tbl-reproducibility for a brief overview): 
-
-[^compute]: And access to a high-performance computer with at least 12 TB storage and 32 CPU-cores, and a couple of days waiting time (else `gwf run` will fail as it asks for a lot of resources).
-
-\small
+::: {#lst-reproduce }
 
 ```{.console code-line-numbers="true"}
     git clone https://github.com/munch-group/hic-spermatogenesis.git
@@ -169,9 +165,15 @@ Reproducibility is a cornerstone of the scientific method, ensuring that finding
     gwf run
 ```
 
-\normalsize
+These three lines of code should ideally be enough to reproduce the whole project.
+:::
 
-::: {#tbl-reproducibility .striped}
+Reproducibility is a cornerstone of the scientific method, ensuring that findings can be independently verified and built upon by others. Without it, the credibility of research findings is undermined, hindering scientific progress by becoming anecdotal. The necessity of reproducibility also aligns with scientific skepticism---the practice of critically evaluating evidence and methods to guard against biases or errors. As research grows increasingly computational, robust reproducibility infrastructure is essential to maintain these principles [@baker20161500scientistslift], facilitating transparency, validation, and collaboration across diverse scientific disciplines. Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git [@git], GitHub [@github], quarto [@Allaire_Quarto_2024], Anaconda [@anaconda], gwf [@gwf], and Jupyter [@soton403913jupyter]. The result is a fully reproducible analysis, including figures and tables in only 3 lines of code[^compute] (@lst-reproduce) . See @tbl-reproducibility for a brief overview: 
+
+[^compute]: And access to a high-performance computer with at least 12 TB storage and 32 CPU-cores, and a couple of days waiting time (else `gwf run` will fail as it asks for a lot of resources).
+
+
+::: {#tbl-reproducibility .striped width="90%"}
 | Tool | Description |
 |:-------------|:---------------------------------------------------------|
 | Jupyter | Interactive coding environment for analysis and development (notebooks are natively rendered with Quarto) |
@@ -258,16 +260,12 @@ For parsing, the command needs a `restrictionCutFile`, locating the restriction 
 
 ::: {#fig-hicexplorer-workflow}
 
-![](illustrations/placeholder2000x360.png){width="70%" height="100%"}
+![](illustrations/placeholder2000x360.png){width="70%"}
 
 Overview of the target templates used for hicexplorer. As most operations are handled by `hicBuildMatrix`, it is rather simple. 
 :::
 
-\small
-
 {{< embed ../notebooks/01_hicexplorer.ipynb#tbl-hic-exploration >}}
-
-\normalsize
 
 For the initial exploration of methods with *HiCExplorer*, we chose five fibroblast samples (see @tbl-hic-exploration). The goal was to replicate some of the figures from @wang2019reprogrammingmeioticchromatin using *HiCExplorer*, especially to reconstruct interaction matrices and E1 graphs from macaque data. We constructed matrices with `hicBuildMatrix` as described from the separately mapped read-pairs. Along with the matrix *.h5* file, a *.log* file was created as well, documenting the quality control for the sample. Multiple logs were aggregated and visualized with `hicQC`.
 
@@ -297,7 +295,6 @@ Suspiciously, [@openchromosomecollective] never mentions any problems with align
 
 We need to convert the alignments into ligation events, and distinguish between several types of ligation events. The simplest event is when each side only maps to one unique segment in the genome 'UU'. Other events, where one or both sides map to multiple segments or the reads are long enough (\>150bp) to contain two alignments (multiple ligations) have to be considered as well. Multiple ligations (reads that have multiple ligation sites, thus having several valid alignments to the reference) are called *walks* by Open2C, and are treated according to the `--walks-policy` when parsing the alignments into valid pairs (or valid Hi-C contacts). Here, `mask` is the most conservative and masks all complex walks, whereas `5unique` and `3unique` reports the 5'-most or 3'-most unique alignment on each side, respectively, and `all` reports all the alignments. The pairs are piped directly into `pairtools sort` after parsing, as the deduplication step requires a sorted set of pairs. The *.pairs*-format produced by `pairtools` is an extension the [4DN Consortium](https://data.4dnucleome.org/file-formats/pairs/)-specified format, storing Hi-C pairs as in @tbl-pairsformat.
 
-\small
 
 ::: {#tbl-pairsformat .striped}
 | Index | Name | Description |
@@ -316,13 +313,12 @@ We need to convert the alignments into ligation events, and distinguish between 
 Column specification of the .pairs format as extended by `pairtools` [ref].
 :::
 
-\normalsize
 
 I initially used `--walks-policy mask` without fully understanding the implications, but knowing it was the most conservative of the options. Only later I realized the recommendations from *pairtools*, specifically informing that longer reads ($>150bp$) might have a significant proportion of reads that contain complex walks. With this in mind and as the average read-length of our data is 300 bp, I decided to re-parse the alignments into a new set of pairs, and equally apply the recommended filter (next section). As both results are saved, we can compare the two approaches.
 
 #### Filter and deduplicate pairs
 
-Pairtools comes with a de-duplication function, `dedup`, to detect PCR duplication artefacts. At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of *rhemac10* assembly states they have closed 99% of the gaps since *rhemac8* \[ref\], *rheMac10* still contain more than 2,500 unplaced scaffolds, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates. `cooler` recommend to store the most comprehensive and unfiltered list of pairs, and then applying a filter it on the fly by piping from `pairtools select`. Initially, I missed this step and I did not filter for mapping quality. After reparsing the alignments and applying the same analysis, we compare the two pipelines. A quality control report is generated by `pairtools dedup` as well, and the reports are merged and visualized with `MultiQC` \[ref\] for each cell type.
+Pairtools comes with a de-duplication function, `dedup`, to detect PCR duplication artefacts. At this point we will remove all reads that are mapped to an unplaced scaffold. Even though the publication of *rhemac10* assembly states they have closed 99% of the gaps since *rhemac8* \[ref\], *rheMac10* still contain more than 2,500 unplaced scaffolds, which are all uninformative when calculating the chromatin compartments as is the goal of this analysis. Therefore, we simply only include the list of conventional chromosomes (1..22, X, Y) when doing the deduplication. Initially, the default values were used to remove duplicates, where pairs with both sides mapped within 3 base pairs from each other are considered duplicates. `cooler` recommend to store the most comprehensive and unfiltered list of pairs, and then applying a filter it on the fly by piping from `pairtools select`. Initially, I missed this step and I did not filter for mapping quality. After reparsing the alignments and applying the same analysis, we compare the two pipelines. A quality control report is generated by `pairtools dedup` as well, and the reports are merged and visualized with `MultiQC` [@ewels2016multiqcsummarizeanalysis] for each cell type.
 
 #### Create interaction matrices (coolers)
 
