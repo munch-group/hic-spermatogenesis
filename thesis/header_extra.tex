@@ -243,16 +243,21 @@
 % \usepackage{booktabs} % professional-quality tables (arxiv.sty)
 
 \usepackage[font={footnotesize},labelfont={bf}]{caption}
-\AddToHook{env/longtable/before}{\footnotesize}
+\AddToHook{env/longtable/before}{\fontsize{8}{10}\selectfont}
 \AddToHook{env/longtable/after}{\normalsize}
-\AddToHook{env/table/before}{\footnotesize}
+\AddToHook{env/table/before}{\fontsize{8}{10}\selectfont}
 \AddToHook{env/table/after}{\normalsize}
-\AddToHook{env/codelisting/before}{\footnotesize}
+\AddToHook{env/codelisting/before}{\fontsize{8}{10}\selectfont}
 \AddToHook{env/codelisting/after}{\normalsize}
 % \usepackage{caption}
 \captionsetup[sub]{font=footnotesize,labelfont=footnotesize, position=top}
 \captionsetup[codelisting]{font=footnotesize, labelfont=bf}
 % \captionsetup[subtable]{font=scriptsize,labelfont=scriptsize, position=top}
+
+
+%%% For code blocks using the Shaded environment
+\AddToHook{env/Shaded/before}{\vspace{-0.5em}} % Reduces space before
+\AddToHook{env/Shaded/after}{\vspace{-1em}} % Reduces space after
 
 %%%
 

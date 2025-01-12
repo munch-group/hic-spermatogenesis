@@ -159,7 +159,7 @@ We can test if two sets of genomic intervals correlate (say, compartment edges a
 
 ::: {#lst-reproduce }
 
-```{.console code-line-numbers="true"}
+```{.bash code-line-numbers="true"}
     git clone https://github.com/munch-group/hic-spermatogenesis.git
     conda env create -f binder/environment.yml
     gwf run
@@ -173,7 +173,7 @@ Reproducibility is a cornerstone of the scientific method, ensuring that finding
 [^compute]: And access to a high-performance computer with at least 12 TB storage and 32 CPU-cores, and a couple of days waiting time (else `gwf run` will fail as it asks for a lot of resources).
 
 
-::: {#tbl-reproducibility .striped width="90%"}
+::: {#tbl-reproducibility .striped}
 | Tool | Description |
 |:-------------|:---------------------------------------------------------|
 | Jupyter | Interactive coding environment for analysis and development (notebooks are natively rendered with Quarto) |
@@ -190,7 +190,7 @@ Overview of the tools used for reproducibility of this thesis.
 
 ### GWF: workflow management for High-Performance Computing (HPC)
 
-To enable consistently reproducing the analyses, a workflow manager is used. Several exist, but the most well-known must be *snakemake*. However, we use the pragmatic (their own words), lightweight workflow manager *gwf*, which is optimized for the GenomeDK insfrastructure, and has the benefit of in-house support.
+To enable consistently reproducing the analyses, a workflow manager is utilized. Several exist, but the most well-known must be *Snakemake*. However, we use the pragmatic (their own words), lightweight workflow manager *gwf*, which is optimized for the GenomeDK insfrastructure, and has the benefit of in-house support.
 
 Briefly, *gwf* works on a python script, conventionally `workflow.py`, that wraps all the jobs (*targets* in gwf lingo) you will submit to the HPC cluster. Each target is submitted from a template, written as a Python function, which includes `inputs` and `outputs` that *gwf* should look for when building the depency graph, `options` list of resources that is forwarded to the queueing system (*Slurm* in our case), and `specs`, specifying the submission code in Bash as a formatted Python string (meaning we can pass Python variables to the submission code), providing an extremely flexible framework for running large and intensive analyses in a high-performance computing environment.
 
@@ -226,7 +226,7 @@ Compare with regions of extended common haplotypes (strong selective sweeps) tha
 
 # Methods
 
-All computations were performed on GenomeDK (GDK), an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was made into a custom *gwf* workflow \[ref\], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.
+All computations were performed on GenomeDK (GDK), an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was made into a custom *gwf* workflow, a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.
 
 With the analysis tools determined in the above section, we decided it was not feasible to follow the exact approach as @wang2019reprogrammingmeioticchromatin with any of *HiCExplorer* and *Open2C*, as they use a third software, *HiC-Pro*. For mapping the raw reads, Hic-Pro internally uses bowtie2 in end-to-end mode, followed by trimming the 3'-end of the unmapped reads, then remapping the 5'-ends to rescue chimeric fragments. I mapped the reads using `bowtie2 --end-to-end` without the rescue-remapping, and it returned a very high fraction of discarded reads, and it would be silly to spend time on implementing the remapping approach manually. When redoing analyses, it is not sensical to use methods that are not state-of-the-art, and judged by the time since last release (HiC-Pro v3.1.0 in 2021), both HiCExplorer and Open2C are more recent. Additionally, the HiC-Pro pipeline stops at a normalized contact map, and is thus not sufficient for downstream analysis. In hindsight, it would have been more sensical to use *HiC-Pro* to get normalized contact maps, then continue analyzing with *cooler*/*cooltools*, then compare the results evenly with the results achieved from using Open2C from start to finish. @fig-hic-tools-comparison gives an overview of the 3 pipelines metioned in this report.
 
@@ -532,13 +532,16 @@ We then abandoned the idea of a 200kb transition zone between the compartments. 
 
 # Discussion {#sec-discussion}
 
-- [ ] discuss the reproducibility infrastructure
-  - [ ] takes a lot of time first time
-  - [ ] we are almost there (at the time of writing it will crash)
-- [ ] discuss the methods
-  - [ ] HiCExplorer vs Open2C from a documentation perspective
-  - [ ] Unclear rules (latest methodological Hi-C review from 2016, data analysis book is more practical)
-  - [ ] variations of similarity measures for genomic intervals
+- [x] discuss the reproducibility infrastructure
+  - [x] takes a lot of time first time
+  - [x] we are almost there (at the time of writing it will crash)
+- [x] discuss the methods
+  - [x] HiCExplorer vs Open2C from a documentation perspective
+  - [x] Unclear rules (latest methodological Hi-C review from 2016, data analysis book is more practical)
+
+  - [ ] Matrices
+  - [ ] did not manage to implement their sliding window PCA
+  - [ ] variations in similarity measures for genomic intervals
   - [ ] For the arms viewframe, I probably should have left out the centromeric region in stead of just splitting
   - [ ]
 - [ ] Clearly an overlap between edges and ECH90 regions, but what does it mean? 
@@ -547,22 +550,43 @@ We then abandoned the idea of a 200kb transition zone between the compartments. 
 
 ## On Reproducibility
 
-As an extensive reproducibility infrastructere became a major part of the project, I have to reflect upon the advantages it has, but also the consequences it inevitably brings along. First, reproducibility is the basis of scientific progression, and idealisticly it should come before the discovery itself. But let us not pretend that reproducibility is favored above hypothesis testing to be the driving forces of progression, and let us not pretend that it has a singular definition. There are many layers to reproducibility, and we do, of course, not need to host a website or to construct a single-command pipeline for reproducing the analysis to call a study *reproducible*. Additionally, the option only exist for analyses that are strictly computational. It is, however, very useful and can greatly improve downstream efficiency, and I find it important to at least explore the available options. If such a pipeline had existed, I would not have had to spend weeks to update their results to reflect a more recent reference genome. With such a pipeline, it is now easy to extend the analysis to include more samples and other species. 
+As an extensive reproducibility infrastructere became a major part of the project, I have to reflect upon the advantages it has, but also the consequences it inevitably brings along. First, reproducibility is the basis of scientific progression, and idealisticly it should come before the discovery itself. But let us not pretend that reproducibility is favored above hypothesis testing to be the driving forces of progression, and let us not pretend that it has a singular definition. There are many layers to reproducibility, and we do, of course, not need to host a website or to construct a single-command pipeline for reproducing the analysis to call a study *reproducible*. Additionally, the option only exist for analyses that are strictly computational. It is, however, very useful and can greatly improve downstream efficiency, and I find it important to at least explore the available options. If such a pipeline had existed, I would not have had to spend weeks to update the results of @wang2019reprogrammingmeioticchromatin to reflect a more recent reference genome. With such a pipeline, it is now easy to extend the analysis to include more samples and other species. Additionally, if they had made the coordinates of the compartments available, I could probably have used them directly and start by comparing genomic intervals. In stead, this became a study more of Hi-C data analysis than comparing genomic intervals. 
 
 At the time of writing, the repository is *almost there* w.r.t. reproducibility, but still not quite. It only reproduces the final analysis done with *bwa*, *pairtools*, *cooler*, *cooltools*, and not the preliminary analyses comparing aligners and using *HicExplorer*. This is the intention, as most use-cases would not need the results of a preliminary methodological comparison. However, the workflows are saved under `scripts/` and can be run from there, or they can be added to the main `workflow.py` as separate targets. A small amount of refactoring of the directory structure is required as well, because some files are fetched from a parent folder to the project directory. Additionally, the main workflow is intensive in I/O and could be heavily optimized by piping between commands in stead of writing the outputs to file and reading the files from the next command. However, that would make it harder to debug, as no checkpoints are saved. It would not be as efficient use of resources, which are requested on target level, as the analysis would have to run as a single target. The different steps of the pipeline are either CPU-bound or RAM-bound, but rarely both, and it would take some experimenting to find the optimal compromise. Additionally, the computational steps between a raw *.cool* file and a balanced, multi-resolution *.mcool* are performed in a notebook, and the steps should be moved to the workflow. Then, a final target should be added to the workflow, executing all the notebooks (they are named in order), to generate the figures and tables that are used in this manuscript and on the main project pages.
 
-There is a major downside when trying to conform to an idealistic framework is the generation of figures and tables. Throughout this project, I have adhered to the rule that none of the figures and tables should be created or even annotated manually. It is very time-consuming to create production-quality figures that needs no further enhancements before embedding into a manuscript, and even more so do create tables that are both compatible with HTML and PDF. Here, Quarto inherits the limitations of Pandoc (which it uses internally to convert Markdown to outputs), and it does not work well with complex grouped tables generated in Python (see @tbl-svedig-tabel-significant). 
+There is a major downside when trying to conform to an idealistic framework---the generation of figures and tables. Throughout this project, I have adhered to the rule that none of the figures and tables should be created or even annotated manually. It is very time-consuming to create production-quality figures that needs no further enhancements before embedding into a manuscript, and even more so do create tables that are both compatible with HTML and PDF. Here, Quarto inherits the limitations of Pandoc (which it uses internally to convert Markdown to its output formats), and it does not work well with complex grouped tables generated in Python (see @tbl-svedig-tabel-significant) to translate into LaTeX (which again is an idealistic typesetting system). 
 
-I believe it is an important exercise to force oneself to be cautious about design choices and explore the limitations of the tools we have available to communicate what we want to communicate. 
+I believe it is an important exercise to force oneself to be cautious about design choices and explore the advantages and limitations of the tools we have available to communicate what we want to communicate. 
 
-## On Methods
+## On Methodology
 
-HiCExplorer is a comprehensive software that consist of an extensive list of ready-made 
+HiCExplorer is a comprehensive software that consist of an extensive list of ready-made command line functions that calls Python source code. It is modular, except for the parsing of the aligned reads into a raw Hi-C matrix. The documentation provide an extensive list of options to pass to the commands. Nevertheless, they do not provide a Python API (or at least not any documentation thereof). The modules can be imported into a Python-session with standard import syntax, but there are no guiding help pages. Looking through source code revealed that one would have to do something like
+
+```{{python}}
+  from hicexplorer import hicPlotMatrix.main as hicPlotMatrix
+```
+
+to use the plotting function directly within a notebook. However, it would have to modified to stop saving the plots as files in stead of sending them to the display, and it would still require reading from files.
+Clearly, it is not meant to be used directly within Python, as additionally, the CLI function simply is a wrapper for the `main()`-function of the module:
+
+```{{sh}}
+  #!path/to/python
+  # -*- coding: utf-8 -*-
+  from hicexplorer.hicPlotMatrix import main
+  if __name__ == "__main__":
+      main()
+```
+HiCExplorer is, however, also integrated into Galaxy [@thegalaxycommunity2024galaxyplatformaccessible; @wolff2020galaxyhicexplorer3; @wolff2018galaxyhicexplorerweb], a web-based platform that has computationally demanding softwares executable through their servers. Here, one can make a drag-and-drop workflow with HicExplorer's commands, get integrated visualizations, among other cool stuff. Although it was not suitable for this project, they should be given credit for such an extensive integration. Additionally, following a Galaxy-walkthrough would have given me a better intuition of the pipeline they recommend, and faster as well. 
+
+The Open2C Ecosystem consists of three major modules---pairtools, cooler, and cooltools. They all conform to the same standards; they are highly modular, and highly flexible and extensively documented. They have an interactive cooler-demo running on Jupyter notebooks on a server, which is easily adaptable to other data. They include both a command-line interface and a (well-documented) Python API, where a `Cooler` class efficiently handles the Hi-C matrix. They provide tutorials on all 6 of their intended use cases---Visualization, Contacts vs Distance, Compartments and Saddleplots, Insulation and Boundaries, Dots and Focal Enrichment, and Pileups and Average Features---of which we only use visualization and compartments. The software is fully compatible with Pandas and Matplotlib packages, making the analysis highly flexible. 
+
+The drawback with having a very flexible tool is that the conventions are unclear. The latest methodological review is from 2015 [@lajoie2015hitchhikersguidehic], and many things have progressed since then. Additionally, a Springer Protocol about Hi-C Data analysis [@bicciato2022hicdataanalysis] is more recently published, but I find that it more so establishes a range of possibilities than a practical guideline. 
+
 
 
 ## On Results
 
-
+The differences in the results the two tools produced were crucial, as I could not reproduce the eigenvectors reported in @wang2019reprogrammingmeioticchromatin with HiCExplorer, as HiCExplorer has no (apparent) way of restricting the viewframe of the eigendecomposition. The eigenvectors resulting from Open2C line up very well with the ones from @wang2019reprogrammingmeioticchromatin. Here, some of the maps were lined up and overlayed manually in a sketching software. The predicted compartments from cooler matched very well with the ones predicted by @wang2019reprogrammingmeioticchromatin if their track was split in the region of the centromere. We confidently rationalize that the reason we have to split in the centromeric region is the newly, more accurate reference genome. As it *rheMac10* has closed a high amount of gaps since last reference (most of which are expected around the centromere), we expect more sequences to align in that region, resulting in a longer genome as well. 
 
 
 # Conclusion and future work
@@ -583,20 +607,26 @@ HiCExplorer is a comprehensive software that consist of an extensive list of rea
 
 # A Appendix {.unnumbered}
 
-## Aknowledgements
+## Aknowledgements {.unnumbered}
+
+### People {.unnumbered}
 
 I would like to extend my sincere gratitude to my supervisor, Kasper Munch, for his guidance and support throughout this project. His sparring and scientific literacy have been invaluable in refining my ideas and shaping the direction of this work. I am especially thankful for Kasper’s enthusiasm, which has been a source of motivation during this process. His expertise and insights were instrumental in setting up the Quarto templates and providing support for the discussion. His constructive feedback on the manuscript has greatly improved its quality. I feel fortunate to have had the opportunity to learn from and work with such a knowledgeable and dedicated mentor.  
 
-### Use of Generative Artificial Intelligence
+### Compute
+
+All computations were performed on GenomeDK (GDK), an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was handled by a *gwf* workflow [@gwf], a workflow manager developed at GDK. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results.
+
+### Use of Generative Artificial Intelligence {.unnumbered}
 
 As per Aarhus University guidelines [@auityourguidegai], I hereby disclose my use of Generative Artificial Intelligence (GAI) tools during the preparation of this thesis. All usage was conducted critically and responsibly, ensuring that the final work remained my own and adhered to academic integrity standards. These tools supplemented my expertise and accelerated routine tasks, but all creative, analytical, and scientific contributions are my own. 
 
-#### Copilot  
+#### Copilot  {.unnumbered}
 I used Copilot for code completion and debugging, as well as modifying existing code to reflect updated variables and experimental needs.
 
-#### ChatGPT  
+#### ChatGPT  {.unnumbered}
 ChatGPT provided syntax support for Bash, YAML, JSON, Mermaid diagrams, and Pandoc Templates, to accelerate my learning of new programming languages. It hallucinates a lot about Quarto.
 
-#### NotebookLM  
+#### NotebookLM  {.unnumbered}
 NotebookLM supported the re-identification of references for a small amount of statements where placeholders (`[ref]`) were initially used before setting up BibTex references. Also to look up contradicting statements from other sources. NotebookLM only 'knows' the sources you provide it. 
 
