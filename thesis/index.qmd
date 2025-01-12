@@ -114,8 +114,6 @@ Interestingly, this last step is not included by default in *pairtools*, as \[re
 
 One should be cautious when filtering invalid from valid pairs, as they are not easily distinguished. A ligation event will be categorized into one of five categories (see @tbl-ligation-events): *dangling-end*, *self-circle*, *weird*, *intrachromosomal* (cis), and *interchromosomal* (trans) [@bicciato2022hicdataanalysis, Ch. 1]. Either *dangling-end* or *self-circle* events are reported if a read-pair maps to the same restriction fragment depending on the orientation, and deemed uninformative [@lajoie2015hitchhikersguidehic]. Usually, *weird* events are demeed uninformative as well, as it is challenging to distinguish a sequencing error from the result of a diploid fragment. PCR duplicates should be discarded as well, having either identical genomic sequence, or sharing exact 5' alignment positions of the pair [@lajoie2015hitchhikersguidehic; @bicciato2022hicdataanalysis, Ch. 1]. The probability that such pairs are valid (i.e. there are multiple of the same pairs) is very low. We also have to distinguish between molecules with only a single ligation event (one-way contact) or multiple ligation events (multi-way contacts). For that, a descision should be made on whether to 1) discard molecules with multiple ligations, 2) report one of the ligations (e.g. the 5'-most in both directions), or 3) report all events on a molecule. 
 
-\small
-
 ::: {#tbl-ligation-events .striped}
 | Event name | Explanation |
 |:--------------|:--------------------------------------------------------|
@@ -130,7 +128,6 @@ Five categories of ligation events and a short explanation. *Hi-C Data Analysis:
 
 [^1]: @bicciato2022hicdataanalysis mentions that this type of ligations had been used to model interaction between sister-chromatids post-replication in *Drosophila*.
 
-\normalsize
 
 #### Quality Control and Interaction Matrices {#sec-matrix-qc}
 
@@ -167,10 +164,12 @@ Reproducibility is a cornerstone of the scientific method, ensuring that finding
 \small
 
 ```{.console code-line-numbers="true"}
-  git clone https://github.com/munch-group/hic-spermatogenesis.git
-  conda env create -f binder/environment.yml
-  gwf run
+    git clone https://github.com/munch-group/hic-spermatogenesis.git
+    conda env create -f binder/environment.yml
+    gwf run
 ```
+
+\normalsize
 
 ::: {#tbl-reproducibility .striped}
 | Tool | Description |
@@ -185,7 +184,7 @@ Reproducibility is a cornerstone of the scientific method, ensuring that finding
 Overview of the tools used for reproducibility of this thesis.
 :::
 
-\normalsize
+
 
 ### GWF: workflow management for High-Performance Computing (HPC)
 
@@ -531,11 +530,7 @@ Initially, the compartment edges of round spermatid at 100kb resolution (RS100) 
 
 We then abandoned the idea of a 200kb transition zone between the compartments. It was introduced as a less stringent edge, allowing the intersection of the selected regions to be within a defined threshold. We hoped a weaker threshold could allow for more variance, but it turned out to be the opposite (@tbl-svedig-tabel-significant). After defining the compartment limits (`_edge_1bp`), we perform tests on combinations of all five sources (fibroblast, spermatogonia, pachytene spermatocyte, round spermatid, sperm) and 2 viewframes (arms, 10Mb) and 5 queries. The queries were modified as such; the full ECH was used unmodified for the tests as it was already shown to overlap (Jaccard) fibroblast and round spermatid. *hama* and *olive* limits were used separately and as a concatenated set (`hamaolive_edge_1pb`), to increase the effect size, especially as the *hama* set is quite small compared to the rest of the sets. By their definition, *olive* and *hama* do not overlap, and can safely be concatenated (see @fig-introduce-selected-regions for confirmation). Now, we observe significant p-values across all cell types. Reassuringly, both fibroblast and round spermatid still have significant Jaccard p-values for the arms viewframe although the p-values have increased (to $0.017$ and $0.028$, respectively). Now, all tissues except sperm show significant overlap with ECH regions, especially spermatogonia and pachytene spermatocytes with p-values $0.006$ and $0.005$, respectively. Only fibroblast and spermatogonia significantly overlap the ECH region for both viewframes, indicating that their predicted compartments shift only minimally compared to the pachytene spermatocyte and round spermatid when narrowing the viewframe. Pachytene spermatocyte and round spermatid loose their significance when narrowing the viewframe, meaning their compartments are highly varied between the two views, and the same conclusion can be drawn about sperm, as it gains significance when the viewframe is narrowed. Interestingly, only sperm overlaps the baboon regions with olive ancestry, and no tissue overlaps with hamadryas ancestry. Conversely, when concatenating the olive and hamadryas sets to capture all selection in baboons, both spermatogonia, pachytene spermatocyte, and sperm are significantly proximal. Here, sperm, which is not proximal in the arms viewframe, has the lowest p-value ($p=0.001$).
 
-\scriptsize
-
 {{< embed ../notebooks/07_various_plotting.ipynb#tbl-svedig-tabel-significant >}}
-
-\normalsize
 
 {{< pagebreak >}}
 
@@ -566,7 +561,7 @@ I believe it is an important exercise to force oneself to be cautious about desi
 
 ## On Methods
 
-
+HiCExplorer is a comprehensive software that consist of an extensive list of ready-made 
 
 
 ## On Results

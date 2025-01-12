@@ -236,13 +236,20 @@
 \setkomafont{captionlabel}{\bfseries\sffamily}
 
 %% Tables
-\usepackage[style=plaintop]{floatrow}
-\floatsetup[table]{capposition=top}
-\floatsetup[figure]{capposition=bottom}
-\floatsetup[table]{font=small}
-\usepackage{booktabs} % professional-quality tables (arxiv.sty)
-\usepackage{caption}
-\captionsetup[subfigure]{font=scriptsize,labelfont=scriptsize, position=top}
+% \usepackage[style=plaintop]{floatrow}
+% \floatsetup[table]{capposition=top}
+% \floatsetup[figure]{capposition=bottom}
+% \floatsetup[table]{font=small}
+% \usepackage{booktabs} % professional-quality tables (arxiv.sty)
+
+\usepackage[font={footnotesize},labelfont={bf}]{caption}
+\AddToHook{env/longtable/before}{\footnotesize}
+\AddToHook{env/longtable/after}{\normalsize}
+\AddToHook{env/table/before}{\footnotesize}
+\AddToHook{env/table/after}{\normalsize}
+% \usepackage{caption}
+\captionsetup[sub]{font=footnotesize,labelfont=footnotesize, position=top}
+% \captionsetup[subtable]{font=scriptsize,labelfont=scriptsize, position=top}
 
 %%%
 
