@@ -406,8 +406,10 @@
 \setkomafont{captionlabel}{\bfseries\sffamily}
 
 %% Tables
-% \usepackage[style=plaintop, capposition=top]{floatrow}
-% \floatsetup[table]{font=small}
+\usepackage[style=plaintop]{floatrow}
+\floatsetup[table]{capposition=top}
+\floatsetup[figure]{capposition=bottom}
+\floatsetup[table]{font=small}
 \usepackage{booktabs} % professional-quality tables (arxiv.sty)
 \usepackage{caption}
 \captionsetup[subfigure]{font=scriptsize,labelfont=scriptsize, position=top}
@@ -495,7 +497,7 @@ gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen \and Kasper Munch}
-\date{2025-01-11}
+\date{2025-01-12}
 
 \begin{document}
 \frontmatter
@@ -536,7 +538,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\large 2025-01-11 \par}
+{\large 2025-01-12 \par}
 \vspace{3ex}
 
 \vspace{10ex}
@@ -755,13 +757,30 @@ pattern. Recently, in an unpublished analysis by Munch (2024), large
 megabase-regions were identified in olive baboon (\emph{Papio anubis}),
 where either all individuals had \emph{olive} ancestry, or 95\% of the
 individuals had \emph{hamadryas} ancestry, significantly diverging from
-the background.
+the background. See Figure~\ref{fig-introduce-selected-regions} for a
+genomic overview of the regions.
 
 Studying live and closely related primate species is our best way of
 glimpsing into how the \emph{hominin} (human, Neanderthal, Denisovan)
 phylogenies have been formed, and by studying the intricate effects of
 population structure, migration and selection, we might infer events in
 our archaic history.
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics[width=5.1875in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-introduce-selected-regions-output-1.png}
+
+}
+
+\caption{\label{fig-introduce-selected-regions}Visual representation of
+the selected regions for the baboon comparison. Shown are the ECH90
+(top), high-olive (middle) and high-hama (bottom) regions, the basis of
+the comparison of genomic intervals in this analysis. All coordinates
+are lifted to the rheMac10 genome.}
+
+\end{figure}%
 
 \section{Chromatin Architecture}\label{chromatin-architecture}
 
@@ -1177,8 +1196,11 @@ self-contained and version-controlled pipeline using git (Torvalds and
 Hamano 2005), GitHub (GitHub, Inc. n.d.), quarto (Allaire et al. 2024),
 Anaconda (Anaconda Software Distribution 2016), gwf (GenomeDK 2023), and
 Jupyter (Kluyver et al. 2016). The result is a fully reproducible
-analysis, including figures and tables in only 3 lines of code and a HPC
-cluster (see Table~\ref{tbl-reproducibility} for a brief overview):
+analysis, including figures and tables in only 3 lines of
+code\footnote{And access to a high-performance computer with at least 12
+  TB storage and 32 CPU-cores, and a couple of days waiting time (else
+  \texttt{gwf\ run} will fail as it asks for a lot of resources).} (see
+Table~\ref{tbl-reproducibility} for a brief overview):
 
 \small
 
@@ -1238,10 +1260,10 @@ sequentially as part of the workflow as well. \\
 (HPC)}\label{gwf-workflow-management-for-high-performance-computing-hpc}
 
 To enable consistently reproducing the analyses, a workflow manager is
-used. Several exist, but the most well-known must be \emph{snakemake}
-{[}ref{]}. However, we use the pragmatic (their own words), lightweight
-workflow manager \emph{gwf}, which is optimized for the GenomeDK
-insfrastructure, and has the benefit of in-house support.
+used. Several exist, but the most well-known must be \emph{snakemake}.
+However, we use the pragmatic (their own words), lightweight workflow
+manager \emph{gwf}, which is optimized for the GenomeDK insfrastructure,
+and has the benefit of in-house support.
 
 Briefly, \emph{gwf} works on a python script, conventionally
 \texttt{workflow.py}, that wraps all the jobs (\emph{targets} in gwf
@@ -1873,17 +1895,19 @@ Regions)}\label{compartments-and-their-edges-transitional-regions}
 From the eigenvectors, the A-compartments were extracted in
 bedgraph-format
 (\texttt{{[}\textquotesingle{}chrom\textquotesingle{},\ \textquotesingle{}start\textquotesingle{},\ \textquotesingle{}end\textquotesingle{}{]}})
-and compared with ECH90 regions lifted to \emph{rheMac10} from human
-{[}ref what reference?{]}. We perform visual inspection of the genomic
-intervals and test whether ECH90 regions are enriched near the edges of
-the compartments by defining a 200 kilobase transition-zone centered at
-each sign change of E1 (referred to as \emph{compartment edge}). We
-compare genomic intervals (or sets) both visually by plotting the
-regions, and by a proximity test and bootstrapping the Jaccard index.
+and compared with ECH90 regions lifted to \emph{rheMac10} from human. We
+perform visual inspection of the genomic intervals and test whether
+ECH90 regions are enriched near the edges of the compartments by
+defining a 200 kilobase transition-zone centered at each sign change of
+E1 (referred to as \emph{compartment edge}). We compare genomic
+intervals (or sets) both visually by plotting the regions, and by a
+proximity test and bootstrapping the Jaccard index. Additionally, the
+compartment limits were invetigated (only 1 flanking base pair) in the
+same manner.
 
 \subsubsection{Proximity test}\label{proximity-test}
 
-Determines whether the non-overlapping parts of the sets are more
+Determines whether the non-overlapping segments of the sets are more
 proximal than expected by chance. We define the \emph{annotation} set
 and the \emph{query} set, and the distance from each interval on the
 \emph{query} to the most proximal interval on the \emph{annotation} is
@@ -1891,8 +1915,8 @@ used to generate an index of proximity by the mean distance to nearest
 interval in the \emph{annotation}. Then, bootstrapping (\(b = 100000\))
 is performed by randomly \emph{re}placing the query intervals to
 generate the null distribution, and finally, the fraction of the
-\emph{null} as or more extreme as our observed proximity is reported as
-the p-value.
+\emph{null} as extreme or more extreme as our observed proximity is
+reported as the p-value.
 
 \subsubsection{Jaccard test}\label{jaccard-test}
 
@@ -1917,7 +1941,8 @@ type, resolution, viewframe, flip annot, query) will yield 180 p-values
 for each test, and we would have to adjust the significance threshold
 (with \(\alpha = 0.05\), we expect 9 tests passing the threshold by
 chance). However, if we test only a few combinations we will greatly
-reduce that.
+reduce that. With that in mind, we do not find it necessary to correct
+the conventional significance threshold, \(\alpha=0.05\).
 
 \chapter{Results}\label{results}
 
@@ -2699,6 +2724,14 @@ flexible approach is still to follow the recommendations from
 \texttt{cooler} to report more pairs as valid contacts, and then create
 coolers with different \emph{mapq} filters if issues are encountered.
 
+\section{Comparing Genomic Intervals}\label{comparing-genomic-intervals}
+
+The comparison of genomic intervals was modified along the way, as we
+gained more knowledge and caught mistakes in the original implementation
+(especially of the proxomity test). Here, I only report the results of
+the final version of the software, but the modifications and
+implications hereof are discussed in Section~\ref{sec-discussion}.
+
 \subsection{Compartment Edges (transition
 zones)}\label{compartment-edges-transition-zones}
 
@@ -2825,41 +2858,42 @@ like they overlap, even though the difference is reported.}
 \end{figure}%
 
 We apply both proximity test and Jaccard test, to see how well the
-results could occur by chance. For completeness, the tests are included
-for all cell types, but we only use 100kb resolution arms viewframe. We
-observe that both fibroblast and round spermatid have \(p < 0.05\) for
-both tests, meaning the two cell type have both more intersection with
-ECH regions than expected by chance (Jaccard) and \emph{none} of the
-samples passed the proximity test, meaning the non-overlapping segments
-were not proximal than expected by chance. I argue that a significant
-Jaccard statistic should be interpreted as a significant amount of
+results could occur by chance. For completeness, the tests are performed
+for all cell types, but we only use 100kb resolution and arms viewframe.
+We observe that both fibroblast and round spermatids have significant
+overlap (Jaccard p-values \(0.012\) and \(0.010\), respectively),
+meaning the edge zone have more intersection with the ECH regions than
+expected by chance. None of the samples passed the proximity test,
+meaning the non-overlapping segments were no more proximal than expected
+by chance. The significant Jaccard test indicate significant amount of
 overlap between the two sets, i.e.~compartment edges and ECH90 regions,
-and the proximity test (when performed on the edges) gives us
+and the proximity test (when performed on the edges) might provide
 information about the potential of expanding or moving the transition
 window. That is, if the non-overlapping regions are \emph{very}
 proximal, a larger (or shifted) window to only capture the 200kb region
-outside of the edge might be favourable.
+outside of the edge might be favourable. With very little proximity
+(high p-value), we might consider shrinking the windows.
 
-\section{Testing against regions of selection in
+\subsection{Testing against regions of selection in
 baboons}\label{testing-against-regions-of-selection-in-baboons}
 
 The data for this analysis was provided by Kasper Munch in bed-like
 format, mapped to \emph{panu\_3.0} (PapAnu4) assembly. The intervals
 define genomic regions in a hybrid/migrating population of baboon where
 strong negative selection acts against minor parent ancestry (Sørensen
-et al. 2023). The segments had to be lifted to rheMac10 to be able to
-correlate the two sets of intervals. The original UCSC liftOver
-(Hinrichs 2006) is very strict and does not try to conserve segments in
-favor of accuracy e.g.~inversions or small indels, which results in
-highly fragmented regions when lifted to another assembly, if the
-segments are not continouos on the new assembly. For our analysis, it is
-not the exact genomic position or order of sub-genic regions that are
-important, but rather, the start and end coordinates of each segment are
-quantified. To favor preservation of segments, we use
+et al. 2023). The segments had to be lifted to rheMac10 coordinates to
+be able to correlate the two sets of intervals. The original UCSC
+liftOver (Hinrichs 2006) is very strict and does not try to conserve
+segments in favor of accuracy e.g.~inversions or small indels, which
+results in highly fragmented regions when lifted to another assembly, if
+the segments are not continouos on the new assembly. For our analysis,
+it is not the exact genomic position or order of sub-genic regions that
+are important, but rather, the start and end coordinates of each segment
+are quantified. To favor preservation of segments, we use
 \emph{segment\_liftover} (Gao, Huang, and Baudis 2018), resulting in
 much more similar segments to the original
 (Figure~\ref{fig-compare-liftover}). As no chain file from
-\emph{panu\_3.0} to \emph{Mmul\_10} was available, we had to use
+\emph{panu\_3.0} to \emph{Mmul\_10} was available, we used
 \emph{panu\_2.0} as intermediate.
 
 \begin{figure}[H]
@@ -2910,7 +2944,7 @@ seem intersect the compartment edges more centered on the chromosome
 initially ruled out that the non-intersecting parts of the respective
 regions were this proximal by chance. However, after updating the method
 to exclude whole segments that partially overlaps (in stead of keeping
-the non-overlapping parts), there was no statistical significance.
+their non-overlapping parts), there was no statistical significance.
 Additionally, the Jaccard test revealed that the intersection between
 the RS100 and both Hi-\emph{P.hama} and Hi-\emph{P.anu} can be explained
 by chance alone with no p-values below \(0.05\).
@@ -2990,21 +3024,204 @@ using segment\_liftover.}
 
 \end{figure}%
 
+\subsection{Testing limits}\label{testing-limits}
+
+We then abandoned the idea of a 200kb transition zone between the
+compartments. It was introduced as a less stringent edge, allowing the
+intersection of the selected regions to be within a defined threshold.
+We hoped a weaker threshold could allow for more variance, but it turned
+out to be the opposite (Table~\ref{tbl-svedig-tabel-significant}). After
+defining the compartment limits (\texttt{\_edge\_1bp}), we perform tests
+on combinations of all five sources (fibroblast, spermatogonia,
+pachytene spermatocyte, round spermatid, sperm) and 2 viewframes (arms,
+10Mb) and 5 queries. The queries were modified as such; the full ECH was
+used unmodified for the tests as it was already shown to overlap
+(Jaccard) fibroblast and round spermatid. \emph{hama} and \emph{olive}
+limits were used separately and as a concatenated set
+(\texttt{hamaolive\_edge\_1pb}), to increase the effect size, especially
+as the \emph{hama} set is quite small compared to the rest of the sets.
+By their definition, \emph{olive} and \emph{hama} do not overlap, and
+can safely be concatenated (see
+Figure~\ref{fig-introduce-selected-regions} for confirmation). Now, we
+observe significant p-values across all cell types. Reassuringly, both
+fibroblast and round spermatid still have significant Jaccard p-values
+for the arms viewframe although the p-values have increased (to
+\(0.017\) and \(0.028\), respectively). Now, all tissues except sperm
+show significant overlap with ECH regions, especially spermatogonia and
+pachytene spermatocytes with p-values \(0.006\) and \(0.005\),
+respectively. Only fibroblast and spermatogonia significantly overlap
+the ECH region for both viewframes, indicating that their predicted
+compartments shift only minimally compared to the pachytene spermatocyte
+and round spermatid when narrowing the viewframe. Pachytene spermatocyte
+and round spermatid loose their significance when narrowing the
+viewframe, meaning their compartments are highly varied between the two
+views, and the same conclusion can be drawn about sperm, as it gains
+significance when the viewframe is narrowed. Interestingly, only sperm
+overlaps the baboon regions with olive ancestry, and no tissue overlaps
+with hamadryas ancestry. Conversely, when concatenating the olive and
+hamadryas sets to capture all selection in baboons, both spermatogonia,
+pachytene spermatocyte, and sperm are significantly proximal. Here,
+sperm, which is not proximal in the arms viewframe, has the lowest
+p-value (\(p=0.001\)).
+
+\scriptsize
+
+\begin{table}
+
+\caption{\label{tbl-svedig-tabel-significant}Significant p-values across
+tissue types. pc\_scale is the viewframe used for the compartment
+calling. All insignificant p-values are filtered out. \emph{Fb:
+Fibroblast, Spa: Spermatogonia, Pac: Pachytene Spermatocyte, RS: Round
+Spermatid, Sperm: Sperm}}
+
+\centering{
+
+\subcaption{\label{tbl-svedig-tabel-significant-1}Arms viewframe}
+
+\centering{
+
+\begin{tabular}{llllll}
+\toprule
+~ & tissue & Fb & Spa & Pac & RS\\
+\midrule
+test & query & ~ & ~ & ~ & ~\\
+jaccard & ECH90 & 0.017 & 0.006 & 0.005 & 0.028\\
+proximity & olivehama & nan & nan & 0.036 & nan\\
+\bottomrule
+\end{tabular}
+
+}
+
+\subcaption{\label{tbl-svedig-tabel-significant-2}10Mb viewframe}
+
+\centering{
+
+\begin{tabular}{llllll}
+\toprule
+~ & tissue & Fb & Spa & Pac & Sperm\\
+\midrule
+test & query & ~ & ~ & ~ & ~\\
+jaccard & ECH90 & 0.021 & 0.006 & nan & 0.048\\
+proximity & olive & nan & nan & nan & 0.016\\
+ & olivehama & nan & 0.019 & 0.012 & 0.001\\
+\bottomrule
+\end{tabular}
+
+}
+
+}
+
+\end{table}%
+
+\normalsize
+
 \newpage{}
 
-\chapter{Discussion}\label{discussion}
+\chapter{Discussion}\label{sec-discussion}
 
 \begin{itemize}
 \tightlist
+\item[$\square$]
+  discuss the reproducibility infrastructure
+
+  \begin{itemize}
+  \tightlist
+  \item[$\square$]
+    takes a lot of time first time
+  \item[$\square$]
+    we are almost there (at the time of writing it will crash)
+  \end{itemize}
+\item[$\square$]
+  discuss the methods
+
+  \begin{itemize}
+  \tightlist
+  \item[$\square$]
+    HiCExplorer vs Open2C from a documentation perspective
+  \item[$\square$]
+    Unclear rules (latest methodological Hi-C review from 2016, data
+    analysis book is more practical)
+  \item[$\square$]
+    variations of similarity measures for genomic intervals
+  \item[$\square$]
+    For the arms viewframe, I probably should have left out the
+    centromeric region in stead of just splitting
+  \item
+    {[} {]}
+  \end{itemize}
 \item[$\square$]
   Clearly an overlap between edges and ECH90 regions, but what does it
   mean?
 \item[$\square$]
   Maybe test the intersect against ECH genes as the background
-\item[$\square$]
-  For the arms viewframe, I probably should have left out the
-  centromeric region in stead of just splitting
+\item
+  {[} {]}
 \end{itemize}
+
+\section{On Reproducibility}\label{on-reproducibility}
+
+As an extensive reproducibility infrastructere became a major part of
+the project, I have to reflect upon the advantages it has, but also the
+consequences it inevitably brings along. First, reproducibility is the
+basis of scientific progression, and idealisticly it should come before
+the discovery itself. But let us not pretend that reproducibility is
+favored above hypothesis testing to be the driving forces of
+progression, and let us not pretend that it has a singular definition.
+There are many layers to reproducibility, and we do, of course, not need
+to host a website or to construct a single-command pipeline for
+reproducing the analysis to call a study \emph{reproducible}.
+Additionally, the option only exist for analyses that are strictly
+computational. It is, however, very useful and can greatly improve
+downstream efficiency, and I find it important to at least explore the
+available options. If such a pipeline had existed, I would not have had
+to spend weeks to update their results to reflect a more recent
+reference genome. With such a pipeline, it is now easy to extend the
+analysis to include more samples and other species.
+
+At the time of writing, the repository is \emph{almost there} w.r.t.
+reproducibility, but still not quite. It only reproduces the final
+analysis done with \emph{bwa}, \emph{pairtools}, \emph{cooler},
+\emph{cooltools}, and not the preliminary analyses comparing aligners
+and using \emph{HicExplorer}. This is the intention, as most use-cases
+would not need the results of a preliminary methodological comparison.
+However, the workflows are saved under \texttt{scripts/} and can be run
+from there, or they can be added to the main \texttt{workflow.py} as
+separate targets. A small amount of refactoring of the directory
+structure is required as well, because some files are fetched from a
+parent folder to the project directory. Additionally, the main workflow
+is intensive in I/O and could be heavily optimized by piping between
+commands in stead of writing the outputs to file and reading the files
+from the next command. However, that would make it harder to debug, as
+no checkpoints are saved. It would not be as efficient use of resources,
+which are requested on target level, as the analysis would have to run
+as a single target. The different steps of the pipeline are either
+CPU-bound or RAM-bound, but rarely both, and it would take some
+experimenting to find the optimal compromise. Additionally, the
+computational steps between a raw \emph{.cool} file and a balanced,
+multi-resolution \emph{.mcool} are performed in a notebook, and the
+steps should be moved to the workflow. Then, a final target should be
+added to the workflow, executing all the notebooks (they are named in
+order), to generate the figures and tables that are used in this
+manuscript and on the main project pages.
+
+There is a major downside when trying to conform to an idealistic
+framework is the generation of figures and tables. Throughout this
+project, I have adhered to the rule that none of the figures and tables
+should be created or even annotated manually. It is very time-consuming
+to create production-quality figures that needs no further enhancements
+before embedding into a manuscript, and even more so do create tables
+that are both compatible with HTML and PDF. Here, Quarto inherits the
+limitations of Pandoc (which it uses internally to convert Markdown to
+outputs), and it does not work well with complex grouped tables
+generated in Python (see Table~\ref{tbl-svedig-tabel-significant}).
+
+I believe it is an important exercise to force oneself to be cautious
+about design choices and explore the limitations of the tools we have
+available to communicate what we want to communicate.
+
+\section{On Methods}\label{on-methods}
+
+\section{On Results}\label{on-results}
 
 \chapter{Conclusion and future work}\label{conclusion-and-future-work}
 
