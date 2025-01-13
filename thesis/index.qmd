@@ -562,20 +562,23 @@ I believe it is an important exercise to force oneself to be cautious about desi
 
 HiCExplorer is a comprehensive software that consist of an extensive list of ready-made command line functions that calls Python source code. It is modular, except for the parsing of the aligned reads into a raw Hi-C matrix. The documentation provide an extensive list of options to pass to the commands. Nevertheless, they do not provide a Python API (or at least not any documentation thereof). The modules can be imported into a Python-session with standard import syntax, but there are no guiding help pages. Looking through source code revealed that one would have to do something like
 
-```{{python}}
-  from hicexplorer import hicPlotMatrix.main as hicPlotMatrix
+``` {.python code-line-numbers="true"}
+  from hicexplorer.hicPlotMatrix import plotHeatmap
+  from hicmatrix import HiCMatrix
+  plotHeatmap(HiCMatrix(matrix_file)) # and test the required parameters
 ```
 
 to use the plotting function directly within a notebook. However, it would have to modified to stop saving the plots as files in stead of sending them to the display, and it would still require reading from files.
 Clearly, it is not meant to be used directly within Python, as additionally, the CLI function simply is a wrapper for the `main()`-function of the module:
 
-```{{sh}}
+``` {.python code-line-numbers="true"}
   #!path/to/python
   # -*- coding: utf-8 -*-
   from hicexplorer.hicPlotMatrix import main
   if __name__ == "__main__":
       main()
 ```
+
 HiCExplorer is, however, also integrated into Galaxy [@thegalaxycommunity2024galaxyplatformaccessible; @wolff2020galaxyhicexplorer3; @wolff2018galaxyhicexplorerweb], a web-based platform that has computationally demanding softwares executable through their servers. Here, one can make a drag-and-drop workflow with HicExplorer's commands, get integrated visualizations, among other cool stuff. Although it was not suitable for this project, they should be given credit for such an extensive integration. Additionally, following a Galaxy-walkthrough would have given me a better intuition of the pipeline they recommend, and faster as well. 
 
 The Open2C Ecosystem consists of three major modules---pairtools, cooler, and cooltools. They all conform to the same standards; they are highly modular, and highly flexible and extensively documented. They have an interactive cooler-demo running on Jupyter notebooks on a server, which is easily adaptable to other data. They include both a command-line interface and a (well-documented) Python API, where a `Cooler` class efficiently handles the Hi-C matrix. They provide tutorials on all 6 of their intended use cases---Visualization, Contacts vs Distance, Compartments and Saddleplots, Insulation and Boundaries, Dots and Focal Enrichment, and Pileups and Average Features---of which we only use visualization and compartments. The software is fully compatible with Pandas and Matplotlib packages, making the analysis highly flexible. 
