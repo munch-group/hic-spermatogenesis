@@ -936,7 +936,7 @@ Jaccard: 0.046543092859550536
 </section>
 <section id="import-edges" class="level2">
 <h2 class="anchored" data-anchor-id="import-edges">Import edges</h2>
-<div id="cell-24" class="cell" data-execution_count="11">
+<div id="cell-24" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -969,7 +969,7 @@ Jaccard: 0.046543092859550536
 Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="12">
+<div id="cell-25" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_intersect</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> dataframes.keys()</span>
@@ -1001,7 +1001,7 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_regions(ech90, edge_df, edge_intersect)</span></span>
 <span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.suptitle('Edges only')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="13">
+<div id="cell-26" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Some stats about the data and intersections </span><span class="al">###</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> pd.DataFrame({</span>
@@ -1022,7 +1022,7 @@ Index(['start', 'end', 'chrom', 'resolution', 'length'], dtype='object')</code><
 <span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>stats[<span class="st">'smoothed'</span>] <span class="op">=</span> stats[<span class="st">'smoothed'</span>].notna() <span class="co"># Convert to boolean</span></span>
 <span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>stats[[<span class="st">'source'</span>, <span class="st">'res'</span>, <span class="st">'view'</span>, <span class="st">'smoothed'</span>,<span class="st">'Prop regions on ECH90'</span>, <span class="st">'Prop bp on ECH90'</span>]]</span>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -2017,7 +2017,7 @@ chrX    59400000    60800000    high_olive</code></pre>
 </section>
 <section id="load-baboons" class="level3">
 <h3 class="anchored" data-anchor-id="load-baboons">Load baboons</h3>
-<div id="cell-47" class="cell" data-execution_count="14">
+<div id="cell-47" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load baboons, define only high_hama</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -2055,7 +2055,7 @@ chrX    59400000    60800000    high_olive</code></pre>
 </div>
 <section id="define-functions" class="level4">
 <h4 class="anchored" data-anchor-id="define-functions">Define functions</h4>
-<div id="cell-49" class="cell" data-execution_count="15">
+<div id="cell-49" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_collapse</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> multiprocessing <span class="im">import</span> cpu_count</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv.stats <span class="im">import</span> jaccard_stat, proximity_stat</span>
@@ -2141,7 +2141,7 @@ chrX    59400000    60800000    high_olive</code></pre>
 </section>
 <section id="load-comps-and-edges" class="level3">
 <h3 class="anchored" data-anchor-id="load-comps-and-edges">Load comps and edges</h3>
-<div id="cell-51" class="cell" data-execution_count="16">
+<div id="cell-51" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the rest and get an overview of the selected samples</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> [<span class="st">'fibroblast_100kb_arms'</span>, <span class="st">'round_spermatid_100kb_arms'</span>]</span>
@@ -2168,112 +2168,147 @@ chrX    59400000    60800000    high_olive</code></pre>
 <span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'limits'</span>: make_edges(high_olive, <span class="dv">1</span>)</span>
 <span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>ech_dict <span class="op">=</span> {<span class="st">'full'</span>: ech90,</span>
-<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">'edges'</span>: make_edges(ech90, <span class="dv">100_000</span>),</span>
-<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">'limits'</span>: make_edges(ech90, <span class="dv">1</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>hamaolive_dict <span class="op">=</span> {</span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">'full'</span>: pd.concat([high_hama, high_olive]),</span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">'edges'</span>: make_edges(pd.concat([high_hama, high_olive]), <span class="dv">100_000</span>),</span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">'limits'</span>: make_edges(pd.concat([high_hama, high_olive]), <span class="dv">1</span>)</span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>ech_dict <span class="op">=</span> {<span class="st">'full'</span>: ech90,</span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">'edges'</span>: make_edges(ech90, <span class="dv">100_000</span>),</span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">'limits'</span>: make_edges(ech90, <span class="dv">1</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="summarise" class="level3">
 <h3 class="anchored" data-anchor-id="summarise">Summarise</h3>
-<div id="cell-53" class="cell" data-execution_count="17">
+<div id="cell-53" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarise how much the edges are reduced compared to the full regions</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">'Fibroblast'</span>, <span class="st">'Round spermatid'</span>, <span class="st">'Hamadryas'</span>, <span class="st">'Olive'</span>, <span class="st">'ECH'</span>]</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> [fb100_dict, rs100_dict, hama_dict, olive_dict, ech_dict]</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">'Fibroblast'</span>, <span class="st">'Round spermatid'</span>, <span class="st">'Hamadryas'</span>, <span class="st">'Olive'</span>, <span class="st">'HamaOlive'</span>, <span class="st">'ECH'</span>]</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> [fb100_dict, rs100_dict, hama_dict, olive_dict, hamaolive_dict, ech_dict]</span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample'</span>: names,</span>
 <span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Full_bp'</span>: [<span class="bu">sum</span>(sample[<span class="st">'full'</span>][<span class="st">'end'</span>] <span class="op">-</span> sample[<span class="st">'full'</span>][<span class="st">'start'</span>]) <span class="cf">for</span> sample <span class="kw">in</span> samples],</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'full_avg_bp'</span>: [<span class="bu">round</span>(<span class="bu">sum</span>(sample[<span class="st">'full'</span>][<span class="st">'end'</span>] <span class="op">-</span> sample[<span class="st">'full'</span>][<span class="st">'start'</span>]) <span class="op">/</span> sample[<span class="st">'full'</span>].shape[<span class="dv">0</span>], <span class="dv">1</span>) <span class="cf">for</span> sample <span class="kw">in</span> samples],</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Edge_bp'</span>: [<span class="bu">sum</span>(sample[<span class="st">'edges'</span>][<span class="st">'end'</span>] <span class="op">-</span> sample[<span class="st">'edges'</span>][<span class="st">'start'</span>]) <span class="cf">for</span> sample <span class="kw">in</span> samples],</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'edge_avg_bp'</span>: [<span class="bu">round</span>(<span class="bu">sum</span>(sample[<span class="st">'edges'</span>][<span class="st">'end'</span>] <span class="op">-</span> sample[<span class="st">'edges'</span>][<span class="st">'start'</span>]) <span class="op">/</span> sample[<span class="st">'edges'</span>].shape[<span class="dv">0</span>], <span class="dv">1</span>) <span class="cf">for</span> sample <span class="kw">in</span> samples],</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>}).assign(edge_over_full<span class="op">=</span><span class="kw">lambda</span> x: <span class="bu">round</span>(x[<span class="st">'Edge_bp'</span>] <span class="op">/</span> x[<span class="st">'Full_bp'</span>],<span class="dv">3</span>))</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'full_max_bp'</span>: [<span class="bu">max</span>(sample[<span class="st">'full'</span>][<span class="st">'end'</span>] <span class="op">-</span> sample[<span class="st">'full'</span>][<span class="st">'start'</span>]) <span class="cf">for</span> sample <span class="kw">in</span> samples],</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'full_avg_bp'</span>: [<span class="bu">round</span>(<span class="bu">sum</span>(sample[<span class="st">'full'</span>][<span class="st">'end'</span>] <span class="op">-</span> sample[<span class="st">'full'</span>][<span class="st">'start'</span>]) <span class="op">/</span> sample[<span class="st">'full'</span>].shape[<span class="dv">0</span>], <span class="dv">1</span>) <span class="cf">for</span> sample <span class="kw">in</span> samples],</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'full_min_bp'</span>: [<span class="bu">min</span>(sample[<span class="st">'full'</span>][<span class="st">'end'</span>] <span class="op">-</span> sample[<span class="st">'full'</span>][<span class="st">'start'</span>]) <span class="cf">for</span> sample <span class="kw">in</span> samples],</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Edge_bp'</span>: [<span class="bu">sum</span>(sample[<span class="st">'edges'</span>][<span class="st">'end'</span>] <span class="op">-</span> sample[<span class="st">'edges'</span>][<span class="st">'start'</span>]) <span class="cf">for</span> sample <span class="kw">in</span> samples],</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'edge_avg_bp'</span>: [<span class="bu">round</span>(<span class="bu">sum</span>(sample[<span class="st">'edges'</span>][<span class="st">'end'</span>] <span class="op">-</span> sample[<span class="st">'edges'</span>][<span class="st">'start'</span>]) <span class="op">/</span> sample[<span class="st">'edges'</span>].shape[<span class="dv">0</span>], <span class="dv">1</span>) <span class="cf">for</span> sample <span class="kw">in</span> samples],</span>
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># tell pandas to use thousands separator</span></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>display(summary.style.<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:,.0f}</span><span class="st">"</span>, subset<span class="op">=</span>[<span class="st">'Full_bp'</span>, <span class="st">'Edge_bp'</span>]).<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:,.1f}</span><span class="st">"</span>, subset<span class="op">=</span>[<span class="st">'full_avg_bp'</span>, <span class="st">'edge_avg_bp'</span>]).<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.1%}</span><span class="st">"</span>, subset<span class="op">=</span><span class="st">'edge_over_full'</span>))</span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>plot_regions(high_olive, high_hama, ech90, </span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'Hama'</span>, <span class="st">'Olive'</span>, <span class="st">'ECH90'</span>],</span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">"Edges"</span>)</span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>plot_regions(high_olive,baboon_nonlift.query(<span class="st">'group == "high_olive"'</span>), </span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'Lifted High olive'</span>, <span class="st">'Non-lifted high olive'</span>],</span>
-<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">"Compare liftOver"</span>)</span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>plot_regions(hama_dict[<span class="st">'limits'</span>], olive_dict[<span class="st">'limits'</span>], ech_dict[<span class="st">'limits'</span>], </span>
-<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'Hama'</span>, <span class="st">'Olive'</span>, <span class="st">'ECH90'</span>], </span>
-<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">'Limits'</span>, </span>
-<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>             alpha<span class="op">=</span><span class="dv">1</span>, lw<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a>plot_regions(olive_dict[<span class="st">'limits'</span>], fb100_dict[<span class="st">'limits'</span>], rs100_dict[<span class="st">'limits'</span>], </span>
-<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'Hama'</span>, <span class="st">'Fibroblast'</span>, <span class="st">'Round spermatid'</span>],</span>
-<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">'Limits'</span>,</span>
-<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a>             alpha<span class="op">=</span><span class="dv">1</span>, lw<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>}).assign(edge_over_full<span class="op">=</span><span class="kw">lambda</span> x: <span class="bu">round</span>(x[<span class="st">'Edge_bp'</span>] <span class="op">/</span> x[<span class="st">'Full_bp'</span>],<span class="dv">3</span>))</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># tell pandas to use thousands separator</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>display(summary.style</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>        .<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:,.0f}</span><span class="st">"</span>, subset<span class="op">=</span>[<span class="st">'Full_bp'</span>, <span class="st">'full_max_bp'</span>, <span class="st">'full_min_bp'</span>, <span class="st">'Edge_bp'</span>])</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>        .<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:,.1f}</span><span class="st">"</span>, subset<span class="op">=</span>[<span class="st">'full_avg_bp'</span>, <span class="st">'edge_avg_bp'</span>])</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>        .<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.1%}</span><span class="st">"</span>, subset<span class="op">=</span><span class="st">'edge_over_full'</span>)</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>plot_regions(high_olive, high_hama, ech90, </span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'Hama'</span>, <span class="st">'Olive'</span>, <span class="st">'ECH90'</span>],</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">"Edges"</span>)</span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>plot_regions(high_olive,baboon_nonlift.query(<span class="st">'group == "high_olive"'</span>), </span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'Lifted High olive'</span>, <span class="st">'Non-lifted high olive'</span>],</span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">"Compare liftOver"</span>)</span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>plot_regions(hama_dict[<span class="st">'limits'</span>], olive_dict[<span class="st">'limits'</span>], ech_dict[<span class="st">'limits'</span>], </span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'Hama'</span>, <span class="st">'Olive'</span>, <span class="st">'ECH90'</span>], </span>
+<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">'Limits'</span>, </span>
+<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a>             alpha<span class="op">=</span><span class="dv">1</span>, lw<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a>plot_regions(olive_dict[<span class="st">'limits'</span>], fb100_dict[<span class="st">'limits'</span>], rs100_dict[<span class="st">'limits'</span>], </span>
+<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'Hama'</span>, <span class="st">'Fibroblast'</span>, <span class="st">'Round spermatid'</span>],</span>
+<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">'Limits'</span>,</span>
+<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a>             alpha<span class="op">=</span><span class="dv">1</span>, lw<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <style type="text/css">
 </style>
 
-<table id="T_f1df0" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_b246d" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_f1df0_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Sample</th>
-<th id="T_f1df0_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Full_bp</th>
-<th id="T_f1df0_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">full_avg_bp</th>
-<th id="T_f1df0_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Edge_bp</th>
-<th id="T_f1df0_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">edge_avg_bp</th>
-<th id="T_f1df0_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">edge_over_full</th>
+<th id="T_b246d_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Sample</th>
+<th id="T_b246d_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Full_bp</th>
+<th id="T_b246d_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">full_max_bp</th>
+<th id="T_b246d_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">full_avg_bp</th>
+<th id="T_b246d_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">full_min_bp</th>
+<th id="T_b246d_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Edge_bp</th>
+<th id="T_b246d_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">edge_avg_bp</th>
+<th id="T_b246d_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">edge_over_full</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_f1df0_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
-<td id="T_f1df0_row0_col0" class="data row0 col0">Fibroblast</td>
-<td id="T_f1df0_row0_col1" class="data row0 col1">64,200,000</td>
-<td id="T_f1df0_row0_col2" class="data row0 col2">1,088,135.6</td>
-<td id="T_f1df0_row0_col3" class="data row0 col3">21,600,000</td>
-<td id="T_f1df0_row0_col4" class="data row0 col4">260,241.0</td>
-<td id="T_f1df0_row0_col5" class="data row0 col5">33.6%</td>
+<td id="T_b246d_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_b246d_row0_col0" class="data row0 col0">Fibroblast</td>
+<td id="T_b246d_row0_col1" class="data row0 col1">64,200,000</td>
+<td id="T_b246d_row0_col2" class="data row0 col2">5,000,000</td>
+<td id="T_b246d_row0_col3" class="data row0 col3">1,088,135.6</td>
+<td id="T_b246d_row0_col4" class="data row0 col4">100,000</td>
+<td id="T_b246d_row0_col5" class="data row0 col5">21,600,000</td>
+<td id="T_b246d_row0_col6" class="data row0 col6">260,241.0</td>
+<td id="T_b246d_row0_col7" class="data row0 col7">33.6%</td>
 </tr>
 <tr class="even">
-<td id="T_f1df0_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
-<td id="T_f1df0_row1_col0" class="data row1 col0">Round spermatid</td>
-<td id="T_f1df0_row1_col1" class="data row1 col1">56,500,000</td>
-<td id="T_f1df0_row1_col2" class="data row1 col2">733,766.2</td>
-<td id="T_f1df0_row1_col3" class="data row1 col3">27,088,924</td>
-<td id="T_f1df0_row1_col4" class="data row1 col4">282,176.3</td>
-<td id="T_f1df0_row1_col5" class="data row1 col5">47.9%</td>
+<td id="T_b246d_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_b246d_row1_col0" class="data row1 col0">Round spermatid</td>
+<td id="T_b246d_row1_col1" class="data row1 col1">56,500,000</td>
+<td id="T_b246d_row1_col2" class="data row1 col2">4,500,000</td>
+<td id="T_b246d_row1_col3" class="data row1 col3">733,766.2</td>
+<td id="T_b246d_row1_col4" class="data row1 col4">100,000</td>
+<td id="T_b246d_row1_col5" class="data row1 col5">27,088,924</td>
+<td id="T_b246d_row1_col6" class="data row1 col6">282,176.3</td>
+<td id="T_b246d_row1_col7" class="data row1 col7">47.9%</td>
 </tr>
 <tr class="odd">
-<td id="T_f1df0_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
-<td id="T_f1df0_row2_col0" class="data row2 col0">Hamadryas</td>
-<td id="T_f1df0_row2_col1" class="data row2 col1">8,775,834</td>
-<td id="T_f1df0_row2_col2" class="data row2 col2">516,225.5</td>
-<td id="T_f1df0_row2_col3" class="data row2 col3">6,434,612</td>
-<td id="T_f1df0_row2_col4" class="data row2 col4">229,807.6</td>
-<td id="T_f1df0_row2_col5" class="data row2 col5">73.3%</td>
+<td id="T_b246d_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_b246d_row2_col0" class="data row2 col0">Hamadryas</td>
+<td id="T_b246d_row2_col1" class="data row2 col1">8,775,834</td>
+<td id="T_b246d_row2_col2" class="data row2 col2">1,787,836</td>
+<td id="T_b246d_row2_col3" class="data row2 col3">516,225.5</td>
+<td id="T_b246d_row2_col4" class="data row2 col4">96,276</td>
+<td id="T_b246d_row2_col5" class="data row2 col5">6,434,612</td>
+<td id="T_b246d_row2_col6" class="data row2 col6">229,807.6</td>
+<td id="T_b246d_row2_col7" class="data row2 col7">73.3%</td>
 </tr>
 <tr class="even">
-<td id="T_f1df0_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
-<td id="T_f1df0_row3_col0" class="data row3 col0">Olive</td>
-<td id="T_f1df0_row3_col1" class="data row3 col1">44,876,120</td>
-<td id="T_f1df0_row3_col2" class="data row3 col2">1,319,885.9</td>
-<td id="T_f1df0_row3_col3" class="data row3 col3">12,715,662</td>
-<td id="T_f1df0_row3_col4" class="data row3 col4">219,235.6</td>
-<td id="T_f1df0_row3_col5" class="data row3 col5">28.3%</td>
+<td id="T_b246d_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_b246d_row3_col0" class="data row3 col0">Olive</td>
+<td id="T_b246d_row3_col1" class="data row3 col1">44,876,120</td>
+<td id="T_b246d_row3_col2" class="data row3 col2">6,493,293</td>
+<td id="T_b246d_row3_col3" class="data row3 col3">1,319,885.9</td>
+<td id="T_b246d_row3_col4" class="data row3 col4">97,613</td>
+<td id="T_b246d_row3_col5" class="data row3 col5">12,715,662</td>
+<td id="T_b246d_row3_col6" class="data row3 col6">219,235.6</td>
+<td id="T_b246d_row3_col7" class="data row3 col7">28.3%</td>
 </tr>
 <tr class="odd">
-<td id="T_f1df0_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
-<td id="T_f1df0_row4_col0" class="data row4 col0">ECH</td>
-<td id="T_f1df0_row4_col1" class="data row4 col1">5,511,675</td>
-<td id="T_f1df0_row4_col2" class="data row4 col2">290,088.2</td>
-<td id="T_f1df0_row4_col3" class="data row4 col3">7,195,159</td>
-<td id="T_f1df0_row4_col4" class="data row4 col4">224,848.7</td>
-<td id="T_f1df0_row4_col5" class="data row4 col5">130.5%</td>
+<td id="T_b246d_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_b246d_row4_col0" class="data row4 col0">HamaOlive</td>
+<td id="T_b246d_row4_col1" class="data row4 col1">53,651,954</td>
+<td id="T_b246d_row4_col2" class="data row4 col2">6,493,293</td>
+<td id="T_b246d_row4_col3" class="data row4 col3">1,051,999.1</td>
+<td id="T_b246d_row4_col4" class="data row4 col4">96,276</td>
+<td id="T_b246d_row4_col5" class="data row4 col5">18,941,689</td>
+<td id="T_b246d_row4_col6" class="data row4 col6">228,213.1</td>
+<td id="T_b246d_row4_col7" class="data row4 col7">35.3%</td>
+</tr>
+<tr class="even">
+<td id="T_b246d_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_b246d_row5_col0" class="data row5 col0">ECH</td>
+<td id="T_b246d_row5_col1" class="data row5 col1">5,511,675</td>
+<td id="T_b246d_row5_col2" class="data row5 col2">623,108</td>
+<td id="T_b246d_row5_col3" class="data row5 col3">290,088.2</td>
+<td id="T_b246d_row5_col4" class="data row5 col4">88,572</td>
+<td id="T_b246d_row5_col5" class="data row5 col5">7,195,159</td>
+<td id="T_b246d_row5_col6" class="data row5 col6">224,848.7</td>
+<td id="T_b246d_row5_col7" class="data row5 col7">130.5%</td>
 </tr>
 </tbody>
 </table>

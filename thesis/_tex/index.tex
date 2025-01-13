@@ -584,22 +584,24 @@ of the degree of MSc. Bioinformatics \par}
     \par % End the paragraph
     \vspace{1em} % Add some vertical space below the title
     \justifying % Ensure the abstract text is justified (requires the `ragged2e` package)
-    The hemizygosity of male mammals makes the X chromosome uniquely
-exposed to selective pressures, as the lack of a second copy provides no
-buffer against deleterious mutations. This, combined with a high density
-of essential genes related to reproduction and brain function, suggests
-the existence of biological mechanisms that protect the integrity of the
-X chromosome. One such mechanism is meiotic sex chromosome inactivation
-(MSCI) in males, while another could involve chromatin architecture.
+    The X chromosome is uniquely exposed to selective pressures due to
+the lack of a second copy in the hemizygous sex, leaving no buffer
+against deleterious mutations, and giving unique inheritance patterns.
+Combined with its high density of essential genes related to
+reproduction and brain function, this suggests the presence of
+biological mechanisms that safeguard the integrity of the X chromosome.
 
 In this study, the 3D chromatin architecture of the X chromosome in
 rhesus macaque (\emph{Macaca mulata}) is investigated in the context of
-evolutionary pressures and genetic drivers. We redo Hi-C analyses from a
-2019 paper on the latest reference genome (\emph{rheMac10} or
-\emph{Mmul\_10}). We compare two Hi-C analysis frameworks,
-\emph{HiCExplorer} and \emph{cooler/cooltools} (Open2C), on a subset,
-finding Open2C to be most flexible and intuitive. The ICE method
-(Iterative Correction and Eigendecomposition) was used to infer
+evolutionary pressures and genetic drivers. To ensure transparency and
+reproducibility, we adopt a comprehensive computational framework for
+publishing a version-controlled, fully reproducible analysis.
+
+We redo Hi-C analyses from a 2019 paper on the latest reference genome
+(\emph{rheMac10} or \emph{Mmul\_10}). We compare two Hi-C analysis
+frameworks, \emph{HiCExplorer} and \emph{cooler/cooltools} (Open2C), on
+a subset, finding Open2C to be most flexible and intuitive. The ICE
+method (Iterative Correction and Eigendecomposition) was used to infer
 conventional and refined A/B compartments for fibroblast and four stages
 of spermatogenesis.
 
@@ -632,31 +634,44 @@ evolution. % Insert the abstract text here
 \mainmatter
 \chapter{Introduction}\label{introduction}
 
-\section{Sexual Reproduction and Sex
-Chromosomes}\label{sexual-reproduction-and-sex-chromosomes}
+The X chromosome plays a unique role in evolution, being directly
+exposed to selection pressures due to its hemizygosity in males, leading
+to unique inheritance patterns. Regions of reduced diversity on the X
+chromosome could reflect the influence of strong evolutionary forces.
+Chromatin architecture, particularly the organization into A/B
+compartments, may provide insights into the functional basis of these
+patterns.
+
+Here, we analyze the 3D chromatin structure of the X chromosome in
+rhesus macaque using Hi-C data on the latest reference genome
+(rheMac10). Our analysis extensively combines software tools that
+emphasize reproducibility, ensuring that our analyses are transparent,
+portable, and replicable.
+
+\section{Evolution on X}\label{evolution-on-x}
 
 The production of gametes in a sexually reproducing organism is a highly
 complex process that involves numeruous elements. Spermatogenesis, the
 process of forming male gametes, involves four stages of differentiation
 from a germ cell through \emph{spermatogonia}, \emph{pachytene
-spermatocyte}, and \emph{round spermatids} to \emph{spermatozoa}, or
-\emph{sperm} (Wang et al. 2019), and it is the very basis of male
-reproduction. The specialized cell division of meiosis neatly handles
-the pairing, recombination, and segregation of homologous chromosomes,
-thereby ensuring proper genetic distribution. Deeply understanding the
-steps of molecular steps of reproduction and how our genetic material is
-inherited is essential in biology, bringing insight to areas such as
-speciation, population diversity, and (male) infertility.
+spermatocyte}, and \emph{round spermatids} to \emph{spermatozoa} (Wang
+et al. 2019), and it is the basis of male reproduction. The specialized
+cell division of meiosis neatly handles the pairing, recombination, and
+segregation of homologous chromosomes, thereby ensuring proper genetic
+distribution. Deeply understanding the molecular steps of reproduction
+and how our genetic material is inherited is essential in biology,
+bringing insight to areas such as speciation, population diversity, and
+infertility.
 
 Sex chromosomes behave differently than autosomes for several reasons.
 One reason is hemizygosity, where there is only one copy of a
-chromosome. The Y chromosome exist only in males, and (generally) never
-more than one copy is in the same individual. The copmlexity increases
-when we tend to the X chromosome, which exist both alone (in males) and
-as two copies (in females). This skewed ratio means that X chromosomes
-exist \(2/3\) of the time in females and only 1/3 of the time in males,
-and it is more exposed in males as there is no other copy to take over
-loss of function. It is also the underlying reasoning for Haldane's rule
+chromosome. The Y chromosome exist only in males, and no more than one
+copy is in each individual. The complexity increases when we tend to the
+X chromosome, which exist as single-copy in males and as two copies in
+females. This skewed ratio means that X chromosomes exist \(2/3\) of the
+time in females and only \(1/3\) of the time in males, and it is more
+exposed in males as there is no other copy to take over loss of
+function. It is also the underlying reasoning for Haldane's rule
 (Haldane 1922), postulating that the heterogametic sex (XY, ZW) is the
 first to dissapear or have severely lowered fitness (e.g.~sterility)
 when crossing different species. Even today, a hundred years later,
@@ -674,124 +689,110 @@ explanations, and consensus for different species are not the same.
 Often times even, several of the listed explanations are described to be
 acting in collaboration (Lindholm et al. 2016). The complexity of
 selection on the X chromosome therefore still an area of active
-investigation, and several studies infers selective strong selection on
-the X chromosomes across primates, as discussed in the following.
+investigation, and several studies infer strong selection on the X
+chromosomes across primates, as discussed in the following.
 
-\section{Gene Drive and Selfishness}\label{gene-drive-and-selfishness}
+\subsection{Extended Common Haplotypes (ECH) on human
+X}\label{extended-common-haplotypes-ech-on-human-x}
 
-Gene drive occur when a particular collection of genes is propagated
-through a population by increasing the probability of transmitting the
-genes to the offspring from random (Mendelian) inheritance, resulting in
-a biased gene transmission against its alternative (referred to as
-\emph{transmission advantage}). Two categories of gene drivers exist
-(Bravo Núñez, Nuckolls, and Zanders 2018); \emph{class one drivers}
-affect chromosome segregation in meiosis, and \emph{killer meiotic
-drivers} will sabotage meiotic product that have not inherited the
-driving allele (Bravo Núñez, Nuckolls, and Zanders 2018). This happens
-regardless of the fitness effects of the developed organism, and is
-there often a factor offsetting classical selection. Even though the
-implications of such systems are potentially detrimental, they are
-notoriously difficult to detect. A circumstance contributing to the
-difficulty is that most genetic experiments are done in homozygotes.
-Bravo Núñez, Nuckolls, and Zanders (2018) states that the general choice
-of experimental system may have biased our understanding of sexual
-reproduction. A key point is; meiotic drivers can only be observed in
-heterozygotes, where a genetic driver has a competitor.
+Incomplete lineage sorting (ILS) occur when all lineages in a population
+are not completely sorted between two speciation events, resulting in a
+gene tree incongruent with the species tree (Mailund, Munch, and
+Schierup 2014). Briefly, it complicates phylogenetic inference as it
+implies that divergence time does represent speciation time. But, by
+solving the incongruency with a maximum likelihood approach (see
+Mailund, Munch, and Schierup 2014), the relation between the ILS
+proportion, \(p\), time between two speciation events, \(\Delta\tau\),
+and effective population size, \(N_e\), is given by the formula
 
-If an autosomal driver reaches fixation, it no longer has a target to
-act against, and consequently the driving phenotype will not be observed
-(Bravo Núñez, Nuckolls, and Zanders 2018). Over time, as there is
-neither selfish nor selective pressure to maintain the drive mechanism
-of a fixed driver, the mechanism will decay as it accumulates
-inactivating mutations. As a result, genetic drivers are said to be
-transient (Bravo Núñez, Nuckolls, and Zanders 2018) on an evolutionary
-timescale, unless it is linked to another positively selected allele
-(Jaenike 2001). Interestingly, gene drive is much more well-documented
-on sex chromosomes than for autosomes. Possibly because the sex
-chromosome meiotic drive inherently causes a skewed sex ratio, more
-notably raising a flag for further analysis. The consequences of sex
-chromosome drive and skewed sex ratio can be widespread. A fully driving
-gene on X can to lead to the extinction of the population that fixes the
-allele (Jaenike 2001), as only one (fertile) offspring sex will be
-produced. Therefore, sex chromosome drivers usually exist in equilibrium
-with a supressor. When a population becomes female-biased, autosomal
-suppressors will be favored with a process termed \emph{Fisher's sex
-ratio selection} (Lindholm et al. 2016.)
+\[
+N_e = \frac{\Delta\tau}{2} \ln \frac{2p}{3}.
+\]
 
-\section{Selection on X}\label{selection-on-x}
+Then, by comparing the observed (local) ILS with the expected (e.g.~a
+genomic average), a reduction in \(N_e\) can be used to infer selection.
+Additionally, as selective sweeps force lineages to coalesce, sweeps
+will also cause a reduction in ILS. Dutheil et al. (2015) found that the
+human X chromosome had reduced ILS compared to autosomes on a third of
+its sequence, fully explaining the low divergence between human and
+chimpanzees. Reduced ILS co-occur with reduced diversity across the X
+chromosomes of great apes, including human. Additionally, Neanderthal
+introgression was depleted in the same regions, and the authors suggest
+that they are a target of selection, as they rule background selection
+to be responsible for reduced ILS.
 
-As described, the sex chromosomes are under intense selective pressures.
-As a result, they have greatly reduced recombination rates comparing to
-the autosomal background (Dutheil et al. 2015) (especially between X and
-Y) and are less diverse than expected under neutral evolution (Skov et
-al. 2023). A driving element on X may target a region on Y, mitigating
-the risk of self-destruction and increasing its frequency at the same
-time. However as it induces a skewed sex-ratio by limiting the number of
-functioning Y-bearing spermatozoa, the selection on Y to counter this
-effect is strong, engaging an evolutionary arms race between driving
-allele and its supressor, potentially explaining stable Y chromosome
-polymorphisms (Jaenike 2001). However, the Y chromosome only exist in
-the male population and a supressor on Y has only limited effect on the
-X chromosome on a population-scale compared to its autosomal cousins,
-which consequently often harbours supressors of X-drive, as they are
-passed down to more offspring than the Y chromosome. The fight between a
-driver and a supressor in their coevolution is linked to the chromosomal
-architecture, as they have been shown to be protected by low-recombining
-regions or chromosomal inversions, and to be mediating the evolution of
-karyotype (Lindholm et al. 2016). Thus, the structural features of a
-chromosome not only shield genetic drivers but influence the patterns of
-synteny, which, in turn, is shaped by both selection and genomic
-constraints.
-
-Synteny, the conservation of the order of genes along a chromosome, can
-be used to infer many things about a genome, an example being ancestral
-relationships between species. In the assembly of a new reference genome
-for baboon, \emph{Panubis1.0} (Batra et al. 2020), the high level of
-synteny between their assembly and established chromosome-scale assembly
-of rhesus macaque was used to support the correctness of their assembly.
-Additionally, the observed breaks observed in synteny on the Y
-chromosome correspond to the generally high rate of rearrangements
-occuring on Y chromosomes of mammals (Batra et al. 2020; Skov, The
-Danish Pan Genome Consortium, and Schierup 2017). Dutheil et al. (2015)
-uses the high level of synteny on the X chromosomes of the human-chimp
-ancestor to infer a close relationship (at least on X) as well as strong
-selective sweeps acting against chromosomal rearrangements since
-divergence 6-7 million years ago (Munch et al. 2016).
-
-\subsubsection{Extended Common Haplotypes (ECH) in
-humans}\label{extended-common-haplotypes-ech-in-humans}
-
-More low-diversity regions on X in humans have been inferred to be arise
-from selective sweeps between 55,000 (archaic introgression after
-out-of-Africa event) to 45,000 (Ust'-Ishim man) years ago (Skov et al.
-2023). They define the time-span by comparing haplotypes of unadmixed
-African genomes with admixed non-African genomes. Here, they locate
+Low-diversity regions on the human X chromosome that also overlap with
+reduced human-chimp ILS have been hypothesized to arise from selective
+sweeps between 55,000 (archaic introgression after out-of-Africa event)
+to 45,000 (Ust'-Ishim man) years ago (Skov et al. 2023). The authors
+define the time-span by comparing haplotypes of unadmixed African
+genomes with admixed non-African genomes. Here, they locate
 megabase-spanning regions on the X chromosome where a large proportion
 of the non-African population have reduced archaic introgression,
 hypothesizing that selective sweeps have created these extended common
-haplotypes (ECH).
+haplotypes (ECHs). The ECHs span 11\% of the X chromosome and are shared
+across all non-African populations. Similar to the low-ILS regions, ECHs
+exhibit a complete absence of archaic introgression (Neanderthal and
+Denisovan). Notably, the largest continuous ECH spans 1.8 Mb---more than
+double the size of the selective sweep associated with the lactase
+persistence gene, which represents strongest selective sweeps documented
+in humans (Skov et al. 2023; Bersaglieri et al. 2004). If such strong
+selection underlies the observed low diversity, it suggests that factors
+beyond fitness effects alone may be contributing to this pattern. This
+raises the possibility that the observed patterns of low diversity may
+result not only from strong selective sweeps but also from several
+factors in combination. Structural elements, such as physical linkage
+between the regions within ECHs, may facilitate coordinated selection,
+maintaining reduced diversity over extended genomic stretches.
+Additionally, sex-specific selective pressures, such as those linked to
+the unique transmission and evolutionary dynamics of the X chromosome,
+could contribute to this pattern. Further investigation is needed to
+disentangle the roles of these mechanisms in shaping the genomic
+landscape of the X chromosome.
 
-\subsubsection{Selecting parent ancestry in
-baboons}\label{selecting-parent-ancestry-in-baboons}
+\subsection{Disproportionate minor parent ancestry on baboon
+X}\label{disproportionate-minor-parent-ancestry-on-baboon-x}
 
-Mapping the interspecies gene flow between baboon genomes in their
-evolutionary history have revealed male-driven admixture patterns 6
-baboon species(Sørensen et al. 2023). They infer a male-driven admixture
-from mismatching phylogenies of the mitochondrial DNA and the nuclear
-DNA, indicating a role of nuclear swamping. They compare the ratio of
-chromosome 8/X admixture between the populations, supporting the same
-pattern. Recently, in an unpublished analysis by Munch (2024), large
-megabase-regions were identified in olive baboon (\emph{Papio anubis}),
-where either all individuals had \emph{olive} ancestry, or 95\% of the
-individuals had \emph{hamadryas} ancestry, significantly diverging from
-the background. See Figure~\ref{fig-introduce-selected-regions} for a
-genomic overview of the regions.
+As mentioned above, low ILS and reduced diversity is consistent across
+all great apes, and thus the regions have been investigated in baboons
+as well. Sørensen et al. (2023) have mapped the interspecies gene flow
+between baboon genomes in their evolutionary history, which revealed
+male-driven admixture patterns in six different baboon species. The
+authors infer a male-driven admixture from mismatching phylogenies of
+the mitochondrial DNA and the nuclear DNA. This indicates a role of
+nuclear swamping, where the nuclear DNA from one species progressively
+replaces that of another through repeated hybridization and
+backcrossing, while the mitochondrial DNA, inherited maternally, remains
+unaffected. This pattern suggests that male-driven gene flow plays a
+significant role in shaping the genomic landscape of these regions,
+potentially impacting diversity and co-ancestry across species. Sørensen
+et al. (2023) compare the ratio of admixture between chromosome 8/X
+across the populations, which support the same pattern. Recently, in a
+yet unpublished analysis by Munch (2024), exceptionally large regions
+(up to 6 Mb, averaging 1 Mb) were identified on X in olive baboon
+(\emph{Papio anubis}), where either all individuals had \emph{olive}
+ancestry, or 95\% of the individuals had \emph{hamadryas} ancestry,
+significantly diverging from the background proportions, suggesting that
+these regions may be under strong selective pressures or influenced by
+structural genomic features that either limit recombination. Such
+patterns suggest that certain chromosomal regions are either preserved
+due to adaptive advantages or subjected to sex-biased gene flow, further
+reinforcing the impact of male-driven admixture on shaping genomic
+variation. These findings highlight the complexity of admixture dynamics
+and their potential to create localized genomic signatures that deviate
+from overall ancestry proportions.
 
-Studying live and closely related primate species is our best way of
-glimpsing into how the \emph{hominin} (human, Neanderthal, Denisovan)
-phylogenies have been formed, and by studying the intricate effects of
-population structure, migration and selection, we might infer events in
-our archaic history.
+Sørensen et al. (2023) highlights the importance of studying these
+populations, as they serve as models for understanding genomic
+separation in archaic hominin lineages while inhabiting comparable
+geographic ranges. Studying closely related, extant primate species
+provides a unique opportunity to gain insight into how \emph{hominin}
+(human, Neanderthal, Denisovan) phylogenies were formed. By analyzing
+the intricate effects of population structure, migration, and selection
+in these species, we can draw parallels and infer events in our own
+archaic evolutionary history. See
+Figure~\ref{fig-introduce-selected-regions} for a genomic overview of
+the abovementioned sets of regions.
 
 \begin{figure}[H]
 
@@ -811,34 +812,49 @@ are lifted to the rheMac10 genome.}
 
 \section{Chromatin Architecture}\label{chromatin-architecture}
 
-This is were the ends are tied and this project comes together. The
-regions of strong selection that have been located across primate
-species (human and baboon) are all on the X chromosome and on the same
-genomic scale (spanning up a million base pairs). As discussed, the
-chromosomal arrangement and rearrangement play a crucial role for
-synteny and chromosomal architecture in general, and it has a massive
-impact on evolution.
+The specific regions under strong selection identified across primate
+species, including humans and baboons, are all located on the X
+chromosome and span megabase-scale genomic regions. As mentioned above,
+alternative mechanisms, such as the chromosomal architecture and its
+rearrangements, could play critical roles in facilitating, regulating,
+or buffering these regions from selective forces.
 
-Generally, the structure and compartmentalization of chromatin is highly
-conserved, and the structural patterns are evident in animals
-throughout. Wang et al. (2019) found that through the stages of
-spermatogeneis, chromatin compartmentalization undergo massive
-reprogramming, going from megabase-spanning compartments through
-smaller, \emph{refined} compartments and back to the megabase
-compartments. The reprogramming is conserved between rhesus macaque and
-mouse, indicating a very important feature of the organization.
-Chromatin has long since been implicated in gene regulation and the
-functional state of the cell (Lieberman-Aiden et al. 2009), as the
-three-dimensional structure of the chromosome can bring distant regions
-in close proximity, and disrupting the organization can lead to
-development abnormalities (Dixon et al. 2015). Even at smaller scales,
-at the level of topologically associating domains (TADs) or chromatin
-loops (Ramírez et al. 2018; Zuo et al. 2021), the structure helps
-segregate regulatory elements and ensure proper function. Modelling
-chromatin compartmentalization through spermatogenesis makes Wang et al.
-(2019) and their Hi-C data obvious starting pointa for investing the
-relationship between these (yet another) megabase-spanning conserved
-regions and those of strong selection identified above.
+Therefore, understanding the genome organization and variation could
+gain insights regarding mechanisms of selection as well. Chromatin has
+long since been implicated in gene regulation and the functional state
+of the cell (Lieberman-Aiden et al. 2009), as the three-dimensional
+structure of the chromosome can bring distant regions in close
+proximity, and disrupting the organization can lead to development
+abnormalities (Dixon et al. 2015). Chromatin is hierarchically
+compartmentalized, meaning multiple orders of organizaion can be nested
+under each other. At the large end, compartments can span multiple
+megabases (Lieberman-Aiden et al. 2009), and in the small end as little
+as 500 base pairs have been showed to aid subgenic structural
+organization. Even at sub-megabase scales, at the level of topologically
+associating domains (TADs) or chromatin loops (Ramírez et al. 2018; Zuo
+et al. 2021), the structure helps segregate regulatory elements and
+ensure proper function.
+
+Analyzing 3D chromatin data from rhesus macaques, a widely used primate
+in experimental studies, could answer the question of whether regions
+under selection are intertwined with chromosomal organizational
+features. Studying the chromosomal architecture through gametogenesis,
+particularly spermatogenesis, could provide valuable insights about
+meiotic recombination and its relationship to genome organization. If
+they correlate with regions under selection across primates, we have yet
+another mystery to explain.
+
+Wang et al. (2019) found that through the stages of spermatogeneis,
+chromatin compartmentalization undergo massive reprogramming, going from
+megabase-spanning compartments through smaller, \emph{refined}
+compartments and back to the megabase compartments. The reprogramming is
+conserved between rhesus macaque and mouse, indicating a very important
+feature of the organization, but the author does not test whether
+genomic positions of the compartments are conserved between species.
+Extending their analysis of chromatin compartmentalization through
+spermatogenesis could make obvious starting points for investigating the
+relationship between yet another set of megabase-spanning regions and
+those of strong selection identified above.
 
 \section{3C: Chromatin Conformation
 Capture}\label{c-chromatin-conformation-capture}
@@ -1388,30 +1404,6 @@ specified in the \texttt{\_quarto.yml} configuration file(s), and
 publishes the project on the group website
 \href{https://munch-group.org/hic-spermatogenesis}{munch-group.org}.
 
-\section{Our research question}\label{our-research-question}
-
-In this project, we formulate two main objectives:
-
-\subsubsection{A}\label{a}
-
-Redo the Hi-C analyses from (Wang et al. 2019) using the latest macaque
-reference genome, \emph{rheMac10}, with some modifications. We decided
-to use \emph{HiCExplorer}, a Python-based software for command line use,
-and supplement the analyses with the \emph{Open2C Ecosystem} ({``Open
-{Chromosome Collective} ({Open2C})''} n.d.) that have a Pyton API as
-well as command-line functions, which can be paired very well with
-Jupyter Notebooks. The majority of the data analysis was run with a
-\emph{gwf} workflow, and the commands that were visually inspected were
-run in Jupyter Notebooks.
-
-\subsubsection{B}\label{b}
-
-Compare with regions of extended common haplotypes (strong selective
-sweeps) that are found in \emph{human}, and with regions of negative
-selection of minor parent ancestry in baboons. Investigate the
-biological meaning of the results. We use in-house software to compare
-genomic intervals.
-
 \chapter{Methods}\label{methods}
 
 All computations were performed on GenomeDK (GDK), an HPC cluster
@@ -1421,7 +1413,7 @@ at GDK. I would like to thank GDK and Aarhus University for providing
 computational resources and support that contributed to these research
 results.
 
-With the analysis tools determined in the above section, we decided it
+With the analysis tools determined in the above section, I decided it
 was not feasible to follow the exact approach as Wang et al. (2019) with
 any of \emph{HiCExplorer} and \emph{Open2C}, as they use a third
 software, \emph{HiC-Pro}. For mapping the raw reads, Hic-Pro internally
@@ -1911,6 +1903,8 @@ without its respective E1 value for either of the three viewframes that
 has been created. The input is a (subsetted) \emph{pandas DataFrame},
 defined from a file search matching a pattern specified to the
 \texttt{glob} Python module.
+
+\section{Genomic Intervals}\label{genomic-intervals}
 
 \subsection{Compartments and Their Edges (Transitional
 Regions)}\label{compartments-and-their-edges-transitional-regions}
@@ -3087,52 +3081,33 @@ pachytene spermatocyte, and sperm are significantly proximal. Here,
 sperm, which is not proximal in the arms viewframe, has the lowest
 p-value (\(p=0.001\)).
 
-\begin{table}
+\begin{longtable}[]{@{}lllllllll@{}}
 
 \caption{\label{tbl-svedig-tabel-significant}Significant p-values across
-tissue types. pc\_scale is the viewframe used for the compartment
-calling. All insignificant p-values are filtered out. \emph{Fb:
+tissue types. All insignificant p-values are filtered out. \emph{Fb:
 Fibroblast, Spa: Spermatogonia, Pac: Pachytene Spermatocyte, RS: Round
 Spermatid, Sperm: Sperm}}
 
-\centering{
+\tabularnewline
 
-\subcaption{\label{tbl-svedig-tabel-significant-1}Arms viewframe}
+\toprule\noalign{}
+& View & Query & Test & Fb & Spa & Pac & RS & Sperm \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & 10Mb & ECH90 & jaccard & 0.02146 & 0.00611 & -\/-\/- & -\/-\/- &
+0.0475 \\
+1 & 10Mb & olive & proximity & -\/-\/- & -\/-\/- & -\/-\/- & -\/-\/- &
+0.01614 \\
+2 & 10Mb & olivehama & proximity & -\/-\/- & 0.01879 & 0.0123 & -\/-\/-
+& 0.00128 \\
+3 & arms & ECH90 & jaccard & 0.01656 & 0.00612 & 0.00534 & 0.02769 &
+-\/-\/- \\
+4 & arms & olivehama & proximity & -\/-\/- & -\/-\/- & 0.03564 & -\/-\/-
+& -\/-\/- \\
 
-\centering{
-
-\begin{tabular}{llllll}
-\toprule
-~ & tissue & Fb & Spa & Pac & RS\\
-\midrule
-test & query & ~ & ~ & ~ & ~\\
-jaccard & ECH90 & 0.017 & 0.006 & 0.005 & 0.028\\
-proximity & olivehama & nan & nan & 0.036 & nan\\
-\bottomrule
-\end{tabular}
-
-}
-
-\subcaption{\label{tbl-svedig-tabel-significant-2}10Mb viewframe}
-
-\centering{
-
-\begin{tabular}{llllll}
-\toprule
-~ & tissue & Fb & Spa & Pac & Sperm\\
-\midrule
-test & query & ~ & ~ & ~ & ~\\
-jaccard & ECH90 & 0.021 & 0.006 & nan & 0.048\\
-proximity & olive & nan & nan & nan & 0.016\\
- & olivehama & nan & 0.019 & 0.012 & 0.001\\
-\bottomrule
-\end{tabular}
-
-}
-
-}
-
-\end{table}%
+\end{longtable}
 
 \newpage{}
 
@@ -3332,6 +3307,66 @@ since last reference (most of which are expected around the centromere),
 we expect more sequences to align in that region, resulting in a longer
 genome as well.
 
+\section{Gene Drive and Selfishness}\label{gene-drive-and-selfishness}
+
+Gene drive occur when a particular collection of genes is propagated
+through a population by increasing the probability of transmitting the
+genes to the offspring from random (Mendelian) inheritance, resulting in
+a biased gene transmission against its alternative (referred to as
+\emph{transmission advantage}). Two categories of gene drivers exist
+(Bravo Núñez, Nuckolls, and Zanders 2018); \emph{class one drivers}
+affect chromosome segregation in meiosis, and \emph{killer meiotic
+drivers} will sabotage meiotic product that have not inherited the
+driving allele (Bravo Núñez, Nuckolls, and Zanders 2018). This happens
+regardless of the fitness effects of the developed organism, and is
+there often a factor offsetting classical selection. Even though the
+implications of such systems are potentially detrimental, they are
+notoriously difficult to detect. A circumstance contributing to the
+difficulty is that most genetic experiments are done in homozygotes.
+Bravo Núñez, Nuckolls, and Zanders (2018) states that the general choice
+of experimental system may have biased our understanding of sexual
+reproduction. A key point is; meiotic drivers can only be observed in
+heterozygotes, where a genetic driver has a competitor.
+
+If an autosomal driver reaches fixation, it no longer has a target to
+act against, and consequently the driving phenotype will not be observed
+(Bravo Núñez, Nuckolls, and Zanders 2018). Over time, as there is
+neither selfish nor selective pressure to maintain the drive mechanism
+of a fixed driver, the mechanism will decay as it accumulates
+inactivating mutations. As a result, genetic drivers are said to be
+transient (Bravo Núñez, Nuckolls, and Zanders 2018) on an evolutionary
+timescale, unless it is linked to another positively selected allele
+(Jaenike 2001). Interestingly, gene drive is much more well-documented
+on sex chromosomes than for autosomes. Possibly because the sex
+chromosome meiotic drive inherently causes a skewed sex ratio, more
+notably raising a flag for further analysis. The consequences of sex
+chromosome drive and skewed sex ratio can be widespread. A fully driving
+gene on X can to lead to the extinction of the population that fixes the
+allele (Jaenike 2001), as only one (fertile) offspring sex will be
+produced. Therefore, sex chromosome drivers usually exist in equilibrium
+with a supressor. When a population becomes female-biased, autosomal
+suppressors will be favored with a process termed \emph{Fisher's sex
+ratio selection} (Lindholm et al. 2016.)
+
+A driving element on X may target a region on Y, mitigating the risk of
+self-destruction and increasing its frequency at the same time. However
+as it induces a skewed sex-ratio by limiting the number of functioning
+Y-bearing spermatozoa, the selection on Y to counter this effect is
+strong, engaging an evolutionary arms race between driving allele and
+its supressor, potentially explaining stable Y chromosome polymorphisms
+(Jaenike 2001). However, the Y chromosome only exist in the male
+population and a supressor on Y has only limited effect on the X
+chromosome on a population-scale compared to its autosomal cousins,
+which consequently often harbours supressors of X-drive, as they are
+passed down to more offspring than the Y chromosome. The fight between a
+driver and a supressor in their coevolution is linked to the chromosomal
+architecture, as they have been shown to be protected by low-recombining
+regions or chromosomal inversions, and to be mediating the evolution of
+karyotype (Lindholm et al. 2016). Thus, the structural features of a
+chromosome not only shield genetic drivers but influence the patterns of
+synteny, which, in turn, is shaped by both selection and genomic
+constraints.
+
 \chapter{Conclusion and future work}\label{conclusion-and-future-work}
 
 \begin{itemize}
@@ -3385,13 +3420,13 @@ Baker, Monya. 2016. {``1,500 Scientists Lift the Lid on
 Reproducibility.''} \emph{Nature} 533 (7604): 452--54.
 \url{https://doi.org/10.1038/533452a}.
 
-\bibitem[\citeproctext]{ref-batra2020accurateassemblyolive}
-Batra, Sanjit Singh, Michal Levy-Sakin, Jacqueline Robinson, Joseph
-Guillory, Steffen Durinck, Tauras P Vilgalys, Pui-Yan Kwok, et al. 2020.
-{``Accurate Assembly of the Olive Baboon ( {\emph{Papio}}{
-\emph{Anubis}} ) Genome Using Long-Read and {Hi-C} Data.''}
-\emph{GigaScience} 9 (12): giaa134.
-\url{https://doi.org/10.1093/gigascience/giaa134}.
+\bibitem[\citeproctext]{ref-bersaglieri2004geneticsignaturesstrong}
+Bersaglieri, Todd, Pardis C. Sabeti, Nick Patterson, Trisha Vanderploeg,
+Steve F. Schaffner, Jared A. Drake, Matthew Rhodes, David E. Reich, and
+Joel N. Hirschhorn. 2004. {``Genetic {Signatures} of {Strong Recent
+Positive Selection} at the {Lactase Gene}.''} \emph{The American Journal
+of Human Genetics} 74 (6): 1111--20.
+\url{https://doi.org/10.1086/421051}.
 
 \bibitem[\citeproctext]{ref-bicciato2022hicdataanalysis}
 Bicciato, Silvio, and Francesco Ferrari, eds. 2022. \emph{Hi-{C Data
@@ -3503,15 +3538,14 @@ Wolfgang Forstmeier, Luke Holman, Hanna Johannesson, et al. 2016. {``The
 \emph{Trends in Ecology \& Evolution} 31 (4): 315--26.
 \url{https://doi.org/10.1016/j.tree.2016.02.001}.
 
+\bibitem[\citeproctext]{ref-mailund2014lineagesortingapes}
+Mailund, Thomas, Kasper Munch, and Mikkel Heide Schierup. 2014.
+{``Lineage {Sorting} in {Apes}.''} \emph{Annual Review of Genetics} 48
+(1): 519--35. \url{https://doi.org/10.1146/annurev-genet-120213-092532}.
+
 \bibitem[\citeproctext]{ref-munch2024munchgroup}
 Munch, Kasper. 2024. {``Munch-Group.''}
 https://munch-group.org/research.html.
-
-\bibitem[\citeproctext]{ref-munch2016selectivesweepstwenty}
-Munch, Kasper, Kiwoong Nam, Mikkel Heide Schierup, and Thomas Mailund.
-2016. {``Selective {Sweeps} Across {Twenty Millions Years} of {Primate
-Evolution}.''} \emph{Molecular Biology and Evolution} 33 (12): 3065--74.
-\url{https://doi.org/10.1093/molbev/msw199}.
 
 \bibitem[\citeproctext]{ref-openchromosomecollective}
 {``Open {Chromosome Collective} ({Open2C}).''} n.d. Resource.
@@ -3544,13 +3578,6 @@ Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch.
 2023. {``Extraordinary Selection on the Human {X} Chromosome Associated
 with Archaic Admixture.''} \emph{Cell Genomics} 3 (3): 100274.
 \url{https://doi.org/10.1016/j.xgen.2023.100274}.
-
-\bibitem[\citeproctext]{ref-skov2017analysis62hybrid}
-Skov, Laurits, The Danish Pan Genome Consortium, and Mikkel Heide
-Schierup. 2017. {``Analysis of 62 Hybrid Assembled Human {Y} Chromosomes
-Exposes Rapid Structural Changes and High Rates of Gene Conversion.''}
-Edited by Kateryna D. Makova. \emph{PLOS Genetics} 13 (8): e1006834.
-\url{https://doi.org/10.1371/journal.pgen.1006834}.
 
 \bibitem[\citeproctext]{ref-sorensen2023genomewidecoancestryreveals}
 Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran,
