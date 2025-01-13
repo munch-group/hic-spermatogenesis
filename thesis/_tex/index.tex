@@ -413,16 +413,33 @@
 % \usepackage{booktabs} % professional-quality tables (arxiv.sty)
 
 \usepackage[font={footnotesize},labelfont={bf}]{caption}
-\AddToHook{env/longtable/before}{\footnotesize}
+\AddToHook{env/longtable/before}{\fontsize{8}{10}\selectfont}
 \AddToHook{env/longtable/after}{\normalsize}
-\AddToHook{env/table/before}{\footnotesize}
+\AddToHook{env/table/before}{\fontsize{8}{10}\selectfont}
 \AddToHook{env/table/after}{\normalsize}
-\AddToHook{env/codelisting/before}{\footnotesize}
+\AddToHook{env/codelisting/before}{\fontsize{8}{10}\selectfont}
 \AddToHook{env/codelisting/after}{\normalsize}
 % \usepackage{caption}
 \captionsetup[sub]{font=footnotesize,labelfont=footnotesize, position=top}
 \captionsetup[codelisting]{font=footnotesize, labelfont=bf}
 % \captionsetup[subtable]{font=scriptsize,labelfont=scriptsize, position=top}
+
+
+%%% For code blocks using the Shaded environment
+% \AddToHook{env/Shaded/before}{\vspace{-0.5em}\small} % Reduces space before
+% \AddToHook{env/Shaded/after}{\vspace{-1em}} % Reduces space after
+\definecolor{shadecolor}{RGB}{245,245,245}
+
+\renewenvironment{Shaded}
+{
+  \vspace{-0.5em} % Add spacing before
+  \begin{snugshade} % Begin shaded block
+  \small % Smaller font
+}
+{
+  \end{snugshade} % End shaded block
+  \vspace{-1em} % Add spacing after
+}
 
 %%%
 
@@ -507,7 +524,7 @@ gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen \and Kasper Munch}
-\date{2025-01-12}
+\date{2025-01-13}
 
 \begin{document}
 \frontmatter
@@ -548,7 +565,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\large 2025-01-12 \par}
+{\large 2025-01-13 \par}
 \vspace{3ex}
 
 \vspace{10ex}
@@ -1195,9 +1212,9 @@ be enough to reproduce the whole project.}
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\NormalTok{    git clone https://github.com/munch{-}group/hic{-}spermatogenesis.git}
-\NormalTok{    conda env create {-}f binder/environment.yml}
-\NormalTok{    gwf run}
+    \FunctionTok{git}\NormalTok{ clone https://github.com/munch{-}group/hic{-}spermatogenesis.git}
+    \ExtensionTok{conda}\NormalTok{ env create }\AttributeTok{{-}f}\NormalTok{ binder/environment.yml}
+    \ExtensionTok{gwf}\NormalTok{ run}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1274,10 +1291,10 @@ sequentially as part of the workflow as well. \\
 (HPC)}\label{gwf-workflow-management-for-high-performance-computing-hpc}
 
 To enable consistently reproducing the analyses, a workflow manager is
-used. Several exist, but the most well-known must be \emph{snakemake}.
-However, we use the pragmatic (their own words), lightweight workflow
-manager \emph{gwf}, which is optimized for the GenomeDK insfrastructure,
-and has the benefit of in-house support.
+utilized. Several exist, but the most well-known must be
+\emph{Snakemake}. However, we use the pragmatic (their own words),
+lightweight workflow manager \emph{gwf}, which is optimized for the
+GenomeDK insfrastructure, and has the benefit of in-house support.
 
 Briefly, \emph{gwf} works on a python script, conventionally
 \texttt{workflow.py}, that wraps all the jobs (\emph{targets} in gwf
@@ -1399,10 +1416,10 @@ genomic intervals.
 
 All computations were performed on GenomeDK (GDK), an HPC cluster
 located on Aarhus Uninversity, and most of the processing of the data
-was made into a custom \emph{gwf} workflow {[}ref{]}, a workflow manager
-developed at GDK. I would like to thank GDK and Aarhus University for
-providing computational resources and support that contributed to these
-research results.
+was made into a custom \emph{gwf} workflow, a workflow manager developed
+at GDK. I would like to thank GDK and Aarhus University for providing
+computational resources and support that contributed to these research
+results.
 
 With the analysis tools determined in the above section, we decided it
 was not feasible to follow the exact approach as Wang et al. (2019) with
@@ -3123,28 +3140,31 @@ proximity & olive & nan & nan & nan & 0.016\\
 
 \begin{itemize}
 \tightlist
-\item[$\square$]
+\item[$\boxtimes$]
   discuss the reproducibility infrastructure
 
   \begin{itemize}
   \tightlist
-  \item[$\square$]
+  \item[$\boxtimes$]
     takes a lot of time first time
-  \item[$\square$]
+  \item[$\boxtimes$]
     we are almost there (at the time of writing it will crash)
   \end{itemize}
-\item[$\square$]
+\item[$\boxtimes$]
   discuss the methods
 
   \begin{itemize}
-  \tightlist
-  \item[$\square$]
+  \item[$\boxtimes$]
     HiCExplorer vs Open2C from a documentation perspective
-  \item[$\square$]
+  \item[$\boxtimes$]
     Unclear rules (latest methodological Hi-C review from 2016, data
     analysis book is more practical)
   \item[$\square$]
-    variations of similarity measures for genomic intervals
+    Matrices
+  \item[$\square$]
+    did not manage to implement their sliding window PCA
+  \item[$\square$]
+    variations in similarity measures for genomic intervals
   \item[$\square$]
     For the arms viewframe, I probably should have left out the
     centromeric region in stead of just splitting
@@ -3176,9 +3196,13 @@ Additionally, the option only exist for analyses that are strictly
 computational. It is, however, very useful and can greatly improve
 downstream efficiency, and I find it important to at least explore the
 available options. If such a pipeline had existed, I would not have had
-to spend weeks to update their results to reflect a more recent
-reference genome. With such a pipeline, it is now easy to extend the
-analysis to include more samples and other species.
+to spend weeks to update the results of Wang et al. (2019) to reflect a
+more recent reference genome. With such a pipeline, it is now easy to
+extend the analysis to include more samples and other species.
+Additionally, if they had made the coordinates of the compartments
+available, I could probably have used them directly and start by
+comparing genomic intervals. In stead, this became a study more of Hi-C
+data analysis than comparing genomic intervals.
 
 At the time of writing, the repository is \emph{almost there} w.r.t.
 reproducibility, but still not quite. It only reproduces the final
@@ -3207,26 +3231,106 @@ order), to generate the figures and tables that are used in this
 manuscript and on the main project pages.
 
 There is a major downside when trying to conform to an idealistic
-framework is the generation of figures and tables. Throughout this
+framework---the generation of figures and tables. Throughout this
 project, I have adhered to the rule that none of the figures and tables
 should be created or even annotated manually. It is very time-consuming
 to create production-quality figures that needs no further enhancements
 before embedding into a manuscript, and even more so do create tables
 that are both compatible with HTML and PDF. Here, Quarto inherits the
 limitations of Pandoc (which it uses internally to convert Markdown to
-outputs), and it does not work well with complex grouped tables
-generated in Python (see Table~\ref{tbl-svedig-tabel-significant}).
+its output formats), and it does not work well with complex grouped
+tables generated in Python (see
+Table~\ref{tbl-svedig-tabel-significant}) to translate into LaTeX (which
+again is an idealistic typesetting system).
 
 I believe it is an important exercise to force oneself to be cautious
-about design choices and explore the limitations of the tools we have
-available to communicate what we want to communicate.
+about design choices and explore the advantages and limitations of the
+tools we have available to communicate what we want to communicate.
 
-\section{On Methods}\label{on-methods}
+\section{On Methodology}\label{on-methodology}
 
 HiCExplorer is a comprehensive software that consist of an extensive
-list of ready-made
+list of ready-made command line functions that calls Python source code.
+It is modular, except for the parsing of the aligned reads into a raw
+Hi-C matrix. The documentation provide an extensive list of options to
+pass to the commands. Nevertheless, they do not provide a Python API (or
+at least not any documentation thereof). The modules can be imported
+into a Python-session with standard import syntax, but there are no
+guiding help pages. Looking through source code revealed that one would
+have to do something like
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+  \ImportTok{from}\NormalTok{ hicexplorer.hicPlotMatrix }\ImportTok{import}\NormalTok{ plotHeatmap}
+  \ImportTok{from}\NormalTok{ hicmatrix }\ImportTok{import}\NormalTok{ HiCMatrix}
+\NormalTok{  plotHeatmap(HiCMatrix(matrix\_file)) }\CommentTok{\# and test the required parameters}
+\end{Highlighting}
+\end{Shaded}
+
+to use the plotting function directly within a notebook. However, it
+would have to modified to stop saving the plots as files in stead of
+sending them to the display, and it would still require reading from
+files. Clearly, it is not meant to be used directly within Python, as
+additionally, the CLI function simply is a wrapper for the
+\texttt{main()}-function of the module:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+  \CommentTok{\#!path/to/python}
+  \CommentTok{\# {-}*{-} coding: utf{-}8 {-}*{-}}
+  \ImportTok{from}\NormalTok{ hicexplorer.hicPlotMatrix }\ImportTok{import}\NormalTok{ main}
+  \ControlFlowTok{if} \VariableTok{\_\_name\_\_} \OperatorTok{==} \StringTok{"\_\_main\_\_"}\NormalTok{:}
+\NormalTok{      main()}
+\end{Highlighting}
+\end{Shaded}
+
+HiCExplorer is, however, also integrated into Galaxy (The Galaxy
+Community et al. 2024; Wolff et al. 2020, 2018), a web-based platform
+that has computationally demanding softwares executable through their
+servers. Here, one can make a drag-and-drop workflow with HicExplorer's
+commands, get integrated visualizations, among other cool stuff.
+Although it was not suitable for this project, they should be given
+credit for such an extensive integration. Additionally, following a
+Galaxy-walkthrough would have given me a better intuition of the
+pipeline they recommend, and faster as well.
+
+The Open2C Ecosystem consists of three major modules---pairtools,
+cooler, and cooltools. They all conform to the same standards; they are
+highly modular, and highly flexible and extensively documented. They
+have an interactive cooler-demo running on Jupyter notebooks on a
+server, which is easily adaptable to other data. They include both a
+command-line interface and a (well-documented) Python API, where a
+\texttt{Cooler} class efficiently handles the Hi-C matrix. They provide
+tutorials on all 6 of their intended use cases---Visualization, Contacts
+vs Distance, Compartments and Saddleplots, Insulation and Boundaries,
+Dots and Focal Enrichment, and Pileups and Average Features---of which
+we only use visualization and compartments. The software is fully
+compatible with Pandas and Matplotlib packages, making the analysis
+highly flexible.
+
+The drawback with having a very flexible tool is that the conventions
+are unclear. The latest methodological review is from 2015 (Lajoie,
+Dekker, and Kaplan 2015), and many things have progressed since then.
+Additionally, a Springer Protocol about Hi-C Data analysis (Bicciato and
+Ferrari 2022) is more recently published, but I find that it more so
+establishes a range of possibilities than a practical guideline.
 
 \section{On Results}\label{on-results}
+
+The differences in the results the two tools produced were crucial, as I
+could not reproduce the eigenvectors reported in Wang et al. (2019) with
+HiCExplorer, as HiCExplorer has no (apparent) way of restricting the
+viewframe of the eigendecomposition. The eigenvectors resulting from
+Open2C line up very well with the ones from Wang et al. (2019). Here,
+some of the maps were lined up and overlayed manually in a sketching
+software. The predicted compartments from cooler matched very well with
+the ones predicted by Wang et al. (2019) if their track was split in the
+region of the centromere. We confidently rationalize that the reason we
+have to split in the centromeric region is the newly, more accurate
+reference genome. As it \emph{rheMac10} has closed a high amount of gaps
+since last reference (most of which are expected around the centromere),
+we expect more sequences to align in that region, resulting in a longer
+genome as well.
 
 \chapter{Conclusion and future work}\label{conclusion-and-future-work}
 
@@ -3455,6 +3559,13 @@ Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023.
 Male-Driven Reticulation in Baboons.''} \emph{Science} 380 (6648):
 eabn8153. \url{https://doi.org/10.1126/science.abn8153}.
 
+\bibitem[\citeproctext]{ref-thegalaxycommunity2024galaxyplatformaccessible}
+The Galaxy Community, Linelle Ann L Abueg, Enis Afgan, Olivier Allart,
+Ahmed H Awan, Wendi A Bacon, Dannon Baker, et al. 2024. {``The {Galaxy}
+Platform for Accessible, Reproducible, and Collaborative Data Analyses:
+2024 Update.''} \emph{Nucleic Acids Research} 52 (W1): W83--94.
+\url{https://doi.org/10.1093/nar/gkae410}.
+
 \bibitem[\citeproctext]{ref-git}
 Torvalds, Linus, and Junio C Hamano. 2005. \emph{Git: A Distributed
 Version Control System}. \url{https://git-scm.com}.
@@ -3472,6 +3583,22 @@ Shwetha C. Murali, Jason Fernandes, Philip C. Dishuck, et al. 2020.
 Enhance Its Biomedical Utility.''} \emph{Science} 370 (6523): eabc6617.
 \url{https://doi.org/10.1126/science.abc6617}.
 
+\bibitem[\citeproctext]{ref-wolff2018galaxyhicexplorerweb}
+Wolff, Joachim, Vivek Bhardwaj, Stephan Nothjunge, Gautier Richard, Gina
+Renschler, Ralf Gilsbach, Thomas Manke, Rolf Backofen, Fidel Ramírez,
+and Björn A Grüning. 2018. {``Galaxy {HiCExplorer}: A Web Server for
+Reproducible {Hi-C} Data Analysis, Quality Control and Visualization.''}
+\emph{Nucleic Acids Research} 46 (W1): W11--16.
+\url{https://doi.org/10.1093/nar/gky504}.
+
+\bibitem[\citeproctext]{ref-wolff2020galaxyhicexplorer3}
+Wolff, Joachim, Leily Rabbani, Ralf Gilsbach, Gautier Richard, Thomas
+Manke, Rolf Backofen, and Björn A Grüning. 2020. {``Galaxy {HiCExplorer}
+3: A Web Server for Reproducible {Hi-C}, Capture {Hi-C} and Single-Cell
+{Hi-C} Data Analysis, Quality Control and Visualization.''}
+\emph{Nucleic Acids Research} 48 (W1): W177--84.
+\url{https://doi.org/10.1093/nar/gkaa220}.
+
 \bibitem[\citeproctext]{ref-zuo2021stageresolvedhicanalyses}
 Zuo, Wu, Guangming Chen, Zhimei Gao, Shuai Li, Yanyan Chen, Chenhui
 Huang, Juan Chen, Zhengjun Chen, Ming Lei, and Qian Bian. 2021.
@@ -3485,7 +3612,11 @@ Communications} 12 (1): 5827.
 \chapter*{A Appendix}\label{a-appendix}
 \addcontentsline{toc}{chapter}{A Appendix}
 
-\section{Aknowledgements}\label{aknowledgements}
+\section*{Aknowledgements}\label{aknowledgements}
+\addcontentsline{toc}{section}{Aknowledgements}
+
+\subsection*{People}\label{people}
+\addcontentsline{toc}{subsection}{People}
 
 I would like to extend my sincere gratitude to my supervisor, Kasper
 Munch, for his guidance and support throughout this project. His
@@ -3498,8 +3629,19 @@ constructive feedback on the manuscript has greatly improved its
 quality. I feel fortunate to have had the opportunity to learn from and
 work with such a knowledgeable and dedicated mentor.
 
-\subsection{Use of Generative Artificial
+\subsection{Compute}\label{compute}
+
+All computations were performed on GenomeDK (GDK), an HPC cluster
+located on Aarhus Uninversity, and most of the processing of the data
+was handled by a \emph{gwf} workflow (GenomeDK 2023), a workflow manager
+developed at GDK. I would like to thank GDK and Aarhus University for
+providing computational resources and support that contributed to these
+research results.
+
+\subsection*{Use of Generative Artificial
 Intelligence}\label{use-of-generative-artificial-intelligence}
+\addcontentsline{toc}{subsection}{Use of Generative Artificial
+Intelligence}
 
 As per Aarhus University guidelines (IT n.d.), I hereby disclose my use
 of Generative Artificial Intelligence (GAI) tools during the preparation
@@ -3509,18 +3651,21 @@ integrity standards. These tools supplemented my expertise and
 accelerated routine tasks, but all creative, analytical, and scientific
 contributions are my own.
 
-\subsubsection{Copilot}\label{copilot}
+\subsubsection*{Copilot}\label{copilot}
+\addcontentsline{toc}{subsubsection}{Copilot}
 
 I used Copilot for code completion and debugging, as well as modifying
 existing code to reflect updated variables and experimental needs.
 
-\subsubsection{ChatGPT}\label{chatgpt}
+\subsubsection*{ChatGPT}\label{chatgpt}
+\addcontentsline{toc}{subsubsection}{ChatGPT}
 
 ChatGPT provided syntax support for Bash, YAML, JSON, Mermaid diagrams,
 and Pandoc Templates, to accelerate my learning of new programming
 languages. It hallucinates a lot about Quarto.
 
-\subsubsection{NotebookLM}\label{notebooklm}
+\subsubsection*{NotebookLM}\label{notebooklm}
+\addcontentsline{toc}{subsubsection}{NotebookLM}
 
 NotebookLM supported the re-identification of references for a small
 amount of statements where placeholders (\texttt{{[}ref{]}}) were
