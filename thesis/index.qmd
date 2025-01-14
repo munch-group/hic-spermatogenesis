@@ -65,7 +65,7 @@ Low-diversity regions on the human X chromosome that also overlap with reduced h
 ### Disproportionate minor parent ancestry on baboon X
 
 As mentioned above, low ILS and reduced diversity is consistent across all great apes, and thus the regions have been investigated in baboons as well. 
-@sorensen2023genomewidecoancestryreveals have mapped the interspecies gene flow between baboon genomes in their evolutionary history, which revealed male-driven admixture patterns in six different baboon species. The authors infer a male-driven admixture from mismatching phylogenies of the mitochondrial DNA and the nuclear DNA. This indicates a role of nuclear swamping, where the nuclear DNA from one species progressively replaces that of another through repeated hybridization and backcrossing, while the mitochondrial DNA, inherited maternally, remains unaffected. This pattern suggests that male-driven gene flow plays a significant role in shaping the genomic landscape of these regions, potentially impacting diversity and co-ancestry across species. @sorensen2023genomewidecoancestryreveals compare the ratio of admixture between chromosome 8/X across the populations, which support the same pattern. Recently, in a yet unpublished analysis by @munch2024munchgroup, exceptionally large regions (up to 6 Mb, averaging 1 Mb) were identified on X in olive baboon (*Papio anubis*), where either all individuals had *olive* ancestry, or 95% of the individuals had *hamadryas* ancestry, significantly diverging from the background proportions, suggesting that these regions may be under strong selective pressures or influenced by structural genomic features that either limit recombination. Such patterns suggest that certain chromosomal regions are either preserved due to adaptive advantages or subjected to sex-biased gene flow, further reinforcing the impact of male-driven admixture on shaping genomic variation. These findings highlight the complexity of admixture dynamics and their potential to create localized genomic signatures that deviate from overall ancestry proportions. 
+@sorensen2023genomewidecoancestryreveals have mapped the interspecies gene flow between baboon genomes in their evolutionary history, which revealed male-driven admixture patterns in six different baboon species. The authors infer a male-driven admixture from mismatching phylogenies of the mitochondrial DNA and the nuclear DNA. This indicates a role of nuclear swamping, where the nuclear DNA from one species progressively replaces that of another through repeated hybridization and backcrossing, while the mitochondrial DNA, inherited maternally, remains unaffected. This pattern suggests that male-driven gene flow plays a significant role in shaping the genomic landscape of these regions, potentially impacting diversity and co-ancestry across species. @sorensen2023genomewidecoancestryreveals compare the ratio of admixture between chromosome 8/X across the populations, which support the same pattern. Recently, in a yet unpublished analysis by @munch2024munchgroup, exceptionally large regions (up to 6 Mb, averaging 1 Mb) were identified on X in olive baboon (*Papio anubis*), where either all individuals had *olive* ancestry, or 95% of the individuals had *hamadryas* ancestry, significantly diverging from the background proportions, suggesting that these regions may be under strong selective pressures, are influenced by structural genomic features that limit recombination, or potentially both. Such patterns suggest that certain chromosomal regions are either preserved due to adaptive advantages or subjected to sex-biased gene flow, further reinforcing the impact of male-driven admixture on shaping genomic variation. These findings highlight the complexity of admixture dynamics and their potential to create localized genomic signatures that deviate from overall ancestry proportions. 
 
 @sorensen2023genomewidecoancestryreveals highlights the importance of studying these populations, as they serve as models for understanding genomic separation in archaic hominin lineages while inhabiting comparable geographic ranges. Studying closely related, extant primate species provides a unique opportunity to gain insight into how *hominin* (human, Neanderthal, Denisovan) phylogenies were formed. By analyzing the intricate effects of population structure, migration, and selection in these species, we can draw parallels and infer events in our own archaic evolutionary history. See @fig-introduce-selected-regions for a genomic overview of the abovementioned sets of regions.
 
@@ -167,12 +167,12 @@ We can test if two sets of genomic intervals correlate (say, compartment edges a
 ::: {#lst-reproduce }
 
 ```{.bash code-line-numbers="true"}
-    git clone https://github.com/munch-group/hic-spermatogenesis.git
-    conda env create -f binder/environment.yml
-    gwf run
+git clone https://github.com/munch-group/hic-spermatogenesis.git
+conda env create -f binder/environment.yml
+gwf run
 ```
 
-These three lines of code should ideally be enough to reproduce the whole project.
+Three simple steps to re-create the project.
 :::
 
 Reproducibility is a cornerstone of the scientific method, ensuring that findings can be independently verified and built upon by others. Without it, the credibility of research findings is undermined, hindering scientific progress by becoming anecdotal. The necessity of reproducibility also aligns with scientific skepticism---the practice of critically evaluating evidence and methods to guard against biases or errors. As research grows increasingly computational, robust reproducibility infrastructure is essential to maintain these principles [@baker20161500scientistslift], facilitating transparency, validation, and collaboration across diverse scientific disciplines. Thus, apart from the biological questions we seek to investigate and answer in this thesis, a major goal is to create fully (and easily) reproducible results through a self-contained and version-controlled pipeline using git [@git], GitHub [@github], quarto [@Allaire_Quarto_2024], Anaconda [@anaconda], gwf [@gwf], and Jupyter [@soton403913jupyter]. The result is a fully reproducible analysis, including figures and tables in only 3 lines of code[^compute] (@lst-reproduce) . See @tbl-reproducibility for a brief overview: 
@@ -182,7 +182,7 @@ Reproducibility is a cornerstone of the scientific method, ensuring that finding
 
 ::: {#tbl-reproducibility .striped}
 | Tool | Description |
-|:-------------|:---------------------------------------------------------|
+|-------------:|:---------------------------------------------------------|
 | Jupyter | Interactive coding environment for analysis and development (notebooks are natively rendered with Quarto) |
 | Quarto | A Quarto Manuscript project nested inside a Quarto Book for rendering html (website) and PDF (manuscript) from Markdown via Pandoc. Supports direct embedding of output from Jupyter Notebook cells (plots, tables). |
 | Conda | For managing software requirements and dependency versions reproducibly. |
@@ -250,7 +250,9 @@ To reproduce the results from [@wang2019reprogrammingmeioticchromatin], I chose 
 
 To get aligned reads in a format compatible with HiCExplorer, the read mates have to be mapped individually to the reference genome. This supports the old convention to avoid the common heuristics of local aligners used for regular paired-end sequencing libraries (@lajoie2015hitchhikersguidehic). HiCExplorer provide examples for both *bwa* and *bowtie2*, so I used both with recommended settings. *bowtie2* was more resource-intensive, and only succesfully aligned a small fraction of the reads \[ref sup-fig-bowtie2-stats\], but likely some parameters could be tuned for better alignment. In both cases, the aligner outputs a .bam-file for each mate (`sample_R1.bam` and `sample_R2.bam`), and HiCExplorer performs the parsing, deduplication, and filtering of the reads and builds the raw interaction matrix in a single command,
 
-`hicBuildMatrix -s sample_R1.bam sample_R2.bam -o matrix.h5 [...]`,
+``` {.bash}
+hicBuildMatrix -s sample_R1.bam sample_R2.bam -o matrix.h5 [...]
+```
 
 For parsing, the command needs a `restrictionCutFile`, locating the restriction sites from the restriction enzyme used on the reference genome, which is generated with `hicFindRestSites` that operates on the reference genome and restriction sequence. The default filter, `--minMappingQuality 15`, was applied as described in @sec-matrix-qc. Notably, HiCExplorer has no options on handling multiple ligations, and thus the method is unknown. I assume that they have the intitial design of Hi-C libraries in mind. 
 
@@ -493,9 +495,9 @@ The three viewframes (*Full*, *Arms*, *10Mb*) used for the calculation of the ei
 
 I decide that without more finescaled knowledge than the position of the centromeres, the arbitrary size of the 10 Mb windowed E1 can not fully be justified. That is, we could arbitrarily calculate any windowed E1 track. Also, @wang2019reprogrammingmeioticchromatin concludes only for pachytene spermatocyte to show local interactions in the 10Mb viewframe (what they refer to as *refined A/B-compartments*), and all the other stages of spermatogenesis were consistent with the conventional A/B compartments. The reasonable thing to do is therefore to continue the analysis, focusing on the arms-restricted eigendecomposition. Nevertheless, we also keep *refined* compartments in the analysis.
 
-Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices and their compartments (@fig-rs100-recpe-pe). As expected, we observe more empty bins in the Hi-C matrix when comparing the initial run (`mask`) to the recommended parameters (`5unique`), but otherwise, the interaction pattern is indestinguishable. The effect on the E1 is more noticable, where the absolute magnitude of the E1 values is generally smaller. There is, however, a small region that changes sign (from A to B) on the 10Mb-windowed ('refined') E1 track (@fig-rs100-recpe-pe;c+d). This region is surrounded by added empty bins, which could mean that too many low quality pairs in `mask` were introducing bias and swapped the sign of E1. It is supported by the fact that the sign change *only* occured in *refined* E1, and that the sign after filtering weak pairs ($mapq < 30$) is consistent with the *arms* view. It supports my previous postulate that it is better to use a viewframe with explicit molecular meaning than one of an arbitrary window size. That said, the `mapq` threshold should really be determined taking both coverage and resolution into account. For our purposes, and with the *arms* view, the mapping- and parsing parameters do not seem to be too sensitive.
-
 {{< embed ../notebooks/07_various_plotting.ipynb#fig-rs100-recpe-pe >}}
+
+Additionally, as I created coolers with two different sets of parsing parameters we will compare the resulting matrices and their compartments (@fig-rs100-recpe-pe). As expected, we observe more empty bins in the Hi-C matrix when comparing the initial run (`mask`) to the recommended parameters (`5unique`), but otherwise, the interaction pattern is indestinguishable. The effect on the E1 is more noticable, where the absolute magnitude of the E1 values is generally smaller. There is, however, a small region that changes sign (from A to B) on the 10Mb-windowed ('refined') E1 track (@fig-rs100-recpe-pe;c+d). This region is surrounded by added empty bins, which could mean that too many low quality pairs in `mask` were introducing bias and swapped the sign of E1. It is supported by the fact that the sign change *only* occured in *refined* E1, and that the sign after filtering weak pairs ($mapq < 30$) is consistent with the *arms* view. It supports my previous postulate that it is better to use a viewframe with explicit molecular meaning than one of an arbitrary window size. That said, the `mapq` threshold should really be determined taking both coverage and resolution into account. For our purposes, and with the *arms* view, the mapping- and parsing parameters do not seem to be too sensitive.
 
 To emphasize the findings, the sets of A-compartments were compared between the two parsing runs, showing almost identical compartment calls. Additionally, the set difference was 8 bins between PE and recPE for round spermatid 100kb and 5 bins for fibroblast for *arms* viewframe (@fig-rs-fb-100-pe-recpe-intervals; a+b, respectively). We observe a high number of differences around 76Mb for the refined compartments (10Mb) of round spermatid, which is consistent with the sign-flip of E1 values discussed earlier. Anything else would be surprising, as it is the same data, but visualized in a different way.
 
@@ -539,23 +541,6 @@ Reassuringly, both fibroblast and round spermatid still have significant Jaccard
 
 # Discussion {#sec-discussion}
 
-- [x] discuss the reproducibility infrastructure
-  - [x] takes a lot of time first time
-  - [x] we are almost there (at the time of writing it will crash)
-- [x] discuss the methods
-  - [x] HiCExplorer vs Open2C from a documentation perspective
-  - [x] Unclear rules (latest methodological Hi-C review from 2016, data analysis book is more practical)
-
-  - [x] Matrices
-  - [x] did not manage to implement their sliding window PCA
-  - [x] discuss the choice of viewframe
-  - [ ] variations in similarity measures for genomic intervals
-  - [ ] For the arms viewframe, I probably should have left out the centromeric region in stead of just splitting
-  - [ ]
-- [ ] Clearly an overlap between edges and ECH90 regions, but what does it mean? 
-- [ ] Maybe test the intersect against ECH genes as the background
-- [ ]
-
 ## On Reproducibility
 
 As an extensive reproducibility infrastructere became a major part of the project, I have to reflect upon the advantages it has, but also the consequences it inevitably brings along. First, reproducibility is the basis of scientific progression, and idealisticly it should come before the discovery itself. But let us not pretend that reproducibility is favored above hypothesis testing to be the driving forces of progression, and let us not pretend that it has a singular definition. There are many layers to reproducibility, and we do, of course, not need to host a website or to construct a single-command pipeline for reproducing the analysis to call a study *reproducible*. Additionally, the option only exist for analyses that are strictly computational. It is, however, very useful and can greatly improve downstream efficiency, and I find it important to at least explore the available options. If such a pipeline had existed, I would not have had to spend weeks to update the results of @wang2019reprogrammingmeioticchromatin to reflect a more recent reference genome. With such a pipeline, it is now easy to extend the analysis to include more samples and other species. Additionally, if they had made the coordinates of the compartments available, I could probably have used them directly and start by comparing genomic intervals. In stead, this became a study more of Hi-C data analysis than comparing genomic intervals. 
@@ -571,20 +556,20 @@ I believe it is an important exercise to force oneself to be cautious about desi
 HiCExplorer is a comprehensive software that consist of an extensive list of ready-made command line functions that calls Python source code. It is modular, except for the parsing of the aligned reads into a raw Hi-C matrix. The documentation provide an extensive list of options to pass to the commands. Nevertheless, they do not provide a Python API (or at least not any documentation thereof). The modules can be imported into a Python-session with standard import syntax, but there are no guiding help pages. Looking through source code revealed that one would have to do something like
 
 ``` {.python code-line-numbers="true"}
-  from hicexplorer.hicPlotMatrix import plotHeatmap
-  from hicmatrix import HiCMatrix
-  plotHeatmap(HiCMatrix(matrix_file)) # and test the required parameters
+from hicexplorer.hicPlotMatrix import plotHeatmap
+from hicmatrix import HiCMatrix
+plotHeatmap(HiCMatrix(matrix_file)) # and test the required parameters
 ```
 
 to use the plotting function directly within a notebook. However, it would have to modified to stop saving the plots as files in stead of sending them to the display, and it would still require reading from files.
 Clearly, it is not meant to be used directly within Python, as additionally, the CLI function simply is a wrapper for the `main()`-function of the module:
 
 ``` {.python code-line-numbers="true"}
-  #!path/to/python
-  # -*- coding: utf-8 -*-
-  from hicexplorer.hicPlotMatrix import main
-  if __name__ == "__main__":
-      main()
+#!path/to/python
+# -*- coding: utf-8 -*-
+from hicexplorer.hicPlotMatrix import main
+if __name__ == "__main__":
+    main()
 ```
 
 HiCExplorer is, however, also integrated into Galaxy [@thegalaxycommunity2024galaxyplatformaccessible; @wolff2020galaxyhicexplorer3; @wolff2018galaxyhicexplorerweb], a web-based platform that has computationally demanding softwares executable through their servers. Here, one can make a drag-and-drop workflow with HicExplorer's commands, get integrated visualizations, among other cool stuff. Although it was not suitable for this project, they should be given credit for such an extensive integration. Additionally, following a Galaxy-walkthrough would have given me a better intuition of the pipeline they recommend, and faster as well. 
@@ -625,12 +610,11 @@ The significant overlap between ECH regions, Fb, and RS at arms view is reproduc
 
 The visualization of the overlap between baboon regions and round spermatid showed notable amounts of intersection (@fig-baboon-rs100-intersect), but both significant overlap *and* proximity was rejected by the tests. Conversely, the tests performed on the 1bp limits of baboon regions against the 1bp limits of A/B compartments revealed a significant proximity between olive and spermatozoa. Additionally, significant proximity was observed between spermatogonia, pachytene spermatocyte by defining baboon regions under selection as a single set, `olivehama`, and here the significance was strengthened an order of magnitude for spermatozoa. This indicate that the effect size of the hama regions is too small for statistical inference, but also that the two sets of genomic intervals can be viewed as a single set, possibly indicating that similar forces have shaped the genomic landscape. 
 
-Notably, three out of five cell types both overlap the ECH regions *and* are proximal to the baboon limits---spermatogonia and spermatozoa in the 10Mb viewframe, and pachytene spermatocyte in the arms viewframe, indicating an indirect relationship through chromatin architecture. As neither proximity nor overlap is observed between the baboon regions and ECH, this observation could indicate that some structural features of the chromosome are aiding in reducing diversity. 
+Notably, three out of five cell types both overlap the ECH regions *and* are proximal to the baboon limits---spermatogonia and spermatozoa in the 10Mb viewframe, and pachytene spermatocyte in the arms viewframe, indicating an indirect relationship through chromatin architecture. As neither proximity nor overlap is observed between the baboon regions and ECH, this observation could indicate that some structural features of the chromosome are aiding in reducing diversity. These findings propose an intricate relationship between chromatin architecture and evolutionary pressures. The intersection and proximity between regions under strong selection and chromatin compartments on the X chromosome of primates, along with their location on the X chromosome, suggest that structural genomic features influence patterns of diversity and selection. While these results are promising, further testing of the compartments is needed—--both at higher resolutions and in other primates--—to refine our understanding of these dynamics. 
 
+Notably, @skov2023extraordinaryselectionhuman describe a compelling scenario where meiotic drive could explain the reduced diversity on ECH regions, and these structural features might also play a role in facilitating or constraining mechanisms like gene drive, which can significantly alter allele frequencies across generations by bypassing classical Mendelian inheritance. However, caution is warranted when inferring the role of gene drive, as it remains a contentious concept among biologists.  
 
-## Speculations
-
-### Gene Drive and Selfishness
+### Gene Drive, Selfishness and its Effect on Selection
 
 Gene drive occur when a particular collection of genes is propagated through a population by increasing the probability of transmitting the genes to the offspring from random (Mendelian) inheritance, resulting in a biased gene transmission against its alternative (referred to as *transmission advantage*). Two categories of gene drivers exist [@bravonunez2018geneticvillainskiller]; *class one drivers* affect chromosome segregation in meiosis, and *killer meiotic drivers* will sabotage meiotic product that have not inherited the driving allele [@bravonunez2018geneticvillainskiller]. This happens regardless of the fitness effects of the developed organism, and is there often a factor offsetting classical selection. Even though the implications of such systems are potentially detrimental, they are notoriously difficult to detect. A circumstance contributing to the difficulty is that most genetic experiments are done in homozygotes. @bravonunez2018geneticvillainskiller states that the general choice of experimental system may have biased our understanding of sexual reproduction. A key point is; meiotic drivers can only be observed in heterozygotes, where a genetic driver has a competitor.
 
@@ -638,17 +622,24 @@ If an autosomal driver reaches fixation, it no longer has a target to act agains
 
 A driving element on X may target a region on Y, mitigating the risk of self-destruction and increasing its frequency at the same time. However as it induces a skewed sex-ratio by limiting the number of functioning Y-bearing spermatozoa, the selection on Y to counter this effect is strong, engaging an evolutionary arms race between driving allele and its supressor, potentially explaining stable Y chromosome polymorphisms [@jaenike2001sexchromosomemeiotic]. However, the Y chromosome only exist in the male population and a supressor on Y has only limited effect on the X chromosome on a population-scale compared to its autosomal cousins, which consequently often harbours supressors of X-drive, as they are passed down to more offspring than the Y chromosome. The fight between a driver and a supressor in their coevolution is linked to the chromosomal architecture, as they have been shown to be protected by low-recombining regions or chromosomal inversions, and to be mediating the evolution of karyotype [@lindholm2016ecologyevolutionarydynamics]. Thus, the structural features of a chromosome not only shield genetic drivers but influence the patterns of synteny, which, in turn, is shaped by both selection and genomic constraints.
 
+The interplay between selfish genetic elements, such as gene drivers, and their suppression through coevolutionary processes emphasizes the importance of chromosomal architecture in shaping evolutionary dynamics. This evolutionary "arms race" between drivers and suppressors is not only driven by selection but also by the structural constraints of the chromosomes themselves. In particular, features such as low-recombining regions and chromosomal inversions offer a protective shield for these genetic elements, influencing both their persistence and their evolutionary trajectories. Given this, understanding the role of chromosomal organization in these dynamics can provide deeper insights into the mechanisms that govern selection on sex chromosomes and their broader genomic implications.
+
 
 # Conclusion and future work
 
-- [ ] Higher-resolution matrices?
-- [ ] TADs? 
-- [ ] Explore ways to quantify proximity/correlation
-  * e.g. insulation-weighted compartments
-  * find litterature that correlate genomic intervals
-- [ ] Filter important edges
-  * filter against low insulation score
-  * filter against edges that have adjecent missing values 
+In summary, I find that previously identified regions on X under strong selection in humans (referred to as ECHs) and in baboons (disproportionate *P.hamadryas* or *P.anubis* ancestry) strongly correlate with chromatin A/B-compartments in some stages of spermatogenesis in rhesus macaque (*Macaca mulata*) inferred by PCA from either a chromosome-arm (conventional) viewframe or a 10 Mb viewframe (local). The regions under selection are associated with regions of low diversity and low ILS on the X chromosome across all the great apes. 
+
+Briefly, an array of significant intersection and proximity is observed when comparing ECH regions baboon regions with the 1bp limit of A/B compartments. Most notably, spermatogonia, spermatozoa, and pachytene spermatocyte was both significantly proximal to baboon regions *and* intersecting ECH regions. This suggests relationship between strong selection and chromosomal architecture, and as the selection is specific on X, it could indicate sex-chromosome related mechanisms. A point against a meiosis-specific mechanisms is that fibroblast intersects the ECH regions, where fibroblast was used as a control-group for spermatogenesis in @wang2019reprogrammingmeioticchromatin.
+
+I duly note that this is purely an explorative and correlational study, requiring further testing to conclude a relationship between chromosomal organization and selection, even if my analysis yields statistically significant results. To provide a more solid foundation for this inference, the next steps could include:
+
+* Include compartment metadata in the correlation, such as weighing by insulation score, or filter out edges that have adjecent missing values
+* Recall compartments using higher-resolution matrices, or call TADs
+* Analyze Hi-C spermatogenesis data in other great ape species (e.g. baboons)
+* Use a more distant relative as a control group (e.g. the mouse data from @wang2019reprogrammingmeioticchromatin)
+
+Until then, let us remain cautious in our interpretations, recognizing the complexity of the systems at play and the need for further investigation to validate the potential links between chromosomal architecture and selective forces. In the meantime, let us appreciate the complexity of a multi-species correlation between selection and the 3D architecture of our chromosomes, a region of considerable interest with many aspects still to be understood and explored.
+
 
 # Bibliography {.unnumbered}
 
@@ -660,7 +651,7 @@ A driving element on X may target a region on Y, mitigating the risk of self-des
 
 ## Data Availability {.unnumbered}
 
-All code, text and files used for this project is available on [https://github.com/munch-group/hic-spermatogenesis](https://github.com/munch-group/hic-spermatogenesis) with instructions on how to reproduce. 
+All code, text, and files used for this project are available on [https://github.com/munch-group/hic-spermatogenesis](https://github.com/munch-group/hic-spermatogenesis) with instructions on how to reproduce. 
 
 ## Aknowledgements {.unnumbered}
 

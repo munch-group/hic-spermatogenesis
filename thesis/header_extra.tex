@@ -206,7 +206,7 @@
 ]{section}
 
 \RedeclareSectionCommand[
-  beforeskip=--1.5ex,
+  beforeskip=-1.5ex,
   afterskip=0.5ex
 ]{subsection}
 
@@ -243,11 +243,11 @@
 % \usepackage{booktabs} % professional-quality tables (arxiv.sty)
 
 \usepackage[font={footnotesize},labelfont={bf}]{caption}
-\AddToHook{env/longtable/before}{\fontsize{8}{10}\selectfont}
+\AddToHook{env/longtable/before}{\fontsize{9}{11}\selectfont}
 \AddToHook{env/longtable/after}{\normalsize}
-\AddToHook{env/table/before}{\fontsize{8}{10}\selectfont}
+\AddToHook{env/table/before}{\fontsize{9}{11}\selectfont}
 \AddToHook{env/table/after}{\normalsize}
-\AddToHook{env/codelisting/before}{\fontsize{8}{10}\selectfont}
+\AddToHook{env/codelisting/before}{\fontsize{9}{11}\selectfont}
 \AddToHook{env/codelisting/after}{\normalsize}
 % \usepackage{caption}
 \captionsetup[sub]{font=footnotesize,labelfont=footnotesize, position=top}
@@ -258,7 +258,7 @@
 %%% For code blocks using the Shaded environment
 % \AddToHook{env/Shaded/before}{\vspace{-0.5em}\small} % Reduces space before
 % \AddToHook{env/Shaded/after}{\vspace{-1em}} % Reduces space after
-\definecolor{shadecolor}{RGB}{245,245,245}
+\definecolor{shadecolor}{RGB}{250,250,250}
 
 \renewenvironment{Shaded}
 {
