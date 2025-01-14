@@ -444,15 +444,15 @@
 %%%
 
 
-% % prevent latex from "floating" the figures
-% \usepackage{float}
-% \let\origfigure\figure
-% \let\endorigfigure\endfigure
-% \renewenvironment{figure}[1][2] {
-%     \expandafter\origfigure\expandafter[H]
-% } {
-%     \endorigfigure
-% }
+% prevent latex from "floating" the figures
+\usepackage{float}
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][2] {
+    \expandafter\origfigure\expandafter[htbp]
+} {
+    \endorigfigure
+}
 
 % \usepackage{xcolor}
 % % \let\oldtextit\textit 
@@ -1906,8 +1906,8 @@ defined from a file search matching a pattern specified to the
 
 \section{Genomic Intervals}\label{genomic-intervals}
 
-\subsection{Compartments and Their Edges (Transitional
-Regions)}\label{compartments-and-their-edges-transitional-regions}
+\subsection{Full Regions, Edges, and
+Limits}\label{full-regions-edges-and-limits}
 
 From the eigenvectors, the A-compartments were extracted in
 bedgraph-format
@@ -1921,6 +1921,9 @@ intervals (or sets) both visually by plotting the regions, and by a
 proximity test and bootstrapping the Jaccard index. Additionally, the
 compartment limits were invetigated (only 1 flanking base pair) in the
 same manner.
+
+Additionally, the limits were extracted from the baboon datasets for
+comparison.
 
 \subsubsection{Proximity test}\label{proximity-test}
 
@@ -2779,14 +2782,14 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \begin{figure}
 
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}{0.01\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-1.png}
+\includegraphics[width=3.3125in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-1.png}
 
 }
 
@@ -2794,11 +2797,11 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-2.png}
+\includegraphics[width=3.3125in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-2.png}
 
 }
 
@@ -2806,17 +2809,17 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \end{minipage}%
 %
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}{0.01\linewidth}
 ~\end{minipage}%
 \newline
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}{0.01\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-3.png}
+\includegraphics[width=3.3125in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-3.png}
 
 }
 
@@ -2824,11 +2827,11 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-4.png}
+\includegraphics[width=3.3125in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-comps-edges-ech-output-4.png}
 
 }
 
@@ -2836,7 +2839,7 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \end{minipage}%
 %
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}{0.01\linewidth}
 ~\end{minipage}%
 
 \caption{\label{fig-comps-edges-ech}Visual representation of the genomic
@@ -2848,11 +2851,14 @@ resolution and arms viewframe.}
 
 \begin{figure}
 
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}{0.01\linewidth}
+~\end{minipage}%
+%
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=1.02083in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-1.png}
+\includegraphics[width=3.3125in,height=1.02083in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-1.png}
 
 }
 
@@ -2860,17 +2866,20 @@ resolution and arms viewframe.}
 
 \end{minipage}%
 %
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=1.02083in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-2.png}
+\includegraphics[width=3.3125in,height=1.02083in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-edge-enrichment-output-2.png}
 
 }
 
 \subcaption{\label{fig-edge-enrichment-2}Fibroblast}
 
 \end{minipage}%
+%
+\begin{minipage}{0.01\linewidth}
+~\end{minipage}%
 
 \caption{\label{fig-edge-enrichment}Visual representation of the
 enrichment of edges in the intersection of ECH90 and A-compartments.
@@ -2881,22 +2890,21 @@ like they overlap, even though the difference is reported.}
 
 \end{figure}%
 
-We apply both proximity test and Jaccard test, to see how well the
-results could occur by chance. For completeness, the tests are performed
-for all cell types, but we only use 100kb resolution and arms viewframe.
-We observe that both fibroblast and round spermatids have significant
-overlap (Jaccard p-values \(0.012\) and \(0.010\), respectively),
-meaning the edge zone have more intersection with the ECH regions than
-expected by chance. None of the samples passed the proximity test,
-meaning the non-overlapping segments were no more proximal than expected
-by chance. The significant Jaccard test indicate significant amount of
-overlap between the two sets, i.e.~compartment edges and ECH90 regions,
-and the proximity test (when performed on the edges) might provide
-information about the potential of expanding or moving the transition
-window. That is, if the non-overlapping regions are \emph{very}
-proximal, a larger (or shifted) window to only capture the 200kb region
-outside of the edge might be favourable. With very little proximity
-(high p-value), we might consider shrinking the windows.
+I apply both the proximity and Jaccard test to see how well the
+observations could be explained by chance. For completeness, the tests
+are performed for all cell types, but only use 100kb resolution and arms
+viewframe. We observe that both fibroblast and round spermatids have
+significant overlap (Jaccard p-values \(0.012\) and \(0.010\),
+respectively), meaning the edge zone have more intersection with the ECH
+regions than expected by chance. None of the samples passed the
+proximity test, meaning the non-overlapping segments were no more
+proximal than expected by chance. A significant proximity test (when
+performed on the edges) might provide information about the potential of
+expanding or moving the transition window. That is, if the
+non-overlapping regions are \emph{very} proximal, a larger (or shifted)
+window to only capture the 200kb region outside of the edge might be
+favourable. With the very small amount of observed proximity (high
+p-values), we might consider shrinking the windows.
 
 \subsection{Testing against regions of selection in
 baboons}\label{testing-against-regions-of-selection-in-baboons}
@@ -2926,7 +2934,7 @@ much more similar segments to the original
 
 \centering{
 
-\includegraphics[width=5.19792in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-compare-liftover-output-1.png}
+\includegraphics[width=6.23958in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-compare-liftover-output-1.png}
 
 }
 
@@ -2934,7 +2942,7 @@ much more similar segments to the original
 
 \centering{
 
-\includegraphics[width=5.19792in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-compare-liftover-output-2.png}
+\includegraphics[width=6.23958in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-compare-liftover-output-2.png}
 
 }
 
@@ -2975,14 +2983,14 @@ by chance alone with no p-values below \(0.05\).
 
 \begin{figure}
 
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}{0.01\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-1.png}
+\includegraphics[width=3.3125in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-1.png}
 
 }
 
@@ -2991,11 +2999,11 @@ arms E1}
 
 \end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-2.png}
+\includegraphics[width=3.3125in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-2.png}
 
 }
 
@@ -3004,17 +3012,17 @@ E1}
 
 \end{minipage}%
 %
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}{0.01\linewidth}
 ~\end{minipage}%
 \newline
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}{0.01\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-3.png}
+\includegraphics[width=3.3125in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-3.png}
 
 }
 
@@ -3023,11 +3031,11 @@ E1}
 
 \end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}{0.49\linewidth}
 
 \centering{
 
-\includegraphics[width=2.58333in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-4.png}
+\includegraphics[width=3.3125in,height=0.80208in]{index_files/figure-latex/..-notebooks-07_various_plotting-fig-baboon-rs100-intersect-output-4.png}
 
 }
 
@@ -3036,7 +3044,7 @@ E1}
 
 \end{minipage}%
 %
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}{0.01\linewidth}
 ~\end{minipage}%
 
 \caption{\label{fig-baboon-rs100-intersect}Comparing the A-compartment
@@ -3089,31 +3097,35 @@ pachytene spermatocyte, and sperm are significantly proximal. Here,
 sperm, which is not proximal in the arms viewframe, has the lowest
 p-value (\(p=0.001\)).
 
-\begin{longtable}[]{@{}lllllllll@{}}
+\begin{longtable}[]{@{}llllllll@{}}
 
-\caption{\label{tbl-svedig-tabel-significant}Significant p-values across
+\caption{\label{tbl-svedig-tabel-significant}Test results from proximity
+and Jaccard, comparing ECH (full regions) or baboon 1bp limits with
+compartment 1bp limits from all cell types. Significant p-values across
 tissue types. All insignificant p-values are filtered out. \emph{Fb:
 Fibroblast, Spa: Spermatogonia, Pac: Pachytene Spermatocyte, RS: Round
 Spermatid, Sperm: Sperm}}
 
 \tabularnewline
 
+\caption{}\label{T_a1cfd}\tabularnewline
 \toprule\noalign{}
-& View & Query & Test & Fb & Spa & Pac & RS & Sperm \\
+View & Query & Test & Fb & Spa & Pac & RS & Sperm \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+View & Query & Test & Fb & Spa & Pac & RS & Sperm \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-0 & 10Mb & ECH90 & jaccard & 0.02146 & 0.00611 & -\/-\/- & -\/-\/- &
-0.0475 \\
-1 & 10Mb & olive & proximity & -\/-\/- & -\/-\/- & -\/-\/- & -\/-\/- &
-0.01614 \\
-2 & 10Mb & olivehama & proximity & -\/-\/- & 0.01879 & 0.0123 & -\/-\/-
-& 0.00128 \\
-3 & arms & ECH90 & jaccard & 0.01656 & 0.00612 & 0.00534 & 0.02769 &
--\/-\/- \\
-4 & arms & olivehama & proximity & -\/-\/- & -\/-\/- & 0.03564 & -\/-\/-
-& -\/-\/- \\
+10Mb & ECH90 & jaccard & 0.021460 & 0.006110 & - & - & 0.047500 \\
+10Mb & olive\_1bp & proximity & - & - & - & - & 0.016140 \\
+10Mb & olivehama\_1bp & proximity & - & 0.018790 & 0.012300 & - &
+0.001280 \\
+arms & ECH90 & jaccard & 0.016560 & 0.006120 & 0.005340 & 0.027690 &
+- \\
+arms & olivehama\_1bp & proximity & - & - & 0.035640 & - & - \\
 
 \end{longtable}
 
@@ -3224,9 +3236,11 @@ before embedding into a manuscript, and even more so do create tables
 that are both compatible with HTML and PDF. Here, Quarto inherits the
 limitations of Pandoc (which it uses internally to convert Markdown to
 its output formats), and it does not work well with complex grouped
-tables generated in Python (see
-Table~\ref{tbl-svedig-tabel-significant}) to translate into LaTeX (which
-again is an idealistic typesetting system).
+tables generated in Python to translate into LaTeX (which again is an
+idealistic typesetting system). As Quarto is a relatively new framework
+(first release 2022-07-28 Quarto Team (2022)), there are contiously
+released updates to fix bugs. Therefore, one can spend hours on a
+workaround for a feature, which could be included in week's release.
 
 I believe it is an important exercise to force oneself to be cautious
 about design choices and explore the advantages and limitations of the
@@ -3349,7 +3363,11 @@ minor differences in parsing statistics, the most notable being the
 fraction of unmapped pairs, which was expected---a higher amount for
 \texttt{mask} than for \texttt{5unique}. The lower amount of unmapped
 reads also seem to trigger a higher amount of duplicates. As a result,
-the two runs end up with the same distribution of cis pairs.
+the two runs end up with the same distribution of cis pairs. Supporting
+the claim that the parsing parameters made no significant difference,
+the compartments called for each run were qualitatively compared
+(Figure~\ref{fig-rs-fb-100-pe-recpe-intervals}), revealing only minor
+differences
 
 The brief exploration of matrix plotting with Open2C shows how different
 measures that can be taken to improve visibility in some regions, but
@@ -3358,7 +3376,7 @@ of missing values, the interpolation is very unreliable
 (Figure~\ref{fig-rs-chrx-raw-balanced-cgi}, right), where it might be
 interpreted that very high-frequency interactions occur at the
 centromeric region. Additionally, as it does not add to the analysis,
-but only is for visualization, it looses transparency when hiding empty
+but only is for visualization, it looses transparency by hiding empty
 bins. The problem is not as evident in smaller regions
 (Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}), where mostly single
 empty bins are interpolated.
@@ -3388,9 +3406,99 @@ eigenvector. Therefore, a resolution can be chosen to reflect the
 genomic scale that we want to investigate, and the minimum resolution
 required to test if the compartments overlap with regions under
 selection. Although some of these regions are exceptionally large, the
-shortest segment is just below 100kb. Thus, the 100kb resolution is
+shortest segment is just below 100 kb. Thus, the 100 kb resolution is
 deemed sufficient to capture compartments that are within the range of
 the regions under selection.
+
+However, it is important to acknowledge the trade-offs involved in
+selecting a resolution. Higher resolutions (e.g., 50 kb or 10 kb) can
+provide finer detail and may help identify sub-compartmental structures
+or smaller features of chromatin organization. As Wang et al. (2019)
+used 40 kb matrices for TAD calling, resolution should not be an issue
+for 50 kb matrices in this context. Although this study did not
+experiment with higher resolutions than 100 kb, it is plausible that 50
+kb resolution could better capture the structural variance. The
+sequencing depth and coverage of the library appear sufficient to
+support such analyses, further justifying the exploration of higher
+resolutions. On the other hand, lower resolutions (e.g., 500 kb or 1 Mb)
+are more robust for sparse datasets but may oversimplify chromatin
+structure and fail to resolve smaller regions under selection. The
+choice of 100 kb strikes a balance between these extremes, ensuring that
+biologically relevant features of both the compartments and the regions
+under selection can be detected while minimizing the risk of false
+positives due to noise.
+
+It is thus apparent that further analysis at higher resolutions, such as
+50 kb, could provide additional insights into the structural variance of
+the regions under selection. This study largely avoids performing
+in-depth quality control of the Hi-C library and the resulting
+interaction matrices, instead relying on qualitative evaluation.
+However, this approach is justified as I use the same resolution as Wang
+et al. (2019), whose work includes comprehensive quality control
+measures such as coverage profiles along the chromosomes, \(P(s)\)
+curves, and compartment segregation strength.
+
+\subsection{Correlating genomic
+regions}\label{correlating-genomic-regions}
+
+The extracted compartments and their 200 kb edge regions were
+qualitatively compared for overlap with the ECH region
+(Figure~\ref{fig-comps-edges-ech}). For fibroblast (Fb) and round
+spermatid (RS), I observe promising overlap with ECH90. Additionally,
+visualization of the difference in overlaps (``DiffInt'') between (ECH,
+full compartments) and (ECH, edges) confirmed that the `outside' edge
+captured additional overlap (see Figure~\ref{fig-edge-enrichment}). It
+would have been informative to compare the intersection of the same
+overlaps (``IntInt'') to determine whether the overlap occurs more
+frequently on the inside edge than the outside edge.
+
+The Jaccard test confirmed significant ECH overlap with Fb and RS, with
+\(p=0.012\) and \(p=0.010\), respectively. In contrast, the proximity
+test showed no significant results, which is unsurprising given the
+design of the test. Specifically, when calculating the proximity index
+between a query and an annotation (\texttt{query} and \texttt{annot},
+respectively), overlapping segments are masked from \texttt{query}
+before calculating the mean distance to the nearest non-overlapping
+segments. This means that substantial intersection, as confirmed by the
+Jaccard test, leads to many segments being removed in the proximity
+test. This design choice-----removing entire overlapping segments rather
+than just the overlapping bases-----creates a clearer separation between
+the two test statistics. Without this distinction, the proximity test
+could capture some of the variance inherent to the Jaccard statistic,
+making it harder to isolate proximal, non-overlapping segments.
+
+The significant overlap between ECH regions, Fb, and RS at arms view is
+reproduced when testing at the compartment 1bp limits in stead of the
+200kb edges, although the significance is weakened a bit. The incresed
+p-value indicates that the full regions are important for for
+relationship. Surprisingly, the limits of both spermatogonia and
+pachytene spermatocyte are significantly overlapping the ECH regions,
+more so than both fibroblast and round spermatid, supporting the
+findings from Wang et al. (2019) that chromatin undergoes remodelling
+through spermatogenesis.
+
+The visualization of the overlap between baboon regions and round
+spermatid showed notable amounts of intersection
+(Figure~\ref{fig-baboon-rs100-intersect}), but both significant overlap
+\emph{and} proximity was rejected by the tests. Conversely, the tests
+performed on the 1bp limits of baboon regions against the 1bp limits of
+A/B compartments revealed a significant proximity between olive and
+spermatozoa. Additionally, significant proximity was observed between
+spermatogonia, pachytene spermatocyte by defining baboon regions under
+selection as a single set, \texttt{olivehama}, and here the significance
+was strengthened an order of magnitude for spermatozoa. This indicate
+that the effect size of the hama regions is too small for statistical
+inference, but also that the two sets of genomic intervals can be viewed
+as a single set, possibly indicating that similar forces have shaped the
+genomic landscape.
+
+Notably, three out of five cell types both overlap the ECH regions
+\emph{and} are proximal to the baboon limits---spermatogonia and
+spermatozoa in the 10Mb viewframe, and pachytene spermatocyte in the
+arms viewframe, indicating an indirect relationship through chromatin
+architecture. As neither proximity nor overlap is observed between the
+baboon regions and ECH, this observation could indicate that some
+structural features of the chromosome are aiding in reducing diversity.
 
 \section{Speculations}\label{speculations}
 
@@ -3655,6 +3763,10 @@ A. Galitsyna, Anton Goloborodko, Maxim Imakaev, and Sergey V. Venev.
 Edited by Ferhat Ay. \emph{PLOS Computational Biology} 20 (5): e1012164.
 \url{https://doi.org/10.1371/journal.pcbi.1012164}.
 
+\bibitem[\citeproctext]{ref-quartoteam2022announcingquartonew}
+Quarto Team, Posit. 2022. {``Announcing {Quarto}, a New Scientific and
+Technical Publishing System.''} \emph{Posit}.
+
 \bibitem[\citeproctext]{ref-ramirez2018highresolutiontadsreveal}
 Ramírez, Fidel, Vivek Bhardwaj, Laura Arrigoni, Kin Chung Lam, Björn A.
 Grüning, José Villaveces, Bianca Habermann, Asifa Akhtar, and Thomas
@@ -3729,6 +3841,13 @@ Communications} 12 (1): 5827.
 \chapter*{A Appendix}\label{a-appendix}
 \addcontentsline{toc}{chapter}{A Appendix}
 
+\section*{Data Availability}\label{data-availability}
+\addcontentsline{toc}{section}{Data Availability}
+
+All code, text and files used for this project is available on
+\url{https://github.com/munch-group/hic-spermatogenesis} with
+instructions on how to reproduce.
+
 \section*{Aknowledgements}\label{aknowledgements}
 \addcontentsline{toc}{section}{Aknowledgements}
 
@@ -3746,14 +3865,18 @@ constructive feedback on the manuscript has greatly improved its
 quality. I feel fortunate to have had the opportunity to learn from and
 work with such a knowledgeable and dedicated mentor.
 
-\subsection{Compute}\label{compute}
+\subsection*{Compute}\label{compute}
+\addcontentsline{toc}{subsection}{Compute}
 
 All computations were performed on GenomeDK (GDK), an HPC cluster
 located on Aarhus Uninversity, and most of the processing of the data
 was handled by a \emph{gwf} workflow (GenomeDK 2023), a workflow manager
-developed at GDK. I would like to thank GDK and Aarhus University for
-providing computational resources and support that contributed to these
-research results.
+developed at GDK. Developing the manuscript and all associated writing,
+editing, and rendering the project was also performed on GDK so work
+seemlesly with the analysis. I would like to thank GDK and Aarhus
+University for providing computational resources and support that
+contributed to these research results. None of this would have been
+possible on my own labtop from 2013.
 
 \subsection*{Use of Generative Artificial
 Intelligence}\label{use-of-generative-artificial-intelligence}

@@ -599,7 +599,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="load-the-genomic-intervals">Load the genomic intervals</h3>
 <section id="a-compartments" class="level4">
 <h4 class="anchored" data-anchor-id="a-compartments">A-compartments</h4>
-<div id="cell-14" class="cell">
+<div id="cell-14" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1583,7 +1583,7 @@ Figure&nbsp;8.3: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing th
 </figure>
 </div>
 </div>
-<div class="cell" data-layout="[[-0.6,2.5,2.5,-0.6],[-0.6,2.5,2.5,-0.6]]" data-execution_count="28">
+<div class="cell" data-layout="[[-0.05,3.2,3.2,-0.05],[-0.05,3.2,3.2,-0.05]]" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_intersect</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> ech90</span>
@@ -1593,49 +1593,51 @@ Figure&nbsp;8.3: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing th
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>fb_ann_edge <span class="op">=</span> edges[<span class="st">'recPE'</span>][<span class="st">'fibroblast_100kb_arms'</span>]</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>rs_ann_edge <span class="op">=</span> edges[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_arms'</span>]</span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Fib and RS compartments</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>plot_regions(query<span class="op">=</span>query, annot<span class="op">=</span>fb_ann_comp,</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>             intersect<span class="op">=</span>interval_intersect(query, fb_ann_comp), </span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="st">'A-Comp'</span>, <span class="st">'Intersect'</span>],</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>(<span class="fl">2.5</span>,<span class="fl">.8</span>),</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>plot_regions(query<span class="op">=</span>query, annot<span class="op">=</span>rs_ann_comp, </span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>             intersect<span class="op">=</span>interval_intersect(query, rs_ann_comp), </span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="st">'A-Comp'</span>, <span class="st">'Intersect'</span>], </span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>(<span class="fl">2.5</span>,<span class="fl">.8</span>),</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Fib and RS edges</span></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>plot_regions(query<span class="op">=</span>query, annot<span class="op">=</span>fb_ann_edge,</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>             intersect<span class="op">=</span>interval_intersect(query, fb_ann_edge), </span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="st">'Edges'</span>, <span class="st">'Intersect'</span>],</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>(<span class="fl">2.5</span>,<span class="fl">0.8</span>),</span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>plot_regions(query<span class="op">=</span>query, annot<span class="op">=</span>rs_ann_edge, </span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>             intersect<span class="op">=</span>interval_intersect(query, rs_ann_edge), </span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="st">'Edges'</span>, <span class="st">'Intersect'</span>],</span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>(<span class="fl">2.5</span>,<span class="fl">0.8</span>),</span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>size<span class="op">=</span>(<span class="fl">3.2</span>, <span class="fl">0.8</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Fib and RS compartments</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>plot_regions(query<span class="op">=</span>query, annot<span class="op">=</span>fb_ann_comp,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>             intersect<span class="op">=</span>interval_intersect(query, fb_ann_comp), </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="st">'A-Comp'</span>, <span class="st">'Intersect'</span>],</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>size,</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>plot_regions(query<span class="op">=</span>query, annot<span class="op">=</span>rs_ann_comp, </span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>             intersect<span class="op">=</span>interval_intersect(query, rs_ann_comp), </span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="st">'A-Comp'</span>, <span class="st">'Intersect'</span>], </span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>size,</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Fib and RS edges</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>plot_regions(query<span class="op">=</span>query, annot<span class="op">=</span>fb_ann_edge,</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>             intersect<span class="op">=</span>interval_intersect(query, fb_ann_edge), </span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="st">'Edges'</span>, <span class="st">'Intersect'</span>],</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>size,</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>plot_regions(query<span class="op">=</span>query, annot<span class="op">=</span>rs_ann_edge, </span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>             intersect<span class="op">=</span>interval_intersect(query, rs_ann_edge), </span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="st">'Edges'</span>, <span class="st">'Intersect'</span>],</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>size,</span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-comps-edges-ech" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-comps-edges-ech-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-comps-edges-ech-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comps-edges-ech-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-1.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;8.4&nbsp;(a): Fibroblast A-compartments"><img src="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-1.png" data-ref-parent="fig-comps-edges-ech" width="248" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-1.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;8.4&nbsp;(a): Fibroblast A-compartments"><img src="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-1.png" data-ref-parent="fig-comps-edges-ech" width="318" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) Fibroblast A-compartments
@@ -1643,11 +1645,11 @@ Figure&nbsp;8.3: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing th
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-comps-edges-ech-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comps-edges-ech-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-2.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;8.4&nbsp;(b): Round Spermatid A-compartments"><img src="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-2.png" data-ref-parent="fig-comps-edges-ech" width="248" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-2.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;8.4&nbsp;(b): Round Spermatid A-compartments"><img src="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-2.png" data-ref-parent="fig-comps-edges-ech" width="318" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) Round Spermatid A-compartments
@@ -1655,19 +1657,19 @@ Figure&nbsp;8.3: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing th
 </figure>
 </div>
 </div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
 </div>
 <div class="quarto-layout-row">
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-comps-edges-ech-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comps-edges-ech-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-3.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;8.4&nbsp;(c): Fibroblast edges"><img src="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-3.png" data-ref-parent="fig-comps-edges-ech" width="248" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-3.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;8.4&nbsp;(c): Fibroblast edges"><img src="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-3.png" data-ref-parent="fig-comps-edges-ech" width="318" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (c) Fibroblast edges
@@ -1675,11 +1677,11 @@ Figure&nbsp;8.3: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing th
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comps-edges-ech" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-comps-edges-ech-4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comps-edges-ech-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-4.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;8.4&nbsp;(d): Round Spermatid edges"><img src="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-4.png" data-ref-parent="fig-comps-edges-ech" width="248" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-4.png" class="lightbox" data-gallery="fig-comps-edges-ech" title="Figure&nbsp;8.4&nbsp;(d): Round Spermatid edges"><img src="07_various_plotting_files/figure-html/fig-comps-edges-ech-output-4.png" data-ref-parent="fig-comps-edges-ech" width="318" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comps-edges-ech-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (d) Round Spermatid edges
@@ -1687,7 +1689,7 @@ Figure&nbsp;8.3: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing th
 </figure>
 </div>
 </div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
 </div>
@@ -1701,6 +1703,7 @@ Figure&nbsp;8.4: Visual representation of the genomic intervals of ECH90, A-comp
 </section>
 <section id="visualize-ech-enrichment" class="level3">
 <h3 class="anchored" data-anchor-id="visualize-ech-enrichment">Visualize ECH enrichment</h3>
+<div class="cell" data-layout="[-0.05,3.2,3.2,-0.05]" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_diff, interval_intersect, interval_union</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>complist <span class="op">=</span> [comps[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_arms'</span>],</span>
@@ -1716,18 +1719,21 @@ Figure&nbsp;8.4: Visual representation of the genomic intervals of ECH90, A-comp
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    plot_regions(int_comp, int_edge, diff_int_compedge,</span>
 <span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>                track_titles<span class="op">=</span>[<span class="st">'CompInt'</span>, <span class="st">'EdgeInt'</span>, <span class="st">'DiffInt'</span>],</span>
 <span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>                title<span class="op">=</span><span class="st">"ECH90 intersect"</span>,</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>                figsize<span class="op">=</span>(<span class="fl">2.5</span>, <span class="dv">1</span>),</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.8</span>, lw<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>                figsize<span class="op">=</span>(<span class="fl">3.2</span>, <span class="dv">1</span>),</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="dv">1</span>, lw<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-edge-enrichment" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-edge-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-edge-enrichment" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-edge-enrichment" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-edge-enrichment-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-edge-enrichment-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-edge-enrichment-output-1.png" class="lightbox" data-gallery="fig-edge-enrichment" title="Figure&nbsp;8.5&nbsp;(a): Round Spermatid"><img src="07_various_plotting_files/figure-html/fig-edge-enrichment-output-1.png" data-ref-parent="fig-edge-enrichment" width="248" height="98" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-edge-enrichment-output-1.png" class="lightbox" data-gallery="fig-edge-enrichment" title="Figure&nbsp;8.5&nbsp;(a): Round Spermatid"><img src="07_various_plotting_files/figure-html/fig-edge-enrichment-output-1.png" data-ref-parent="fig-edge-enrichment" width="318" height="98" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-edge-enrichment-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) Round Spermatid
@@ -1735,11 +1741,11 @@ Figure&nbsp;8.4: Visual representation of the genomic intervals of ECH90, A-comp
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-edge-enrichment" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-edge-enrichment" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-edge-enrichment-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-edge-enrichment-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-edge-enrichment-output-2.png" class="lightbox" data-gallery="fig-edge-enrichment" title="Figure&nbsp;8.5&nbsp;(b): Fibroblast"><img src="07_various_plotting_files/figure-html/fig-edge-enrichment-output-2.png" data-ref-parent="fig-edge-enrichment" width="248" height="98" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-edge-enrichment-output-2.png" class="lightbox" data-gallery="fig-edge-enrichment" title="Figure&nbsp;8.5&nbsp;(b): Fibroblast"><img src="07_various_plotting_files/figure-html/fig-edge-enrichment-output-2.png" data-ref-parent="fig-edge-enrichment" width="318" height="98" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-edge-enrichment-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) Fibroblast
@@ -1747,12 +1753,16 @@ Figure&nbsp;8.4: Visual representation of the genomic intervals of ECH90, A-comp
 </figure>
 </div>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-edge-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;8.5: Visual representation of the enrichment of edges in the intersection of ECH90 and A-compartments. Shown round spermatid (a) and fibroblast (b) at 100kb resolution and arms viewframe. Note that the edge-regions are too small to be distinguished visually from the compartment on the graph, making it look like they overlap, even though the difference is reported.
 </figcaption>
 </figure>
+</div>
 </div>
 </section>
 <section id="all-3-sets" class="level3">
@@ -1779,7 +1789,7 @@ Figure&nbsp;8.6: Visual representation of the selected regions for the baboon co
 </section>
 <section id="liftover-comparison" class="level3">
 <h3 class="anchored" data-anchor-id="liftover-comparison">LiftOver comparison</h3>
-<div class="cell" data-execution_count="67">
+<div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>track0 <span class="op">=</span> [olive_panu3, hama_panu3]</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>track1 <span class="op">=</span> [high_olive, high_hama]</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>track2 <span class="op">=</span> [high_olive_ucsc, high_hama_ucsc]</span>
@@ -1789,17 +1799,17 @@ Figure&nbsp;8.6: Visual representation of the selected regions for the baboon co
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                track_titles<span class="op">=</span>[<span class="st">'Panu_3.0'</span>, <span class="st">'segment_lift'</span>,<span class="st">'UCSCliftOver'</span>],</span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#            title='High Olive Ancestry Intervals',</span></span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>                title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="fl">0.8</span>),</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="fl">0.8</span>),</span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.8</span>, lw<span class="op">=</span><span class="fl">0.1</span>)</span>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="fig-compare-liftover" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="67">
+<div id="fig-compare-liftover" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="21">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-compare-liftover-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
 <div id="fig-compare-liftover-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-compare-liftover-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-compare-liftover-output-1.png" class="lightbox" data-gallery="fig-compare-liftover" title="Figure&nbsp;8.7&nbsp;(a): high-olive"><img src="07_various_plotting_files/figure-html/fig-compare-liftover-output-1.png" data-ref-parent="fig-compare-liftover" width="499" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-compare-liftover-output-1.png" class="lightbox" data-gallery="fig-compare-liftover" title="Figure&nbsp;8.7&nbsp;(a): high-olive"><img src="07_various_plotting_files/figure-html/fig-compare-liftover-output-1.png" data-ref-parent="fig-compare-liftover" width="599" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-compare-liftover-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) high-olive
@@ -1811,7 +1821,7 @@ Figure&nbsp;8.6: Visual representation of the selected regions for the baboon co
 <div id="fig-compare-liftover-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-compare-liftover-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-compare-liftover-output-2.png" class="lightbox" data-gallery="fig-compare-liftover" title="Figure&nbsp;8.7&nbsp;(b): high-hama"><img src="07_various_plotting_files/figure-html/fig-compare-liftover-output-2.png" data-ref-parent="fig-compare-liftover" width="499" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-compare-liftover-output-2.png" class="lightbox" data-gallery="fig-compare-liftover" title="Figure&nbsp;8.7&nbsp;(b): high-hama"><img src="07_various_plotting_files/figure-html/fig-compare-liftover-output-2.png" data-ref-parent="fig-compare-liftover" width="599" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-compare-liftover-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) high-hama
@@ -1829,42 +1839,43 @@ Figure&nbsp;8.7: Comparison of a) high-olive and b) high-hama intervals between 
 </section>
 <section id="baboon-rs100-intersect" class="level3">
 <h3 class="anchored" data-anchor-id="baboon-rs100-intersect">Baboon-rs100-intersect</h3>
-<div class="cell" data-layout="[[-0.6,2.5,2.5,-0.6],[-0.6,2.5,2.5,-0.6]]" data-execution_count="16">
+<div class="cell" data-layout="[[-0.05,3.2,3.2,-0.05],[-0.05,3.2,3.2,-0.05]]" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot </span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>edge_rs <span class="op">=</span> edges[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_arms'</span>]</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name,group <span class="kw">in</span> baboon_dict.items():</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    plot_regions(query<span class="op">=</span>edge_rs, annot<span class="op">=</span>group, </span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                 intersect<span class="op">=</span>interval_intersect(edge_rs, group), </span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#intersect=ech90,</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'RS100'</span>, <span class="vs">fr"$\it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="vs"> $"</span>, <span class="st">'Intersect'</span>],</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>(<span class="fl">2.5</span>, <span class="fl">0.8</span>),</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                 title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.1</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>edge_rs <span class="op">=</span> edges[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_10Mb'</span>]</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name,group <span class="kw">in</span> baboon_dict.items():</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    plot_regions(query<span class="op">=</span>edge_rs, annot<span class="op">=</span>group, </span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>                 intersect<span class="op">=</span>interval_intersect(edge_rs, group), </span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#intersect=ech90,</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'RS100'</span>, <span class="vs">fr"$\it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="vs"> $"</span>, <span class="st">'Intersect'</span>],</span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>(<span class="fl">2.5</span>, <span class="fl">0.8</span>),</span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>                 title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.1</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> (<span class="fl">3.2</span>, <span class="fl">0.8</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>edge_rs <span class="op">=</span> edges[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_arms'</span>]</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name,group <span class="kw">in</span> baboon_dict.items():</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    plot_regions(query<span class="op">=</span>edge_rs, annot<span class="op">=</span>group, </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                 intersect<span class="op">=</span>interval_intersect(edge_rs, group), </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#intersect=ech90,</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'RS100'</span>, <span class="vs">fr"$\it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="vs">$"</span>, <span class="st">'Intersect'</span>],</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>size,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                 title<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.3</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>edge_rs <span class="op">=</span> edges[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_10Mb'</span>]</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name,group <span class="kw">in</span> baboon_dict.items():</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    plot_regions(query<span class="op">=</span>edge_rs, annot<span class="op">=</span>group, </span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>                 intersect<span class="op">=</span>interval_intersect(edge_rs, group), </span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#intersect=ech90,</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'RS100'</span>, <span class="vs">fr"$\it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="vs">$"</span>, <span class="st">'Intersect'</span>],</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>size,</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>                 title<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.2</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-baboon-rs100-intersect" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-baboon-rs100-intersect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-baboon-rs100-intersect-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-baboon-rs100-intersect-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-1.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;8.8&nbsp;(a): P. hamadryas + arms E1"><img src="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-1.png" data-ref-parent="fig-baboon-rs100-intersect" width="248" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-1.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;8.8&nbsp;(a): P. hamadryas + arms E1"><img src="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-1.png" data-ref-parent="fig-baboon-rs100-intersect" width="318" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-baboon-rs100-intersect-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) <em>P. hamadryas</em> + arms E1
@@ -1872,11 +1883,11 @@ Figure&nbsp;8.7: Comparison of a) high-olive and b) high-hama intervals between 
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-baboon-rs100-intersect-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-baboon-rs100-intersect-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-2.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;8.8&nbsp;(b): P. anubis + arms E1"><img src="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-2.png" data-ref-parent="fig-baboon-rs100-intersect" width="248" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-2.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;8.8&nbsp;(b): P. anubis + arms E1"><img src="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-2.png" data-ref-parent="fig-baboon-rs100-intersect" width="318" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-baboon-rs100-intersect-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) <em>P. anubis</em> + arms E1
@@ -1884,19 +1895,19 @@ Figure&nbsp;8.7: Comparison of a) high-olive and b) high-hama intervals between 
 </figure>
 </div>
 </div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
 </div>
 <div class="quarto-layout-row">
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-baboon-rs100-intersect-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-baboon-rs100-intersect-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-3.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;8.8&nbsp;(c): P. hamadryas + 10Mb E1"><img src="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-3.png" data-ref-parent="fig-baboon-rs100-intersect" width="248" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-3.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;8.8&nbsp;(c): P. hamadryas + 10Mb E1"><img src="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-3.png" data-ref-parent="fig-baboon-rs100-intersect" width="318" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-baboon-rs100-intersect-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (c) <em>P. hamadryas</em> + 10Mb E1
@@ -1904,11 +1915,11 @@ Figure&nbsp;8.7: Comparison of a) high-olive and b) high-hama intervals between 
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 40.3%;justify-content: flex-start;">
+<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-baboon-rs100-intersect" style="flex-basis: 49.2%;justify-content: flex-start;">
 <div id="fig-baboon-rs100-intersect-4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-baboon-rs100-intersect-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-4.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;8.8&nbsp;(d): P. anubis + 10Mb E1"><img src="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-4.png" data-ref-parent="fig-baboon-rs100-intersect" width="248" height="77" class="figure-img"></a>
+<a href="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-4.png" class="lightbox" data-gallery="fig-baboon-rs100-intersect" title="Figure&nbsp;8.8&nbsp;(d): P. anubis + 10Mb E1"><img src="07_various_plotting_files/figure-html/fig-baboon-rs100-intersect-output-4.png" data-ref-parent="fig-baboon-rs100-intersect" width="318" height="77" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-baboon-rs100-intersect-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (d) <em>P. anubis</em> + 10Mb E1
@@ -1916,7 +1927,7 @@ Figure&nbsp;8.7: Comparison of a) high-olive and b) high-hama intervals between 
 </figure>
 </div>
 </div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 9.7%;justify-content: flex-start;">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 0.8%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
 </div>
@@ -2232,14 +2243,14 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 </table>
 </div>
 </div>
-<div class="cell" data-execution_count="30">
+<div class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>tissue_order <span class="op">=</span> [<span class="st">'fibroblast'</span>, <span class="st">'spermatogonia'</span>, <span class="st">'pachytene_spermatocyte'</span>, <span class="st">'round_spermatid'</span>, <span class="st">'sperm'</span>]</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>tissue_sname <span class="op">=</span> [<span class="st">'Fb'</span>, <span class="st">'Spa'</span>, <span class="st">'Pac'</span>, <span class="st">'RS'</span>, <span class="st">'Sperm'</span>]</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (all_tests</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>      .<span class="bu">map</span>(<span class="kw">lambda</span> x: x.replace(<span class="st">'_edge_1bp'</span>, <span class="st">''</span>) <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">str</span>) <span class="cf">else</span> x)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>      .<span class="bu">map</span>(<span class="kw">lambda</span> x: x.replace(<span class="st">'_edge_1bp'</span>, <span class="st">'_1bp'</span>) <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">str</span>) <span class="cf">else</span> x)</span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>      .assign(log10p<span class="op">=</span>np.log10(all_tests.p))</span>
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>      .loc[(all_tests.p <span class="op">&lt;</span> <span class="fl">0.05</span>)]</span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>      .pivot(index<span class="op">=</span>[<span class="st">'pc_scale'</span>, <span class="st">'query'</span>, <span class="st">'test'</span> ], columns<span class="op">=</span>[<span class="st">"tissue"</span>], values<span class="op">=</span><span class="st">"p"</span>).</span>
@@ -2248,94 +2259,85 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns <span class="op">=</span> {x:tissue_sname[i] <span class="cf">for</span> i,x <span class="kw">in</span> <span class="bu">enumerate</span>(df.columns.tolist())})</span>
 <span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>df.columns.name <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.reset_index().fillna(<span class="st">'---'</span>)</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.reset_index().fillna(<span class="st">'-'</span>)</span>
 <span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">'pc_scale'</span>: <span class="st">'View'</span>, <span class="st">'query'</span>: <span class="st">'Query'</span>, <span class="st">'test'</span>: <span class="st">'Test'</span>})</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>df.style.hide(axis<span class="op">=</span><span class="st">'index'</span>)</span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-svedig-tabel-significant" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="30">
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>df.style.hide(axis<span class="op">=</span><span class="st">'index'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-svedig-tabel-significant" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="38">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-svedig-tabel-significant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;8.1: Significant p-values across tissue types. All insignificant p-values are filtered out. <em>Fb: Fibroblast, Spa: Spermatogonia, Pac: Pachytene Spermatocyte, RS: Round Spermatid, Sperm: Sperm</em>
+Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full regions) or baboon 1bp limits with compartment 1bp limits from all cell types. Significant p-values across tissue types. All insignificant p-values are filtered out. <em>Fb: Fibroblast, Spa: Spermatogonia, Pac: Pachytene Spermatocyte, RS: Round Spermatid, Sperm: Sperm</em>
 </figcaption>
 <div aria-describedby="tbl-svedig-tabel-significant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="30">
-<div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<style type="text/css">
+</style>
 
-
-<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table id="T_a1cfd" class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">View</th>
-<th data-quarto-table-cell-role="th">Query</th>
-<th data-quarto-table-cell-role="th">Test</th>
-<th data-quarto-table-cell-role="th">Fb</th>
-<th data-quarto-table-cell-role="th">Spa</th>
-<th data-quarto-table-cell-role="th">Pac</th>
-<th data-quarto-table-cell-role="th">RS</th>
-<th data-quarto-table-cell-role="th">Sperm</th>
+<th id="T_a1cfd_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">View</th>
+<th id="T_a1cfd_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Query</th>
+<th id="T_a1cfd_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Test</th>
+<th id="T_a1cfd_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Fb</th>
+<th id="T_a1cfd_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">Spa</th>
+<th id="T_a1cfd_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Pac</th>
+<th id="T_a1cfd_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">RS</th>
+<th id="T_a1cfd_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">Sperm</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>10Mb</td>
-<td>ECH90</td>
-<td>jaccard</td>
-<td>0.02146</td>
-<td>0.00611</td>
-<td>---</td>
-<td>---</td>
-<td>0.0475</td>
+<td id="T_a1cfd_row0_col0" class="data row0 col0">10Mb</td>
+<td id="T_a1cfd_row0_col1" class="data row0 col1">ECH90</td>
+<td id="T_a1cfd_row0_col2" class="data row0 col2">jaccard</td>
+<td id="T_a1cfd_row0_col3" class="data row0 col3">0.021460</td>
+<td id="T_a1cfd_row0_col4" class="data row0 col4">0.006110</td>
+<td id="T_a1cfd_row0_col5" class="data row0 col5">-</td>
+<td id="T_a1cfd_row0_col6" class="data row0 col6">-</td>
+<td id="T_a1cfd_row0_col7" class="data row0 col7">0.047500</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>10Mb</td>
-<td>olive</td>
-<td>proximity</td>
-<td>---</td>
-<td>---</td>
-<td>---</td>
-<td>---</td>
-<td>0.01614</td>
+<td id="T_a1cfd_row1_col0" class="data row1 col0">10Mb</td>
+<td id="T_a1cfd_row1_col1" class="data row1 col1">olive_1bp</td>
+<td id="T_a1cfd_row1_col2" class="data row1 col2">proximity</td>
+<td id="T_a1cfd_row1_col3" class="data row1 col3">-</td>
+<td id="T_a1cfd_row1_col4" class="data row1 col4">-</td>
+<td id="T_a1cfd_row1_col5" class="data row1 col5">-</td>
+<td id="T_a1cfd_row1_col6" class="data row1 col6">-</td>
+<td id="T_a1cfd_row1_col7" class="data row1 col7">0.016140</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>10Mb</td>
-<td>olivehama</td>
-<td>proximity</td>
-<td>---</td>
-<td>0.01879</td>
-<td>0.0123</td>
-<td>---</td>
-<td>0.00128</td>
+<td id="T_a1cfd_row2_col0" class="data row2 col0">10Mb</td>
+<td id="T_a1cfd_row2_col1" class="data row2 col1">olivehama_1bp</td>
+<td id="T_a1cfd_row2_col2" class="data row2 col2">proximity</td>
+<td id="T_a1cfd_row2_col3" class="data row2 col3">-</td>
+<td id="T_a1cfd_row2_col4" class="data row2 col4">0.018790</td>
+<td id="T_a1cfd_row2_col5" class="data row2 col5">0.012300</td>
+<td id="T_a1cfd_row2_col6" class="data row2 col6">-</td>
+<td id="T_a1cfd_row2_col7" class="data row2 col7">0.001280</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>arms</td>
-<td>ECH90</td>
-<td>jaccard</td>
-<td>0.01656</td>
-<td>0.00612</td>
-<td>0.00534</td>
-<td>0.02769</td>
-<td>---</td>
+<td id="T_a1cfd_row3_col0" class="data row3 col0">arms</td>
+<td id="T_a1cfd_row3_col1" class="data row3 col1">ECH90</td>
+<td id="T_a1cfd_row3_col2" class="data row3 col2">jaccard</td>
+<td id="T_a1cfd_row3_col3" class="data row3 col3">0.016560</td>
+<td id="T_a1cfd_row3_col4" class="data row3 col4">0.006120</td>
+<td id="T_a1cfd_row3_col5" class="data row3 col5">0.005340</td>
+<td id="T_a1cfd_row3_col6" class="data row3 col6">0.027690</td>
+<td id="T_a1cfd_row3_col7" class="data row3 col7">-</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>arms</td>
-<td>olivehama</td>
-<td>proximity</td>
-<td>---</td>
-<td>---</td>
-<td>0.03564</td>
-<td>---</td>
-<td>---</td>
+<td id="T_a1cfd_row4_col0" class="data row4 col0">arms</td>
+<td id="T_a1cfd_row4_col1" class="data row4 col1">olivehama_1bp</td>
+<td id="T_a1cfd_row4_col2" class="data row4 col2">proximity</td>
+<td id="T_a1cfd_row4_col3" class="data row4 col3">-</td>
+<td id="T_a1cfd_row4_col4" class="data row4 col4">-</td>
+<td id="T_a1cfd_row4_col5" class="data row4 col5">0.035640</td>
+<td id="T_a1cfd_row4_col6" class="data row4 col6">-</td>
+<td id="T_a1cfd_row4_col7" class="data row4 col7">-</td>
 </tr>
 </tbody>
 </table>
-
-</div>
 </div>
 </div>
 </figure>
