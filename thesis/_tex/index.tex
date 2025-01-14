@@ -376,7 +376,7 @@
 ]{section}
 
 \RedeclareSectionCommand[
-  beforeskip=--1.5ex,
+  beforeskip=-1.5ex,
   afterskip=0.5ex
 ]{subsection}
 
@@ -413,11 +413,11 @@
 % \usepackage{booktabs} % professional-quality tables (arxiv.sty)
 
 \usepackage[font={footnotesize},labelfont={bf}]{caption}
-\AddToHook{env/longtable/before}{\fontsize{8}{10}\selectfont}
+\AddToHook{env/longtable/before}{\fontsize{9}{11}\selectfont}
 \AddToHook{env/longtable/after}{\normalsize}
-\AddToHook{env/table/before}{\fontsize{8}{10}\selectfont}
+\AddToHook{env/table/before}{\fontsize{9}{11}\selectfont}
 \AddToHook{env/table/after}{\normalsize}
-\AddToHook{env/codelisting/before}{\fontsize{8}{10}\selectfont}
+\AddToHook{env/codelisting/before}{\fontsize{9}{11}\selectfont}
 \AddToHook{env/codelisting/after}{\normalsize}
 % \usepackage{caption}
 \captionsetup[sub]{font=footnotesize,labelfont=footnotesize, position=top}
@@ -428,7 +428,7 @@
 %%% For code blocks using the Shaded environment
 % \AddToHook{env/Shaded/before}{\vspace{-0.5em}\small} % Reduces space before
 % \AddToHook{env/Shaded/after}{\vspace{-1em}} % Reduces space after
-\definecolor{shadecolor}{RGB}{245,245,245}
+\definecolor{shadecolor}{RGB}{250,250,250}
 
 \renewenvironment{Shaded}
 {
@@ -773,14 +773,14 @@ yet unpublished analysis by Munch (2024), exceptionally large regions
 (\emph{Papio anubis}), where either all individuals had \emph{olive}
 ancestry, or 95\% of the individuals had \emph{hamadryas} ancestry,
 significantly diverging from the background proportions, suggesting that
-these regions may be under strong selective pressures or influenced by
-structural genomic features that either limit recombination. Such
-patterns suggest that certain chromosomal regions are either preserved
-due to adaptive advantages or subjected to sex-biased gene flow, further
-reinforcing the impact of male-driven admixture on shaping genomic
-variation. These findings highlight the complexity of admixture dynamics
-and their potential to create localized genomic signatures that deviate
-from overall ancestry proportions.
+these regions may be under strong selective pressures, are influenced by
+structural genomic features that limit recombination, or potentially
+both. Such patterns suggest that certain chromosomal regions are either
+preserved due to adaptive advantages or subjected to sex-biased gene
+flow, further reinforcing the impact of male-driven admixture on shaping
+genomic variation. These findings highlight the complexity of admixture
+dynamics and their potential to create localized genomic signatures that
+deviate from overall ancestry proportions.
 
 Sørensen et al. (2023) highlights the importance of studying these
 populations, as they serve as models for understanding genomic
@@ -1221,16 +1221,16 @@ Infrastructure}\label{reproducibility-infrastructure}
 
 \begin{codelisting}
 
-\caption{\label{lst-reproduce}These three lines of code should ideally
-be enough to reproduce the whole project.}
+\caption{\label{lst-reproduce}Three simple steps to re-create the
+project.}
 
 \centering{
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-    \FunctionTok{git}\NormalTok{ clone https://github.com/munch{-}group/hic{-}spermatogenesis.git}
-    \ExtensionTok{conda}\NormalTok{ env create }\AttributeTok{{-}f}\NormalTok{ binder/environment.yml}
-    \ExtensionTok{gwf}\NormalTok{ run}
+\FunctionTok{git}\NormalTok{ clone https://github.com/munch{-}group/hic{-}spermatogenesis.git}
+\ExtensionTok{conda}\NormalTok{ env create }\AttributeTok{{-}f}\NormalTok{ binder/environment.yml}
+\ExtensionTok{gwf}\NormalTok{ run}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1262,12 +1262,12 @@ code\footnote{And access to a high-performance computer with at least 12
 a brief overview:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1944}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1944}}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8056}}@{}}
 \caption{Overview of the tools used for reproducibility of this
 thesis.}\label{tbl-reproducibility}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
+\begin{minipage}[b]{\linewidth}\raggedleft
 Tool
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Description
@@ -1275,7 +1275,7 @@ Description
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
+\begin{minipage}[b]{\linewidth}\raggedleft
 Tool
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Description
@@ -1536,7 +1536,11 @@ cases, the aligner outputs a .bam-file for each mate
 performs the parsing, deduplication, and filtering of the reads and
 builds the raw interaction matrix in a single command,
 
-\texttt{hicBuildMatrix\ -s\ sample\_R1.bam\ sample\_R2.bam\ -o\ matrix.h5\ {[}...{]}},
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{hicBuildMatrix} \AttributeTok{{-}s}\NormalTok{ sample\_R1.bam sample\_R2.bam }\AttributeTok{{-}o}\NormalTok{ matrix.h5 }\PreprocessorTok{[}\SpecialStringTok{...}\PreprocessorTok{]}
+\end{Highlighting}
+\end{Shaded}
 
 For parsing, the command needs a \texttt{restrictionCutFile}, locating
 the restriction sites from the restriction enzyme used on the reference
@@ -2570,28 +2574,6 @@ compartments. The reasonable thing to do is therefore to continue the
 analysis, focusing on the arms-restricted eigendecomposition.
 Nevertheless, we also keep \emph{refined} compartments in the analysis.
 
-Additionally, as I created coolers with two different sets of parsing
-parameters we will compare the resulting matrices and their compartments
-(Figure~\ref{fig-rs100-recpe-pe}). As expected, we observe more empty
-bins in the Hi-C matrix when comparing the initial run (\texttt{mask})
-to the recommended parameters (\texttt{5unique}), but otherwise, the
-interaction pattern is indestinguishable. The effect on the E1 is more
-noticable, where the absolute magnitude of the E1 values is generally
-smaller. There is, however, a small region that changes sign (from A to
-B) on the 10Mb-windowed (`refined') E1 track
-(Figure~\ref{fig-rs100-recpe-pe};c+d). This region is surrounded by
-added empty bins, which could mean that too many low quality pairs in
-\texttt{mask} were introducing bias and swapped the sign of E1. It is
-supported by the fact that the sign change \emph{only} occured in
-\emph{refined} E1, and that the sign after filtering weak pairs
-(\(mapq < 30\)) is consistent with the \emph{arms} view. It supports my
-previous postulate that it is better to use a viewframe with explicit
-molecular meaning than one of an arbitrary window size. That said, the
-\texttt{mapq} threshold should really be determined taking both coverage
-and resolution into account. For our purposes, and with the \emph{arms}
-view, the mapping- and parsing parameters do not seem to be too
-sensitive.
-
 \begin{figure}
 
 \begin{minipage}{0.05\linewidth}
@@ -2660,6 +2642,28 @@ chrX:70Mb-78Mb}
 comparing the impact of parsing parameters}
 
 \end{figure}%
+
+Additionally, as I created coolers with two different sets of parsing
+parameters we will compare the resulting matrices and their compartments
+(Figure~\ref{fig-rs100-recpe-pe}). As expected, we observe more empty
+bins in the Hi-C matrix when comparing the initial run (\texttt{mask})
+to the recommended parameters (\texttt{5unique}), but otherwise, the
+interaction pattern is indestinguishable. The effect on the E1 is more
+noticable, where the absolute magnitude of the E1 values is generally
+smaller. There is, however, a small region that changes sign (from A to
+B) on the 10Mb-windowed (`refined') E1 track
+(Figure~\ref{fig-rs100-recpe-pe};c+d). This region is surrounded by
+added empty bins, which could mean that too many low quality pairs in
+\texttt{mask} were introducing bias and swapped the sign of E1. It is
+supported by the fact that the sign change \emph{only} occured in
+\emph{refined} E1, and that the sign after filtering weak pairs
+(\(mapq < 30\)) is consistent with the \emph{arms} view. It supports my
+previous postulate that it is better to use a viewframe with explicit
+molecular meaning than one of an arbitrary window size. That said, the
+\texttt{mapq} threshold should really be determined taking both coverage
+and resolution into account. For our purposes, and with the \emph{arms}
+view, the mapping- and parsing parameters do not seem to be too
+sensitive.
 
 To emphasize the findings, the sets of A-compartments were compared
 between the two parsing runs, showing almost identical compartment
@@ -3133,50 +3137,6 @@ arms & olivehama\_1bp & proximity & - & - & 0.035640 & - & - \\
 
 \chapter{Discussion}\label{sec-discussion}
 
-\begin{itemize}
-\tightlist
-\item[$\boxtimes$]
-  discuss the reproducibility infrastructure
-
-  \begin{itemize}
-  \tightlist
-  \item[$\boxtimes$]
-    takes a lot of time first time
-  \item[$\boxtimes$]
-    we are almost there (at the time of writing it will crash)
-  \end{itemize}
-\item[$\boxtimes$]
-  discuss the methods
-
-  \begin{itemize}
-  \item[$\boxtimes$]
-    HiCExplorer vs Open2C from a documentation perspective
-  \item[$\boxtimes$]
-    Unclear rules (latest methodological Hi-C review from 2016, data
-    analysis book is more practical)
-  \item[$\boxtimes$]
-    Matrices
-  \item[$\boxtimes$]
-    did not manage to implement their sliding window PCA
-  \item[$\boxtimes$]
-    discuss the choice of viewframe
-  \item[$\square$]
-    variations in similarity measures for genomic intervals
-  \item[$\square$]
-    For the arms viewframe, I probably should have left out the
-    centromeric region in stead of just splitting
-  \item
-    {[} {]}
-  \end{itemize}
-\item[$\square$]
-  Clearly an overlap between edges and ECH90 regions, but what does it
-  mean?
-\item[$\square$]
-  Maybe test the intersect against ECH genes as the background
-\item
-  {[} {]}
-\end{itemize}
-
 \section{On Reproducibility}\label{on-reproducibility}
 
 As an extensive reproducibility infrastructere became a major part of
@@ -3260,9 +3220,9 @@ have to do something like
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-  \ImportTok{from}\NormalTok{ hicexplorer.hicPlotMatrix }\ImportTok{import}\NormalTok{ plotHeatmap}
-  \ImportTok{from}\NormalTok{ hicmatrix }\ImportTok{import}\NormalTok{ HiCMatrix}
-\NormalTok{  plotHeatmap(HiCMatrix(matrix\_file)) }\CommentTok{\# and test the required parameters}
+\ImportTok{from}\NormalTok{ hicexplorer.hicPlotMatrix }\ImportTok{import}\NormalTok{ plotHeatmap}
+\ImportTok{from}\NormalTok{ hicmatrix }\ImportTok{import}\NormalTok{ HiCMatrix}
+\NormalTok{plotHeatmap(HiCMatrix(matrix\_file)) }\CommentTok{\# and test the required parameters}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3275,11 +3235,11 @@ additionally, the CLI function simply is a wrapper for the
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-  \CommentTok{\#!path/to/python}
-  \CommentTok{\# {-}*{-} coding: utf{-}8 {-}*{-}}
-  \ImportTok{from}\NormalTok{ hicexplorer.hicPlotMatrix }\ImportTok{import}\NormalTok{ main}
-  \ControlFlowTok{if} \VariableTok{\_\_name\_\_} \OperatorTok{==} \StringTok{"\_\_main\_\_"}\NormalTok{:}
-\NormalTok{      main()}
+\CommentTok{\#!path/to/python}
+\CommentTok{\# {-}*{-} coding: utf{-}8 {-}*{-}}
+\ImportTok{from}\NormalTok{ hicexplorer.hicPlotMatrix }\ImportTok{import}\NormalTok{ main}
+\ControlFlowTok{if} \VariableTok{\_\_name\_\_} \OperatorTok{==} \StringTok{"\_\_main\_\_"}\NormalTok{:}
+\NormalTok{    main()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3499,11 +3459,25 @@ arms viewframe, indicating an indirect relationship through chromatin
 architecture. As neither proximity nor overlap is observed between the
 baboon regions and ECH, this observation could indicate that some
 structural features of the chromosome are aiding in reducing diversity.
+These findings propose an intricate relationship between chromatin
+architecture and evolutionary pressures. The intersection and proximity
+between regions under strong selection and chromatin compartments on the
+X chromosome of primates, along with their location on the X chromosome,
+suggest that structural genomic features influence patterns of diversity
+and selection. While these results are promising, further testing of the
+compartments is needed-----both at higher resolutions and in other
+primates-----to refine our understanding of these dynamics.
 
-\section{Speculations}\label{speculations}
+Notably, Skov et al. (2023) describe a compelling scenario where meiotic
+drive could explain the reduced diversity on ECH regions, and these
+structural features might also play a role in facilitating or
+constraining mechanisms like gene drive, which can significantly alter
+allele frequencies across generations by bypassing classical Mendelian
+inheritance. However, caution is warranted when inferring the role of
+gene drive, as it remains a contentious concept among biologists.
 
-\subsection{Gene Drive and
-Selfishness}\label{gene-drive-and-selfishness}
+\subsection{Gene Drive, Selfishness and its Effect on
+Selection}\label{gene-drive-selfishness-and-its-effect-on-selection}
 
 Gene drive occur when a particular collection of genes is propagated
 through a population by increasing the probability of transmitting the
@@ -3563,35 +3537,71 @@ chromosome not only shield genetic drivers but influence the patterns of
 synteny, which, in turn, is shaped by both selection and genomic
 constraints.
 
+The interplay between selfish genetic elements, such as gene drivers,
+and their suppression through coevolutionary processes emphasizes the
+importance of chromosomal architecture in shaping evolutionary dynamics.
+This evolutionary ``arms race'' between drivers and suppressors is not
+only driven by selection but also by the structural constraints of the
+chromosomes themselves. In particular, features such as low-recombining
+regions and chromosomal inversions offer a protective shield for these
+genetic elements, influencing both their persistence and their
+evolutionary trajectories. Given this, understanding the role of
+chromosomal organization in these dynamics can provide deeper insights
+into the mechanisms that govern selection on sex chromosomes and their
+broader genomic implications.
+
 \chapter{Conclusion and future work}\label{conclusion-and-future-work}
+
+In summary, I find that previously identified regions on X under strong
+selection in humans (referred to as ECHs) and in baboons
+(disproportionate \emph{P.hamadryas} or \emph{P.anubis} ancestry)
+strongly correlate with chromatin A/B-compartments in some stages of
+spermatogenesis in rhesus macaque (\emph{Macaca mulata}) inferred by PCA
+from either a chromosome-arm (conventional) viewframe or a 10 Mb
+viewframe (local). The regions under selection are associated with
+regions of low diversity and low ILS on the X chromosome across all the
+great apes.
+
+Briefly, an array of significant intersection and proximity is observed
+when comparing ECH regions baboon regions with the 1bp limit of A/B
+compartments. Most notably, spermatogonia, spermatozoa, and pachytene
+spermatocyte was both significantly proximal to baboon regions
+\emph{and} intersecting ECH regions. This suggests relationship between
+strong selection and chromosomal architecture, and as the selection is
+specific on X, it could indicate sex-chromosome related mechanisms. A
+point against a meiosis-specific mechanisms is that fibroblast
+intersects the ECH regions, where fibroblast was used as a control-group
+for spermatogenesis in Wang et al. (2019).
+
+I duly note that this is purely an explorative and correlational study,
+requiring further testing to conclude a relationship between chromosomal
+organization and selection, even if my analysis yields statistically
+significant results. To provide a more solid foundation for this
+inference, the next steps could include:
 
 \begin{itemize}
 \tightlist
-\item[$\square$]
-  Higher-resolution matrices?
-\item[$\square$]
-  TADs?
-\item[$\square$]
-  Explore ways to quantify proximity/correlation
-
-  \begin{itemize}
-  \tightlist
-  \item
-    e.g.~insulation-weighted compartments
-  \item
-    find litterature that correlate genomic intervals
-  \end{itemize}
-\item[$\square$]
-  Filter important edges
-
-  \begin{itemize}
-  \tightlist
-  \item
-    filter against low insulation score
-  \item
-    filter against edges that have adjecent missing values
-  \end{itemize}
+\item
+  Include compartment metadata in the correlation, such as weighing by
+  insulation score, or filter out edges that have adjecent missing
+  values
+\item
+  Recall compartments using higher-resolution matrices, or call TADs
+\item
+  Analyze Hi-C spermatogenesis data in other great ape species
+  (e.g.~baboons)
+\item
+  Use a more distant relative as a control group (e.g.~the mouse data
+  from Wang et al. (2019))
 \end{itemize}
+
+Until then, let us remain cautious in our interpretations, recognizing
+the complexity of the systems at play and the need for further
+investigation to validate the potential links between chromosomal
+architecture and selective forces. In the meantime, let us appreciate
+the complexity of a multi-species correlation between selection and the
+3D architecture of our chromosomes, a region of considerable interest
+with many aspects still to be understood and explored.
 
 \chapter*{Bibliography}\label{bibliography}
 \addcontentsline{toc}{chapter}{Bibliography}
@@ -3844,7 +3854,7 @@ Communications} 12 (1): 5827.
 \section*{Data Availability}\label{data-availability}
 \addcontentsline{toc}{section}{Data Availability}
 
-All code, text and files used for this project is available on
+All code, text, and files used for this project are available on
 \url{https://github.com/munch-group/hic-spermatogenesis} with
 instructions on how to reproduce.
 
