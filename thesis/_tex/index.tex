@@ -454,11 +454,11 @@
 %     \endorigfigure
 % }
 
-\usepackage{xcolor}
-% \let\oldtextit\textit 
-% \renewcommand\textit[1]{\oldtextit{\color{blue}#1}}
-\let\oldemph\emph
-\renewcommand\emph[1]{\oldemph{\color{gray}#1}}
+% \usepackage{xcolor}
+% % \let\oldtextit\textit 
+% % \renewcommand\textit[1]{\oldtextit{\color{blue}#1}}
+% \let\oldemph\emph
+% \renewcommand\emph[1]{\oldemph{\color{gray}#1}}
 
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -524,7 +524,7 @@ gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen \and Kasper Munch}
-\date{2025-01-13}
+\date{2025-01-14}
 
 \begin{document}
 \frontmatter
@@ -565,7 +565,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\large 2025-01-13 \par}
+{\large 2025-01-14 \par}
 \vspace{3ex}
 
 \vspace{10ex}
@@ -1988,32 +1988,33 @@ Lieberman-Aiden et al. 2009), and HiCExplorer states it is usually below
 10\% for a high-quality library. The high fraction may be mitigated by
 enforcing a stricter \emph{mapq} threshold for a valid Hi-C pair, as we
 also observe higher-than expected valid contacts. However, we continue
-with the current matrices. To compare how well these mappings perform ,
-the QC results is an easy way. Therefore, the reads were mapped with
-\emph{bowtie2} in both end-to-end- and local-mode followed by
-\texttt{hiCBuildMatrix}, and the QC from each method was plotted next to
-each other (Figure~\ref{fig-explorer-all-3-qc}). Interestingly,
-\emph{bowtie2} was much more computer-intensive in both modes, perhaps
-because of the \texttt{-\/-very-sensitive} option. In any case, the QC
-reveals a major difference in the total number of reads that are
-determined to be valid Hi-C contacts by \texttt{hicBuildMatrix}. As
-expected, mapping with \emph{end-to-end-bowtie2} makes locating Hi-C
-contacts more difficult than the other methods
-(Figure~\ref{fig-explorer-all-3-qc}, row 1), finding a very low amount
-of mappable, unique pairs passing the quality threshold. In contrast,
-mapping with \emph{local-bowtie2} performs similarly to \emph{bwa} in
-finding mappable, unique, high-quality pairs, but calls only
-approximately half the number of valid Hi-C contacts (\textgreater20\%),
-resulting in a fraction of valid Hi-C pairs that hits the expectation
-from \emph{HicExplorer} docs (row3). With \emph{bwa}, the reads were
-discarded either due to low mapping quality or non-unique mates, whereas
-with \emph{local-bowtie2}, the reads were almost exclusively filtered
-out due to low mapping quality. This must be a result of how the mappers
-assign mapping quality, and I believe \emph{local-bowtie2} looks
-suspiciously selective in finding unique but low quality alignments.
-\emph{end-to-end-bowtie} almost exclusively filters out read-pairs where
-one mate is unmapped, which is expected when the majority of reads are
-unmapped.
+with the current matrices.
+
+To compare how well these mappings perform, the plotting QC results is
+an easy way. Therefore, the reads were mapped with \emph{bowtie2} in
+both end-to-end- and local-mode followed by \texttt{hiCBuildMatrix}, and
+the QC from each method was plotted next to each other
+(Figure~\ref{fig-explorer-all-3-qc}). Interestingly, \emph{bowtie2} was
+much more computer-intensive in both modes, perhaps because of the
+\texttt{-\/-very-sensitive} option. In any case, the QC reveals a major
+difference in the total number of reads that are determined to be valid
+Hi-C contacts by \texttt{hicBuildMatrix}. As expected, mapping with
+\emph{end-to-end-bowtie2} makes locating Hi-C contacts more difficult
+than the other methods (Figure~\ref{fig-explorer-all-3-qc}, row 1),
+finding a very low amount of mappable, unique pairs passing the quality
+threshold. In contrast, mapping with \emph{local-bowtie2} performs
+similarly to \emph{bwa} in finding mappable, unique, high-quality pairs,
+but calls only approximately half the number of valid Hi-C contacts
+(\textgreater20\%), resulting in a fraction of valid Hi-C pairs that
+hits the expectation from \emph{HicExplorer} docs (row3). With
+\emph{bwa}, the reads were discarded either due to low mapping quality
+or non-unique mates, whereas with \emph{local-bowtie2}, the reads were
+almost exclusively filtered out due to low mapping quality. This must be
+a result of how the mappers assign mapping quality, and I believe
+\emph{local-bowtie2} looks suspiciously selective in finding unique but
+low quality alignments. \emph{end-to-end-bowtie} almost exclusively
+filters out read-pairs where one mate is unmapped, which is expected
+when the majority of reads are unmapped.
 
 \begin{figure}[H]
 
@@ -2308,7 +2309,8 @@ resolution, d-f: 100kb resolution. \emph{HiCExplorer}.}
 
 As described, the pairtools module in MultiQC (Ewels et al. 2016) was
 used to visualize results from \texttt{pairtools\ stats} for the two
-parsing runs, see Figure~\ref{fig-pairtools-qc}.
+parsing runs, see Figure~\ref{fig-pairtools-qc}. The peak at around 250
+bp is a techical artefact and should not be parsed into valid contacts.
 
 \subsubsection{\texorpdfstring{\texttt{-\/-walks-policy\ mask}}{-\/-walks-policy mask}}\label{walks-policy-mask}
 
@@ -2323,7 +2325,7 @@ show similar distributions of pair types divided into 10 categories. The
 bp separation (Figure~\ref{fig-pairtools-multiqc-mask-ps}). The QC does
 not show any information about mapping quality of the reads. Note that
 the \(P(s)\) curve arise from pre-filtered pairs, meaning it provides
-information about the Hi-C library. As expected
+information about the Hi-C library.
 
 \subsubsection{\texorpdfstring{\texttt{-\/-walks-policy\ 5unique}}{-\/-walks-policy 5unique}}\label{walks-policy-5unique}
 
@@ -2412,15 +2414,16 @@ amplify noise. Even with a high-quality Hi-C library we expect that all
 bins do not have the same coverage throughout(Lajoie, Dekker, and Kaplan
 2015), as restriction enzymes do not bind equally to all regions of the
 genome, and therefore, some bins will be underrepresented as an artefact
-of binding/cutting efficieny of the restriction enzyme used. We can try
-to mitigate the white lines of empty bins that now appear in the
-matrices. The coarsegrained and interpolated matrix is useful to make a
-good-looking interaction matrix, but is not that useful for analysis
-purposes. It might get easier to visually inspect the matrix, but it is
-not clear how well the interpolated matrix reflects the structure of the
-chromatin, and it is not transparent which regions are interpolated and
-which that are not. I find it purposeful for interpolation on
-high-resolution (zoomed-in) views
+of binding/cutting efficieny of the restriction enzyme used.
+
+We can try to mitigate the white lines of empty bins that now appear in
+the matrices. The coarsegrained and interpolated matrix is useful to
+make a good-looking interaction matrix, but is not that useful for
+analysis purposes. It might get easier to visually inspect the matrix,
+but it is not clear how well the interpolated matrix reflects the
+structure of the chromatin, and it is not transparent which regions are
+interpolated and which that are not. I find it purposeful for
+interpolation on high-resolution (zoomed-in) views
 (Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}) with small empty
 regions, but misleading for chromosome-wide maps, where typically the
 centromere and extremities of the chromosome have filtered-out bins.
@@ -2527,11 +2530,8 @@ and visually determine if the squares reflect the E1 sign change
 
 }
 
-\subcaption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid-1}E1
-eigenvector values for merged round spermatid samples at a) 100kb or b)
-500kb resolution, as well as the interaction matrix. E1 was restricted
-to either Full-chromosome (top), Chromosome-arms (middle), or 10Mb
-windows (bottom)}
+\subcaption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid-1}100kb
+resolution}
 
 \end{minipage}%
 %
@@ -2543,9 +2543,16 @@ windows (bottom)}
 
 }
 
-\subcaption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid-2}}
+\subcaption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid-2}500kb
+resolution}
 
 \end{minipage}%
+
+\caption{\label{fig-e1-matrix-full-arms-10mb-round_spermatid}E1
+eigenvector values for merged round spermatid samples at a) 100kb or b)
+500kb resolution, as well as the interaction matrix. E1 was restricted
+to either Full-chromosome (top), Chromosome-arms (middle), or 10Mb
+windows (bottom)}
 
 \end{figure}%
 
@@ -3060,19 +3067,20 @@ as the \emph{hama} set is quite small compared to the rest of the sets.
 By their definition, \emph{olive} and \emph{hama} do not overlap, and
 can safely be concatenated (see
 Figure~\ref{fig-introduce-selected-regions} for confirmation). Now, we
-observe significant p-values across all cell types. Reassuringly, both
-fibroblast and round spermatid still have significant Jaccard p-values
-for the arms viewframe although the p-values have increased (to
-\(0.017\) and \(0.028\), respectively). Now, all tissues except sperm
-show significant overlap with ECH regions, especially spermatogonia and
-pachytene spermatocytes with p-values \(0.006\) and \(0.005\),
-respectively. Only fibroblast and spermatogonia significantly overlap
-the ECH region for both viewframes, indicating that their predicted
-compartments shift only minimally compared to the pachytene spermatocyte
-and round spermatid when narrowing the viewframe. Pachytene spermatocyte
-and round spermatid loose their significance when narrowing the
-viewframe, meaning their compartments are highly varied between the two
-views, and the same conclusion can be drawn about sperm, as it gains
+observe significant p-values across all cell types.
+
+Reassuringly, both fibroblast and round spermatid still have significant
+Jaccard p-values for the arms viewframe although the p-values have
+increased (to \(0.017\) and \(0.028\), respectively). Now, all tissues
+except sperm show significant overlap with ECH regions, especially
+spermatogonia and pachytene spermatocytes with p-values \(0.006\) and
+\(0.005\), respectively. Only fibroblast and spermatogonia significantly
+overlap the ECH region for both viewframes, indicating that their
+predicted compartments shift only minimally compared to the pachytene
+spermatocyte and round spermatid when narrowing the viewframe. Pachytene
+spermatocyte and round spermatid loose their significance when narrowing
+the viewframe, meaning their compartments are highly varied between the
+two views, and the same conclusion can be drawn about sperm, as it gains
 significance when the viewframe is narrowed. Interestingly, only sperm
 overlaps the baboon regions with olive ancestry, and no tissue overlaps
 with hamadryas ancestry. Conversely, when concatenating the olive and
@@ -3134,10 +3142,12 @@ Spermatid, Sperm: Sperm}}
   \item[$\boxtimes$]
     Unclear rules (latest methodological Hi-C review from 2016, data
     analysis book is more practical)
-  \item[$\square$]
+  \item[$\boxtimes$]
     Matrices
-  \item[$\square$]
+  \item[$\boxtimes$]
     did not manage to implement their sliding window PCA
+  \item[$\boxtimes$]
+    discuss the choice of viewframe
   \item[$\square$]
     variations in similarity measures for genomic intervals
   \item[$\square$]
@@ -3285,29 +3295,107 @@ highly flexible.
 
 The drawback with having a very flexible tool is that the conventions
 are unclear. The latest methodological review is from 2015 (Lajoie,
-Dekker, and Kaplan 2015), and many things have progressed since then.
-Additionally, a Springer Protocol about Hi-C Data analysis (Bicciato and
-Ferrari 2022) is more recently published, but I find that it more so
-establishes a range of possibilities than a practical guideline.
+Dekker, and Kaplan 2015), and many things have progressed since then---a
+previously mentioned example being the update to \emph{bwa} so mapping
+reads seperately is no longer necessary. Additionally, a Springer
+Protocol about Hi-C Data analysis (Bicciato and Ferrari 2022) is more
+recently published, but I find that it more so establishes a range of
+possibilities than a practical guideline.
 
 \section{On Results}\label{on-results}
 
 The differences in the results the two tools produced were crucial, as I
-could not reproduce the eigenvectors reported in Wang et al. (2019) with
-HiCExplorer, as HiCExplorer has no (apparent) way of restricting the
-viewframe of the eigendecomposition. The eigenvectors resulting from
-Open2C line up very well with the ones from Wang et al. (2019). Here,
-some of the maps were lined up and overlayed manually in a sketching
-software. The predicted compartments from cooler matched very well with
-the ones predicted by Wang et al. (2019) if their track was split in the
-region of the centromere. We confidently rationalize that the reason we
-have to split in the centromeric region is the newly, more accurate
-reference genome. As it \emph{rheMac10} has closed a high amount of gaps
-since last reference (most of which are expected around the centromere),
-we expect more sequences to align in that region, resulting in a longer
-genome as well.
+could not reproduce the eigenvector compartments reported in Wang et al.
+(2019) with HiCExplorer, as HiCExplorer has no (apparent) way of
+restricting the viewframe of the eigendecomposition. It resulted in
+highly biased PC-tracks that only resembled 2 or 3 compartments
+(Figure~\ref{fig-explorer-pca}). While it is a strong limitation to the
+tool (either documentation-wise, or capability-wise), the Hi-C matrices
+were constructed in only a few steps and passed their the provided
+quality control, even though the mapping parameters were only explored
+superficially. The only notable deviance in quality control was a high
+fraction of valid contacts, but this may be relieved by increasing the
+default \(mapq\) threshold from \(15\) to \(30\) as the noted convention
+in Lajoie, Dekker, and Kaplan (2015). The contact matrices generated
+from HiCExplorer improved when correcting, but still, the visible
+pattern closely delimited by low-count bins. This undesirable feature
+may be mitigated by passing a stricter filtering threshold to
+\texttt{hicCorrectMatrix}.
 
-\section{Gene Drive and Selfishness}\label{gene-drive-and-selfishness}
+The eigenvectors resulting from Open2C line up very well with the ones
+from Wang et al. (2019). Here, some of the maps were lined up and
+overlayed manually in a sketching software, as no coordinates were
+available from the authors. In hindsight, it could have been informative
+to request the analyzed datat from the authors. The predicted
+compartments from cooler qualitatively aligned very well with the ones
+predicted by Wang et al. (2019) if their track was split in the region
+of the centromere. We confidently rationalize that the reason we have to
+split in the centromeric region is the newly, more accurate reference
+genome. As it \emph{rheMac10} has closed a high amount of gaps since
+last reference (most of which are expected around the centromere), we
+expect more sequences to align in that region, resulting in a longer
+genome as well. This could readily have been tested by lifting the newly
+calculated coordinates to \emph{rheMac2}, but I decided it was not worth
+the effort for a slightly more accurate (yet still qualitative)
+validation. Additionally, I wanted to shift the focus from
+\emph{reproducing their results} to \emph{re-running their analysis on
+rheMac10}. With similar reasoning, only a small effort was put into
+performing their exact eigendecomposition of the Hi-C matrices before
+abandoning, as it was deemed unnecessary to force a protocol that was
+not meant for the tool I was using.
+
+Comparing the two separate runs for parsing parameters revealed only
+minor differences in parsing statistics, the most notable being the
+fraction of unmapped pairs, which was expected---a higher amount for
+\texttt{mask} than for \texttt{5unique}. The lower amount of unmapped
+reads also seem to trigger a higher amount of duplicates. As a result,
+the two runs end up with the same distribution of cis pairs.
+
+The brief exploration of matrix plotting with Open2C shows how different
+measures that can be taken to improve visibility in some regions, but
+end up misrepresenting the data. Especially, for large genomic regions
+of missing values, the interpolation is very unreliable
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi}, right), where it might be
+interpreted that very high-frequency interactions occur at the
+centromeric region. Additionally, as it does not add to the analysis,
+but only is for visualization, it looses transparency when hiding empty
+bins. The problem is not as evident in smaller regions
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}), where mostly single
+empty bins are interpolated.
+
+\subsection{Narrowing the parameter space for
+testing}\label{narrowing-the-parameter-space-for-testing}
+
+To mitigate the effects of multiple testing and reduce my own biases, I
+try to reason about the different parameters used to pick a subset of
+combinations to test for significant overlap (Jaccard test) or
+proximity. Comparing the corrected matrices with the calculated E1
+values is initally a subjective task. I find that the predicted
+compartments are highly similar between arms and 10Mb views at both
+100kb and 500kb resolutions, but with the full view of the chromosome,
+fewer compartments are determined. Bear in mind that none of the
+compartments can be said to be \emph{wrong}, they all just capture the
+variance on different scales. Remembering that the size of the regions
+under selection were spanning 6 megabases at most informs the decision
+to discard the full genomic view, which is also supported by the
+litterature (Lajoie, Dekker, and Kaplan 2015), recommending partitioning
+the chromosome into its arms \emph{if the first eigenvector only
+captures the arms}.
+
+Similarly, the choice of resolution should be made cautiously. Here, the
+resolution of the matrix is the same resolution as the resolution of the
+eigenvector. Therefore, a resolution can be chosen to reflect the
+genomic scale that we want to investigate, and the minimum resolution
+required to test if the compartments overlap with regions under
+selection. Although some of these regions are exceptionally large, the
+shortest segment is just below 100kb. Thus, the 100kb resolution is
+deemed sufficient to capture compartments that are within the range of
+the regions under selection.
+
+\section{Speculations}\label{speculations}
+
+\subsection{Gene Drive and
+Selfishness}\label{gene-drive-and-selfishness}
 
 Gene drive occur when a particular collection of genes is propagated
 through a population by increasing the probability of transmitting the
@@ -3371,6 +3459,8 @@ constraints.
 
 \begin{itemize}
 \tightlist
+\item[$\square$]
+  Higher-resolution matrices?
 \item[$\square$]
   TADs?
 \item[$\square$]
