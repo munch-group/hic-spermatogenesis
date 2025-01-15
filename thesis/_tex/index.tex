@@ -973,7 +973,7 @@ Table~\ref{tbl-ligation-events} for details on ligation events.}
 
 \end{figure}%
 
-We must align the reads to the reference in such a way that the
+The reads must be aligned to the reference in such a way that the
 \emph{intentional} chimeric read-pairs (as per above-mentioned protocol)
 are rescued, and \emph{unintentional} read-pairs are discarded. That is,
 we must make sure they represent ligation junction of adjecent chromatin
@@ -1160,22 +1160,23 @@ bins. Therefore, some bin-level filters are applied before balancing
   interactions)
 \end{itemize}
 
-A widely used balancing method is Iterative Correction and
-Eigendecomposition (ICE) (Imakaev et al. 2012), which utilizes a
-data-driven approach for correcting multiplicative biases. Briefly, ICE
-is based on an assumption of equal visibility of all loci, and uses the
-pairwise and genome-wide structure to generate a set of biases along
-with a map of relative interaction frequencies by iteratively dividing
-each row, then each column, by its mean until convergence. This results
-in a uniform coverage profile (corrected coverage), yielding a smoother
-interaction matrix with slower transitions, thus greatly reducing
-visibility-induced biases. It does not distinguish between the sources
-of biases, and thus calculates a collective bias for each position.
-Imakaev et al. (2012) show that \emph{known} biases are factorizable by
-comparing their results to predictions of restriction fragment biases,
-GC content, and mappability from a computationally intensive
-probabilistic approach. By showing that the product of those known
-biases explain \(>99.99%
+Iterative Correction and Eigendecomposition (ICE) (Imakaev et al. 2012)
+is a widely used method for correcting multiplicative biases in Hi-C
+data. ICE operates on the assumption that all loci should have roughly
+equal visibility across the genome, meaning that the total number of
+interactions per locus should be uniform. It corrects the raw
+interaction matrix by iteratively scaling rows and columns until they
+converge to a consistent coverage. By leveraging pairwise and
+genome-wide interaction data, ICE calculates a set of biases for each
+locus and normalizes the interaction frequencies accordingly. This
+process results in a corrected interaction matrix with uniform coverage,
+smoother transitions, and reduced visibility-related biases. Notably,
+ICE does not distinguish between different sources of bias, instead
+calculating a collective bias for each locus. Imakaev et al. (2012) show
+that \emph{known} biases are factorizable by comparing their results to
+predictions of restriction fragment biases, GC content, and mappability
+from a computationally intensive probabilistic approach. By showing that
+the product of those known biases explain \(>99.99%
 \) of the variability in their bias estimation, they argue that both
 known and unknown biases will be captured with their iterative
 correction method (also denoted \emph{matrix balancing}).
@@ -1201,18 +1202,29 @@ calculating the eigenvector, as dicussed in
 Section~\ref{sec-methods-eigendecomposition} and
 Section~\ref{sec-results-eigenvectors}. To further complicate the
 challenge, interaction patterns on different scales co-exist and are
-difficult to disentangle without simplifying assumptions such as
-small-scale interactions are not visible (or they are negligible) at a
-certain resolution, or restricting the viewframe to eliminate
-large-scale variance between chromosome arms. It is by definition a
-speculative exercise to interpret the biological relevance of an
-observed pattern, but the consensus is to call compartments on
+difficult to disentangle without simplifying assumptions, such as
+assuming that small-scale interactions are not visible (or are
+negligible) at a certain resolution, or restricting the viewframe to
+eliminate large-scale variance between chromosome arms. It is by
+definition a speculative exercise to interpret the biological relevance
+of an observed pattern, but the consensus is to call compartments on
 interacting regions that arise from the eigendecomposition of a Hi-C
 matrix without further modifications (Lajoie, Dekker, and Kaplan 2015).
-As the eigenvector is only unique up to a sign change, a phasing track
-is used to orient the eigenvector, aiming for a positive correlation
-with GC content (in mammals), making A-compartments represent the active
-euchromatin, and B-compartments the closed heterochromatin.
+Briefly, each genomic bin is assigned a value reflecting its compartment
+identity, where positive values indicate compartment A and negative
+values indicate compartment B. The interaction score between two loci is
+represented as the product of their compartment values, resulting in
+enriched interactions for loci within the same compartment (positive
+product) and depleted interactions for loci in different compartments
+(negative product). This model reproduces the checkerboard pattern
+characteristic of Hi-C data. Principal component analysis (PCA)
+identifies the first principal component, which optimally captures the
+strongest compartment signal. The sign of this component determines
+whether a locus belongs to compartment A or B. As the eigenvector is
+only unique up to a sign change, a phasing track is used to orient the
+eigenvector, aiming for a positive correlation with GC content (in
+mammals), so that A-compartments represent the active euchromatin, while
+B-compartments represent the closed heterochromatin.
 
 \subsubsection{Compartment Edges and Genomic
 Intervals}\label{compartment-edges-and-genomic-intervals}
@@ -2128,9 +2140,9 @@ from which the \emph{mad} threshold is defined.}
 
 \end{figure}%
 
-As discussed, the five samples were pooled with \texttt{hicSumMatrices},
-and the non-standard contigs (unplaced scaffolds) were filtered out, and
-the different resolutions were created (\texttt{hicMergeMatrixBins}).
+The five samples were pooled with \texttt{hicSumMatrices}, and the
+non-standard contigs (unplaced scaffolds) were filtered out, and the
+different resolutions were created (\texttt{hicMergeMatrixBins}).
 \emph{HiCExplorer} also comes with a normalization function prior to
 correcting the matrix, which should be applied if different samples
 should have comparable bin counts. It has no effect when having only one
@@ -2883,8 +2895,8 @@ window to only capture the 200kb region outside of the edge might be
 favourable. With the very small amount of observed proximity (high
 p-values), we might consider shrinking the windows.
 
-\subsection{Testing against regions of selection in
-baboons}\label{testing-against-regions-of-selection-in-baboons}
+\subsection{Testing against baboon regions under strong
+selection}\label{testing-against-baboon-regions-under-strong-selection}
 
 The data for this analysis was provided by Kasper Munch in bed-like
 format, mapped to \emph{panu\_3.0} (PapAnu4) assembly. The intervals
@@ -3438,8 +3450,8 @@ between regions under strong selection and chromatin compartments on the
 X chromosome of primates, along with their location on the X chromosome,
 suggest that structural genomic features influence patterns of diversity
 and selection. While these results are promising, further testing of the
-compartments is needed-----both at higher resolutions and in other
-primates-----to refine our understanding of these dynamics.
+compartments is needed---both at higher resolutions and in other
+primates---to refine our understanding of these dynamics.
 
 Notably, Skov et al. (2023) describe a compelling scenario where meiotic
 drive could explain the reduced diversity on ECH regions, and these
@@ -3482,14 +3494,17 @@ timescale, unless it is linked to another positively selected allele
 (Jaenike 2001). Interestingly, gene drive is much more well-documented
 on sex chromosomes than for autosomes. Possibly because the sex
 chromosome meiotic drive inherently causes a skewed sex ratio, more
-notably raising a flag for further analysis. The consequences of sex
-chromosome drive and skewed sex ratio can be widespread. A fully driving
-gene on X can to lead to the extinction of the population that fixes the
-allele (Jaenike 2001), as only one (fertile) offspring sex will be
-produced. Therefore, sex chromosome drivers usually exist in equilibrium
-with a supressor. When a population becomes female-biased, autosomal
-suppressors will be favored with a process termed \emph{Fisher's sex
-ratio selection} (Lindholm et al. 2016.)
+notably raising a flag for further analysis. Or, because X and Y do not
+recombine, allowing for killer-supressor gene pairs to stay on separate
+chromosomes. The consequences of sex chromosome drive and skewed sex
+ratio can be widespread. A fully driving gene on X can to lead to the
+extinction of the population that fixes the allele (Jaenike 2001), as
+only one (fertile) offspring sex will be produced. Therefore, sex
+chromosome drivers usually exist in equilibrium with a supressor. When a
+population becomes female-biased, autosomal suppressors will be favored
+with a process termed \emph{Fisher's sex ratio selection} (Lindholm et
+al. 2016.), as the individuals that produce offspring of the minor-sex
+have higher fitness.
 
 A driving element on X may target a region on Y, mitigating the risk of
 self-destruction and increasing its frequency at the same time. However,
