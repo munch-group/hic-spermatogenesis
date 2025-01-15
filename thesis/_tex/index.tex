@@ -1469,28 +1469,29 @@ pipelines metioned in this report.
 
 \centering{
 
-\includegraphics[width=0.8\linewidth,height=0.5\textheight]{illustrations/placeholder2000x360.png}
+\pandocbounded{\includegraphics[keepaspectratio]{illustrations/fig-hic-tools-comparison.png}}
 
 }
 
-\caption{\label{fig-hic-tools-comparison}A 3-column flow of HiC-Pro,
-HiCExplorer, and Open2C}
+\caption{\label{fig-hic-tools-comparison}A 3-column flowchart of
+HiC-Pro, HiCExplorer, and Open2C}
 
 \end{figure}%
 
 \section{Fetching raw data}\label{fetching-raw-data}
 
 To reproduce the results from Wang et al. (2019), I chose to use their
-raw data directly from the SRA portal {[}ref{]}. I filtered the data to
-contain all their paired-end Hi-C reads, and included only macaque
-samples. The dataset also contains RNAseq data, and the same tissues for
-both macaque and mouse. The metadata for the dataset was extracted into
-a runtable \texttt{SRA-runtable.tsv}. To get an overview of the data
-accessions used in this analysis, we will first summarize the runtable
-that contains the accession numbers and some metadata for each sample
-(Table~\ref{tbl-runtable-summary}). It adds up to \textasciitilde1Tb of
-compressed \texttt{fastq} files, holding \textasciitilde9.5 billion
-reads, roughly evenly spread on the 5 tissue types.
+raw data directly from the SRA portal (Sayers et al. 2022). I filtered
+the data to contain all their paired-end Hi-C reads, and included only
+macaque samples. The dataset also contains RNAseq data, and the same
+tissues for both macaque and mouse. The metadata for the dataset was
+extracted into a runtable \texttt{SRA-runtable.tsv}. To get an overview
+of the data accessions used in this analysis, we will first summarize
+the runtable that contains the accession numbers and some metadata for
+each sample (Table~\ref{tbl-runtable-summary}). It adds up to
+\textasciitilde1Tb of compressed \texttt{fastq} files, holding
+\textasciitilde9.5 billion reads, roughly evenly spread on the 5 tissue
+types.
 
 \begin{longtable}[]{@{}lllll@{}}
 
@@ -1572,20 +1573,6 @@ that Ramírez et al. (2018) have implemented a conservative handling
 (masking all multiple ligations), as that would have the least
 consequence.
 
-\begin{figure}
-
-\centering{
-
-\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{illustrations/placeholder2000x360.png}
-
-}
-
-\caption{\label{fig-hicexplorer-workflow}Overview of the target
-templates used for hicexplorer. As most operations are handled by
-\texttt{hicBuildMatrix}, it is rather simple.}
-
-\end{figure}%
-
 \begin{longtable}[]{@{}lllll@{}}
 
 \caption{\label{tbl-hic-exploration}The samples chosen for initial data
@@ -1640,20 +1627,6 @@ from the matrix dynamically and instead required loading entire matrices
 into memory, including full-length chromosomes.
 
 \section{Open2C pipeline}\label{open2c-pipeline}
-
-\begin{figure}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{illustrations/placeholder2000x360.png}}
-
-}
-
-\caption{\label{fig-flowchart-handling-coolers}Showing the GWF target
-templates used with the Open2C pipeline. As it is highly modular, it is
-also a bit elaborate.}
-
-\end{figure}%
 
 A GWF workflow was created to handle the first part of the data
 processing, and each accesion number (read pair, mate pair) from the
@@ -2398,15 +2371,16 @@ peri-centromeric regions. The matrix was expected to be smoother after
 balancing (for chromosome-wide maps), as regions along a chromosome
 should only vary slowly in contact frequency with other regions as they
 are on a continouos molecule. Therefore, sharp contrasts represent a
-sudden drop in bin count (Figure~\ref{fig-rs-chrx-raw-balanced-cgi},
-raw) and should not be interpreted as devoid of interaction, but an
-indication that the data is not sufficient to interpret. It is then
-better to simply remove the bins instead of correcting, which will also
-amplify noise. Even with a high-quality Hi-C library we expect that all
-bins do not have the same coverage throughout(Lajoie, Dekker, and Kaplan
-2015), as restriction enzymes do not bind equally to all regions of the
-genome, and therefore, some bins will be underrepresented as an artefact
-of binding/cutting efficieny of the restriction enzyme used.
+sudden drop in bin count
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-both-1}, raw) and should not
+be interpreted as devoid of interaction, but an indication that the data
+is not sufficient to interpret. It is then better to simply remove the
+bins instead of correcting, which will also amplify noise. Even with a
+high-quality Hi-C library we expect that all bins do not have the same
+coverage throughout(Lajoie, Dekker, and Kaplan 2015), as restriction
+enzymes do not bind equally to all regions of the genome, and therefore,
+some bins will be underrepresented as an artefact of binding/cutting
+efficieny of the restriction enzyme used.
 
 We can try to mitigate the white lines of empty bins that now appear in
 the matrices. The coarsegrained and interpolated matrix is useful to
@@ -2416,7 +2390,7 @@ but it is not clear how well the interpolated matrix reflects the
 structure of the chromatin, and it is not transparent which regions are
 interpolated and which that are not. I find it purposeful for
 interpolation on high-resolution (zoomed-in) views
-(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}) with small empty
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-both-2}) with small empty
 regions, but misleading for chromosome-wide maps, where typically the
 centromere and extremities of the chromosome have filtered-out bins.
 Interpolation is further discussed below.
@@ -2428,45 +2402,47 @@ distance (the further we travel from the diagonal), and effectively
 enables us to get some intuition about the interactions. The
 coarsegrain, however, does not interpolate the \texttt{NaN}s created
 when filtering out whole bins in the balancing step (horisontal and
-vertical lines in Figure~\ref{fig-rs-chrx-raw-balanced-cgi} and
-Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}; middle). This is done
+vertical lines in Figure~\ref{fig-rs-chrx-raw-balanced-cgi-both-1} and
+Figure~\ref{fig-rs-chrx-raw-balanced-cgi-both-2}; middle). This is done
 in a subsequent step by linearly interpolating the \texttt{NaN}s.
 Examining the interpolated matrix on full chrX
-(Figure~\ref{fig-rs-chrx-raw-balanced-cgi}; right) gives the impression
-that the pericentromeric (at \textasciitilde60 Mbp) region harbours a
-\emph{very} strong compartment, but that is clearly an artefact of the
-interpolation on the very large empty region of the centromere, where
-the diagonal is somehow extended in a square. On the thinner lines, the
-interpolation seem to be more smooth, and barely noticable on the
-diagonal.
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-both-1}; right) gives the
+impression that the pericentromeric (at \textasciitilde60 Mbp) region
+harbours a \emph{very} strong compartment, but that is clearly an
+artefact of the interpolation on the very large empty region of the
+centromere, where the diagonal is somehow extended in a square. On the
+thinner lines, the interpolation seem to be more smooth, and barely
+noticable on the diagonal.
 
 \begin{figure}[H]
 
 \centering{
 
-\includegraphics[width=6.17708in,height=1.70833in]{index_files/figure-latex/..-notebooks-05_rec_compartments-fig-rs-chrx-raw-balanced-cgi-output-2.png}
+\centering{
+
+\includegraphics[width=6.17708in,height=1.70833in]{index_files/figure-latex/..-notebooks-05_rec_compartments-fig-rs-chrx-raw-balanced-cgi-both-output-1.png}
 
 }
 
-\caption{\label{fig-rs-chrx-raw-balanced-cgi}Raw, balanced, and
-interpolated chrX interaction matrix in 500kb resolution. The
-interpolation is done to make the matrix more visually appealing, but it
-is not necessary for the analysis.}
-
-\end{figure}%
-
-\begin{figure}[H]
+\subcaption{\label{fig-rs-chrx-raw-balanced-cgi-both-1}Full RS matrix at
+500kb resolution}
 
 \centering{
 
-\includegraphics[width=6.17708in,height=1.73958in]{index_files/figure-latex/..-notebooks-05_rec_compartments-fig-rs-chrx-raw-balanced-cgi-subset-output-2.png}
+\includegraphics[width=6.17708in,height=1.73958in]{index_files/figure-latex/..-notebooks-05_rec_compartments-fig-rs-chrx-raw-balanced-cgi-both-output-2.png}
 
 }
 
-\caption{\label{fig-rs-chrx-raw-balanced-cgi-subset}Raw, balanced, and
-interpolated chrX interaction matrix in 50kb resolution. The
-interpolation is done to make the matrix more visually appealing, but it
-is not necessary for the analysis.}
+\subcaption{\label{fig-rs-chrx-raw-balanced-cgi-both-2}Subset RS matrix
+at 50kb resolution}
+
+}
+
+\caption{\label{fig-rs-chrx-raw-balanced-cgi-both}Raw, balanced, and
+interpolated chrX interaction matrix in a) 500kb resolution (full chrX)
+or b) 50kb resolution (chrX:30Mb-39Mb). The interpolation is done to
+make the matrix more visually appealing, but it is not necessary for the
+analysis.}
 
 \end{figure}%
 
@@ -3318,12 +3294,12 @@ The brief exploration of matrix plotting with Open2C shows how different
 measures that can be taken to improve visibility in some regions, but
 end up misrepresenting the data. Especially, for large genomic regions
 of missing values, the interpolation is very unreliable
-(Figure~\ref{fig-rs-chrx-raw-balanced-cgi}, right), where it might be
-interpreted that very high-frequency interactions occur at the
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-both-1}, right), where it
+might be interpreted that very high-frequency interactions occur at the
 centromeric region. Additionally, as it does not add to the analysis,
 but only is for visualization, it looses transparency by hiding empty
 bins. The problem is not as evident in smaller regions
-(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-subset}), where mostly single
+(Figure~\ref{fig-rs-chrx-raw-balanced-cgi-both-2}), where mostly single
 empty bins are interpolated.
 
 \subsection{Narrowing the parameter space for
@@ -3775,6 +3751,13 @@ Grüning, José Villaveces, Bianca Habermann, Asifa Akhtar, and Thomas
 Manke. 2018. {``High-Resolution {TADs} Reveal {DNA} Sequences Underlying
 Genome Organization in Flies.''} \emph{Nature Communications} 9 (1):
 189. \url{https://doi.org/10.1038/s41467-017-02525-w}.
+
+\bibitem[\citeproctext]{ref-sayers2022databaseresourcesnational}
+Sayers, Eric W, Evan E Bolton, J Rodney Brister, Kathi Canese, Jessica
+Chan, Donald C Comeau, Ryan Connor, et al. 2022. {``Database Resources
+of the National Center for Biotechnology Information.''} \emph{Nucleic
+Acids Research} 50 (D1): D20--26.
+\url{https://doi.org/10.1093/nar/gkab1112}.
 
 \bibitem[\citeproctext]{ref-skov2023extraordinaryselectionhuman}
 Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves
