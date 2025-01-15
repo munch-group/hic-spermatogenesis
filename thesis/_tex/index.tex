@@ -1275,9 +1275,9 @@ project.}
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\FunctionTok{git}\NormalTok{ clone https://github.com/munch{-}group/hic{-}spermatogenesis.git}
-\ExtensionTok{conda}\NormalTok{ env create }\AttributeTok{{-}f}\NormalTok{ binder/environment.yml}
-\ExtensionTok{gwf}\NormalTok{ run}
+\NormalTok{git clone https://github.com/munch{-}group/hic{-}spermatogenesis.git}
+\NormalTok{conda env create {-}f binder/environment.yml}
+\NormalTok{gwf run}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3059,26 +3059,6 @@ can safely be concatenated (see
 Figure~\ref{fig-introduce-selected-regions} for confirmation). Now, we
 observe significant p-values across all cell types.
 
-Reassuringly, both fibroblast and round spermatid still have significant
-Jaccard p-values for the arms viewframe although the p-values have
-increased (to \(0.017\) and \(0.028\), respectively). Now, all tissues
-except sperm show significant overlap with ECH regions, especially
-spermatogonia and pachytene spermatocytes with p-values \(0.006\) and
-\(0.005\), respectively. Only fibroblast and spermatogonia significantly
-overlap the ECH region for both viewframes, indicating that their
-predicted compartments shift only minimally compared to the pachytene
-spermatocyte and round spermatid when narrowing the viewframe. Pachytene
-spermatocyte and round spermatid loose their significance when narrowing
-the viewframe, meaning their compartments are highly varied between the
-two views, and the same conclusion can be drawn about sperm, as it gains
-significance when the viewframe is narrowed. Interestingly, only sperm
-overlaps the baboon regions with olive ancestry, and no tissue overlaps
-with hamadryas ancestry. Conversely, when concatenating the olive and
-hamadryas sets to capture all selection in baboons, both spermatogonia,
-pachytene spermatocyte, and sperm are significantly proximal. Here,
-sperm, which is not proximal in the arms viewframe, has the lowest
-p-value (\(p=0.001\)).
-
 \begin{longtable}[]{@{}llllllll@{}}
 
 \caption{\label{tbl-svedig-tabel-significant}Test results from proximity
@@ -3111,7 +3091,25 @@ arms & olivehama\_1bp & proximity & - & - & 0.035640 & - & - \\
 
 \end{longtable}
 
-\newpage{}
+Reassuringly, both fibroblast and round spermatid still have significant
+Jaccard p-values for the arms viewframe although the p-values have
+increased (to \(0.017\) and \(0.028\), respectively). Now, all tissues
+except sperm show significant overlap with ECH regions, especially
+spermatogonia and pachytene spermatocytes with p-values \(0.006\) and
+\(0.005\), respectively. Only fibroblast and spermatogonia significantly
+overlap the ECH region for both viewframes, indicating that their
+predicted compartments shift only minimally compared to the pachytene
+spermatocyte and round spermatid when narrowing the viewframe. Pachytene
+spermatocyte and round spermatid loose their significance when narrowing
+the viewframe, meaning their compartments are highly varied between the
+two views, and the same conclusion can be drawn about sperm, as it gains
+significance when the viewframe is narrowed. Interestingly, only sperm
+overlaps the baboon regions with olive ancestry, and no tissue overlaps
+with hamadryas ancestry. Conversely, when concatenating the olive and
+hamadryas sets to capture all selection in baboons, both spermatogonia,
+pachytene spermatocyte, and sperm are significantly proximal. Here,
+sperm, which is not proximal in the arms viewframe, has the lowest
+p-value (\(p=0.001\)).
 
 \chapter{Discussion}\label{sec-discussion}
 
@@ -3881,6 +3879,9 @@ constructive feedback on the manuscript has greatly improved its
 quality. I feel fortunate to have had the opportunity to learn from and
 work with such a knowledgeable and dedicated mentor.
 
+I would also like to thank my brothers, Jakob and Andreas, for their
+help with proofreading of the manuscript.
+
 \subsection*{Compute}\label{compute}
 \addcontentsline{toc}{subsection}{Compute}
 
@@ -3892,7 +3893,7 @@ editing, and rendering the project was also performed on GDK so work
 seemlesly with the analysis. I would like to thank GDK and Aarhus
 University for providing computational resources and support that
 contributed to these research results. None of this would have been
-possible on my own labtop from 2013.
+possible on my own laptop from 2013.
 
 \subsection*{Use of Generative Artificial
 Intelligence}\label{use-of-generative-artificial-intelligence}
