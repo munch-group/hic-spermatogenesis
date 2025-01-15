@@ -521,8 +521,8 @@ gene drive},
   \apptocmd{\@title}{\par {\large #1 \par}}{}{}
 }
 \makeatother
-\subtitle{How Edges of Active Chromatin Align with Selection Regions in
-Primates}
+\subtitle{How Chromatin Compartments Align with Regions Under Selection
+in Primates}
 \author{Søren Jørgensen \and Kasper Munch}
 \date{2025-01-15}
 
@@ -536,8 +536,8 @@ Primates}
 {%\mytitlefont 
 \Huge\bfseries Chromatin Compartments and Selection on X \par}
 \vspace{3ex}
-{\Large\bfseries How Edges of Active Chromatin Align with Selection
-Regions in Primates \par}
+{\Large\bfseries How Chromatin Compartments Align with Regions Under
+Selection in Primates \par}
 \vspace{5ex}
 
         {\bfseries Author: \\ \vspace{0.5ex}}
@@ -838,6 +838,19 @@ alternative mechanisms, such as the chromosomal architecture and its
 rearrangements, could play critical roles in facilitating, regulating,
 or buffering these regions from selective forces.
 
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{illustrations/chromatin-intro.jpg}}
+
+}
+
+\caption{\label{fig-chromatin-architecture-overview}DNA is organized at
+multiple hierarchical structures. Figure from Misteli (2020).}
+
+\end{figure}%
+
 Therefore, understanding the genome organization and variation could
 gain insights regarding mechanisms of selection as well. Chromatin has
 long since been implicated in gene regulation and the functional state
@@ -846,13 +859,14 @@ structure of the chromosome can bring distant regions in close
 proximity, and disrupting the organization can lead to development
 abnormalities (Dixon et al. 2015). Chromatin is hierarchically
 compartmentalized, meaning multiple orders of organizaion can be nested
-under each other. At the large end, compartments can span multiple
-megabases (Lieberman-Aiden et al. 2009), and in the small end as little
-as 500 base pairs have been showed to aid subgenic structural
-organization. Even at sub-megabase scales, at the level of topologically
-associating domains (TADs) or chromatin loops (Ramírez et al. 2018; Zuo
-et al. 2021), the structure helps segregate regulatory elements and
-ensure proper function.
+under each other (see Figure~\ref{fig-chromatin-architecture-overview}).
+At the large end, compartments can span multiple megabases
+(Lieberman-Aiden et al. 2009), and in the small end as little as 500
+base pairs have been showed to aid subgenic structural organization.
+Even at sub-megabase scales, at the level of topologically associating
+domains (TADs) or chromatin loops (Ramírez et al. 2018; Zuo et al.
+2021), the structure helps segregate regulatory elements and ensure
+proper function.
 
 Analyzing 3D chromatin data from rhesus macaques, a widely used primate
 in experimental studies, could answer the question of whether regions
@@ -1562,11 +1576,13 @@ builds the raw interaction matrix in a single command,
 \end{Highlighting}
 \end{Shaded}
 
-For parsing, the command needs a \texttt{-\/-restrictionCutFile},
-locating the restriction sites from the restriction enzyme used on the
-reference genome, which is generated with \texttt{hicFindRestSites} that
-operates on the reference genome and restriction sequence. The default
-filter, \texttt{-\/-minMappingQuality\ 15}, was applied as described in
+Figure~\ref{fig-hic-analysis-flow} (middle) shows an overview of the
+pipeline. For parsing, the command needs a
+\texttt{-\/-restrictionCutFile}, locating the restriction sites from the
+restriction enzyme used on the reference genome, which is generated with
+\texttt{hicFindRestSites} that operates on the reference genome and
+restriction sequence. The default filter,
+\texttt{-\/-minMappingQuality\ 15}, was applied as described in
 Section~\ref{sec-matrix-qc}. Notably, HiCExplorer has no options on
 handling multiple ligations, and the method is undocumented. I assume
 that Ramírez et al. (2018) have implemented a conservative handling
@@ -1631,7 +1647,8 @@ into memory, including full-length chromosomes.
 A GWF workflow was created to handle the first part of the data
 processing, and each accesion number (read pair, mate pair) from the
 Hi-C sequencing was processed in parallel, so their execution was
-independent from each other.
+independent from each other. See Figure~\ref{fig-hic-analysis-flow}
+(right) for an overview of the initial steps.
 
 \subsubsection{Downloading the reads}\label{downloading-the-reads}
 
@@ -3718,6 +3735,11 @@ Wolfgang Forstmeier, Luke Holman, Hanna Johannesson, et al. 2016. {``The
 Mailund, Thomas, Kasper Munch, and Mikkel Heide Schierup. 2014.
 {``Lineage {Sorting} in {Apes}.''} \emph{Annual Review of Genetics} 48
 (1): 519--35. \url{https://doi.org/10.1146/annurev-genet-120213-092532}.
+
+\bibitem[\citeproctext]{ref-misteli2020selforganizinggenomeprinciples}
+Misteli, Tom. 2020. {``The {Self-Organizing Genome}: {Principles} of
+{Genome Architecture} and {Function}.''} \emph{Cell} 183 (1): 28--45.
+\url{https://doi.org/10.1016/j.cell.2020.09.014}.
 
 \bibitem[\citeproctext]{ref-munch2024munchgroup}
 Munch, Kasper. 2024. {``Munch-Group.''}
