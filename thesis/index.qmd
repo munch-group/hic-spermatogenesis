@@ -184,7 +184,7 @@ We can test if two sets of genomic intervals correlate (say, compartment edges a
 
 ::: {#lst-reproduce }
 
-```{.bash code-line-numbers="true"}
+```{.console code-line-numbers="true"}
 git clone https://github.com/munch-group/hic-spermatogenesis.git
 conda env create -f binder/environment.yml
 gwf run
@@ -530,11 +530,10 @@ Initially, the compartment edges of round spermatid at 100kb resolution (RS100) 
 
 We then abandoned the idea of a 200kb transition zone between the compartments. It was introduced as a less stringent edge, allowing the intersection of the selected regions to be within a defined threshold. We hoped a weaker threshold could allow for more variance, but it turned out to be the opposite (@tbl-svedig-tabel-significant). After defining the compartment limits (`_edge_1bp`), we perform tests on combinations of all five sources (fibroblast, spermatogonia, pachytene spermatocyte, round spermatid, sperm) and 2 viewframes (arms, 10Mb) and 5 queries. The queries were modified as such; the full ECH was used unmodified for the tests as it was already shown to overlap (Jaccard) fibroblast and round spermatid. *hama* and *olive* limits were used separately and as a concatenated set (`hamaolive_edge_1pb`), to increase the effect size, especially as the *hama* set is quite small compared to the rest of the sets. By their definition, *olive* and *hama* do not overlap, and can safely be concatenated (see @fig-introduce-selected-regions for confirmation). Now, we observe significant p-values across all cell types. 
 
-Reassuringly, both fibroblast and round spermatid still have significant Jaccard p-values for the arms viewframe although the p-values have increased (to $0.017$ and $0.028$, respectively). Now, all tissues except sperm show significant overlap with ECH regions, especially spermatogonia and pachytene spermatocytes with p-values $0.006$ and $0.005$, respectively. Only fibroblast and spermatogonia significantly overlap the ECH region for both viewframes, indicating that their predicted compartments shift only minimally compared to the pachytene spermatocyte and round spermatid when narrowing the viewframe. Pachytene spermatocyte and round spermatid loose their significance when narrowing the viewframe, meaning their compartments are highly varied between the two views, and the same conclusion can be drawn about sperm, as it gains significance when the viewframe is narrowed. Interestingly, only sperm overlaps the baboon regions with olive ancestry, and no tissue overlaps with hamadryas ancestry. Conversely, when concatenating the olive and hamadryas sets to capture all selection in baboons, both spermatogonia, pachytene spermatocyte, and sperm are significantly proximal. Here, sperm, which is not proximal in the arms viewframe, has the lowest p-value ($p=0.001$).
-
 {{< embed ../notebooks/07_various_plotting.ipynb#tbl-svedig-tabel-significant >}}
 
-{{< pagebreak >}}
+Reassuringly, both fibroblast and round spermatid still have significant Jaccard p-values for the arms viewframe although the p-values have increased (to $0.017$ and $0.028$, respectively). Now, all tissues except sperm show significant overlap with ECH regions, especially spermatogonia and pachytene spermatocytes with p-values $0.006$ and $0.005$, respectively. Only fibroblast and spermatogonia significantly overlap the ECH region for both viewframes, indicating that their predicted compartments shift only minimally compared to the pachytene spermatocyte and round spermatid when narrowing the viewframe. Pachytene spermatocyte and round spermatid loose their significance when narrowing the viewframe, meaning their compartments are highly varied between the two views, and the same conclusion can be drawn about sperm, as it gains significance when the viewframe is narrowed. Interestingly, only sperm overlaps the baboon regions with olive ancestry, and no tissue overlaps with hamadryas ancestry. Conversely, when concatenating the olive and hamadryas sets to capture all selection in baboons, both spermatogonia, pachytene spermatocyte, and sperm are significantly proximal. Here, sperm, which is not proximal in the arms viewframe, has the lowest p-value ($p=0.001$).
+
 
 # Discussion {#sec-discussion}
 
@@ -656,9 +655,11 @@ All code, text, and files used for this project are available on [https://github
 
 I would like to extend my sincere gratitude to my supervisor, Kasper Munch, for his guidance and support throughout this project. His sparring and scientific literacy have been invaluable in refining my ideas and shaping the direction of this work. I am especially thankful for Kasper’s enthusiasm, which has been a source of motivation during this process. His expertise and insights were instrumental in setting up the Quarto templates and providing support for the discussion. His constructive feedback on the manuscript has greatly improved its quality. I feel fortunate to have had the opportunity to learn from and work with such a knowledgeable and dedicated mentor.  
 
+I would also like to thank my brothers, Jakob and Andreas, for their help with proofreading of the manuscript.  
+
 ### Compute {.unnumbered}
 
-All computations were performed on GenomeDK (GDK), an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was handled by a *gwf* workflow [@gwf], a workflow manager developed at GDK. Developing the manuscript and all associated writing, editing, and rendering the project was also performed on GDK so work seemlesly with the analysis. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results. None of this would have been possible on my own labtop from 2013. 
+All computations were performed on GenomeDK (GDK), an HPC cluster located on Aarhus Uninversity, and most of the processing of the data was handled by a *gwf* workflow [@gwf], a workflow manager developed at GDK. Developing the manuscript and all associated writing, editing, and rendering the project was also performed on GDK so work seemlesly with the analysis. I would like to thank GDK and Aarhus University for providing computational resources and support that contributed to these research results. None of this would have been possible on my own laptop from 2013. 
 
 ### Use of Generative Artificial Intelligence {.unnumbered}
 
