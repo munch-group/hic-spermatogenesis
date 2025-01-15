@@ -85,7 +85,14 @@ As mentioned above, low ILS and reduced diversity is consistent across all great
 
 The specific regions under strong selection identified across primate species, including humans and baboons, are all located on the X chromosome and span megabase-scale genomic regions. As mentioned above, alternative mechanisms, such as the chromosomal architecture and its rearrangements, could play critical roles in facilitating, regulating, or buffering these regions from selective forces. 
 
-Therefore, understanding the genome organization and variation could gain insights regarding mechanisms of selection as well. Chromatin has long since been implicated in gene regulation and the functional state of the cell [@lieberman-aiden2009comprehensivemappinglongrange], as the three-dimensional structure of the chromosome can bring distant regions in close proximity, and disrupting the organization can lead to development abnormalities [@dixon2015chromatinarchitecturereorganization]. Chromatin is hierarchically compartmentalized, meaning multiple orders of organizaion can be nested under each other. At the large end, compartments can span multiple megabases [@lieberman-aiden2009comprehensivemappinglongrange], and in the small end as little as 500 base pairs have been showed to aid subgenic structural organization. Even at sub-megabase scales, at the level of topologically associating domains (TADs) or chromatin loops [@ramirez2018highresolutiontadsreveal; @zuo2021stageresolvedhicanalyses], the structure helps segregate regulatory elements and ensure proper function.
+::: {#fig-chromatin-architecture-overview}
+
+![](illustrations/chromatin-intro.jpg)
+
+DNA is organized at multiple hierarchical structures. Figure from @misteli2020selforganizinggenomeprinciples.
+:::
+
+Therefore, understanding the genome organization and variation could gain insights regarding mechanisms of selection as well. Chromatin has long since been implicated in gene regulation and the functional state of the cell [@lieberman-aiden2009comprehensivemappinglongrange], as the three-dimensional structure of the chromosome can bring distant regions in close proximity, and disrupting the organization can lead to development abnormalities [@dixon2015chromatinarchitecturereorganization]. Chromatin is hierarchically compartmentalized, meaning multiple orders of organizaion can be nested under each other (see @fig-chromatin-architecture-overview). At the large end, compartments can span multiple megabases [@lieberman-aiden2009comprehensivemappinglongrange], and in the small end as little as 500 base pairs have been showed to aid subgenic structural organization. Even at sub-megabase scales, at the level of topologically associating domains (TADs) or chromatin loops [@ramirez2018highresolutiontadsreveal; @zuo2021stageresolvedhicanalyses], the structure helps segregate regulatory elements and ensure proper function.
 
 Analyzing 3D chromatin data from rhesus macaques, a widely used primate in experimental studies, could answer the question of whether regions under selection are intertwined with chromosomal organizational features. Studying the chromosomal architecture through gametogenesis, particularly spermatogenesis, could provide valuable insights about meiotic recombination and its relationship to genome organization. If they correlate with regions under selection across primates, we have new mystery to explain. 
 
@@ -263,7 +270,7 @@ To get aligned reads in a format compatible with HiCExplorer, the read mates hav
 hicBuildMatrix -s sample_R1.bam sample_R2.bam -o matrix.h5 [...]
 ```
 
-For parsing, the command needs a `--restrictionCutFile`, locating the restriction sites from the restriction enzyme used on the reference genome, which is generated with `hicFindRestSites` that operates on the reference genome and restriction sequence. The default filter, `--minMappingQuality 15`, was applied as described in @sec-matrix-qc. Notably, HiCExplorer has no options on handling multiple ligations, and the method is undocumented. I assume that @ramirez2018highresolutiontadsreveal have implemented a conservative handling (masking all multiple ligations), as that would have the least consequence. 
+@fig-hic-analysis-flow (middle) shows an overview of the pipeline. For parsing, the command needs a `--restrictionCutFile`, locating the restriction sites from the restriction enzyme used on the reference genome, which is generated with `hicFindRestSites` that operates on the reference genome and restriction sequence. The default filter, `--minMappingQuality 15`, was applied as described in @sec-matrix-qc. Notably, HiCExplorer has no options on handling multiple ligations, and the method is undocumented. I assume that @ramirez2018highresolutiontadsreveal have implemented a conservative handling (masking all multiple ligations), as that would have the least consequence. 
 
 {{< embed ../notebooks/01_hicexplorer.ipynb#tbl-hic-exploration >}}
 
@@ -275,7 +282,7 @@ The matrix plotting function, `hicPlotMatrix`, plots matrices directly to .png, 
 
 ## Open2C pipeline
 
-A GWF workflow was created to handle the first part of the data processing, and each accesion number (read pair, mate pair) from the Hi-C sequencing was processed in parallel, so their execution was independent from each other.
+A GWF workflow was created to handle the first part of the data processing, and each accesion number (read pair, mate pair) from the Hi-C sequencing was processed in parallel, so their execution was independent from each other. See @fig-hic-analysis-flow (right) for an overview of the initial steps. 
 
 #### Downloading the reads
 
