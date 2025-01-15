@@ -524,7 +524,7 @@ gene drive},
 \subtitle{How Edges of Active Chromatin Align with Selection Regions in
 Primates}
 \author{Søren Jørgensen \and Kasper Munch}
-\date{2025-01-14}
+\date{2025-01-15}
 
 \begin{document}
 \frontmatter
@@ -565,7 +565,7 @@ Regions in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\large 2025-01-14 \par}
+{\large 2025-01-15 \par}
 \vspace{3ex}
 
 \vspace{10ex}
@@ -637,15 +637,15 @@ evolution. % Insert the abstract text here
 The X chromosome plays a unique role in evolution, being directly
 exposed to selection pressures due to its hemizygosity in males, leading
 to unique inheritance patterns. Regions of reduced diversity on the X
-chromosome could reflect the influence of strong evolutionary forces.
-Chromatin architecture, particularly the organization into A/B
-compartments, may provide insights into the functional basis of these
-patterns.
+chromosome could reflect the influence of strong evolutionary forces
+that are aided by structural features of the genome. Chromatin
+architecture, particularly the organization into A/B compartments, may
+provide insights into the functional basis of these patterns.
 
-Here, we analyze the 3D chromatin structure of the X chromosome in
-rhesus macaque using Hi-C data on the latest reference genome
-(rheMac10). Our analysis extensively combines software tools that
-emphasize reproducibility, ensuring that our analyses are transparent,
+Here, I analyze the 3D chromatin structure of the X chromosome in rhesus
+macaque (\emph{Macaca mulata}) using Hi-C data on the latest reference
+genome (rheMac10). The analysis extensively combines software tools that
+emphasize reproducibility, ensuring that the analyses are transparent,
 portable, and replicable.
 
 \section{Evolution on X}\label{evolution-on-x}
@@ -841,10 +841,10 @@ under selection are intertwined with chromosomal organizational
 features. Studying the chromosomal architecture through gametogenesis,
 particularly spermatogenesis, could provide valuable insights about
 meiotic recombination and its relationship to genome organization. If
-they correlate with regions under selection across primates, we have yet
-another mystery to explain.
+they correlate with regions under selection across primates, we have new
+mystery to explain.
 
-Wang et al. (2019) found that through the stages of spermatogeneis,
+Wang et al. (2019) found that through the stages of spermatogenesis,
 chromatin compartmentalization undergo massive reprogramming, going from
 megabase-spanning compartments through smaller, \emph{refined}
 compartments and back to the megabase compartments. The reprogramming is
@@ -986,8 +986,8 @@ Interestingly, this last step is not included by default in
 \emph{pairtools}, as {[}ref{]} observe very similar statistical
 properties on pairs that are either close or distant from the nearest
 restriction site. Thus, restriction fragment filters are not needed, and
-in stead, a simple filter is applied against short-distance pairs that
-is automatically calibrated.
+instead, a simple filter is applied against short-distance pairs that is
+automatically calibrated.
 
 \subsubsection{Identifying and Storing Valid Hi-C
 Pairs}\label{identifying-and-storing-valid-hi-c-pairs}
@@ -1408,31 +1408,30 @@ publishes the project on the group website
 
 All computations were performed on GenomeDK (GDK), an HPC cluster
 located on Aarhus Uninversity, and most of the processing of the data
-was made into a custom \emph{gwf} workflow, a workflow manager developed
-at GDK. I would like to thank GDK and Aarhus University for providing
+was made into a custom GWF workflow, a workflow manager developed at
+GDK. I would like to thank GDK and Aarhus University for providing
 computational resources and support that contributed to these research
 results.
 
 With the analysis tools determined in the above section, I decided it
 was not feasible to follow the exact approach as Wang et al. (2019) with
-any of \emph{HiCExplorer} and \emph{Open2C}, as they use a third
-software, \emph{HiC-Pro}. For mapping the raw reads, Hic-Pro internally
-uses bowtie2 in end-to-end mode, followed by trimming the 3'-end of the
-unmapped reads, then remapping the 5'-ends to rescue chimeric fragments.
-I mapped the reads using \texttt{bowtie2\ -\/-end-to-end} without the
-rescue-remapping, and it returned a very high fraction of discarded
-reads, and it would be silly to spend time on implementing the remapping
-approach manually. When redoing analyses, it is not sensical to use
-methods that are not state-of-the-art, and judged by the time since last
-release (HiC-Pro v3.1.0 in 2021), both HiCExplorer and Open2C are more
-recent. Additionally, the HiC-Pro pipeline stops at a normalized contact
-map, and is thus not sufficient for downstream analysis. In hindsight,
-it would have been more sensical to use \emph{HiC-Pro} to get normalized
-contact maps, then continue analyzing with
-\emph{cooler}/\emph{cooltools}, then compare the results evenly with the
-results achieved from using Open2C from start to finish.
-Figure~\ref{fig-hic-tools-comparison} gives an overview of the 3
-pipelines metioned in this report.
+any of HiCExplorer and Open2C, as they use a third software, HiC-Pro.
+For mapping the raw reads, Hic-Pro internally uses bowtie2 in end-to-end
+mode, followed by trimming the 3'-end of the unmapped reads, then
+remapping the 5'-ends to rescue chimeric fragments. I mapped the reads
+using end-to-end-bowtie2 without the rescue-remapping, and it returned a
+very high fraction of discarded reads, and it would be silly to spend
+time on implementing the remapping approach manually. When redoing
+analyses, it is not sensical to use methods that are not
+state-of-the-art, and judged by the time since last release (HiC-Pro
+v3.1.0 in 2021), both HiCExplorer and Open2C are more recent.
+Additionally, the HiC-Pro pipeline stops at a normalized contact map,
+and is thus not sufficient for downstream analysis. In hindsight, it
+would have been more sensical to use HiC-Pro to get normalized contact
+maps, then continue analyzing with cooler/cooltools, and finally compare
+the results evenly with the results achieved from using Open2C from
+start to finish. Figure~\ref{fig-hic-tools-comparison} gives an overview
+of the 3 pipelines metioned in this report.
 
 \begin{figure}
 
@@ -1449,20 +1448,17 @@ HiCExplorer, and Open2C}
 
 \section{Fetching raw data}\label{fetching-raw-data}
 
-To reproduce the results from (Wang et al. 2019), I chose to use their
+To reproduce the results from Wang et al. (2019), I chose to use their
 raw data directly from the SRA portal {[}ref{]}. I filtered the data to
 contain all their paired-end Hi-C reads, and included only macaque
-samples. The data set also contains RNAseq data, and the same tissues
-for both macaque and mouse. The meta data for the data set was extracted
-into a runtable \texttt{SRA-runtable.tsv}. To get an overview of the
-data accessions used in this analysis, we will first summarize the
-runtable that contains the accession numbers and some metadata for each
-sample (Table~\ref{tbl-runtable-summary}). It adds up to
-\textasciitilde1Tb of compressed \texttt{fastq} files, holding
-\textasciitilde9.5 billion reads, roughly evenly spread on the 5 tissue
-types.
-
-\small
+samples. The dataset also contains RNAseq data, and the same tissues for
+both macaque and mouse. The metadata for the dataset was extracted into
+a runtable \texttt{SRA-runtable.tsv}. To get an overview of the data
+accessions used in this analysis, we will first summarize the runtable
+that contains the accession numbers and some metadata for each sample
+(Table~\ref{tbl-runtable-summary}). It adds up to \textasciitilde1Tb of
+compressed \texttt{fastq} files, holding \textasciitilde9.5 billion
+reads, roughly evenly spread on the 5 tissue types.
 
 \begin{longtable}[]{@{}lllll@{}}
 
@@ -1486,37 +1482,31 @@ in this analysis}
 
 \end{longtable}
 
-\normalsize
-
 \subsection{Fetching and indexing the
 reference}\label{fetching-and-indexing-the-reference}
 
 Wang et al. (2019) use the 2006-version of the macaque reference,
 \emph{rheMac2}. Supporting my previous sentiment about not using
-outdated resources I find it reasonable to use the latest reference,
-\emph{rheMac10}. Warren et al. (2020) have improved contiguity from
-\emph{rhemac8} by 120 fold, going from N50 contig size of 107 Kbp to 46
-Mbp. Part of the reasoning for reproducing their results was doing so on
-the latest assembly of the \emph{Macaca mulata} genome, which arguably
-will result in a more accurate mapping of the reads, and a better
-inference of the chromatin compartments as well. Therefore, the latest
-reference genome for rhesus macaque/\emph{Macaca mulata},
-\emph{rheMac10}/\emph{Mmul\_10} (UCSC or NCBI naming conventions,
-respectively) was downloaded to GDK from UCSC web servers with
-\texttt{wget}. To use \texttt{bwa} for mapping, rheMac10 needs to be
-indexed with both \texttt{bwa\ index} with the \texttt{-\/-bwtsw} option
-and \texttt{samtools\ faidx}, which results in six indexing files for
-\texttt{bwa\ mem} to use. Two mappers (bwa-mem and bowtie2) were used in
-different configurations (described below), and \texttt{bowtie2}
-requires its own indexing of the reference, using
-\texttt{bowtie2-build\ -\/-large-index}, which creates six index files
-for \texttt{bowtie2} to use. \texttt{-\/-large-index} creates the
-special indexing format required for large genomes such as macaque. As
-we use the position of the centromere to partition chrX into its two
-arms, and no comment about it was made by Warren et al. (2020), the
-centromeric region was inferred (visually) from the UCSC browser view of
-\emph{rheMac10}, where a large continuous region
-(chrX:57,500,000-60,200,000) had no annotation and showed many repeating
+outdated resources I find it most reasonable to use the latest
+reference, \emph{rheMac10}, where Warren et al. (2020) have improved
+contiguity from \emph{rhemac8} by 120 fold, going from N50 contig size
+of 107 Kbp to 46 Mbp. Reproducing the analysis on the latest assembly of
+the macaque genome should therefore gain a more accurate read mapping,
+and consequently a better inference of the chromatin compartments.
+Therefore, \emph{rheMac10} was downloaded to GDK from UCSC web servers.
+To use bwa for mapping, \emph{rheMac10} needs to be indexed with both
+bwa-index with the \texttt{-\/-bwtsw} option and samtools-faidx, which
+results in six indexing files for bwa-mem to use. Both bwa-mem and
+bowtie2 were used in different configurations, and bowtie2 requires its
+own indexing of the reference, using bowtie2-build with the
+\texttt{-\/-large-index} option, which creates six index files for
+\texttt{bowtie2} to use. The options \texttt{-\/-bwtsw} and
+\texttt{-\/-large-index} create the special indexing format required for
+large genomes such as macaque. As we use the position of the centromere
+to partition chrX into its two arms, and no comment about it was made by
+Warren et al. (2020), the centromeric region was inferred (visually)
+from the UCSC browser view of \emph{rheMac10}, where a large continuous
+region (chrX:57.5Mb-60.2Mb) had no annotation and showed many repeating
 regions. The region is roughly the same region as inferred by Wang et
 al. (2019) by the same method.
 
@@ -1528,10 +1518,7 @@ supports the old convention to avoid the common heuristics of local
 aligners used for regular paired-end sequencing libraries (Lajoie,
 Dekker, and Kaplan (2015)). HiCExplorer provide examples for both
 \emph{bwa} and \emph{bowtie2}, so I used both with recommended settings.
-\emph{bowtie2} was more resource-intensive, and only succesfully aligned
-a small fraction of the reads {[}ref sup-fig-bowtie2-stats{]}, but
-likely some parameters could be tuned for better alignment. In both
-cases, the aligner outputs a .bam-file for each mate
+In both cases, the aligner outputs a .bam-file for each mate
 (\texttt{sample\_R1.bam} and \texttt{sample\_R2.bam}), and HiCExplorer
 performs the parsing, deduplication, and filtering of the reads and
 builds the raw interaction matrix in a single command,
@@ -1542,14 +1529,16 @@ builds the raw interaction matrix in a single command,
 \end{Highlighting}
 \end{Shaded}
 
-For parsing, the command needs a \texttt{restrictionCutFile}, locating
-the restriction sites from the restriction enzyme used on the reference
-genome, which is generated with \texttt{hicFindRestSites} that operates
-on the reference genome and restriction sequence. The default filter,
-\texttt{-\/-minMappingQuality\ 15}, was applied as described in
+For parsing, the command needs a \texttt{-\/-restrictionCutFile},
+locating the restriction sites from the restriction enzyme used on the
+reference genome, which is generated with \texttt{hicFindRestSites} that
+operates on the reference genome and restriction sequence. The default
+filter, \texttt{-\/-minMappingQuality\ 15}, was applied as described in
 Section~\ref{sec-matrix-qc}. Notably, HiCExplorer has no options on
-handling multiple ligations, and thus the method is unknown. I assume
-that they have the intitial design of Hi-C libraries in mind.
+handling multiple ligations, and the method is undocumented. I assume
+that Ramírez et al. (2018) have implemented a conservative handling
+(masking all multiple ligations), as that would have the least
+consequence.
 
 \begin{figure}
 
@@ -1586,11 +1575,11 @@ exploration with HiCExplorer. From NCBI SRA Portal.}
 
 \end{longtable}
 
-For the initial exploration of methods with \emph{HiCExplorer}, we chose
-five fibroblast samples (see Table~\ref{tbl-hic-exploration}). The goal
-was to replicate some of the figures from Wang et al. (2019) using
-\emph{HiCExplorer}, especially to reconstruct interaction matrices and
-E1 graphs from macaque data. We constructed matrices with
+For the initial exploration of methods with HiCExplorer, I chose five
+fibroblast samples (see Table~\ref{tbl-hic-exploration}). The goal was
+to replicate some of the figures from Wang et al. (2019) using
+HiCExplorer, especially to reconstruct interaction matrices and E1
+graphs from macaque data. We constructed matrices with
 \texttt{hicBuildMatrix} as described from the separately mapped
 read-pairs. Along with the matrix \emph{.h5} file, a \emph{.log} file
 was created as well, documenting the quality control for the sample.
@@ -1598,15 +1587,16 @@ Multiple logs were aggregated and visualized with \texttt{hicQC}.
 
 Before correction (or balancing) of the interaction matrix, a
 pre-correction filter is applied, filtering out low-count bins and very
-high-count bins. A threshold for Mean Absolute Deviation (\emph{MAD}) is
+high-count bins. A threshold for Mean Absolute Deviation (MAD) is
 estimated by \texttt{hicCorrect\ diagnostic\_plot}, followed by
 iterative correction with
 \texttt{hicCorrect\ correct\ -\/-correctionMethod\ ICE}. The PCA was
 performed with \texttt{hicPCA} on the corrected matrices, yielding the
 first 3 PCs.
 
-\texttt{hicPlotMatrix} plots matrices directly to .png (no display).
-When keeping the analysis in a Jupyter Notebook (using the builtin
+The matrix plotting function, \texttt{hicPlotMatrix}, plots matrices
+directly to .png, and so there is no output sent to the Jupyter display.
+As I kept the analysis in a Jupyter Notebook (using the builtin
 shell-escape commands to execute \texttt{bash} code), the plot files
 must be embedded back into the notebook. There is limited support for
 modifying the plot (from command-line options), such as to add spacing
@@ -1626,13 +1616,13 @@ memory (that is, all full-length chromosomes).
 
 }
 
-\caption{\label{fig-flowchart-handling-coolers}Showing the \emph{gwf}
-target templates used with the \emph{Open2C} pipeline. As it is highly
-modular, it is also a bit elaborate.}
+\caption{\label{fig-flowchart-handling-coolers}Showing the GWF target
+templates used with the Open2C pipeline. As it is highly modular, it is
+also a bit elaborate.}
 
 \end{figure}%
 
-A \emph{gwf} workflow was created to handle the first part of the data
+A GWF workflow was created to handle the first part of the data
 processing, and each accesion number (read pair, mate pair) from the
 Hi-C sequencing was processed in parallel, so their execution was
 independent from each other.
@@ -1640,33 +1630,28 @@ independent from each other.
 \subsubsection{Downloading the reads}\label{downloading-the-reads}
 
 The reads were downloaded from NCBI SRA with SRA-toolkit (DevTeam 2024)
-directly to GDK using a docker image of \texttt{sra-downloader} {[}ref
-\emph{wwydmanski/sra-downloader}{]} as gunzipped \texttt{.fastq} files.
-Although possible to provide a list of accessions to the toolkit, I
-submitted each accession as a separate target, as \texttt{SRA\ Toolkit}
-acts sequentially, and only starts the next download after all
-compression tasks were done. It was therefore a low-hanging fruit to
-parallelize the download for efficiency.
+directly to GDK using the docker image \emph{wwydmanski/sra-downloader}
+as gunzipped \texttt{.fastq} files. Although possible to provide a list
+of accessions to the toolkit, I submitted each accession as a separate
+target, as SRA-Toolkit acts sequentially, and only starts the next
+download after all compression tasks were done. It was therefore a
+low-hanging fruit to parallelize the download for efficiency.
 
 \subsubsection{Mapping Hi-C reads}\label{mapping-hi-c-reads}
 
 Suspiciously, ({``Open {Chromosome Collective} ({Open2C})''} n.d.) never
 mentions any problems with aligning the Hi-C reads, they just provide an
-example using \texttt{bwa\ mem} in paired-end mode and with the
-\texttt{-P} option set, which activates the Smith-Waterman {[}ref{]}
-algorithm to rescue missing hits, by focusing on assigning only one of
-the mates to a good mapping and escape mate-rescue. The documentation of
-\texttt{bwa} \href{https://bio-bwa.sourceforge.net}{ref} state that both
+example using bwa-mem in paired-end mode and with the \texttt{-P} option
+set, which activates the Smith-Waterman (Li 2013) algorithm to rescue
+missing hits, by focusing on assigning only one of the mates to a good
+mapping and escape mate-rescue. The documentation of
+\href{https://bio-bwa.sourceforge.net}{\texttt{bwa}} state that both
 bwa-mem and bwa-sw will rescue chimeric reads. Consequently, Open2C does
-not have a builtin way of pairing the reads after mapping, and I was
-left with two options: \textbf{1)} to re(-)pair the individually mapped
-read-mates (.bam) with \texttt{samtools-fixmate} into one of the
-specific input formats required for \texttt{cooler} to create an
-interaction matrix \emph{cooler}, or \textbf{2)} re-map the reads using
-Open2C's recommendations and use their established pipeline for
-producing a cooler. I chose the latter, where I mapped the fastq files
-to \emph{rheMac10} in paired end mode for a pair (\(m1\), \(m2\)) with
-\texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
+not have a builtin way of pairing the reads after mapping, and the reads
+were thus mapped using Open2C's recommendations, using their established
+pipeline for producing a cooler. I chose the latter, where I mapped the
+fastq files to \emph{rheMac10} in paired end mode for a pair (\(m1\),
+\(m2\)) with \texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
 
 \subsubsection{Parse and sort the reads}\label{parse-and-sort-the-reads}
 
@@ -1674,17 +1659,16 @@ We need to convert the alignments into ligation events, and distinguish
 between several types of ligation events. The simplest event is when
 each side only maps to one unique segment in the genome `UU'. Other
 events, where one or both sides map to multiple segments or the reads
-are long enough (\textgreater150bp) to contain two alignments (multiple
-ligations) have to be considered as well. Multiple ligations (reads that
-have multiple ligation sites, thus having several valid alignments to
-the reference) are called \emph{walks} by Open2C, and are treated
-according to the \texttt{-\/-walks-policy} when parsing the alignments
-into valid pairs (or valid Hi-C contacts). Here, \texttt{mask} is the
-most conservative and masks all complex walks, whereas \texttt{5unique}
-and \texttt{3unique} reports the 5'-most or 3'-most unique alignment on
-each side, respectively, and \texttt{all} reports all the alignments.
-The pairs are piped directly into \texttt{pairtools\ sort} after
-parsing, as the deduplication step requires a sorted set of pairs. The
+are long enough (\(>150bp\)) to contain two alignments (multiple
+ligations) have to be considered as well. Multiple ligations are called
+\emph{walks} by Open2C, and are treated according to the
+\texttt{-\/-walks-policy} when parsing the alignments into valid pairs
+(or valid Hi-C contacts). Here, \texttt{mask} is the most conservative
+and masks all complex walks, whereas \texttt{5unique} and
+\texttt{3unique} reports the 5'-most or 3'-most unique alignment on each
+side, respectively, and \texttt{all} reports all the alignments. The
+pairs are piped directly into \texttt{pairtools\ sort} after parsing, as
+the deduplication step requires a sorted set of pairs. The
 \emph{.pairs}-format produced by \texttt{pairtools} is an extension the
 \href{https://data.4dnucleome.org/file-formats/pairs/}{4DN
 Consortium}-specified format, storing Hi-C pairs as in
@@ -1695,7 +1679,7 @@ Table~\ref{tbl-pairsformat}.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1644}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6712}}@{}}
 \caption{Column specification of the .pairs format as extended by
-\texttt{pairtools} {[}ref{]}.}\label{tbl-pairsformat}\tabularnewline
+pairtools.}\label{tbl-pairsformat}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedleft
 Index
@@ -1732,61 +1716,57 @@ on side 2 \\
 10 & mapq2 & mapq of the second mate \\
 \end{longtable}
 
-I initially used \texttt{-\/-walks-policy\ mask} without fully
-understanding the implications, but knowing it was the most conservative
-of the options. Only later I realized the recommendations from
-\emph{pairtools}, specifically informing that longer reads (\(>150bp\))
-might have a significant proportion of reads that contain complex walks.
-With this in mind and as the average read-length of our data is 300 bp,
-I decided to re-parse the alignments into a new set of pairs, and
-equally apply the recommended filter (next section). As both results are
-saved, we can compare the two approaches.
+I initially used \texttt{-\/-walks-policy\ mask}, and later followed the
+recommendations from \emph{pairtools}, specifically informing that
+longer reads (\(>150bp\)) might have a significant proportion of reads
+that contain complex walks. With this in mind and as the average
+read-length of our data is 300 bp, I decided to re-parse the alignments
+into a new set of pairs, and equally apply the recommended filter (next
+section). As both results are saved, we can compare the two approaches.
 
 \subsubsection{Filter and deduplicate
 pairs}\label{filter-and-deduplicate-pairs}
 
 Pairtools comes with a de-duplication function, \texttt{dedup}, to
 detect PCR duplication artefacts. At this point we will remove all reads
-that are mapped to an unplaced scaffold. Even though the publication of
-\emph{rhemac10} assembly states they have closed 99\% of the gaps since
-\emph{rhemac8} {[}ref{]}, \emph{rheMac10} still contain more than 2,500
-unplaced scaffolds, which are all uninformative when calculating the
-chromatin compartments as is the goal of this analysis. Therefore, we
-simply only include the list of conventional chromosomes (1..22, X, Y)
-when doing the deduplication. Initially, the default values were used to
-remove duplicates, where pairs with both sides mapped within 3 base
-pairs from each other are considered duplicates. \texttt{cooler}
-recommend to store the most comprehensive and unfiltered list of pairs,
-and then applying a filter it on the fly by piping from
-\texttt{pairtools\ select}. Initially, I missed this step and I did not
-filter for mapping quality. After reparsing the alignments and applying
-the same analysis, we compare the two pipelines. A quality control
-report is generated by \texttt{pairtools\ dedup} as well, and the
-reports are merged and visualized with \texttt{MultiQC} (Ewels et al.
-2016) for each cell type.
+that are mapped to an unplaced scaffold. Even though \emph{rhemac10} is
+less fragmented than \emph{rhemac8} , \emph{rheMac10} still contains
+more than 2,500 unplaced scaffolds, which are all uninformative when
+calculating the chromatin compartments as is the goal of this analysis.
+Therefore, we simply only include the list of conventional chromosomes
+(1..22, X, Y) when doing the deduplication. Initially, the default
+values were used to remove duplicates, where pairs with both sides
+mapped within 3 base pairs from each other are considered duplicates.
+\texttt{cooler} recommend to store the most comprehensive and unfiltered
+list of pairs, and then applying a filter it on the fly by piping from
+\texttt{pairtools\ select}. The first run that was parsed with
+\texttt{mask} was not filtered for mapping quality. After reparsing the
+alignments and applying the same analysis, we compare the two pipelines.
+A quality control report is generated by \texttt{pairtools\ dedup} as
+well, and the reports are merged and visualized with \texttt{MultiQC}
+(Ewels et al. 2016) for each cell type.
 
 \subsubsection{Create interaction matrices
 (coolers)}\label{create-interaction-matrices-coolers}
 
-The final part of the \emph{gwf} workflow takes \texttt{.pairs} as input
-and outputs a \texttt{.cool} file (\emph{cooler}). Initially, we read
+The final part of the GWF workflow takes \texttt{.pairs} as input and
+outputs a \texttt{.cool} file (a \emph{cooler}). Initially, I read
 directly from the newly generated deduplicated pairs without additional
 filtering, but the official recommendation is to filter out everything
 below \(mapq = 30\) by piping the pairs through
 \texttt{pairtools\ select\ "(mapq1\textgreater{}=30)\ and\ (mapq2\textgreater{}=30)"}
 to \texttt{cooler\ cload\ pairs}. I then re-parsed the alignments and
 created new coolers, including only the Hi-C contacts where
-\(mapq \leq 30\), following the current recommendations from
-\emph{cooler}.
+\(mapq \leq 30\), following the current recommendations from Open2C.
 
 \subsubsection{Pooling samples (Merging
 coolers)}\label{pooling-samples-merging-coolers}
 
-The samples are grouped into \emph{replicates} with a unique
-\textbf{BioSample} ID, but we chose to pool all the interaction matrices
-for each cell type. We reason that when Wang et al. (2019) determine
-compartments to be highly reproducible between replicates, by merging
-the replicates we can get a more robust signal.
+The samples are grouped into \emph{replicates} with a unique BioSample
+ID, and I chose to pool all the interaction matrices for each cell type.
+Even though it is slightly unclear how their replicates are defined,
+Wang et al. (2019) determine compartments to be highly reproducible
+between replicates, and they are pooling the replicates as well.
 
 \texttt{cooler\ merge} was used to merge all samples in each cell-type
 directory to just one interaction matrix for each cell type. The
@@ -1797,15 +1777,15 @@ less empty or low-count bins.
 \subsubsection{Create multi-resolution coolers
 (zoomify)}\label{create-multi-resolution-coolers-zoomify}
 
-A feature of working inside the ecosystem of \emph{Open2C} {[}ref{]} is
-that it natively provides support for storing sparse interaction
-matrices in multiple resolutions in the same file by adding HDF5-groups
-to the (multires-)cooler. We can then efficiently store resolutions
-(i.e., different bin sizes) that is multiples of the smallest bin size.
-We chose to use 10kb, 50kb, 100kb, and 500kb bins, and the resolutions
-are made by recursively binning the base resolution. They call this
-process zoomifying, and \texttt{cooler\ zoomify} does the job (it
-recursively calls \texttt{cooler\ coarsen} to merge bins).
+A feature of working inside the ecosystem of Open2C is that it natively
+provides support for storing sparse interaction matrices in multiple
+resolutions in the same file by adding HDF5-groups to the
+(multires-)cooler. We can then efficiently store resolutions (i.e.,
+different bin sizes) that is multiples of the smallest bin size. We
+chose to use 10kb, 50kb, 100kb, and 500kb bins, and the resolutions are
+made by recursively binning the base resolution. They call this process
+zoomifying, and \texttt{cooler\ zoomify} does the job (it recursively
+calls \texttt{cooler\ coarsen} to merge bins).
 
 \subsubsection{Matrix balancing (Iterative
 correction)}\label{matrix-balancing-iterative-correction}
@@ -1836,18 +1816,18 @@ be terminated manually, and it was not investigated further.
 
 The eigendecomposition of a Hi-C interaction matrix is performed in
 multiple steps. As value of the eigenvector is only \emph{significant}
-up to a sign, it is convention {[}ref{]} to use GC content as a phasing
-track to orient the vector. E1 is arbitrarily defined to be positively
-correlated with GC content, meaning a positive E1 value signifies an
-active chromatin state, which we denote a A-type compartment (or simply
-A-compartment). We performed eigendecomposition of two resolutions, 100
-Kbp and 500 Kbp. Wang et al. (2019) briefly describes their method to
-calculate the eigenvectors as a sliding window approach on the
-observed/expected matrix in 100 kb resolution summing over 400 kb bins
-with 100 kb step size, a method I was not able to replicate in the
-\emph{Open2C} ecosystem. I decided to mimic this by smoothing the 100 kb
-E1 values by summing to 500 kb bins in steps of 100 kb, yielding a
-comparable resolution which I denote `\emph{pseudo}-500 kb' resolution
+up to a sign, it is convention to use GC content as a phasing track to
+orient the vector. E1 is defined to be positively correlated with GC
+content, meaning a positive E1 value signifies an active chromatin
+state, which we denote a A-type compartment (or simply A-compartment).
+We performed eigendecomposition of two resolutions, 100 kbp and 500 kbp.
+Wang et al. (2019) briefly describes their method to calculate the
+eigenvectors as a sliding window approach on the observed/expected
+matrix in 100 kb resolution summing over 400 kb bins with 100 kb step
+size, a method I was not able to replicate in the \emph{Open2C}
+ecosystem. I decided to mimic this by smoothing the 100 kb E1 values by
+summing to 500 kb bins in steps of 100 kb, yielding a comparable
+resolution which I denote `\emph{pseudo}-500 kb' resolution
 (\emph{ps500kb}).
 
 First, we calculate the GC content of each bin of the reference genome,
@@ -1862,33 +1842,33 @@ values, the simplest view being the full chromosome. However, when there
 is more variance between chromosome arms than within arms, the sign of
 the first eigenvector will be determined largely by the chromosome arm
 it sits on, and not by the chromatin compartments. To mitigate this, we
-apply a chromosome-arm-partitioned view of the chromosome (as a bedlike
-format, described in \texttt{bioframe} docs {[}ref{]}).
+apply a chromosome-arm-partitioned view of the chromosome.
 
 Additionally, to mimic the \emph{Local PCA} from (Wang et al. 2019), I
 also defined a view of 10 Mb bins. Thoughout the project, I will compare
-results from each of the three views and resolutions.
+results from each of the three views and resolutions, and they will be
+referred to as `full', `arms', and `10Mb' views.
 
 \subsubsection{Plotting matrices}\label{plotting-matrices}
 
-We use matplotlib and seaborn to plot in the \emph{Open2C} framework.
-Utilizing the \texttt{cooler} class, we can fetch regions of the matrix
-without modifying the file. As my analysis is centered around the X
-chromosome, it is efficiently handled by simply fetching `chrX' from the
-matrix with
+We use matplotlib (Team 2024) and seaborn (Waskom 2021) to plot in the
+Open2C framework. Utilizing the \texttt{Cooler} class, we can fetch
+regions of the matrix without modifying the file. As my analysis is
+centered around the X chromosome, it is efficiently handled by simply
+fetching `chrX' from the matrix with
 \texttt{cooler.Cooler.matrix().fetch(\textquotesingle{}chrX\textquotesingle{})}.
 Many methods of the cooler class returns data selectors, which do not
-retrieve data before it is queried {[}ref{]}. This means we can create
-many selectors at once without overflowing memory, enabling us to plot
-multiple interaction matrices side-by-side, e.g.~the corrected and
-un-corrected matrices. This is easily done with the \texttt{balance}
-parameter of the matrix selector (\texttt{.matrix()}), which determines
-if it should apply the balancing weights to the coordinates and defaults
-to \texttt{True}.
+retrieve data before it is queried (Abdennur and Mirny 2020). This means
+we can create many selectors at once without overflowing memory,
+enabling us to plot multiple interaction matrices side-by-side, e.g.~the
+corrected and un-corrected matrices. This is easily done with the
+\texttt{balance} parameter of the matrix selector (\texttt{.matrix()}),
+which determines if it should apply the balancing weights to the
+coordinates and defaults to \texttt{True}.
 
-The matrix is retrieved an plotted with
+The matrix is retrieved and plotted with
 \texttt{matplotlib.pyplot.matshow}, which automatically produces a
-heatmap image of the matrix. Here, in stead of transforming the
+heatmap image of the matrix. Here, instead of transforming the
 interaction matrix, the color scale is log-transformed with
 \texttt{matplotlib.colors.LogNorm}. Additionally, \texttt{cooltools}
 comes with more tools to aid visualization: \emph{adative coarsegrain}
@@ -1924,10 +1904,8 @@ E1 (referred to as \emph{compartment edge}). We compare genomic
 intervals (or sets) both visually by plotting the regions, and by a
 proximity test and bootstrapping the Jaccard index. Additionally, the
 compartment limits were invetigated (only 1 flanking base pair) in the
-same manner.
-
-Additionally, the limits were extracted from the baboon datasets for
-comparison.
+same manner. Additionally, the limits were extracted from the baboon
+datasets and lifted to \emph{rheMac10} for comparison.
 
 \subsubsection{Proximity test}\label{proximity-test}
 
@@ -1937,10 +1915,10 @@ and the \emph{query} set, and the distance from each interval on the
 \emph{query} to the most proximal interval on the \emph{annotation} is
 used to generate an index of proximity by the mean distance to nearest
 interval in the \emph{annotation}. Then, bootstrapping (\(b = 100000\))
-is performed by randomly \emph{re}placing the query intervals to
-generate the null distribution, and finally, the fraction of the
-\emph{null} as extreme or more extreme as our observed proximity is
-reported as the p-value.
+is performed by randomly placing the query intervals to generate the
+null distribution, and finally, the fraction of the \emph{null} as
+extreme or more extreme as our observed proximity is reported as the
+p-value.
 
 \subsubsection{Jaccard test}\label{jaccard-test}
 
@@ -1955,18 +1933,19 @@ generate a null distribution (shuffling the intervals of the
 respective number and size of intervals), are as similar or more than
 what we observe. The ratio is reported as the p-value. However, this
 approach is still sensitive to flipping of query/annotation (if the
-reginos are not the same size), as only the query is bootstrapped.
+regions are not the same size), as only the query is bootstrapped.
 
 \subsubsection{Multiple testing}\label{multiple-testing}
 
-Careful considerations were made to avoid multiple testing biases
-(p-hacking): Performing tests on all combinations of variables (cell
-type, resolution, viewframe, flip annot, query) will yield 180 p-values
-for each test, and we would have to adjust the significance threshold
-(with \(\alpha = 0.05\), we expect 9 tests passing the threshold by
-chance). However, if we test only a few combinations we will greatly
-reduce that. With that in mind, we do not find it necessary to correct
-the conventional significance threshold, \(\alpha=0.05\).
+Considerations were made to avoid multiple testing biases (p-hacking):
+Performing tests on all combinations of variables (cell type,
+resolution, viewframe, query) will yield 90 p-values for each test, and
+we would have to adjust the significance threshold (with
+\(\alpha = 0.05\), we expect 4 tests passing the threshold by chance).
+However, I will narrow down the parameter space based on visualizations
+and reasoning, leaving fewer combinations to test. I do not find it
+necessary to correct the conventional significance threshold,
+\(\alpha=0.05\).
 
 \chapter{Results}\label{results}
 
@@ -1978,13 +1957,12 @@ The separately mapped read-mates were parsed into a \emph{.h5}
 interaction matrix by \texttt{hicBuildMatrix}, which include a
 \emph{.log} file documenting the builtin quality control (hereafter,
 \emph{QC}). Log files from the 5 samples were merged with \texttt{hicQC}
-(Figure~\ref{fig-explorer-all-3-qc}). We observe showed equal fractions
-of the read-orientation of read-pairs
-(Figure~\ref{fig-explorer-all-3-qc}, left, row 5), which is expected for
-a good Hi-C library. Additionally, it determines between 40\% to 50\% of
-the total reads to be valid Hi-C contacts
-(Figure~\ref{fig-explorer-all-3-qc}, left, row 1), which is usually only
-25\%-40\% (as described in HiCExplorer docs).
+(Figure~\ref{fig-explorer-all-3-qc}). I observe equal fractions of the
+read-orientation of read-pairs (Figure~\ref{fig-explorer-all-3-qc},
+left, row 5), which is expected for a good Hi-C library. Additionally,
+it determines between 40\% to 50\% of the total reads to be valid Hi-C
+contacts (Figure~\ref{fig-explorer-all-3-qc}, left, row 1), which is
+usually only 25\%-40\% (as described in HiCExplorer docs).
 Figure~\ref{fig-explorer-all-3-qc} (left, row 4) shows, however,
 unusually high fractions of \emph{inter}-chromosomal contacts (up to
 30\%) compared to \emph{intra}-chromosomal contacts (also denoted
@@ -2128,32 +2106,6 @@ counts per bin (bottom x-axis) and the modified z-score (top x-axis)
 from which the \emph{mad} threshold is defined.}
 
 \end{figure}%
-
-To compare these mappings with others, the QC results is an easy way.
-Therefore, the reads were mapped with \emph{bowtie2} in both end-to-end-
-and local-mode followed by \texttt{hiCBuildMatrix}, and the QC from each
-method was plotted next to each other
-(Figure~\ref{fig-explorer-all-3-qc}). Interestingly, \emph{bowtie2} was
-much more computer-intensive in both modes, perhaps because of the
-\texttt{-\/-very-sensitive} option. In any case, the QC reveals a major
-difference in the total number of reads that are determined to be valid
-Hi-C contacts by \texttt{hicBuildMatrix}. As expected, mapping with
-\emph{end-to-end-bowtie2} makes locating Hi-C contacts more difficult
-than the other methods (Figure~\ref{fig-explorer-all-3-qc}, top row),
-finding a very low amount of mappable, unique pairs passing the quality
-threshold. In contrast, mapping with \emph{local-bowtie2} performs
-similarly to \emph{bwa} in finding mappable, unique, high-quality pairs,
-but calls only approximately half the number of valid Hi-C contacts
-(\textgreater20\%), resulting in a fraction of valid Hi-C pairs that
-hits the expectation from \emph{HicExplorer} docs {[}ref row3{]}. With
-\emph{bwa}, the reads were discarded either due to low mapping quality
-or non-unique mates, whereas with \emph{local-bowtie2}, the reads were
-almost exclusively filtered out due to low mapping quality. This must be
-a result of how the mappers assign mapping quality, and I believe
-\emph{local-bowtie2} looks suspiciously selective in finding unique but
-low quality alignments. \emph{end-to-end-bowtie} almost exclusively
-filters out read-pairs where one mate is unmapped, which is expected
-when the majority of reads are unmapped.
 
 As discussed, the five samples were pooled with \texttt{hicSumMatrices},
 and the non-standard contigs (unplaced scaffolds) were filtered out, and
@@ -2314,10 +2266,10 @@ resolution, d-f: 100kb resolution. \emph{HiCExplorer}.}
 
 \subsection{Quality Control}\label{quality-control-1}
 
-As described, the pairtools module in MultiQC (Ewels et al. 2016) was
-used to visualize results from \texttt{pairtools\ stats} for the two
-parsing runs, see Figure~\ref{fig-pairtools-qc}. The peak at around 250
-bp is a techical artefact and should not be parsed into valid contacts.
+As described, the \texttt{pairtools} module in MultiQC was used to
+visualize results from \texttt{pairtools\ stats} for the two parsing
+runs, see Figure~\ref{fig-pairtools-qc}. The peak at around 250 bp is a
+techical artefact and should not be parsed into valid contacts.
 
 \subsubsection{\texorpdfstring{\texttt{-\/-walks-policy\ mask}}{-\/-walks-policy mask}}\label{walks-policy-mask}
 
@@ -2416,7 +2368,7 @@ are on a continouos molecule. Therefore, sharp contrasts represent a
 sudden drop in bin count (Figure~\ref{fig-rs-chrx-raw-balanced-cgi},
 raw) and should not be interpreted as devoid of interaction, but an
 indication that the data is not sufficient to interpret. It is then
-better to simply remove the bins in stead of correcting, which will also
+better to simply remove the bins instead of correcting, which will also
 amplify noise. Even with a high-quality Hi-C library we expect that all
 bins do not have the same coverage throughout(Lajoie, Dekker, and Kaplan
 2015), as restriction enzymes do not bind equally to all regions of the
@@ -2436,7 +2388,7 @@ regions, but misleading for chromosome-wide maps, where typically the
 centromere and extremities of the chromosome have filtered-out bins.
 Interpolation is further discussed below.
 
-The regions that are coarsgrained are small zero- or low-count bins
+The regions that are coarsegrained are small zero- or low-count bins
 which are averaged, effectively reducing the resolution of those regions
 until the count is sufficient. They get more frequent the longer genomic
 distance (the further we travel from the diagonal), and effectively
@@ -2768,7 +2720,7 @@ zones)}\label{compartment-edges-transition-zones}
 
 We compare how the ECH90 regions fit when queried on top of the
 A-compartments and equivalently for the edges, for fibroblasts and round
-spermatids at 100kb resolution. When queried against the edges in stead,
+spermatids at 100kb resolution. When queried against the edges instead,
 the the total set size is reduced to less than 50\%. Interestingly, some
 of the intersections between A-compartments and ECH90 remain, and new
 ones appear as we move to the outside edge of the compartment
@@ -2917,17 +2869,17 @@ The data for this analysis was provided by Kasper Munch in bed-like
 format, mapped to \emph{panu\_3.0} (PapAnu4) assembly. The intervals
 define genomic regions in a hybrid/migrating population of baboon where
 strong negative selection acts against minor parent ancestry (Sørensen
-et al. 2023). The segments had to be lifted to rheMac10 coordinates to
-be able to correlate the two sets of intervals. The original UCSC
-liftOver (Hinrichs 2006) is very strict and does not try to conserve
-segments in favor of accuracy e.g.~inversions or small indels, which
-results in highly fragmented regions when lifted to another assembly, if
-the segments are not continouos on the new assembly. For our analysis,
-it is not the exact genomic position or order of sub-genic regions that
-are important, but rather, the start and end coordinates of each segment
-are quantified. To favor preservation of segments, we use
-\emph{segment\_liftover} (Gao, Huang, and Baudis 2018), resulting in
-much more similar segments to the original
+et al. 2023). The segments had to be lifted to \emph{rheMac10}
+coordinates to be able to correlate the two sets of intervals. The
+original UCSC-liftOver (Hinrichs 2006) is very strict and does not try
+to conserve segments in favor of accuracy e.g.~inversions or small
+indels, which results in highly fragmented regions when lifted to
+another assembly, if the segments are not continouos on the new
+assembly. For our analysis, it is not the exact genomic position or
+order of sub-genic regions that are important, but rather, the start and
+end coordinates of each segment are quantified. To favor preservation of
+segments, we use \emph{segment\_liftover} (Gao, Huang, and Baudis 2018),
+resulting in much more similar segments to the original
 (Figure~\ref{fig-compare-liftover}). As no chain file from
 \emph{panu\_3.0} to \emph{Mmul\_10} was available, we used
 \emph{panu\_2.0} as intermediate.
@@ -2962,11 +2914,11 @@ PapAnu4--\textgreater PapAnu3--\textgreater rheMac10.}
 \end{figure}%
 
 Initially, the compartment edges of round spermatid at 100kb resolution
-(RS100) were plotted against the lifted coordinates from a \emph{P.}
-anubis-hamadryas hybrid population, where either all the sampled
-individuals have \emph{Papio anubis} ancestry or 95\% of the sampled
-individuals have \emph{Papio hamadryas} ancestry. Their respective
-intersections were plotted undeneath. We expect less intersection for
+(RS100) were plotted against the lifted coordinates from the baboon
+hybrid population, where either all the sampled individuals have olive
+(\emph{P. anubis}) ancestry or 95\% of the sampled individuals have
+hamadryas (\emph{P. hamadryas} ancestry. Their respective intersections
+were plotted underneath. We expect less intersection for
 \emph{hamadryas} than for \emph{anubis} as the total set size is much
 smaller. The compartment edges and \emph{Papio anubis}-derived
 regions(Figure~\ref{fig-baboon-rs100-intersect}; b) seem to be highly
@@ -2979,7 +2931,7 @@ seem intersect the compartment edges more centered on the chromosome
 (Figure~\ref{fig-baboon-rs100-intersect}; a). The proximity test
 initially ruled out that the non-intersecting parts of the respective
 regions were this proximal by chance. However, after updating the method
-to exclude whole segments that partially overlaps (in stead of keeping
+to exclude whole segments that partially overlaps (instead of keeping
 their non-overlapping parts), there was no statistical significance.
 Additionally, the Jaccard test revealed that the intersection between
 the RS100 and both Hi-\emph{P.hama} and Hi-\emph{P.anu} can be explained
@@ -3158,7 +3110,7 @@ more recent reference genome. With such a pipeline, it is now easy to
 extend the analysis to include more samples and other species.
 Additionally, if they had made the coordinates of the compartments
 available, I could probably have used them directly and start by
-comparing genomic intervals. In stead, this became a study more of Hi-C
+comparing genomic intervals. Instead, this became a study more of Hi-C
 data analysis than comparing genomic intervals.
 
 At the time of writing, the repository is \emph{almost there} w.r.t.
@@ -3173,7 +3125,7 @@ separate targets. A small amount of refactoring of the directory
 structure is required as well, because some files are fetched from a
 parent folder to the project directory. Additionally, the main workflow
 is intensive in I/O and could be heavily optimized by piping between
-commands in stead of writing the outputs to file and reading the files
+commands instead of writing the outputs to file and reading the files
 from the next command. However, that would make it harder to debug, as
 no checkpoints are saved. It would not be as efficient use of resources,
 which are requested on target level, as the analysis would have to run
@@ -3227,7 +3179,7 @@ have to do something like
 \end{Shaded}
 
 to use the plotting function directly within a notebook. However, it
-would have to modified to stop saving the plots as files in stead of
+would have to modified to stop saving the plots as files instead of
 sending them to the display, and it would still require reading from
 files. Clearly, it is not meant to be used directly within Python, as
 additionally, the CLI function simply is a wrapper for the
@@ -3428,7 +3380,7 @@ could capture some of the variance inherent to the Jaccard statistic,
 making it harder to isolate proximal, non-overlapping segments.
 
 The significant overlap between ECH regions, Fb, and RS at arms view is
-reproduced when testing at the compartment 1bp limits in stead of the
+reproduced when testing at the compartment 1bp limits instead of the
 200kb edges, although the significance is weakened a bit. The incresed
 p-value indicates that the full regions are important for for
 relationship. Surprisingly, the limits of both spermatogonia and
@@ -3732,6 +3684,10 @@ Lajoie, Bryan R., Job Dekker, and Noam Kaplan. 2015. {``The
 \emph{Methods (San Diego, Calif.)} 72 (January): 65--75.
 \url{https://doi.org/10.1016/j.ymeth.2014.10.031}.
 
+\bibitem[\citeproctext]{ref-li2013aligningsequencereadsclone}
+Li, Heng. 2013. {``Aligning Sequence Reads, Clone Sequences and Assembly
+Contigs with BWA-MEM.''} \url{https://arxiv.org/abs/1303.3997}.
+
 \bibitem[\citeproctext]{ref-lieberman-aiden2009comprehensivemappinglongrange}
 Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim
 Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009.
@@ -3798,6 +3754,10 @@ Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023.
 Male-Driven Reticulation in Baboons.''} \emph{Science} 380 (6648):
 eabn8153. \url{https://doi.org/10.1126/science.abn8153}.
 
+\bibitem[\citeproctext]{ref-thematplotlibdevelopmentteam2024matplotlibvisualizationpython}
+Team, The Matplotlib Development. 2024. {``Matplotlib: {Visualization}
+with {Python}.''} Zenodo. \url{https://doi.org/10.5281/ZENODO.10916799}.
+
 \bibitem[\citeproctext]{ref-thegalaxycommunity2024galaxyplatformaccessible}
 The Galaxy Community, Linelle Ann L Abueg, Enis Afgan, Olivier Allart,
 Ahmed H Awan, Wendi A Bacon, Dannon Baker, et al. 2024. {``The {Galaxy}
@@ -3821,6 +3781,11 @@ Shwetha C. Murali, Jason Fernandes, Philip C. Dishuck, et al. 2020.
 {``Sequence Diversity Analyses of an Improved Rhesus Macaque Genome
 Enhance Its Biomedical Utility.''} \emph{Science} 370 (6523): eabc6617.
 \url{https://doi.org/10.1126/science.abc6617}.
+
+\bibitem[\citeproctext]{ref-waskom2021seabornstatisticaldata}
+Waskom, Michael. 2021. {``Seaborn: Statistical Data Visualization.''}
+\emph{Journal of Open Source Software} 6 (60): 3021.
+\url{https://doi.org/10.21105/joss.03021}.
 
 \bibitem[\citeproctext]{ref-wolff2018galaxyhicexplorerweb}
 Wolff, Joachim, Vivek Bhardwaj, Stephan Nothjunge, Gautier Richard, Gina
