@@ -597,25 +597,23 @@ evolutionary pressures and genetic drivers. To ensure transparency and
 reproducibility, we adopt a comprehensive computational framework for
 publishing a version-controlled, fully reproducible analysis.
 
-We redo Hi-C analyses from a 2019 paper on the latest reference genome
-(\emph{rheMac10} or \emph{Mmul\_10}). We compare two Hi-C analysis
-frameworks, \emph{HiCExplorer} and \emph{cooler/cooltools} (Open2C), on
-a subset, finding Open2C to be most flexible and intuitive. The ICE
-method (Iterative Correction and Eigendecomposition) was used to infer
-conventional and refined A/B compartments for fibroblast and four stages
-of spermatogenesis.
+We compare two Hi-C analysis frameworks, \emph{HiCExplorer} and
+\emph{cooler/cooltools} (Open2C), on a subset, finding Open2C to be most
+flexible. The ICE method (Iterative Correction and Eigendecomposition)
+was used to infer conventional and refined A/B compartments for
+fibroblast and four stages of spermatogenesis.
 
 We find 200 kbp transition-zones between A/B-compartments on the X
 chromosomes in both fibroblasts and round spermatids that align well
 with strong selective sweeps in humans (ECH-regions), but not with
 strong negative selection in baboons (\emph{Papio} spp.). We find that
 most edges either overlap or are in significant proximity of each other
-when comparing selected regions human and baboons with A/B-compartments
-inferred Hi-C matrices at 100kb resolution and restricting
-eigendecomposition along the X chromosome to 10Mb windows. We discuss
-the biological meaning of these findings, where conserved chromatin
-features may help to retain non-advantageous alleles, hinting to the
-role of selfish genetic elements in genome
+when comparing regions under selection in human and baboons with
+A/B-compartments inferred Hi-C matrices at 100kb resolution and
+restricting eigendecomposition along the X chromosome to 10Mb windows.
+We discuss the biological meaning of these findings, where conserved
+chromatin features may help to retain non-advantageous alleles, hinting
+to the role of structural features aiding in genome
 evolution. % Insert the abstract text here
     \par % End the paragraph
     \vspace{2em} % Add vertical space
@@ -655,42 +653,63 @@ complex process that involves numeruous elements. Spermatogenesis, the
 process of forming male gametes, involves four stages of differentiation
 from a germ cell through \emph{spermatogonia}, \emph{pachytene
 spermatocyte}, and \emph{round spermatids} to \emph{spermatozoa} (Wang
-et al. 2019), and it is the basis of male reproduction. The specialized
+et al. 2019), and is the basis of male reproduction. The specialized
 cell division of meiosis neatly handles the pairing, recombination, and
 segregation of homologous chromosomes, thereby ensuring proper genetic
-distribution. Deeply understanding the molecular steps of reproduction
-and how our genetic material is inherited is essential in biology,
-bringing insight to areas such as speciation, population diversity, and
-infertility.
+distribution. A thorough understanding of the molecular steps of
+reproduction and how genetic material is inherited is essential in
+biology, bringing insight to areas such as speciation, population
+diversity, and infertility.
 
-Sex chromosomes behave differently than autosomes for several reasons.
-One reason is hemizygosity, where there is only one copy of a
-chromosome. The Y chromosome exist only in males, and no more than one
-copy is in each individual. The complexity increases when we tend to the
-X chromosome, which exist as single-copy in males and as two copies in
-females. This skewed ratio means that X chromosomes exist \(2/3\) of the
-time in females and only \(1/3\) of the time in males, and it is more
-exposed in males as there is no other copy to take over loss of
-function. It is also the underlying reasoning for Haldane's rule
-(Haldane 1922), postulating that the heterogametic sex (XY, ZW) is the
-first to dissapear or have severely lowered fitness (e.g.~sterility)
-when crossing different species. Even today, a hundred years later,
-there is only hypotheses as to why this is observed, including
-\emph{Y-incompatibility} (Y has to be compatible to X or autosomes),
-\emph{dosage compensation} (hybridisation deregulates crucial dosage
-compensation in heterogametes), \emph{dominance} (recessive genes causes
-sterility), \emph{faster-male} (male reproductive genes diverge faster
-than female), \emph{faster-X} (X-linked loci diverge faster than
-autosomal ones), and \emph{meiotic drive} (discrepancy between drivers
-and surpressors on sex chromosomes leads to sterility) (Cowell 2023).
-Additionally, while it appears to be the same phenomenon across multiple
-\emph{taxa} (even \emph{kingdoms}), it has received different
-explanations, and consensus for different species are not the same.
-Often times even, several of the listed explanations are described to be
-acting in collaboration (Lindholm et al. 2016). The complexity of
-selection on the X chromosome therefore still an area of active
-investigation, and several studies infer strong selection on the X
-chromosomes across primates, as discussed in the following.
+Sex chromosomes differ from autosomes in several ways, primarily due to
+their unique inheritance patterns and copy number. The Y chromosome is
+present only in males, with a single copy per individual. The X
+chromosome, on the other hand, has a more complex inheritance pattern:
+males have one copy, while females have two. As a result, X chromosomes
+spend two-thirds of their time in females and only one-third in males.
+This skewed ratio influences the dynamics of selection on the X
+chromosome. Furthermore, in males, the single-copy nature of the X
+chromosome (hemizygosity) means that any mutations or loss of function
+are directly exposed, as there is no second copy to compensate. This
+concept also underpins Haldane's rule (Haldane 1922), which states that
+in hybrids of two species, the heterogametic sex (e.g., XY in mammals,
+ZW in birds) is the first to exhibit reduced fitness, such as sterility,
+or to disappear entirely. Even a century later, the exact reasons for
+this phenomenon remain debated, with several hypotheses proposed. These
+include:
+
+\begin{itemize}
+\tightlist
+\item
+  Y-incompatibility: The Y chromosome must remain compatible with the X
+  chromosome or autosomes.
+\item
+  Dosage compensation: Hybridization may disrupt crucial dosage
+  compensation mechanisms in heterogametic individuals.
+\item
+  Dominance: Recessive deleterious alleles may cause sterility when
+  expressed in the heterogametic sex.
+\item
+  Faster-male evolution: Male reproductive genes may evolve more rapidly
+  than female ones, leading to incompatibilities.
+\item
+  Faster-X evolution: X-linked loci may diverge more quickly than
+  autosomal loci, contributing to hybrid sterility.
+\item
+  Meiotic drive: Conflicts between drivers and suppressors on sex
+  chromosomes may result in sterility.
+\end{itemize}
+
+These hypotheses highlight the intricate interplay between sex
+chromosomes, selection, and hybridization (Cowell 2023). Furthermore,
+although this phenomenon is observed across various taxa and even
+kingdoms, the underlying explanations differ, and there is no universal
+consensus for all species. In many cases, multiple mechanisms from the
+listed explanations are thought to act in concert (Lindholm et al.
+2016). The complexity of selection on the X chromosome remains an area
+of active research, with numerous studies suggesting strong selection
+pressures on the X chromosome across primates. This topic is explored in
+greater detail in the following sections.
 
 \subsection{Extended Common Haplotypes (ECH) on human
 X}\label{extended-common-haplotypes-ech-on-human-x}
@@ -744,9 +763,9 @@ result not only from strong selective sweeps but also from several
 factors in combination. Structural elements, such as physical linkage
 between the regions within ECHs, may facilitate coordinated selection,
 maintaining reduced diversity over extended genomic stretches.
-Additionally, sex-specific selective pressures, such as those linked to
-the unique transmission and evolutionary dynamics of the X chromosome,
-could contribute to this pattern. Further investigation is needed to
+Additionally, sex-specific pressures, such as those linked to the unique
+transmission and evolutionary dynamics of the X chromosome, could
+contribute to this pattern. Further investigation is needed to
 disentangle the roles of these mechanisms in shaping the genomic
 landscape of the X chromosome.
 
@@ -852,24 +871,25 @@ conserved between rhesus macaque and mouse, indicating a very important
 feature of the organization, but the author does not test whether
 genomic positions of the compartments are conserved between species.
 Extending their analysis of chromatin compartmentalization through
-spermatogenesis could make obvious starting points for investigating the
-relationship between yet another set of megabase-spanning regions and
-those of strong selection identified above.
+spermatogenesis could make an obvious starting point for investigating
+the relationship between yet another set of megabase-spanning regions
+and those of strong selection identified above.
 
 \section{3C: Chromatin Conformation
 Capture}\label{c-chromatin-conformation-capture}
 
-The first method to capture long-range interactions between pairs of
-loci was 3C, where spatially constrained ligation is performed followed
-by locus-specific PCR (Lieberman-Aiden et al. 2009). Then, inverse PCR
-was added to the pipeline (4C) and multiplexed ligation-mediated
-amplification (5C). Common for those methods is that they can not make a
-genome-wide analysis which is unbiased, as we have to chose pairs of
-target loci. Our DNA can be divided into different orders of structure.
-\emph{3C} focus on identifying the highest orders of organization inside
-the nucleus, that is, when the 30 nm thick coil of chromatin fibers
-folds into loops, Topologically Associating Domains (TADs), and
-chromatin compartments.
+The first method developed to capture long-range interactions between
+pairs of loci was 3C, which uses spatially constrained ligation followed
+by locus-specific PCR (Lieberman-Aiden et al. 2009). Subsequent
+advancements introduced inverse PCR (4C) and multiplexed
+ligation-mediated amplification (5C). A limitation common to these
+methods is their inability to perform genome-wide, unbiased analyses, as
+they require predefined pairs of target loci.
+
+DNA can be organized into different structural levels. 3C focuses on
+identifying the higher-order organization within the nucleus, such as
+when the 30 nm chromatin fiber folds into loops, Topologically
+Associating Domains (TADs), and chromatin compartments.
 
 \section{Hi-C: High-Throughput 3C}\label{hi-c-high-throughput-3c}
 
@@ -922,8 +942,8 @@ library preparation protocol by sedimentation-based cell sorting to
 separate live spermatogenic cells into different stages of
 differentiation, namely spermatogonia, pachytene spermatocyte, round
 spermatid, and spermatozoa. Then, the cells were fixed in their
-respective state before crosslinking. They use their own derived method
-for library preparation, termed small-scale \emph{in-situ} Hi-C,
+respective state before crosslinking. The authors use their own derived
+method for library preparation, termed small-scale \emph{in-situ} Hi-C,
 allegedly producing a high-quality Hi-C libary from as little as 500
 cells (capturing the variance of millions of cells).
 
@@ -966,28 +986,28 @@ The main difference between Hi-C libraries and standard paired-end
 libraries is the high fraction of chimeric reads in Hi-C. As a contact
 pair is crosslinked and ligated before sequencing, chimeric reads occur
 as a feature, and standard mapping techniques seeks to filter out this
-type of reads {[}ref{]}. Thus, we need specialized tools for rescuing
-chimeric reads. That said, we have to be cautious distinguishing the
-intended chimerism for Hi-C and that of technical artefacts. Any
-software for local alignment can be used for aligning reads from a Hi-C
-library. However, one should make sure to disable paired-end rescue mode
-if possible, otherwise each read in a pair (each mate) should be aligned
-separately (Lajoie, Dekker, and Kaplan 2015). This removes the
-assumption that the distance between mates fits a known distribution
-because the genomic sequences originate from a continuous DNA-fragment.
-For example, the \emph{bwa-mem} {[}ref{]} implementation of this (the
-\texttt{-P} option) activates the Smith-Waterman algorithm to rescue
-missing hits, but disables the search of hits that fit a `proper' pair.
-After alignment, each read is typically assigned to the nearest
-restriction fragment to enable categorization of pairs into different
-categories.
+type of reads (Lajoie, Dekker, and Kaplan 2015). Thus, we need
+specialized tools for rescuing chimeric reads. That said, we have to be
+cautious distinguishing the intended chimerism for Hi-C and that of
+technical artefacts. Any software for local alignment can be used for
+aligning reads from a Hi-C library. However, one should make sure to
+disable paired-end rescue mode if possible, otherwise each read in a
+pair (each mate) should be aligned separately (Lajoie, Dekker, and
+Kaplan 2015). This removes the assumption that the distance between
+mates fits a known distribution because the genomic sequences originate
+from a continuous DNA-fragment. For example, the \emph{bwa-mem} (Li
+2013) implementation of this (the \texttt{-P} option) activates the
+Smith-Waterman algorithm to rescue missing hits, but disables the search
+of hits that fit a `proper' pair. After alignment, each read is
+typically assigned to the nearest restriction fragment to enable
+categorization of pairs into different categories.
 
 Interestingly, this last step is not included by default in
-\emph{pairtools}, as {[}ref{]} observe very similar statistical
-properties on pairs that are either close or distant from the nearest
-restriction site. Thus, restriction fragment filters are not needed, and
-instead, a simple filter is applied against short-distance pairs that is
-automatically calibrated.
+\emph{pairtools}, as Open2C et al. (2024) observe very similar
+statistical properties on pairs that are either close or distant from
+the nearest restriction site. Thus, restriction fragment filters are not
+needed, and instead, a simple filter is applied against short-distance
+pairs that is automatically calibrated.
 
 \subsubsection{Identifying and Storing Valid Hi-C
 Pairs}\label{identifying-and-storing-valid-hi-c-pairs}
@@ -1056,36 +1076,36 @@ Matrices}\label{sec-matrix-qc}
 
 To determine the quality of the Hi-C library, most tools generate
 quality control log files at some point during the filtering steps,
-which can then be aggregated and analyzed (with e.g.~MultiQC {[}ref{]}).
-The ratios between the different ligation events can be informative
-about the quality of the Hi-C library. Here, both the distribution of
-discarded reads across categories, as well as the ratios between
-\emph{cis}/\emph{trans} interactions for a certain organism provide
-information about the library. For example, the biases of different
-aligners might be captured by comparing the reason why reads are
-discarded between two different aligners, as well as if there is a
-preference of \emph{cis} or \emph{trans} in an aligner itself. This
-allows for evaluating the mapping parameters as well as the filters
-applied downstream. Additionally, \(P(s)\), the contact probability as a
-function of genomic separation can be inspected as it should decay with
-increasing distance. The \emph{trans}/\emph{cis}-ratio can sometimes be
-a good indicator of the noise level in the library, and additionally,
-the level of random ligation events can be quantified by counting the
-number of \emph{trans} events occurring to mitochondrial genome. They
-should not occur naturally, as the mitochondrial genome is separated
-from the DNA in the nucleus. This method has some pitfalls that should
-be controlled for; some parts of the mitochondrial genome can be
-integrated into the host genome, and mitochondrial count may differ
-between cell-stages.
+which can then be aggregated and analyzed (with e.g.~MultiQC Ewels et
+al. (2016)). The ratios between the different ligation events can be
+informative about the quality of the Hi-C library. Here, both the
+distribution of discarded reads across categories, as well as the ratios
+between \emph{cis}/\emph{trans} interactions for a certain organism
+provide information about the library. For example, the biases of
+different aligners might be captured by comparing the reason why reads
+are discarded between two different aligners, as well as whether or not
+there is a preference of \emph{cis} or \emph{trans} in an aligner
+itself. This allows for evaluating the mapping parameters as well as the
+filters applied downstream. Additionally, \(P(s)\), the contact
+probability as a function of genomic separation can be inspected as it
+should decay with increasing distance. The \emph{trans}/\emph{cis}-ratio
+can sometimes be a good indicator of the noise level in the library, and
+additionally, the level of random ligation events can be quantified by
+counting the number of \emph{trans} events occurring to mitochondrial
+genome. They should not occur naturally, as the mitochondrial genome is
+separated from the DNA in the nucleus. This method has some pitfalls
+that should be controlled for; some parts of the mitochondrial genome
+can be integrated into the host genome, and mitochondrial count may
+differ between cell-stages.
 
 Typically, a filter against low mapping quality is applied on the data
 before constructing the interaction matrix (Hi-C matrix), and a
 conventional threshold is \(mapq < 30\) (Bicciato and Ferrari 2022).
 However, a considerable amount of reads do not pass that threshold, and
 thus we risk discarding potential valid information and should make sure
-to have enough data. Consequently, \emph{HicExplorer} defaults a lower
-threshold (\(mapq < 15\)), and \emph{pairtools} enforces no filter by
-default, but recommends setting this manually (starting at
+to have enough data. Consequently, \emph{HicExplorer} defaults to a
+lower threshold (\(mapq < 15\)), and \emph{pairtools} enforces no filter
+by default, but recommends setting this manually (starting at
 \(mapq < 30\)).
 
 A Hi-C interaction matrix simply maps the frequency of interactions
@@ -1098,8 +1118,8 @@ site. This leads to \textasciitilde12,000,000 and \textasciitilde800,000
 fragments, respectively. Very deep sequencing is required to achieve
 enough coverage to analyze the interaction matrix at the restriction
 fragment resolution, but, usually, such high resolution is not required.
-Therefore, it is practice to bin the genome into fixed bin sizes, which
-also enables a more efficient handling of the data if the full
+Therefore, it is common practice to bin the genome into fixed bin sizes,
+which also enables a more efficient handling of the data if the full
 resolution is not needed (e.g.~when plotting large regions such as a
 whole chromosome). The conventional format to store a Hi-C matrix,
 consisting of large multidimensional arrays, is HDF5. Each HDF5 file can
@@ -1107,11 +1127,11 @@ store all resolutions and metadata about the sample, resolutions
 typically ranging from 10kb to 1Mb. Typically, the stored resolutions
 should be multiples of the chosen base-resolution, as the lower
 resolutions are constructed by recursive binning of the base resolution.
-\emph{cooler} {[}ref{]} neatly offers efficient storage with sparse,
-upper-triangle symmetric matrices and naming-conventions of the groups
-in their \emph{.h5}-based file format, \emph{.cool}, and they provide a
-Python class \texttt{Cooler} as well for efficiently fetching and
-manipulating the matrices in Python.
+\emph{cooler} (Abdennur and Mirny 2020) neatly offers efficient storage
+with sparse, upper-triangle symmetric matrices and naming-conventions of
+the groups in their \emph{.h5}-based file format, \emph{.cool}, and they
+provide a Python class \texttt{Cooler} as well for efficiently fetching
+and manipulating the matrices in Python.
 
 \subsubsection{Inferring from the matrix (Calling
 Compartments)}\label{inferring-from-the-matrix-calling-compartments}
@@ -1142,13 +1162,13 @@ bins. Therefore, some bin-level filters are applied before balancing
 
 A widely used balancing method is Iterative Correction and
 Eigendecomposition (ICE) (Imakaev et al. 2012), which utilizes a
-data-driven approach for correcting multiplicative biases. Briefly, is
-based on an assumption of equal visibility of all loci, and uses the
+data-driven approach for correcting multiplicative biases. Briefly, ICE
+is based on an assumption of equal visibility of all loci, and uses the
 pairwise and genome-wide structure to generate a set of biases along
 with a map of relative interaction frequencies by iteratively dividing
 each row, then each column, by its mean until convergence. This results
 in a uniform coverage profile (corrected coverage), yielding a smoother
-interaction matrix with slower transitions, thus greatly reduces
+interaction matrix with slower transitions, thus greatly reducing
 visibility-induced biases. It does not distinguish between the sources
 of biases, and thus calculates a collective bias for each position.
 Imakaev et al. (2012) show that \emph{known} biases are factorizable by
@@ -1156,9 +1176,9 @@ comparing their results to predictions of restriction fragment biases,
 GC content, and mappability from a computationally intensive
 probabilistic approach. By showing that the product of those known
 biases explain \(>99.99%
-\) of the variability in their bias estimation, they argue both known
-and unknown biases will be captured with their iterative correction
-method (also denoted \emph{matrix balancing}).
+\) of the variability in their bias estimation, they argue that both
+known and unknown biases will be captured with their iterative
+correction method (also denoted \emph{matrix balancing}).
 
 Even with a binned, filtered, and balanced matrix, we are still left
 with the challenge of translating the matrix into biologically relevant
@@ -1175,9 +1195,10 @@ mutually exclusive. Lastly, the way interaction patterns are defined
 poses a challenge; we define the chromatin compartments to be the output
 of a method, the `E' in `ICE', eigendecomposition, not as a specific
 pattern that we can explicitly search for. Although experimentally
-verified to tightly correlate with chromatin states, the inferred
-compartments vary with different methods of calculating the eigenvector,
-as dicussed in Section~\ref{sec-methods-eigendecomposition} and
+verified to tightly correlate with chromatin states (Lieberman-Aiden et
+al. 2009), the inferred compartments vary with different methods of
+calculating the eigenvector, as dicussed in
+Section~\ref{sec-methods-eigendecomposition} and
 Section~\ref{sec-results-eigenvectors}. To further complicate the
 challenge, interaction patterns on different scales co-exist and are
 difficult to disentangle without simplifying assumptions such as
@@ -1188,29 +1209,29 @@ speculative exercise to interpret the biological relevance of an
 observed pattern, but the consensus is to call compartments on
 interacting regions that arise from the eigendecomposition of a Hi-C
 matrix without further modifications (Lajoie, Dekker, and Kaplan 2015).
-As the eigenvector is only unique up to a sign, a phasing track is used
-to orient the eigenvector, aiming for a positive correlation with GC
-content (in mammals), making A-compartments represent the active
+As the eigenvector is only unique up to a sign change, a phasing track
+is used to orient the eigenvector, aiming for a positive correlation
+with GC content (in mammals), making A-compartments represent the active
 euchromatin, and B-compartments the closed heterochromatin.
 
 \subsubsection{Compartment Edges and Genomic
 Intervals}\label{compartment-edges-and-genomic-intervals}
 
-As arbitrary as a compartment may be defined, we chose to define another
-genomic interval for analysis. It is well (Bicciato and Ferrari 2022,
-Ch. 3) known that CTCF and other structural proteins preferentially
-binds to Topologically Associating Domains (TADs; they were initially
-defined as sub-Mb chromatin structures (Lajoie, Dekker, and Kaplan
-2015), but now the definition seems to vary based on the method of
-extraction (Open2C et al. 2022)). Derived from this, we define a
-transition zone between A/B compartments to look for enrichment of
+As arbitrarily as a compartment may be defined, we chose to define
+another genomic interval for analysis. It is well known that CTCF and
+other structural proteins preferentially binds to Topologically
+Associating Domains (Bicciato and Ferrari 2022, Ch. 3) (TADs; they were
+initially defined as sub-Mb chromatin structures (Lajoie, Dekker, and
+Kaplan 2015), but currently the definition seems to vary based on the
+method of extraction (Open2C et al. 2022)). Derived from this, we define
+a transition zone between A/B compartments to look for enrichment of
 specific regions of interest.
 
 We can test if two sets of genomic intervals correlate (say, compartment
 edges and ECH regions) by either proximity of the non-intersecting parts
 of the sets, or by intersection over union (Jaccard index). When the
 underlying distribution of a statistic (or index) is unknown, a
-widespread method in bioinformatics for estimating a p-value is by
+widespread method in statistics for estimating a p-value is by
 bootstrapping. Here, one of the sets are bootstrapped (the intervals are
 placed at random positions) a number of times, \(b\), and the fraction
 of statistics more extreme than the one we observe is reported as the
@@ -1307,22 +1328,22 @@ sequentially as part of the workflow as well. \\
 (HPC)}\label{gwf-workflow-management-for-high-performance-computing-hpc}
 
 To enable consistently reproducing the analyses, a workflow manager is
-utilized. Several exist, but the most well-known must be
-\emph{Snakemake}. However, we use the pragmatic (their own words),
-lightweight workflow manager \emph{gwf}, which is optimized for the
-GenomeDK insfrastructure, and has the benefit of in-house support.
+utilized. Several exist, but the most well-known is likely Snakemake.
+However, we use the pragmatic (authors' own words), lightweight workflow
+manager GWF, which is optimized for the GenomeDK insfrastructure, and
+has the benefit of in-house support.
 
-Briefly, \emph{gwf} works on a python script, conventionally
+Briefly, GWF works on a python script, conventionally
 \texttt{workflow.py}, that wraps all the jobs (\emph{targets} in gwf
 lingo) you will submit to the HPC cluster. Each target is submitted from
 a template, written as a Python function, which includes \texttt{inputs}
-and \texttt{outputs} that \emph{gwf} should look for when building the
-depency graph, \texttt{options} list of resources that is forwarded to
-the queueing system (\emph{Slurm} in our case), and \texttt{specs},
-specifying the submission code in Bash as a formatted Python string
-(meaning we can pass Python variables to the submission code), providing
-an extremely flexible framework for running large and intensive analyses
-in a high-performance computing environment.
+and \texttt{outputs} that GWF should look for when building the depency
+graph, \texttt{options} list of resources that is forwarded to the
+queueing system (Slurm in our case), and \texttt{specs}, specifying the
+submission code in Bash as a formatted Python string (meaning we can
+pass Python variables to the submission code), providing an extremely
+flexible framework for running large and intensive analyses in a
+high-performance computing environment.
 
 \subsection{Project Initialization}\label{project-initialization}
 
@@ -1387,11 +1408,11 @@ the manuscript. Third, when rendering large projects that is tracked by
 git, some output files (that have to be tracked to publish the website)
 can exeed GitHub size limits. Especially if rendering in the \emph{jats}
 format, producing a MECA Bundle that should be the most flexible way to
-exchange manuscripts {[}ref{]}. However, as not applicable to this
-thesis, the option was simply disabled. Fourth, some functionality
-relies on external dependencies that cannot be installed on a (linux)
-remote host (GenomeDK), such as relying on a browser for converting
-\texttt{mermaid} diagrams into png for the pdf-manuscript.
+exchange manuscripts. However, as not applicable to this thesis, the
+option was simply disabled. Fourth, some functionality relies on
+external dependencies that cannot be installed on a (linux) remote host
+(GenomeDK), such as relying on a browser for converting \texttt{mermaid}
+diagrams into png for the pdf-manuscript.
 
 \subsection{git and GitHub}\label{git-and-github}
 
@@ -1409,29 +1430,28 @@ publishes the project on the group website
 All computations were performed on GenomeDK (GDK), an HPC cluster
 located on Aarhus Uninversity, and most of the processing of the data
 was made into a custom GWF workflow, a workflow manager developed at
-GDK. I would like to thank GDK and Aarhus University for providing
-computational resources and support that contributed to these research
-results.
+GDK.
 
 With the analysis tools determined in the above section, I decided it
 was not feasible to follow the exact approach as Wang et al. (2019) with
 any of HiCExplorer and Open2C, as they use a third software, HiC-Pro.
 For mapping the raw reads, Hic-Pro internally uses bowtie2 in end-to-end
 mode, followed by trimming the 3'-end of the unmapped reads, then
-remapping the 5'-ends to rescue chimeric fragments. I mapped the reads
-using end-to-end-bowtie2 without the rescue-remapping, and it returned a
-very high fraction of discarded reads, and it would be silly to spend
-time on implementing the remapping approach manually. When redoing
-analyses, it is not sensical to use methods that are not
-state-of-the-art, and judged by the time since last release (HiC-Pro
-v3.1.0 in 2021), both HiCExplorer and Open2C are more recent.
-Additionally, the HiC-Pro pipeline stops at a normalized contact map,
-and is thus not sufficient for downstream analysis. In hindsight, it
-would have been more sensical to use HiC-Pro to get normalized contact
-maps, then continue analyzing with cooler/cooltools, and finally compare
-the results evenly with the results achieved from using Open2C from
-start to finish. Figure~\ref{fig-hic-tools-comparison} gives an overview
-of the 3 pipelines metioned in this report.
+remapping the 5'-ends to rescue chimeric fragments. I initially mapped
+the reads using end-to-end Bowtie2 without the rescue-remapping feature,
+resulting in a very high fraction of discarded reads. Manually
+implementing the remapping approach would be impractical. When
+reanalyzing data, it is important to use state-of-the-art tools.
+Considering the release timeline (e.g., HiC-Pro v3.1.0 in 2021), both
+HiCExplorer and Open2C are more recent and likely offer better support
+for current methodologies. Additionally, the HiC-Pro pipeline stops at a
+normalized contact map, and is thus not sufficient for downstream
+analysis. In hindsight, it would have been more sensical to use HiC-Pro
+to get normalized contact maps, then continue analyzing with
+cooler/cooltools, and finally compare the results evenly with the
+results achieved from using Open2C from start to finish.
+Figure~\ref{fig-hic-tools-comparison} gives an overview of the 3
+pipelines metioned in this report.
 
 \begin{figure}
 
@@ -1596,15 +1616,16 @@ first 3 PCs.
 
 The matrix plotting function, \texttt{hicPlotMatrix}, plots matrices
 directly to .png, and so there is no output sent to the Jupyter display.
-As I kept the analysis in a Jupyter Notebook (using the builtin
+As I kept the analysis in a Jupyter Notebook (using the buikt-in
 shell-escape commands to execute \texttt{bash} code), the plot files
-must be embedded back into the notebook. There is limited support for
-modifying the plot (from command-line options), such as to add spacing
-for a bigWig track with E1 values, add plot titles, and define the size
-and resolution of the plot. I briefly tried to implement a plotting
-function on the .h5 matrices and bigWig tracks, but it could not fetch
-regions from a matrix on the fly and had to load the full matrix into
-memory (that is, all full-length chromosomes).
+must be embedded back into the notebook. The command-line options for
+modifying plots are quite limited, such as adding spacing for a bigWig
+track with E1 values, including plot titles, or defining the size and
+resolution of the plot. I made a brief attempt to implement a custom
+plotting function for the .h5 matrices and bigWig tracks. However, this
+approach had a major limitation: it could not fetch specific regions
+from the matrix dynamically and instead required loading entire matrices
+into memory, including full-length chromosomes.
 
 \section{Open2C pipeline}\label{open2c-pipeline}
 
@@ -1639,19 +1660,19 @@ low-hanging fruit to parallelize the download for efficiency.
 
 \subsubsection{Mapping Hi-C reads}\label{mapping-hi-c-reads}
 
-Suspiciously, ({``Open {Chromosome Collective} ({Open2C})''} n.d.) never
-mentions any problems with aligning the Hi-C reads, they just provide an
-example using bwa-mem in paired-end mode and with the \texttt{-P} option
-set, which activates the Smith-Waterman (Li 2013) algorithm to rescue
-missing hits, by focusing on assigning only one of the mates to a good
-mapping and escape mate-rescue. The documentation of
+Suspiciously, ({``{Open2C}''} n.d.) do not mention any problems with
+aligning the Hi-C reads, they just provide an example using bwa-mem in
+paired-end mode and with the \texttt{-P} option set, which activates the
+Smith-Waterman (Li 2013) algorithm to rescue missing hits, by focusing
+on assigning only one of the mates to a good mapping and escape
+mate-rescue. The documentation of
 \href{https://bio-bwa.sourceforge.net}{\texttt{bwa}} state that both
 bwa-mem and bwa-sw will rescue chimeric reads. Consequently, Open2C does
-not have a builtin way of pairing the reads after mapping, and the reads
-were thus mapped using Open2C's recommendations, using their established
-pipeline for producing a cooler. I chose the latter, where I mapped the
-fastq files to \emph{rheMac10} in paired end mode for a pair (\(m1\),
-\(m2\)) with \texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
+not have a buikt-in way of pairing the reads after mapping, and the
+reads were thus mapped using Open2C's recommendations, using their
+established pipeline for producing a cooler. I chose the latter, where I
+mapped the fastq files to \emph{rheMac10} in paired end mode for a pair
+(\(m1\), \(m2\)) with \texttt{bwa\ mem\ -SP\ rheMac10\ m1\ m2}.
 
 \subsubsection{Parse and sort the reads}\label{parse-and-sort-the-reads}
 
@@ -1728,10 +1749,10 @@ section). As both results are saved, we can compare the two approaches.
 pairs}\label{filter-and-deduplicate-pairs}
 
 Pairtools comes with a de-duplication function, \texttt{dedup}, to
-detect PCR duplication artefacts. At this point we will remove all reads
-that are mapped to an unplaced scaffold. Even though \emph{rhemac10} is
-less fragmented than \emph{rhemac8} , \emph{rheMac10} still contains
-more than 2,500 unplaced scaffolds, which are all uninformative when
+detect PCR duplication artefacts. At this point I removed all reads that
+mapped to an unplaced scaffold. Even though \emph{rhemac10} is less
+fragmented than \emph{rhemac8} , \emph{rheMac10} still contains more
+than 2,500 unplaced scaffolds, which are all uninformative when
 calculating the chromatin compartments as is the goal of this analysis.
 Therefore, we simply only include the list of conventional chromosomes
 (1..22, X, Y) when doing the deduplication. Initially, the default
@@ -1755,9 +1776,9 @@ directly from the newly generated deduplicated pairs without additional
 filtering, but the official recommendation is to filter out everything
 below \(mapq = 30\) by piping the pairs through
 \texttt{pairtools\ select\ "(mapq1\textgreater{}=30)\ and\ (mapq2\textgreater{}=30)"}
-to \texttt{cooler\ cload\ pairs}. I then re-parsed the alignments and
-created new coolers, including only the Hi-C contacts where
-\(mapq \leq 30\), following the current recommendations from Open2C.
+to \texttt{cooler\ cload\ pairs}. I re-parsed the alignments and created
+new coolers, including only the Hi-C contacts where \(mapq \leq 30\),
+following the current recommendations from Open2C.
 
 \subsubsection{Pooling samples (Merging
 coolers)}\label{pooling-samples-merging-coolers}
@@ -1783,9 +1804,9 @@ resolutions in the same file by adding HDF5-groups to the
 (multires-)cooler. We can then efficiently store resolutions (i.e.,
 different bin sizes) that is multiples of the smallest bin size. We
 chose to use 10kb, 50kb, 100kb, and 500kb bins, and the resolutions are
-made by recursively binning the base resolution. They call this process
-zoomifying, and \texttt{cooler\ zoomify} does the job (it recursively
-calls \texttt{cooler\ coarsen} to merge bins).
+made by recursively binning the base resolution. Abdennur and Mirny
+(2020) call this process zoomifying, and \texttt{cooler\ zoomify} does
+the job (it recursively calls \texttt{cooler\ coarsen} to merge bins).
 
 \subsubsection{Matrix balancing (Iterative
 correction)}\label{matrix-balancing-iterative-correction}
@@ -1795,9 +1816,9 @@ use \texttt{cooler\ balance} with the default options which iteratively
 balances the matrix (Iterative Correction).
 
 We balance the matrices on each resolution, and thus it cannot be done
-prior to zoomifying. They (Abdennur and Mirny (2020)) state that the
-balancing weights are resolution-specific and will no longer retain its
-biological meaning when binned with other weights. Therefore, we apply
+prior to zoomifying. Abdennur and Mirny (2020) state that the balancing
+weights are resolution-specific and will no longer retain its biological
+meaning when binned with other weights. Therefore, we apply
 \texttt{cooler\ balance} to each resolution separately.
 \texttt{cooler\ balance} will create a new column in the \texttt{bins}
 group of each cooler, \texttt{weight}, which can then be included or not
@@ -1883,7 +1904,7 @@ I implemented a plotting utility, \texttt{plot\_for\_quarto} in notebook
 \texttt{07\_various\_plotting.ipynb} that is compatible with the YAML
 cell-options read by Quarto's \texttt{embed} shortcode. It will take an
 arbitrary number of samples and plot a chromosome (or region) with or
-without its respective E1 value for either of the three viewframes that
+without its respective E1 value for either of the three viewframes which
 has been created. The input is a (subsetted) \emph{pandas DataFrame},
 defined from a file search matching a pattern specified to the
 \texttt{glob} Python module.
@@ -1955,7 +1976,7 @@ necessary to correct the conventional significance threshold,
 
 The separately mapped read-mates were parsed into a \emph{.h5}
 interaction matrix by \texttt{hicBuildMatrix}, which include a
-\emph{.log} file documenting the builtin quality control (hereafter,
+\emph{.log} file documenting the buikt-in quality control (hereafter,
 \emph{QC}). Log files from the 5 samples were merged with \texttt{hicQC}
 (Figure~\ref{fig-explorer-all-3-qc}). I observe equal fractions of the
 read-orientation of read-pairs (Figure~\ref{fig-explorer-all-3-qc},
@@ -3255,7 +3276,7 @@ available from the authors. In hindsight, it could have been informative
 to request the analyzed datat from the authors. The predicted
 compartments from cooler qualitatively aligned very well with the ones
 predicted by Wang et al. (2019) if their track was split in the region
-of the centromere. We confidently rationalize that the reason we have to
+of the centromere. I confidently rationalize that the reason I have to
 split in the centromeric region is the newly, more accurate reference
 genome. As it \emph{rheMac10} has closed a high amount of gaps since
 last reference (most of which are expected around the centromere), we
@@ -3432,9 +3453,9 @@ gene drive, as it remains a contentious concept among biologists.
 Selection}\label{gene-drive-selfishness-and-its-effect-on-selection}
 
 Gene drive occur when a particular collection of genes is propagated
-through a population by increasing the probability of transmitting the
-genes to the offspring from random (Mendelian) inheritance, resulting in
-a biased gene transmission against its alternative (referred to as
+through a population by increasing the probability of transmitting genes
+to the offspring from random (Mendelian) inheritance, resulting in a
+biased gene transmission against its alternative (referred to as
 \emph{transmission advantage}). Two categories of gene drivers exist
 (Bravo Núñez, Nuckolls, and Zanders 2018); \emph{class one drivers}
 affect chromosome segregation in meiosis, and \emph{killer meiotic
@@ -3445,7 +3466,7 @@ there often a factor offsetting classical selection. Even though the
 implications of such systems are potentially detrimental, they are
 notoriously difficult to detect. A circumstance contributing to the
 difficulty is that most genetic experiments are done in homozygotes.
-Bravo Núñez, Nuckolls, and Zanders (2018) states that the general choice
+Bravo Núñez, Nuckolls, and Zanders (2018) state that the general choice
 of experimental system may have biased our understanding of sexual
 reproduction. A key point is; meiotic drivers can only be observed in
 heterozygotes, where a genetic driver has a competitor.
@@ -3453,7 +3474,7 @@ heterozygotes, where a genetic driver has a competitor.
 If an autosomal driver reaches fixation, it no longer has a target to
 act against, and consequently the driving phenotype will not be observed
 (Bravo Núñez, Nuckolls, and Zanders 2018). Over time, as there is
-neither selfish nor selective pressure to maintain the drive mechanism
+neither selfish nor selective pressure to maintain the driving mechanism
 of a fixed driver, the mechanism will decay as it accumulates
 inactivating mutations. As a result, genetic drivers are said to be
 transient (Bravo Núñez, Nuckolls, and Zanders 2018) on an evolutionary
@@ -3471,7 +3492,7 @@ suppressors will be favored with a process termed \emph{Fisher's sex
 ratio selection} (Lindholm et al. 2016.)
 
 A driving element on X may target a region on Y, mitigating the risk of
-self-destruction and increasing its frequency at the same time. However
+self-destruction and increasing its frequency at the same time. However,
 as it induces a skewed sex-ratio by limiting the number of functioning
 Y-bearing spermatozoa, the selection on Y to counter this effect is
 strong, engaging an evolutionary arms race between driving allele and
@@ -3479,14 +3500,14 @@ its supressor, potentially explaining stable Y chromosome polymorphisms
 (Jaenike 2001). However, the Y chromosome only exist in the male
 population and a supressor on Y has only limited effect on the X
 chromosome on a population-scale compared to its autosomal cousins,
-which consequently often harbours supressors of X-drive, as they are
+which consequently often harbour supressors of X-drive, as they are
 passed down to more offspring than the Y chromosome. The fight between a
 driver and a supressor in their coevolution is linked to the chromosomal
 architecture, as they have been shown to be protected by low-recombining
 regions or chromosomal inversions, and to be mediating the evolution of
 karyotype (Lindholm et al. 2016). Thus, the structural features of a
 chromosome not only shield genetic drivers but influence the patterns of
-synteny, which, in turn, is shaped by both selection and genomic
+synteny, which, in turn, are shaped by both selection and genomic
 constraints.
 
 The interplay between selfish genetic elements, such as gene drivers,
@@ -3712,8 +3733,8 @@ Munch, Kasper. 2024. {``Munch-Group.''}
 https://munch-group.org/research.html.
 
 \bibitem[\citeproctext]{ref-openchromosomecollective}
-{``Open {Chromosome Collective} ({Open2C}).''} n.d. Resource.
-\emph{Open2C}. https://open2c.github.io/. Accessed November 13, 2024.
+{``{Open2C}.''} n.d. Resource. \emph{Open {Chromosome Collective}}.
+https://open2c.github.io/. Accessed November 13, 2024.
 
 \bibitem[\citeproctext]{ref-open2c2022cooltoolsenablinghighresolution}
 Open2C, Nezar Abdennur, Sameer Abraham, Geoffrey Fudenberg, Ilya M.
