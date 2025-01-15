@@ -238,14 +238,15 @@ All computations were performed on GenomeDK (GDK), an HPC cluster located on Aar
 With the analysis tools determined in the above section, I decided it was not feasible to follow the exact approach as @wang2019reprogrammingmeioticchromatin with any of HiCExplorer and Open2C, as they use a third software, HiC-Pro. For mapping the raw reads, Hic-Pro internally uses bowtie2 in end-to-end mode, followed by trimming the 3'-end of the unmapped reads, then remapping the 5'-ends to rescue chimeric fragments. I initially mapped the reads using end-to-end Bowtie2 without the rescue-remapping feature, resulting in a very high fraction of discarded reads. Manually implementing the remapping approach would be impractical. When reanalyzing data, it is important to use state-of-the-art tools. Considering the release timeline (e.g., HiC-Pro v3.1.0 in 2021), both HiCExplorer and Open2C are more recent and likely offer better support for current methodologies. Additionally, the HiC-Pro pipeline stops at a normalized contact map, and is thus not sufficient for downstream analysis. In hindsight, it would have been more sensical to use HiC-Pro to get normalized contact maps, then continue analyzing with cooler/cooltools, and finally compare the results evenly with the results achieved from using Open2C from start to finish. @fig-hic-tools-comparison gives an overview of the 3 pipelines metioned in this report.
 
 ::: {#fig-hic-tools-comparison}
-![](illustrations/placeholder2000x360.png){width="80%" height="50%"}
 
-A 3-column flow of HiC-Pro, HiCExplorer, and Open2C
+![](illustrations/fig-hic-tools-comparison.png)
+
+A 3-column flowchart of HiC-Pro, HiCExplorer, and Open2C
 :::
 
 ## Fetching raw data
 
-To reproduce the results from @wang2019reprogrammingmeioticchromatin, I chose to use their raw data directly from the SRA portal [ref]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The dataset also contains RNAseq data, and the same tissues for both macaque and mouse. The metadata for the dataset was extracted into a runtable `SRA-runtable.tsv`. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (@tbl-runtable-summary). It adds up to \~1Tb of compressed `fastq` files, holding \~9.5 billion reads, roughly evenly spread on the 5 tissue types.
+To reproduce the results from @wang2019reprogrammingmeioticchromatin, I chose to use their raw data directly from the SRA portal [@sayers2022databaseresourcesnational]. I filtered the data to contain all their paired-end Hi-C reads, and included only macaque samples. The dataset also contains RNAseq data, and the same tissues for both macaque and mouse. The metadata for the dataset was extracted into a runtable `SRA-runtable.tsv`. To get an overview of the data accessions used in this analysis, we will first summarize the runtable that contains the accession numbers and some metadata for each sample (@tbl-runtable-summary). It adds up to \~1Tb of compressed `fastq` files, holding \~9.5 billion reads, roughly evenly spread on the 5 tissue types.
 
 {{< embed ../notebooks/03_compartments.ipynb#tbl-runtable-summary >}}
 
@@ -264,13 +265,6 @@ hicBuildMatrix -s sample_R1.bam sample_R2.bam -o matrix.h5 [...]
 
 For parsing, the command needs a `--restrictionCutFile`, locating the restriction sites from the restriction enzyme used on the reference genome, which is generated with `hicFindRestSites` that operates on the reference genome and restriction sequence. The default filter, `--minMappingQuality 15`, was applied as described in @sec-matrix-qc. Notably, HiCExplorer has no options on handling multiple ligations, and the method is undocumented. I assume that @ramirez2018highresolutiontadsreveal have implemented a conservative handling (masking all multiple ligations), as that would have the least consequence. 
 
-::: {#fig-hicexplorer-workflow}
-
-![](illustrations/placeholder2000x360.png){width="70%"}
-
-Overview of the target templates used for hicexplorer. As most operations are handled by `hicBuildMatrix`, it is rather simple. 
-:::
-
 {{< embed ../notebooks/01_hicexplorer.ipynb#tbl-hic-exploration >}}
 
 For the initial exploration of methods with HiCExplorer, I chose five fibroblast samples (see @tbl-hic-exploration). The goal was to replicate some of the figures from @wang2019reprogrammingmeioticchromatin using HiCExplorer, especially to reconstruct interaction matrices and E1 graphs from macaque data. We constructed matrices with `hicBuildMatrix` as described from the separately mapped read-pairs. Along with the matrix *.h5* file, a *.log* file was created as well, documenting the quality control for the sample. Multiple logs were aggregated and visualized with `hicQC`.
@@ -280,12 +274,6 @@ Before correction (or balancing) of the interaction matrix, a pre-correction fil
 The matrix plotting function, `hicPlotMatrix`, plots matrices directly to .png, and so there is no output sent to the Jupyter display. As I kept the analysis in a Jupyter Notebook (using the buikt-in shell-escape commands to execute `bash` code), the plot files must be embedded back into the notebook. The command-line options for modifying plots are quite limited, such as adding spacing for a bigWig track with E1 values, including plot titles, or defining the size and resolution of the plot. I made a brief attempt to implement a custom plotting function for the .h5 matrices and bigWig tracks. However, this approach had a major limitation: it could not fetch specific regions from the matrix dynamically and instead required loading entire matrices into memory, including full-length chromosomes.
 
 ## Open2C pipeline
-
-::: {#fig-flowchart-handling-coolers}
-![](illustrations/placeholder2000x360.png)
-
-Showing the GWF target templates used with the Open2C pipeline. As it is highly modular, it is also a bit elaborate. 
-:::
 
 A GWF workflow was created to handle the first part of the data processing, and each accesion number (read pair, mate pair) from the Hi-C sequencing was processed in parallel, so their execution was independent from each other.
 
@@ -474,15 +462,13 @@ Results of `pairtools stats` run on all samples from the two walks-policies. Lef
 
 ### Correction
 
-Matrix balancing did not show major improvement in the plaid pattern, as it already showed the expected pattern. It does, however, filter out bins that are deemed too low-count to be informative, for example peri-centromeric regions. The matrix was expected to be smoother after balancing (for chromosome-wide maps), as regions along a chromosome should only vary slowly in contact frequency with other regions as they are on a continouos molecule. Therefore, sharp contrasts represent a sudden drop in bin count (@fig-rs-chrx-raw-balanced-cgi, raw) and should not be interpreted as devoid of interaction, but an indication that the data is not sufficient to interpret. It is then better to simply remove the bins instead of correcting, which will also amplify noise. Even with a high-quality Hi-C library we expect that all bins do not have the same coverage throughout[@lajoie2015hitchhikersguidehic], as restriction enzymes do not bind equally to all regions of the genome, and therefore, some bins will be underrepresented as an artefact of binding/cutting efficieny of the restriction enzyme used. 
+Matrix balancing did not show major improvement in the plaid pattern, as it already showed the expected pattern. It does, however, filter out bins that are deemed too low-count to be informative, for example peri-centromeric regions. The matrix was expected to be smoother after balancing (for chromosome-wide maps), as regions along a chromosome should only vary slowly in contact frequency with other regions as they are on a continouos molecule. Therefore, sharp contrasts represent a sudden drop in bin count (@fig-rs-chrx-raw-balanced-cgi-both-1, raw) and should not be interpreted as devoid of interaction, but an indication that the data is not sufficient to interpret. It is then better to simply remove the bins instead of correcting, which will also amplify noise. Even with a high-quality Hi-C library we expect that all bins do not have the same coverage throughout[@lajoie2015hitchhikersguidehic], as restriction enzymes do not bind equally to all regions of the genome, and therefore, some bins will be underrepresented as an artefact of binding/cutting efficieny of the restriction enzyme used. 
 
-We can try to mitigate the white lines of empty bins that now appear in the matrices. The coarsegrained and interpolated matrix is useful to make a good-looking interaction matrix, but is not that useful for analysis purposes. It might get easier to visually inspect the matrix, but it is not clear how well the interpolated matrix reflects the structure of the chromatin, and it is not transparent which regions are interpolated and which that are not. I find it purposeful for interpolation on high-resolution (zoomed-in) views (@fig-rs-chrx-raw-balanced-cgi-subset) with small empty regions, but misleading for chromosome-wide maps, where typically the centromere and extremities of the chromosome have filtered-out bins. Interpolation is further discussed below.
+We can try to mitigate the white lines of empty bins that now appear in the matrices. The coarsegrained and interpolated matrix is useful to make a good-looking interaction matrix, but is not that useful for analysis purposes. It might get easier to visually inspect the matrix, but it is not clear how well the interpolated matrix reflects the structure of the chromatin, and it is not transparent which regions are interpolated and which that are not. I find it purposeful for interpolation on high-resolution (zoomed-in) views (@fig-rs-chrx-raw-balanced-cgi-both-2) with small empty regions, but misleading for chromosome-wide maps, where typically the centromere and extremities of the chromosome have filtered-out bins. Interpolation is further discussed below.
 
-The regions that are coarsegrained are small zero- or low-count bins which are averaged, effectively reducing the resolution of those regions until the count is sufficient. They get more frequent the longer genomic distance (the further we travel from the diagonal), and effectively enables us to get some intuition about the interactions. The coarsegrain, however, does not interpolate the `NaN`s created when filtering out whole bins in the balancing step (horisontal and vertical lines in @fig-rs-chrx-raw-balanced-cgi and @fig-rs-chrx-raw-balanced-cgi-subset; middle). This is done in a subsequent step by linearly interpolating the `NaN`s. Examining the interpolated matrix on full chrX (@fig-rs-chrx-raw-balanced-cgi; right) gives the impression that the pericentromeric (at \~60 Mbp) region harbours a *very* strong compartment, but that is clearly an artefact of the interpolation on the very large empty region of the centromere, where the diagonal is somehow extended in a square. On the thinner lines, the interpolation seem to be more smooth, and barely noticable on the diagonal.
+The regions that are coarsegrained are small zero- or low-count bins which are averaged, effectively reducing the resolution of those regions until the count is sufficient. They get more frequent the longer genomic distance (the further we travel from the diagonal), and effectively enables us to get some intuition about the interactions. The coarsegrain, however, does not interpolate the `NaN`s created when filtering out whole bins in the balancing step (horisontal and vertical lines in @fig-rs-chrx-raw-balanced-cgi-both-1 and @fig-rs-chrx-raw-balanced-cgi-both-2; middle). This is done in a subsequent step by linearly interpolating the `NaN`s. Examining the interpolated matrix on full chrX (@fig-rs-chrx-raw-balanced-cgi-both-1; right) gives the impression that the pericentromeric (at \~60 Mbp) region harbours a *very* strong compartment, but that is clearly an artefact of the interpolation on the very large empty region of the centromere, where the diagonal is somehow extended in a square. On the thinner lines, the interpolation seem to be more smooth, and barely noticable on the diagonal.
 
-{{< embed ../notebooks/05_rec_compartments.ipynb#fig-rs-chrx-raw-balanced-cgi >}}
-
-{{< embed ../notebooks/05_rec_compartments.ipynb#fig-rs-chrx-raw-balanced-cgi-subset >}}
+{{< embed ../notebooks/05_rec_compartments.ipynb#fig-rs-chrx-raw-balanced-cgi-both >}}
 
 #### `NaN` histograms
 
@@ -591,7 +577,7 @@ The eigenvectors resulting from Open2C line up very well with the ones from @wan
 
 Comparing the two separate runs for parsing parameters revealed only minor differences in parsing statistics, the most notable being the fraction of unmapped pairs, which was expected---a higher amount for `mask` than for `5unique`. The lower amount of unmapped reads also seem to trigger a higher amount of duplicates. As a result, the two runs end up with the same distribution of cis pairs. Supporting the claim that the parsing parameters made no significant difference, the compartments called for each run were qualitatively compared (@fig-rs-fb-100-pe-recpe-intervals), revealing only minor differences
 
-The brief exploration of matrix plotting with Open2C shows how different measures that can be taken to improve visibility in some regions, but end up misrepresenting the data. Especially, for large genomic regions of missing values, the interpolation is very unreliable (@fig-rs-chrx-raw-balanced-cgi, right), where it might be interpreted that very high-frequency interactions occur at the centromeric region. Additionally, as it does not add to the analysis, but only is for visualization, it looses transparency by hiding empty bins. The problem is not as evident in smaller regions (@fig-rs-chrx-raw-balanced-cgi-subset), where mostly single empty bins are interpolated. 
+The brief exploration of matrix plotting with Open2C shows how different measures that can be taken to improve visibility in some regions, but end up misrepresenting the data. Especially, for large genomic regions of missing values, the interpolation is very unreliable (@fig-rs-chrx-raw-balanced-cgi-both-1, right), where it might be interpreted that very high-frequency interactions occur at the centromeric region. Additionally, as it does not add to the analysis, but only is for visualization, it looses transparency by hiding empty bins. The problem is not as evident in smaller regions (@fig-rs-chrx-raw-balanced-cgi-both-2), where mostly single empty bins are interpolated. 
 
 ### Narrowing the parameter space for testing
 
