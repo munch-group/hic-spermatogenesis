@@ -1,6 +1,6 @@
 ---
 title: "Chromatin Compartments and Selection on X"
-subtitle: "How Edges of Active Chromatin Align with Selection Regions in Primates"
+subtitle: "How Chromatin Compartments Align with Regions Under Selection in Primates"
 authors:
   - name: Søren Jørgensen
     roles: writing
