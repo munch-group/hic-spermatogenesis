@@ -1,0 +1,36 @@
+# Lifting segments from papanu4 (panu_3.0) to rheMac10 via papanu2 (panu_2.0)
+
+The unlifted .bed files provided by Munch-group (yet unpublished data) are stored in `papanu4/`.
+
+`high_olive`: regions where all individuals have olive baboon ancestry
+`high_hama` : regions where 95% of all individuals have hamadryas ancestry.
+
+We use `segment_liftover` to lift coordinates to *rheMac10*, to preserve the segments in stead of directional meaning and order of genes. 
+
+`segment_liftover` cannot be installed in the `hic` environment, as it needs legacy pandas and python versions, hence they are generated with the following:
+
+```bash
+
+cd ~/hic-spermatogenesis/people/sojern/hic-spermatogenesis/data/lift
+
+conda create --name lift "pandas=0.20.1" "python=3.6" "click=6.7" -y 
+
+conda activate lift
+
+conda install -c bioconda ucsc-liftover
+
+pip install segment_liftover
+
+wget https://hgdownload.soe.ucsc.edu/goldenPath/papAnu4/liftOver/papAnu4ToPapAnu2.over.chain.gz
+
+wget https://hgdownload.soe.ucsc.edu/goldenPath/papAnu2/liftOver/papAnu2ToRheMac10.over.chain.gz
+
+segment_liftover -i ./papanu4/ -o ./papanu2/ -c papAnu4ToPapAnu2.over.chain.gz -si high_hama_papanu4.bed -so high_hama_papanu2.bed
+
+segment_liftover -i ./papanu4/ -o ./papanu2/ -c papAnu4ToPapAnu2.over.chain.gz -si high_olive_papanu4.bed -so high_olive_papanu2.bed
+
+segment_liftover -i ./papanu2/ -o ./rheMac10/ -c papAnu2ToRheMac10.over.chain.gz -si high_hama_papanu2.bed -so high_hama_rhemac10.bed
+
+segment_liftover -i ./papanu2/ -o ./rheMac10/ -c papAnu2ToRheMac10.over.chain.gz -si high_olive_papanu2.bed -so high_olive_rhemac10.bed
+
+```
