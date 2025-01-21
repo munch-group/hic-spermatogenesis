@@ -198,7 +198,6 @@ cooler cload pairs \
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
     
-# DRAFT: Not implemented as a target yet
 def merge_zoomify_coolers(cooler_list, merged, mcool):
     """Merge a given list of coolers with `cooler merge`"""
     inputs = [cooler_list]
@@ -305,7 +304,7 @@ cool_dir = rec_cool_dir
 T0 = gwf.target_from_template("download_reference", download_reference(ref_dir, ref_name, ref_link))
 chromsizes = T0.outputs[0]
 ref_genome = T0.outputs[2]
-filtered_chromsizes = T0.outputs[2]
+filtered_chromsizes = T0.outputs[3]
 
 
 # Index the reference genome
@@ -411,5 +410,10 @@ for subdir,cool_list in T5out.items():
                                     merge_zoomify_coolers(cooler_list=cool_list, 
                                                           merged=op.join(cool_dir, subdir, f"{subdir}.merged.cool"), 
                                                           mcool=op.join(cool_dir, subdir, f"{subdir}.merged.mcool")))
+
+
+
+    
+
 
 # %%
