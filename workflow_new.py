@@ -13,6 +13,7 @@ import os
 import subprocess
 import os.path as op
 import pandas as pd
+from cooler.fileops import list_coolers
 from pprintpp import pprint as pp
 
 #######################################
@@ -198,7 +199,7 @@ cooler cload pairs \
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
     
-def merge_zoomify_coolers(cooler_list, merged, mcool):
+def merge_zoomify_balance(cooler_list, merged, mcool):
     """Merge a given list of coolers with `cooler merge`"""
     inputs = [cooler_list]
     outputs = [merged, mcool]
@@ -209,23 +210,29 @@ conda activate hic
 cooler merge -c 50000000 {merged} {cooler_list} && \
 cooler zoomify --nproc 8 \
     --resolutions 10000,50000,100000,500000 \
+    --balance \ 
+    --balance-args 'nproc 8' \
     -o {mcool} \
     {merged}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
-# DRAFT: Not implemented as a target yet
-def balance_cooler_default(cool_in, cool_out):
-    """Balance a cooler with `cooler balance`"""
-    mcool = cool_in.split("::")[0]
+def balance_cooler_default(mcool):
+    """Balance all collers inside an mcool with `cooler balance`"""
+    #path = op.dirname(mcool)
     inputs = [mcool]
-    outputs = [cool_out]
+    outputs = ["balanced_mcool.done"]
     options = {'cores':8, 'memory':"16g", 'walltime':"01:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
-cooler balance -p 8 {cool_in} && \
-touch {cool_out}
+for COOL in $(cooler ls {mcool})
+do
+    echo "Balancing $COOL"
+    cooler balance -p 8 $COOL && \
+    echo "Balanced $COOL"
+done
+touch {outputs[0]}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
@@ -402,18 +409,13 @@ for id in sra_runtable["Run"]:
         T5out[sub_dir].append(T5.outputs[0])
         
         
-#pp(T5out)
-
+# Merge the coolers for each tissue type (group)
+T6out = {}
 for subdir,cool_list in T5out.items():
     #print(f'merging {subdir} coolers:')
-    T6 = gwf.target_from_template(f"merge_{subdir}",
-                                    merge_zoomify_coolers(cooler_list=cool_list, 
+    T6out[subdir] = gwf.target_from_template(f"merge_zoom_balance_{subdir}",
+                                    merge_zoomify_balance(cooler_list=cool_list, 
                                                           merged=op.join(cool_dir, subdir, f"{subdir}.merged.cool"), 
                                                           mcool=op.join(cool_dir, subdir, f"{subdir}.merged.mcool")))
 
-
-
-    
-
-
-# %%
+    pp(T6out[subdir].outputs)
