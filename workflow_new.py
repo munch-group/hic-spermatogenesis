@@ -10,6 +10,7 @@
 # %%
 from gwf import *
 import os
+import subprocess
 import os.path as op
 import pandas as pd
 from pprintpp import pprint as pp
@@ -43,21 +44,21 @@ gwf = Workflow(defaults={'nodes': 1, 'queue':"normal", 'account':"hic-spermatoge
 ############### Templates ###################
 #############################################
 
-def download_reference(ref_dir):
+def download_reference(ref_dir, name, url):
     """Download the reference genome"""
     inputs = []
-    outputs = [op.join(ref_dir, "rheMac10.chrom.sizes"),
-               op.join(ref_dir, "rheMac10.fa.gz"),
-               op.join(ref_dir, "rheMac10.fa"),
-               op.join(ref_dir, "rheMac10.filtered.chrom.sizes"),
+    outputs = [op.join(ref_dir, f"{name}.chrom.sizes"),
+               op.join(ref_dir, f"{name}.fa.gz"),
+               op.join(ref_dir, f"{name}.fa"),
+               op.join(ref_dir, f"{name}.filtered.chrom.sizes"),
                op.join(ref_dir, "download_reference.log")]
     options = {'cores':1, 'memory':"5g", 'walltime':"01:00:00"}
     spec = f"""
-mkdir -p {ref_dir} && \
-wget -P data/rhemac10_ucsc/ --timestamping \
-  ftp://hgdownload.soe.ucsc.edu/goldenPath/rheMac10/bigZips/* && \
-gunzip {outputs[1]} && \
-grep -v -E '[_]|Un' rheMac10.chrom.sizes > {outputs[3]} && \
+wget -P {ref_dir} --timestamping '{url}README.txt' && \
+wget -P {ref_dir} --timestamping '{url}{name}.fa.gz' && \
+wget -P {ref_dir} --timestamping '{url}{name}.chrom.sizes' && \
+gunzip -k {outputs[1]} && \
+grep -v -E '[_]|Un' {outputs[0]} > {outputs[3]} && \
 ls -lh {ref_dir} > {outputs[4]}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
@@ -69,7 +70,7 @@ def download_reads(sra_downloader, srr_id, read_dir):
     outputs = [f"{read_dir}/{srr_id}_1.fastq.gz",
                f"{read_dir}/{srr_id}_2.fastq.gz",
                f"{read_dir}/dl_{srr_id}.done"]
-    options = {'cores':32, 'memory': "4g", 'walltime':"06:00:00"}
+    options = {'cores':16, 'memory': "4g", 'walltime':"06:00:00"}
     spec = f"""
 singularity run {sra_downloader} {srr_id} --save-dir {read_dir} --cores 16 && \
 touch {read_dir}/dl_{srr_id}.done
@@ -202,7 +203,7 @@ def merge_zoomify_coolers(cooler_list, merged, mcool):
     """Merge a given list of coolers with `cooler merge`"""
     inputs = [cooler_list]
     outputs = [merged, mcool]
-    options = {'cores':8, 'memory':"32g", 'walltime':"03:00:00"}
+    options = {'cores':8, 'memory':"32g", 'walltime':"01:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -220,11 +221,11 @@ def balance_cooler_default(cool_in, cool_out):
     mcool = cool_in.split("::")[0]
     inputs = [mcool]
     outputs = [cool_out]
-    options = {'cores':8, 'memory':"32g", 'walltime':"03:00:00"}
+    options = {'cores':8, 'memory':"16g", 'walltime':"01:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
-cooler balance -p 32 {cool_in} && \
+cooler balance -p 8 {cool_in} && \
 touch {cool_out}
 """
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
@@ -250,22 +251,31 @@ touch {cool_out}
 ################################################   
  
  # Define our working dir
-dirname = op.dirname(__file__)
+main_dir = op.dirname(__file__)
 
 # Define reference genome directory (relative to project/script dir)
-ref_dir = "data/rhemac10_ucsc/"
+ref_name = "rheMac10"
+ref_dir = f"steps/macaque_raw/{ref_name}_ucsc/"
+ref_link = "https://hgdownload.soe.ucsc.edu/goldenPath/rheMac10/bigZips/"
 os.makedirs(ref_dir, exist_ok=True)
 
-# Download the reference genome
-T0 = gwf.target_from_template("download_reference", download_reference(ref_dir))
 
-ref_genome = T0.outputs[2]
-chromsizes = T0.outputs[1]
-filtered_chromsizes = T0.outputs[3]
+# Define the reads directory (download reads here)
+reads_dir = op.join(main_dir, "steps/macaque_raw/downloaded/")
 
-# Define the reads directory
-reads_dir = op.join(dirname, "../../../data/macaque_raw/downloaded/")
-reads_dir = op.join(dirname, "steps/macaque_raw/downloaded/")
+# Check to find SRA-downloader, else pull from docker
+sra_downloader = "steps/sra-downloader.sif"
+
+if not op.exists(sra_downloader):
+    command = ["singularity", "pull", sra_downloader, "docker://wwydmanski/sra-downloader"]
+    try:
+        result = subprocess.run(command, check=True, capture_output=True, text=True)
+        print(result.stdout)
+        print(result.stderr)
+    except subprocess.CalledProcessError as e:
+        print(e.stdout) 
+        print(e.stderr)
+
 
 # Define subdirs for tissue type, strip_whitespace and make lowercase
 sra_runtable = pd.read_csv("data/SraRunTable.txt")
@@ -274,15 +284,16 @@ reads_subdirs = set(sra_runtable["source_name"])
 # Make a dict mapping the tissue type ['source_name'] to the SRR IDs ['Run']
 tissue_dict = {tissue: sra_runtable[sra_runtable["source_name"]==tissue]["Run"].tolist() for tissue in reads_subdirs}
 
-# Define the output dirs for files
-bam_dir = op.join(dirname,"steps/bwa/PE/bamfiles")
-pair_dir = op.join(dirname, "steps/bwa/PE/pairs")
-cool_dir = op.join(dirname, "steps/bwa/PE/cool")
+# # Define the output dirs for files
+# bam_dir = op.join(main_dir,"steps/bwa/PE/bamfiles")
+# pair_dir = op.join(main_dir, "steps/bwa/PE/pairs")
+# cool_dir = op.join(main_dir, "steps/bwa/PE/cool")
 
 
 #### Updated version creates the new .pairs and .cool files under 'recPE' for recommended PE. --walks-policy 5unique, filter mapq >= 30
-rec_pair_dir = op.join(dirname, "steps/bwa/recPE/pairs")
-rec_cool_dir = op.join(dirname, "steps/bwa/recPE/cool")
+rec_bam_dir = op.join(main_dir,"steps/bwa/recPE/bamfiles")
+rec_pair_dir = op.join(main_dir, "steps/bwa/recPE/pairs")
+rec_cool_dir = op.join(main_dir, "steps/bwa/recPE/cool")
 pair_dir = rec_pair_dir
 cool_dir = rec_cool_dir
 
@@ -290,13 +301,23 @@ cool_dir = rec_cool_dir
 ############### Targets #####################
 #############################################
 
+# Download the reference genome
+T0 = gwf.target_from_template("download_reference", download_reference(ref_dir, ref_name, ref_link))
+chromsizes = T0.outputs[0]
+ref_genome = T0.outputs[2]
+filtered_chromsizes = T0.outputs[2]
+
+
+# Index the reference genome
 T1a = gwf.target_from_template(f"bwa_index_{os.path.basename(ref_genome).split('.')[0]}", 
                                bwa_index(ref_genome=ref_genome))
 T1b = gwf.target_from_template(f"sam_index_{os.path.basename(ref_genome).split('.')[0]}", 
                                sam_index(ref_genome=ref_genome))
 
 
-T5out = {} # initialize a dict to store the cool files (T5)
+# T5out is a dict to store the cool files for each tissue type
+# to be merged in the end
+T5out = {}
 
 # T1c target for each ID in the SRA runtable
 for id in sra_runtable["Run"]:
@@ -320,14 +341,14 @@ for id in sra_runtable["Run"]:
     # T1c: Download SRA ID
     T1c = gwf.target_from_template(f"dl_{id}",
                                   download_reads(
-                                        sra_downloader = "../../../data/macaque_raw/sra-downloader_latest.sif",
+                                        sra_downloader = sra_downloader,
                                         srr_id = id,
                                         read_dir = fastq_dir
                                     ))
     
     # T2: Map the reads to the reference genome
-    bam_wdir = op.join(bam_dir, sub_dir)
-    out_bam = op.join(bam_wdir, f"{id}.PE.bam")
+    bam_wdir = op.join(rec_bam_dir, sub_dir)
+    out_bam = op.join(bam_wdir, f"{id}.bam")
 
     if not op.exists(bam_wdir):
         os.makedirs(bam_wdir)
@@ -380,6 +401,7 @@ for id in sra_runtable["Run"]:
         T5 = gwf.target_from_template(f"coolify_{cool_name}",
                                         make_pairs_cool(filtered_chromsizes, pairs=T4out, cool_out=cool_file))
         T5out[sub_dir].append(T5.outputs[0])
+        
         
 #pp(T5out)
 
