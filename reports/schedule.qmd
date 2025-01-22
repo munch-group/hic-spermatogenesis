@@ -1,0 +1,56 @@
+---
+title: "Work plan"
+date: last-modified
+date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
+---
+
+
+## Schedule / Work plan
+
+**Semester:** Monday, Aug 26th – Wednesday, Jan 15th (Week 35-3)\
+**Hand-in:** Wednesday, Jan 15th (Week 3)\
+**Holiday:** Wednesday, Oct 23rd – Monday, Oct 28th (Week 43)\
+**Christmas Holidays:** Monday, Dec 23rd – Friday, Jan 3rd (Week 52-1)\
+
+**Week 35-36 (Aug 26 - Sep 7):**\
+Conduct a literature review on chromatin architecture, Hi-C methodology, and the concept of selfish genes. Get an overview of (and obtain) data sets to be used.
+
+**Week 37-38 (Sep 9 - Sep 21):**\
+Assess the status of existing Hi-C data (raw or QC’ed). If necessary, perform initial quality control. Align reads to reference genomes.
+
+**Week 39-40 (Sep 23 - Oct 5):**\
+Process Hi-C interaction data. Perform quality assessment.
+
+**Week 41-42 (Oct 7 - Oct 19):**\
+Generate and normalize interaction matrices for the X chromosome.
+
+**Week 43 (Oct 21 - Oct 26):**\
+Holiday from Wednesday (no major activities planned). Tidy notes and do some writing.
+
+**Week 44-45 (Oct 28 - Nov 9):**\
+Perform PCA to obtain PC1 compartments. Visualize results.
+
+**Week 46-47 (Nov 11 - Nov 23):**\
+Identify A/B compartment transitions. Overlay with positive selection regions.
+
+**Week 48-49 (Nov 25 - Dec 7):**\
+Conduct cross-species analysis by converting genomic coordinates.
+
+**Week 50 (Dec 9 - Dec 14):**\
+Finish analyses. Compare results.
+
+**Week 51 (Dec 16 - Dec 21):**\
+Finalize analyses and begin writing initial thesis draft, incorporating analysis results and discussions.
+
+**Week 52 (Dec 23 - Dec 28):**\
+Christmas holidays (no major activities planned). Will work a couple of days Dec 27-29.
+
+**Week 1 (Dec 30 - Jan 4):**\
+Christmas holidays until Jan 2 (just performing modifications to analyses, etc.).
+
+**Week 2 (Jan 6 - Jan 11):**\
+Revise thesis draft based on feedback. Continue refinement of analyses if necessary.
+
+**Week 3 (Jan 13 - Jan 15):**\
+Final revisions and hand-in on Wednesday, January 15th.
+
