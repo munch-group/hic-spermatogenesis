@@ -17,7 +17,7 @@ format:
     # latex-clean: false
     documentclass: scrbook
     pdf-engine: pdflatex
-    keep-tex: true
+    keep-tex: false # set true for debugging Pandoc markdown --> latex --> pdf conversion
     #cite-method: natbib
     #natbiboptions: numbers
     papersize: A4
