@@ -204,15 +204,15 @@ def merge_zoomify_balance(cooler_list, merged, mcool):
     cooler_list_unix_str = " ".join(cooler_list)
     inputs = [cooler_list]
     outputs = [merged, mcool]
-    options = {'cores':8, 'memory':"32g", 'walltime':"01:00:00"}
+    options = {'cores':16, 'memory':"32g", 'walltime':"02:00:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
 cooler merge -c 50000000 {merged} {cooler_list_unix_str} && \
-cooler zoomify --nproc 8 \
+cooler zoomify --nproc 16 \
     --resolutions 10000,50000,100000,500000 \
     --balance \
-    --balance-args '--nproc 8' \
+    --balance-args '--nproc 16' \
     -o {mcool} \
     {merged}
 """
