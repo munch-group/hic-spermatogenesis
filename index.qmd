@@ -1,10 +1,11 @@
 ---
-title: "Exploring the 3D Chromatin Landscape of the X Chromosome in Rhesus Macaques"
+title: "Project overview"
 #bibliography: references.bib
 date: last-modified
 date-format: "MMMM D, YYYY <br> HH:mm:ss (UTC Z)"
 ---
 
+# Exploring the 3D Chromatin Landscape of the X Chromosome in Rhesus Macaques
 
 ## **Overview**
 The X chromosome plays a unique role in evolution and biology, exposed to distinct selective pressures due to its hemizygous nature. This study investigates the 3D chromatin architecture of the X chromosome in *Macaca mulata* (rhesus macaque), focusing on how evolutionary pressures and genetic drivers shape its structural and functional landscape.
@@ -25,8 +26,10 @@ In humans, regions of reduced genetic diversity and incomplete lineage sorting (
   - *cooler/cooltools* (Open2C)  
   Open2C was selected for its flexibility and performance.  
 - **A/B Compartment Analysis:**  
-  - Used the ICE (Iterative Correction and Eigendecomposition) method to refine A/B compartment assignments.  
-  - Analyzed data from fibroblasts and four spermatogenesis stages to detect chromatin structural transitions.  
+  - Used the ICE (Iterative Correction and Eigendecomposition) method to infer A/B chromatin compartments.  
+  - Analyzed data from macaque fibroblasts and four spermatogenesis stages to detect chromatin structural transitions.  
+- **Genomic Intervals**
+  - Compared the compartments with regions under selection in both baboon and human using inhouse software, `genominterv`, available through `conda` at [munch-group](https://anaconda.org/munch-group). 
 
 ## **Findings**
 - **Transition Zones:**  
