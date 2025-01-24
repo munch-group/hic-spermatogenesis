@@ -1,6 +1,14 @@
 format:
   clean-revealjs:
-    smaller: true
+    smaller: false
+    toc: true
+    toc-title: "Overview"
+    # width: 1080
+    # height: 720
+    # margin: 0.05
+    logo: aulogo_uk_var2_blue.png
+    footer: "Chromatin Architecture and Selection on X <br> Søren Jørgensen &nbsp; ⟡ &nbsp; Munch-group &nbsp; ⟡ &nbsp; MSc Bioinformatics"
+    include-after-body: clean_title_page.html
 
 execute:
   freeze: auto
@@ -10,4 +18,8 @@ project:
   output-dir: ../_book/slides
   render:
     - index.qmd
+    - midterm_progress.qmd
+    - defence.qmd
+
+bibliography: ../references.bib
 

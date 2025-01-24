@@ -1,0 +1,62 @@
+---
+title: "Chromatin Architecture and Selection on X"
+subtitle: "Thesis Defence: Msc. Project 2024"
+author: 
+    - "Søren Jørgensen" 
+    - "Kasper Munch (Supervisor)"
+institute: 
+    - "Stud. MSc. Bioinformatics, BiRC"
+    - "Associate Professor, BiRC"
+date: last-modified
+title-slide-attributes: 
+  data-notes: "Hi, I'm Søren. I'm doing my MSc thesis with Kasper about Chromatin Structures and Selection on X."
+
+---
+
+## Introduction and Background
+
+* What have we done
+* Explain why reduced diversity on X is interesting
+* Explain the rationale of analyzing chromatin architecture
+
+## Molecular Biology
+
+* Briefly introduce chromosome architecture inside the nucleus
+* Explain different levels of organization
+* Compartments
+
+## Inference Methods
+
+* How to infer compartments (PCA Rationale)
+* Smaller-scale (TADs) and ambiguity
+
+## Methodological Rationale
+
+* How did I design my analysis (Infer compartments)
+* How do the scale align with the regions of selection? (size)
+
+## Results
+
+* Present the compartments
+* Present the comparisons
+* Make some more plots
+
+## Implications
+
+* What does it mean that the regions correlate
+* Can we reproduce
+
+## Reproducibility
+
+* Can we reproduce in other organisms? Tissues
+* Introduce the reprodicibility pipeline
+
+## Perspectives 
+
+* previous results? [@lieberman-aiden2009comprehensivemappinglongrange]
+
+## References
+
+::: {#refs}
+ 
+:::
