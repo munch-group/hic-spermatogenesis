@@ -1,4 +1,6 @@
 ---
+editor:
+  render-on-save: true
 title: "Chromatin Architecture and Selection on X"
 subtitle: "Thesis Defence: Msc. Project 2024"
 author: 
@@ -9,15 +11,14 @@ institute:
     - "Associate Professor, BiRC"
 date: last-modified
 title-slide-attributes: 
-  data-notes: "*Opening:* “The X chromosome is a fascinating outlier in our genome—subject to unique evolutionary forces due to its hemizygosity in males and distinct inheritance patterns. But what happens when we zoom in on regions of reduced diversity? Could chromatin architecture hold the key to understanding these enigmatic patterns?”"
-editor:
-  render-on-save: true
+  data-notes: "*Opening:* Welcome everyone, and thank you all for joining in to listen to what I've spent my time doing since September. Let's get started. The X chromosome stands out in our genome due to its unique inheritance and hemizygosity in males, which is a probable cause of reduced diversity. We then ask a fundamental question: Could chromatin architecture help explain observed patterns of reduced diversity on X? [45s]"
 ---
 
 ## Overview 
 
 :::: {layout="[[1,1],[1,1]]" style="margin-top:30pt;"}
-::: {.fragment}
+
+::: {#always-visible}
 * Research question
 * Reduced Diversity on X
 * Rationale
@@ -48,12 +49,21 @@ editor:
 All code, figures, analyses, and slides are available at <br> [https://munch-group.org/hic-spermatogenesis/](https://munch-group.org/hic-spermatogenesis/)
 :::
 
+::: notes
+Now, let me briefly give an overview of this talk. First, I will give a brief introduction to the analysis I did, expand a bit about reduced diversity on X, and connecting the two.
+(click) I will introduce you to the hierarchical structures of our DNA, especially the higher-order organization, Topologically Associating Domains and A/B compartments. 
+(click) I will show how I generate Hi-C interaction matrices and infer the compartments on macaque Hi-C data, and how I correlate the genomic coordinates with the regions under selection in baboons and human. 
+(click) I will go through some compartment calls and the test results from correlating the genomic intervals. Finally, I will discuss the meaning of the results and what to focus on in the future.
+(click) A major part of this project is reproducibility, which I will talk a bit about later on, but for now, I will let you know that all code, figures, analyses and these slides are available at munch-group.org/hic-spermatogenesis. Let's move on.
+[2min]
+:::
+
 ## Introduction and Background
 
 ::: fragment
 ### What have we done
 
-Analyzed the 3D chromatin structure on X during spermatogenesis in rhesus macaque and correlating to low-diversity regions, leveraging reproducible computational pipelines.
+Analyzed the 3D chromatin structure on X during spermatogenesis in rhesus macaque and correlating to low-diversity regions in baboons and humans, leveraging a comprehensive reproducible computational framework.
 :::
 
 ::: fragment
@@ -68,16 +78,14 @@ Megabase-spanning regions of reduced diversity across great apes indicate strong
 Architecture modulates gene regulation and meiosis. Could these high-level structural features underlie the low-diversity regions?
 :::
 
-::: {.fragment .alert style="text-align:center;"}
-$\rightarrow$ This connection forms the foundation of our work!
-:::
 
 ::: notes
-
-*Transition:* “In this study, we explore the X chromosome in rhesus macaque (Macaca mulatta), combining Hi-C analysis with genomic tools to unravel its 3D chromatin structure. Our goal? To investigate how chromatin architecture intertwines with evolutionary forces, particularly in regions under strong selection.”
+In this study, we explore the X chromosome in rhesus macaque (Macaca mulatta), combining Hi-C analysis with genomic tools to unravel its 3D chromatin structure. Our goal? To investigate how chromatin architecture intertwines with evolutionary forces, particularly in regions under strong selection.
+What are those regions under selection
+This forms the rationale. I ask...
+[1min]
 :::
 
-<!-- Slide 2a -->
 
 ## Molecular Biology: Chromosome Architecture {auto-animate=true}
 
@@ -122,13 +130,13 @@ Figure from [@misteli2020selforganizinggenomeprinciples]
 ::::::::::
 
 ::: notes
-Explain how chromatin must balance structure and function. Highlight the importance of nucleosomes in making DNA compact yet accessible.\
-- **DNA Double Helix**: Fundamental structure of DNA.\
-- **Nucleosomes**: DNA wrapped around histone proteins, forming the "beads-on-a-string" structure.\
+chromatin must balance structure and function. nucleosomes makwa DNA compact yet accessible.
+- **DNA Double Helix**: Fundamental structure of DNA.
+- **Nucleosomes**: DNA wrapped around histone proteins, forming the "beads-on-a-string" structure.
 - **Chromatin Fibers**: Higher-order coiling of nucleosomes for compact organization.
+[1min]
 :::
 
-<!-- Slide 2b -->
 
 ## Molecular Biology: Chromatin Architecture {auto-animate=true}
 
@@ -159,8 +167,11 @@ Explain how chromatin must balance structure and function. Highlight the importa
 ::: 
 
 ::: {.tinynote .absolute bottom="32" right="5"}
-
 Figure from [@misteli2020selforganizinggenomeprinciples]
+:::
+
+::: note
+[45s]
 :::
 
 ## Molecular Biology: Compartments {auto-animate=true}
@@ -181,12 +192,12 @@ Figure from [@misteli2020selforganizinggenomeprinciples]
 
 :::
 
-::: {#non-fragment3 .alert}
+::: {.fragment .alert}
 
 ### Key differences
 
--   Size
 -   Method of inference
+-   Size
 
 :::
 ::::
@@ -200,7 +211,10 @@ Figure from [@misteli2020selforganizinggenomeprinciples]
 :::
 
 ::: notes
-Self-interacting chromatin domains, often referred to as TADs, play a key role in insulating regulatory interactions. They act as boundaries, ensuring that enhancers only interact with their target promoters, which helps maintain precise gene regulation and prevents unwanted cross-talk between adjacent genes. TAD boundaries are typically enriched in structural proteins (CTCF motif), and specific histone modifications (e.g. H3K4me3) marking promoter/enhancers. Now, A/B compartments are large genomic regions that organize the nucleus into functional zones. A compartments are gene-rich and transcriptionally active, while B compartments are gene-poor and largely inactive. This separation allows the genome to balance accessibility for active genes with compact storage for inactive regions, optimizing nuclear function. 
+- Self-interacting chromatin domains, often referred to as TADs, play a key role in insulating regulatory interactions. They act as boundaries, ensuring that enhancers only interact with their target promoters, which helps maintain precise gene regulation and prevents unwanted cross-talk between adjacent genes. TAD boundaries are typically enriched in structural proteins (CTCF motif), and specific histone modifications (e.g. H3K4me3) marking promoter/enhancers. 
+- Now, A/B compartments are large genomic regions that organize the nucleus into functional zones. A compartments are gene-rich and transcriptionally active, while B compartments are gene-poor and largely inactive. This separation allows the genome to balance accessibility for active genes with compact storage for inactive regions, optimizing nuclear function. 
+- The key difference between the TADs and A/B compartments is the method of inference, where TADs are notoriously hard to call, but initially, the size was the separator: TADs were sub-megabase and A/B compartments were multiple megabases. 
+[2m15s]
 :::
 
 
@@ -218,15 +232,18 @@ From [@wikimedia:HiCschematic]
 ::: notes 
 *So, how is the 3D organization of DNA in the nucleus captured?*
 To understand the data, we must know a bit about how the samples are generated. Let us briefly visit the wet-lab. Here, the cells are fixed and proximal DNA strands are crosslinked. 
+[2m20s]
 :::
 
-<!-- Slide 4b -->
 
 ## Hi-C (Chromosome Conformation Capture) {auto-animate=true auto-animate-id="chrom-cap"}
 
 ![](images/fig-hic-data-analysis.png){data-id="schematic"}
 
-<!-- Slide 4c -->
+::: notes
+[5m]
+:::
+
 
 ## Hi-C (Chromosome Conformation Capture) {auto-animate=true auto-animate-id="chrom-cap"}
 
@@ -235,8 +252,12 @@ To understand the data, we must know a bit about how the samples are generated. 
 
 ![](images/hic-example.png){.absolute left=0 right=0 bottom=30 height="86%" style="margin: auto auto;" data-id="schematic"}
 
+::: notes
+Here is the heat map, showing the checkerboard pattern. Darker spots signify an interaction between two places in the genome. Dark squaresa along the diagonal would be TADs. 
+But how do we get from matrix to the 1D track of compartment type?
+[1m15]
+:::
 
-<!-- Slide 5 -->
 
 ## Inference Methods: A/B compartments
 
@@ -261,7 +282,7 @@ To understand the data, we must know a bit about how the samples are generated. 
 4. **Eigenvector Orientation:** Since PCA eigenvectors are only determined up to a sign, an external biological feature—such as GC content—is used to orient the compartment assignments. This ensures that positive $c(x)$ values correspond to compartment A and negative values to compartment B.
 5. **Genomic Range Restriction:** The MSE minimization can be restricted to specific genomic regions, such as chromosome arms, to focus on local compartment structures rather than genome-wide patterns.
 
-This is enough to reproduce the checkboard pattern of the Hi-C Matrix
+[3m15s]
 :::
 
 ## Methodological Rationale {auto-animate-reset=true}
@@ -280,9 +301,7 @@ Now, I think we are ready to move on to ***my*** analysis.
 First, I wanted to reproduce the compartments from Wang, but it was not possible with HiCExplorer. As I mentioned earlier, it is sometimes necessary to restrict the viewframe of the PCA, if the variance between chrom.arms is larger than within each arm. 
 However, I think I succeeded with Open2C (applause). (Zoom in)
 This result took 9 weeks to obtain.
-Now we are left with unanswered questions: (click) 
-It is not obvious what information we lose by partitioning the genome for PCA, but we are practically subsetting the data in the name of eliminating a 'known source' of variance. Then, how well does it fit with the genomic regions that we are interested in? I don't think we can restrict it much more than a 10Mb window if we want to retain information about multi-megabase-spanning regions.
-I want to note that I spent the first 8 weeks with *HicExplorer*. 
+[1m30]
 :::
 
 
@@ -293,6 +312,10 @@ I want to note that I spent the first 8 weeks with *HicExplorer*.
   * Resolutions: 100kb, 500kb, ps500kb
   * Viewframe: full, arms, 10Mb windows
 * PC1 tracks for each tissue type: [9]{.alert} 
+
+::: notes 
+[1m35s]
+:::
 
 ## Results: Compartments {.smaller auto-animate=true auto-animate-id="compartments"}
 
@@ -305,6 +328,10 @@ I want to note that I spent the first 8 weeks with *HicExplorer*.
 {{< embed ../notebooks/05_rec_compartments.ipynb#e1-fullmerged-all-100kb >}}
 :::
 
+::: notes 
+[2m10s]
+:::
+
 ## Results: Compartments {auto-animate=true auto-animate-id="compartments"}
 
 * PC1 compartments were obtained
@@ -315,6 +342,9 @@ I want to note that I spent the first 8 weeks with *HicExplorer*.
   * A 200kb transition zone between A/B compartments
   * A 1bp *limit* between A/B compartments
 
+::: notes 
+[1m25s]
+:::
 
 ## Genomic Intervals
 
@@ -323,15 +353,16 @@ I want to note that I spent the first 8 weeks with *HicExplorer*.
 * Baboons: Disproportionate parent ancestry on X
   * Either olive baboon (*P. anubis*) or hamadryas (*P. hamadryas*)
 * Human: ECH90 regions
-  * Extraordinary selective sweeps on X (Extended Common Haplotypes 90% peak)
+  * Extraordinary selective sweeps on X (Extended Common Haplotypes 90% peak). From @skov2023extraordinaryselectionhuman
 
 ::: {style="margin-top:-15pt;"}
 {{< embed ../notebooks/07_various_plotting.ipynb#introduce-selected-regions-slides >}}
 :::
 
 ::: notes
-It's time to talk more about the regions of interest: baboon regions are from unplished analyses (Kasper, Erik). To compare to the extracted A/B-compartments, we have to lift the coordinates from baboon to macaque. We don't really care about the orientation of the lifted regions, so we use an adaptation from the conventional LiftOver called segment_liftover.
-The ECH90 regions are from a published paper (dare I say it's a BiRC paper involving Kasper), and the lifted coordinates were provided, so I don't actually know if they were lifted with segment_liftover or UCSC LiftOver. Well, here they are. 
+It's time to talk more about the regions of interest: baboon regions are from unplished analyses (Kasper, Erik), showing disproportionate ancestry of either olive or hamadryas baboons indicating strong selection. 
+The ECH90 regions are from a published paper (dare I say it's a BiRC paper involving Kasper), identifying extraordinarily long sweeps on X. One of them double the size of the sweep associated with lactase persistence gene. Well, here they are, the regions we use. We also use a merged version of the baboons (they do not overlap).
+[1m35s]
 :::
 
 ## Methods: Comparing Genomic Intervals
@@ -362,6 +393,7 @@ The ECH90 regions are from a published paper (dare I say it's a BiRC paper invol
 ::: notes
 **Jaccard:** Calculate intersection over union
 **Proximity:** Calculate the mean of the distance from each segment in $Q$ to the nearest segment in $A$
+[2m00s]
 :::
 
 ## Results: Comparing Genomic Intervals
@@ -386,10 +418,11 @@ $\leftarrow 2\times 40$ tests. What about multiple testing?
 When first testing the transition zones, I found overlap: ECH with fibroblast and round spermatid. Initially, I also found significant proximity, but when I updated the test, it dissapeared, sadly. I started testing the transition zones as I thought it would allow for some uncertainty in the positions, and had only small hopes for testing the *limits*.
 Here, we use Let's see what came out of it (click) --> boom. \*Head scratching\*. Let's unpack. 
 Still, fibroblast and round spermatid limits *overlap* the ECH regions, but the p-value is lower for the 200kb transition zone.
-Additionally, spermatogonia and pachytene spermatocyte limits overlap ECH, so know tissues except sperm overlaps ECH in their compartment limits. 
+Additionally, spermatogonia and pachytene spermatocyte limits overlap ECH, so now all tissues except sperm overlaps ECH in their compartment limits. 
 What is surprising is that in some cases, the compartment limits are both significantly proximal to the concatenated baboon set *and* overlaps the ECH90 regions. 
 Also note the very low p-value for proximity between baboon limits and sperm samples.
-(click) We observe 7 and 5 significant p-values out of 40 for Jaccard and Proximity tests, respectively. That is more than double the amount if the tests were independent. But we still have to talk a bit about multiple testing. The tests are not independent as the different viewframes still originate from the same data, and the compartments called from the two viewframes are highly correlated. That means that multiple testing correction gets complicated, and naively correcting the p-values is too conservative. However, I made the corrections to get an idea of the impact of multiple tests. Here is what I got: (click) 
+(click) We observe 7 and 5 significant p-values out of 40 for Jaccard and Proximity tests, respectively. That is more than double the amount expected by change. But we still have to talk a bit about multiple testing. The tests are not independent as the different viewframes still originate from the same data, and the compartments called from the two viewframes are highly similar. That means that multiple testing correction gets complicated, and naively correcting the p-values is too conservative. However, I made the corrections to get an idea of the impact of multiple tests. Here is what I got: (click)
+[6m00s] 
 :::
 
  
@@ -411,6 +444,7 @@ Also note the very low p-value for proximity between baboon limits and sperm sam
 ::: notes
 Now, only the baboon regions are significantly proximal to sperm, but there is still overlap between ECH and the limits of all tissue types except sperm.
 So, even with a multiple testing correction (that I deem too conservative), there are still a lot of correlation between chromatin compartments in macaque in both fibroblasts and through spermatogenesis, either by intersection or by edge/limit proximity. 
+[40s]
 :::
 
 ## Implications
@@ -419,24 +453,29 @@ So, even with a multiple testing correction (that I deem too conservative), ther
 * What does it *mean* that the regions correlate
   * The ECH paper: hinting to possible mechanisms aiding a fitness-based model
   * Structural elements could aid in preserving certain genetic elements
-  * Chromosome X is an obvious target
-  * I have only looked at *intra*-chromosomal interactions
+  * Some tissues are connected to both ECH and baboon regions
+  * Does fibroblast rule out the implication in spermatogenesis?
+* Macaque is often used as an outgroup, but not here
+  * Reproduce in great ape data
+
 
 
 ::: notes 
 Let's for a moment assume that this explorative analysis is sound, and the regions are actually correlating. *What does it mean* that they do? 
 An extraordinary selection coefficient has been reported for a segment in ECH that is more than double the size of the sweep associated with *lactase persistence*.
 They hint that other mechanisms could aid the apparent selection by structurally linking regions across the chromosome. 
-The large regions of reduced diversity on X is an obvious target for comparison, but we could also look at autosomes and inter-chromosomal interactions. 
-
+Then, the compartment limits were in some tissues associated with both ECH regions and baboon regions, indicating some indirect link. 
+Additionally, fibroblast showed overlap to ECH - does that rule out the role of spermatogenesis?
+Another point that I've avoided until now is: macaque is often used as an outgroup to great apes, but here, we find strong correlations between the elements. Can we strengthen our results by reproducing the Hi-C analysis in other (more closely related) species?
 :::
 
 
 
 ## Reproducibility
 
--   Can we reproduce in other organisms
--   Introducing: the reproducibility framework 
+* Can we reproduce in other organisms?
+  * The question I have been waiting for
+* Introducing: the reproducibility framework 
 
 ![](images/sponsors.png)
 
@@ -444,10 +483,12 @@ The large regions of reduced diversity on X is an obvious target for comparison,
 ## Conclusive thoughts and perspectives
 
 * Previous results
-  * No such comparison has been performed before (as far as I know)
+  * No such comparison has been performed before (I might be deceived)
 * Find a way to weight the compartments based on metadata
 * We should investigate TADs as well
 * We should analyze the genes at the coordinates of correlation 
+* Chromosome X is an obvious target
+* I have only looked at *intra*-chromosomal interactions
 
 # Extra slides
 
