@@ -282,6 +282,11 @@ div.csl-indent {
   <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Main talk example</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/defence.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chromatin Architecture and Selection on X</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -417,7 +422,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="data-accessions">Data (Accessions)</h3>
 <div id="cell-md-data-accessions" class="cell" data-execution_count="26">
 <div id="md-data-accessions" class="cell-output cell-output-display cell-output-markdown" data-execution_count="26">
-<p>To get an overview of the data accessions used in this analysis, we will first summarize the <code>SRA-runtable.tsv</code> that contains the accession numbers and some metadata for each sample (<a href="../thesis/index.html#tbl-runtable-summary" class="quarto-xref">Table&nbsp;<span>16.1</span></a>).</p>
+<p>To get an overview of the data accessions used in this analysis, we will first summarize the <code>SRA-runtable.tsv</code> that contains the accession numbers and some metadata for each sample (<a href="../thesis/index.html#tbl-runtable-summary" class="quarto-xref">Table&nbsp;<span>17.1</span></a>).</p>
 </div>
 </div>
 <div class="cell" data-execution_count="44">
@@ -842,7 +847,7 @@ Figure&nbsp;5.1
 <h2 class="anchored" data-anchor-id="fullmerge-pool-all-from-each-source_name">FullMerge (pool all from each source_name)</h2>
 <div id="cell-md-fullmerge-coolers" class="cell" data-execution_count="3">
 <div id="md-fullmerge-coolers" class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
-<p>We will use <code>cooler merge</code> to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal.</p>
+<p>We will use <code>cooler merge</code> to merge all samples in each sub-folder (cell type) to just one interaction matrix for each cell type. The reason for that is that we choose to trust <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> when they say that compartments are highly reproducible between replicates, and by merging all replicates, we will have a more robust signal.</p>
 <p>Thus, we will merge all samples from the same source_name into a single cooler file. The coolers are produced to only contain the real chromosomes (1-22, X, Y), and not the mitochondrial DNA or the unplaced contigs (~2,900), as they would not bring any information to the analysis.</p>
 <p><strong>Overview of this section:</strong></p>
 <ul>
@@ -1073,7 +1078,7 @@ Skipping ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mcoo
 <h3 class="anchored" data-anchor-id="balance-the-matrices">Balance the matrices</h3>
 <div id="cell-md-balance-coolers" class="cell" data-execution_count="2">
 <div id="md-balance-coolers" class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
-<p>Finally, we balance the matrices using the cooler CLI. We use the <code>cooler balance</code> command with the default options using 32 cores, which iteratively balances the matrix (Iterative Corecction). It is first described as a method for bias correction of Hi-C matrices in <span class="citation" data-cites="imakaev2012iterativecorrectionhic">(<a href="../thesis/index.html#ref-imakaev2012iterativecorrectionhic" role="doc-biblioref">Imakaev et al. 2012</a>)</span>, where it is paired with eigenvector decomposition (ICE). Here the eigenvector decomposition of the obtained maps is shown to provide insights into local chromatin states.</p>
+<p>Finally, we balance the matrices using the cooler CLI. We use the <code>cooler balance</code> command with the default options using 32 cores, which iteratively balances the matrix (Iterative Corecction). It is first described as a method for bias correction of Hi-C matrices in <span class="citation" data-cites="imakaev2012iterativecorrectionhic">(<a href="../slides/defence.html#ref-imakaev2012iterativecorrectionhic" role="doc-biblioref">Imakaev et al. 2012</a>)</span>, where it is paired with eigenvector decomposition (ICE). Here the eigenvector decomposition of the obtained maps is shown to provide insights into local chromatin states.</p>
 <p>According to <code>cooler</code> documentation, we have to balance the matrices on each resolution, and thus it cannot be done prior to zoomifying. The argument is that the balancing weights are resolution-specific and will no longer retain its meaning when binned with other weights. Therefore, we use a nested for-loop that iterates through all the <code>.mcools</code> and all the resolutions in each <code>.mcool</code>. <code>cooler balance</code> will create a new column in the <code>bins</code> group of each cooler , <code>weight</code>, which can then be included or not in the downstream analysis. This means we will have access to both the balanced and the unbalanced matrix.</p>
 <p>The default mode uses genome-wide data to calculate the weights for each bin. It would maybe be more suitable to calculate the weights for <em>cis</em> contacts only, and that is possible through the <code>--cis-only</code> flag, and that can be added to another column, so that we can compare the difference between the two methods easily. However, we will only use the default mode for now. The default options are:</p>
 <ul>
@@ -1181,7 +1186,7 @@ Balancing ../steps/bwa/PE/cool/pachytene_spermatocyte/pachytene_spermatocyte.mco
 <h1>Plotting</h1>
 <div id="cell-md-plotting-main" class="cell" data-execution_count="4">
 <div id="md-plotting-main" class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
-<p>The following section contains the visualization of the matrices and includes the calculation of the E1 compartments and their visualization. I discuss differents methods for construction and try to get both methodologically and result-wise close to <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span>.</p>
+<p>The following section contains the visualization of the matrices and includes the calculation of the E1 compartments and their visualization. I discuss differents methods for construction and try to get both methodologically and result-wise close to <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span>.</p>
 <p>First, we will work on matrices in 500kb resolution, as documentation [maybe it was HiCExplorer??] states it is sufficient for chromosome-wide analysis and plotting. We will follow the <code>cooltools</code>-recommended pipeline (except that they use a 100kb cooler) for <a href="https://cooltools.readthedocs.io/en/latest/notebooks/viz.html">visualization</a> and <a href="https://cooltools.readthedocs.io/en/latest/notebooks/compartments_and_saddles.html">compartment calling</a> with one example cooler (the merged fibroblast cooler at 500kb resolution).</p>
 <p>Then, the most relevant parts will be generalized to run in a loop over all the coolers. First at 500kb resolution, then at 100kb resolution.</p>
 <p>To accomodate the approach (barely) described in the paper, we will discuss a smoothing step to the observed/expected matrices before compartment calling, and we will apply a smoothing step to the E1 compartments and compare to the raw compartments.</p>

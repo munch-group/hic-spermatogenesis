@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Jørgensen">
+<meta name="author" content="Kasper Munch (Supervisor)">
+<meta name="dcterms.date" content="2025-01-29">
+
+<title>Chromatin Architecture and Selection on X – Søren's MSc project about Hi-C and spermatogenesis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../thesis/index.html" rel="next">
+<link href="../slides/index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-aed84c9405e12d8ed4f05416198633e2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../slides/index.html">Slides</a></li><li class="breadcrumb-item"><a href="../slides/defence.html"><span class="chapter-title">Chromatin Architecture and Selection on X</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Søren’s MSc project about Hi-C and spermatogenesis</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/munch-group/hic-spermatogenesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Notebooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer trial pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open2C pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/03_compartments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Compartments Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/04_genomicintervals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">E1 vs.&nbsp;ECH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/05_rec_compartments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Compartments Analysis w. recommended parameters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/06_rec_genomicintervals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">E1 vs.&nbsp;ECH (recommended params)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/07_various_plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Various Comparisons</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../workflow.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">master_workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reports</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reports/thoughts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Thoughts and Prayers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reports/schedule.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Work plan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../results/Readme.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Result files</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Main talk example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/defence.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chromatin Architecture and Selection on X</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Thesis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../thesis/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chromatin Compartments and Selection on X</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#introduction-and-background" id="toc-introduction-and-background" class="nav-link" data-scroll-target="#introduction-and-background">Introduction and Background</a>
+  <ul class="collapse">
+  <li><a href="#what-have-we-done" id="toc-what-have-we-done" class="nav-link" data-scroll-target="#what-have-we-done">What have we done</a></li>
+  <li><a href="#reduced-diversity-on-x" id="toc-reduced-diversity-on-x" class="nav-link" data-scroll-target="#reduced-diversity-on-x">Reduced Diversity on X</a></li>
+  <li><a href="#rationale-of-analyzing-chromatin-architecture" id="toc-rationale-of-analyzing-chromatin-architecture" class="nav-link" data-scroll-target="#rationale-of-analyzing-chromatin-architecture">Rationale of analyzing chromatin architecture</a></li>
+  </ul></li>
+  <li><a href="#molecular-biology-chromosome-architecture" id="toc-molecular-biology-chromosome-architecture" class="nav-link" data-scroll-target="#molecular-biology-chromosome-architecture">Molecular Biology: Chromosome Architecture</a>
+  <ul class="collapse">
+  <li><a href="#chromosome-architecture-in-the-nucleus" id="toc-chromosome-architecture-in-the-nucleus" class="nav-link" data-scroll-target="#chromosome-architecture-in-the-nucleus">Chromosome Architecture in the Nucleus</a></li>
+  </ul></li>
+  <li><a href="#molecular-biology-chromatin-architecture" id="toc-molecular-biology-chromatin-architecture" class="nav-link" data-scroll-target="#molecular-biology-chromatin-architecture">Molecular Biology: Chromatin Architecture</a>
+  <ul class="collapse">
+  <li><a href="#chromosome-architecture-in-the-nucleus-1" id="toc-chromosome-architecture-in-the-nucleus-1" class="nav-link" data-scroll-target="#chromosome-architecture-in-the-nucleus-1">Chromosome Architecture in the Nucleus</a></li>
+  </ul></li>
+  <li><a href="#molecular-biology-compartments" id="toc-molecular-biology-compartments" class="nav-link" data-scroll-target="#molecular-biology-compartments">Molecular Biology: Compartments</a></li>
+  <li><a href="#hi-c-chromosome-conformation-capture" id="toc-hi-c-chromosome-conformation-capture" class="nav-link" data-scroll-target="#hi-c-chromosome-conformation-capture">Hi-C (Chromosome Conformation Capture)</a>
+  <ul class="collapse">
+  <li><a href="#how-to-capture-chromosome-conformation" id="toc-how-to-capture-chromosome-conformation" class="nav-link" data-scroll-target="#how-to-capture-chromosome-conformation">How to capture chromosome conformation:</a></li>
+  </ul></li>
+  <li><a href="#hi-c-chromosome-conformation-capture-1" id="toc-hi-c-chromosome-conformation-capture-1" class="nav-link" data-scroll-target="#hi-c-chromosome-conformation-capture-1">Hi-C (Chromosome Conformation Capture)</a></li>
+  <li><a href="#hi-c-chromosome-conformation-capture-2" id="toc-hi-c-chromosome-conformation-capture-2" class="nav-link" data-scroll-target="#hi-c-chromosome-conformation-capture-2">Hi-C (Chromosome Conformation Capture)</a></li>
+  <li><a href="#inference-methods-ab-compartments" id="toc-inference-methods-ab-compartments" class="nav-link" data-scroll-target="#inference-methods-ab-compartments">Inference Methods: A/B compartments</a></li>
+  <li><a href="#methodological-rationale" id="toc-methodological-rationale" class="nav-link" data-scroll-target="#methodological-rationale">Methodological Rationale</a></li>
+  <li><a href="#results-compartments" id="toc-results-compartments" class="nav-link" data-scroll-target="#results-compartments">Results: Compartments</a></li>
+  <li><a href="#results-compartments-1" id="toc-results-compartments-1" class="nav-link" data-scroll-target="#results-compartments-1">Results: Compartments</a></li>
+  <li><a href="#results-compartments-2" id="toc-results-compartments-2" class="nav-link" data-scroll-target="#results-compartments-2">Results: Compartments</a></li>
+  <li><a href="#genomic-intervals" id="toc-genomic-intervals" class="nav-link" data-scroll-target="#genomic-intervals">Genomic Intervals</a>
+  <ul class="collapse">
+  <li><a href="#introducing-the-regions-of-selection" id="toc-introducing-the-regions-of-selection" class="nav-link" data-scroll-target="#introducing-the-regions-of-selection">Introducing the regions of selection</a></li>
+  </ul></li>
+  <li><a href="#methods-comparing-genomic-intervals" id="toc-methods-comparing-genomic-intervals" class="nav-link" data-scroll-target="#methods-comparing-genomic-intervals">Methods: Comparing Genomic Intervals</a>
+  <ul class="collapse">
+  <li><a href="#how-to-compare-intervals" id="toc-how-to-compare-intervals" class="nav-link" data-scroll-target="#how-to-compare-intervals">How to compare intervals</a></li>
+  </ul></li>
+  <li><a href="#results-comparing-genomic-intervals" id="toc-results-comparing-genomic-intervals" class="nav-link" data-scroll-target="#results-comparing-genomic-intervals">Results: Comparing Genomic Intervals</a></li>
+  <li><a href="#results-comparing-genomic-intervals-1" id="toc-results-comparing-genomic-intervals-1" class="nav-link" data-scroll-target="#results-comparing-genomic-intervals-1">Results: Comparing Genomic Intervals</a>
+  <ul class="collapse">
+  <li><a href="#multiple-testing-correction" id="toc-multiple-testing-correction" class="nav-link" data-scroll-target="#multiple-testing-correction">Multiple testing correction</a></li>
+  </ul></li>
+  <li><a href="#implications" id="toc-implications" class="nav-link" data-scroll-target="#implications">Implications</a></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a></li>
+  <li><a href="#conclusive-thoughts-and-perspectives" id="toc-conclusive-thoughts-and-perspectives" class="nav-link" data-scroll-target="#conclusive-thoughts-and-perspectives">Conclusive thoughts and perspectives</a></li>
+  <li><a href="#extra-slides" id="toc-extra-slides" class="nav-link" data-scroll-target="#extra-slides">Extra slides</a>
+  <ul class="collapse">
+  <li><a href="#inference-methods-tads" id="toc-inference-methods-tads" class="nav-link" data-scroll-target="#inference-methods-tads">Inference Methods: TADs</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/slides/defence.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/slides/defence.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../slides/index.html">Slides</a></li><li class="breadcrumb-item"><a href="../slides/defence.html"><span class="chapter-title">Chromatin Architecture and Selection on X</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chromatin Architecture and Selection on X</span></h1>
+<p class="subtitle lead">Thesis Defence: Msc. Project 2024</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Jørgensen </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Stud. MSc. Bioinformatics, BiRC
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Kasper Munch (Supervisor) </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Associate Professor, BiRC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 29, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[[1,1],[1,1]]" style="margin-top:30pt;">
+<div class="quarto-layout-row">
+<div class="fragment quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>My analysis</li>
+<li>Reduced Diversity on X</li>
+<li>Rationale</li>
+</ul>
+</div>
+<div class="fragment quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Chromosome Architecture</li>
+<li>Compartments</li>
+<li>TADs</li>
+</ul>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="fragment quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Compartment Inference</li>
+<li>Genomic Comparison</li>
+<li>Regions under selection</li>
+</ul>
+</div>
+<div class="fragment quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Compartment calls</li>
+<li>Test results</li>
+<li>Implications</li>
+<li>Future</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="introduction-and-background" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-and-background">Introduction and Background</h2>
+<div class="fragment">
+<section id="what-have-we-done" class="level3">
+<h3 class="anchored" data-anchor-id="what-have-we-done">What have we done</h3>
+<p>Analyzed the 3D chromatin structure on X during spermatogenesis in rhesus macaque and correlating to low-diversity regions, leveraging reproducible computational pipelines.</p>
+</section>
+</div>
+<div class="fragment">
+<section id="reduced-diversity-on-x" class="level3">
+<h3 class="anchored" data-anchor-id="reduced-diversity-on-x">Reduced Diversity on X</h3>
+<p>Megabase-spanning regions of reduced diversity across great apes indicate strong selection, reflecting evolutionary dynamics that possibly interplay with structural features.</p>
+</section>
+</div>
+<div class="fragment">
+<section id="rationale-of-analyzing-chromatin-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="rationale-of-analyzing-chromatin-architecture">Rationale of analyzing chromatin architecture</h3>
+<p>Architecture modulates gene regulation and meiosis. Could these high-level structural features underlie the low-diversity regions?</p>
+</section>
+</div>
+<div class="fragment alert" style="text-align:center;">
+<p><span class="math inline">\(\rightarrow\)</span> This connection forms the foundation of our work!</p>
+</div>
+<div class="notes">
+<p><em>Transition:</em> “In this study, we explore the X chromosome in rhesus macaque (Macaca mulatta), combining Hi-C analysis with genomic tools to unravel its 3D chromatin structure. Our goal? To investigate how chromatin architecture intertwines with evolutionary forces, particularly in regions under strong selection.”</p>
+</div>
+<!-- Slide 2a -->
+</section>
+<section id="molecular-biology-chromosome-architecture" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="molecular-biology-chromosome-architecture">Molecular Biology: Chromosome Architecture</h2>
+<div class="fragment" data-fragment-index="1">
+<section id="chromosome-architecture-in-the-nucleus" class="level3">
+<h3 class="anchored" data-anchor-id="chromosome-architecture-in-the-nucleus">Chromosome Architecture in the Nucleus</h3>
+<ul>
+<li>Balance <span class="alert">compact storage</span> with <span class="alert">functional accessibility</span> for essential processes: replication and gene expression.<br>
+</li>
+</ul>
+</section>
+</div>
+<div class="fragment" data-fragment-index="2">
+<div class="columns">
+<div class="column" style="width:45%;">
+<section id="levels-of-organization" class="level3">
+<h3 class="anchored" data-anchor-id="levels-of-organization">Levels of Organization</h3>
+<div class="incremental">
+<ul class="incremental">
+<li>Double Helix</li>
+<li>Nucleosomes</li>
+<li><span class="alert">Chromatin</span></li>
+</ul>
+</div>
+<div>
+
+</div>
+<div class="fragment quarto-layout-panel" data-layout="[-0.01,0.3,0.6]" style="font-size:20pt;">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 1.1%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div id="col1" class="quarto-layout-cell" data-id="fiber-loop" style="flex-basis: 33.0%;justify-content: flex-start;">
+<ul>
+<li>Fibers</li>
+<li>Loops</li>
+</ul>
+</div>
+<div id="col2" class="quarto-layout-cell" data-id="dom-comp" style="flex-basis: 65.9%;justify-content: flex-start;">
+<ul>
+<li>Domains (TADs)</li>
+<li>Compartments</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div class="absolute" data-bottom="30" data-right="0" width="77%" height="77%">
+<p><a href="images/chromatin-intro.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/chromatin-intro.jpg" class="absolute" style="width:75.0%;height:75.0%" data-right="0" data-bottom="0"></a></p>
+</div>
+<div class="tinynote absolute" data-bottom="32" data-right="5">
+<p>Figure from <span class="citation" data-cites="misteli2020selforganizinggenomeprinciples">(<a href="defence.html#ref-misteli2020selforganizinggenomeprinciples" role="doc-biblioref">Misteli 2020</a>)</span></p>
+</div>
+</div>
+<div class="notes">
+<p>Explain how chromatin must balance structure and function. Highlight the importance of nucleosomes in making DNA compact yet accessible.<br>
+- <strong>DNA Double Helix</strong>: Fundamental structure of DNA.<br>
+- <strong>Nucleosomes</strong>: DNA wrapped around histone proteins, forming the “beads-on-a-string” structure.<br>
+- <strong>Chromatin Fibers</strong>: Higher-order coiling of nucleosomes for compact organization.</p>
+</div>
+<!-- Slide 2b -->
+</section>
+<section id="molecular-biology-chromatin-architecture" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="molecular-biology-chromatin-architecture">Molecular Biology: Chromatin Architecture</h2>
+<section id="chromosome-architecture-in-the-nucleus-1" class="level3">
+<h3 class="anchored" data-anchor-id="chromosome-architecture-in-the-nucleus-1">Chromosome Architecture in the Nucleus</h3>
+<div class="columns">
+<div class="column" style="width:28%;">
+<ul>
+<li>Compact storage</li>
+<li>Accessibility</li>
+</ul>
+<section id="chromatin" class="level3">
+<h3 class="anchored" data-anchor-id="chromatin">Chromatin</h3>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" data-id="fiber-loop" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>Fibers</li>
+<li>Loops</li>
+</ul>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" data-id="dom-comp" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>Domains (TADs)</li>
+<li>Compartments</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div class="absolute" data-bottom="30" data-right="0" width="77%" height="77%" style="margin:0; padding:0;">
+<p><a href="images/chromatin-intro.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="images/chromatin-intro.jpg" class="absolute" style="width:100.0%;height:100.0%" data-right="0" data-bottom="0"></a></p>
+</div>
+<div class="tinynote absolute" data-bottom="32" data-right="5">
+<p>Figure from <span class="citation" data-cites="misteli2020selforganizinggenomeprinciples">(<a href="defence.html#ref-misteli2020selforganizinggenomeprinciples" role="doc-biblioref">Misteli 2020</a>)</span></p>
+</div>
+</section>
+</section>
+<section id="molecular-biology-compartments" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="molecular-biology-compartments">Molecular Biology: Compartments</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[[50, 50],[40,-60]]">
+<div class="quarto-layout-row">
+<div id="non-fragment" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<section id="topologically-associating-domains-tads" class="level3">
+<h3 class="anchored" data-anchor-id="topologically-associating-domains-tads">Topologically Associating Domains (TADs)</h3>
+<ul>
+<li>Self-interacting chromatin domains that insulate regulatory interactions.<br>
+</li>
+<li>Act as boundaries to regulate enhancer-promoter interactions.</li>
+</ul>
+</section>
+</div>
+<div id="non-fragment2" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<section id="ab-compartments" class="level3">
+<h3 class="anchored" data-anchor-id="ab-compartments">A/B Compartments</h3>
+<ul>
+<li>A-Compartments: Gene-rich, active, euchromatin regions.<br>
+</li>
+<li>B-Compartments: Gene-poor, inactive, heterochromatin regions.</li>
+</ul>
+</section>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div id="non-fragment3" class="alert quarto-layout-cell" style="flex-basis: 40.0%;justify-content: flex-start;">
+<section id="key-differences" class="level3">
+<h3 class="anchored" data-anchor-id="key-differences">Key differences</h3>
+<ul>
+<li>Size</li>
+<li>Method of inference</li>
+</ul>
+</section>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 60.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+</div>
+<div class="absolute" data-bottom="30" data-right="0" width="77%" height="77%">
+<p><a href="images/chromatin-intro.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="images/chromatin-intro.jpg" class="absolute" style="width:65.0%;height:60.0%" data-right="0" data-bottom="0"></a></p>
+</div>
+<div class="tinynote absolute" data-bottom="32" data-right="5">
+<p>Figure from <span class="citation" data-cites="misteli2020selforganizinggenomeprinciples">(<a href="defence.html#ref-misteli2020selforganizinggenomeprinciples" role="doc-biblioref">Misteli 2020</a>)</span></p>
+</div>
+<div class="notes">
+<p>Self-interacting chromatin domains, often referred to as TADs, play a key role in insulating regulatory interactions. They act as boundaries, ensuring that enhancers only interact with their target promoters, which helps maintain precise gene regulation and prevents unwanted cross-talk between adjacent genes. TAD boundaries are typically enriched in structural proteins (CTCF motif), and specific histone modifications (e.g.&nbsp;H3K4me3) marking promoter/enhancers. Now, A/B compartments are large genomic regions that organize the nucleus into functional zones. A compartments are gene-rich and transcriptionally active, while B compartments are gene-poor and largely inactive. This separation allows the genome to balance accessibility for active genes with compact storage for inactive regions, optimizing nuclear function.</p>
+</div>
+</section>
+<section id="hi-c-chromosome-conformation-capture" class="level2" data-auto-animate="true" data-auto-animate-id="chrom-cap">
+<h2 data-auto-animate="true" data-auto-animate-id="chrom-cap" class="anchored" data-anchor-id="hi-c-chromosome-conformation-capture">Hi-C (Chromosome Conformation Capture)</h2>
+<section id="how-to-capture-chromosome-conformation" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-capture-chromosome-conformation">How to capture chromosome conformation:</h3>
+<p><a href="images/hic-schematic-cutout.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="images/hic-schematic-cutout.png" class="fragment absolute" style="height:75.0%" data-fragment-index="1" data-bottom="30" data-right="50" data-id="schematic"></a></p>
+<div class="tinynote absolute fragment" data-fragment-index="1" data-right="55" data-bottom="33">
+<p>From <span class="citation" data-cites="wikimedia:HiCschematic">(<a href="defence.html#ref-wikimedia:HiCschematic" role="doc-biblioref">WikiCommons:Prakrutiuday</a>)</span></p>
+</div>
+<div class="notes">
+<p><em>So, how is the 3D organization of DNA in the nucleus captured?</em> To understand the data, we must know a bit about how the samples are generated. Let us briefly visit the wet-lab. Here, the cells are fixed and proximal DNA strands are crosslinked.</p>
+</div>
+<!-- Slide 4b -->
+</section>
+</section>
+<section id="hi-c-chromosome-conformation-capture-1" class="level2" data-auto-animate="true" data-auto-animate-id="chrom-cap">
+<h2 data-auto-animate="true" data-auto-animate-id="chrom-cap" class="anchored" data-anchor-id="hi-c-chromosome-conformation-capture-1">Hi-C (Chromosome Conformation Capture)</h2>
+<p><a href="images/fig-hic-data-analysis.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="images/fig-hic-data-analysis.png" class="img-fluid" data-id="schematic"></a></p>
+<!-- Slide 4c -->
+</section>
+<section id="hi-c-chromosome-conformation-capture-2" class="level2" data-auto-animate="true" data-auto-animate-id="chrom-cap">
+<h2 data-auto-animate="true" data-auto-animate-id="chrom-cap" class="anchored" data-anchor-id="hi-c-chromosome-conformation-capture-2">Hi-C (Chromosome Conformation Capture)</h2>
+<!--{{< embed ../notebooks/07_various plotting.ipynb#hic-example >}}-->
+<!-- add the saved .png in stead for auto-animation to work-->
+<p><a href="images/hic-example.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="images/hic-example.png" class="absolute" style="margin: auto auto;;height:86.0%" data-left="0" data-right="0" data-bottom="30" data-id="schematic"></a></p>
+<!-- Slide 5 -->
+</section>
+<section id="inference-methods-ab-compartments" class="level2">
+<h2 class="anchored" data-anchor-id="inference-methods-ab-compartments">Inference Methods: A/B compartments</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="alert">PCA</span>: Captures compartmentalization by minimizing the error between observed and predicted frequencies</li>
+<li><span class="alert">PC1</span>: Reflects A/B compartment assignments, sign (+/-) indicates type (A/B).
+<ul class="incremental">
+<li><span class="alert">How?</span></li>
+</ul></li>
+</ul>
+</div>
+<div>
+
+</div>
+<div id="rationale" class="incremental quarto-layout-panel" data-layout="[-2.5,95,-2.5]" style="margin-top:-10pt;font-size:0.79em;font-family:math;color:#6f4747;">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.5%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 95.0%;justify-content: flex-start;">
+<ol class="incremental" type="1">
+<li>Let <span class="math inline">\(c(x)\)</span> quantify the compartment assignment for bin <span class="math inline">\(x\)</span>: find <span class="math inline">\(c(x)\)</span> for all <span class="math inline">\(x\)</span></li>
+<li>Interaction score between loci <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is <span class="math inline">\(I(x,y) = c(x)c(y)\)</span>, with <span class="math inline">\(I(x,y) &gt; 0\)</span> when they share the same assignment</li>
+<li>Minimize the mean squared error (MSE) between observed interaction frequencies and <span class="math inline">\(c(x)c(y)\)</span></li>
+<li>PCA finds the first principal component that minimizes MSE, assigning loci to compartment A (<span class="math inline">\(c(x) &gt; 0\)</span>) or B (<span class="math inline">\(c(x) &lt; 0\)</span>)</li>
+<li>We can restrict the genomic range (viewframe) in which to minimize MSE (e.g.&nbsp;chromosome arms)</li>
+</ol>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.5%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+</div>
+<div class="notes">
+<ol type="1">
+<li>“To begin, we define <span class="math inline">\(c(x)\)</span>, which represents the compartment assignment for each bin <span class="math inline">\(x\)</span>. The goal is to determine <span class="math inline">\(c(x)\)</span> for all the bins in the dataset. This step is essential because <span class="math inline">\(c(x)\)</span> will later guide us in categorizing the loci into their respective compartments.”</li>
+<li>“Next, we define the interaction score <span class="math inline">\(I(x, y)\)</span> between loci <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. This score is simply the product of their respective compartment assignments, <span class="math inline">\(c(x)c(y)\)</span>. The important thing to note is that <span class="math inline">\(I(x, y)\)</span> is positive if the loci share the same compartment assignment. This means they are likely in the same functional region of the genome, which is critical for the analysis.”</li>
+<li>“We then move on to minimizing the <strong>mean squared error</strong>, or MSE. The MSE quantifies how well the interaction frequencies observed in the data match the predicted interaction scores, <span class="math inline">\(c(x)c(y)\)</span>. Minimizing this error helps ensure that our model is accurately capturing the observed patterns of interaction between the loci.”</li>
+<li>“Finally, we apply Principal Component Analysis, or PCA, to find the first principal component that minimizes the MSE. This allows us to categorize the loci into two compartments: <strong>Compartment A</strong>, where <span class="math inline">\(c(x) &gt; 0\)</span>, and <strong>Compartment B</strong>, where <span class="math inline">\(c(x) &lt; 0\)</span>. This step is crucial because it provides a way to simplify and visualize the compartmentalization of the genome.”</li>
+</ol>
+<p>This is enough to reproduce the checkboard pattern of the Hi-C Matrix</p>
+</div>
+</section>
+<section id="methodological-rationale" class="level2" data-auto-animate-reset="true">
+<h2 data-auto-animate-reset="true" class="anchored" data-anchor-id="methodological-rationale">Methodological Rationale</h2>
+<div class="incremental" style="margin-bottom:30px;">
+<ul class="incremental">
+<li>Infer compartments using <em>HiCExplorer</em> or <em>Open2C</em></li>
+<li>Try to reproduce the compartments from <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">Wang et al. (<a href="defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">2019</a>)</span> in fibroblast</li>
+<li>Success with <em>Open2c</em>:</li>
+</ul>
+</div>
+<p><a href="images/overlay-smoothed.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="images/overlay-smoothed.png" class="fragment img-fluid"></a></p>
+<div class="notes">
+<p>Now, I think we are ready to move on to <strong><em>my</em></strong> analysis. First, I wanted to reproduce the compartments from Wang, but it was not possible with HiCExplorer. As I mentioned earlier, it is sometimes necessary to restrict the viewframe of the PCA, if the variance between chrom.arms is larger than within each arm. However, I think I succeeded with Open2C (applause). (Zoom in) This result took 9 weeks to obtain. Now we are left with unanswered questions: (click) It is not obvious what information we lose by partitioning the genome for PCA, but we are practically subsetting the data in the name of eliminating a ‘known source’ of variance. Then, how well does it fit with the genomic regions that we are interested in? I don’t think we can restrict it much more than a 10Mb window if we want to retain information about multi-megabase-spanning regions. I want to note that I spent the first 8 weeks with <em>HicExplorer</em>.</p>
+</div>
+</section>
+<section id="results-compartments" class="level2" data-auto-animate="true" data-auto-animate-id="compartments">
+<h2 data-auto-animate="true" data-auto-animate-id="compartments" class="anchored" data-anchor-id="results-compartments">Results: Compartments</h2>
+<ul>
+<li>PC1 compartments were obtained
+<ul>
+<li>Tissue: fibroblast, spermatogonia, pachytene spermatocyte, round spermatid, sperm</li>
+<li>Resolutions: 100kb, 500kb, ps500kb</li>
+<li>Viewframe: full, arms, 10Mb windows</li>
+</ul></li>
+<li>PC1 tracks for each tissue type: <span class="alert">9</span></li>
+</ul>
+</section>
+<section id="results-compartments-1" class="level2 smaller page-columns page-full" data-auto-animate="true" data-auto-animate-id="compartments">
+<h2 class="smaller anchored" data-auto-animate="true" data-auto-animate-id="compartments" data-anchor-id="results-compartments-1">Results: Compartments</h2>
+<ul>
+<li>PC1 compartments were obtained
+<ul>
+<li>Tissue: fibroblast, spermatogonia, pachytene spermatocyte, round spermatid, sperm</li>
+<li>Resolutions: 100kb, 500kb, ps500kb</li>
+<li>Viewframe: full, arms, 10Mb windows</li>
+</ul></li>
+</ul>
+<div style="margin-top:-20pt;" class="page-columns page-full">
+<div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/05_rec_compartments.ipynb" data-notebook-title="Compartments Analysis w. recommended parameters" data-notebook-cellid="cell-e1-fullmerged-all-100kb">
+<div id="cell-e1-fullmerged-all-100kb" class="cell page-columns page-full" data-execution_count="17">
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><a href="defence_files/figure-html/..-notebooks-05_rec_compartments-e1-fullmerged-all-100kb-output-1.png" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-8"><img src="defence_files/figure-html/..-notebooks-05_rec_compartments-e1-fullmerged-all-100kb-output-1.png" id="e1-fullmerged-all-100kb" width="891" height="440" class="figure-img column-page-inset"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="results-compartments-2" class="level2" data-auto-animate="true" data-auto-animate-id="compartments">
+<h2 data-auto-animate="true" data-auto-animate-id="compartments" class="anchored" data-anchor-id="results-compartments-2">Results: Compartments</h2>
+<ul>
+<li>PC1 compartments were obtained
+<ul>
+<li>Tissue: fibroblast, spermatogonia, pachytene spermatocyte, round spermatid, sperm</li>
+<li>Resolutions: 100kb, 500kb, ps500kb</li>
+<li>Viewframe: full, arms, 10Mb windows</li>
+</ul></li>
+<li>Define sets of intervals
+<ul>
+<li>A 200kb transition zone between A/B compartments</li>
+<li>A 1bp <em>limit</em> between A/B compartments</li>
+</ul></li>
+</ul>
+</section>
+<section id="genomic-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="genomic-intervals">Genomic Intervals</h2>
+<section id="introducing-the-regions-of-selection" class="level3">
+<h3 class="anchored" data-anchor-id="introducing-the-regions-of-selection">Introducing the regions of selection</h3>
+<ul>
+<li>Baboons: Disproportionate parent ancestry on X
+<ul>
+<li>Either olive baboon (<em>P. anubis</em>) or hamadryas (<em>P. hamadryas</em>)</li>
+</ul></li>
+<li>Human: ECH90 regions
+<ul>
+<li>Extraordinary selective sweeps on X (Extended Common Haplotypes 90% peak)</li>
+</ul></li>
+</ul>
+<div style="margin-top:-15pt;">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/07_various_plotting.ipynb" data-notebook-title="Various Comparisons" data-notebook-cellid="cell-introduce-selected-regions-slides">
+<div id="cell-introduce-selected-regions-slides" class="cell">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="defence_files/figure-html/..-notebooks-07_various_plotting-introduce-selected-regions-slides-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="defence_files/figure-html/..-notebooks-07_various_plotting-introduce-selected-regions-slides-output-1.png" id="introduce-selected-regions-slides" width="998" height="147" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>It’s time to talk more about the regions of interest: baboon regions are from unplished analyses (Kasper, Erik). To compare to the extracted A/B-compartments, we have to lift the coordinates from baboon to macaque. We don’t really care about the orientation of the lifted regions, so we use an adaptation from the conventional LiftOver called segment_liftover. The ECH90 regions are from a published paper (dare I say it’s a BiRC paper involving Kasper), and the lifted coordinates were provided, so I don’t actually know if they were lifted with segment_liftover or UCSC LiftOver. Well, here they are.</p>
+</div>
+</section>
+</section>
+<section id="methods-comparing-genomic-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="methods-comparing-genomic-intervals">Methods: Comparing Genomic Intervals</h2>
+<section id="how-to-compare-intervals" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-compare-intervals">How to compare intervals</h3>
+<div>
+
+</div>
+<div class="fragment incremental quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<section id="jaccard-test" class="level4 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h4 class="anchored" data-anchor-id="jaccard-test">Jaccard test</h4>
+<ol class="incremental" type="1">
+<li>Calculate the Jaccard index between two sets of segments, <span class="math inline">\(Q\)</span> and <span class="math inline">\(A\)</span> <span class="math display">\[
+  J(Q, A) = \frac{|Q \cap A|}{|Q \cup A|}
+  \]</span></li>
+<li>Bootstrap <span class="math inline">\(Q\)</span>: <span class="math inline">\(shuffle+reorder\)</span> while conserving segment <span class="math inline">\(lengths\)</span></li>
+</ol>
+</section>
+<section id="proximity-test" class="level4 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h4 class="anchored" data-anchor-id="proximity-test">Proximity test</h4>
+<ol class="incremental" type="1">
+<li>Remove overlapping segments between <span class="math inline">\(Q\)</span> and <span class="math inline">\(A\)</span></li>
+<li>Calculate a proximity index between two sets of segments, <span class="math inline">\(Q\)</span> and <span class="math inline">\(A\)</span>. <span class="math display">\[
+  P(Q, A) = \frac{1}{|Q|} \sum_{q \in Q} \min_{a \in A} d(q, a)
+  \]</span></li>
+<li>Bootstrap <span class="math inline">\(Q\)</span> in the same manner</li>
+</ol>
+</section>
+</div>
+</div>
+<div class="notes">
+<p><strong>Jaccard:</strong> Calculate intersection over union <strong>Proximity:</strong> Calculate the mean of the distance from each segment in <span class="math inline">\(Q\)</span> to the nearest segment in <span class="math inline">\(A\)</span></p>
+</div>
+</section>
+</section>
+<section id="results-comparing-genomic-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="results-comparing-genomic-intervals">Results: Comparing Genomic Intervals</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>ECH90 overlaps with fibroblast and round spermatid 200kb transition zones (<span class="math inline">\(p \sim 0.01\)</span>)</li>
+<li>What happens when only using the <em>limits</em>?
+<ul class="incremental">
+<li><span class="math inline">\(Q\)</span>: full ECH, baboon limits (separate and concatenated groups)</li>
+<li><span class="math inline">\(A\)</span>: PC1 limits (arms, 10Mb)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment border" style="font-size:20pt;">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/09_defence.ipynb" data-notebook-title="Benjamini-Hochberg adjusted p-values" data-notebook-cellid="cell-tbl-test-results-uncorrected">
+<div id="tbl-test-results-uncorrected" class="cell anchored" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<style type="text/css">
+#T_a6778 .col0 {
+  min-width: 20px;
+}
+#T_a6778 .col1 {
+  min-width: 20px;
+}
+#T_a6778 .col2 {
+  min-width: 20px;
+}
+#T_a6778 .col3 {
+  min-width: 20px;
+}
+#T_a6778 .col4 {
+  min-width: 20px;
+}
+#T_a6778_row0_col0 {
+  background-color: #f6583e;
+  color: #f1f1f1;
+}
+#T_a6778_row0_col1, #T_a6778_row3_col1 {
+  background-color: #a50f15;
+  color: #f1f1f1;
+}
+#T_a6778_row0_col2, #T_a6778_row0_col3, #T_a6778_row1_col0, #T_a6778_row1_col1, #T_a6778_row1_col2, #T_a6778_row1_col3, #T_a6778_row2_col0, #T_a6778_row2_col3, #T_a6778_row3_col4, #T_a6778_row4_col0, #T_a6778_row4_col1, #T_a6778_row4_col3, #T_a6778_row4_col4 {
+  background-color: #000000;
+  color: #f1f1f1;
+  color: transparent;
+  background-color: transparent;
+}
+#T_a6778_row0_col4 {
+  background-color: #fff5f0;
+  color: #000000;
+}
+#T_a6778_row1_col4 {
+  background-color: #e43027;
+  color: #f1f1f1;
+}
+#T_a6778_row2_col1 {
+  background-color: #f14331;
+  color: #f1f1f1;
+}
+#T_a6778_row2_col2 {
+  background-color: #ce1a1e;
+  color: #f1f1f1;
+}
+#T_a6778_row2_col4 {
+  background-color: #73030f;
+  color: #f1f1f1;
+}
+#T_a6778_row3_col0 {
+  background-color: #e83429;
+  color: #f1f1f1;
+}
+#T_a6778_row3_col2 {
+  background-color: #9d0d14;
+  color: #f1f1f1;
+}
+#T_a6778_row3_col3 {
+  background-color: #fc8565;
+  color: #f1f1f1;
+}
+#T_a6778_row4_col2 {
+  background-color: #fcbca2;
+  color: #000000;
+}
+</style>
+
+<table id="T_a6778" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="blank" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="index_name level0" data-quarto-table-cell-role="th">tissue</th>
+<th id="T_a6778_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Fb</th>
+<th id="T_a6778_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Spa</th>
+<th id="T_a6778_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Pac</th>
+<th id="T_a6778_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">RS</th>
+<th id="T_a6778_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">Sperm</th>
+</tr>
+<tr class="even">
+<th class="index_name level0" data-quarto-table-cell-role="th">viewframe</th>
+<th class="index_name level1" data-quarto-table-cell-role="th">test</th>
+<th class="index_name level2" data-quarto-table-cell-role="th">query</th>
+<th class="blank col0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col1" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col2" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col3" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col4" data-quarto-table-cell-role="th">&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="3" id="T_a6778_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">10Mb</td>
+<td id="T_a6778_level1_row0" class="row_heading level1 row0" data-quarto-table-cell-role="th">jaccard</td>
+<td id="T_a6778_level2_row0" class="row_heading level2 row0" data-quarto-table-cell-role="th">ECH90</td>
+<td id="T_a6778_row0_col0" class="data row0 col0">0.021</td>
+<td id="T_a6778_row0_col1" class="data row0 col1">0.006</td>
+<td id="T_a6778_row0_col2" class="data row0 col2">nan</td>
+<td id="T_a6778_row0_col3" class="data row0 col3">nan</td>
+<td id="T_a6778_row0_col4" class="data row0 col4">0.048</td>
+</tr>
+<tr class="even">
+<td rowspan="2" id="T_a6778_level1_row1" class="row_heading level1 row1" data-quarto-table-cell-role="th">proximity</td>
+<td id="T_a6778_level2_row1" class="row_heading level2 row1" data-quarto-table-cell-role="th">olive</td>
+<td id="T_a6778_row1_col0" class="data row1 col0">nan</td>
+<td id="T_a6778_row1_col1" class="data row1 col1">nan</td>
+<td id="T_a6778_row1_col2" class="data row1 col2">nan</td>
+<td id="T_a6778_row1_col3" class="data row1 col3">nan</td>
+<td id="T_a6778_row1_col4" class="data row1 col4">0.016</td>
+</tr>
+<tr class="odd">
+<td id="T_a6778_level2_row2" class="row_heading level2 row2" data-quarto-table-cell-role="th">olivehama</td>
+<td id="T_a6778_row2_col0" class="data row2 col0">nan</td>
+<td id="T_a6778_row2_col1" class="data row2 col1">0.019</td>
+<td id="T_a6778_row2_col2" class="data row2 col2">0.012</td>
+<td id="T_a6778_row2_col3" class="data row2 col3">nan</td>
+<td id="T_a6778_row2_col4" class="data row2 col4">0.001</td>
+</tr>
+<tr class="even">
+<td rowspan="2" id="T_a6778_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">arms</td>
+<td id="T_a6778_level1_row3" class="row_heading level1 row3" data-quarto-table-cell-role="th">jaccard</td>
+<td id="T_a6778_level2_row3" class="row_heading level2 row3" data-quarto-table-cell-role="th">ECH90</td>
+<td id="T_a6778_row3_col0" class="data row3 col0">0.017</td>
+<td id="T_a6778_row3_col1" class="data row3 col1">0.006</td>
+<td id="T_a6778_row3_col2" class="data row3 col2">0.005</td>
+<td id="T_a6778_row3_col3" class="data row3 col3">0.028</td>
+<td id="T_a6778_row3_col4" class="data row3 col4">nan</td>
+</tr>
+<tr class="odd">
+<td id="T_a6778_level1_row4" class="row_heading level1 row4" data-quarto-table-cell-role="th">proximity</td>
+<td id="T_a6778_level2_row4" class="row_heading level2 row4" data-quarto-table-cell-role="th">olivehama</td>
+<td id="T_a6778_row4_col0" class="data row4 col0">nan</td>
+<td id="T_a6778_row4_col1" class="data row4 col1">nan</td>
+<td id="T_a6778_row4_col2" class="data row4 col2">0.036</td>
+<td id="T_a6778_row4_col3" class="data row4 col3">nan</td>
+<td id="T_a6778_row4_col4" class="data row4 col4">nan</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute alert border fragment" style="top:232px; left:500px; border-left:2pt dotted grey; padding:20px;font-size:0.8em;background-color:rgba(255,255,255,0.9);">
+<p><span class="math inline">\(\leftarrow 2\times 40\)</span> tests. What about multiple testing?</p>
+</div>
+<div class="notes">
+<p>When first testing the transition zones, I found overlap: ECH with fibroblast and round spermatid. Initially, I also found significant proximity, but when I updated the test, it dissapeared, sadly. I started testing the transition zones as I thought it would allow for some uncertainty in the positions, and had only small hopes for testing the <em>limits</em>. Here, we use Let’s see what came out of it (click) –&gt; boom. *Head scratching*. Let’s unpack. Still, fibroblast and round spermatid limits <em>overlap</em> the ECH regions, but the p-value is lower for the 200kb transition zone. Additionally, spermatogonia and pachytene spermatocyte limits overlap ECH, so know tissues except sperm overlaps ECH in their compartment limits. What is surprising is that in some cases, the compartment limits are both significantly proximal to the concatenated baboon set <em>and</em> overlaps the ECH90 regions. Also note the very low p-value for proximity between baboon limits and sperm samples. (click) We observe 7 and 5 significant p-values out of 40 for Jaccard and Proximity tests, respectively. That is more than double the amount if the tests were independent. But we still have to talk a bit about multiple testing. The tests are not independent as the different viewframes still originate from the same data, and the compartments called from the two viewframes are highly correlated. That means that multiple testing correction gets complicated, and naively correcting the p-values is too conservative. However, I made the corrections to get an idea of the impact of multiple tests. Here is what I got: (click)</p>
+</div>
+</section>
+<section id="results-comparing-genomic-intervals-1" class="level2">
+<h2 class="anchored" data-anchor-id="results-comparing-genomic-intervals-1">Results: Comparing Genomic Intervals</h2>
+<section id="multiple-testing-correction" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-testing-correction">Multiple testing correction</h3>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[[1,3],[1,3]]" style="font-size:20pt;">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p><span style="margin-top:20pt;"><br>Uncorrected:</span></p>
+</div>
+<div class="quarto-embed-nb-cell quarto-layout-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/09_defence.ipynb" data-notebook-title="Benjamini-Hochberg adjusted p-values" data-notebook-cellid="cell-tbl-test-results-uncorrected" style="flex-basis: 75.0%;justify-content: center;">
+<div id="tbl-test-results-uncorrected" class="cell anchored" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<style type="text/css">
+#T_a6778 .col0 {
+  min-width: 20px;
+}
+#T_a6778 .col1 {
+  min-width: 20px;
+}
+#T_a6778 .col2 {
+  min-width: 20px;
+}
+#T_a6778 .col3 {
+  min-width: 20px;
+}
+#T_a6778 .col4 {
+  min-width: 20px;
+}
+#T_a6778_row0_col0 {
+  background-color: #f6583e;
+  color: #f1f1f1;
+}
+#T_a6778_row0_col1, #T_a6778_row3_col1 {
+  background-color: #a50f15;
+  color: #f1f1f1;
+}
+#T_a6778_row0_col2, #T_a6778_row0_col3, #T_a6778_row1_col0, #T_a6778_row1_col1, #T_a6778_row1_col2, #T_a6778_row1_col3, #T_a6778_row2_col0, #T_a6778_row2_col3, #T_a6778_row3_col4, #T_a6778_row4_col0, #T_a6778_row4_col1, #T_a6778_row4_col3, #T_a6778_row4_col4 {
+  background-color: #000000;
+  color: #f1f1f1;
+  color: transparent;
+  background-color: transparent;
+}
+#T_a6778_row0_col4 {
+  background-color: #fff5f0;
+  color: #000000;
+}
+#T_a6778_row1_col4 {
+  background-color: #e43027;
+  color: #f1f1f1;
+}
+#T_a6778_row2_col1 {
+  background-color: #f14331;
+  color: #f1f1f1;
+}
+#T_a6778_row2_col2 {
+  background-color: #ce1a1e;
+  color: #f1f1f1;
+}
+#T_a6778_row2_col4 {
+  background-color: #73030f;
+  color: #f1f1f1;
+}
+#T_a6778_row3_col0 {
+  background-color: #e83429;
+  color: #f1f1f1;
+}
+#T_a6778_row3_col2 {
+  background-color: #9d0d14;
+  color: #f1f1f1;
+}
+#T_a6778_row3_col3 {
+  background-color: #fc8565;
+  color: #f1f1f1;
+}
+#T_a6778_row4_col2 {
+  background-color: #fcbca2;
+  color: #000000;
+}
+</style>
+
+<table id="T_a6778" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="blank" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="index_name level0" style="text-align: left;" data-quarto-table-cell-role="th">tissue</th>
+<th id="T_a6778_level0_col0" class="col_heading level0 col0" style="text-align: left;" data-quarto-table-cell-role="th">Fb</th>
+<th id="T_a6778_level0_col1" class="col_heading level0 col1" style="text-align: left;" data-quarto-table-cell-role="th">Spa</th>
+<th id="T_a6778_level0_col2" class="col_heading level0 col2" style="text-align: left;" data-quarto-table-cell-role="th">Pac</th>
+<th id="T_a6778_level0_col3" class="col_heading level0 col3" style="text-align: left;" data-quarto-table-cell-role="th">RS</th>
+<th id="T_a6778_level0_col4" class="col_heading level0 col4" style="text-align: left;" data-quarto-table-cell-role="th">Sperm</th>
+</tr>
+<tr class="even">
+<th class="index_name level0" style="text-align: left;" data-quarto-table-cell-role="th">viewframe</th>
+<th class="index_name level1" style="text-align: left;" data-quarto-table-cell-role="th">test</th>
+<th class="index_name level2" style="text-align: left;" data-quarto-table-cell-role="th">query</th>
+<th class="blank col0" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col1" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col2" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col3" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col4" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="3" id="T_a6778_level0_row0" class="row_heading level0 row0" style="text-align: left;" data-quarto-table-cell-role="th">10Mb</td>
+<td id="T_a6778_level1_row0" class="row_heading level1 row0" style="text-align: left;" data-quarto-table-cell-role="th">jaccard</td>
+<td id="T_a6778_level2_row0" class="row_heading level2 row0" style="text-align: left;" data-quarto-table-cell-role="th">ECH90</td>
+<td id="T_a6778_row0_col0" class="data row0 col0" style="text-align: left;">0.021</td>
+<td id="T_a6778_row0_col1" class="data row0 col1" style="text-align: left;">0.006</td>
+<td id="T_a6778_row0_col2" class="data row0 col2" style="text-align: left;">nan</td>
+<td id="T_a6778_row0_col3" class="data row0 col3" style="text-align: left;">nan</td>
+<td id="T_a6778_row0_col4" class="data row0 col4" style="text-align: left;">0.048</td>
+</tr>
+<tr class="even">
+<td rowspan="2" id="T_a6778_level1_row1" class="row_heading level1 row1" style="text-align: left;" data-quarto-table-cell-role="th">proximity</td>
+<td id="T_a6778_level2_row1" class="row_heading level2 row1" style="text-align: left;" data-quarto-table-cell-role="th">olive</td>
+<td id="T_a6778_row1_col0" class="data row1 col0" style="text-align: left;">nan</td>
+<td id="T_a6778_row1_col1" class="data row1 col1" style="text-align: left;">nan</td>
+<td id="T_a6778_row1_col2" class="data row1 col2" style="text-align: left;">nan</td>
+<td id="T_a6778_row1_col3" class="data row1 col3" style="text-align: left;">nan</td>
+<td id="T_a6778_row1_col4" class="data row1 col4" style="text-align: left;">0.016</td>
+</tr>
+<tr class="odd">
+<td id="T_a6778_level2_row2" class="row_heading level2 row2" style="text-align: left;" data-quarto-table-cell-role="th">olivehama</td>
+<td id="T_a6778_row2_col0" class="data row2 col0" style="text-align: left;">nan</td>
+<td id="T_a6778_row2_col1" class="data row2 col1" style="text-align: left;">0.019</td>
+<td id="T_a6778_row2_col2" class="data row2 col2" style="text-align: left;">0.012</td>
+<td id="T_a6778_row2_col3" class="data row2 col3" style="text-align: left;">nan</td>
+<td id="T_a6778_row2_col4" class="data row2 col4" style="text-align: left;">0.001</td>
+</tr>
+<tr class="even">
+<td rowspan="2" id="T_a6778_level0_row3" class="row_heading level0 row3" style="text-align: left;" data-quarto-table-cell-role="th">arms</td>
+<td id="T_a6778_level1_row3" class="row_heading level1 row3" style="text-align: left;" data-quarto-table-cell-role="th">jaccard</td>
+<td id="T_a6778_level2_row3" class="row_heading level2 row3" style="text-align: left;" data-quarto-table-cell-role="th">ECH90</td>
+<td id="T_a6778_row3_col0" class="data row3 col0" style="text-align: left;">0.017</td>
+<td id="T_a6778_row3_col1" class="data row3 col1" style="text-align: left;">0.006</td>
+<td id="T_a6778_row3_col2" class="data row3 col2" style="text-align: left;">0.005</td>
+<td id="T_a6778_row3_col3" class="data row3 col3" style="text-align: left;">0.028</td>
+<td id="T_a6778_row3_col4" class="data row3 col4" style="text-align: left;">nan</td>
+</tr>
+<tr class="odd">
+<td id="T_a6778_level1_row4" class="row_heading level1 row4" style="text-align: left;" data-quarto-table-cell-role="th">proximity</td>
+<td id="T_a6778_level2_row4" class="row_heading level2 row4" style="text-align: left;" data-quarto-table-cell-role="th">olivehama</td>
+<td id="T_a6778_row4_col0" class="data row4 col0" style="text-align: left;">nan</td>
+<td id="T_a6778_row4_col1" class="data row4 col1" style="text-align: left;">nan</td>
+<td id="T_a6778_row4_col2" class="data row4 col2" style="text-align: left;">0.036</td>
+<td id="T_a6778_row4_col3" class="data row4 col3" style="text-align: left;">nan</td>
+<td id="T_a6778_row4_col4" class="data row4 col4" style="text-align: left;">nan</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<p><span style="margin-top:20pt;"><br>Benjamini-Hochberg (FDR) corrected</span></p>
+</div>
+<div class="quarto-embed-nb-cell quarto-layout-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/09_defence.ipynb" data-notebook-title="Benjamini-Hochberg adjusted p-values" data-notebook-cellid="cell-tbl-test-results-BH-corrected" style="flex-basis: 75.0%;justify-content: center;">
+<div id="tbl-test-results-bh-corrected" class="cell anchored" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="20">
+<style type="text/css">
+#T_bce2b .col0 {
+  min-width: 20px;
+}
+#T_bce2b .col1 {
+  min-width: 20px;
+}
+#T_bce2b .col2 {
+  min-width: 20px;
+}
+#T_bce2b .col3 {
+  min-width: 20px;
+}
+#T_bce2b .col4 {
+  min-width: 20px;
+}
+#T_bce2b_row0_col0 {
+  background-color: #feeae0;
+  color: #000000;
+}
+#T_bce2b_row0_col1, #T_bce2b_row2_col1, #T_bce2b_row2_col2 {
+  background-color: #f6553c;
+  color: #f1f1f1;
+}
+#T_bce2b_row0_col2, #T_bce2b_row0_col3, #T_bce2b_row0_col4, #T_bce2b_row1_col0, #T_bce2b_row1_col1, #T_bce2b_row1_col2, #T_bce2b_row1_col3, #T_bce2b_row2_col4 {
+  background-color: #000000;
+  color: #f1f1f1;
+  color: transparent;
+  background-color: transparent;
+}
+#T_bce2b_row1_col4 {
+  background-color: #fdd4c2;
+  color: #000000;
+}
+#T_bce2b_row2_col0 {
+  background-color: #fee4d8;
+  color: #000000;
+}
+#T_bce2b_row2_col3 {
+  background-color: #fff5f0;
+  color: #000000;
+}
+</style>
+
+<table id="T_bce2b" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="blank" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="index_name level0" style="text-align: left;" data-quarto-table-cell-role="th">tissue</th>
+<th id="T_bce2b_level0_col0" class="col_heading level0 col0" style="text-align: left;" data-quarto-table-cell-role="th">Fb</th>
+<th id="T_bce2b_level0_col1" class="col_heading level0 col1" style="text-align: left;" data-quarto-table-cell-role="th">Spa</th>
+<th id="T_bce2b_level0_col2" class="col_heading level0 col2" style="text-align: left;" data-quarto-table-cell-role="th">Pac</th>
+<th id="T_bce2b_level0_col3" class="col_heading level0 col3" style="text-align: left;" data-quarto-table-cell-role="th">RS</th>
+<th id="T_bce2b_level0_col4" class="col_heading level0 col4" style="text-align: left;" data-quarto-table-cell-role="th">Sperm</th>
+</tr>
+<tr class="even">
+<th class="index_name level0" style="text-align: left;" data-quarto-table-cell-role="th">viewframe</th>
+<th class="index_name level1" style="text-align: left;" data-quarto-table-cell-role="th">test</th>
+<th class="index_name level2" style="text-align: left;" data-quarto-table-cell-role="th">query</th>
+<th class="blank col0" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col1" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col2" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col3" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col4" style="text-align: left;" data-quarto-table-cell-role="th">&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="2" id="T_bce2b_level0_row0" class="row_heading level0 row0" style="text-align: left;" data-quarto-table-cell-role="th">10Mb</td>
+<td id="T_bce2b_level1_row0" class="row_heading level1 row0" style="text-align: left;" data-quarto-table-cell-role="th">jaccard</td>
+<td id="T_bce2b_level2_row0" class="row_heading level2 row0" style="text-align: left;" data-quarto-table-cell-role="th">ECH90</td>
+<td id="T_bce2b_row0_col0" class="data row0 col0" style="text-align: left;">0.043</td>
+<td id="T_bce2b_row0_col1" class="data row0 col1" style="text-align: left;">0.020</td>
+<td id="T_bce2b_row0_col2" class="data row0 col2" style="text-align: left;">nan</td>
+<td id="T_bce2b_row0_col3" class="data row0 col3" style="text-align: left;">nan</td>
+<td id="T_bce2b_row0_col4" class="data row0 col4" style="text-align: left;">nan</td>
+</tr>
+<tr class="even">
+<td id="T_bce2b_level1_row1" class="row_heading level1 row1" style="text-align: left;" data-quarto-table-cell-role="th">proximity</td>
+<td id="T_bce2b_level2_row1" class="row_heading level2 row1" style="text-align: left;" data-quarto-table-cell-role="th">olivehama</td>
+<td id="T_bce2b_row1_col0" class="data row1 col0" style="text-align: left;">nan</td>
+<td id="T_bce2b_row1_col1" class="data row1 col1" style="text-align: left;">nan</td>
+<td id="T_bce2b_row1_col2" class="data row1 col2" style="text-align: left;">nan</td>
+<td id="T_bce2b_row1_col3" class="data row1 col3" style="text-align: left;">nan</td>
+<td id="T_bce2b_row1_col4" class="data row1 col4" style="text-align: left;">0.038</td>
+</tr>
+<tr class="odd">
+<td id="T_bce2b_level0_row2" class="row_heading level0 row2" style="text-align: left;" data-quarto-table-cell-role="th">arms</td>
+<td id="T_bce2b_level1_row2" class="row_heading level1 row2" style="text-align: left;" data-quarto-table-cell-role="th">jaccard</td>
+<td id="T_bce2b_level2_row2" class="row_heading level2 row2" style="text-align: left;" data-quarto-table-cell-role="th">ECH90</td>
+<td id="T_bce2b_row2_col0" class="data row2 col0" style="text-align: left;">0.041</td>
+<td id="T_bce2b_row2_col1" class="data row2 col1" style="text-align: left;">0.020</td>
+<td id="T_bce2b_row2_col2" class="data row2 col2" style="text-align: left;">0.020</td>
+<td id="T_bce2b_row2_col3" class="data row2 col3" style="text-align: left;">0.046</td>
+<td id="T_bce2b_row2_col4" class="data row2 col4" style="text-align: left;">nan</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Now, only the baboon regions are significantly proximal to sperm, but there is still overlap between ECH and the limits of all tissue types except sperm. So, even with a multiple testing correction (that I deem too conservative), there are still a lot of correlation between chromatin compartments in macaque in both fibroblasts and through spermatogenesis, either by intersection or by edge/limit proximity.</p>
+</div>
+</section>
+</section>
+<section id="implications" class="level2">
+<h2 class="anchored" data-anchor-id="implications">Implications</h2>
+<ul>
+<li>Assuming the results are real</li>
+<li>What does it <em>mean</em> that the regions correlate
+<ul>
+<li>The ECH paper: hinting to possible mechanisms aiding a fitness-based model</li>
+<li>Structural elements could aid in preserving certain genetic elements</li>
+<li>Chromosome X is an obvious target</li>
+<li>I have only looked at <em>intra</em>-chromosomal interactions</li>
+</ul></li>
+</ul>
+<div class="notes">
+<p>Let’s for a moment assume that this explorative analysis is sound, and the regions are actually correlating. <em>What does it mean</em> that they do? An extraordinary selection coefficient has been reported for a segment in ECH that is more than double the size of the sweep associated with <em>lactase persistence</em>. They hint that other mechanisms could aid the apparent selection by structurally linking regions across the chromosome. The large regions of reduced diversity on X is an obvious target for comparison, but we could also look at autosomes and inter-chromosomal interactions.</p>
+</div>
+</section>
+<section id="reproducibility" class="level2">
+<h2 class="anchored" data-anchor-id="reproducibility">Reproducibility</h2>
+<ul>
+<li>Can we reproduce in other organisms</li>
+<li>Introducing: the reproducibility framework</li>
+</ul>
+<p><a href="images/sponsors.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="images/sponsors.png" class="img-fluid"></a></p>
+</section>
+<section id="conclusive-thoughts-and-perspectives" class="level2">
+<h2 class="anchored" data-anchor-id="conclusive-thoughts-and-perspectives">Conclusive thoughts and perspectives</h2>
+<ul>
+<li>Previous results
+<ul>
+<li>No such comparison has been performed before (as far as I know)</li>
+</ul></li>
+<li>Find a way to weight the compartments based on metadata</li>
+<li>We should investigate TADs as well</li>
+<li>We should analyze the genes at the coordinates of correlation</li>
+</ul>
+</section>
+<section id="extra-slides" class="level1">
+<h1>Extra slides</h1>
+<section id="inference-methods-tads" class="level2">
+<h2 class="anchored" data-anchor-id="inference-methods-tads">Inference Methods: TADs</h2>
+<p>Call TADs using interaction data summarized into a 1D genomic profile</p>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="alert">Insulation Score</span>: Sliding window along the main diagonal</li>
+<li><span class="alert">Boundaries</span>: Find local minima along the genome</li>
+<li><span class="alert">Define threshold</span>: define a threshold for <em>peak prominence</em>
+<ul class="incremental">
+<li>Borrow <em>Otsu</em> or <em>Li</em> boundaries from image analysis</li>
+<li>Optional: use CTCF enrichment to guide the thresholding</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<p><em>Many methods exist for calling TADs <span class="math inline">\(\rightarrow\)</span> different results from different approaches</em></p>
+</div>
+<div class="fragment" style="font-size:0.8em;">
+<blockquote class="blockquote">
+<p><em>“[…] an example of how adjacent boundaries calculated with cooltools</em> <em>can specify a set of intervals that could be analyzed as TADs, […]“</em> <br> <span style="margin-left:50pt;font-style:italic">—cooltools documentation</span></p>
+</blockquote>
+</div>
+<div class="notes">
+<ul>
+<li><strong>insulation score:</strong> draw a sliding window on the diagonal of a matrix, draw insulation profile</li>
+<li><strong>boundaries:</strong> draw local minima,</li>
+<li><strong>threshold:</strong> draw and explain prominence, mark strong/weak boundaries we can borrow thresholding methods from image analysis as CTCF is shown to be enriched at TAD boundaries, we can use CTCF enrichment to guide the thresholds as well</li>
+<li>There is not concensus about the correct method</li>
+<li>Healthy vagueness</li>
+</ul>
+</div>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-abdennur2020coolerscalablestorage" class="csl-entry" role="listitem">
+Abdennur, Nezar, and Leonid A Mirny. 2020. <span>“Cooler: Scalable
+Storage for <span>Hi-C</span> Data and Other Genomically Labeled
+Arrays.”</span> Edited by Jonathan Wren. <em>Bioinformatics</em> 36 (1):
+311–16. <a href="https://doi.org/10.1093/bioinformatics/btz540">https://doi.org/10.1093/bioinformatics/btz540</a>.
+</div>
+<div id="ref-Allaire_Quarto_2024" class="csl-entry" role="listitem">
+Allaire, J. J., Charles Teague, Carlos Scheidegger, Yihui Xie, and
+Christophe Dervieux. 2024. <span>“<span>Quarto</span>.”</span> <a href="https://doi.org/10.5281/zenodo.5960048">https://doi.org/10.5281/zenodo.5960048</a>.
+</div>
+<div id="ref-anaconda" class="csl-entry" role="listitem">
+Anaconda Software Distribution. 2016. <span>“Anaconda Software
+Distribution.”</span> Computer software. <a href="https://anaconda.com">https://anaconda.com</a>.
+</div>
+<div id="ref-baker20161500scientistslift" class="csl-entry" role="listitem">
+Baker, Monya. 2016. <span>“1,500 Scientists Lift the Lid on
+Reproducibility.”</span> <em>Nature</em> 533 (7604): 452–54. <a href="https://doi.org/10.1038/533452a">https://doi.org/10.1038/533452a</a>.
+</div>
+<div id="ref-bersaglieri2004geneticsignaturesstrong" class="csl-entry" role="listitem">
+Bersaglieri, Todd, Pardis C. Sabeti, Nick Patterson, Trisha Vanderploeg,
+Steve F. Schaffner, Jared A. Drake, Matthew Rhodes, David E. Reich, and
+Joel N. Hirschhorn. 2004. <span>“Genetic <span>Signatures</span> of
+<span>Strong Recent Positive Selection</span> at the <span>Lactase
+Gene</span>.”</span> <em>The American Journal of Human Genetics</em> 74
+(6): 1111–20. <a href="https://doi.org/10.1086/421051">https://doi.org/10.1086/421051</a>.
+</div>
+<div id="ref-bicciato2022hicdataanalysis" class="csl-entry" role="listitem">
+Bicciato, Silvio, and Francesco Ferrari, eds. 2022. <em>Hi-<span>C Data
+Analysis</span>: <span>Methods</span> and <span>Protocols</span></em>.
+Vol. 2301. Methods in <span>Molecular Biology</span>. New York, NY:
+Springer US. <a href="https://doi.org/10.1007/978-1-0716-1390-0">https://doi.org/10.1007/978-1-0716-1390-0</a>.
+</div>
+<div id="ref-bravonunez2018geneticvillainskiller" class="csl-entry" role="listitem">
+Bravo Núñez, María Angélica, Nicole L. Nuckolls, and Sarah E. Zanders.
+2018. <span>“Genetic <span>Villains</span>: <span>Killer Meiotic
+Drivers</span>.”</span> <em>Trends in Genetics</em> 34 (6): 424–33. <a href="https://doi.org/10.1016/j.tig.2018.02.003">https://doi.org/10.1016/j.tig.2018.02.003</a>.
+</div>
+<div id="ref-cowell2023100yearshaldanes" class="csl-entry" role="listitem">
+Cowell, Finn. 2023. <span>“100 Years of <span>Haldane</span>’s
+Rule.”</span> <em>Journal of Evolutionary Biology</em> 36 (2): 337–46.
+<a href="https://doi.org/10.1111/jeb.14112">https://doi.org/10.1111/jeb.14112</a>.
+</div>
+<div id="ref-devteam2024sratoolkit" class="csl-entry" role="listitem">
+DevTeam, SRA Toolkit. 2024. <span>“<span>SRA Toolkit</span>.”</span>
+Wiki. <em>GitHub</em>.
+https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit. <a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software">https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software</a>.
+</div>
+<div id="ref-dixon2015chromatinarchitecturereorganization" class="csl-entry" role="listitem">
+Dixon, Jesse R., Inkyung Jung, Siddarth Selvaraj, Yin Shen, Jessica E.
+Antosiewicz-Bourget, Ah Young Lee, Zhen Ye, et al. 2015.
+<span>“Chromatin Architecture Reorganization During Stem Cell
+Differentiation.”</span> <em>Nature</em> 518 (7539): 331–36. <a href="https://doi.org/10.1038/nature14222">https://doi.org/10.1038/nature14222</a>.
+</div>
+<div id="ref-dutheil2015strongselectivesweeps" class="csl-entry" role="listitem">
+Dutheil, Julien Y., Kasper Munch, Kiwoong Nam, Thomas Mailund, and
+Mikkel H. Schierup. 2015. <span>“Strong <span>Selective Sweeps</span> on
+the <span>X Chromosome</span> in the <span>Human-Chimpanzee Ancestor
+Explain Its Low Divergence</span>.”</span> Edited by Nick H. Barton.
+<em>PLOS Genetics</em> 11 (8): e1005451. <a href="https://doi.org/10.1371/journal.pgen.1005451">https://doi.org/10.1371/journal.pgen.1005451</a>.
+</div>
+<div id="ref-ewels2016multiqcsummarizeanalysis" class="csl-entry" role="listitem">
+Ewels, Philip, Måns Magnusson, Sverker Lundin, and Max Käller. 2016.
+<span>“<span>MultiQC</span>: Summarize Analysis Results for Multiple
+Tools and Samples in a Single Report.”</span> <em>Bioinformatics</em> 32
+(19): 3047–48. <a href="https://doi.org/10.1093/bioinformatics/btw354">https://doi.org/10.1093/bioinformatics/btw354</a>.
+</div>
+<div id="ref-gao2018segment_liftoverpythontool" class="csl-entry" role="listitem">
+Gao, Bo, Qingyao Huang, and Michael Baudis. 2018.
+<span>“Segment_liftover : A <span>Python</span> Tool to Convert Segments
+Between Genome Assemblies.”</span> <em>F1000Research</em> 7 (June): 319.
+<a href="https://doi.org/10.12688/f1000research.14148.2">https://doi.org/10.12688/f1000research.14148.2</a>.
+</div>
+<div id="ref-gwf" class="csl-entry" role="listitem">
+GenomeDK. 2023. <span>“Gwf Workflow Manager.”</span> <a href="https://github.com/gwforg/gwf.git" class="uri">https://github.com/gwforg/gwf.git</a>.
+</div>
+<div id="ref-github" class="csl-entry" role="listitem">
+GitHub, Inc. n.d. <span>“GitHub.”</span> <a href="https://github.com" class="uri">https://github.com</a>.
+</div>
+<div id="ref-haldane1922sexratiounisexual" class="csl-entry" role="listitem">
+Haldane, J. B. S. 1922. <span>“Sex Ratio and Unisexual Sterility in
+Hybrid Animals.”</span> <em>Journal of Genetics</em> 12 (2): 101–9. <a href="https://doi.org/10.1007/BF02983075">https://doi.org/10.1007/BF02983075</a>.
+</div>
+<div id="ref-hinrichs2006ucscgenomebrowser" class="csl-entry" role="listitem">
+Hinrichs, A. S. 2006. <span>“The <span>UCSC Genome Browser
+Database</span>: Update 2006.”</span> <em>Nucleic Acids Research</em> 34
+(90001): D590–98. <a href="https://doi.org/10.1093/nar/gkj144">https://doi.org/10.1093/nar/gkj144</a>.
+</div>
+<div id="ref-imakaev2012iterativecorrectionhic" class="csl-entry" role="listitem">
+Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia
+Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A
+Mirny. 2012. <span>“Iterative Correction of <span>Hi-C</span> Data
+Reveals Hallmarks of Chromosome Organization.”</span> <em>Nature
+Methods</em> 9 (10): 999–1003. <a href="https://doi.org/10.1038/nmeth.2148">https://doi.org/10.1038/nmeth.2148</a>.
+</div>
+<div id="ref-auityourguidegai" class="csl-entry" role="listitem">
+IT, AU. n.d. <span>“Your Guide to <span>GAI</span> Responsibly.”</span>
+https://medarbejdere.au.dk/en/gai. Accessed January 9, 2025.
+</div>
+<div id="ref-jaenike2001sexchromosomemeiotic" class="csl-entry" role="listitem">
+Jaenike, John. 2001. <span>“Sex <span>Chromosome Meiotic
+Drive</span>.”</span> <em>Annual Review of Ecology and Systematics</em>
+32 (1): 25–49. <a href="https://doi.org/10.1146/annurev.ecolsys.32.081501.113958">https://doi.org/10.1146/annurev.ecolsys.32.081501.113958</a>.
+</div>
+<div id="ref-soton403913jupyter" class="csl-entry" role="listitem">
+Kluyver, Thomas, Benjamin Ragan-Kelley, Fernando Pérez, Brian Granger,
+Matthias Bussonnier, Jonathan Frederic, Kyle Kelley, et al. 2016.
+<span>“Jupyter Notebooks ? A Publishing Format for Reproducible
+Computational Workflows.”</span> In <em>Positioning and Power in
+Academic Publishing: Players, Agents and Agendas</em>, edited by
+Fernando Loizides and Birgit Scmidt, 87–90. IOS Press. <a href="https://eprints.soton.ac.uk/403913/">https://eprints.soton.ac.uk/403913/</a>.
+</div>
+<div id="ref-lajoie2015hitchhikersguidehic" class="csl-entry" role="listitem">
+Lajoie, Bryan R., Job Dekker, and Noam Kaplan. 2015. <span>“The
+<span>Hitchhiker</span>’s <span>Guide</span> to <span>Hi-C
+Analysis</span>: <span>Practical</span> Guidelines.”</span> <em>Methods
+(San Diego, Calif.)</em> 72 (January): 65–75. <a href="https://doi.org/10.1016/j.ymeth.2014.10.031">https://doi.org/10.1016/j.ymeth.2014.10.031</a>.
+</div>
+<div id="ref-li2013aligningsequencereadsclone" class="csl-entry" role="listitem">
+Li, Heng. 2013. <span>“Aligning Sequence Reads, Clone Sequences and
+Assembly Contigs with BWA-MEM.”</span> <a href="https://arxiv.org/abs/1303.3997">https://arxiv.org/abs/1303.3997</a>.
+</div>
+<div id="ref-lieberman-aiden2009comprehensivemappinglongrange" class="csl-entry" role="listitem">
+Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim
+Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009.
+<span>“Comprehensive <span>Mapping</span> of <span>Long-Range
+Interactions Reveals Folding Principles</span> of the <span>Human
+Genome</span>.”</span> <em>Science</em> 326 (5950): 289–93. <a href="https://doi.org/10.1126/science.1181369">https://doi.org/10.1126/science.1181369</a>.
+</div>
+<div id="ref-lindholm2016ecologyevolutionarydynamics" class="csl-entry" role="listitem">
+Lindholm, Anna K., Kelly A. Dyer, Renée C. Firman, Lila Fishman,
+Wolfgang Forstmeier, Luke Holman, Hanna Johannesson, et al. 2016.
+<span>“The <span>Ecology</span> and <span>Evolutionary Dynamics</span>
+of <span>Meiotic Drive</span>.”</span> <em>Trends in Ecology &amp;
+Evolution</em> 31 (4): 315–26. <a href="https://doi.org/10.1016/j.tree.2016.02.001">https://doi.org/10.1016/j.tree.2016.02.001</a>.
+</div>
+<div id="ref-mailund2014lineagesortingapes" class="csl-entry" role="listitem">
+Mailund, Thomas, Kasper Munch, and Mikkel Heide Schierup. 2014.
+<span>“Lineage <span>Sorting</span> in <span>Apes</span>.”</span>
+<em>Annual Review of Genetics</em> 48 (1): 519–35. <a href="https://doi.org/10.1146/annurev-genet-120213-092532">https://doi.org/10.1146/annurev-genet-120213-092532</a>.
+</div>
+<div id="ref-misteli2020selforganizinggenomeprinciples" class="csl-entry" role="listitem">
+Misteli, Tom. 2020. <span>“The <span>Self-Organizing Genome</span>:
+<span>Principles</span> of <span>Genome Architecture</span> and
+<span>Function</span>.”</span> <em>Cell</em> 183 (1): 28–45. <a href="https://doi.org/10.1016/j.cell.2020.09.014">https://doi.org/10.1016/j.cell.2020.09.014</a>.
+</div>
+<div id="ref-munch2024munchgroup" class="csl-entry" role="listitem">
+Munch, Kasper. 2024. <span>“Munch-Group.”</span>
+https://munch-group.org/research.html.
+</div>
+<div id="ref-openchromosomecollective" class="csl-entry" role="listitem">
+<span>“<span>Open2C</span>.”</span> n.d. Resource. <em>Open
+<span>Chromosome Collective</span></em>. https://open2c.github.io/.
+Accessed November 13, 2024.
+</div>
+<div id="ref-open2c2022cooltoolsenablinghighresolution" class="csl-entry" role="listitem">
+Open2C, Nezar Abdennur, Sameer Abraham, Geoffrey Fudenberg, Ilya M.
+Flyamer, Aleksandra A. Galitsyna, Anton Goloborodko, Maxim Imakaev,
+Betul A. Oksuz, and Sergey V. Venev. 2022. <span>“Cooltools: Enabling
+High-Resolution <span>Hi-C</span> Analysis in
+<span>Python</span>.”</span> Bioinformatics. <a href="https://doi.org/10.1101/2022.10.31.514564">https://doi.org/10.1101/2022.10.31.514564</a>.
+</div>
+<div id="ref-open2c2024pairtoolssequencingdata" class="csl-entry" role="listitem">
+Open2C, Nezar Abdennur, Geoffrey Fudenberg, Ilya M. Flyamer, Aleksandra
+A. Galitsyna, Anton Goloborodko, Maxim Imakaev, and Sergey V. Venev.
+2024. <span>“Pairtools: <span>From</span> Sequencing Data to Chromosome
+Contacts.”</span> Edited by Ferhat Ay. <em>PLOS Computational
+Biology</em> 20 (5): e1012164. <a href="https://doi.org/10.1371/journal.pcbi.1012164">https://doi.org/10.1371/journal.pcbi.1012164</a>.
+</div>
+<div id="ref-quartoteam2022announcingquartonew" class="csl-entry" role="listitem">
+Quarto Team, Posit. 2022. <span>“Announcing <span>Quarto</span>, a New
+Scientific and Technical Publishing System.”</span> <em>Posit</em>.
+</div>
+<div id="ref-ramirez2018highresolutiontadsreveal" class="csl-entry" role="listitem">
+Ramírez, Fidel, Vivek Bhardwaj, Laura Arrigoni, Kin Chung Lam, Björn A.
+Grüning, José Villaveces, Bianca Habermann, Asifa Akhtar, and Thomas
+Manke. 2018. <span>“High-Resolution <span>TADs</span> Reveal
+<span>DNA</span> Sequences Underlying Genome Organization in
+Flies.”</span> <em>Nature Communications</em> 9 (1): 189. <a href="https://doi.org/10.1038/s41467-017-02525-w">https://doi.org/10.1038/s41467-017-02525-w</a>.
+</div>
+<div id="ref-sayers2022databaseresourcesnational" class="csl-entry" role="listitem">
+Sayers, Eric W, Evan E Bolton, J Rodney Brister, Kathi Canese, Jessica
+Chan, Donald C Comeau, Ryan Connor, et al. 2022. <span>“Database
+Resources of the National Center for Biotechnology Information.”</span>
+<em>Nucleic Acids Research</em> 50 (D1): D20–26. <a href="https://doi.org/10.1093/nar/gkab1112">https://doi.org/10.1093/nar/gkab1112</a>.
+</div>
+<div id="ref-skov2023extraordinaryselectionhuman" class="csl-entry" role="listitem">
+Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves
+Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch.
+2023. <span>“Extraordinary Selection on the Human <span>X</span>
+Chromosome Associated with Archaic Admixture.”</span> <em>Cell
+Genomics</em> 3 (3): 100274. <a href="https://doi.org/10.1016/j.xgen.2023.100274">https://doi.org/10.1016/j.xgen.2023.100274</a>.
+</div>
+<div id="ref-sorensen2023genomewidecoancestryreveals" class="csl-entry" role="listitem">
+Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran,
+Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023.
+<span>“Genome-Wide Coancestry Reveals Details of Ancient and Recent
+Male-Driven Reticulation in Baboons.”</span> <em>Science</em> 380
+(6648): eabn8153. <a href="https://doi.org/10.1126/science.abn8153">https://doi.org/10.1126/science.abn8153</a>.
+</div>
+<div id="ref-thematplotlibdevelopmentteam2024matplotlibvisualizationpython" class="csl-entry" role="listitem">
+Team, The Matplotlib Development. 2024. <span>“Matplotlib:
+<span>Visualization</span> with <span>Python</span>.”</span> Zenodo. <a href="https://doi.org/10.5281/ZENODO.10916799">https://doi.org/10.5281/ZENODO.10916799</a>.
+</div>
+<div id="ref-thegalaxycommunity2024galaxyplatformaccessible" class="csl-entry" role="listitem">
+The Galaxy Community, Linelle Ann L Abueg, Enis Afgan, Olivier Allart,
+Ahmed H Awan, Wendi A Bacon, Dannon Baker, et al. 2024. <span>“The
+<span>Galaxy</span> Platform for Accessible, Reproducible, and
+Collaborative Data Analyses: 2024 Update.”</span> <em>Nucleic Acids
+Research</em> 52 (W1): W83–94. <a href="https://doi.org/10.1093/nar/gkae410">https://doi.org/10.1093/nar/gkae410</a>.
+</div>
+<div id="ref-git" class="csl-entry" role="listitem">
+Torvalds, Linus, and Junio C Hamano. 2005. <em>Git: A Distributed
+Version Control System</em>. <a href="https://git-scm.com">https://git-scm.com</a>.
+</div>
+<div id="ref-wang2019reprogrammingmeioticchromatin" class="csl-entry" role="listitem">
+Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan,
+Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic
+Chromatin Architecture</span> During
+<span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3):
+547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
+</div>
+<div id="ref-warren2020sequencediversityanalyses" class="csl-entry" role="listitem">
+Warren, Wesley C., R. Alan Harris, Marina Haukness, Ian T. Fiddes,
+Shwetha C. Murali, Jason Fernandes, Philip C. Dishuck, et al. 2020.
+<span>“Sequence Diversity Analyses of an Improved Rhesus Macaque Genome
+Enhance Its Biomedical Utility.”</span> <em>Science</em> 370 (6523):
+eabc6617. <a href="https://doi.org/10.1126/science.abc6617">https://doi.org/10.1126/science.abc6617</a>.
+</div>
+<div id="ref-waskom2021seabornstatisticaldata" class="csl-entry" role="listitem">
+Waskom, Michael. 2021. <span>“Seaborn: Statistical Data
+Visualization.”</span> <em>Journal of Open Source Software</em> 6 (60):
+3021. <a href="https://doi.org/10.21105/joss.03021">https://doi.org/10.21105/joss.03021</a>.
+</div>
+<div id="ref-wikimedia:HiCschematic" class="csl-entry" role="listitem">
+WikiCommons:Prakrutiuday. <span>“HiCschematic (Cutout).”</span> <a href="https://commons.wikimedia.org/wiki/File:HiCschematic.png">https://commons.wikimedia.org/wiki/File:HiCschematic.png</a>.
+</div>
+<div id="ref-wolff2018galaxyhicexplorerweb" class="csl-entry" role="listitem">
+Wolff, Joachim, Vivek Bhardwaj, Stephan Nothjunge, Gautier Richard, Gina
+Renschler, Ralf Gilsbach, Thomas Manke, Rolf Backofen, Fidel Ramírez,
+and Björn A Grüning. 2018. <span>“Galaxy <span>HiCExplorer</span>: A Web
+Server for Reproducible <span>Hi-C</span> Data Analysis, Quality Control
+and Visualization.”</span> <em>Nucleic Acids Research</em> 46 (W1):
+W11–16. <a href="https://doi.org/10.1093/nar/gky504">https://doi.org/10.1093/nar/gky504</a>.
+</div>
+<div id="ref-wolff2020galaxyhicexplorer3" class="csl-entry" role="listitem">
+Wolff, Joachim, Leily Rabbani, Ralf Gilsbach, Gautier Richard, Thomas
+Manke, Rolf Backofen, and Björn A Grüning. 2020. <span>“Galaxy
+<span>HiCExplorer</span> 3: A Web Server for Reproducible
+<span>Hi-C</span>, Capture <span>Hi-C</span> and Single-Cell
+<span>Hi-C</span> Data Analysis, Quality Control and
+Visualization.”</span> <em>Nucleic Acids Research</em> 48 (W1): W177–84.
+<a href="https://doi.org/10.1093/nar/gkaa220">https://doi.org/10.1093/nar/gkaa220</a>.
+</div>
+<div id="ref-zuo2021stageresolvedhicanalyses" class="csl-entry" role="listitem">
+Zuo, Wu, Guangming Chen, Zhimei Gao, Shuai Li, Yanyan Chen, Chenhui
+Huang, Juan Chen, Zhengjun Chen, Ming Lei, and Qian Bian. 2021.
+<span>“Stage-Resolved <span>Hi-C</span> Analyses Reveal Meiotic
+Chromosome Organizational Features Influencing Homolog
+Alignment.”</span> <em>Nature Communications</em> 12 (1): 5827. <a href="https://doi.org/10.1038/s41467-021-26033-0">https://doi.org/10.1038/s41467-021-26033-0</a>.
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../slides/index.html" class="pagination-link" aria-label="Main talk example">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Main talk example</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../thesis/index.html" class="pagination-link" aria-label="Chromatin Compartments and Selection on X">
+        <span class="nav-page-text"><span class="chapter-title">Chromatin Compartments and Selection on X</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/munch-group/hic-spermatogenesis/edit/main/slides/defence.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/munch-group/hic-spermatogenesis/blob/main/slides/defence.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

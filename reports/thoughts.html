@@ -248,6 +248,11 @@ div.csl-indent {
   <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Main talk example</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/defence.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chromatin Architecture and Selection on X</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -314,7 +319,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 29, 2025 <br> 19:53:38 (UTC +00:00)</p>
+      <p class="date">January 29, 2025 <br> 20:03:48 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -330,8 +335,8 @@ div.csl-indent {
 <section id="notes-on-methods" class="level2">
 <h2 class="anchored" data-anchor-id="notes-on-methods">Notes on methods</h2>
 <ul>
-<li><span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> uses a sliding window approach <span class="citation" data-cites="dixon2015chromatinarchitecturereorganization">(<a href="../thesis/index.html#ref-dixon2015chromatinarchitecturereorganization" role="doc-biblioref">Dixon et al. 2015</a>)</span> to calculate the obs/exp matrices for the PCA. I will try that next, and work within the <code>cooler</code>/<code>cooltools</code> framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.</li>
-<li><code>HiCExplorer</code> use a genome-wide contact-distance-based normalization method (<code>dist_norm</code>) to generate <em>obs/exp</em> matrices for PCA (similar to <span class="citation" data-cites="aiden2009comprehensivemappinglongrange">(<a href="../thesis/index.html#ref-aiden2009comprehensivemappinglongrange" role="doc-biblioref"><strong>aiden2009comprehensivemappinglongrange?</strong></a>)</span>) that may introduce biases. I don’t know why, but it looks more like <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> when subtracting the running average [triangular windows, <em>Kasper</em> did this] from the computed PCs.</li>
+<li><span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> uses a sliding window approach <span class="citation" data-cites="dixon2015chromatinarchitecturereorganization">(<a href="../slides/defence.html#ref-dixon2015chromatinarchitecturereorganization" role="doc-biblioref">Dixon et al. 2015</a>)</span> to calculate the obs/exp matrices for the PCA. I will try that next, and work within the <code>cooler</code>/<code>cooltools</code> framework which has a Python API and is thus more suitable to run in Jupyter Notebooks.</li>
+<li><code>HiCExplorer</code> use a genome-wide contact-distance-based normalization method (<code>dist_norm</code>) to generate <em>obs/exp</em> matrices for PCA (similar to <span class="citation" data-cites="aiden2009comprehensivemappinglongrange">(<a href="../slides/defence.html#ref-aiden2009comprehensivemappinglongrange" role="doc-biblioref"><strong>aiden2009comprehensivemappinglongrange?</strong></a>)</span>) that may introduce biases. I don’t know why, but it looks more like <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> when subtracting the running average [triangular windows, <em>Kasper</em> did this] from the computed PCs.</li>
 </ul>
 </section>
 <section id="notes-on-quarto" class="level2">
@@ -341,7 +346,7 @@ div.csl-indent {
 <section id="notes-on-hicexplorer" class="level2">
 <h2 class="anchored" data-anchor-id="notes-on-hicexplorer">Notes on <code>HiCExplorer</code></h2>
 <p>It feels very old school and unnecessary that I can’t just output the <code>HiCExplorer</code> commands [plots] to the Jupyter display. I <em>have</em> to save the plots to <em>.png</em>s, which is flooding my <code>figures</code> directory. I should probably clean it up.</p>
-<p>I have created plots to mimic the <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> for the <code>chr12</code> as well as <code>chrX</code>. They don’t compare very well with Wang2019, and the both PC1 and PC2 plot looks like they’re highly biased (only intersects 0 one time). PC3 looks more reasonable, but I don’t know if it is reasonable at all to use the 3rd PC in stead of the 1st. I guess it means that the compartmentalization is not the most variable feature, and there are some biases that we have to get rid of. That, or the X chromosome is divided only into two compartments in fibroblasts (unlikely).</p>
+<p>I have created plots to mimic the <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> for the <code>chr12</code> as well as <code>chrX</code>. They don’t compare very well with Wang2019, and the both PC1 and PC2 plot looks like they’re highly biased (only intersects 0 one time). PC3 looks more reasonable, but I don’t know if it is reasonable at all to use the 3rd PC in stead of the 1st. I guess it means that the compartmentalization is not the most variable feature, and there are some biases that we have to get rid of. That, or the X chromosome is divided only into two compartments in fibroblasts (unlikely).</p>
 <div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer trial pipeline" data-notebook-cellid="cell-chrx-50kb-pca">
 <div id="cell-chrx-50kb-pca" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
@@ -411,7 +416,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Neither of them really resembles the ones from <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span>, but we have some confidence in our method still. Next step is to do the default compartmentalization analysis from <code>cooler</code> as well.</p>
+<p>Neither of them really resembles the ones from <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span>, but we have some confidence in our method still. Next step is to do the default compartmentalization analysis from <code>cooler</code> as well.</p>
 </section>
 <section id="update-10-10-2024" class="level4">
 <h4 class="anchored" data-anchor-id="update-10-10-2024">Update 10-10-2024</h4>
@@ -505,7 +510,7 @@ Wang2019 PC1 on chrX
 </div>
 </div>
 </div>
-<p>I’m very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome <em>rheMac10</em>, where more than 99% of the segmentation is removed, compared to <em>rheMac2</em>. It is evident in the <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped.</p>
+<p>I’m very positive about the results. The compartments do not match completely, but we have to take into account another mapping algorithm and a new (updated) reference genome <em>rheMac10</em>, where more than 99% of the segmentation is removed, compared to <em>rheMac2</em>. It is evident in the <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> PC1 plot, that a chunk in the middle is missing, possibly due to unmmapped reads. In any case, here is higher-resolution of PC compartments, as more Hi-C contacts can be mapped.</p>
 </section>
 <section id="compartments-500kb-resolution-looks-smoother" class="level4">
 <h4 class="anchored" data-anchor-id="compartments-500kb-resolution-looks-smoother">Compartments 500kb resolution looks smoother</h4>
@@ -578,7 +583,7 @@ Figure&nbsp;10.3: 500kb binned E1 eigenvector values for chrX. Freshly calculate
 </section>
 <section id="compartments-on-all-cell-types-by-merging-all-samples-from-each-type" class="level3">
 <h3 class="anchored" data-anchor-id="compartments-on-all-cell-types-by-merging-all-samples-from-each-type">Compartments on all cell types (By merging all samples from each type)</h3>
-<p>Now it is time for the analysis of the other cell types as well. Here, we trust <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> when they state that their compartments were highly reproducible between replicates.</p>
+<p>Now it is time for the analysis of the other cell types as well. Here, we trust <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> when they state that their compartments were highly reproducible between replicates.</p>
 <p>Thus, we merge all samples from each cell type, leaving us with 5 <em>coolers</em> at 10 kb bins. We then <code>zoomify</code> the coolers to include the resolutions 50, 100, and 500kb binned data as well.</p>
 <p>We continue with the analysis with the 500kb binned data, as it runs faster, uses less memory, while still being sufficient for chromosome-wide analysis.</p>
 </section>
@@ -586,7 +591,7 @@ Figure&nbsp;10.3: 500kb binned E1 eigenvector values for chrX. Freshly calculate
 <section id="calculating-the-eigenvectors-again" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="calculating-the-eigenvectors-again">Calculating the eigenvectors again</h2>
 <p>Initially, the results were not as expected, as the E1 did not reflect the plaid pattern from the matrix from all cell types. In stead, it showed two compartments.</p>
-<p>As stated in <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-aiden2009comprehensivemappinglongrange" role="doc-biblioref"><strong>aiden2009comprehensivemappinglongrange?</strong></a>)</span> and <code>cooltools</code> documentation, the E1 occasionally <em>does not</em> reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere).</p>
+<p>As stated in <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-aiden2009comprehensivemappinglongrange" role="doc-biblioref"><strong>aiden2009comprehensivemappinglongrange?</strong></a>)</span> and <code>cooltools</code> documentation, the E1 occasionally <em>does not</em> reflect the plaid pattern from the interaction matrix, but rather a two-compartment chromosome. That happens when the difference in interaction frequencies differ more between the chromosome arms than it does within the arms. To mitigate such cases (or get the correct compartments), we can either use the next eigenvector, or (a better option, in our opinion) calculate the eigenvectors from a chromosome partitioned in the two arms (separated by the centromere).</p>
 <p>I determined the region of the centromere from the <a href="https://www.ncbi.nlm.nih.gov/gdv/browser/genome/?id=GCF_003339765.1">NCBI browser</a>, in a region from 58-61Mb that have no gene annotations. That region corresponds well with <code>NaN</code> values in the calculated eigenvector (values removed because of low-count bins), as seen below:</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-e1_nan_hist">
 <div id="cell-e1_nan_hist" class="cell page-columns page-full" data-execution_count="30">
@@ -600,7 +605,7 @@ Figure&nbsp;10.3: 500kb binned E1 eigenvector values for chrX. Freshly calculate
 </div>
 </div>
 </div>
-<p>Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span>. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know…</p>
+<p>Then, the E1 for each cell type was plotted and looks like we have succesfully reproduced the A/B compartments from <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../slides/defence.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span>. Also, I noticed after all this, that they also partition the chromosomes at the centromere. The more you know…</p>
 <div class="quarto-embed-nb-cell page-columns page-full" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/03_compartments.ipynb" data-notebook-title="Compartments Analysis" data-notebook-cellid="cell-e1-fullmerged-all-500kb">
 <div id="cell-e1-fullmerged-all-500kb" class="cell page-columns page-full" data-execution_count="31">
 <div class="cell-output cell-output-display page-columns page-full">
