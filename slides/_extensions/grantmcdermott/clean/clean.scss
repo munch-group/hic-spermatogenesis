@@ -25,6 +25,7 @@ Note: This theme uses the Roboto font family, which it imports from Google
   from the choice set if the family is installed locally.
 */
 @import url('https://fonts.googleapis.com/css?family=Roboto:200,200i,300,300i,350,350i,400,400i&display=swap');
+@import url('https://fonts.cdnfonts.com/css/tex-gyre-pagella');
 
 $font-family-sans-serif: "Roboto", sans-serif !default;
 $presentation-heading-font: "Roboto", sans-serif !default;
@@ -41,7 +42,6 @@ $body-color: $jet !default;
 $link-color: $accent !default;
 $selection-bg: #26351c !default;
 
-
 /*-- scss:rules --*/
 
 .reveal a {
@@ -51,7 +51,7 @@ $selection-bg: #26351c !default;
 .reveal p {
   // font-weight: 300;
   font-weight: lighter;
-  margin-top: 1.25em;
+  margin-top: 0.25em;
 }
 
 // title and headings
@@ -111,7 +111,8 @@ $selection-bg: #26351c !default;
   font-style: italic;
   // font-weight: 350;
   font-weight: lighter;
-  font-size: 0.95em;
+  font-size: 1em;
+  margin-top: 0.75em;
 }
 
 .reveal h4 {
@@ -125,6 +126,7 @@ $selection-bg: #26351c !default;
 
 .alert {
   color: $accent2;
+  font-weight: bold; 
 }
 
 .fg {
@@ -138,6 +140,12 @@ $selection-bg: #26351c !default;
   display: inline-block;
 }
 
+.tinynote {
+  font-size: 12pt; /* Adjust font size as needed */
+  font-weight: lighter; /* Lighter font weight for the note text */
+  z-index: 10;
+}
+
 // lists
 
 // Unordered lists
@@ -146,6 +154,7 @@ $selection-bg: #26351c !default;
   // font-weight: 300;
   font-weight: lighter;
   padding-left: 16px;
+  margin: 0;
 
   li::marker {
     color: mix($accent, white, 70%);
@@ -182,7 +191,7 @@ $selection-bg: #26351c !default;
 .reveal .slide-menu-button {
   position: fixed;
   top: 6px;
-  right: 0;
+  left: 0;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -239,6 +248,25 @@ $selection-bg: #26351c !default;
 .button::before {
   content: "▶";
   margin-right: 5px;
+}
+
+/* Styling figure elements */
+.reveal figure {
+  margin: 0.0em auto; /* Add top and bottom margin, center-align the figure */
+  padding: 0.0; /* Reset padding if needed */
+  max-width: 100%; /* Ensure the figure doesn't overflow the container */
+  text-align: center; /* Center-align the figure content */
+}
+
+/* Styling figcaptions */
+.reveal figcaption {
+  color: #707070; /* Dark grey color for the caption */
+  /* font-variant: small-caps; /* Use small caps for the caption text */
+  font-size: 12pt; /* Adjust font size as needed */
+  font-weight: lighter;
+  text-align: center; /* Center-align the figcaption */
+  margin-top: 0.0em; /* Add spacing above the caption */
+  font-style: italic; /* Optional: make the caption text italic */
 }
 
 // tables

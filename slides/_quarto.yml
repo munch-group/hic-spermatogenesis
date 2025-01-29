@@ -1,14 +1,18 @@
 format:
   clean-revealjs:
     smaller: false
-    toc: true
+    toc: false
     toc-title: "Overview"
-    # width: 1080
-    # height: 720
-    # margin: 0.05
+    toc-depth: 2
+    width: 1080
+    height: 720
+    margin: 0.05
     logo: aulogo_uk_var2_blue.png
-    footer: "Chromatin Architecture and Selection on X <br> Søren Jørgensen &nbsp; ⟡ &nbsp; Munch-group &nbsp; ⟡ &nbsp; MSc Bioinformatics"
+    footer: "<em>Chromatin Architecture and Selection on X &nbsp; • &nbsp; Søren Jørgensen &nbsp; • &nbsp; MSc. Bioinformatics  &nbsp; • &nbsp; Munch-group </em> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
     include-after-body: clean_title_page.html
+    history: false
+    auto-animate-unmatched: false
+    auto-animate-duration: 0.3
 
 execute:
   freeze: auto

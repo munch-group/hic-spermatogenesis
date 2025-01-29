@@ -9,54 +9,476 @@ institute:
     - "Associate Professor, BiRC"
 date: last-modified
 title-slide-attributes: 
-  data-notes: "Hi, I'm Søren. I'm doing my MSc thesis with Kasper about Chromatin Structures and Selection on X."
-
+  data-notes: "*Opening hook:* “The X chromosome is a fascinating outlier in our genome—subject to unique evolutionary forces due to its hemizygosity in males and distinct inheritance patterns. But what happens when we zoom in on regions of reduced diversity? Could chromatin architecture hold the key to understanding these enigmatic patterns?”"
+editor:
+  render-on-save: true
 ---
+
+## Overview 
+
+:::: {layout="[[1,1],[1,1]]" style="margin-top:30pt;"}
+::: {.fragment}
+* My analysis
+* Reduced Diversity on X
+* Rationale
+:::
+
+::: {.fragment}
+* Chromosome Architecture
+* Compartments
+* TADs
+:::
+
+::: {.fragment}
+* Compartment Inference
+* Genomic Comparison
+* Regions under selection
+:::
+
+::: {.fragment}
+* Compartment calls
+* Test results
+* Implications
+* Future
+:::
+
+::::
 
 ## Introduction and Background
 
-* What have we done
-* Explain why reduced diversity on X is interesting
-* Explain the rationale of analyzing chromatin architecture
+::: fragment
+### What have we done
 
-## Molecular Biology
+Analyzed the 3D chromatin structure on X during spermatogenesis in rhesus macaque and correlating to low-diversity regions, leveraging reproducible computational pipelines.
+:::
 
-* Briefly introduce chromosome architecture inside the nucleus
-* Explain different levels of organization
-* Compartments
+::: fragment
+### Reduced Diversity on X
 
-## Inference Methods
+Megabase-spanning regions of reduced diversity across great apes indicate strong selection, reflecting evolutionary dynamics that possibly interplay with structural features.
+:::
 
-* How to infer compartments (PCA Rationale)
-* Smaller-scale (TADs) and ambiguity
+::: fragment
+### Rationale of analyzing chromatin architecture
 
-## Methodological Rationale
+Architecture modulates gene regulation and meiosis. Could these high-level structural features underlie the low-diversity regions?
+:::
 
-* How did I design my analysis (Infer compartments)
-* How do the scale align with the regions of selection? (size)
+::: {.fragment .alert style="text-align:center;"}
+$\rightarrow$ This connection forms the foundation of our work!
+:::
 
-## Results
+::: notes
 
-* Present the compartments
-* Present the comparisons
-* Make some more plots
+*Transition:* “In this study, we explore the X chromosome in rhesus macaque (Macaca mulatta), combining Hi-C analysis with genomic tools to unravel its 3D chromatin structure. Our goal? To investigate how chromatin architecture intertwines with evolutionary forces, particularly in regions under strong selection.”
+:::
+
+<!-- Slide 2a -->
+
+## Molecular Biology: Chromosome Architecture {auto-animate=true}
+
+::: {.fragment fragment-index="1"}
+### Chromosome Architecture in the Nucleus
+
+-   Balance [compact storage]{.alert} with [functional accessibility]{.alert} for essential processes: replication and gene expression.\
+:::
+
+:::::::::: {.fragment fragment-index="2"}
+:::::::: columns
+::::::: {.column width="45%"}
+### Levels of Organization
+
+::: incremental
+-   Double Helix
+-   Nucleosomes
+-   [Chromatin]{.alert}
+:::
+
+::::: {.fragment layout="[-0.01,0.3,0.6]" style="font-size:20pt;"}
+::: {#col1 data-id="fiber-loop"}
+-   Fibers
+-   Loops
+:::
+
+::: {#col2 data-id="dom-comp"}
+-   Domains (TADs)
+-   Compartments
+:::
+:::::
+:::::::
+::::::::
+
+::: {.absolute bottom="30" right="0" width="77%" height="77%"}
+![](images/chromatin-intro.jpg){.absolute right=0 bottom=0 width="75%" height="75%"}
+:::
+
+::: {.tinynote .absolute bottom="32" right="5"}
+Figure from [@misteli2020selforganizinggenomeprinciples]
+:::
+::::::::::
+
+::: notes
+Explain how chromatin must balance structure and function. Highlight the importance of nucleosomes in making DNA compact yet accessible.\
+- **DNA Double Helix**: Fundamental structure of DNA.\
+- **Nucleosomes**: DNA wrapped around histone proteins, forming the "beads-on-a-string" structure.\
+- **Chromatin Fibers**: Higher-order coiling of nucleosomes for compact organization.
+:::
+
+<!-- Slide 2b -->
+
+## Molecular Biology: Chromatin Architecture {auto-animate=true}
+
+### Chromosome Architecture in the Nucleus
+
+::::: columns
+:::: {.column width="28%"}
+-   Compact storage
+-   Accessibility
+
+### Chromatin
+
+:::: {layout="[1]"}
+::: {data-id="fiber-loop"}
+-   Fibers
+-   Loops
+:::
+::: {data-id="dom-comp"}
+-   Domains (TADs)
+-   Compartments
+:::
+::::
+::::
+:::::
+
+::: {.absolute bottom="30" right="0" width="77%" height="77%" style="margin:0; padding:0;"}
+![](images/chromatin-intro.jpg){.absolute width="100%" height="100%" right=0 bottom=0}
+::: 
+
+::: {.tinynote .absolute bottom="32" right="5"}
+
+Figure from [@misteli2020selforganizinggenomeprinciples]
+:::
+
+## Molecular Biology: Compartments {auto-animate=true}
+
+:::: {layout="[[50, 50],[40,-60]]"}
+::: {#non-fragment}
+
+### Topologically Associating Domains (TADs)
+
+-   Self-interacting chromatin domains that insulate regulatory interactions.\
+-   Act as boundaries to regulate enhancer-promoter interactions.
+:::
+::: {#non-fragment2}
+### A/B Compartments
+
+-   A-Compartments: Gene-rich, active, euchromatin regions.\
+-   B-Compartments: Gene-poor, inactive, heterochromatin regions.
+
+:::
+
+::: {#non-fragment3 .alert}
+
+### Key differences
+
+-   Size
+-   Method of inference
+
+:::
+::::
+
+::: {.absolute bottom="30" right="0" width="77%" height="77%"}
+![](images/chromatin-intro.jpg){.absolute width="65%" height="60%" right=0 bottom=0}
+:::
+
+::: {.tinynote .absolute bottom="32" right="5"}
+Figure from [@misteli2020selforganizinggenomeprinciples]
+:::
+
+::: notes
+Self-interacting chromatin domains, often referred to as TADs, play a key role in insulating regulatory interactions. They act as boundaries, ensuring that enhancers only interact with their target promoters, which helps maintain precise gene regulation and prevents unwanted cross-talk between adjacent genes. TAD boundaries are typically enriched in structural proteins (CTCF motif), and specific histone modifications (e.g. H3K4me3) marking promoter/enhancers. Now, A/B compartments are large genomic regions that organize the nucleus into functional zones. A compartments are gene-rich and transcriptionally active, while B compartments are gene-poor and largely inactive. This separation allows the genome to balance accessibility for active genes with compact storage for inactive regions, optimizing nuclear function. 
+:::
+
+
+## Hi-C (Chromosome Conformation Capture) {auto-animate=true auto-animate-id="chrom-cap"}
+
+### How to capture chromosome conformation:
+
+
+![](images/hic-schematic-cutout.png){.fragment .absolute fragment-index=1 bottom=30 right=50 height="75%" data-id="schematic"}
+
+::: {.tinynote .absolute .fragment fragment-index=1 right=55 bottom=33}
+From [@wikimedia:HiCschematic]
+:::
+
+::: notes 
+*So, how is the 3D organization of DNA in the nucleus captured?*
+To understand the data, we must know a bit about how the samples are generated. Let us briefly visit the wet-lab. Here, the cells are fixed and proximal DNA strands are crosslinked. 
+:::
+
+<!-- Slide 4b -->
+
+## Hi-C (Chromosome Conformation Capture) {auto-animate=true auto-animate-id="chrom-cap"}
+
+![](images/fig-hic-data-analysis.png){data-id="schematic"}
+
+<!-- Slide 4c -->
+
+## Hi-C (Chromosome Conformation Capture) {auto-animate=true auto-animate-id="chrom-cap"}
+
+<!--{{< embed ../notebooks/07_various plotting.ipynb#hic-example >}}-->
+<!-- add the saved .png in stead for auto-animation to work-->
+
+![](images/hic-example.png){.absolute left=0 right=0 bottom=30 height="86%" style="margin: auto auto;" data-id="schematic"}
+
+
+<!-- Slide 5 -->
+
+## Inference Methods: A/B compartments
+
+::: {.incremental}
+* [PCA]{.alert}: Captures compartmentalization by minimizing the error between observed and predicted frequencies
+* [PC1]{.alert}: Reflects A/B compartment assignments, sign (+/-) indicates type (A/B).
+  * [How?]{.alert}
+:::
+
+::: {#rationale .incremental layout="[-2.5,95,-2.5]" style="margin-top:-10pt;font-size:0.79em;font-family:math;color:#6f4747;"}
+1. Let $c(x)$ quantify the compartment assignment for bin $x$: find $c(x)$ for all $x$
+2. Interaction score between loci $x$ and $y$ is $I(x,y) = c(x)c(y)$, with $I(x,y) > 0$ when they share the same assignment
+3. Minimize the mean squared error (MSE) between observed interaction frequencies and $c(x)c(y)$
+4. PCA finds the first principal component that minimizes MSE, assigning loci to compartment A ($c(x) > 0$) or B ($c(x) < 0$)
+5. We can restrict the genomic range (viewframe) in which to minimize MSE (e.g. chromosome arms)
+:::
+
+:::notes
+1. "To begin, we define $c(x)$, which represents the compartment assignment for each bin $x$. The goal is to determine $c(x)$ for all the bins in the dataset. This step is essential because $c(x)$ will later guide us in categorizing the loci into their respective compartments."
+2. "Next, we define the interaction score $I(x, y)$ between loci $x$ and $y$. This score is simply the product of their respective compartment assignments, $c(x)c(y)$. The important thing to note is that $I(x, y)$ is positive if the loci share the same compartment assignment. This means they are likely in the same functional region of the genome, which is critical for the analysis."
+3. "We then move on to minimizing the **mean squared error**, or MSE. The MSE quantifies how well the interaction frequencies observed in the data match the predicted interaction scores, $c(x)c(y)$. Minimizing this error helps ensure that our model is accurately capturing the observed patterns of interaction between the loci."
+4. "Finally, we apply Principal Component Analysis, or PCA, to find the first principal component that minimizes the MSE. This allows us to categorize the loci into two compartments: **Compartment A**, where $c(x) > 0$, and **Compartment B**, where $c(x) < 0$. This step is crucial because it provides a way to simplify and visualize the compartmentalization of the genome."
+
+This is enough to reproduce the checkboard pattern of the Hi-C Matrix
+:::
+
+## Methodological Rationale {auto-animate-reset=true}
+
+::: {.incremental style="margin-bottom:30px;"}
+* Infer compartments using *HiCExplorer* or *Open2C*
+* Try to reproduce the compartments from @wang2019reprogrammingmeioticchromatin in fibroblast
+* Success with *Open2c*:
+:::
+
+![](images/overlay-smoothed.png){.fragment}
+
+
+::: notes 
+Now, I think we are ready to move on to ***my*** analysis.
+First, I wanted to reproduce the compartments from Wang, but it was not possible with HiCExplorer. As I mentioned earlier, it is sometimes necessary to restrict the viewframe of the PCA, if the variance between chrom.arms is larger than within each arm. 
+However, I think I succeeded with Open2C (applause). (Zoom in)
+This result took 9 weeks to obtain.
+Now we are left with unanswered questions: (click) 
+It is not obvious what information we lose by partitioning the genome for PCA, but we are practically subsetting the data in the name of eliminating a 'known source' of variance. Then, how well does it fit with the genomic regions that we are interested in? I don't think we can restrict it much more than a 10Mb window if we want to retain information about multi-megabase-spanning regions.
+I want to note that I spent the first 8 weeks with *HicExplorer*. 
+:::
+
+
+## Results: Compartments {auto-animate=true auto-animate-id="compartments"}
+
+* PC1 compartments were obtained
+  * Tissue: fibroblast, spermatogonia, pachytene spermatocyte, round spermatid, sperm
+  * Resolutions: 100kb, 500kb, ps500kb
+  * Viewframe: full, arms, 10Mb windows
+* PC1 tracks for each tissue type: [9]{.alert} 
+
+## Results: Compartments {.smaller auto-animate=true auto-animate-id="compartments"}
+
+* PC1 compartments were obtained
+  * Tissue: fibroblast, spermatogonia, pachytene spermatocyte, round spermatid, sperm
+  * Resolutions: 100kb, 500kb, ps500kb
+  * Viewframe: full, arms, 10Mb windows
+
+::: {style="margin-top:-20pt;"}
+{{< embed ../notebooks/05_rec_compartments.ipynb#e1-fullmerged-all-100kb >}}
+:::
+
+## Results: Compartments {auto-animate=true auto-animate-id="compartments"}
+
+* PC1 compartments were obtained
+  * Tissue: fibroblast, spermatogonia, pachytene spermatocyte, round spermatid, sperm
+  * Resolutions: 100kb, 500kb, ps500kb
+  * Viewframe: full, arms, 10Mb windows
+* Define sets of intervals
+  * A 200kb transition zone between A/B compartments
+  * A 1bp *limit* between A/B compartments
+
+
+## Genomic Intervals
+
+### Introducing the regions of selection
+
+* Baboons: Disproportionate parent ancestry on X
+  * Either olive baboon (*P. anubis*) or hamadryas (*P. hamadryas*)
+* Human: ECH90 regions
+  * Extraordinary selective sweeps on X (Extended Common Haplotypes 90% peak)
+
+::: {style="margin-top:-15pt;"}
+{{< embed ../notebooks/07_various_plotting.ipynb#introduce-selected-regions-slides >}}
+:::
+
+::: notes
+It's time to talk more about the regions of interest: baboon regions are from unplished analyses (Kasper, Erik). To compare to the extracted A/B-compartments, we have to lift the coordinates from baboon to macaque. We don't really care about the orientation of the lifted regions, so we use an adaptation from the conventional LiftOver called segment_liftover.
+The ECH90 regions are from a published paper (dare I say it's a BiRC paper involving Kasper), and the lifted coordinates were provided, so I don't actually know if they were lifted with segment_liftover or UCSC LiftOver. Well, here they are. 
+:::
+
+## Methods: Comparing Genomic Intervals
+
+### How to compare intervals
+
+:::: {layout-ncol=2 .fragment .incremental}
+
+#### Jaccard test
+
+1. Calculate the Jaccard index between two sets of segments, $Q$ and $A$
+  $$
+  J(Q, A) = \frac{|Q \cap A|}{|Q \cup A|}
+  $$
+2. Bootstrap $Q$: $shuffle+reorder$ while conserving segment $lengths$
+
+#### Proximity test
+
+1. Remove overlapping segments between $Q$ and $A$
+2. Calculate a proximity index between two sets of segments, $Q$ and $A$.
+  $$
+  P(Q, A) = \frac{1}{|Q|} \sum_{q \in Q} \min_{a \in A} d(q, a)
+  $$
+3. Bootstrap $Q$ in the same manner
+
+::::
+
+::: notes
+**Jaccard:** Calculate intersection over union
+**Proximity:** Calculate the mean of the distance from each segment in $Q$ to the nearest segment in $A$
+:::
+
+## Results: Comparing Genomic Intervals
+
+::: {.incremental}
+* ECH90 overlaps with fibroblast and round spermatid 200kb transition zones ($p \sim 0.01$)
+* What happens when only using the *limits*?
+  * $Q$: full ECH, baboon limits (separate and concatenated groups)
+  * $A$: PC1 limits (arms, 10Mb)
+:::
+
+::: {.fragment .border style="font-size:20pt;"}
+{{< embed ../notebooks/09_defence.ipynb#tbl-test-results-uncorrected >}}
+:::
+
+::: {.absolute .alert .border .fragment style="top:232px; left:500px; border-left:2pt dotted grey; padding:20px;font-size:0.8em;background-color:rgba(255,255,255,0.9);"}
+$\leftarrow 2\times 40$ tests. What about multiple testing?
+:::
+
+
+::: notes
+When first testing the transition zones, I found overlap: ECH with fibroblast and round spermatid. Initially, I also found significant proximity, but when I updated the test, it dissapeared, sadly. I started testing the transition zones as I thought it would allow for some uncertainty in the positions, and had only small hopes for testing the *limits*.
+Here, we use Let's see what came out of it (click) --> boom. \*Head scratching\*. Let's unpack. 
+Still, fibroblast and round spermatid limits *overlap* the ECH regions, but the p-value is lower for the 200kb transition zone.
+Additionally, spermatogonia and pachytene spermatocyte limits overlap ECH, so know tissues except sperm overlaps ECH in their compartment limits. 
+What is surprising is that in some cases, the compartment limits are both significantly proximal to the concatenated baboon set *and* overlaps the ECH90 regions. 
+Also note the very low p-value for proximity between baboon limits and sperm samples.
+(click) We observe 7 and 5 significant p-values out of 40 for Jaccard and Proximity tests, respectively. That is more than double the amount if the tests were independent. But we still have to talk a bit about multiple testing. The tests are not independent as the different viewframes still originate from the same data, and the compartments called from the two viewframes are highly correlated. That means that multiple testing correction gets complicated, and naively correcting the p-values is too conservative. However, I made the corrections to get an idea of the impact of multiple tests. Here is what I got: (click) 
+:::
+
+ 
+## Results: Comparing Genomic Intervals
+
+### Multiple testing correction
+
+::: {layout="[[1,3],[1,3]]" style="font-size:20pt;"}
+[<br>Uncorrected:]{style="margin-top:20pt;"}
+
+{{< embed ../notebooks/09_defence.ipynb#tbl-test-results-uncorrected >}}
+
+[<br>Benjamini-Hochberg (FDR) corrected]{style="margin-top:20pt;"}
+
+{{< embed ../notebooks/09_defence.ipynb#tbl-test-results-BH-corrected >}}
+
+:::
+
+::: notes
+Now, only the baboon regions are significantly proximal to sperm, but there is still overlap between ECH and the limits of all tissue types except sperm.
+So, even with a multiple testing correction (that I deem too conservative), there are still a lot of correlation between chromatin compartments in macaque in both fibroblasts and through spermatogenesis, either by intersection or by edge/limit proximity. 
+:::
 
 ## Implications
 
-* What does it mean that the regions correlate
-* Can we reproduce
+* Assuming the results are real
+* What does it *mean* that the regions correlate
+  * The ECH paper: hinting to possible mechanisms aiding a fitness-based model
+  * Structural elements could aid in preserving certain genetic elements
+  * Chromosome X is an obvious target
+  * I have only looked at *intra*-chromosomal interactions
+
+
+::: notes 
+Let's for a moment assume that this explorative analysis is sound, and the regions are actually correlating. *What does it mean* that they do? 
+An extraordinary selection coefficient has been reported for a segment in ECH that is more than double the size of the sweep associated with *lactase persistence*.
+They hint that other mechanisms could aid the apparent selection by structurally linking regions across the chromosome. 
+The large regions of reduced diversity on X is an obvious target for comparison, but we could also look at autosomes and inter-chromosomal interactions. 
+
+:::
+
+
 
 ## Reproducibility
 
-* Can we reproduce in other organisms? Tissues
-* Introduce the reprodicibility pipeline
+-   Can we reproduce in other organisms
+-   Introducing: the reproducibility framework 
 
-## Perspectives 
+![](images/sponsors.png)
 
-* previous results? [@lieberman-aiden2009comprehensivemappinglongrange]
+
+## Conclusive thoughts and perspectives
+
+* Previous results
+  * No such comparison has been performed before (as far as I know)
+* Find a way to weight the compartments based on metadata
+* We should investigate TADs as well
+* We should analyze the genes at the coordinates of correlation 
+
+# Extra slides
+
+## Inference Methods: TADs 
+
+Call TADs using interaction data summarized into a 1D genomic profile
+
+::: {.incremental}
+* [Insulation Score]{.alert}: Sliding window along the main diagonal
+* [Boundaries]{.alert}: Find local minima along the genome
+* [Define threshold]{.alert}: define a threshold for *peak prominence*
+  * Borrow *Otsu* or *Li* boundaries from image analysis
+  * Optional: use CTCF enrichment to guide the thresholding
+:::
+
+::: {.fragment}
+*Many methods exist for calling TADs $\rightarrow$ different results from different approaches*
+:::
+
+:::{.fragment style="font-size:0.8em;"}
+> *"[...] an example of how adjacent boundaries calculated with cooltools* 
+> *can specify a set of intervals that could be analyzed as TADs, [...]"*
+> <br> [---cooltools documentation]{style="margin-left:50pt;font-style:italic"}
+:::
+
+::: notes
+* **insulation score:** draw a sliding window on the diagonal of a matrix, draw insulation profile
+* **boundaries:** draw local minima, 
+* **threshold:** draw and explain prominence, mark strong/weak boundaries
+  we can borrow thresholding methods from image analysis
+  as CTCF is shown to be enriched at TAD boundaries, we can use CTCF enrichment to guide the thresholds as well
+* There is not concensus about the correct method
+* Healthy vagueness
+:::
 
 ## References
 
 ::: {#refs}
- 
 :::
