@@ -64,6 +64,7 @@ book:
       chapters:
       # markdown slides
       - slides/index.qmd
+      - slides/defence.qmd
     - part: "Thesis"
       chapters: 
       - thesis/index.qmd
