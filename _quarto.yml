@@ -1,8 +1,8 @@
 project:
   type: book
-  # post-render:
-  #   - quarto render slides/
-  #   - quarto render thesis/
+  post-render:
+    - quarto render slides/
+    - quarto render thesis/
   preview:
     port: 4201
 

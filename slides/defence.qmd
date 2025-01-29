@@ -9,7 +9,7 @@ institute:
     - "Associate Professor, BiRC"
 date: last-modified
 title-slide-attributes: 
-  data-notes: "*Opening hook:* “The X chromosome is a fascinating outlier in our genome—subject to unique evolutionary forces due to its hemizygosity in males and distinct inheritance patterns. But what happens when we zoom in on regions of reduced diversity? Could chromatin architecture hold the key to understanding these enigmatic patterns?”"
+  data-notes: "*Opening:* “The X chromosome is a fascinating outlier in our genome—subject to unique evolutionary forces due to its hemizygosity in males and distinct inheritance patterns. But what happens when we zoom in on regions of reduced diversity? Could chromatin architecture hold the key to understanding these enigmatic patterns?”"
 editor:
   render-on-save: true
 ---
@@ -18,7 +18,7 @@ editor:
 
 :::: {layout="[[1,1],[1,1]]" style="margin-top:30pt;"}
 ::: {.fragment}
-* My analysis
+* Research question
 * Reduced Diversity on X
 * Rationale
 :::
@@ -43,6 +43,10 @@ editor:
 :::
 
 ::::
+
+::: {.fragment .alert style="text-align:center;"}
+All code, figures, analyses, and slides are available at <br> [https://munch-group.org/hic-spermatogenesis/](https://munch-group.org/hic-spermatogenesis/)
+:::
 
 ## Introduction and Background
 
@@ -243,18 +247,19 @@ To understand the data, we must know a bit about how the samples are generated. 
 :::
 
 ::: {#rationale .incremental layout="[-2.5,95,-2.5]" style="margin-top:-10pt;font-size:0.79em;font-family:math;color:#6f4747;"}
-1. Let $c(x)$ quantify the compartment assignment for bin $x$: find $c(x)$ for all $x$
-2. Interaction score between loci $x$ and $y$ is $I(x,y) = c(x)c(y)$, with $I(x,y) > 0$ when they share the same assignment
-3. Minimize the mean squared error (MSE) between observed interaction frequencies and $c(x)c(y)$
-4. PCA finds the first principal component that minimizes MSE, assigning loci to compartment A ($c(x) > 0$) or B ($c(x) < 0$)
-5. We can restrict the genomic range (viewframe) in which to minimize MSE (e.g. chromosome arms)
+1. Assign each bin $x$ a compartment value $c(x)$.  
+2. Define interaction score as $I(x,y) = c(x)c(y)$, with $I(x,y) > 0$ for same-compartment loci.  
+3. Optimize $c(x)$ via PCA to minimize MSE between observed interactions and $c(x)c(y)$.  
+4. Use GC content to orient the eigenvector, assigning loci to A ($c(x) > 0$) or B ($c(x) < 0$).  
+5. Constrain MSE minimization to a genomic range (e.g., chromosome arms).  
 :::
 
 :::notes
-1. "To begin, we define $c(x)$, which represents the compartment assignment for each bin $x$. The goal is to determine $c(x)$ for all the bins in the dataset. This step is essential because $c(x)$ will later guide us in categorizing the loci into their respective compartments."
-2. "Next, we define the interaction score $I(x, y)$ between loci $x$ and $y$. This score is simply the product of their respective compartment assignments, $c(x)c(y)$. The important thing to note is that $I(x, y)$ is positive if the loci share the same compartment assignment. This means they are likely in the same functional region of the genome, which is critical for the analysis."
-3. "We then move on to minimizing the **mean squared error**, or MSE. The MSE quantifies how well the interaction frequencies observed in the data match the predicted interaction scores, $c(x)c(y)$. Minimizing this error helps ensure that our model is accurately capturing the observed patterns of interaction between the loci."
-4. "Finally, we apply Principal Component Analysis, or PCA, to find the first principal component that minimizes the MSE. This allows us to categorize the loci into two compartments: **Compartment A**, where $c(x) > 0$, and **Compartment B**, where $c(x) < 0$. This step is crucial because it provides a way to simplify and visualize the compartmentalization of the genome."
+1. **Compartment Assignment:** Each genomic bin $x$ is assigned a compartment value $c(x)$, representing whether it belongs to compartment A or B. The goal is to determine $c(x)$ for all bins
+2. **Interaction Score:** The interaction between two loci, $x$ and $y$, is modeled as $I(x,y) = c(x)c(y)$. If they belong to the same compartment, their interaction score is positive ($I(x,y) > 0$), indicating enriched interactions.
+3. **PCA Optimization:** Principal Component Analysis (PCA) finds $c(x)$ by minimizing the mean squared error (MSE) between observed Hi-C interaction frequencies and the predicted values $c(x)c(y)$. If the compartment pattern is strong, PCA effectively captures it.
+4. **Eigenvector Orientation:** Since PCA eigenvectors are only determined up to a sign, an external biological feature—such as GC content—is used to orient the compartment assignments. This ensures that positive $c(x)$ values correspond to compartment A and negative values to compartment B.
+5. **Genomic Range Restriction:** The MSE minimization can be restricted to specific genomic regions, such as chromosome arms, to focus on local compartment structures rather than genome-wide patterns.
 
 This is enough to reproduce the checkboard pattern of the Hi-C Matrix
 :::
