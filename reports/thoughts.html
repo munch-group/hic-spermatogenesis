@@ -143,7 +143,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exploring the 3D Chromatin Landscape of the X Chromosome in Rhesus Macaques</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project overview</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -157,12 +157,12 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer using macaque data</span></a>
+  <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer trial pipeline</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open2C framework</span></a>
+  <a href="../notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open2C pipeline</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -245,7 +245,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project Progress Day: Msc. Project 2024</span></a>
+  <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Main talk example</span></a>
   </div>
 </li>
       </ul>
@@ -314,7 +314,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 22, 2025 <br> 20:07:40 (UTC +00:00)</p>
+      <p class="date">January 29, 2025 <br> 19:53:38 (UTC +00:00)</p>
     </div>
   </div>
   
@@ -342,7 +342,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="notes-on-hicexplorer">Notes on <code>HiCExplorer</code></h2>
 <p>It feels very old school and unnecessary that I can’t just output the <code>HiCExplorer</code> commands [plots] to the Jupyter display. I <em>have</em> to save the plots to <em>.png</em>s, which is flooding my <code>figures</code> directory. I should probably clean it up.</p>
 <p>I have created plots to mimic the <span class="citation" data-cites="wang2019reprogrammingmeioticchromatin">(<a href="../thesis/index.html#ref-wang2019reprogrammingmeioticchromatin" role="doc-biblioref">Wang et al. 2019</a>)</span> for the <code>chr12</code> as well as <code>chrX</code>. They don’t compare very well with Wang2019, and the both PC1 and PC2 plot looks like they’re highly biased (only intersects 0 one time). PC3 looks more reasonable, but I don’t know if it is reasonable at all to use the 3rd PC in stead of the 1st. I guess it means that the compartmentalization is not the most variable feature, and there are some biases that we have to get rid of. That, or the X chromosome is divided only into two compartments in fibroblasts (unlikely).</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer using macaque data" data-notebook-cellid="cell-chrx-50kb-pca">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer trial pipeline" data-notebook-cellid="cell-chrx-50kb-pca">
 <div id="cell-chrx-50kb-pca" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -354,7 +354,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer using macaque data" data-notebook-cellid="cell-chrx-100kb-pca">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer trial pipeline" data-notebook-cellid="cell-chrx-100kb-pca">
 <div id="cell-chrx-100kb-pca" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -387,7 +387,7 @@ div.csl-indent {
 <h4 class="anchored" data-anchor-id="update-08-10-2024">Update: 08-10-2024</h4>
 <p>It took more than a week to get a valid <code>.pairs</code> file and to get that processed into a <code>.cool</code> matrix. But now it seems to work pretty smoothly, and I believe it is more customizable. The pairs are split up into .nodups, .dups, and .unmapped pairs, meaning all the reads are still saved. A <code>dedup.stats</code> is also generated and visualized with <code>MultiQC</code>.</p>
 <p>I made these plots of both uncorrected and corrected (ICE) matrices (made with <code>cooler</code>)</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-rep1-ncol3-cooltools-uncorrected">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C pipeline" data-notebook-cellid="cell-rep1-ncol3-cooltools-uncorrected">
 <div id="cell-rep1-ncol3-cooltools-uncorrected" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -399,7 +399,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-rep1-ncol3-cooltools-corrected">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C pipeline" data-notebook-cellid="cell-rep1-ncol3-cooltools-corrected">
 <div id="cell-rep1-ncol3-cooltools-corrected" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -416,7 +416,7 @@ div.csl-indent {
 <section id="update-10-10-2024" class="level4">
 <h4 class="anchored" data-anchor-id="update-10-10-2024">Update 10-10-2024</h4>
 <p>I plotted the <code>weights</code> variable below the interaction maps. Maybe it will be useful.</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-rep1-matrix-weights">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C pipeline" data-notebook-cellid="cell-rep1-matrix-weights">
 <div id="cell-rep1-matrix-weights" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -429,7 +429,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Also, we can plot the coverage divided into cis and all contacts, as well as the cis/total coverage ratio:</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-full-X-coverage-weights">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C pipeline" data-notebook-cellid="cell-full-X-coverage-weights">
 <div id="cell-full-X-coverage-weights" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display" data-execution_count="35">
 <div class="quarto-figure quarto-figure-center">
@@ -442,7 +442,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Finally, before moving on, we can do some visual improvements to the plot (it does not alter the data), with <em>adaptive coarsegraining</em> and <em>interpolating</em> the matrix. It looks pretty cool:</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX_sub_smooth_interpolate">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C pipeline" data-notebook-cellid="cell-chrX_sub_smooth_interpolate">
 <div id="cell-chrX_sub_smooth_interpolate" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display" data-execution_count="40">
 <div class="quarto-figure quarto-figure-center">
@@ -471,7 +471,7 @@ div.csl-indent {
 It is saved as a E1-track, with <code>[['chrom','start','end','E1']]</code></li>
 <li>Plot with <code>matplotlib</code> and submodules. Optionally, we can mark the E1 transitions on the matrix. Here, I removed the horisontal lines.</li>
 </ol>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-matrix-e1">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C pipeline" data-notebook-cellid="cell-chrX-matrix-e1">
 <div id="cell-chrX-matrix-e1" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -493,7 +493,7 @@ Wang2019 PC1 on chrX
 <p><img src="../figures/E1_chrX_fib_wang.png" alt="E1_chrX_fib_wang" width="93%" class="figure-img"></p>
 </center>
 </figure>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-e1-plot">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C pipeline" data-notebook-cellid="cell-chrX-e1-plot">
 <div id="cell-chrX-e1-plot" class="cell" data-fig-height="2" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -562,7 +562,7 @@ Figure&nbsp;10.3: 500kb binned E1 eigenvector values for chrX. Freshly calculate
 </div>
 </div>
 <p><strong>100kb resolution</strong></p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C framework" data-notebook-cellid="cell-chrX-e1-plot">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/02_open2c_framework.ipynb" data-notebook-title="Open2C pipeline" data-notebook-cellid="cell-chrX-e1-plot">
 <div id="cell-chrX-e1-plot" class="cell" data-fig-height="2" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">

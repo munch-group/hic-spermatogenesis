@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-01-22">
+<meta name="dcterms.date" content="2025-01-29">
 <meta name="keywords" content="Hi-C, Chromatin Compartments, Selection on X, Selfish gene drive">
 
 <title>Chromatin Compartments and Selection on X – Søren's MSc project about Hi-C and spermatogenesis</title>
@@ -207,7 +207,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exploring the 3D Chromatin Landscape of the X Chromosome in Rhesus Macaques</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project overview</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -221,12 +221,12 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer using macaque data</span></a>
+  <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer trial pipeline</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open2C framework</span></a>
+  <a href="../notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open2C pipeline</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -309,7 +309,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project Progress Day: Msc. Project 2024</span></a>
+  <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Main talk example</span></a>
   </div>
 </li>
       </ul>
@@ -456,7 +456,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 22, 2025</p>
+      <p class="date">January 29, 2025</p>
     </div>
   </div>
   
@@ -831,7 +831,7 @@ Table&nbsp;16.1: Summary of the data accessions used in this analysis
 <p>To get aligned reads in a format compatible with HiCExplorer, the read mates have to be mapped individually to the reference genome. This supports the old convention to avoid the common heuristics of local aligners used for regular paired-end sequencing libraries (<span class="citation" data-cites="lajoie2015hitchhikersguidehic">Lajoie, Dekker, and Kaplan (<a href="index.html#ref-lajoie2015hitchhikersguidehic" role="doc-biblioref">2015</a>)</span>). HiCExplorer provide examples for both <em>bwa</em> and <em>bowtie2</em>, so I used both with recommended settings. In both cases, the aligner outputs a .bam-file for each mate (<code>sample_R1.bam</code> and <code>sample_R2.bam</code>), and HiCExplorer performs the parsing, deduplication, and filtering of the reads and builds the raw interaction matrix in a single command,</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hicBuildMatrix</span> <span class="at">-s</span> sample_R1.bam sample_R2.bam <span class="at">-o</span> matrix.h5 <span class="pp">[</span><span class="ss">...</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><a href="#fig-hic-analysis-flow" class="quarto-xref">Figure&nbsp;<span>15.3</span></a> (middle) shows an overview of the pipeline. For parsing, the command needs a <code>--restrictionCutFile</code>, locating the restriction sites from the restriction enzyme used on the reference genome, which is generated with <code>hicFindRestSites</code> that operates on the reference genome and restriction sequence. The default filter, <code>--minMappingQuality 15</code>, was applied as described in <a href="#sec-matrix-qc" class="quarto-xref"><span>Quality Control and Interaction Matrices</span></a>. Notably, HiCExplorer has no options on handling multiple ligations, and the method is undocumented. I assume that <span class="citation" data-cites="ramirez2018highresolutiontadsreveal">Ramírez et al. (<a href="index.html#ref-ramirez2018highresolutiontadsreveal" role="doc-biblioref">2018</a>)</span> have implemented a conservative handling (masking all multiple ligations), as that would have the least consequence.</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer using macaque data" data-notebook-cellid="cell-tbl-hic-exploration">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer trial pipeline" data-notebook-cellid="cell-tbl-hic-exploration">
 <div class="cell">
 <div id="tbl-hic-exploration" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1058,7 +1058,7 @@ Table&nbsp;16.3: Column specification of the .pairs format as extended by pairto
 <h3 class="anchored" data-anchor-id="quality-control">Quality Control</h3>
 <p>The separately mapped read-mates were parsed into a <em>.h5</em> interaction matrix by <code>hicBuildMatrix</code>, which include a <em>.log</em> file documenting the buikt-in quality control (hereafter, <em>QC</em>). Log files from the 5 samples were merged with <code>hicQC</code> (<a href="#fig-explorer-all-3-qc" class="quarto-xref">Figure&nbsp;<span>17.1</span></a>). I observe equal fractions of the read-orientation of read-pairs (<a href="#fig-explorer-all-3-qc" class="quarto-xref">Figure&nbsp;<span>17.1</span></a>, left, row 5), which is expected for a good Hi-C library. Additionally, it determines between 40% to 50% of the total reads to be valid Hi-C contacts (<a href="#fig-explorer-all-3-qc" class="quarto-xref">Figure&nbsp;<span>17.1</span></a>, left, row 1), which is usually only 25%-40% (as described in HiCExplorer docs). <a href="#fig-explorer-all-3-qc" class="quarto-xref">Figure&nbsp;<span>17.1</span></a> (left, row 4) shows, however, unusually high fractions of <em>inter</em>-chromosomal contacts (up to 30%) compared to <em>intra</em>-chromosomal contacts (also denoted <em>trans</em> and <em>cis</em> contacts, respectively). It is expected that <em>cis</em> contacts are orders of magnitude more frequent than <em>trans</em> contacts <span class="citation" data-cites="bicciato2022hicdataanalysis lieberman-aiden2009comprehensivemappinglongrange">(<a href="index.html#ref-bicciato2022hicdataanalysis" role="doc-biblioref">Bicciato and Ferrari 2022, 2301:236</a>; <a href="index.html#ref-lieberman-aiden2009comprehensivemappinglongrange" role="doc-biblioref">Lieberman-Aiden et al. 2009</a>)</span>, and HiCExplorer states it is usually below 10% for a high-quality library. The high fraction may be mitigated by enforcing a stricter <em>mapq</em> threshold for a valid Hi-C pair, as we also observe higher-than expected valid contacts. However, we continue with the current matrices.</p>
 <p>To compare how well these mappings perform, the plotting QC results is an easy way. Therefore, the reads were mapped with <em>bowtie2</em> in both end-to-end- and local-mode followed by <code>hiCBuildMatrix</code>, and the QC from each method was plotted next to each other (<a href="#fig-explorer-all-3-qc" class="quarto-xref">Figure&nbsp;<span>17.1</span></a>). Interestingly, <em>bowtie2</em> was much more computer-intensive in both modes, perhaps because of the <code>--very-sensitive</code> option. In any case, the QC reveals a major difference in the total number of reads that are determined to be valid Hi-C contacts by <code>hicBuildMatrix</code>. As expected, mapping with <em>end-to-end-bowtie2</em> makes locating Hi-C contacts more difficult than the other methods (<a href="#fig-explorer-all-3-qc" class="quarto-xref">Figure&nbsp;<span>17.1</span></a>, row 1), finding a very low amount of mappable, unique pairs passing the quality threshold. In contrast, mapping with <em>local-bowtie2</em> performs similarly to <em>bwa</em> in finding mappable, unique, high-quality pairs, but calls only approximately half the number of valid Hi-C contacts (&gt;20%), resulting in a fraction of valid Hi-C pairs that hits the expectation from <em>HicExplorer</em> docs (row3). With <em>bwa</em>, the reads were discarded either due to low mapping quality or non-unique mates, whereas with <em>local-bowtie2</em>, the reads were almost exclusively filtered out due to low mapping quality. This must be a result of how the mappers assign mapping quality, and I believe <em>local-bowtie2</em> looks suspiciously selective in finding unique but low quality alignments. <em>end-to-end-bowtie</em> almost exclusively filters out read-pairs where one mate is unmapped, which is expected when the majority of reads are unmapped.</p>
-<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer using macaque data" data-notebook-cellid="cell-fig-explorer-all-3-qc">
+<div class="quarto-embed-nb-cell" data-notebook="/home/runner/work/hic-spermatogenesis/hic-spermatogenesis/notebooks/01_hicexplorer.ipynb" data-notebook-title="HiCExplorer trial pipeline" data-notebook-cellid="cell-fig-explorer-all-3-qc">
 <div id="cell-fig-explorer-all-3-qc" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display">
 <div id="fig-explorer-all-3-qc" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -2764,8 +2764,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../slides/index.html" class="pagination-link" aria-label="Project Progress Day: Msc. Project 2024">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Project Progress Day: Msc. Project 2024</span></span>
+      <a href="../slides/index.html" class="pagination-link" aria-label="Main talk example">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Main talk example</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

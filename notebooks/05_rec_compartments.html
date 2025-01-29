@@ -177,7 +177,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exploring the 3D Chromatin Landscape of the X Chromosome in Rhesus Macaques</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project overview</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -191,12 +191,12 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer using macaque data</span></a>
+  <a href="../notebooks/01_hicexplorer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HiCExplorer trial pipeline</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open2C framework</span></a>
+  <a href="../notebooks/02_open2c_framework.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open2C pipeline</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -279,7 +279,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project Progress Day: Msc. Project 2024</span></a>
+  <a href="../slides/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Main talk example</span></a>
   </div>
 </li>
       </ul>
@@ -1210,10 +1210,10 @@ Balancing ../steps/bwa/recPE/cool/sperm/sperm.mcool:
 <h1>Plotting</h1>
 <section id="set-up-inline-backend" class="level5">
 <h5 class="anchored" data-anchor-id="set-up-inline-backend">Set up inline backend</h5>
-<div id="cell-37" class="cell" data-execution_count="28">
+<div id="cell-37" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({key:plt.rcParams[key] <span class="cf">for</span> key <span class="kw">in</span> notebook_rcparams.keys()})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'font.size': 8.0, 'axes.titlesize': 9.0, 'axes.labelsize': 9.0, 'xtick.labelsize': 8.0, 'ytick.labelsize': 8.0, 'figure.titlesize': 10.0, 'figure.figsize': [6.0, 2.0], 'figure.labelsize': 8.0}</code></pre>
+<pre><code>{'font.size': 10.0, 'axes.titlesize': 'large', 'axes.labelsize': 'medium', 'xtick.labelsize': 'medium', 'ytick.labelsize': 'medium', 'figure.titlesize': 'large', 'figure.figsize': [6.4, 4.8], 'figure.labelsize': 'large'}</code></pre>
 </div>
 </div>
 <div id="cell-md-plotting-main" class="cell" data-execution_count="3">
@@ -1618,10 +1618,10 @@ Figure&nbsp;8.1: chrX interaction matrix with E1 eigenvector values in 500kb res
 </div>
 </div>
 </div>
-<p>Markdown: <a href="../slides/index.html#fig-matrix_e1_500kb" class="quarto-xref">Figure&nbsp;<span>14.2</span></a></p>
+<p>Markdown: <a href="../reports/thoughts.html#fig-matrix_e1_500kb" class="quarto-xref">Figure&nbsp;<span>10.1</span></a></p>
 <div id="cell-md-plotting-500kb-single-plot-discussion" class="cell" data-execution_count="20">
 <div id="md-plotting-500kb-single-plot-discussion" class="cell-output cell-output-display cell-output-markdown" data-execution_count="20">
-<p>We observe that the E1 values only somewhat captures the plaid pattern in the matrix <a href="../slides/index.html#fig-matrix_e1_500kb" class="quarto-xref">Figure&nbsp;<span>14.2</span></a>, but it is not related to the size of the compartments, as both small and large compartments can be observed. The B-compartment that starts from around bin 150 (75.000.000 bp) seems to have squares that are not captured by the E1 values. Maybe it could be captures by TAD calling, but that is not the scope of this analysis.</p>
+<p>We observe that the E1 values only somewhat captures the plaid pattern in the matrix <a href="../reports/thoughts.html#fig-matrix_e1_500kb" class="quarto-xref">Figure&nbsp;<span>10.1</span></a>, but it is not related to the size of the compartments, as both small and large compartments can be observed. The B-compartment that starts from around bin 150 (75.000.000 bp) seems to have squares that are not captured by the E1 values. Maybe it could be captures by TAD calling, but that is not the scope of this analysis.</p>
 </div>
 </div>
 <div id="cell-fig-e1_500kb_plot" class="cell" data-execution_count="21">
@@ -2754,7 +2754,7 @@ Figure&nbsp;8.6: E1 eigenvector values for merged round spermatid samples at 500
 <h3 class="anchored" data-anchor-id="all-5-full-merges-1">All 5 full merges</h3>
 <section id="load-coolers-1" class="level4">
 <h4 class="anchored" data-anchor-id="load-coolers-1">Load coolers</h4>
-<div id="cell-105" class="cell" data-execution_count="22">
+<div id="cell-105" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
@@ -2782,7 +2782,7 @@ Figure&nbsp;8.6: E1 eigenvector values for merged round spermatid samples at 500
 <section id="calculate-gc-covariance-from-the-reference-genome-2" class="level4">
 <h4 class="anchored" data-anchor-id="calculate-gc-covariance-from-the-reference-genome-2">Calculate gc covariance (from the reference genome)</h4>
 <p>Do this with any of the clrs - it just needs the bins positions.</p>
-<div id="cell-107" class="cell" data-execution_count="23">
+<div id="cell-107" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try with only the gc_cov for chrX</span></span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bioframe</span>
@@ -2824,17 +2824,18 @@ None</code></pre>
 <p>Loop: view_df, cis_eigs, e1_values</p>
 <section id="plot-gc-covariance-1" class="level5">
 <h5 class="anchored" data-anchor-id="plot-gc-covariance-1">Plot GC covariance</h5>
-<div id="cell-110" class="cell" data-execution_count="24">
+<div id="cell-110" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">2</span>))</span>
-<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>ax.plot(gc_cov[<span class="st">'start'</span>],gc_cov[<span class="st">'GC'</span>])</span>
-<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">2</span>))</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>ax.plot(gc_cov[<span class="st">'start'</span>],gc_cov[<span class="st">'GC'</span>])</span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="05_rec_compartments_files/figure-html/cell-65-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="05_rec_compartments_files/figure-html/cell-65-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="05_rec_compartments_files/figure-html/cell-65-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="05_rec_compartments_files/figure-html/cell-65-output-1.png" width="989" height="190" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -2842,7 +2843,7 @@ None</code></pre>
 </section>
 <section id="create-viewframes-full-arms-10mb-windows" class="level5">
 <h5 class="anchored" data-anchor-id="create-viewframes-full-arms-10mb-windows">Create viewframes: full, arms, 10Mb windows</h5>
-<div id="cell-112" class="cell" data-execution_count="25">
+<div id="cell-112" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch the chromsize of X from one of the coolers</span></span>
@@ -2880,7 +2881,7 @@ None</code></pre>
 </section>
 <section id="calulate-the-e1-compartments" class="level5">
 <h5 class="anchored" data-anchor-id="calulate-the-e1-compartments">Calulate the E1 compartments</h5>
-<div id="cell-114" class="cell" data-execution_count="26">
+<div id="cell-114" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooltools</span>
 <span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>eigs <span class="op">=</span> {}</span>
@@ -3178,69 +3179,71 @@ File ../results/rec_compartments/sperm_a_comp_coords_100kb_10Mb_smoothed.csv alr
 </section>
 <section id="plot-the-e1-compartments-1" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="plot-the-e1-compartments-1">Plot the E1 compartments</h4>
-<div id="cell-e1-fullmerged-all-100kb-5smoothed" class="cell page-columns page-full" data-execution_count="75">
-<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_inline.backend_inline <span class="im">import</span> set_matplotlib_formats</span>
-<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>set_matplotlib_formats(<span class="st">'retina'</span>)</span>
-<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
-<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
-<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.axes_grid1 <span class="im">import</span> make_axes_locatable</span>
-<span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a>f, axs <span class="op">=</span> plt.subplots(<span class="dv">5</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-11"><a href="#cb122-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through eigs and e1_values to plot the E1 values</span></span>
-<span id="cb122-12"><a href="#cb122-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (name, e1_dict) <span class="kw">in</span> <span class="bu">enumerate</span>(e1_values.items()):</span>
-<span id="cb122-13"><a href="#cb122-13" aria-hidden="true" tabindex="-1"></a>    axs[i,<span class="dv">0</span>].set_ylabel(names_abbr[name], fontsize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb122-14"><a href="#cb122-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, (view, e1) <span class="kw">in</span> <span class="bu">enumerate</span>(e1_dict.items()):</span>
-<span id="cb122-15"><a href="#cb122-15" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> axs[i, j]</span>
-<span id="cb122-16"><a href="#cb122-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-17"><a href="#cb122-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i<span class="op">==</span><span class="dv">0</span>:</span>
-<span id="cb122-18"><a href="#cb122-18" aria-hidden="true" tabindex="-1"></a>            ax.set_title(view)</span>
+<div id="cell-e1-fullmerged-all-100kb" class="cell page-columns page-full" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fig-cap: "E1 eigenvector values for all merged samples at 100kb resolution. Left: Chromosomes (not restricted) Middle: Chromosome-arm restricted E1. Right: 10Mb window restricted E1.Values are smoothed with a sliding window of 5 bins, step size 1 bin."</span></span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_inline.backend_inline <span class="im">import</span> set_matplotlib_formats</span>
+<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a>set_matplotlib_formats(<span class="st">'retina'</span>)</span>
+<span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
+<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
+<span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.axes_grid1 <span class="im">import</span> make_axes_locatable</span>
+<span id="cb122-11"><a href="#cb122-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-12"><a href="#cb122-12" aria-hidden="true" tabindex="-1"></a>f, axs <span class="op">=</span> plt.subplots(<span class="dv">5</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">4.5</span>), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb122-13"><a href="#cb122-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-14"><a href="#cb122-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through eigs and e1_values to plot the E1 values</span></span>
+<span id="cb122-15"><a href="#cb122-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (name, e1_dict) <span class="kw">in</span> <span class="bu">enumerate</span>(e1_values.items()):</span>
+<span id="cb122-16"><a href="#cb122-16" aria-hidden="true" tabindex="-1"></a>    axs[i,<span class="dv">0</span>].set_ylabel(names_abbr[name], fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb122-17"><a href="#cb122-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, (view, e1) <span class="kw">in</span> <span class="bu">enumerate</span>(e1_dict.items()):</span>
+<span id="cb122-18"><a href="#cb122-18" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> axs[i, j]</span>
 <span id="cb122-19"><a href="#cb122-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-20"><a href="#cb122-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Create stairs</span></span>
-<span id="cb122-21"><a href="#cb122-21" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> np.zeros(<span class="dv">2</span><span class="op">*</span>chrom_start.size)</span>
-<span id="cb122-22"><a href="#cb122-22" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> np.zeros(<span class="dv">2</span><span class="op">*</span>chrom_start.size)</span>
-<span id="cb122-23"><a href="#cb122-23" aria-hidden="true" tabindex="-1"></a>        smooth_y <span class="op">=</span> np.zeros(<span class="dv">2</span><span class="op">*</span>chrom_start.size)</span>
-<span id="cb122-24"><a href="#cb122-24" aria-hidden="true" tabindex="-1"></a>        x[<span class="dv">0</span>::<span class="dv">2</span>] <span class="op">=</span> chrom_start</span>
-<span id="cb122-25"><a href="#cb122-25" aria-hidden="true" tabindex="-1"></a>        x[<span class="dv">1</span>::<span class="dv">2</span>] <span class="op">=</span> chrom_end</span>
-<span id="cb122-26"><a href="#cb122-26" aria-hidden="true" tabindex="-1"></a>        y[<span class="dv">0</span>::<span class="dv">2</span>] <span class="op">=</span> e1</span>
-<span id="cb122-27"><a href="#cb122-27" aria-hidden="true" tabindex="-1"></a>        y[<span class="dv">1</span>::<span class="dv">2</span>] <span class="op">=</span> e1</span>
-<span id="cb122-28"><a href="#cb122-28" aria-hidden="true" tabindex="-1"></a>        smooth_e1 <span class="op">=</span> (<span class="kw">lambda</span> x: x.rolling(<span class="dv">5</span>, <span class="dv">1</span>, center<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>())(pd.DataFrame(e1, columns<span class="op">=</span>[<span class="st">'value'</span>]))[<span class="st">'value'</span>].values</span>
-<span id="cb122-29"><a href="#cb122-29" aria-hidden="true" tabindex="-1"></a>        smooth_y[<span class="dv">0</span>::<span class="dv">2</span>] <span class="op">=</span> smooth_e1</span>
-<span id="cb122-30"><a href="#cb122-30" aria-hidden="true" tabindex="-1"></a>        smooth_y[<span class="dv">1</span>::<span class="dv">2</span>] <span class="op">=</span> smooth_e1</span>
-<span id="cb122-31"><a href="#cb122-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-32"><a href="#cb122-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-33"><a href="#cb122-33" aria-hidden="true" tabindex="-1"></a>        ax.fill_between(x, y, <span class="dv">0</span>, where<span class="op">=</span>(y <span class="op">&gt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:red'</span>, ec <span class="op">=</span> <span class="st">'None'</span>)</span>
-<span id="cb122-34"><a href="#cb122-34" aria-hidden="true" tabindex="-1"></a>        ax.fill_between(x, y, <span class="dv">0</span>, where<span class="op">=</span>(y <span class="op">&lt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:blue'</span>, ec <span class="op">=</span> <span class="st">'None'</span>)</span>
-<span id="cb122-35"><a href="#cb122-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ax.plot(x, smooth_y/5, color='C1', linewidth=0.5)</span></span>
-<span id="cb122-36"><a href="#cb122-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-37"><a href="#cb122-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ax.fill_between(x, smooth_y, 0, where=(smooth_y &gt; 0), color='tab:red', ec = 'None')</span></span>
-<span id="cb122-38"><a href="#cb122-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ax.fill_between(x, smooth_y, 0, where=(smooth_y &lt; 0), color='tab:blue', ec = 'None')</span></span>
+<span id="cb122-20"><a href="#cb122-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i<span class="op">==</span><span class="dv">0</span>:</span>
+<span id="cb122-21"><a href="#cb122-21" aria-hidden="true" tabindex="-1"></a>            ax.set_title(view, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb122-22"><a href="#cb122-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-23"><a href="#cb122-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Create stairs</span></span>
+<span id="cb122-24"><a href="#cb122-24" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> np.zeros(<span class="dv">2</span><span class="op">*</span>chrom_start.size)</span>
+<span id="cb122-25"><a href="#cb122-25" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> np.zeros(<span class="dv">2</span><span class="op">*</span>chrom_start.size)</span>
+<span id="cb122-26"><a href="#cb122-26" aria-hidden="true" tabindex="-1"></a>        smooth_y <span class="op">=</span> np.zeros(<span class="dv">2</span><span class="op">*</span>chrom_start.size)</span>
+<span id="cb122-27"><a href="#cb122-27" aria-hidden="true" tabindex="-1"></a>        x[<span class="dv">0</span>::<span class="dv">2</span>] <span class="op">=</span> chrom_start</span>
+<span id="cb122-28"><a href="#cb122-28" aria-hidden="true" tabindex="-1"></a>        x[<span class="dv">1</span>::<span class="dv">2</span>] <span class="op">=</span> chrom_end</span>
+<span id="cb122-29"><a href="#cb122-29" aria-hidden="true" tabindex="-1"></a>        y[<span class="dv">0</span>::<span class="dv">2</span>] <span class="op">=</span> e1</span>
+<span id="cb122-30"><a href="#cb122-30" aria-hidden="true" tabindex="-1"></a>        y[<span class="dv">1</span>::<span class="dv">2</span>] <span class="op">=</span> e1</span>
+<span id="cb122-31"><a href="#cb122-31" aria-hidden="true" tabindex="-1"></a>        smooth_e1 <span class="op">=</span> (<span class="kw">lambda</span> x: x.rolling(<span class="dv">5</span>, <span class="dv">1</span>, center<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>())(pd.DataFrame(e1, columns<span class="op">=</span>[<span class="st">'value'</span>]))[<span class="st">'value'</span>].values</span>
+<span id="cb122-32"><a href="#cb122-32" aria-hidden="true" tabindex="-1"></a>        smooth_y[<span class="dv">0</span>::<span class="dv">2</span>] <span class="op">=</span> smooth_e1</span>
+<span id="cb122-33"><a href="#cb122-33" aria-hidden="true" tabindex="-1"></a>        smooth_y[<span class="dv">1</span>::<span class="dv">2</span>] <span class="op">=</span> smooth_e1</span>
+<span id="cb122-34"><a href="#cb122-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-35"><a href="#cb122-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-36"><a href="#cb122-36" aria-hidden="true" tabindex="-1"></a>        ax.fill_between(x, y, <span class="dv">0</span>, where<span class="op">=</span>(y <span class="op">&gt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:red'</span>, ec <span class="op">=</span> <span class="st">'None'</span>)</span>
+<span id="cb122-37"><a href="#cb122-37" aria-hidden="true" tabindex="-1"></a>        ax.fill_between(x, y, <span class="dv">0</span>, where<span class="op">=</span>(y <span class="op">&lt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:blue'</span>, ec <span class="op">=</span> <span class="st">'None'</span>)</span>
+<span id="cb122-38"><a href="#cb122-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ax.plot(x, smooth_y/5, color='C1', linewidth=0.5)</span></span>
 <span id="cb122-39"><a href="#cb122-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-40"><a href="#cb122-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># # Test to see how well my coordinates match the e1 values</span></span>
-<span id="cb122-41"><a href="#cb122-41" aria-hidden="true" tabindex="-1"></a>        <span class="co"># coords = pd.read_csv(f'../results/rec_compartments/{name}_a_comp_coords_100kb_{view}_smoothed.csv')</span></span>
-<span id="cb122-42"><a href="#cb122-42" aria-hidden="true" tabindex="-1"></a>        <span class="co"># # Iterate over each interval in the DataFrame</span></span>
-<span id="cb122-43"><a href="#cb122-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># for start, end in zip(coords['start'], coords['end']):</span></span>
-<span id="cb122-44"><a href="#cb122-44" aria-hidden="true" tabindex="-1"></a>        <span class="co">#     rect = Rectangle((start, -0.2), width=end-start, height=-0.3, color='k', alpha=0.6, ec = 'None')</span></span>
-<span id="cb122-45"><a href="#cb122-45" aria-hidden="true" tabindex="-1"></a>        <span class="co">#     ax.add_patch(rect)</span></span>
-<span id="cb122-46"><a href="#cb122-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-47"><a href="#cb122-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Set y-limits for all subplots</span></span>
-<span id="cb122-48"><a href="#cb122-48" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs.flat:</span>
-<span id="cb122-49"><a href="#cb122-49" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb122-50"><a href="#cb122-50" aria-hidden="true" tabindex="-1"></a>    ax.spines[:].set_visible(<span class="va">False</span>)</span>
-<span id="cb122-51"><a href="#cb122-51" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
-<span id="cb122-52"><a href="#cb122-52" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
-<span id="cb122-53"><a href="#cb122-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-54"><a href="#cb122-54" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb122-55"><a href="#cb122-55" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'../steps/rec_e1_plot_full_100kb_smoothed.svg'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
-<span id="cb122-56"><a href="#cb122-56" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb122-57"><a href="#cb122-57" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb122-40"><a href="#cb122-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ax.fill_between(x, smooth_y, 0, where=(smooth_y &gt; 0), color='tab:red', ec = 'None')</span></span>
+<span id="cb122-41"><a href="#cb122-41" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ax.fill_between(x, smooth_y, 0, where=(smooth_y &lt; 0), color='tab:blue', ec = 'None')</span></span>
+<span id="cb122-42"><a href="#cb122-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-43"><a href="#cb122-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Test to see how well my coordinates match the e1 values</span></span>
+<span id="cb122-44"><a href="#cb122-44" aria-hidden="true" tabindex="-1"></a>        coords <span class="op">=</span> pd.read_csv(<span class="ss">f'../results/rec_compartments/</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">_a_comp_coords_100kb_</span><span class="sc">{</span>view<span class="sc">}</span><span class="ss">_smoothed.csv'</span>)</span>
+<span id="cb122-45"><a href="#cb122-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Iterate over each interval in the DataFrame</span></span>
+<span id="cb122-46"><a href="#cb122-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(coords[<span class="st">'start'</span>], coords[<span class="st">'end'</span>]):</span>
+<span id="cb122-47"><a href="#cb122-47" aria-hidden="true" tabindex="-1"></a>            rect <span class="op">=</span> Rectangle((start, <span class="fl">0.5</span>), width<span class="op">=</span>end<span class="op">-</span>start, height<span class="op">=-</span><span class="fl">0.3</span>, color<span class="op">=</span><span class="st">'gray'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, ec <span class="op">=</span> <span class="st">'None'</span>)</span>
+<span id="cb122-48"><a href="#cb122-48" aria-hidden="true" tabindex="-1"></a>            ax.add_patch(rect)</span>
+<span id="cb122-49"><a href="#cb122-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-50"><a href="#cb122-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Set y-limits for all subplots</span></span>
+<span id="cb122-51"><a href="#cb122-51" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs.flat:</span>
+<span id="cb122-52"><a href="#cb122-52" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb122-53"><a href="#cb122-53" aria-hidden="true" tabindex="-1"></a>    ax.spines[:].set_visible(<span class="va">False</span>)</span>
+<span id="cb122-54"><a href="#cb122-54" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
+<span id="cb122-55"><a href="#cb122-55" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
+<span id="cb122-56"><a href="#cb122-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-57"><a href="#cb122-57" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb122-58"><a href="#cb122-58" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.savefig('../steps/rec_e1_plot_full_100kb.svg', bbox_inches='tight')</span></span>
+<span id="cb122-59"><a href="#cb122-59" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb122-60"><a href="#cb122-60" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display page-columns page-full">
-<div class="quarto-figure quarto-figure-center page-columns page-full">
+<div class="page-columns page-full">
 <figure class="figure page-columns page-full">
-<p class="page-columns page-full"><a href="05_rec_compartments_files/figure-html/e1-fullmerged-all-100kb-5smoothed-output-1.png" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-13" title="E1 eigenvector values for all merged samples at 100kb resolution. Left: Chromosomes (not restricted) Middle: Chromosome-arm restricted E1. Right: 10Mb window restricted E1.Values are smoothed with a sliding window of 5 bins, step size 1 bin."><img src="05_rec_compartments_files/figure-html/e1-fullmerged-all-100kb-5smoothed-output-1.png" width="997" height="495" alt="E1 eigenvector values for all merged samples at 100kb resolution. Left: Chromosomes (not restricted) Middle: Chromosome-arm restricted E1. Right: 10Mb window restricted E1.Values are smoothed with a sliding window of 5 bins, step size 1 bin." class="figure-img column-page-inset"></a></p>
-<figcaption>E1 eigenvector values for all merged samples at 100kb resolution. Left: Chromosomes (not restricted) Middle: Chromosome-arm restricted E1. Right: 10Mb window restricted E1.Values are smoothed with a sliding window of 5 bins, step size 1 bin.</figcaption>
+<p class="page-columns page-full"><a href="05_rec_compartments_files/figure-html/e1-fullmerged-all-100kb-output-1.png" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-13"><img src="05_rec_compartments_files/figure-html/e1-fullmerged-all-100kb-output-1.png" id="e1-fullmerged-all-100kb" width="891" height="440" class="figure-img column-page-inset"></a></p>
 </figure>
 </div>
 </div>
