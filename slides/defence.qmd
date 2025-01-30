@@ -83,7 +83,7 @@ Architecture modulates gene regulation and meiosis. Could these high-level struc
 In this study, we explore the X chromosome in rhesus macaque (Macaca mulatta), combining Hi-C analysis with genomic tools to unravel its 3D chromatin structure. Our goal? To investigate how chromatin architecture intertwines with evolutionary forces, particularly in regions under strong selection.
 What are those regions under selection
 This forms the rationale. I ask...
-[1min]
+[3min]
 :::
 
 
@@ -134,7 +134,7 @@ chromatin must balance structure and function. nucleosomes makwa DNA compact yet
 - **DNA Double Helix**: Fundamental structure of DNA.
 - **Nucleosomes**: DNA wrapped around histone proteins, forming the "beads-on-a-string" structure.
 - **Chromatin Fibers**: Higher-order coiling of nucleosomes for compact organization.
-[1min]
+[4min]
 :::
 
 
@@ -171,7 +171,7 @@ Figure from [@misteli2020selforganizinggenomeprinciples]
 :::
 
 ::: notes
-[45s]
+[4m45s]
 :::
 
 ## Molecular Biology: Compartments {auto-animate=true}
@@ -214,7 +214,7 @@ Figure from [@misteli2020selforganizinggenomeprinciples]
 - Self-interacting chromatin domains, often referred to as TADs, play a key role in insulating regulatory interactions. They act as boundaries, ensuring that enhancers only interact with their target promoters, which helps maintain precise gene regulation and prevents unwanted cross-talk between adjacent genes. TAD boundaries are typically enriched in structural proteins (CTCF motif), and specific histone modifications (e.g. H3K4me3) marking promoter/enhancers. 
 - Now, A/B compartments are large genomic regions that organize the nucleus into functional zones. A compartments are gene-rich and transcriptionally active, while B compartments are gene-poor and largely inactive. This separation allows the genome to balance accessibility for active genes with compact storage for inactive regions, optimizing nuclear function. 
 - The key difference between the TADs and A/B compartments is the method of inference, where TADs are notoriously hard to call, but initially, the size was the separator: TADs were sub-megabase and A/B compartments were multiple megabases. 
-[2m15s]
+[7m00s]
 :::
 
 
@@ -241,7 +241,7 @@ To understand the data, we must know a bit about how the samples are generated. 
 ![](images/fig-hic-data-analysis.png){data-id="schematic"}
 
 ::: notes
-[5m]
+[11m00s]
 :::
 
 
@@ -255,7 +255,7 @@ To understand the data, we must know a bit about how the samples are generated. 
 ::: notes
 Here is the heat map, showing the checkerboard pattern. Darker spots signify an interaction between two places in the genome. Dark squaresa along the diagonal would be TADs. 
 But how do we get from matrix to the 1D track of compartment type?
-[1m15]
+[12m15]
 :::
 
 
@@ -282,7 +282,7 @@ But how do we get from matrix to the 1D track of compartment type?
 4. **Eigenvector Orientation:** Since PCA eigenvectors are only determined up to a sign, an external biological feature—such as GC content—is used to orient the compartment assignments. This ensures that positive $c(x)$ values correspond to compartment A and negative values to compartment B.
 5. **Genomic Range Restriction:** The MSE minimization can be restricted to specific genomic regions, such as chromosome arms, to focus on local compartment structures rather than genome-wide patterns.
 
-[3m15s]
+[15m15s]
 :::
 
 ## Methods {auto-animate-reset=true}
@@ -301,7 +301,7 @@ Now, I think we are ready to move on to ***my*** analysis.
 First, I wanted to reproduce the compartments from Wang, but it was not possible with HiCExplorer. As I mentioned earlier, it is sometimes necessary to restrict the viewframe of the PCA, if the variance between chrom.arms is larger than within each arm. 
 However, I think I succeeded with Open2C (applause). (Zoom in)
 This result took 9 weeks to obtain.
-[1m30]
+[16m45s]
 :::
 
 
@@ -314,7 +314,7 @@ This result took 9 weeks to obtain.
 * PC1 tracks for each tissue type: [9]{.alert} 
 
 ::: notes 
-[1m35s]
+[18m15s]
 :::
 
 ## Results: Compartments {.smaller auto-animate=true auto-animate-id="compartments"}
@@ -329,7 +329,7 @@ This result took 9 weeks to obtain.
 :::
 
 ::: notes 
-[2m10s]
+[20m25s]
 :::
 
 ## Results: Compartments {auto-animate=true auto-animate-id="compartments"}
@@ -343,7 +343,7 @@ This result took 9 weeks to obtain.
   * A 1bp *limit* between A/B compartments
 
 ::: notes 
-[1m25s]
+[21m50s]
 :::
 
 ## Genomic Intervals
@@ -362,7 +362,7 @@ This result took 9 weeks to obtain.
 ::: notes
 It's time to talk more about the regions of interest: baboon regions are from unplished analyses (Kasper, Erik), showing disproportionate ancestry of either olive or hamadryas baboons indicating strong selection. 
 The ECH90 regions are from a published paper (dare I say it's a BiRC paper involving Kasper), identifying extraordinarily long sweeps on X. One of them double the size of the sweep associated with lactase persistence gene. Well, here they are, the regions we use. We also use a merged version of the baboons (they do not overlap).
-[1m35s]
+[23m20s]
 :::
 
 ## Methods: Comparing Genomic Intervals
@@ -393,7 +393,7 @@ The ECH90 regions are from a published paper (dare I say it's a BiRC paper invol
 ::: notes
 **Jaccard:** Calculate intersection over union
 **Proximity:** Calculate the mean of the distance from each segment in $Q$ to the nearest segment in $A$
-[2m00s]
+[24m00s]
 :::
 
 ## Results: Comparing Genomic Intervals
@@ -422,7 +422,7 @@ Additionally, spermatogonia and pachytene spermatocyte limits overlap ECH, so no
 What is surprising is that in some cases, the compartment limits are both significantly proximal to the concatenated baboon set *and* overlaps the ECH90 regions. 
 Also note the very low p-value for proximity between baboon limits and sperm samples.
 (click) We observe 7 and 5 significant p-values out of 40 for Jaccard and Proximity tests, respectively. That is more than double the amount expected by change. But we still have to talk a bit about multiple testing. The tests are not independent as the different viewframes still originate from the same data, and the compartments called from the two viewframes are highly similar. That means that multiple testing correction gets complicated, and naively correcting the p-values is too conservative. However, I made the corrections to get an idea of the impact of multiple tests. Here is what I got: (click)
-[6m00s] 
+[27m00s] 
 :::
 
  
@@ -444,10 +444,10 @@ Also note the very low p-value for proximity between baboon limits and sperm sam
 ::: notes
 Now, only the baboon regions are significantly proximal to sperm, but there is still overlap between ECH and the limits of all tissue types except sperm.
 So, even with a multiple testing correction (that I deem too conservative), there are still a lot of correlation between chromatin compartments in macaque in both fibroblasts and through spermatogenesis, either by intersection or by edge/limit proximity. 
-[40s]
+[27m40s]
 :::
 
-## Implications
+## Implications and Unanswered Questions
 
 * Assuming the results are real
 * What does it *mean* that the regions correlate
@@ -467,7 +467,7 @@ They hint that other mechanisms could aid the apparent selection by structurally
 Then, the compartment limits were in some tissues associated with both ECH regions and baboon regions, indicating some indirect link. Maybe, some regions are more prone to selection as a result of structural features?
 Additionally, fibroblast showed overlap to ECH - does that rule out the role of spermatogenesis?
 Another point that I've avoided until now is: macaque is often used as an outgroup to great apes, but here, we find strong correlations between the elements. Can we strengthen our results by reproducing the Hi-C analysis in other (more closely related) species?
-[2m10s]
+[29m00s]
 :::
 
 
@@ -502,7 +502,7 @@ Overview of the tools used for reproducibility of this thesis.
 ::::
 
 ::: notes 
-[2m00s]
+[31m00s]
 :::
 
 
@@ -517,7 +517,7 @@ Overview of the tools used for reproducibility of this thesis.
 * I have only looked at *intra*-chromosomal interactions
 
 ::: notes 
-
+[33m00s]
 :::
 
 # Extra slides

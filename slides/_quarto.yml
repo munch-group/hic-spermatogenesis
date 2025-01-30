@@ -8,7 +8,7 @@ format:
     height: 720
     margin: 0.05
     logo: aulogo_uk_var2_blue.png
-    footer: "<em>Chromatin Architecture and Selection on X &nbsp; • &nbsp; Søren Jørgensen &nbsp; • &nbsp; MSc. Bioinformatics  &nbsp; • &nbsp; Munch-group </em> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+    footer: "<em>Chromatin Architecture and Selection on X &nbsp; • &nbsp; Søren Jørgensen &nbsp; • &nbsp; MSc. Bioinformatics  &nbsp; • &nbsp; munch-group.org/hic-spermatogenesis </em> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
     include-after-body: clean_title_page.html
     history: false
     auto-animate-unmatched: false
