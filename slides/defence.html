@@ -11,7 +11,7 @@
 
   <meta name="author" content="Søren Jørgensen">
   <meta name="author" content="Kasper Munch (Supervisor)">
-  <meta name="dcterms.date" content="2025-01-29">
+  <meta name="dcterms.date" content="2025-01-30">
   <title>Chromatin Architecture and Selection on X</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -174,14 +174,14 @@ Kasper Munch (Supervisor)
     </div>
 </div>
 
-  <p class="date">January 29, 2025</p>
+  <p class="date">January 30, 2025</p>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
 <div>
 
 </div>
-<div class="quarto-layout-panel" data-layout="[[1,1],[1,1]]" style="margin-top:30pt;">
+<div class="quarto-layout-panel" style="margin-top:30pt;" data-layout="[[1,1],[1,1]]">
 <div class="quarto-layout-row">
 <div id="always-visible" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
@@ -284,7 +284,7 @@ Kasper Munch (Supervisor)
 <div>
 
 </div>
-<div class="fragment quarto-layout-panel" data-layout="[-0.01,0.3,0.6]" style="font-size:20pt;">
+<div class="fragment quarto-layout-panel" style="font-size:20pt;" data-layout="[-0.01,0.3,0.6]">
 <div class="quarto-layout-row">
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 1.1%;justify-content: flex-start;">
 <p>&nbsp;</p>
@@ -363,9 +363,19 @@ Kasper Munch (Supervisor)
 <div class="tinynote absolute" style="bottom: 32px; right: 5px; ">
 <p>Figure from <span class="citation" data-cites="misteli2020selforganizinggenomeprinciples">(<a href="#/references" role="doc-biblioref" onclick="">Misteli 2020</a>)</span></p>
 </div>
-<div class="note">
+<aside class="notes">
 <p>[45s]</p>
-</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="molecular-biology-compartments" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Molecular Biology: Compartments</h2>
@@ -499,7 +509,7 @@ Kasper Munch (Supervisor)
 <div>
 
 </div>
-<div id="rationale" class="quarto-layout-panel" data-layout="[-2.5,95,-2.5]" style="margin-top:-10pt;font-size:0.79em;font-family:math;color:#6f4747;">
+<div id="rationale" class="quarto-layout-panel" style="margin-top:-10pt;font-size:0.79em;font-family:math;color:#6f4747;" data-layout="[-2.5,95,-2.5]">
 <div class="quarto-layout-row">
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.5%;justify-content: flex-start;">
 <p>&nbsp;</p>
@@ -544,8 +554,8 @@ Kasper Munch (Supervisor)
           display:block!important;
       }</style></aside>
 </section>
-<section id="methodological-rationale" class="slide level2" data-auto-animate-reset="true">
-<h2>Methodological Rationale</h2>
+<section id="methods" class="slide level2" data-auto-animate-reset="true">
+<h2>Methods</h2>
 <div style="margin-bottom:30px;">
 <ul>
 <li class="fragment">Infer compartments using <em>HiCExplorer</em> or <em>Open2C</em></li>
@@ -925,7 +935,7 @@ Kasper Munch (Supervisor)
 <div>
 
 </div>
-<div class="quarto-layout-panel" data-layout="[[1,3],[1,3]]" style="font-size:20pt;">
+<div class="quarto-layout-panel" style="font-size:20pt;" data-layout="[[1,3],[1,3]]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
 <p><span style="margin-top:20pt;"><br>Uncorrected:</span></p>
@@ -1209,7 +1219,7 @@ Kasper Munch (Supervisor)
 <li>What does it <em>mean</em> that the regions correlate
 <ul>
 <li>The ECH paper: hinting to possible mechanisms aiding a fitness-based model</li>
-<li>Structural elements could aid in preserving certain genetic elements</li>
+<li>Structural features could aid in preserving certain genetic elements</li>
 <li>Some tissues are connected to both ECH and baboon regions</li>
 <li>Does fibroblast rule out the implication in spermatogenesis?</li>
 </ul></li>
@@ -1219,7 +1229,7 @@ Kasper Munch (Supervisor)
 </ul></li>
 </ul>
 <aside class="notes">
-<p>Let’s for a moment assume that this explorative analysis is sound, and the regions are actually correlating. <em>What does it mean</em> that they do? An extraordinary selection coefficient has been reported for a segment in ECH that is more than double the size of the sweep associated with <em>lactase persistence</em>. They hint that other mechanisms could aid the apparent selection by structurally linking regions across the chromosome. Then, the compartment limits were in some tissues associated with both ECH regions and baboon regions, indicating some indirect link. Additionally, fibroblast showed overlap to ECH - does that rule out the role of spermatogenesis? Another point that I’ve avoided until now is: macaque is often used as an outgroup to great apes, but here, we find strong correlations between the elements. Can we strengthen our results by reproducing the Hi-C analysis in other (more closely related) species?</p>
+<p>Let’s for a moment assume that this explorative analysis is sound, and the regions are actually correlating. <em>What does it mean</em> that they do? Well, an extraordinary selection coefficient has been reported for segments in ECH, and one that is more than double the size of the sweep associated with <em>lactase persistence</em>. They hint that other mechanisms could aid the apparent selection by structurally linking regions across the chromosome. Then, the compartment limits were in some tissues associated with both ECH regions and baboon regions, indicating some indirect link. Maybe, some regions are more prone to selection as a result of structural features? Additionally, fibroblast showed overlap to ECH - does that rule out the role of spermatogenesis? Another point that I’ve avoided until now is: macaque is often used as an outgroup to great apes, but here, we find strong correlations between the elements. Can we strengthen our results by reproducing the Hi-C analysis in other (more closely related) species? [2m10s]</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1234,15 +1244,74 @@ Kasper Munch (Supervisor)
 </section>
 <section id="reproducibility" class="slide level2">
 <h2>Reproducibility</h2>
+<div class="{columns}">
+<div class="column" style="width:50%;">
 <ul>
 <li>Can we reproduce in other organisms?
 <ul>
 <li>The question I have been waiting for</li>
 </ul></li>
-<li>Introducing: the reproducibility framework</li>
 </ul>
-
-<img data-src="images/sponsors.png" class="r-stretch"></section>
+<p><img data-src="images/sponsors.png"></p>
+</div><div class="column" style="width:50%;">
+<div id="tbl-reproducibility" class="striped quarto-float quarto-figure quarto-figure-center" style="font-size:17pt">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-reproducibility-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Overview of the tools used for reproducibility of this thesis.
+</figcaption>
+<div aria-describedby="tbl-reproducibility-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-striped caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Tool</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">Jupyter</td>
+<td style="text-align: left;">Interactive coding environment for analysis and development (notebooks are natively rendered with Quarto)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Quarto</td>
+<td style="text-align: left;">A Quarto Manuscript project nested inside a Quarto Book for rendering html (website) and PDF (manuscript) from Markdown via Pandoc. Supports direct embedding of output from Jupyter Notebook cells (plots, tables).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Conda</td>
+<td style="text-align: left;">For managing software requirements and dependency versions reproducibly.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">git</td>
+<td style="text-align: left;">Version control and <code>gh-pages</code> branch for automated render of Quarto project</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">GitHub</td>
+<td style="text-align: left;">Action was triggered <code>on push</code> to render the project and host on <a href="https://munch-group.org/hic-spermatogenesis/">munch-group.org</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><em>gwf</em></td>
+<td style="text-align: left;">Workflow manager to automate the analysis on a HPC cluster, wrapped in Python code. <code>workflow.py</code> currently does everything from <code>.fastq</code> to <code>.cool</code>, but notebooks can be set to run sequentially as part of the workflow as well.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div></div>
+<aside class="notes">
+<p>[2m00s]</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="conclusive-thoughts-and-perspectives" class="slide level2">
 <h2>Conclusive thoughts and perspectives</h2>
 <ul>
@@ -1256,6 +1325,19 @@ Kasper Munch (Supervisor)
 <li>Chromosome X is an obvious target</li>
 <li>I have only looked at <em>intra</em>-chromosomal interactions</li>
 </ul>
+<aside class="notes">
+
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section>
 <section id="extra-slides" class="title-slide slide level1 center">
