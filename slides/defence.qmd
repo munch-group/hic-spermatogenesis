@@ -170,7 +170,7 @@ chromatin must balance structure and function. nucleosomes makwa DNA compact yet
 Figure from [@misteli2020selforganizinggenomeprinciples]
 :::
 
-::: note
+::: notes
 [45s]
 :::
 
@@ -285,7 +285,7 @@ But how do we get from matrix to the 1D track of compartment type?
 [3m15s]
 :::
 
-## Methodological Rationale {auto-animate-reset=true}
+## Methods {auto-animate-reset=true}
 
 ::: {.incremental style="margin-bottom:30px;"}
 * Infer compartments using *HiCExplorer* or *Open2C*
@@ -452,7 +452,7 @@ So, even with a multiple testing correction (that I deem too conservative), ther
 * Assuming the results are real
 * What does it *mean* that the regions correlate
   * The ECH paper: hinting to possible mechanisms aiding a fitness-based model
-  * Structural elements could aid in preserving certain genetic elements
+  * Structural features could aid in preserving certain genetic elements
   * Some tissues are connected to both ECH and baboon regions
   * Does fibroblast rule out the implication in spermatogenesis?
 * Macaque is often used as an outgroup, but not here
@@ -462,22 +462,48 @@ So, even with a multiple testing correction (that I deem too conservative), ther
 
 ::: notes 
 Let's for a moment assume that this explorative analysis is sound, and the regions are actually correlating. *What does it mean* that they do? 
-An extraordinary selection coefficient has been reported for a segment in ECH that is more than double the size of the sweep associated with *lactase persistence*.
+Well, an extraordinary selection coefficient has been reported for segments in ECH, and one that is more than double the size of the sweep associated with *lactase persistence*.
 They hint that other mechanisms could aid the apparent selection by structurally linking regions across the chromosome. 
-Then, the compartment limits were in some tissues associated with both ECH regions and baboon regions, indicating some indirect link. 
+Then, the compartment limits were in some tissues associated with both ECH regions and baboon regions, indicating some indirect link. Maybe, some regions are more prone to selection as a result of structural features?
 Additionally, fibroblast showed overlap to ECH - does that rule out the role of spermatogenesis?
 Another point that I've avoided until now is: macaque is often used as an outgroup to great apes, but here, we find strong correlations between the elements. Can we strengthen our results by reproducing the Hi-C analysis in other (more closely related) species?
+[2m10s]
 :::
 
 
 
 ## Reproducibility
 
+:::: {columns}
+::: {.column width="50%"}
+
 * Can we reproduce in other organisms?
   * The question I have been waiting for
-* Introducing: the reproducibility framework 
 
 ![](images/sponsors.png)
+
+:::
+
+::: {.column width="50%"}
+::: {#tbl-reproducibility .striped style="font-size:17pt"}
+| Tool | Description |
+|-------------:|:---------------------------------------------------------|
+| Jupyter | Interactive coding environment for analysis and development (notebooks are natively rendered with Quarto) |
+| Quarto | A Quarto Manuscript project nested inside a Quarto Book for rendering html (website) and PDF (manuscript) from Markdown via Pandoc. Supports direct embedding of output from Jupyter Notebook cells (plots, tables). |
+| Conda | For managing software requirements and dependency versions reproducibly. |
+| git | Version control and `gh-pages` branch for automated render of Quarto project |
+| GitHub | Action was triggered `on push` to render the project and host on [munch-group.org](https://munch-group.org/hic-spermatogenesis/) |
+| *gwf* | Workflow manager to automate the analysis on a HPC cluster, wrapped in Python code. `workflow.py` currently does everything from `.fastq` to `.cool`, but notebooks can be set to run sequentially as part of the workflow as well. |
+
+Overview of the tools used for reproducibility of this thesis.
+:::
+:::
+
+::::
+
+::: notes 
+[2m00s]
+:::
 
 
 ## Conclusive thoughts and perspectives
@@ -489,6 +515,10 @@ Another point that I've avoided until now is: macaque is often used as an outgro
 * We should analyze the genes at the coordinates of correlation 
 * Chromosome X is an obvious target
 * I have only looked at *intra*-chromosomal interactions
+
+::: notes 
+
+:::
 
 # Extra slides
 
