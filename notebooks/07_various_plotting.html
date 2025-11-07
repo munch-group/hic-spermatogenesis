@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -57,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -66,15 +67,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <link href="../workflow.html" rel="next">
 <link href="../notebooks/06_rec_genomicintervals.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aed84c9405e12d8ed4f05416198633e2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2185ea6cc30b3b5ee4fb46d8a6bcc62f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -111,14 +114,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -140,7 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Søren’s MSc project about Hi-C and spermatogenesis</a> 
         <div class="sidebar-tools-main">
@@ -369,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="imports-for-plots-etc" class="level3">
 <h3 class="anchored" data-anchor-id="imports-for-plots-etc">Imports for plots etc</h3>
 <div id="cell-4" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import standard python libraries</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import standard python libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -381,14 +386,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cooltools.lib.numutils <span class="im">import</span> adaptive_coarsegrain, interp_nan</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LogNorm</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.axes_grid1 <span class="im">import</span> make_axes_locatable</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="inlinebackend.rc" class="level3">
 <h3 class="anchored" data-anchor-id="inlinebackend.rc"><code>InlineBackend.rc</code></h3>
 <p>For consistent plots that fit with pdf manus.</p>
 <div id="cell-6" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define my params:</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">## Params will comply with my desired layout for the Manuscript (PDF)</span></span>
@@ -408,16 +413,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply config</span></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_formats <span class="op">=</span> [<span class="st">'retina'</span>]</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.rc <span class="op">=</span> notebook_rcparams</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.rc <span class="op">=</span> notebook_rcparams</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-7" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({key:plt.rcParams[key] <span class="cf">for</span> key <span class="kw">in</span> notebook_rcparams.keys()})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({key:plt.rcParams[key] <span class="cf">for</span> key <span class="kw">in</span> notebook_rcparams.keys()})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'font.size': 10.0, 'axes.titlesize': 'large', 'axes.labelsize': 'medium', 'xtick.labelsize': 'medium', 'ytick.labelsize': 'medium', 'figure.titlesize': 'large', 'figure.figsize': [6.4, 4.8], 'figure.labelsize': 'large'}</code></pre>
 </div>
 </div>
 <div id="cell-8" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Apparently IPython needs this twice to understand?? </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Apparently IPython needs this twice to understand?? </span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define my params:</span></span>
@@ -437,10 +442,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply config</span></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_formats <span class="op">=</span> [<span class="st">'retina'</span>]</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.rc <span class="op">=</span> notebook_rcparams</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.rc <span class="op">=</span> notebook_rcparams</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-9" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({key:plt.rcParams[key] <span class="cf">for</span> key <span class="kw">in</span> notebook_rcparams.keys()})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({key:plt.rcParams[key] <span class="cf">for</span> key <span class="kw">in</span> notebook_rcparams.keys()})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'font.size': 7.0, 'axes.titlesize': 8.0, 'axes.labelsize': 7.0, 'xtick.labelsize': 6.0, 'ytick.labelsize': 6.0, 'figure.titlesize': 9.0, 'figure.figsize': [6.0, 2.0], 'figure.labelsize': 7.0}</code></pre>
 </div>
@@ -449,7 +454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="load-all-the-coolers-and-eigenvectors" class="level3">
 <h3 class="anchored" data-anchor-id="load-all-the-coolers-and-eigenvectors">Load all the coolers and eigenvectors</h3>
 <div id="cell-11" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Loading all coolers and their compartments</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Loading all coolers and their compartments</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path <span class="im">as</span> op</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cooler</span>
@@ -508,12 +513,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we have all the coolers and compartments ready for plotting (in semi-long format)</span></span>
 <span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="co">#clr_df</span></span>
 <span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>clr_df[[<span class="st">'sname'</span>, <span class="st">'resolution'</span>, <span class="st">'nbins'</span>, <span class="st">'run'</span>, <span class="st">'e1_dict'</span>]].query(<span class="st">'resolution == "ps500"'</span>)</span>
-<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="co">#print(clr_df['e1_dict'].values)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="co">#print(clr_df['e1_dict'].values)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -526,7 +531,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
+<th data-quarto-table-cell-role="th">10</th>
 <td>PAC</td>
 <td>ps500</td>
 <td>1534</td>
@@ -534,7 +539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>{'full': [nan, nan, nan, nan, nan, nan, nan, n...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
+<th data-quarto-table-cell-role="th">11</th>
 <td>SPA</td>
 <td>ps500</td>
 <td>1534</td>
@@ -542,7 +547,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>{'full': [nan, nan, nan, nan, nan, nan, nan, n...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">12</td>
+<th data-quarto-table-cell-role="th">12</th>
 <td>Fib</td>
 <td>ps500</td>
 <td>1534</td>
@@ -550,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>{'full': [nan, nan, nan, nan, nan, -0.15077432...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">13</td>
+<th data-quarto-table-cell-role="th">13</th>
 <td>RS</td>
 <td>ps500</td>
 <td>1534</td>
@@ -558,7 +563,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>{'full': [nan, nan, nan, nan, nan, nan, nan, n...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">14</td>
+<th data-quarto-table-cell-role="th">14</th>
 <td>Sp</td>
 <td>ps500</td>
 <td>1534</td>
@@ -566,7 +571,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>{'full': [nan, nan, nan, nan, nan, -0.00698684...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">15</td>
+<th data-quarto-table-cell-role="th">15</th>
 <td>RS</td>
 <td>ps500</td>
 <td>1534</td>
@@ -574,7 +579,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>{'full': [nan, nan, nan, nan, nan, -0.17383142...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">16</td>
+<th data-quarto-table-cell-role="th">16</th>
 <td>SPA</td>
 <td>ps500</td>
 <td>1534</td>
@@ -582,7 +587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>{'full': [nan, nan, nan, nan, nan, nan, nan, -...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">17</td>
+<th data-quarto-table-cell-role="th">17</th>
 <td>Sp</td>
 <td>ps500</td>
 <td>1534</td>
@@ -590,7 +595,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>{'full': [nan, nan, nan, -0.102536873416233, -...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">18</td>
+<th data-quarto-table-cell-role="th">18</th>
 <td>Fib</td>
 <td>ps500</td>
 <td>1534</td>
@@ -598,7 +603,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>{'full': [nan, nan, nan, -0.2342462339281897, ...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">19</td>
+<th data-quarto-table-cell-role="th">19</th>
 <td>PAC</td>
 <td>ps500</td>
 <td>1534</td>
@@ -617,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="a-compartments" class="level4">
 <h4 class="anchored" data-anchor-id="a-compartments">A-compartments</h4>
 <div id="cell-14" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ECH regions and chromsizes</span></span>
@@ -662,12 +667,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="co"># The `comps` dictionary now contains the DataFrames</span></span>
 <span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage:</span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>comps[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_arms'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>comps[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_arms'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -680,7 +685,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>chrX</td>
 <td>900000</td>
 <td>1600000</td>
@@ -688,7 +693,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>700000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>chrX</td>
 <td>1700000</td>
 <td>2600000</td>
@@ -696,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>900000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>chrX</td>
 <td>2900000</td>
 <td>3100000</td>
@@ -704,7 +709,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>200000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>chrX</td>
 <td>3200000</td>
 <td>3500000</td>
@@ -712,7 +717,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>300000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>chrX</td>
 <td>6600000</td>
 <td>6700000</td>
@@ -720,7 +725,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>100000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -728,7 +733,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">72</td>
+<th data-quarto-table-cell-role="th">72</th>
 <td>chrX</td>
 <td>145400000</td>
 <td>147100000</td>
@@ -736,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1700000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">73</td>
+<th data-quarto-table-cell-role="th">73</th>
 <td>chrX</td>
 <td>147300000</td>
 <td>147400000</td>
@@ -744,7 +749,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>100000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">74</td>
+<th data-quarto-table-cell-role="th">74</th>
 <td>chrX</td>
 <td>148800000</td>
 <td>149100000</td>
@@ -752,7 +757,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>300000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">75</td>
+<th data-quarto-table-cell-role="th">75</th>
 <td>chrX</td>
 <td>149300000</td>
 <td>151200000</td>
@@ -760,7 +765,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1900000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">76</td>
+<th data-quarto-table-cell-role="th">76</th>
 <td>chrX</td>
 <td>152500000</td>
 <td>153300000</td>
@@ -778,7 +783,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="edge-intervals" class="level4">
 <h4 class="anchored" data-anchor-id="edge-intervals">Edge intervals</h4>
 <div id="cell-16" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Directory containing your .csv files</span></span>
@@ -810,7 +815,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(edges.keys())</span>
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>display(edges[<span class="st">'recPE'</span>][<span class="st">'fibroblast_100kb_10Mb'</span>])</span>
 <span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">#ech90 = pd.read_csv('../data/ech90_human_Mmul_10.csv')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">#ech90 = pd.read_csv('../data/ech90_human_Mmul_10.csv')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>dict_keys(['PE', 'recPE'])</code></pre>
 </div>
@@ -818,7 +823,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -831,7 +836,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>700000</td>
 <td>900000</td>
 <td>chrX</td>
@@ -839,7 +844,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>200000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>3300000</td>
 <td>3500000</td>
 <td>chrX</td>
@@ -847,7 +852,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>200000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>8200000</td>
 <td>8400000</td>
 <td>chrX</td>
@@ -855,7 +860,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>200000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>13300000</td>
 <td>13500000</td>
 <td>chrX</td>
@@ -863,7 +868,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>200000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>14900000</td>
 <td>15100000</td>
 <td>chrX</td>
@@ -871,7 +876,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>200000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -879,7 +884,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">87</td>
+<th data-quarto-table-cell-role="th">87</th>
 <td>144400000</td>
 <td>144800000</td>
 <td>chrX</td>
@@ -887,7 +892,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>400000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">88</td>
+<th data-quarto-table-cell-role="th">88</th>
 <td>145400000</td>
 <td>145600000</td>
 <td>chrX</td>
@@ -895,7 +900,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>200000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">89</td>
+<th data-quarto-table-cell-role="th">89</th>
 <td>146700000</td>
 <td>147100000</td>
 <td>chrX</td>
@@ -903,7 +908,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>400000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">90</td>
+<th data-quarto-table-cell-role="th">90</th>
 <td>148800000</td>
 <td>149000000</td>
 <td>chrX</td>
@@ -911,7 +916,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>200000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">91</td>
+<th data-quarto-table-cell-role="th">91</th>
 <td>152100000</td>
 <td>152300000</td>
 <td>chrX</td>
@@ -929,7 +934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="baboons" class="level4">
 <h4 class="anchored" data-anchor-id="baboons">Baboons</h4>
 <div id="cell-18" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load baboons</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load baboons</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_collapse</span>
@@ -953,7 +958,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>high_olive <span class="op">=</span> pd.read_csv(<span class="st">'../data/lift/rheMac10/high_olive_rhemac10.bed'</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, index_col<span class="op">=</span><span class="va">False</span>, header<span class="op">=</span><span class="va">None</span>, names<span class="op">=</span>[<span class="st">'group'</span>,<span class="st">'chrom'</span>, <span class="st">'start'</span>, <span class="st">'end'</span>])</span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>baboon_dict <span class="op">=</span> {<span class="st">"P.hama"</span>: high_hama, <span class="st">"P.anubis"</span>: high_olive}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>baboon_dict <span class="op">=</span> {<span class="st">"P.hama"</span>: high_hama, <span class="st">"P.anubis"</span>: high_olive}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -961,7 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="define-a-plotting-utility-for-compartments-and-e1">Define a plotting utility for compartments and E1</h3>
 <p>This plots a group/subset of coolers and their respective E1 compartments.</p>
 <div id="cell-20" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can vary the number of subplots based on the number of coolers</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can vary the number of subplots based on the number of coolers</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We can vary the number of views for each cooler</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># We can define the region (tuple) of the chromosome to plot (default chrX)</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1054,14 +1059,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="plotting-matrices-separately" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-matrices-separately">Plotting matrices separately</h3>
 <p>Plotting function that makes separate plots in stead of mpl.subplots. This makes it compatible with YAML header subfigures and layout options for embedding into Quarto</p>
 <div id="cell-22" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_for_quarto(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_for_quarto(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    group: pd.DataFrame, </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    region: <span class="bu">str</span> <span class="op">|</span> <span class="bu">tuple</span>[<span class="bu">str</span>, <span class="bu">int</span>, <span class="bu">int</span>] <span class="op">=</span> <span class="st">'chrX'</span>,</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    include_compartments: <span class="bu">bool</span> <span class="op">=</span> <span class="va">True</span>,</span>
@@ -1166,14 +1171,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Display the figure for Quarto to capture</span></span>
 <span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
-<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="plot-intervals" class="level3">
 <h3 class="anchored" data-anchor-id="plot-intervals">Plot intervals</h3>
 <p>Plot genomic intervals as tracks (up to 3)</p>
 <div id="cell-24" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1253,13 +1258,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>    f.tight_layout()</span>
 <span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
 <span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plt.tight_layout()</span></span>
-<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="make-edges" class="level3">
 <h3 class="anchored" data-anchor-id="make-edges">Make edges</h3>
 <div id="cell-26" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_edges(df, resolution):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_edges(df, resolution):</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    start_edge <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'chrom'</span>: df[<span class="st">'chrom'</span>],</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'start'</span>: df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">max</span>(x[<span class="st">'start'</span>] <span class="op">-</span> resolution, <span class="dv">0</span>), axis<span class="op">=</span><span class="dv">1</span>),</span>
@@ -1274,13 +1279,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    })</span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> interval_collapse(pd.concat([start_edge, end_edge]).sort_values([<span class="st">'chrom'</span>, <span class="st">'start'</span>, <span class="st">'end'</span>])).assign(resolution<span class="op">=</span>resolution)</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="svedig-tabel" class="level3">
 <h3 class="anchored" data-anchor-id="svedig-tabel">Svedig tabel</h3>
 <div id="cell-28" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>all_tests <span class="op">=</span> pd.read_csv(<span class="st">'../results/all_tests.csv'</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>all_tests <span class="op">=</span> pd.read_csv(<span class="st">'../results/all_tests.csv'</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> svedig_tabel(orig_df, index, columns, values, </span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                 cmap<span class="op">=</span><span class="st">'Reds'</span>, col_order<span class="op">=</span><span class="va">None</span>, col_snames<span class="op">=</span><span class="va">None</span>):</span>
@@ -1333,10 +1338,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>                     }] <span class="cf">for</span> c <span class="kw">in</span> df.columns}, overwrite<span class="op">=</span><span class="va">False</span></span>
 <span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>     )</span>
 <span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-29" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"That should be all the setup :-)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"That should be all the setup :-)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>That should be all the setup :-)</code></pre>
 </div>
@@ -1347,13 +1352,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="matrices-e1">Matrices / E1</h2>
 <section id="e1-rs100500" class="level3">
 <h3 class="anchored" data-anchor-id="e1-rs100500">E1: RS100/500</h3>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the compartments of the round_spermatid, 500kb, all views</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the compartments of the round_spermatid, 500kb, all views</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> [<span class="st">'100'</span>, <span class="st">'500'</span>]</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> [<span class="st">'round_spermatid'</span>]</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>run <span class="op">=</span> [<span class="st">'recPE'</span>]</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>group <span class="op">=</span> clr_df.query(<span class="st">'name in @name and resolution in @res and run in @run'</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plot_for_quarto(group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plot_for_quarto(group)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-e1-matrix-full-arms-10mb-round_spermatid" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e1-matrix-full-arms-10mb-round_spermatid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1393,11 +1398,11 @@ Figure&nbsp;8.1: E1 eigenvector values for merged round spermatid samples at a) 
 <section id="pe-vs-recpe-rs100kb" class="level3">
 <h3 class="anchored" data-anchor-id="pe-vs-recpe-rs100kb">PE vs recPE (RS100kb)</h3>
 <div id="cell-34" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare PE and recPE compartments for round_spermatid, 100kb</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare PE and recPE compartments for round_spermatid, 100kb</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>group <span class="op">=</span> clr_df.query(<span class="st">'resolution == "100" and name == "round_spermatid"'</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plot_grouped(group, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plot_grouped(group, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1407,9 +1412,9 @@ Figure&nbsp;8.1: E1 eigenvector values for merged round spermatid samples at a) 
 </div>
 </div>
 <div id="cell-35" class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> clr_df.query(<span class="st">'resolution == "500" and name == "round_spermatid" and run == "PE"'</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> clr_df.query(<span class="st">'resolution == "500" and name == "round_spermatid" and run == "PE"'</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plot_grouped(df, include_compartments<span class="op">=</span><span class="va">False</span>, figsize<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plot_grouped(df, include_compartments<span class="op">=</span><span class="va">False</span>, figsize<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1422,7 +1427,7 @@ Figure&nbsp;8.1: E1 eigenvector values for merged round spermatid samples at a) 
 <section id="pe-vs.-recpe-rs100kb" class="level3">
 <h3 class="anchored" data-anchor-id="pe-vs.-recpe-rs100kb">PE vs.&nbsp;recPE: RS100kb</h3>
 <div class="cell" data-layout="[[-0.5,5,5,-0.5],[-0.5,5,5,-0.5]]" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> clr_df.query(<span class="st">'resolution == "100" and name == "round_spermatid"'</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> clr_df.query(<span class="st">'resolution == "100" and name == "round_spermatid"'</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the order of the group</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#print(df[['name', 'resolution', 'run']].reset_index(drop=True))</span></span>
@@ -1431,7 +1436,7 @@ Figure&nbsp;8.1: E1 eigenvector values for merged round spermatid samples at a) 
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>start, end <span class="op">=</span> <span class="dv">70_000_000</span>, <span class="dv">78_000_000</span></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>region <span class="op">=</span> (<span class="st">'chrX'</span>, start, end)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_for_quarto(df, region<span class="op">=</span>region, include_compartments<span class="op">=</span><span class="va">True</span>, view_order<span class="op">=</span>[<span class="st">'10Mb'</span>,<span class="st">'arms'</span>], figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_for_quarto(df, region<span class="op">=</span>region, include_compartments<span class="op">=</span><span class="va">True</span>, view_order<span class="op">=</span>[<span class="st">'10Mb'</span>,<span class="st">'arms'</span>], figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-rs100-recpe-pe" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rs100-recpe-pe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1513,7 +1518,7 @@ Figure&nbsp;8.2: Round Spermatid (RS) at 100kb, comparing the impact of parsing 
 <section id="perecpe-compare-compartments-100kb" class="level3">
 <h3 class="anchored" data-anchor-id="perecpe-compare-compartments-100kb">PE/recPE compare compartments (100kb)</h3>
 <div class="cell" data-layout="[[-0.6,2.5,2.5,-0.6],[-0.6,2.5,2.5,-0.6]]" data-execution_count="103">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_diff</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_diff</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">### Plot the intervals and the diff between </span><span class="al">###</span><span class="co"> </span></span>
@@ -1552,7 +1557,7 @@ Figure&nbsp;8.2: Round Spermatid (RS) at 100kb, comparing the impact of parsing 
 <span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>             intersect<span class="op">=</span>interval_diff(query, annot), </span>
 <span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'PE'</span>, <span class="st">'recPE'</span>, <span class="st">'Diff'</span>],</span>
 <span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>(<span class="fl">2.5</span>, <span class="fl">.8</span>),</span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-rs-fb-100-pe-recpe-intervals" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rs-fb-100-pe-recpe-intervals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1628,7 +1633,7 @@ Figure&nbsp;8.3: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing th
 </div>
 </div>
 <div class="cell" data-layout="[[-0.05,3.2,3.2,-0.05],[-0.05,3.2,3.2,-0.05]]" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_intersect</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_intersect</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> ech90</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1669,7 +1674,7 @@ Figure&nbsp;8.3: Round Spermatid (RS) and Fibroblast (Fb) at 100kb, comparing th
 <span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="st">'Edges'</span>, <span class="st">'Intersect'</span>],</span>
 <span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>size,</span>
 <span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.3</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-comps-edges-ech" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-comps-edges-ech-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1748,7 +1753,7 @@ Figure&nbsp;8.4: Visual representation of the genomic intervals of ECH90, A-comp
 <section id="visualize-ech-enrichment" class="level3">
 <h3 class="anchored" data-anchor-id="visualize-ech-enrichment">Visualize ECH enrichment</h3>
 <div class="cell" data-layout="[-0.05,3.2,3.2,-0.05]" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_diff, interval_intersect, interval_union</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_diff, interval_intersect, interval_union</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>complist <span class="op">=</span> [comps[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_arms'</span>],</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>            comps[<span class="st">'recPE'</span>][<span class="st">'fibroblast_100kb_arms'</span>]]</span>
@@ -1765,7 +1770,7 @@ Figure&nbsp;8.4: Visual representation of the genomic intervals of ECH90, A-comp
 <span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>                title<span class="op">=</span><span class="st">"ECH90 intersect"</span>,</span>
 <span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>                figsize<span class="op">=</span>(<span class="fl">3.2</span>, <span class="dv">1</span>),</span>
 <span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="dv">1</span>, lw<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-edge-enrichment" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-edge-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1812,11 +1817,11 @@ Figure&nbsp;8.5: Visual representation of the enrichment of edges in the interse
 <section id="all-3-sets" class="level3">
 <h3 class="anchored" data-anchor-id="all-3-sets">All 3 sets</h3>
 <div id="cell-fig-introduce-selected-regions" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>plot_regions(ech90, high_olive, high_hama,</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="vs">r"$\it</span><span class="sc">{P.anubis}</span><span class="vs">$"</span>, <span class="vs">r"$\it</span><span class="sc">{P.hama}</span><span class="vs">$"</span>],</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>plot_regions(ech90, high_olive, high_hama,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">it{P</span><span class="dv">.</span><span class="vs">anubis}</span><span class="dv">$</span><span class="vs">"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">it{P</span><span class="dv">.</span><span class="vs">hama}</span><span class="dv">$</span><span class="vs">"</span>],</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="fl">0.8</span>),</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-introduce-selected-regions" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1834,7 +1839,7 @@ Figure&nbsp;8.6: Visual representation of the selected regions for the baboon co
 <section id="liftover-comparison" class="level3">
 <h3 class="anchored" data-anchor-id="liftover-comparison">LiftOver comparison</h3>
 <div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>track0 <span class="op">=</span> [olive_panu3, hama_panu3]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>track0 <span class="op">=</span> [olive_panu3, hama_panu3]</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>track1 <span class="op">=</span> [high_olive, high_hama]</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>track2 <span class="op">=</span> [high_olive_ucsc, high_hama_ucsc]</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1845,7 +1850,7 @@ Figure&nbsp;8.6: Visual representation of the selected regions for the baboon co
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                title<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="fl">0.8</span>),</span>
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.8</span>, lw<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-compare-liftover" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="21">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-compare-liftover-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1884,7 +1889,7 @@ Figure&nbsp;8.7: Comparison of a) high-olive and b) high-hama intervals between 
 <section id="baboon-rs100-intersect" class="level3">
 <h3 class="anchored" data-anchor-id="baboon-rs100-intersect">Baboon-rs100-intersect</h3>
 <div class="cell" data-layout="[[-0.05,3.2,3.2,-0.05],[-0.05,3.2,3.2,-0.05]]" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot </span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> (<span class="fl">3.2</span>, <span class="fl">0.8</span>)</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>edge_rs <span class="op">=</span> edges[<span class="st">'recPE'</span>][<span class="st">'round_spermatid_100kb_arms'</span>]</span>
@@ -1893,7 +1898,7 @@ Figure&nbsp;8.7: Comparison of a) high-olive and b) high-hama intervals between 
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    plot_regions(query<span class="op">=</span>edge_rs, annot<span class="op">=</span>group, </span>
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>                 intersect<span class="op">=</span>interval_intersect(edge_rs, group), </span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#intersect=ech90,</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'RS100'</span>, <span class="vs">fr"$\it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="vs">$"</span>, <span class="st">'Intersect'</span>],</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'RS100'</span>, <span class="vs">fr"</span><span class="dv">$</span><span class="er">\</span><span class="vs">it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="dv">$</span><span class="vs">"</span>, <span class="st">'Intersect'</span>],</span>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>size,</span>
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>                 title<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.3</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
@@ -1904,10 +1909,10 @@ Figure&nbsp;8.7: Comparison of a) high-olive and b) high-hama intervals between 
 <span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    plot_regions(query<span class="op">=</span>edge_rs, annot<span class="op">=</span>group, </span>
 <span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>                 intersect<span class="op">=</span>interval_intersect(edge_rs, group), </span>
 <span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#intersect=ech90,</span></span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'RS100'</span>, <span class="vs">fr"$\it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="vs">$"</span>, <span class="st">'Intersect'</span>],</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'RS100'</span>, <span class="vs">fr"</span><span class="dv">$</span><span class="er">\</span><span class="vs">it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="dv">$</span><span class="vs">"</span>, <span class="st">'Intersect'</span>],</span>
 <span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>size,</span>
 <span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>                 title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.2</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.2</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-baboon-rs100-intersect" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-baboon-rs100-intersect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1986,12 +1991,12 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <section id="table-test-1bp-limits" class="level3">
 <h3 class="anchored" data-anchor-id="table-test-1bp-limits">Table: Test 1bp limits</h3>
 <div id="cell-52" class="cell" data-execution_count="77">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>all_tests.head() <span class="co">#.query('query == "hama_edge_1bp"')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>all_tests.head() <span class="co">#.query('query == "hama_edge_1bp"')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="77">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2007,7 +2012,7 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>fibroblast</td>
 <td>arms</td>
 <td>ECH90</td>
@@ -2018,7 +2023,7 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <td>1.780940</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>fibroblast</td>
 <td>arms</td>
 <td>hama_edge_1bp</td>
@@ -2029,7 +2034,7 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <td>0.053445</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>fibroblast</td>
 <td>arms</td>
 <td>olive_edge_1bp</td>
@@ -2040,7 +2045,7 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <td>0.172405</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>fibroblast</td>
 <td>arms</td>
 <td>olivehama_edge_1bp</td>
@@ -2051,7 +2056,7 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <td>0.130188</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>fibroblast</td>
 <td>10Mb</td>
 <td>ECH90</td>
@@ -2067,8 +2072,8 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 </div>
 </div>
 </div>
-<div id="tbl-all-tests" class="cell anchored" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>tissue_order <span class="op">=</span> [<span class="st">'fibroblast'</span>, <span class="st">'spermatogonia'</span>, <span class="st">'pachytene_spermatocyte'</span>, <span class="st">'round_spermatid'</span>, <span class="st">'sperm'</span>]</span>
+<div class="cell" data-execution_count="41">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>tissue_order <span class="op">=</span> [<span class="st">'fibroblast'</span>, <span class="st">'spermatogonia'</span>, <span class="st">'pachytene_spermatocyte'</span>, <span class="st">'round_spermatid'</span>, <span class="st">'sperm'</span>]</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>tissue_sname <span class="op">=</span> [<span class="st">'Fb'</span>, <span class="st">'Spa'</span>, <span class="st">'Pac'</span>, <span class="st">'RS'</span>, <span class="st">'Sperm'</span>]</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2108,7 +2113,13 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>display(t0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>display(t0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-all-tests" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="41">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-all-tests-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.1
+</figcaption>
+<div aria-describedby="tbl-all-tests-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
 <style type="text/css">
 #T_87a55 .col0 {
@@ -2178,7 +2189,7 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 }
 </style>
 
-<table id="T_87a55" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_87a55" class="do-not-create-environment caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank" data-quarto-table-cell-role="th">&nbsp;</th>
@@ -2203,9 +2214,9 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 </thead>
 <tbody>
 <tr class="odd">
-<td rowspan="3" id="T_87a55_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">10Mb</td>
-<td id="T_87a55_level1_row0" class="row_heading level1 row0" data-quarto-table-cell-role="th">jaccard</td>
-<td id="T_87a55_level2_row0" class="row_heading level2 row0" data-quarto-table-cell-role="th">ECH90</td>
+<th rowspan="3" id="T_87a55_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">10Mb</th>
+<th id="T_87a55_level1_row0" class="row_heading level1 row0" data-quarto-table-cell-role="th">jaccard</th>
+<th id="T_87a55_level2_row0" class="row_heading level2 row0" data-quarto-table-cell-role="th">ECH90</th>
 <td id="T_87a55_row0_col0" class="data row0 col0">0.021</td>
 <td id="T_87a55_row0_col1" class="data row0 col1">0.006</td>
 <td id="T_87a55_row0_col2" class="data row0 col2">nan</td>
@@ -2213,8 +2224,8 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <td id="T_87a55_row0_col4" class="data row0 col4">0.048</td>
 </tr>
 <tr class="even">
-<td rowspan="2" id="T_87a55_level1_row1" class="row_heading level1 row1" data-quarto-table-cell-role="th">proximity</td>
-<td id="T_87a55_level2_row1" class="row_heading level2 row1" data-quarto-table-cell-role="th">olive</td>
+<th rowspan="2" id="T_87a55_level1_row1" class="row_heading level1 row1" data-quarto-table-cell-role="th">proximity</th>
+<th id="T_87a55_level2_row1" class="row_heading level2 row1" data-quarto-table-cell-role="th">olive</th>
 <td id="T_87a55_row1_col0" class="data row1 col0">nan</td>
 <td id="T_87a55_row1_col1" class="data row1 col1">nan</td>
 <td id="T_87a55_row1_col2" class="data row1 col2">nan</td>
@@ -2222,7 +2233,7 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <td id="T_87a55_row1_col4" class="data row1 col4">0.016</td>
 </tr>
 <tr class="odd">
-<td id="T_87a55_level2_row2" class="row_heading level2 row2" data-quarto-table-cell-role="th">olivehama</td>
+<th id="T_87a55_level2_row2" class="row_heading level2 row2" data-quarto-table-cell-role="th">olivehama</th>
 <td id="T_87a55_row2_col0" class="data row2 col0">nan</td>
 <td id="T_87a55_row2_col1" class="data row2 col1">0.019</td>
 <td id="T_87a55_row2_col2" class="data row2 col2">0.012</td>
@@ -2230,9 +2241,9 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <td id="T_87a55_row2_col4" class="data row2 col4">0.001</td>
 </tr>
 <tr class="even">
-<td rowspan="2" id="T_87a55_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">arms</td>
-<td id="T_87a55_level1_row3" class="row_heading level1 row3" data-quarto-table-cell-role="th">jaccard</td>
-<td id="T_87a55_level2_row3" class="row_heading level2 row3" data-quarto-table-cell-role="th">ECH90</td>
+<th rowspan="2" id="T_87a55_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">arms</th>
+<th id="T_87a55_level1_row3" class="row_heading level1 row3" data-quarto-table-cell-role="th">jaccard</th>
+<th id="T_87a55_level2_row3" class="row_heading level2 row3" data-quarto-table-cell-role="th">ECH90</th>
 <td id="T_87a55_row3_col0" class="data row3 col0">0.017</td>
 <td id="T_87a55_row3_col1" class="data row3 col1">0.006</td>
 <td id="T_87a55_row3_col2" class="data row3 col2">0.005</td>
@@ -2240,8 +2251,8 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <td id="T_87a55_row3_col4" class="data row3 col4">nan</td>
 </tr>
 <tr class="odd">
-<td id="T_87a55_level1_row4" class="row_heading level1 row4" data-quarto-table-cell-role="th">proximity</td>
-<td id="T_87a55_level2_row4" class="row_heading level2 row4" data-quarto-table-cell-role="th">olivehama</td>
+<th id="T_87a55_level1_row4" class="row_heading level1 row4" data-quarto-table-cell-role="th">proximity</th>
+<th id="T_87a55_level2_row4" class="row_heading level2 row4" data-quarto-table-cell-role="th">olivehama</th>
 <td id="T_87a55_row4_col0" class="data row4 col0">nan</td>
 <td id="T_87a55_row4_col1" class="data row4 col1">nan</td>
 <td id="T_87a55_row4_col2" class="data row4 col2">0.036</td>
@@ -2252,8 +2263,11 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 </table>
 </div>
 </div>
+</figure>
+</div>
+</div>
 <div class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tissue_order <span class="op">=</span> [<span class="st">'fibroblast'</span>, <span class="st">'spermatogonia'</span>, <span class="st">'pachytene_spermatocyte'</span>, <span class="st">'round_spermatid'</span>, <span class="st">'sperm'</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tissue_order <span class="op">=</span> [<span class="st">'fibroblast'</span>, <span class="st">'spermatogonia'</span>, <span class="st">'pachytene_spermatocyte'</span>, <span class="st">'round_spermatid'</span>, <span class="st">'sperm'</span>]</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>tissue_sname <span class="op">=</span> [<span class="st">'Fb'</span>, <span class="st">'Spa'</span>, <span class="st">'Pac'</span>, <span class="st">'RS'</span>, <span class="st">'Sperm'</span>]</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2270,18 +2284,18 @@ Figure&nbsp;8.8: Comparing the A-compartment edges of round spermatid (RS) with 
 <span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>df.columns.name <span class="op">=</span> <span class="va">None</span></span>
 <span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.reset_index().fillna(<span class="st">'-'</span>)</span>
 <span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">'pc_scale'</span>: <span class="st">'View'</span>, <span class="st">'query'</span>: <span class="st">'Query'</span>, <span class="st">'test'</span>: <span class="st">'Test'</span>})</span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>df.style.hide(axis<span class="op">=</span><span class="st">'index'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>df.style.hide(axis<span class="op">=</span><span class="st">'index'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-svedig-tabel-significant" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="38">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-svedig-tabel-significant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full regions) or baboon 1bp limits with compartment 1bp limits from all cell types. Significant p-values across tissue types. All insignificant p-values are filtered out. <em>Fb: Fibroblast, Spa: Spermatogonia, Pac: Pachytene Spermatocyte, RS: Round Spermatid, Sperm: Sperm</em>
+Table&nbsp;8.2: Test results from proximity and Jaccard, comparing ECH (full regions) or baboon 1bp limits with compartment 1bp limits from all cell types. Significant p-values across tissue types. All insignificant p-values are filtered out. <em>Fb: Fibroblast, Spa: Spermatogonia, Pac: Pachytene Spermatocyte, RS: Round Spermatid, Sperm: Sperm</em>
 </figcaption>
 <div aria-describedby="tbl-svedig-tabel-significant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display" data-execution_count="38">
 <style type="text/css">
 </style>
 
-<table id="T_a1cfd" class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_a1cfd" class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th id="T_a1cfd_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">View</th>
@@ -2357,16 +2371,16 @@ Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full reg
 <section id="figures-for-the-defence" class="level2">
 <h2 class="anchored" data-anchor-id="figures-for-the-defence">Figures for the defence</h2>
 <div id="cell-57" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_formats <span class="op">=</span> [<span class="st">'retina'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_formats <span class="op">=</span> [<span class="st">'retina'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-hic-example" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>group <span class="op">=</span> clr_df.query(<span class="st">'name == "sperm" and resolution == "500" and run == "recPE"'</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>group <span class="op">=</span> clr_df.query(<span class="st">'name == "sperm" and resolution == "500" and run == "recPE"'</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>slide_path <span class="op">=</span> <span class="st">"../slides/images/hic-example.png"</span></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>plot_for_quarto(group, view_order<span class="op">=</span>[<span class="st">'10Mb'</span>],</span>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>                col_vmin<span class="op">=</span><span class="fl">1e-4</span>, col_vmax<span class="op">=</span><span class="fl">0.5</span>,</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>                save_png_name<span class="op">=</span>slide_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>                save_png_name<span class="op">=</span>slide_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2378,11 +2392,11 @@ Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full reg
 <section id="introduce-selected-regions" class="level3">
 <h3 class="anchored" data-anchor-id="introduce-selected-regions">Introduce selected regions</h3>
 <div id="cell-introduce-selected-regions-slides" class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plot_regions(ech90, high_olive, high_hama,</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="vs">r"$\it</span><span class="sc">{P.anubis}</span><span class="vs">$"</span>, <span class="vs">r"$\it</span><span class="sc">{P.hama}</span><span class="vs">$"</span>],</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plot_regions(ech90, high_olive, high_hama,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>             track_titles<span class="op">=</span>[<span class="st">'ECH90'</span>, <span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">it{P</span><span class="dv">.</span><span class="vs">anubis}</span><span class="dv">$</span><span class="vs">"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">it{P</span><span class="dv">.</span><span class="vs">hama}</span><span class="dv">$</span><span class="vs">"</span>],</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">1.5</span>),</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2395,7 +2409,7 @@ Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full reg
 <section id="compare-liftover" class="level3">
 <h3 class="anchored" data-anchor-id="compare-liftover">Compare liftover</h3>
 <div id="cell-compare-liftover-slides" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_union</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> genominterv <span class="im">import</span> interval_union</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>track0 <span class="op">=</span> [olive_panu3, hama_panu3]</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>track1 <span class="op">=</span> [high_olive, high_hama]</span>
@@ -2411,7 +2425,7 @@ Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full reg
 <span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#            title='Baboon Intervals',</span></span>
 <span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>                title<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>                figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">1.5</span>),</span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.8</span>, lw<span class="op">=</span><span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.8</span>, lw<span class="op">=</span><span class="fl">0.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2424,7 +2438,7 @@ Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full reg
 <section id="ech-s100-limit-intersect" class="level3">
 <h3 class="anchored" data-anchor-id="ech-s100-limit-intersect">ECH S100 limit intersect</h3>
 <div id="cell-64" class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>annot <span class="op">=</span> make_edges(comps[<span class="st">'recPE'</span>][<span class="st">'fibroblast_100kb_arms'</span>], <span class="dv">2</span>)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> ech90</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2434,7 +2448,7 @@ Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full reg
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>             figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">1.5</span>),</span>
 <span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">"Spermatogonia 1bp limit"</span>,</span>
 <span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>             lw<span class="op">=</span><span class="fl">0.6</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2444,7 +2458,7 @@ Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full reg
 </div>
 </div>
 <div class="cell" data-layout="[[-0.05,3.2,3.2,-0.05],[-0.05,3.2,3.2,-0.05]]" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot </span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> (<span class="fl">3.2</span>, <span class="fl">0.8</span>)</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>edge_rs <span class="op">=</span> edges[<span class="st">'recPE'</span>][<span class="st">'sperm_100kb_arms'</span>]</span>
@@ -2453,7 +2467,7 @@ Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full reg
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    plot_regions(query<span class="op">=</span>edge_rs, annot<span class="op">=</span>group, </span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>                 intersect<span class="op">=</span>interval_intersect(edge_rs, group), </span>
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#intersect=ech90,</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'S100'</span>, <span class="vs">fr"$\it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="vs">$"</span>, <span class="st">'Intersect'</span>],</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'S100'</span>, <span class="vs">fr"</span><span class="dv">$</span><span class="er">\</span><span class="vs">it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="dv">$</span><span class="vs">"</span>, <span class="st">'Intersect'</span>],</span>
 <span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>size,</span>
 <span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>                 title<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.3</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
@@ -2464,10 +2478,10 @@ Table&nbsp;8.1: Test results from proximity and Jaccard, comparing ECH (full reg
 <span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>    plot_regions(query<span class="op">=</span>edge_rs, annot<span class="op">=</span>group, </span>
 <span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>                 intersect<span class="op">=</span>interval_intersect(edge_rs, group), </span>
 <span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#intersect=ech90,</span></span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'S100'</span>, <span class="vs">fr"$\it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="vs">$"</span>, <span class="st">'Intersect'</span>],</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>                 track_titles<span class="op">=</span>[<span class="st">'S100'</span>, <span class="vs">fr"</span><span class="dv">$</span><span class="er">\</span><span class="vs">it</span><span class="ch">{{</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">}}</span><span class="dv">$</span><span class="vs">"</span>, <span class="st">'Intersect'</span>],</span>
 <span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>size,</span>
 <span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>                 title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.2</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>                 lw<span class="op">=</span><span class="fl">0.2</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-baboon-s100-intersect" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-baboon-s100-intersect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2549,236 +2563,243 @@ Figure&nbsp;8.9
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -2786,185 +2807,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../notebooks/06_rec_genomicintervals.html" class="pagination-link" aria-label="E1 vs. ECH (recommended params)">
