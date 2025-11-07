@@ -8,13 +8,16 @@
 # ---
 
 # %%
-from gwf import *
+from gwf import Workflow, AnonymousTarget
 import os
+from pathlib import Path
+import glob
 import subprocess
 import os.path as op
 import pandas as pd
 from cooler.fileops import list_coolers
 from pprintpp import pprint as pp
+
 
 #######################################
 #
@@ -135,7 +138,7 @@ def pair_sort_alignments(chromsizes, bam_merged, sorted_pairs):
     inputs = [bam_merged]
     outputs = [f"{bam_merged}_parsed.stats", 
                sorted_pairs]
-    options = {'cores':32, 'memory':"16g", 'walltime':"06:00:00"}
+    options = {'cores':32, 'memory':"24g", 'walltime':"24:00:00"}
     spec=f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -160,7 +163,7 @@ def dedup(sorted_pairs, chromsizes):
                f"{pairs_prefix}.dups.pairs.gz",
                f"{pairs_prefix}.dedup.stats",
                f"{pairs_prefix}.dedup.done"]
-    options = {'cores':12, 'memory': "1g", 'walltime': "01:30:00"}
+    options = {'cores':12, 'memory': "16g", 'walltime': "01:30:00"}
     spec = f"""
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate hic
@@ -301,6 +304,7 @@ tissue_dict = {tissue: sra_runtable[sra_runtable["source_name"]==tissue]["Run"].
 #### Updated version creates the new .pairs and .cool files under 'recPE' for recommended PE. --walks-policy 5unique, filter mapq >= 30
 rec_bam_dir = op.join(main_dir,"steps/bwa/recPE/bamfiles")
 rec_pair_dir = op.join(main_dir, "steps/bwa/recPE/pairs")
+# FIXME: put cool files in results dir and and them to git lfs
 rec_cool_dir = op.join(main_dir, "steps/bwa/recPE/cool")
 pair_dir = rec_pair_dir
 cool_dir = rec_cool_dir
@@ -419,3 +423,74 @@ for subdir,cool_list in T5out.items():
                                                           merged=op.join(cool_dir, subdir, f"{subdir}.merged.cool"), 
                                                           mcool=op.join(cool_dir, subdir, f"{subdir}.merged.mcool")))
 #pp(T6out[subdir].inputs[0])
+
+
+####################################
+
+
+# utility function
+def modify_path(path, **kwargs):
+    """
+    Utility function for modifying file paths substituting
+    the directory (dir), base name (base), or file suffix (suffix).
+    """
+    for key in ['dir', 'base', 'suffix']:
+        kwargs.setdefault(key, None)
+    assert len(kwargs) == 3
+
+    par, name = os.path.split(path)
+    name_no_suffix, suf = os.path.splitext(name)
+    if type(kwargs['suffix']) is str:
+        suf = kwargs['suffix']
+    if kwargs['dir'] is not None:
+        par = kwargs['dir']
+    if kwargs['base'] is not None:
+        name_no_suffix = kwargs['base']
+
+    new_path = os.path.join(par, name_no_suffix + suf)
+    if type(kwargs['suffix']) is tuple:
+        assert len(kwargs['suffix']) == 2
+        new_path, nsubs = re.subn(r'{}$'.format(kwargs['suffix'][0]), kwargs['suffix'][1], new_path)
+        assert nsubs == 1, nsubs
+    return new_path
+
+
+# task template function
+def run_notebook(path, dependencies, memory='8g', walltime='00:10:00', cores=1):    
+    """
+    Executes a notebook inplace and saves the output.
+    """
+    # path of output sentinel file
+    sentinel = modify_path(path, base=f'.{str(Path(path).name)}', suffix='.sentinel')
+    # sentinel = path.parent / f'.{path.name}'
+
+    # input specification
+    inputs = [path] + dependencies
+    # output specification mapping a label to each file
+    outputs = {'sentinel': sentinel}
+    # resource specification
+    options = {'memory': memory, 'walltime': walltime, 'cores': cores} 
+
+    # commands to run in task (bash script)
+    spec = f"""
+    jupyter nbconvert --to notebook --execute --inplace {path} && touch {sentinel}
+    """
+    # return target
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
+
+# make notebooks depend on all output files from workflow
+notebook_dependencies = []
+for x in gwf.targets.values():
+    outputs = x.outputs
+    if type(outputs) is dict:
+        for o in outputs.values():
+            notebook_dependencies.append(o)
+    elif type(outputs) is list:
+        notebook_dependencies.extend(outputs)
+
+#  run notebooks in lexically sorted order nb01_, nb02_, ...
+for path in glob.glob('notebooks/*.ipynb'):
+    target = gwf.target_from_template(
+        'nb_'+os.path.splitext(os.path.basename(path))[0], run_notebook(path, notebook_dependencies))
+    # make notebooks depend on all previous notebooks
+    notebook_dependencies.append(target.outputs['sentinel'])
