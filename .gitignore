@@ -135,3 +135,6 @@ _book/
 
 # Don't include gwf logs or config
 .gwf
+# pixi environments
+.pixi
+*.egg-info
