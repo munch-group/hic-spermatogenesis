@@ -39,4 +39,3 @@ dependencies:
   - tabulate
   - pybbi
   - tinytex
-prefix: /home/sojern/miniconda3/envs/hic
