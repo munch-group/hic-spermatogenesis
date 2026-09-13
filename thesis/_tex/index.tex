@@ -108,6 +108,7 @@
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{#1}}
 
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -516,10 +517,15 @@
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
 \hypersetup{
   pdftitle={Chromatin Compartments and Selection on X},
-  pdfkeywords={Hi-C, Chromatin Compartments, Selection on X, Selfish
-gene drive},
+  pdfkeywords={\xmpquote{Hi-C}, \xmpquote{Chromatin
+Compartments}, \xmpquote{Selection on X}, \xmpquote{Selfish gene
+drive}},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
@@ -534,7 +540,7 @@ gene drive},
 \subtitle{How Chromatin Compartments Align with Regions Under Selection
 in Primates}
 \author{Søren Jørgensen \and Kasper Munch}
-\date{2025-11-13}
+\date{2026-09-13}
 \begin{document}
 \frontmatter
 \cleardoublepage
@@ -574,7 +580,7 @@ Selection in Primates \par}
 {\bfseries\Large\textit{MSc. Bioinformatics} \par}
 \vspace{3ex}
 
-{\large 2025-11-13 \par}
+{\large 2026-09-13 \par}
 \vspace{3ex}
 
 \vspace{10ex}
@@ -725,13 +731,13 @@ X}\label{extended-common-haplotypes-ech-on-human-x}
 
 Incomplete lineage sorting (ILS) occur when all lineages in a population
 are not completely sorted between two speciation events, resulting in a
-gene tree incongruent with the species tree (Mailund, Munch, and
-Schierup 2014). Briefly, it complicates phylogenetic inference as it
-implies that divergence time does represent speciation time. But, by
-solving the incongruency with a maximum likelihood approach (see
-Mailund, Munch, and Schierup 2014), the relation between the ILS
-proportion, \(p\), time between two speciation events, \(\Delta\tau\),
-and effective population size, \(N_e\), is given by the formula
+gene tree incongruent with the species tree (Mailund et al. 2014).
+Briefly, it complicates phylogenetic inference as it implies that
+divergence time does represent speciation time. But, by solving the
+incongruency with a maximum likelihood approach (see Mailund et al.
+2014), the relation between the ILS proportion, \(p\), time between two
+speciation events, \(\Delta\tau\), and effective population size,
+\(N_e\), is given by the formula
 
 \[
 N_e = \frac{\Delta\tau}{2} \ln \frac{2p}{3}.
@@ -1009,21 +1015,21 @@ The main difference between Hi-C libraries and standard paired-end
 libraries is the high fraction of chimeric reads in Hi-C. As a contact
 pair is crosslinked and ligated before sequencing, chimeric reads occur
 as a feature, and standard mapping techniques seeks to filter out this
-type of reads (Lajoie, Dekker, and Kaplan 2015). Thus, we need
-specialized tools for rescuing chimeric reads. That said, we have to be
-cautious distinguishing the intended chimerism for Hi-C and that of
-technical artefacts. Any software for local alignment can be used for
-aligning reads from a Hi-C library. However, one should make sure to
-disable paired-end rescue mode if possible, otherwise each read in a
-pair (each mate) should be aligned separately (Lajoie, Dekker, and
-Kaplan 2015). This removes the assumption that the distance between
-mates fits a known distribution because the genomic sequences originate
-from a continuous DNA-fragment. For example, the \emph{bwa-mem} (Li
-2013) implementation of this (the \texttt{-P} option) activates the
-Smith-Waterman algorithm to rescue missing hits, but disables the search
-of hits that fit a `proper' pair. After alignment, each read is
-typically assigned to the nearest restriction fragment to enable
-categorization of pairs into different categories.
+type of reads (Lajoie et al. 2015). Thus, we need specialized tools for
+rescuing chimeric reads. That said, we have to be cautious
+distinguishing the intended chimerism for Hi-C and that of technical
+artefacts. Any software for local alignment can be used for aligning
+reads from a Hi-C library. However, one should make sure to disable
+paired-end rescue mode if possible, otherwise each read in a pair (each
+mate) should be aligned separately (Lajoie et al. 2015). This removes
+the assumption that the distance between mates fits a known distribution
+because the genomic sequences originate from a continuous DNA-fragment.
+For example, the \emph{bwa-mem} (Li 2013) implementation of this (the
+\texttt{-P} option) activates the Smith-Waterman algorithm to rescue
+missing hits, but disables the search of hits that fit a `proper' pair.
+After alignment, each read is typically assigned to the nearest
+restriction fragment to enable categorization of pairs into different
+categories.
 
 Interestingly, this last step is not included by default in
 \emph{pairtools}, as Open2C et al. (2024) observe very similar
@@ -1043,19 +1049,18 @@ one of five categories (see Table~\ref{tbl-ligation-events}):
 (Bicciato and Ferrari 2022, Ch. 1). Either \emph{dangling-end} or
 \emph{self-circle} events are reported if a read-pair maps to the same
 restriction fragment depending on the orientation, and deemed
-uninformative (Lajoie, Dekker, and Kaplan 2015). Usually, \emph{weird}
-events are demeed uninformative as well, as it is challenging to
-distinguish a sequencing error from the result of a diploid fragment.
-PCR duplicates should be discarded as well, having either identical
-genomic sequence, or sharing exact 5' alignment positions of the pair
-(Lajoie, Dekker, and Kaplan 2015; Bicciato and Ferrari 2022, Ch. 1). The
-probability that such pairs are valid (i.e.~there are multiple of the
-same pairs) is very low. We also have to distinguish between molecules
-with only a single ligation event (one-way contact) or multiple ligation
-events (multi-way contacts). For that, a descision should be made on
-whether to 1) discard molecules with multiple ligations, 2) report one
-of the ligations (e.g.~the 5'-most in both directions), or 3) report all
-events on a molecule.
+uninformative (Lajoie et al. 2015). Usually, \emph{weird} events are
+demeed uninformative as well, as it is challenging to distinguish a
+sequencing error from the result of a diploid fragment. PCR duplicates
+should be discarded as well, having either identical genomic sequence,
+or sharing exact 5' alignment positions of the pair (Lajoie et al. 2015;
+Bicciato and Ferrari 2022, Ch. 1). The probability that such pairs are
+valid (i.e.~there are multiple of the same pairs) is very low. We also
+have to distinguish between molecules with only a single ligation event
+(one-way contact) or multiple ligation events (multi-way contacts). For
+that, a descision should be made on whether to 1) discard molecules with
+multiple ligations, 2) report one of the ligations (e.g.~the 5'-most in
+both directions), or 3) report all events on a molecule.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2083}}
@@ -1168,7 +1173,7 @@ a method for correcting (or balancing) the raw Hi-C matrix has to be
 applied. It is unadvisable to correct low-count bins as it will greatly
 increase the noise, or to correct very noisy bins, or very high-count
 bins. Therefore, some bin-level filters are applied before balancing
-(Lajoie, Dekker, and Kaplan 2015);
+(Lajoie et al. 2015);
 
 \begin{itemize}
 \tightlist
@@ -1232,10 +1237,10 @@ eliminate large-scale variance between chromosome arms. It is by
 definition a speculative exercise to interpret the biological relevance
 of an observed pattern, but the consensus is to call compartments on
 interacting regions that arise from the eigendecomposition of a Hi-C
-matrix without further modifications (Lajoie, Dekker, and Kaplan 2015).
-Briefly, each genomic bin is assigned a value reflecting its compartment
-identity, where positive values indicate compartment A and negative
-values indicate compartment B. The interaction score between two loci is
+matrix without further modifications (Lajoie et al. 2015). Briefly, each
+genomic bin is assigned a value reflecting its compartment identity,
+where positive values indicate compartment A and negative values
+indicate compartment B. The interaction score between two loci is
 represented as the product of their compartment values, resulting in
 enriched interactions for loci within the same compartment (positive
 product) and depleted interactions for loci in different compartments
@@ -1256,10 +1261,10 @@ As arbitrarily as a compartment may be defined, we chose to define
 another genomic interval for analysis. It is well known that CTCF and
 other structural proteins preferentially binds to Topologically
 Associating Domains (Bicciato and Ferrari 2022, Ch. 3) (TADs; they were
-initially defined as sub-Mb chromatin structures (Lajoie, Dekker, and
-Kaplan 2015), but currently the definition seems to vary based on the
-method of extraction (Open2C et al. 2022)). Derived from this, we define
-a transition zone between A/B compartments to look for enrichment of
+initially defined as sub-Mb chromatin structures (Lajoie et al. 2015),
+but currently the definition seems to vary based on the method of
+extraction (Open2C et al. 2022)). Derived from this, we define a
+transition zone between A/B compartments to look for enrichment of
 specific regions of interest.
 
 We can test if two sets of genomic intervals correlate (say, compartment
@@ -1309,7 +1314,7 @@ is to create fully (and easily) reproducible results through a
 self-contained and version-controlled pipeline using git (Torvalds and
 Hamano 2005), GitHub (GitHub, Inc. n.d.), quarto (Allaire et al. 2024),
 Anaconda (Anaconda Software Distribution 2016), gwf (GenomeDK 2023), and
-Jupyter (Kluyver et al. 2016). The result is a fully reproducible
+Jupyter ({Kluyver et al.} 2016). The result is a fully reproducible
 analysis, including figures and tables in only 3 lines of
 code\footnote{And access to a high-performance computer with at least 12
   TB storage and 32 CPU-cores, and a couple of days waiting time (else
@@ -1516,6 +1521,8 @@ each sample (Table~\ref{tbl-runtable-summary}). It adds up to
 \textasciitilde9.5 billion reads, roughly evenly spread on the 5 tissue
 types.
 
+{
+
 \begin{longtable}[]{@{}lllll@{}}
 
 \caption{\label{tbl-runtable-summary}Summary of the data accessions used
@@ -1537,6 +1544,8 @@ in this analysis}
 4 & spermatogonia & 192.794420 & 518,665,980,300 & 1,728,886,601 \\
 
 \end{longtable}
+
+}
 
 \subsection{Fetching and indexing the
 reference}\label{fetching-and-indexing-the-reference}
@@ -1571,13 +1580,13 @@ al. (2019) by the same method.
 To get aligned reads in a format compatible with HiCExplorer, the read
 mates have to be mapped individually to the reference genome. This
 supports the old convention to avoid the common heuristics of local
-aligners used for regular paired-end sequencing libraries (Lajoie,
-Dekker, and Kaplan (2015)). HiCExplorer provide examples for both
-\emph{bwa} and \emph{bowtie2}, so I used both with recommended settings.
-In both cases, the aligner outputs a .bam-file for each mate
-(\texttt{sample\_R1.bam} and \texttt{sample\_R2.bam}), and HiCExplorer
-performs the parsing, deduplication, and filtering of the reads and
-builds the raw interaction matrix in a single command,
+aligners used for regular paired-end sequencing libraries (Lajoie et al.
+(2015)). HiCExplorer provide examples for both \emph{bwa} and
+\emph{bowtie2}, so I used both with recommended settings. In both cases,
+the aligner outputs a .bam-file for each mate (\texttt{sample\_R1.bam}
+and \texttt{sample\_R2.bam}), and HiCExplorer performs the parsing,
+deduplication, and filtering of the reads and builds the raw interaction
+matrix in a single command,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1597,6 +1606,8 @@ handling multiple ligations, and the method is undocumented. I assume
 that Ramírez et al. (2018) have implemented a conservative handling
 (masking all multiple ligations), as that would have the least
 consequence.
+
+{
 
 \begin{longtable}[]{@{}lllll@{}}
 
@@ -1618,6 +1629,8 @@ exploration with HiCExplorer. From NCBI SRA Portal.}
 4 & SRR6502339 & 28885941600 & 10960123150 & fibroblast \\
 
 \end{longtable}
+
+}
 
 For the initial exploration of methods with HiCExplorer, I chose five
 fibroblast samples (see Table~\ref{tbl-hic-exploration}). The goal was
@@ -1671,7 +1684,7 @@ low-hanging fruit to parallelize the download for efficiency.
 
 \subsubsection{Mapping Hi-C reads}\label{mapping-hi-c-reads}
 
-Suspiciously, ({``{Open2C}''} n.d.) do not mention any problems with
+Suspiciously, ({``{Open2C},''} n.d.) do not mention any problems with
 aligning the Hi-C reads, they just provide an example using bwa-mem in
 paired-end mode and with the \texttt{-P} option set, which activates the
 Smith-Waterman (Li 2013) algorithm to rescue missing hits, by focusing
@@ -2000,12 +2013,12 @@ unusually high fractions of \emph{inter}-chromosomal contacts (up to
 30\%) compared to \emph{intra}-chromosomal contacts (also denoted
 \emph{trans} and \emph{cis} contacts, respectively). It is expected that
 \emph{cis} contacts are orders of magnitude more frequent than
-\emph{trans} contacts (Bicciato and Ferrari 2022, 2301:236;
-Lieberman-Aiden et al. 2009), and HiCExplorer states it is usually below
-10\% for a high-quality library. The high fraction may be mitigated by
-enforcing a stricter \emph{mapq} threshold for a valid Hi-C pair, as we
-also observe higher-than expected valid contacts. However, we continue
-with the current matrices.
+\emph{trans} contacts (Bicciato and Ferrari 2022, 236; Lieberman-Aiden
+et al. 2009), and HiCExplorer states it is usually below 10\% for a
+high-quality library. The high fraction may be mitigated by enforcing a
+stricter \emph{mapq} threshold for a valid Hi-C pair, as we also observe
+higher-than expected valid contacts. However, we continue with the
+current matrices.
 
 To compare how well these mappings perform, the plotting QC results is
 an easy way. Therefore, the reads were mapped with \emph{bowtie2} in
@@ -2061,10 +2074,10 @@ maybe filter out bad data.
 
 \begin{figure}
 
-\begin{minipage}{0.06\linewidth}
+\begin{minipage}[t]{0.06\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.29\linewidth}
+\begin{minipage}[t]{0.29\linewidth}
 
 \centering{
 
@@ -2076,7 +2089,7 @@ maybe filter out bad data.
 
 \end{minipage}%
 %
-\begin{minipage}{0.29\linewidth}
+\begin{minipage}[t]{0.29\linewidth}
 
 \centering{
 
@@ -2088,7 +2101,7 @@ maybe filter out bad data.
 
 \end{minipage}%
 %
-\begin{minipage}{0.29\linewidth}
+\begin{minipage}[t]{0.29\linewidth}
 
 \centering{
 
@@ -2100,13 +2113,13 @@ maybe filter out bad data.
 
 \end{minipage}%
 %
-\begin{minipage}{0.06\linewidth}
+\begin{minipage}[t]{0.06\linewidth}
 ~\end{minipage}%
 \newline
-\begin{minipage}{0.21\linewidth}
+\begin{minipage}[t]{0.21\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.29\linewidth}
+\begin{minipage}[t]{0.29\linewidth}
 
 \centering{
 
@@ -2118,7 +2131,7 @@ maybe filter out bad data.
 
 \end{minipage}%
 %
-\begin{minipage}{0.29\linewidth}
+\begin{minipage}[t]{0.29\linewidth}
 
 \centering{
 
@@ -2130,7 +2143,7 @@ maybe filter out bad data.
 
 \end{minipage}%
 %
-\begin{minipage}{0.21\linewidth}
+\begin{minipage}[t]{0.21\linewidth}
 ~\end{minipage}%
 
 \caption{\label{fig-explorer-pre-correction}Histograms of the number of
@@ -2158,7 +2171,7 @@ at the place of the centromere.
 
 \begin{figure}
 
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}[t]{0.50\linewidth}
 
 \centering{
 
@@ -2170,7 +2183,7 @@ at the place of the centromere.
 
 \end{minipage}%
 %
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}[t]{0.50\linewidth}
 
 \centering{
 
@@ -2216,7 +2229,7 @@ flexible tool was needed.
 
 \begin{figure}
 
-\begin{minipage}{0.33\linewidth}
+\begin{minipage}[t]{0.33\linewidth}
 
 \centering{
 
@@ -2228,7 +2241,7 @@ flexible tool was needed.
 
 \end{minipage}%
 %
-\begin{minipage}{0.33\linewidth}
+\begin{minipage}[t]{0.33\linewidth}
 
 \centering{
 
@@ -2240,7 +2253,7 @@ flexible tool was needed.
 
 \end{minipage}%
 %
-\begin{minipage}{0.33\linewidth}
+\begin{minipage}[t]{0.33\linewidth}
 
 \centering{
 
@@ -2252,7 +2265,7 @@ flexible tool was needed.
 
 \end{minipage}%
 \newline
-\begin{minipage}{0.33\linewidth}
+\begin{minipage}[t]{0.33\linewidth}
 
 \centering{
 
@@ -2264,7 +2277,7 @@ flexible tool was needed.
 
 \end{minipage}%
 %
-\begin{minipage}{0.33\linewidth}
+\begin{minipage}[t]{0.33\linewidth}
 
 \centering{
 
@@ -2276,7 +2289,7 @@ flexible tool was needed.
 
 \end{minipage}%
 %
-\begin{minipage}{0.33\linewidth}
+\begin{minipage}[t]{0.33\linewidth}
 
 \centering{
 
@@ -2332,7 +2345,7 @@ bias the parsing w.r.t. genomic separation.
 
 \begin{figure}
 
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}[t]{0.50\linewidth}
 
 \centering{
 
@@ -2344,7 +2357,7 @@ bias the parsing w.r.t. genomic separation.
 
 \end{minipage}%
 %
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}[t]{0.50\linewidth}
 
 \centering{
 
@@ -2356,7 +2369,7 @@ bias the parsing w.r.t. genomic separation.
 
 \end{minipage}%
 \newline
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}[t]{0.50\linewidth}
 
 \centering{
 
@@ -2368,7 +2381,7 @@ bias the parsing w.r.t. genomic separation.
 
 \end{minipage}%
 %
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}[t]{0.50\linewidth}
 
 \centering{
 
@@ -2403,10 +2416,10 @@ be interpreted as devoid of interaction, but an indication that the data
 is not sufficient to interpret. It is then better to simply remove the
 bins instead of correcting, which will also amplify noise. Even with a
 high-quality Hi-C library we expect that all bins do not have the same
-coverage throughout(Lajoie, Dekker, and Kaplan 2015), as restriction
-enzymes do not bind equally to all regions of the genome, and therefore,
-some bins will be underrepresented as an artefact of binding/cutting
-efficieny of the restriction enzyme used.
+coverage throughout(Lajoie et al. 2015), as restriction enzymes do not
+bind equally to all regions of the genome, and therefore, some bins will
+be underrepresented as an artefact of binding/cutting efficieny of the
+restriction enzyme used.
 
 We can try to mitigate the white lines of empty bins that now appear in
 the matrices. The coarsegrained and interpolated matrix is useful to
@@ -2516,7 +2529,7 @@ and visually determine if the squares reflect the E1 sign change
 
 \begin{figure}
 
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}[t]{0.50\linewidth}
 
 \centering{
 
@@ -2529,7 +2542,7 @@ resolution}
 
 \end{minipage}%
 %
-\begin{minipage}{0.50\linewidth}
+\begin{minipage}[t]{0.50\linewidth}
 
 \centering{
 
@@ -2563,10 +2576,10 @@ Nevertheless, we also keep \emph{refined} compartments in the analysis.
 
 \begin{figure}
 
-\begin{minipage}{0.05\linewidth}
+\begin{minipage}[t]{0.05\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.46\linewidth}
+\begin{minipage}[t]{0.46\linewidth}
 
 \centering{
 
@@ -2579,7 +2592,7 @@ chrX:start-end}
 
 \end{minipage}%
 %
-\begin{minipage}{0.46\linewidth}
+\begin{minipage}[t]{0.46\linewidth}
 
 \centering{
 
@@ -2591,13 +2604,13 @@ chrX:start-end}
 
 \end{minipage}%
 %
-\begin{minipage}{0.05\linewidth}
+\begin{minipage}[t]{0.05\linewidth}
 ~\end{minipage}%
 \newline
-\begin{minipage}{0.05\linewidth}
+\begin{minipage}[t]{0.05\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.46\linewidth}
+\begin{minipage}[t]{0.46\linewidth}
 
 \centering{
 
@@ -2610,7 +2623,7 @@ chrX:70Mb-78Mb}
 
 \end{minipage}%
 %
-\begin{minipage}{0.46\linewidth}
+\begin{minipage}[t]{0.46\linewidth}
 
 \centering{
 
@@ -2622,7 +2635,7 @@ chrX:70Mb-78Mb}
 
 \end{minipage}%
 %
-\begin{minipage}{0.05\linewidth}
+\begin{minipage}[t]{0.05\linewidth}
 ~\end{minipage}%
 
 \caption{\label{fig-rs100-recpe-pe}Round Spermatid (RS) at 100kb,
@@ -2665,10 +2678,10 @@ way.
 
 \begin{figure}
 
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}[t]{0.10\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}[t]{0.40\linewidth}
 
 \centering{
 
@@ -2680,7 +2693,7 @@ way.
 
 \end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}[t]{0.40\linewidth}
 
 \centering{
 
@@ -2692,13 +2705,13 @@ way.
 
 \end{minipage}%
 %
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}[t]{0.10\linewidth}
 ~\end{minipage}%
 \newline
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}[t]{0.10\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}[t]{0.40\linewidth}
 
 \centering{
 
@@ -2710,7 +2723,7 @@ way.
 
 \end{minipage}%
 %
-\begin{minipage}{0.40\linewidth}
+\begin{minipage}[t]{0.40\linewidth}
 
 \centering{
 
@@ -2722,7 +2735,7 @@ way.
 
 \end{minipage}%
 %
-\begin{minipage}{0.10\linewidth}
+\begin{minipage}[t]{0.10\linewidth}
 ~\end{minipage}%
 
 \caption{\label{fig-rs-fb-100-pe-recpe-intervals}Round Spermatid (RS)
@@ -2773,10 +2786,10 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \begin{figure}
 
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -2788,7 +2801,7 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -2800,13 +2813,13 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \end{minipage}%
 %
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 \newline
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -2818,7 +2831,7 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -2830,7 +2843,7 @@ respectively (Figure~\ref{fig-edge-enrichment}), thus removing all the
 
 \end{minipage}%
 %
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 
 \caption{\label{fig-comps-edges-ech}Visual representation of the genomic
@@ -2842,10 +2855,10 @@ resolution and arms viewframe.}
 
 \begin{figure}
 
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -2857,7 +2870,7 @@ resolution and arms viewframe.}
 
 \end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -2869,7 +2882,7 @@ resolution and arms viewframe.}
 
 \end{minipage}%
 %
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 
 \caption{\label{fig-edge-enrichment}Visual representation of the
@@ -2913,8 +2926,8 @@ another assembly, if the segments are not continouos on the new
 assembly. For our analysis, it is not the exact genomic position or
 order of sub-genic regions that are important, but rather, the start and
 end coordinates of each segment are quantified. To favor preservation of
-segments, we use \emph{segment\_liftover} (Gao, Huang, and Baudis 2018),
-resulting in much more similar segments to the original
+segments, we use \emph{segment\_liftover} (Gao et al. 2018), resulting
+in much more similar segments to the original
 (Figure~\ref{fig-compare-liftover}). As no chain file from
 \emph{panu\_3.0} to \emph{Mmul\_10} was available, we used
 \emph{panu\_2.0} as intermediate.
@@ -2974,10 +2987,10 @@ by chance alone with no p-values below \(0.05\).
 
 \begin{figure}
 
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -2990,7 +3003,7 @@ arms E1}
 
 \end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -3003,13 +3016,13 @@ E1}
 
 \end{minipage}%
 %
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 \newline
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -3022,7 +3035,7 @@ E1}
 
 \end{minipage}%
 %
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}[t]{0.49\linewidth}
 
 \centering{
 
@@ -3035,7 +3048,7 @@ E1}
 
 \end{minipage}%
 %
-\begin{minipage}{0.01\linewidth}
+\begin{minipage}[t]{0.01\linewidth}
 ~\end{minipage}%
 
 \caption{\label{fig-baboon-rs100-intersect}Comparing the A-compartment
@@ -3253,12 +3266,12 @@ compatible with Pandas and Matplotlib packages, making the analysis
 highly flexible.
 
 The drawback with having a very flexible tool is that the conventions
-are unclear. The latest methodological review is from 2015 (Lajoie,
-Dekker, and Kaplan 2015), and many things have progressed since then---a
-previously mentioned example being the update to \emph{bwa} so mapping
-reads seperately is no longer necessary. Additionally, a Springer
-Protocol about Hi-C Data analysis (Bicciato and Ferrari 2022) is more
-recently published, but I find that it more so establishes a range of
+are unclear. The latest methodological review is from 2015 (Lajoie et
+al. 2015), and many things have progressed since then---a previously
+mentioned example being the update to \emph{bwa} so mapping reads
+seperately is no longer necessary. Additionally, a Springer Protocol
+about Hi-C Data analysis (Bicciato and Ferrari 2022) is more recently
+published, but I find that it more so establishes a range of
 possibilities than a practical guideline.
 
 \section{On Results}\label{on-results}
@@ -3275,11 +3288,10 @@ quality control, even though the mapping parameters were only explored
 superficially. The only notable deviance in quality control was a high
 fraction of valid contacts, but this may be relieved by increasing the
 default \(mapq\) threshold from \(15\) to \(30\) as the noted convention
-in Lajoie, Dekker, and Kaplan (2015). The contact matrices generated
-from HiCExplorer improved when correcting, but still, the visible
-pattern closely delimited by low-count bins. This undesirable feature
-may be mitigated by passing a stricter filtering threshold to
-\texttt{hicCorrectMatrix}.
+in Lajoie et al. (2015). The contact matrices generated from HiCExplorer
+improved when correcting, but still, the visible pattern closely
+delimited by low-count bins. This undesirable feature may be mitigated
+by passing a stricter filtering threshold to \texttt{hicCorrectMatrix}.
 
 The eigenvectors resulting from Open2C line up very well with the ones
 from Wang et al. (2019). Here, some of the maps were lined up and
@@ -3341,9 +3353,9 @@ compartments can be said to be \emph{wrong}, they all just capture the
 variance on different scales. Remembering that the size of the regions
 under selection were spanning 6 megabases at most informs the decision
 to discard the full genomic view, which is also supported by the
-litterature (Lajoie, Dekker, and Kaplan 2015), recommending partitioning
-the chromosome into its arms \emph{if the first eigenvector only
-captures the arms}.
+litterature (Lajoie et al. 2015), recommending partitioning the
+chromosome into its arms \emph{if the first eigenvector only captures
+the arms}.
 
 Similarly, the choice of resolution should be made cautiously. Here, the
 resolution of the matrix is the same resolution as the resolution of the
@@ -3469,42 +3481,40 @@ through a population by increasing the probability of transmitting genes
 to the offspring from random (Mendelian) inheritance, resulting in a
 biased gene transmission against its alternative (referred to as
 \emph{transmission advantage}). Two categories of gene drivers exist
-(Bravo Núñez, Nuckolls, and Zanders 2018); \emph{class one drivers}
-affect chromosome segregation in meiosis, and \emph{killer meiotic
-drivers} will sabotage meiotic product that have not inherited the
-driving allele (Bravo Núñez, Nuckolls, and Zanders 2018). This happens
-regardless of the fitness effects of the developed organism, and is
-there often a factor offsetting classical selection. Even though the
-implications of such systems are potentially detrimental, they are
-notoriously difficult to detect. A circumstance contributing to the
-difficulty is that most genetic experiments are done in homozygotes.
-Bravo Núñez, Nuckolls, and Zanders (2018) state that the general choice
+(Bravo Núñez et al. 2018); \emph{class one drivers} affect chromosome
+segregation in meiosis, and \emph{killer meiotic drivers} will sabotage
+meiotic product that have not inherited the driving allele (Bravo Núñez
+et al. 2018). This happens regardless of the fitness effects of the
+developed organism, and is there often a factor offsetting classical
+selection. Even though the implications of such systems are potentially
+detrimental, they are notoriously difficult to detect. A circumstance
+contributing to the difficulty is that most genetic experiments are done
+in homozygotes. Bravo Núñez et al. (2018) state that the general choice
 of experimental system may have biased our understanding of sexual
 reproduction. A key point is; meiotic drivers can only be observed in
 heterozygotes, where a genetic driver has a competitor.
 
 If an autosomal driver reaches fixation, it no longer has a target to
 act against, and consequently the driving phenotype will not be observed
-(Bravo Núñez, Nuckolls, and Zanders 2018). Over time, as there is
-neither selfish nor selective pressure to maintain the driving mechanism
-of a fixed driver, the mechanism will decay as it accumulates
-inactivating mutations. As a result, genetic drivers are said to be
-transient (Bravo Núñez, Nuckolls, and Zanders 2018) on an evolutionary
-timescale, unless it is linked to another positively selected allele
-(Jaenike 2001). Interestingly, gene drive is much more well-documented
-on sex chromosomes than for autosomes. Possibly because the sex
-chromosome meiotic drive inherently causes a skewed sex ratio, more
-notably raising a flag for further analysis. Or, because X and Y do not
-recombine, allowing for killer-supressor gene pairs to stay on separate
-chromosomes. The consequences of sex chromosome drive and skewed sex
-ratio can be widespread. A fully driving gene on X can to lead to the
-extinction of the population that fixes the allele (Jaenike 2001), as
-only one (fertile) offspring sex will be produced. Therefore, sex
-chromosome drivers usually exist in equilibrium with a supressor. When a
-population becomes female-biased, autosomal suppressors will be favored
-with a process termed \emph{Fisher's sex ratio selection} (Lindholm et
-al. 2016.), as the individuals that produce offspring of the minor-sex
-have higher fitness.
+(Bravo Núñez et al. 2018). Over time, as there is neither selfish nor
+selective pressure to maintain the driving mechanism of a fixed driver,
+the mechanism will decay as it accumulates inactivating mutations. As a
+result, genetic drivers are said to be transient (Bravo Núñez et al.
+2018) on an evolutionary timescale, unless it is linked to another
+positively selected allele (Jaenike 2001). Interestingly, gene drive is
+much more well-documented on sex chromosomes than for autosomes.
+Possibly because the sex chromosome meiotic drive inherently causes a
+skewed sex ratio, more notably raising a flag for further analysis. Or,
+because X and Y do not recombine, allowing for killer-supressor gene
+pairs to stay on separate chromosomes. The consequences of sex
+chromosome drive and skewed sex ratio can be widespread. A fully driving
+gene on X can to lead to the extinction of the population that fixes the
+allele (Jaenike 2001), as only one (fertile) offspring sex will be
+produced. Therefore, sex chromosome drivers usually exist in equilibrium
+with a supressor. When a population becomes female-biased, autosomal
+suppressors will be favored with a process termed \emph{Fisher's sex
+ratio selection} (Lindholm et al. 2016.), as the individuals that
+produce offspring of the minor-sex have higher fitness.
 
 A driving element on X may target a region on Y, mitigating the risk of
 self-destruction and increasing its frequency at the same time. However,
@@ -3594,22 +3604,22 @@ with many aspects still to be understood and explored.
 \chapter*{Bibliography}\label{bibliography}
 \addcontentsline{toc}{chapter}{Bibliography}
 
-\phantomsection\label{refs}
-\begin{CSLReferences}{1}{0}
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{1}
 \bibitem[\citeproctext]{ref-abdennur2020coolerscalablestorage}
 Abdennur, Nezar, and Leonid A Mirny. 2020. {``Cooler: Scalable Storage
-for {Hi-C} Data and Other Genomically Labeled Arrays.''} Edited by
-Jonathan Wren. \emph{Bioinformatics} 36 (1): 311--16.
+for {Hi-C} Data and Other Genomically Labeled Arrays.''}
+\emph{Bioinformatics} 36 (1): 311--16.
 \url{https://doi.org/10.1093/bioinformatics/btz540}.
 
 \bibitem[\citeproctext]{ref-Allaire_Quarto_2024}
 Allaire, J. J., Charles Teague, Carlos Scheidegger, Yihui Xie, and
-Christophe Dervieux. 2024. {``{Quarto}.''}
+Christophe Dervieux. 2024. \emph{{Quarto}}. V. 1.4. Released February.
 \url{https://doi.org/10.5281/zenodo.5960048}.
 
 \bibitem[\citeproctext]{ref-anaconda}
-Anaconda Software Distribution. 2016. {``Anaconda Software
-Distribution.''} Computer software. \url{https://anaconda.com}.
+Anaconda Software Distribution. 2016. \emph{Anaconda Software
+Distribution}. Computer software. \url{https://anaconda.com}.
 
 \bibitem[\citeproctext]{ref-baker20161500scientistslift}
 Baker, Monya. 2016. {``1,500 Scientists Lift the Lid on
@@ -3617,18 +3627,15 @@ Reproducibility.''} \emph{Nature} 533 (7604): 452--54.
 \url{https://doi.org/10.1038/533452a}.
 
 \bibitem[\citeproctext]{ref-bersaglieri2004geneticsignaturesstrong}
-Bersaglieri, Todd, Pardis C. Sabeti, Nick Patterson, Trisha Vanderploeg,
-Steve F. Schaffner, Jared A. Drake, Matthew Rhodes, David E. Reich, and
-Joel N. Hirschhorn. 2004. {``Genetic {Signatures} of {Strong Recent
-Positive Selection} at the {Lactase Gene}.''} \emph{The American Journal
-of Human Genetics} 74 (6): 1111--20.
-\url{https://doi.org/10.1086/421051}.
+Bersaglieri, Todd, Pardis C. Sabeti, Nick Patterson, et al. 2004.
+{``Genetic {Signatures} of {Strong Recent Positive Selection} at the
+{Lactase Gene}.''} \emph{The American Journal of Human Genetics} 74 (6):
+1111--20. \url{https://doi.org/10.1086/421051}.
 
 \bibitem[\citeproctext]{ref-bicciato2022hicdataanalysis}
 Bicciato, Silvio, and Francesco Ferrari, eds. 2022. \emph{Hi-{C Data
 Analysis}: {Methods} and {Protocols}}. Vol. 2301. Methods in {Molecular
-Biology}. New York, NY: Springer US.
-\url{https://doi.org/10.1007/978-1-0716-1390-0}.
+Biology}. Springer US. \url{https://doi.org/10.1007/978-1-0716-1390-0}.
 
 \bibitem[\citeproctext]{ref-bravonunez2018geneticvillainskiller}
 Bravo Núñez, María Angélica, Nicole L. Nuckolls, and Sarah E. Zanders.
@@ -3642,23 +3649,22 @@ of Evolutionary Biology} 36 (2): 337--46.
 \url{https://doi.org/10.1111/jeb.14112}.
 
 \bibitem[\citeproctext]{ref-devteam2024sratoolkit}
-DevTeam, SRA Toolkit. 2024. {``{SRA Toolkit}.''} Wiki. \emph{GitHub}.
-https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit.
+DevTeam, SRA Toolkit. 2024. {``{SRA Toolkit}.''} Wiki. In \emph{GitHub}.
+Https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit.
 \url{https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software}.
 
 \bibitem[\citeproctext]{ref-dixon2015chromatinarchitecturereorganization}
-Dixon, Jesse R., Inkyung Jung, Siddarth Selvaraj, Yin Shen, Jessica E.
-Antosiewicz-Bourget, Ah Young Lee, Zhen Ye, et al. 2015. {``Chromatin
-Architecture Reorganization During Stem Cell Differentiation.''}
-\emph{Nature} 518 (7539): 331--36.
+Dixon, Jesse R., Inkyung Jung, Siddarth Selvaraj, et al. 2015.
+{``Chromatin Architecture Reorganization During Stem Cell
+Differentiation.''} \emph{Nature} 518 (7539): 331--36.
 \url{https://doi.org/10.1038/nature14222}.
 
 \bibitem[\citeproctext]{ref-dutheil2015strongselectivesweeps}
 Dutheil, Julien Y., Kasper Munch, Kiwoong Nam, Thomas Mailund, and
 Mikkel H. Schierup. 2015. {``Strong {Selective Sweeps} on the {X
 Chromosome} in the {Human-Chimpanzee Ancestor Explain Its Low
-Divergence}.''} Edited by Nick H. Barton. \emph{PLOS Genetics} 11 (8):
-e1005451. \url{https://doi.org/10.1371/journal.pgen.1005451}.
+Divergence}.''} \emph{PLOS Genetics} 11 (8): e1005451.
+\url{https://doi.org/10.1371/journal.pgen.1005451}.
 
 \bibitem[\citeproctext]{ref-ewels2016multiqcsummarizeanalysis}
 Ewels, Philip, Måns Magnusson, Sverker Lundin, and Max Käller. 2016.
@@ -3673,11 +3679,12 @@ A {Python} Tool to Convert Segments Between Genome Assemblies.''}
 \url{https://doi.org/10.12688/f1000research.14148.2}.
 
 \bibitem[\citeproctext]{ref-gwf}
-GenomeDK. 2023. {``Gwf Workflow Manager.''}
-\url{https://github.com/gwforg/gwf.git}.
+GenomeDK. 2023. \emph{Gwf Workflow Manager}.
+\href{https://github.com/gwforg/gwf.git}{Https://github.com/gwforg/gwf.git}.
 
 \bibitem[\citeproctext]{ref-github}
-GitHub, Inc. n.d. {``GitHub.''} \url{https://github.com}.
+GitHub, Inc. n.d. \emph{GitHub}.
+\href{https://github.com}{Https://github.com}.
 
 \bibitem[\citeproctext]{ref-haldane1922sexratiounisexual}
 Haldane, J. B. S. 1922. {``Sex Ratio and Unisexual Sterility in Hybrid
@@ -3690,15 +3697,14 @@ Hinrichs, A. S. 2006. {``The {UCSC Genome Browser Database}: Update
 \url{https://doi.org/10.1093/nar/gkj144}.
 
 \bibitem[\citeproctext]{ref-imakaev2012iterativecorrectionhic}
-Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia
-Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A
-Mirny. 2012. {``Iterative Correction of {Hi-C} Data Reveals Hallmarks of
-Chromosome Organization.''} \emph{Nature Methods} 9 (10): 999--1003.
+Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, et al. 2012.
+{``Iterative Correction of {Hi-C} Data Reveals Hallmarks of Chromosome
+Organization.''} \emph{Nature Methods} 9 (10): 999--1003.
 \url{https://doi.org/10.1038/nmeth.2148}.
 
 \bibitem[\citeproctext]{ref-auityourguidegai}
-IT, AU. n.d. {``Your Guide to {GAI} Responsibly.''}
-https://medarbejdere.au.dk/en/gai. Accessed January 9, 2025.
+IT, AU. n.d. \emph{Your Guide to {GAI} Responsibly}.
+Https://medarbejdere.au.dk/en/gai.
 
 \bibitem[\citeproctext]{ref-jaenike2001sexchromosomemeiotic}
 Jaenike, John. 2001. {``Sex {Chromosome Meiotic Drive}.''} \emph{Annual
@@ -3706,13 +3712,11 @@ Review of Ecology and Systematics} 32 (1): 25--49.
 \url{https://doi.org/10.1146/annurev.ecolsys.32.081501.113958}.
 
 \bibitem[\citeproctext]{ref-soton403913jupyter}
-Kluyver, Thomas, Benjamin Ragan-Kelley, Fernando Pérez, Brian Granger,
-Matthias Bussonnier, Jonathan Frederic, Kyle Kelley, et al. 2016.
+{Kluyver, Thomas, Benjamin Ragan-Kelley, Fernando Pérez, et al.} 2016.
 {``Jupyter Notebooks ? A Publishing Format for Reproducible
 Computational Workflows.''} In \emph{Positioning and Power in Academic
 Publishing: Players, Agents and Agendas}, edited by Fernando Loizides
-and Birgit Scmidt, 87--90. IOS Press.
-\url{https://eprints.soton.ac.uk/403913/}.
+and Birgit Scmidt. IOS Press. \url{https://eprints.soton.ac.uk/403913/}.
 
 \bibitem[\citeproctext]{ref-lajoie2015hitchhikersguidehic}
 Lajoie, Bryan R., Job Dekker, and Noam Kaplan. 2015. {``The
@@ -3721,19 +3725,17 @@ Lajoie, Bryan R., Job Dekker, and Noam Kaplan. 2015. {``The
 \url{https://doi.org/10.1016/j.ymeth.2014.10.031}.
 
 \bibitem[\citeproctext]{ref-li2013aligningsequencereadsclone}
-Li, Heng. 2013. {``Aligning Sequence Reads, Clone Sequences and Assembly
-Contigs with BWA-MEM.''} \url{https://arxiv.org/abs/1303.3997}.
+Li, Heng. 2013. \emph{Aligning Sequence Reads, Clone Sequences and
+Assembly Contigs with BWA-MEM}. \url{https://arxiv.org/abs/1303.3997}.
 
 \bibitem[\citeproctext]{ref-lieberman-aiden2009comprehensivemappinglongrange}
-Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, Maxim
-Imakaev, Tobias Ragoczy, Agnes Telling, Ido Amit, et al. 2009.
-{``Comprehensive {Mapping} of {Long-Range Interactions Reveals Folding
-Principles} of the {Human Genome}.''} \emph{Science} 326 (5950):
+Lieberman-Aiden, Erez, Nynke L. Van Berkum, Louise Williams, et al.
+2009. {``Comprehensive {Mapping} of {Long-Range Interactions Reveals
+Folding Principles} of the {Human Genome}.''} \emph{Science} 326 (5950):
 289--93. \url{https://doi.org/10.1126/science.1181369}.
 
 \bibitem[\citeproctext]{ref-lindholm2016ecologyevolutionarydynamics}
-Lindholm, Anna K., Kelly A. Dyer, Renée C. Firman, Lila Fishman,
-Wolfgang Forstmeier, Luke Holman, Hanna Johannesson, et al. 2016. {``The
+Lindholm, Anna K., Kelly A. Dyer, Renée C. Firman, et al. 2016. {``The
 {Ecology} and {Evolutionary Dynamics} of {Meiotic Drive}.''}
 \emph{Trends in Ecology \& Evolution} 31 (4): 315--26.
 \url{https://doi.org/10.1016/j.tree.2016.02.001}.
@@ -3749,83 +3751,75 @@ Misteli, Tom. 2020. {``The {Self-Organizing Genome}: {Principles} of
 \url{https://doi.org/10.1016/j.cell.2020.09.014}.
 
 \bibitem[\citeproctext]{ref-munch2024munchgroup}
-Munch, Kasper. 2024. {``Munch-Group.''}
-https://munch-group.org/research.html.
+Munch, Kasper. 2024. \emph{Munch-Group}.
+Https://munch-group.org/research.html.
 
 \bibitem[\citeproctext]{ref-openchromosomecollective}
-{``{Open2C}.''} n.d. Resource. \emph{Open {Chromosome Collective}}.
-https://open2c.github.io/. Accessed November 13, 2024.
+{``{Open2C}.''} n.d. Resource. In \emph{Open {Chromosome Collective}}.
+Https://open2c.github.io/.
 
 \bibitem[\citeproctext]{ref-open2c2022cooltoolsenablinghighresolution}
-Open2C, Nezar Abdennur, Sameer Abraham, Geoffrey Fudenberg, Ilya M.
-Flyamer, Aleksandra A. Galitsyna, Anton Goloborodko, Maxim Imakaev,
-Betul A. Oksuz, and Sergey V. Venev. 2022. {``Cooltools: Enabling
-High-Resolution {Hi-C} Analysis in {Python}.''} Bioinformatics.
+Open2C, Nezar Abdennur, Sameer Abraham, et al. 2022. \emph{Cooltools:
+Enabling High-Resolution {Hi-C} Analysis in {Python}}. Bioinformatics.
 \url{https://doi.org/10.1101/2022.10.31.514564}.
 
 \bibitem[\citeproctext]{ref-open2c2024pairtoolssequencingdata}
-Open2C, Nezar Abdennur, Geoffrey Fudenberg, Ilya M. Flyamer, Aleksandra
-A. Galitsyna, Anton Goloborodko, Maxim Imakaev, and Sergey V. Venev.
-2024. {``Pairtools: {From} Sequencing Data to Chromosome Contacts.''}
-Edited by Ferhat Ay. \emph{PLOS Computational Biology} 20 (5): e1012164.
+Open2C, Nezar Abdennur, Geoffrey Fudenberg, et al. 2024. {``Pairtools:
+{From} Sequencing Data to Chromosome Contacts.''} \emph{PLOS
+Computational Biology} 20 (5): e1012164.
 \url{https://doi.org/10.1371/journal.pcbi.1012164}.
 
 \bibitem[\citeproctext]{ref-quartoteam2022announcingquartonew}
 Quarto Team, Posit. 2022. {``Announcing {Quarto}, a New Scientific and
-Technical Publishing System.''} \emph{Posit}.
+Technical Publishing System.''} In \emph{Posit}.
 
 \bibitem[\citeproctext]{ref-ramirez2018highresolutiontadsreveal}
-Ramírez, Fidel, Vivek Bhardwaj, Laura Arrigoni, Kin Chung Lam, Björn A.
-Grüning, José Villaveces, Bianca Habermann, Asifa Akhtar, and Thomas
-Manke. 2018. {``High-Resolution {TADs} Reveal {DNA} Sequences Underlying
-Genome Organization in Flies.''} \emph{Nature Communications} 9 (1):
-189. \url{https://doi.org/10.1038/s41467-017-02525-w}.
+Ramírez, Fidel, Vivek Bhardwaj, Laura Arrigoni, et al. 2018.
+{``High-Resolution {TADs} Reveal {DNA} Sequences Underlying Genome
+Organization in Flies.''} \emph{Nature Communications} 9 (1): 189.
+\url{https://doi.org/10.1038/s41467-017-02525-w}.
 
 \bibitem[\citeproctext]{ref-sayers2022databaseresourcesnational}
-Sayers, Eric W, Evan E Bolton, J Rodney Brister, Kathi Canese, Jessica
-Chan, Donald C Comeau, Ryan Connor, et al. 2022. {``Database Resources
-of the National Center for Biotechnology Information.''} \emph{Nucleic
-Acids Research} 50 (D1): D20--26.
+Sayers, Eric W, Evan E Bolton, J Rodney Brister, et al. 2022.
+{``Database Resources of the National Center for Biotechnology
+Information.''} \emph{Nucleic Acids Research} 50 (D1): D20--26.
 \url{https://doi.org/10.1093/nar/gkab1112}.
 
 \bibitem[\citeproctext]{ref-skov2023extraordinaryselectionhuman}
-Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, Maria Izabel Alves
-Cavassim, David Castellano, Mikkel Heide Schierup, and Kasper Munch.
-2023. {``Extraordinary Selection on the Human {X} Chromosome Associated
-with Archaic Admixture.''} \emph{Cell Genomics} 3 (3): 100274.
+Skov, Laurits, Moisès Coll Macià, Elise Anne Lucotte, et al. 2023.
+{``Extraordinary Selection on the Human {X} Chromosome Associated with
+Archaic Admixture.''} \emph{Cell Genomics} 3 (3): 100274.
 \url{https://doi.org/10.1016/j.xgen.2023.100274}.
 
 \bibitem[\citeproctext]{ref-sorensen2023genomewidecoancestryreveals}
-Sørensen, Erik F., R. Alan Harris, Liye Zhang, Muthuswamy Raveendran,
-Lukas F. K. Kuderna, Jerilyn A. Walker, Jessica M. Storer, et al. 2023.
+Sørensen, Erik F., R. Alan Harris, Liye Zhang, et al. 2023.
 {``Genome-Wide Coancestry Reveals Details of Ancient and Recent
 Male-Driven Reticulation in Baboons.''} \emph{Science} 380 (6648):
 eabn8153. \url{https://doi.org/10.1126/science.abn8153}.
 
 \bibitem[\citeproctext]{ref-thematplotlibdevelopmentteam2024matplotlibvisualizationpython}
-Team, The Matplotlib Development. 2024. {``Matplotlib: {Visualization}
-with {Python}.''} Zenodo. \url{https://doi.org/10.5281/ZENODO.10916799}.
+Team, The Matplotlib Development. 2024. \emph{Matplotlib:
+{Visualization} with {Python}}. Zenodo.
+\url{https://doi.org/10.5281/ZENODO.10916799}.
 
 \bibitem[\citeproctext]{ref-thegalaxycommunity2024galaxyplatformaccessible}
-The Galaxy Community, Linelle Ann L Abueg, Enis Afgan, Olivier Allart,
-Ahmed H Awan, Wendi A Bacon, Dannon Baker, et al. 2024. {``The {Galaxy}
-Platform for Accessible, Reproducible, and Collaborative Data Analyses:
-2024 Update.''} \emph{Nucleic Acids Research} 52 (W1): W83--94.
-\url{https://doi.org/10.1093/nar/gkae410}.
+The Galaxy Community, Linelle Ann L Abueg, Enis Afgan, et al. 2024.
+{``The {Galaxy} Platform for Accessible, Reproducible, and Collaborative
+Data Analyses: 2024 Update.''} \emph{Nucleic Acids Research} 52 (W1):
+W83--94. \url{https://doi.org/10.1093/nar/gkae410}.
 
 \bibitem[\citeproctext]{ref-git}
 Torvalds, Linus, and Junio C Hamano. 2005. \emph{Git: A Distributed
 Version Control System}. \url{https://git-scm.com}.
 
 \bibitem[\citeproctext]{ref-wang2019reprogrammingmeioticchromatin}
-Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan,
-Dongdong Qin, et al. 2019. {``Reprogramming of {Meiotic Chromatin
-Architecture} During {Spermatogenesis}.''} \emph{Molecular Cell} 73 (3):
-547--561.e6. \url{https://doi.org/10.1016/j.molcel.2018.11.019}.
+Wang, Yao, Hanben Wang, Yu Zhang, et al. 2019. {``Reprogramming of
+{Meiotic Chromatin Architecture} During {Spermatogenesis}.''}
+\emph{Molecular Cell} 73 (3): 547--561.e6.
+\url{https://doi.org/10.1016/j.molcel.2018.11.019}.
 
 \bibitem[\citeproctext]{ref-warren2020sequencediversityanalyses}
-Warren, Wesley C., R. Alan Harris, Marina Haukness, Ian T. Fiddes,
-Shwetha C. Murali, Jason Fernandes, Philip C. Dishuck, et al. 2020.
+Warren, Wesley C., R. Alan Harris, Marina Haukness, et al. 2020.
 {``Sequence Diversity Analyses of an Improved Rhesus Macaque Genome
 Enhance Its Biomedical Utility.''} \emph{Science} 370 (6523): eabc6617.
 \url{https://doi.org/10.1126/science.abc6617}.
@@ -3836,28 +3830,23 @@ Waskom, Michael. 2021. {``Seaborn: Statistical Data Visualization.''}
 \url{https://doi.org/10.21105/joss.03021}.
 
 \bibitem[\citeproctext]{ref-wolff2018galaxyhicexplorerweb}
-Wolff, Joachim, Vivek Bhardwaj, Stephan Nothjunge, Gautier Richard, Gina
-Renschler, Ralf Gilsbach, Thomas Manke, Rolf Backofen, Fidel Ramírez,
-and Björn A Grüning. 2018. {``Galaxy {HiCExplorer}: A Web Server for
-Reproducible {Hi-C} Data Analysis, Quality Control and Visualization.''}
-\emph{Nucleic Acids Research} 46 (W1): W11--16.
-\url{https://doi.org/10.1093/nar/gky504}.
+Wolff, Joachim, Vivek Bhardwaj, Stephan Nothjunge, et al. 2018.
+{``Galaxy {HiCExplorer}: A Web Server for Reproducible {Hi-C} Data
+Analysis, Quality Control and Visualization.''} \emph{Nucleic Acids
+Research} 46 (W1): W11--16. \url{https://doi.org/10.1093/nar/gky504}.
 
 \bibitem[\citeproctext]{ref-wolff2020galaxyhicexplorer3}
-Wolff, Joachim, Leily Rabbani, Ralf Gilsbach, Gautier Richard, Thomas
-Manke, Rolf Backofen, and Björn A Grüning. 2020. {``Galaxy {HiCExplorer}
-3: A Web Server for Reproducible {Hi-C}, Capture {Hi-C} and Single-Cell
-{Hi-C} Data Analysis, Quality Control and Visualization.''}
-\emph{Nucleic Acids Research} 48 (W1): W177--84.
+Wolff, Joachim, Leily Rabbani, Ralf Gilsbach, et al. 2020. {``Galaxy
+{HiCExplorer} 3: A Web Server for Reproducible {Hi-C}, Capture {Hi-C}
+and Single-Cell {Hi-C} Data Analysis, Quality Control and
+Visualization.''} \emph{Nucleic Acids Research} 48 (W1): W177--84.
 \url{https://doi.org/10.1093/nar/gkaa220}.
 
 \bibitem[\citeproctext]{ref-zuo2021stageresolvedhicanalyses}
-Zuo, Wu, Guangming Chen, Zhimei Gao, Shuai Li, Yanyan Chen, Chenhui
-Huang, Juan Chen, Zhengjun Chen, Ming Lei, and Qian Bian. 2021.
-{``Stage-Resolved {Hi-C} Analyses Reveal Meiotic Chromosome
-Organizational Features Influencing Homolog Alignment.''} \emph{Nature
-Communications} 12 (1): 5827.
-\url{https://doi.org/10.1038/s41467-021-26033-0}.
+Zuo, Wu, Guangming Chen, Zhimei Gao, et al. 2021. {``Stage-Resolved
+{Hi-C} Analyses Reveal Meiotic Chromosome Organizational Features
+Influencing Homolog Alignment.''} \emph{Nature Communications} 12 (1):
+5827. \url{https://doi.org/10.1038/s41467-021-26033-0}.
 
 \end{CSLReferences}
 
@@ -3909,7 +3898,7 @@ Intelligence}\label{use-of-generative-artificial-intelligence}
 \addcontentsline{toc}{subsection}{Use of Generative Artificial
 Intelligence}
 
-As per Aarhus University guidelines (IT n.d.), I hereby disclose my use
+As per Aarhus University guidelines (IT, n.d.), I hereby disclose my use
 of Generative Artificial Intelligence (GAI) tools during the preparation
 of this thesis. All usage was conducted critically and responsibly,
 ensuring that the final work remained my own and adhered to academic

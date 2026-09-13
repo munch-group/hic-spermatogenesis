@@ -2,19 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Søren Jørgensen">
-<meta name="dcterms.date" content="2025-11-13">
+<meta name="dcterms.date" content="2026-09-13">
 
 <title>master_workflow – Søren's MSc project about Hi-C and spermatogenesis</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -71,15 +77,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./notebooks/07_various_plotting.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2185ea6cc30b3b5ee4fb46d8a6bcc62f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8a500f6d91941de76d64ef96f278f307.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -314,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 13, 2025</p>
+      <p class="date">September 13, 2026</p>
     </div>
   </div>
   
@@ -326,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="f4cc7d09" class="cell">
+<div id="e41bb995" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gwf <span class="im">import</span> Workflow, AnonymousTarget</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
@@ -471,7 +476,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>               <span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.dups.pairs.gz"</span>,</span>
 <span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>               <span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.dedup.stats"</span>,</span>
 <span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>               <span class="ss">f"</span><span class="sc">{</span>pairs_prefix<span class="sc">}</span><span class="ss">.dedup.done"</span>]</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>    options <span class="op">=</span> {<span class="st">'cores'</span>:<span class="dv">12</span>, <span class="st">'memory'</span>: <span class="st">"1g"</span>, <span class="st">'walltime'</span>: <span class="st">"01:30:00"</span>}</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>    options <span class="op">=</span> {<span class="st">'cores'</span>:<span class="dv">12</span>, <span class="st">'memory'</span>: <span class="st">"8g"</span>, <span class="st">'walltime'</span>: <span class="st">"01:30:00"</span>}</span>
 <span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>    spec <span class="op">=</span> <span class="ss">f"""</span></span>
 <span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="ss">pixi run pairtools dedup </span><span class="op">\</span></span>
 <span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="ss">    --max-mismatch 3 </span><span class="op">\</span></span>
@@ -511,7 +516,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>    cooler_list_unix_str <span class="op">=</span> <span class="st">" "</span>.join(cooler_list)</span>
 <span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> [cooler_list]</span>
 <span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>    outputs <span class="op">=</span> [merged, mcool]</span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>    options <span class="op">=</span> {<span class="st">'cores'</span>:<span class="dv">16</span>, <span class="st">'memory'</span>:<span class="st">"32g"</span>, <span class="st">'walltime'</span>:<span class="st">"02:00:00"</span>}</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>    options <span class="op">=</span> {<span class="st">'cores'</span>:<span class="dv">16</span>, <span class="st">'memory'</span>:<span class="st">"32g"</span>, <span class="st">'walltime'</span>:<span class="st">"05:00:00"</span>}</span>
 <span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>    spec <span class="op">=</span> <span class="ss">f"""</span></span>
 <span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="ss">pixi run cooler merge -c 50000000 </span><span class="sc">{</span>merged<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>cooler_list_unix_str<span class="sc">}</span><span class="ss"> &amp;&amp; </span><span class="op">\</span></span>
 <span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="ss">cooler zoomify --nproc 16 </span><span class="op">\</span></span>

@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Compartments Analysis w. recommended parameters – Søren's MSc project about Hi-C and spermatogenesis</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -59,7 +65,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,15 +94,14 @@ div.csl-indent {
 <link href="../notebooks/04_genomicintervals.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2185ea6cc30b3b5ee4fb46d8a6bcc62f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-8a500f6d91941de76d64ef96f278f307.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -442,7 +446,7 @@ Table&nbsp;7.1: The most relevant columns of the <code>SRA-runtable.tsv</code> f
 <style type="text/css">
 </style>
 
-<table id="T_c1ff2" class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<table id="T_c1ff2" class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
@@ -752,7 +756,7 @@ Table&nbsp;7.2: Summary of the data accessions used in this analysis
 <style type="text/css">
 </style>
 
-<table id="T_55add" class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<table id="T_55add" class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
@@ -905,7 +909,7 @@ Table&nbsp;7.3: Dictionary of coolers for each cell type
 <div>
 
 
-<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-border="1">
+<table class="dataframe cell caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3461,12 +3465,12 @@ Figure&nbsp;8.7: E1 eigenvector values for merged round spermatid samples at 500
 <p><strong>Link to notebook:</strong> Various Comparisons (<a href="../notebooks/07_various_plotting.html">07_various_plotting.ipynb</a>)</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-imakaev2012iterativecorrectionhic" class="csl-entry" role="listitem">
-Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, Natalia Naumova, Anton Goloborodko, Bryan R Lajoie, Job Dekker, and Leonid A Mirny. 2012. <span>“Iterative Correction of <span>Hi-C</span> Data Reveals Hallmarks of Chromosome Organization.”</span> <em>Nature Methods</em> 9 (10): 999–1003. <a href="https://doi.org/10.1038/nmeth.2148">https://doi.org/10.1038/nmeth.2148</a>.
+Imakaev, Maxim, Geoffrey Fudenberg, Rachel Patton McCord, et al. 2012. <span>“Iterative Correction of <span>Hi-C</span> Data Reveals Hallmarks of Chromosome Organization.”</span> <em>Nature Methods</em> 9 (10): 999–1003. <a href="https://doi.org/10.1038/nmeth.2148">https://doi.org/10.1038/nmeth.2148</a>.
 </div>
 <div id="ref-wang2019reprogrammingmeioticchromatin" class="csl-entry" role="listitem">
-Wang, Yao, Hanben Wang, Yu Zhang, Zhenhai Du, Wei Si, Suixing Fan, Dongdong Qin, et al. 2019. <span>“Reprogramming of <span>Meiotic Chromatin Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
+Wang, Yao, Hanben Wang, Yu Zhang, et al. 2019. <span>“Reprogramming of <span>Meiotic Chromatin Architecture</span> During <span>Spermatogenesis</span>.”</span> <em>Molecular Cell</em> 73 (3): 547–561.e6. <a href="https://doi.org/10.1016/j.molcel.2018.11.019">https://doi.org/10.1016/j.molcel.2018.11.019</a>.
 </div>
 </div>
 </section>
