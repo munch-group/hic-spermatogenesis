@@ -152,7 +152,7 @@ def dedup(sorted_pairs, chromsizes):
                f"{pairs_prefix}.dups.pairs.gz",
                f"{pairs_prefix}.dedup.stats",
                f"{pairs_prefix}.dedup.done"]
-    options = {'cores':12, 'memory': "1g", 'walltime': "01:30:00"}
+    options = {'cores':12, 'memory': "8g", 'walltime': "01:30:00"}
     spec = f"""
 pixi run pairtools dedup \
     --max-mismatch 3 \
@@ -192,7 +192,7 @@ def merge_zoomify_balance(cooler_list, merged, mcool):
     cooler_list_unix_str = " ".join(cooler_list)
     inputs = [cooler_list]
     outputs = [merged, mcool]
-    options = {'cores':16, 'memory':"32g", 'walltime':"02:00:00"}
+    options = {'cores':16, 'memory':"32g", 'walltime':"05:00:00"}
     spec = f"""
 pixi run cooler merge -c 50000000 {merged} {cooler_list_unix_str} && \
 cooler zoomify --nproc 16 \
